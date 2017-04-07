@@ -1,0 +1,21 @@
+uuid: d15abf8a-2ef0-428b-a4c2-4939c1daafe8
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_guide_section_body_third
+    - paragraphs.paragraphs_type.guide_section_3up
+  module:
+    - text
+id: paragraph.guide_section_3up.field_guide_section_body_third
+field_name: field_guide_section_body_third
+entity_type: paragraph
+bundle: guide_section_3up
+label: 'Column 3 text'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

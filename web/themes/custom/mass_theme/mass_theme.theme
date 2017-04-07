@@ -6,6 +6,7 @@
  */
 
 use Drupal\Component\Utility\Html;
+use Drupal\file\Entity\File;
 use Drupal\image\Entity\ImageStyle;
 use Drupal\Core\Url;
 use Drupal\block\Entity\Block;
@@ -267,6 +268,140 @@ function mass_theme_preprocess_node_location(&$variables) {
 
   // Prepare the sidebarContact data object.
   $variables['sidebarContact'] = Organisms::prepareSidebarContact($node);
+}
+
+/**
+ * Implements hook_preprocess_node().
+ *
+ * Prepare the variables for the Guide page.
+ */
+function mass_theme_preprocess_node_guide_page(&$variables) {
+  $node = $variables['node'];
+
+  // Create the map of all possible field names to use.
+  $map = [
+    'sections' => ['field_guide_page_sections'],
+  ];
+
+  // Determines which field names to use from the map.
+  $fields = Helper::getMappedFields($node, $map);
+
+  // Set static illustratedHeader properties to pass to prepare function.
+  $illustratedHeader_options = [];
+
+  // Make illustratedHeader data object available in twig template.
+  $variables['illustratedHeader'] = Organisms::prepareIllustratedHeader($node, $illustratedHeader_options);
+
+  // Make stacked section data object available in twig template.
+  foreach ($node->$fields['sections'] as $section) {
+    $pageContent = [];
+    $sideBar = [];
+
+    $sectionEntity = $section->entity;
+
+    // Create the map of all possible field names to use.
+    $map_ref = [
+      'title' => ['field_guide_section_name'],
+      'time' => ['field_guide_section_time'],
+      'body' => ['field_guide_section_body'],
+      'stat' => ['field_guide_section_stat'],
+      'alert' => ['field_guide_section_alert_text'],
+      'actions' => ['field_guide_section_links_4'],
+      'downloads' => ['field_guide_section_downloads'],
+      'contacts' => ['field_guide_ref_contacts_3'],
+      'links' => ['field_guide_section_link'],
+      'heading' => [
+        'field_guide_section_heading_1',
+        'field_guide_section_heading_2',
+        'field_guide_section_heading_3',
+      ],
+    ];
+
+    // Determines which field names to use from the map.
+    $field = Helper::getMappedFields($sectionEntity, $map_ref);
+
+    if (Helper::isFieldPopulated($sectionEntity, $field['time'])) {
+      $pageContent[] = Molecules::prepareCalloutTime($sectionEntity, $field['time']);
+    }
+
+    if (isset($field['body']) && Helper::isFieldPopulated($sectionEntity, $field['body'])) {
+      $elements = [];
+      if (Helper::isFieldPopulated($sectionEntity, $field['stat'])) {
+        $stat_options = [
+          'pull' => 'right',
+        ];
+        $elements[] = Molecules::prepareCalloutStats($sectionEntity, $field['stat'], $stat_options);
+      }
+      $elements[] = Atoms::prepareRawHtml($sectionEntity, ['field' => $field['body']]);
+      $pageContent[] = Helper::prepareRichTextElements($elements);
+    }
+
+    if (isset($field['heading']) && Helper::isFieldPopulated($sectionEntity, $field['heading'])) {
+      $pageContent[] = Organisms::prepareSplitColumns($sectionEntity);
+    }
+
+    if (Helper::isFieldPopulated($sectionEntity, $field['alert'])) {
+      $pageContent[] = Molecules::prepareCalloutAlert($sectionEntity, $field['alert']);
+    }
+
+    if (Helper::isFieldPopulated($sectionEntity, $field['actions'])) {
+      $actions_options = [
+        'title' => t('Key Actions'),
+      ];
+      $pageContent[] = Molecules::prepareKeyActions($sectionEntity, $field['actions'], $actions_options);
+    }
+
+    if (Helper::isFieldPopulated($sectionEntity, $field['downloads']) ||
+        Helper::isFieldPopulated($sectionEntity, $field['links'])) {
+      $downloads_options = [
+        'title' => t('Forms'),
+      ];
+      $pageContent[] = Organisms::prepareFormDownloads($sectionEntity, $downloads_options);
+    }
+
+    if (isset($field['contacts']) && Helper::isFieldPopulated($sectionEntity, $field['contacts'])) {
+      $sideBar[] = [
+        'path' => '@atoms/04-headings/sidebar-heading.twig',
+        'data' => [
+          'sidebarHeading' => [
+            'title' => t('Key Agencies'),
+          ],
+        ],
+      ];
+
+      $contact_items = Organisms::prepareSidebarContact($sectionEntity);
+
+      foreach ($contact_items['items'] as $contact) {
+        $sideBar[] = [
+          'path' => '@molecules/contact-us.twig',
+          'data' => $contact,
+        ];
+      }
+    }
+
+    $sections[] = [
+      'title' => Helper::fieldValue($sectionEntity, $field['title']),
+      'id' => strtolower(preg_replace('/-+/', '-', preg_replace('/[^\wáéíóú]/', '-', Helper::fieldValue($sectionEntity, $field['title'])))),
+      'pageContent' => $pageContent,
+      'sideBar' => $sideBar,
+    ];
+  }
+
+  $variables['stackedRowSections'] = $sections;
+
+  // Jump link options.
+  $jumplink_options = [
+    'title' => t('In this guide'),
+  ];
+  $variables['jumpLinks'] = Organisms::prepareJumpLinks($sections, $jumplink_options);
+
+  // Prepare the suggestedPages data object.
+  $suggested_options = [
+    'title' => t('Related Guides'),
+    'style' => 'thumbnail_130x160',
+    'view' => 'guide',
+  ];
+  $variables['suggestedPages'] = Organisms::prepareSuggestedPages($node, $suggested_options);
 }
 
 /**

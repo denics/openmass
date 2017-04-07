@@ -232,28 +232,6 @@ class Helper {
   }
 
   /**
-   * Helper function to provide a value for a field.
-   *
-   * @param object $entity
-   *   Entity that contains the field to render.
-   * @param string $field_name
-   *   The name of the field.
-   *
-   * @return array
-   *   Returns the value of the field.
-   */
-  public static function fieldValue($entity, $field_name) {
-    $value = '';
-    $field = $entity->get($field_name);
-
-    if ($field->count() > 0) {
-      $value = $field->first()->value;
-    }
-
-    return $value;
-  }
-
-  /**
    * Helper function to retrieve the entities referenced from the entity field.
    *
    * @param object $entity
@@ -273,6 +251,26 @@ class Helper {
     }
 
     return $referenced_items;
+  }
+
+  /**
+   * Helper function to provide a value for a field.
+   *
+   * @param object $entity
+   *   Entity that contains the field to render.
+   * @param string $field_name
+   *   The name of the field.
+   *
+   * @return array
+   *   Returns the value of the field.
+   */
+  public static function fieldValue($entity, $field_name) {
+    $value = '';
+    $field = $entity->get($field_name);
+    if ($field->count() > 0) {
+      $value = $field->first()->value;
+    }
+    return $value;
   }
 
   /**
@@ -631,6 +629,33 @@ class Helper {
           'property' => '',
           'rteElements' => $rteElements,
         ],
+      ],
+    ];
+  }
+
+  /**
+   * Returns the variables structure required for richText.
+   *
+   * @param array $elements
+   *   An array of elements.
+   *
+   * @see @organsms/by-author/rich-text.twig
+   *
+   * @return array
+   *   'path' => '@organisms/by-author/rich-text.twig',
+   *     'data' => [
+   *       'rteElements' => array of rteElements,
+   *     ],
+   *   ]
+   */
+  public static function prepareRichTextElements(array $elements) {
+    if (!is_array($elements)) {
+      return [];
+    }
+    return [
+      'path' => '@organisms/by-author/rich-text.twig',
+      'data' => [
+        'rteElements' => $elements,
       ],
     ];
   }

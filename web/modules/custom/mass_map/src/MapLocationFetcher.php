@@ -30,7 +30,7 @@ class MapLocationFetcher {
     $locations['form'] = [
       'action' => '#',
       'inputs' => [
-        '0' => [
+        [
           'path' => '@molecules/field-submit.twig',
           'data' => [
             'fieldSubmit' => [
@@ -90,7 +90,7 @@ class MapLocationFetcher {
       // Get the description for the node.
       $locations['imagePromos'][$nid]['description'] = [
         'rteElements' => [
-          '0' => [
+          [
             'path' => '@atoms/11-text/raw-html.twig',
             'data' => [
               'rawHtml' => [

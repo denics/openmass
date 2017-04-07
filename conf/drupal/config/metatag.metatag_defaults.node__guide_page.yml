@@ -1,0 +1,22 @@
+uuid: 45fabdf7-b738-4794-9724-14b4b9c1d61c
+langcode: en
+status: true
+dependencies: {  }
+id: node__guide_page
+label: 'Content: Guide Page'
+tags:
+  description: '[node: field_guide_page_lede]'
+  title: '[node:title] | [site:name]'
+  og_description: '[node: field_guide_page_lede]'
+  og_image: '[node: field_guide_page_bg_wide:action_banner_large:url]'
+  og_site_name: '[site:name]'
+  og_title: '[node:title]'
+  og_type: website
+  og_url: '[node:url]'
+  twitter_cards_description: '[node: field_guide_page_lede]'
+  twitter_cards_image: '[node: field_guide_page_bg_wide:action_banner_large:url]'
+  twitter_cards_page_url: '[node:url]'
+  twitter_cards_site: '@massgov'
+  twitter_cards_site_id: '16264003'
+  twitter_cards_title: '[node:title]'
+  twitter_cards_type: summary_large_image

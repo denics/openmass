@@ -152,10 +152,10 @@ Feature: Paragraph type definitions
   Scenario: Verify that the contact group paragraph type has the correct field configuration
     Given I am logged in as a user with the "administrator" role
     Then the "contact_group" paragraph has the fields:
-      | field                      | widget             |
-      | field-title                | Textfield          |
-      | field-contact-info         | Paragraphs Classic |
-      | field-contact-group-layout | Select list        |
+      | field                      | widget              |
+      | field-title                | Textfield           |
+      | field-contact-info         | Paragraphs Classic  |
+      | field-contact-group-layout | Select list         |
 
   Scenario: Verify that the contact info paragraph type has the correct field configuration
     Given I am logged in as a user with the "administrator" role
@@ -199,8 +199,8 @@ Feature: Paragraph type definitions
   Scenario: Verify that the icon_links paragraph type has the correct field configuration
     Given I am logged in as a user with the "administrator" role
     Then the "icon_links" paragraph has the fields:
-      | field            | widget             |
-      | field-icon-link  | Paragraphs Classic |
+      | field            | widget              |
+      | field-icon-link  | Paragraphs Classic  |
 
   Scenario: Verify that the icon_link paragraph type has the correct field configuration
     Given I am logged in as a user with the "administrator" role

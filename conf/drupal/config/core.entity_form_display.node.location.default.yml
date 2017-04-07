@@ -84,6 +84,7 @@ third_party_settings:
         - field_overview
         - field_hours
         - field_parking
+        - field_maps
       parent_name: group_primary
       weight: 4
       format_type: tab

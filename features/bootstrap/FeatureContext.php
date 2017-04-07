@@ -471,6 +471,9 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
     $this->minkContext->visitPath('node/add/' . $content_type);
     // All content types have a title.
     $this->minkContext->assertElementOnPage('#edit-title-0-value');
+
+    $fields = [];
+
     // Fields for each content type.
     switch ($content_type) {
       case "contact_information":
@@ -502,6 +505,35 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
           ),
         );
         break;
+      case "guide_page":
+        $fields = array (
+          array (
+            'field' => 'field-guide-page-lede',
+            'tag' => 'textarea',
+            'type' => '',
+          ),
+          array (
+            'field' => 'field-guide-page-bg-wide',
+            'tag' => 'input',
+            'type' => 'submit',
+          ),
+          array (
+            'field' => 'field-guide-page-related-guides',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-guide-page-sections',
+            'tag' => 'paragraphs',
+            'type' => 'guide-section-3up',
+          ),
+          array (
+            'field' => 'field-guide-page-sections',
+            'tag' => 'paragraphs',
+            'type' => 'guide-section',
+          ),
+        );
+        break;
     }
     foreach ($fields as $row) {
       // Get all IDs that start with our field name. D8 prints fields
@@ -518,6 +550,9 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
    */
   public function assertParagraphTypeFields($paragraph_type) {
     $this->minkContext->visitPath('admin/structure/paragraphs_type/' . $paragraph_type . '/form-display');
+
+    $fields = [];
+
     // Fields for each content type.
     switch ($paragraph_type) {
       case "address":
@@ -577,6 +612,102 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
           array (
             'field' => 'field-label',
             'widget' => 'Textfield',
+          ),
+        );
+        break;
+      case "guide_section_3up":
+        $fields = array (
+          array (
+            'field' => 'field-guide-section-alert-text',
+            'widget' => 'Textfield',
+          ),
+          array (
+            'field' => 'field-guide-section-heading-1',
+            'widget' => 'Textfield',
+          ),
+          array (
+            'field' => 'field-guide-section-body-first',
+            'widget' => 'Text area (multiple rows)',
+          ),
+          array (
+            'field' => 'field-guide-section-heading-2',
+            'widget' => 'Textfield',
+          ),
+          array (
+            'field' => 'field-guide-section-body-second',
+            'widget' => 'Text area (multiple rows)',
+          ),
+          array (
+            'field' => 'field-guide-section-heading-3',
+            'widget' => 'Textfield',
+          ),
+          array (
+            'field' => 'field-guide-section-body-third',
+            'widget' => 'Text area (multiple rows)',
+          ),
+          array (
+            'field' => 'field-guide-section-downloads',
+            'widget' => 'Inline entity form - Complex',
+          ),
+          array (
+            'field' => 'field-guide-section-links-4',
+            'widget' => 'Link',
+          ),
+          array (
+            'field' => 'field-guide-section-link',
+            'widget' => 'Link',
+          ),
+          array (
+            'field' => 'field-guide-section-time',
+            'widget' => 'Textfield',
+          ),
+          array (
+            'field' => 'field-guide-section-name',
+            'widget' => 'Textfield',
+          ),
+        );
+        break;
+      case "guide_section":
+        $fields = array (
+          array (
+            'field' => 'field-guide-section-alert-text',
+            'widget' => 'Textfield',
+          ),
+          array (
+            'field' => 'field-guide-section-downloads',
+            'widget' => 'Inline entity form - Complex',
+          ),
+          array (
+            'field' => 'field-guide-section-links-4',
+            'widget' => 'Link',
+          ),
+          array (
+            'field' => 'field-guide-section-link',
+            'widget' => 'Link',
+          ),
+          array (
+            'field' => 'field-guide-section-stat',
+            'widget' => 'Textfield',
+          ),
+          array (
+            'field' => 'field-guide-section-label',
+            'widget' => 'Textfield',
+          ),
+          array (
+            'field' => 'field-guide-section-time',
+            'widget' => 'Textfield',
+          ),
+          array (
+            'field' => 'field-guide-section-name',
+            'widget' => 'Textfield',
+          ),
+          array (
+            'field' => 'field-guide-section-body',
+            'widget' => 'Text area (multiple rows)',
+          ),
+          array (
+            'field' => 'field-guide-ref-contacts-3',
+            'widget' => 'Autocomplete',
           ),
         );
         break;

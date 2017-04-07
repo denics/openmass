@@ -24,7 +24,9 @@ module:
   editor: 0
   embed: 0
   encrypt: 0
+  entity: 0
   entity_browser: 0
+  entity_browser_entity_form: 0
   entity_embed: 0
   entity_reference: 0
   entity_reference_revisions: 0
@@ -43,12 +45,14 @@ module:
   history: 0
   image: 0
   imagick: 0
+  inline_entity_form: 0
   inline_form_errors: 0
   key: 0
   kint: 0
   libraries: 0
   link: 0
   mass_content: 0
+  mass_docs: 0
   mass_entityreference: 0
   mass_feedback_form: 0
   mass_formatters: 0
@@ -62,6 +66,8 @@ module:
   mass_validation: 0
   mass_workbench_ui: 0
   mayflower: 0
+  media_entity: 0
+  media_entity_document: 0
   menu_ui: 0
   metatag: 0
   metatag_open_graph: 0

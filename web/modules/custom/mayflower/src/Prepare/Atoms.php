@@ -96,6 +96,95 @@ class Atoms {
   }
 
   /**
+   * Returns the variables structure required to render rich text paragraphs.
+   *
+   * @param object $entity
+   *   The object that contains the fields.
+   * @param array $options
+   *   An array of options.
+   *
+   * @see @organisms/by-author/rich-text.twig
+   * @see @atoms/11-text/paragraph.twig
+   *
+   * @return array
+   *   Returns an array of items that contains:
+   *    rteElements: [
+   *      [
+   *        path: @atoms/11-text/paragraph.twig,
+   *        data: [
+   *          paragraph: [
+   *            text: 'My paragraph text.'
+   *          ]
+   *        ]
+   *      ], ...
+   *    ]
+   */
+  public static function prepareParagraph($entity, array $options) {
+    $rteElements = [];
+
+    $field = $options['field'];
+
+    $rteElements = [
+      'path' => '@atoms/11-text/paragraph.twig',
+      'data' => [
+        'paragraph' => [
+          'text' => Helper::fieldValue($entity, $field),
+        ],
+      ],
+    ];
+
+    return $rteElements;
+  }
+
+  /**
+   * Returns the variables structure required to render rich text paragraphs.
+   *
+   * @param object $entity
+   *   The object that contains the fields.
+   * @param array $options
+   *   An array of options.
+   *
+   * @see @organisms/by-author/rich-text.twig
+   * @see @atoms/11-text/raw-html.twig
+   *
+   * @return array
+   *   Returns an array of items that contains:
+   *    rteElements: [
+   *      [
+   *        path: @atoms/11-text/paragraph.twig,
+   *        data: [
+   *          raw-html: [
+   *            content: 'My paragraph text.'
+   *          ]
+   *        ]
+   *      ], ...
+   *    ]
+   */
+  public static function prepareRawHtml($entity, array $options) {
+    $rteElements = [];
+
+    $field = $options['field'];
+
+    $text = Helper::fieldValue($entity, $field);
+
+    // If we have an inline entity, like maybe an image, process.
+    if (strpos($text, '<drupal-entity') !== FALSE) {
+      $text = Helper::fieldFullView($entity, $field);
+    }
+
+    $rteElements = [
+      'path' => '@atoms/11-text/raw-html.twig',
+      'data' => [
+        'rawHtml' => [
+          'content' => $text,
+        ],
+      ],
+    ];
+
+    return $rteElements;
+  }
+
+  /**
    * Returns the variables structure required to render sidebar heading.
    *
    * @param string $text
@@ -115,6 +204,33 @@ class Atoms {
     return [
       'sidebarHeading' => [
         'title' => $text,
+      ],
+    ];
+  }
+
+  /**
+   * Returns the variables structure required to render column heading.
+   *
+   * @param string $text
+   *   A string containing text.
+   *
+   * @see @atoms/04-headings/column-heading.twig
+   *
+   * @return array
+   *   Returns correct array for sidebarHeading:
+   *    [
+   *      "columnHeading": [
+   *        "title": "Social"
+   *      ]
+   *    ]
+   */
+  public static function prepareColumnHeading($text) {
+    return [
+      'path' => '@atoms/04-headings/column-heading.twig',
+      'data' => [
+        'columnHeading' => [
+          'text' => $text,
+        ],
       ],
     ];
   }

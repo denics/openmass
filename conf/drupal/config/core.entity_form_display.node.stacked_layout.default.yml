@@ -135,6 +135,7 @@ content:
       edit_mode: closed
       add_mode: button
       form_display_mode: default
+      default_paragraph_type: _none
     third_party_settings: {  }
     type: entity_reference_paragraphs
   field_action_header:
@@ -145,6 +146,7 @@ content:
       edit_mode: closed
       add_mode: button
       form_display_mode: default
+      default_paragraph_type: _none
     third_party_settings: {  }
     type: entity_reference_paragraphs
   field_action_parent:
@@ -164,6 +166,7 @@ content:
       edit_mode: preview
       add_mode: button
       form_display_mode: default
+      default_paragraph_type: ''
     third_party_settings: {  }
   field_funnel_endpoint_term:
     weight: 112
@@ -178,6 +181,7 @@ content:
       edit_mode: closed
       add_mode: button
       form_display_mode: default
+      default_paragraph_type: ''
     third_party_settings: {  }
     type: entity_reference_paragraphs
   field_image_credit:
