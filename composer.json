@@ -157,6 +157,7 @@
         "drupal/twig_field_value": "^8.1",
         "drupal/twig_tweak": "^8.1",
         "drupal/username_enumeration_prevention": "8.1.0-beta1",
+        "drupal/video_embed_field": "^1.4",
         "drupal/workbench_moderation": "^8.1",
         "drupal/xmlsitemap": "8.1.x-dev",
         "enyo/dropzone": "4.3.0",

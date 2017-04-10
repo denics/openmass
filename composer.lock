@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "f56ff6c131cc53c393155675f532a8d8",
+    "content-hash": "2e89464ea7433fd39e3ceea39fb91518",
     "packages": [
         {
             "name": "acquia/acquia-sdk-php",
@@ -3251,6 +3251,63 @@
             "description": "Removes the error message produced, from the forgot password form, when an incorrect user has been supplied.",
             "homepage": "https://www.drupal.org/project/username_enumeration_prevention",
             "time": "2016-06-22T21:55:23+00:00"
+        },
+        {
+            "name": "drupal/video_embed_field",
+            "version": "1.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupal.org/project/video_embed_field",
+                "reference": "8.x-1.4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/video_embed_field-8.x-1.4.zip",
+                "reference": "8.x-1.4",
+                "shasum": "7bf93a52e2e8d639b4dbefd65f0ee2b170d73f43"
+            },
+            "require": {
+                "drupal/core": "*"
+            },
+            "require-dev": {
+                "drupal/colorbox": "*",
+                "drupal/media_entity": "*",
+                "drupal/media_entity_embeddable_video": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.x",
+                    "datestamp": "1484253183",
+                    "package": "Field types"
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Sam152",
+                    "homepage": "https://www.drupal.org/user/1485048"
+                },
+                {
+                    "name": "jec006",
+                    "homepage": "https://www.drupal.org/user/855980"
+                },
+                {
+                    "name": "plopesc",
+                    "homepage": "https://www.drupal.org/user/282415"
+                }
+            ],
+            "description": "A pluggable field type for storing videos from external video hosts such as Vimeo and YouTube.",
+            "homepage": "https://www.drupal.org/project/video_embed_field",
+            "support": {
+                "source": "http://cgit.drupalcode.org/video_embed_field"
+            }
         },
         {
             "name": "drupal/workbench_moderation",
@@ -8613,7 +8670,7 @@
             "version": "dev-drupal8",
             "source": {
                 "type": "git",
-                "url": "git@github.com:palantirnet/palantir-behat-extension.git",
+                "url": "https://github.com/palantirnet/palantir-behat-extension.git",
                 "reference": "8893b7f73f716658051b3c0c7625235e5a0956d6"
             },
             "dist": {

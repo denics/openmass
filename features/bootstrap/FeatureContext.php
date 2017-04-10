@@ -534,6 +534,85 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
           ),
         );
         break;
+      case "service_page":
+        $fields = array (
+          array (
+            'field' => 'field-service-lede',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-service-bg-wide',
+            'tag' => 'input',
+            'type' => 'submit',
+          ),
+          array (
+            'field' => 'field-service-bg-narrow',
+            'tag' => 'input',
+            'type' => 'submit',
+          ),
+          array (
+            'field' => 'field-service-ref-actions',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-service-file',
+            'tag' => 'input',
+            'type' => 'submit',
+          ),
+          array (
+            'field' => 'field-service-ref-actions-2',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-service-ref-guide-page-1',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-service-ref-details-6',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-service-links',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-service-ref-locations',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-service-body',
+            'tag' => 'textarea',
+            'type' => '',
+          ),
+          array (
+            'field' => 'field-service-ref-services-6',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-service-sub-brand',
+            'tag' => 'input',
+            'type' => 'submit',
+          ),
+          array (
+            'field' => 'field-services-social-links',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-service-video',
+            'tag' => 'input',
+            'type' => 'submit',
+          ),
+        );
+        break;
     }
     foreach ($fields as $row) {
       // Get all IDs that start with our field name. D8 prints fields

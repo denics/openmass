@@ -1,0 +1,17 @@
+uuid: 2910a9a5-e829-4ad5-9cc3-d254607fe9e0
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+name: 'Service Page'
+type: service_page
+description: 'A Service Page creates a collection of tasks and supporting information about a service offered by government.'
+help: ''
+new_revision: false
+preview_mode: 1
+display_submitted: false

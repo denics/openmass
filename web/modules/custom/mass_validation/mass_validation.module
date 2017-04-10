@@ -98,17 +98,114 @@ function _mass_validation_form_node_guide_page_form_validate(array &$form, FormS
             }
           }
         }
-        $num_docs = 0;
-        // Count the documents.
-        if (!empty($section['subform']['field_guide_section_downloads']['entities'])) {
-          $num_docs = count($section['subform']['field_guide_section_downloads']['entities']);
-        }
-        // Throw an error is there are more than 6.
-        if (($num_links + $num_docs) > 6) {
-          $form_state->setErrorByName('field_guide_page_sections][' . $key . '][subform][field_guide_section_link', t('You can only have max 6 values between the Links and Downloads fields in a section.'));
-          $form_state->setErrorByName('field_guide_page_sections][' . $key . '][subform][field_guide_section_downloads', t('You can only have max 6 values between the Links and Downloads fields in a section.'));
+      }
+      $num_docs = 0;
+      // Count the documents.
+      if (!empty($section['subform']['field_guide_section_downloads']['entities'])) {
+        $num_docs = count($section['subform']['field_guide_section_downloads']['entities']);
+      }
+      // Throw an error is there are more than 6.
+      if (($num_links + $num_docs) > 6) {
+        $form_state->setErrorByName('field_guide_page_sections][' . $key . '][subform][field_guide_section_link', t('You can only have max 6 values between the Links and Downloads fields in a section.'));
+        $form_state->setErrorByName('field_guide_page_sections][' . $key . '][subform][field_guide_section_downloads', t('You can only have max 6 values between the Links and Downloads fields in a section.'));
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for the FORM_ID() form.
+ */
+function mass_validation_form_node_service_page_edit_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $form['#validate'][] = '_mass_validation_form_node_service_page_form_validate';
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for the FORM_ID() form.
+ */
+function mass_validation_form_node_service_page_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $form['#validate'][] = '_mass_validation_form_node_service_page_form_validate';
+}
+
+/**
+ * Validates submission values in the FORM_ID() form.
+ */
+function _mass_validation_form_node_service_page_form_validate(array &$form, FormStateInterface $form_state) {
+
+  _mass_link_validate($form_state, 'field_service_ref_actions_2');
+  _mass_link_validate($form_state, 'field_service_ref_actions');
+  _mass_link_validate($form_state, 'field_service_links');
+
+  // Validate that the Links and Downloads fields
+  // have no more than 6 values between them.
+  if ($form_state->hasValue('field_service_links') || $form_state->hasValue('field_service_file')) {
+    // Count the links.
+    $links = $form_state->getValue('field_service_links');
+    $num_links = 0;
+    foreach ($links as $link) {
+      if (is_array($link)) {
+        if (!empty($link['uri'])) {
+          $num_links += 1;
         }
       }
+    }
+    // Count the documents.
+    $docs = $form_state->getValue('field_service_file');
+    $num_docs = 0;
+    if (!empty($docs['entities'])) {
+      $num_docs = count($docs['entities']);
+    }
+    // Throw an error is there are more than 6.
+    if (($num_links + $num_docs) > 6) {
+      $form_state->setErrorByName('field_service_links', t('You can only have max 6 values between the Links and Downloads fields.'));
+      $form_state->setErrorByName('field_service_file', t('You can only have max 6 values between the Links and Downloads fields.'));
+    }
+  }
+}
+
+/**
+ * Validate link fields in a paragraph have titles for each uri.
+ *
+ * @param Drupal\Core\Form\FormStateInterface $form_state
+ *   The form we are validating.
+ * @param string $field_name
+ *   The name of the link field to validate.
+ */
+function _mass_link_validate(FormStateInterface &$form_state, $field_name) {
+  $node_storage = \Drupal::entityManager()->getStorage('node');
+
+  // Fetch the field values.
+  if ($form_state->hasValue($field_name)) {
+    $featured_tasks = $form_state->getValue($field_name);
+    $is_updated = FALSE;
+    // Look at each field value.
+    foreach ($featured_tasks as $key => $task) {
+      if (is_array($task)) {
+        if (!empty($task['uri'])) {
+          if (empty($task['title'])) {
+            /*
+             * If a link had a uri, no title, and is internal
+             * set the title as the node title.
+             */
+            if (stripos($task['uri'], 'entity') === 0) {
+              // Get the node from the uri.
+              $uri_parts = explode('/', $task['uri']);
+              $nid = $uri_parts[1];
+              $node = $node_storage->load($nid);
+              // Update field array with new title.
+              $featured_tasks[$key]['title'] = $node->getTitle();
+              $is_updated = TRUE;
+            }
+            else {
+              // If the link has no title and is external throw an error.
+              $form_state->setErrorByName($field_name . '][' . $key, t('External links require a title.'));
+            }
+          }
+        }
+      }
+    }
+    if ($is_updated) {
+      $form_state->setValueForElement(['#parents' => [$field_name]], $featured_tasks);
     }
   }
 }
