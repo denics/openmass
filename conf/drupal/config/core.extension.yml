@@ -16,7 +16,6 @@ module:
   datalayer: 0
   datetime: 0
   dblog: 0
-  devel: 0
   draggableviews: 0
   dropzonejs: 0
   dropzonejs_eb_widget: 0
@@ -48,7 +47,6 @@ module:
   inline_entity_form: 0
   inline_form_errors: 0
   key: 0
-  kint: 0
   libraries: 0
   link: 0
   mass_content: 0
