@@ -34,7 +34,7 @@ class Atoms {
     $image = '';
 
     $map = [
-      'image' => ['field_sub_brand'],
+      'image' => ['field_sub_brand', 'field_service_sub_brand'],
     ];
 
     // Determines which field names to use from the map.
@@ -233,6 +233,62 @@ class Atoms {
         ],
       ],
     ];
+  }
+
+  /**
+   * Returns the variables structure required to render a the video atom.
+   *
+   * @param object $entity
+   *   The object that contains the necessary fields.
+   * @param array $options
+   *   The object that contains static data and other options.
+   *
+   * @see @atoms/09-media/video.twig
+   *
+   * @return array
+   *   Returns an array of items that contain:
+   *    "video": {
+   *      "src": "https://www.youtube.com/embed/dEkUq-Rs-Tc",
+   *      "label": "Using a gas grill safely",
+   *      "height": "853",
+   *      "width": "480",
+   *      "position": "right",
+   *      "link": {
+   *        "href": "/path/to/transcript",
+   *        "text": "View transcript",
+   *        "info": "View transcript of Using a gas grill safely",
+   *        "property": ""
+   *      }
+   *    }
+   */
+  public static function prepareVideo($entity, array $options) {
+    $video = '';
+    $video_render_array = Helper::fieldFullView($entity, 'field_media_video_embed_field');
+
+    if (array_key_exists('#url', $video_render_array['children'])) {
+      $name = $entity->name->value;
+
+      $src = $video_render_array['children']['#url'];
+
+      $video = [
+        'label' => $entity->name->value,
+        'src' => $src,
+        'height' => $options['height'],
+        'width' => $options['width'],
+        'position' => $options['position'],
+      ];
+
+      if (Helper::isFieldPopulated($entity, 'field_video_transcript')) {
+        $info = ' for ' . $name;
+        $video['link'] = [
+          'href' => $entity->field_video_transcript->uri,
+          'text' => 'View transcript',
+          'info' => $info,
+        ];
+      }
+    }
+
+    return $video;
   }
 
 }

@@ -134,7 +134,7 @@ class Molecules {
   public static function prepareIconLinks($entity, array $options = []) {
     $items = [];
     $map = [
-      'socialLinks' => ['field_social_links'],
+      'socialLinks' => ['field_social_links', 'field_services_social_links'],
     ];
 
     // Determines which fieldnames to use from the map.
@@ -534,7 +534,7 @@ class Molecules {
    * Returns the variables structure required to render actionActivities.
    *
    * @param object $entities
-   *   An array of objects that contains the fields.
+   *   An EntityReferenceRevisionsFieldItemList that contains the entities.
    *
    * @see @molecules/action-activities.twig
    *
@@ -625,7 +625,7 @@ class Molecules {
   /**
    * Returns the variables structure required to render googleMap.
    *
-   * @param object $entities
+   * @param array $entities
    *   The object that contains the fields.
    *
    * @see @molecules/google-map.twig
@@ -637,16 +637,15 @@ class Molecules {
    *      "markers": "",
    *    ], ...]
    */
-  public static function prepareGoogleMapFromContacts($entities) {
+  public static function prepareGoogleMapFromContacts(array $entities) {
 
     $phone_numbers = [];
     $fax_numbers = [];
     $markers = [];
     $links = [];
+    $index = 0;
 
     foreach ($entities as $entity) {
-
-      $ref_1 = $entity->entity;
 
       $map_ref = [
         'phone_numbers' => ['field_ref_phone_number'],
@@ -656,10 +655,10 @@ class Molecules {
       ];
 
       // Determines which field names to use from the map.
-      $fields = Helper::getMappedFields($entity->entity, $map_ref);
+      $fields = Helper::getMappedFields($entity, $map_ref);
 
       // Get phone numbers.
-      foreach ($ref_1->$fields['phone_numbers'] as $phone) {
+      foreach ($entity->$fields['phone_numbers'] as $phone) {
         $phoneEntity = $phone->entity;
 
         // Creates a map of fields that are on the entitiy.
@@ -673,7 +672,7 @@ class Molecules {
       }
 
       // Get fax numbers.
-      foreach ($ref_1->$fields['fax_numbers'] as $fax) {
+      foreach ($entity->$fields['fax_numbers'] as $fax) {
         $faxEntity = $fax->entity;
 
         // Creates a map of fields that are on the entitiy.
@@ -687,14 +686,14 @@ class Molecules {
       }
 
       // Get links.
-      foreach ($ref_1->$fields['links'] as $link) {
+      foreach ($entity->$fields['links'] as $link) {
         foreach ($link->entity->field_link_single as $linkData) {
           $links[] = $linkData->getValue()['title'];
         }
       }
 
       // Get Address and Map info.
-      foreach ($ref_1->$fields['addresses'] as $index => $address) {
+      foreach ($entity->$fields['addresses'] as $address) {
         $addressEntity = $address->entity;
 
         // Creates a map of fields that are on the entitiy.
@@ -737,7 +736,7 @@ class Molecules {
     $actionMap['map']['zoom'] = 12;
 
     if (empty($data)) {
-      return FALSE;
+      return [];
     }
 
     $centers = Helper::getCenterFromDegrees($data);
@@ -796,7 +795,7 @@ class Molecules {
     $actionMap['map']['zoom'] = 12;
 
     if (empty($data)) {
-      return FALSE;
+      return [];
     }
 
     $centers = Helper::getCenterFromDegrees($data);
@@ -964,22 +963,24 @@ class Molecules {
     $path = DRUPAL_ROOT . '/' . $theme_path . '/patterns/atoms/';
 
     $map = [
-      'downloads' => ['field_guide_section_downloads'],
-      'link' => ['field_guide_section_link'],
+      'downloads' => ['field_guide_section_downloads', 'field_service_file'],
+      'link' => ['field_guide_section_link', 'field_service_links'],
     ];
 
     // Determines which field names to use from the map.
     $fields = Helper::getMappedFields($entity, $map);
 
-    foreach ($entity->$fields['link'] as $link) {
-      $actionDownloads[] = [
-        'icon' => '@atoms/05-icons/svg-laptop.twig',
-        'text' => $link->getValue()['title'],
-        'href' => $link->getUrl()->toString(),
-        'type' => (UrlHelper::isExternal($link->getUrl()->toString())) ? 'external' : 'internal',
-        'size' => '',
-        'format' => 'form',
-      ];
+    if (array_key_exists('link', $fields)) {
+      foreach ($entity->$fields['link'] as $link) {
+        $actionDownloads[] = [
+          'icon' => '@atoms/05-icons/svg-laptop.twig',
+          'text' => $link->getValue()['title'],
+          'href' => $link->getUrl()->toString(),
+          'type' => (UrlHelper::isExternal($link->getUrl()->toString())) ? 'external' : 'internal',
+          'size' => '',
+          'format' => 'form',
+        ];
+      }
     }
 
     // Default icon.

@@ -349,32 +349,6 @@ class Helper {
   }
 
   /**
-   * Helper function to build a featured/links property of action finder.
-   *
-   * @param object $entity
-   *   Entity that contains the featured/all actions entity reference field.
-   * @param string $field
-   *   The name of the feature/all actions entity reference field.
-   * @param array $referenced_fields_map
-   *   The array which contains the list of possible fields from the
-   *   referenced entities.
-   *
-   * @return array
-   *   The variable structure for the featured/links property.
-   */
-  public static function buildActionFinderSection($entity, $field, array $referenced_fields_map) {
-    // Retrieves the entities referenced from the entity field.
-    $referenced_entities = Helper::getReferencedEntitiesFromField($entity, $field);
-    // Determines the field names to use on the referenced entity.
-    $referenced_fields = Helper::getMappedReferenceFields($referenced_entities, $referenced_fields_map);
-    // Populate a section (featured links or links).
-    // @todo Add support for new label property, values: 'GUIDE', etc.
-    $section = Helper::populateActionFinderLinks($referenced_entities, $referenced_fields);
-
-    return $section;
-  }
-
-  /**
    * Check for icon twig templates.
    *
    * @param string $icon
@@ -658,6 +632,105 @@ class Helper {
         'rteElements' => $elements,
       ],
     ];
+  }
+
+  /**
+   * Return the data structure for a link based on a given entity.
+   *
+   * @param object $entity
+   *   The object for which we want the link href, type, text, image, and label.
+   *
+   * @return array
+   *   A an array with structure for illustrated, callout, or decorative link:
+   *    [
+   *      'href' => 'http://path/to/entity',
+   *      'type' => 'internal' || 'external',
+   *      'title' => 'My Entity Title',
+   *      'image' => 'http://path/to/image',
+   *      'label' => 'Guide:', etc.
+   *    ]
+   */
+  public static function createLinkFromEntity($entity) {
+
+    // Creates a map of fields that are on the referenced entity.
+    $map = [
+      'image' => ['field_photo', 'field_guide_page_bg_wide'],
+      'text' => ['title', 'field_title'],
+      'external' => ['field_external_url'],
+      'href' => [],
+    ];
+
+    // Determines which field names to use from the map.
+    $fields = Helper::getMappedFields($entity, $map);
+
+    // Get the image, if there is one.
+    $image = "";
+    if (!empty($fields['image'])) {
+      $is_image_field_populated = Helper::isFieldPopulated($entity, $fields['image']);
+      if ($is_image_field_populated) {
+        $image = Helper::getFieldImageUrl($entity, 'thumbnail_130x160', $fields['image']);
+      }
+    }
+
+    // Get url + type from node external url field if exists and is
+    // populated, otherwise from node url.
+    $ext_url_field = "";
+    if (!empty($fields['external'])) {
+      $ext_url_field = $fields['external'];
+    }
+    $url = Helper::getEntityUrl($entity, $ext_url_field);
+
+    $label = '';
+    if ($entity->getType() === 'guide_page' || $entity->getType() === 'stacked_layout') {
+      $label = "Guide:";
+    }
+
+    $link = [
+      'image' => $image,
+      'text' => Helper::fieldValue($entity, $fields['text']),
+      'type' => $url['type'],
+      'href' => $url['href'],
+      'label' => $label,
+    ];
+
+    return $link;
+  }
+
+  /**
+   * Return an array of links: decorative, callout or illustrated.
+   *
+   * @param object $entity
+   *   The entity which contains the entity reference or link field.
+   * @param object $field
+   *   The field which contains or refers to the link information.
+   *
+   * @return array
+   *   Returns an array with the following structure:
+   *    [
+   *      [
+   *        'href' => 'http://path/to/entity',
+   *        'type' => 'internal' || 'external',
+   *        'title' => 'My Entity Title',
+   *        'image' => 'http://path/to/image',
+   *        'label' => 'Guide:', etc.
+   *      ], ...
+   *    ]
+   */
+  public static function createIllustratedOrCalloutLinks($entity, $field) {
+    // Check if the target field is entity reference, else assume link field.
+    $isEntityReferenceField = $entity->getFieldDefinition($field)->getType() === 'entity_reference' ? TRUE : FALSE;
+    if ($isEntityReferenceField) {
+      // Retrieves the entities referenced from the entity field.
+      $referenced_entities = Helper::getReferencedEntitiesFromField($entity, $field);
+
+      // Populate a section (featured links or links).
+      $links = array_map(['Drupal\mayflower\Helper', 'createLinkFromEntity'], $referenced_entities);
+    }
+    else {
+      $links = Helper::separatedLinks($entity, $field);
+    }
+
+    return $links;
   }
 
 }

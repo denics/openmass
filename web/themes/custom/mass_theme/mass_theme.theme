@@ -264,10 +264,200 @@ function mass_theme_preprocess_node_location(&$variables) {
   $variables['suggestedPages'] = Organisms::prepareSuggestedPages($node, $suggested_options);
 
   // Prepare the quickActions data object.
-  $variables['quickActions'] = Organisms::prepareQuickActions($node);
+  $quickactions_options = [
+    'title' => t('Quick Actions'),
+    'color' => 'green',
+  ];
+  $variables['quickActions'] = Organisms::prepareQuickActions($node, $quickactions_options);
 
   // Prepare the sidebarContact data object.
   $variables['sidebarContact'] = Organisms::prepareSidebarContact($node);
+}
+
+/**
+ * Implements hook_preprocess_node().
+ *
+ * Prepare the variables for the Services page.
+ */
+function mass_theme_preprocess_node_service_page(&$variables) {
+  $node = $variables['node'];
+
+  // Set static pageBanner properties to pass to prepare function.
+  $pageBanner_options = [
+    "size" => "overlay",
+    "icon" => NULL,
+    "color" => "blue",
+  ];
+
+  // Make pageBanner data structure available in twig template.
+  $variables['pageBanner'] = Organisms::preparePageBanner($node, $pageBanner_options);
+
+  // Prepare components that can be passed to  introPageContent.
+  $intro_page_content = [];
+
+  // Prepare the teaser text, if the field is populated.
+  if ($node->field_service_body->getValue()) {
+    $intro_page_content['teaserText'] = Organisms::prepareTeaserText($node->field_service_body);
+  }
+
+  // Prepare the video atom, if the field is populated.
+  if ($node->field_service_video->entity) {
+
+    // Set static options for video.
+    // @TODO confirm height parameter should be null
+    $video_options = [
+      "height" => NULL,
+      "width" => "480",
+      "position" => "right",
+    ];
+
+    // Append video data structure to the introPageContent data structure.
+    $intro_page_content['video'] = Atoms::prepareVideo($node->field_service_video->entity, $video_options);
+  }
+
+  // Prepare the First Time? key actions component, if field is populated.
+  if (Helper::isFieldPopulated($node, 'field_service_ref_guide_page_1')) {
+
+    // Set up static options for key actions component.
+    // @TODO see if we can use this field label instead of hard coding text.
+    $key_actions_options = [
+      'title' => t('First time?'),
+    ];
+
+    // Append the keyActions data structure to introPageContent.
+    $intro_page_content['keyActions'] = Organisms::prepareKeyActions($node, 'field_service_ref_guide_page_1', $key_actions_options);
+  }
+
+  // Make the introPageContent data structure available in twig template.
+  $variables['introPageContent'] = $intro_page_content;
+  // dump($variables['introPageContent']);
+  // Prepare the introduction sidebar.
+  $intro_sidebar = [];
+
+  // Prepare the option array for the service logo widget.
+  $service_image_options = [
+    'style' => 'organization_logo',
+    'height' => '',
+    'width' => 230,
+  ];
+
+  // Prepare the service logo, if the logo field is populated.
+  if ($service_logo = Atoms::prepareImage($node, $service_image_options)) {
+    $intro_sidebar['logo'] = $service_logo;
+  }
+
+  // Prepare the sidebar social media widget.
+  if (Helper::isFieldPopulated($node, 'field_services_social_links')) {
+    $intro_sidebar['social'] = array_merge(Atoms::prepareSidebarHeading(t('Social')), Molecules::prepareIconLinks($node));
+  }
+
+  // Make the introSidebar data structure available in twig template.
+  $variables['introSidebar'] = $intro_sidebar;
+
+  if (Helper::isFieldPopulated($node, 'field_service_ref_actions_2') || Helper::isFieldPopulated($node, 'field_service_ref_actions')) {
+    // Prepare the "What you need to know" action finder.
+    $do_action_finder_options = [
+      'title' => "What Would You Like to Do?",
+      'featuredHeading' => "Featured:",
+      'generalHeading' => "All tasks:",
+      'hideFilter' => TRUE,
+    ];
+
+    // Create the field map for this action finder.
+    // @TODO simplify maps and Helpers::getMappedFields by making 1 dimensional.
+    $do_action_map = [
+      'featured_actions' => ['field_service_ref_actions_2'],
+      'all_actions' => ['field_service_ref_actions'],
+    ];
+
+    // Only send doActionFinder data structure to twig template if populated.
+    if ($do_action_finder = Organisms ::prepareActionFinder($node, $do_action_finder_options, $do_action_map)) {
+      $variables['doActionFinder'] = $do_action_finder;
+    };
+  }
+
+  if (Helper::isFieldPopulated($node, 'field_service_ref_details_6')) {
+    // Prepare the "What you need to know" action finder.
+    $learn_action_finder_options = [
+      'title' => t("What you need to know"),
+      'featuredHeading' => "",
+      'generalHeading' => "",
+      'hideFilter' => TRUE,
+    ];
+
+    // Create the field map for this action finder.
+    $learn_action_map = [
+      'all_actions' => ['field_service_ref_details_6'],
+    ];
+
+    // Send learnActionFinder data structure to twig template only if populated.
+    if ($learn_action_finder = Organisms ::prepareActionFinder($node, $learn_action_finder_options, $learn_action_map)) {
+      $variables['learnActionFinder'] = $learn_action_finder;
+    };
+  }
+
+  // Make the mappedLocations data structure available in twig template.
+  if (Helper::isFieldPopulated($node, 'field_service_ref_locations')) {
+    // We need a different Google map config for PL tpls.
+    $variables['#attached']['library'][] = 'mass_theme/mass-google-map-apis-location';
+    $variables['mappedLocations'] = Organisms ::prepareMappedLocations($node->field_service_ref_locations->referencedEntities());
+  }
+
+  // Prepare the split columns data structure (send only if there is content).
+  $split_columns = '';
+
+  // Scaffold out split column array if any of its content fields are populated.
+  $isColumn1Populated = Helper::isFieldPopulated($node, 'field_service_ref_services_6');
+  $isColumn2Populated = Helper::isFieldPopulated($node, 'field_service_file') || Helper::isFieldPopulated($node, 'field_service_links');
+
+  if ($isColumn1Populated || $isColumn2Populated) {
+    $split_columns = [
+      'column1' => [],
+      'column2' => [],
+    ];
+  }
+
+  // Prepare Related Services link list data structure.
+  if ($isColumn1Populated) {
+    // Set up link list static options.
+    $link_list_options = [
+      // @TODO consider making the title the field label value.
+      'title' => t('Related Services'),
+      'stacked' => TRUE,
+      'heading' => 'sidebarHeading',
+    ];
+
+    // Populate the first column.
+    $split_columns['column1'][] = [
+      'path' => '@organisms/by-author/link-list.twig',
+      'data' => Organisms::prepareLinkList($node->field_service_ref_services_6->referencedEntities(), $link_list_options),
+    ];
+  }
+
+  // Build Additional Resources sidebar heading and action downloads.
+  if ($isColumn2Populated) {
+    // Populate the second column.
+    $split_columns['column2'][] =
+      [
+        'path' => '@atoms/04-headings/sidebar-heading.twig',
+        'data' => [
+          'sidebarHeading' => [
+            'title' => t('Additional Resources'),
+          ],
+        ],
+      ];
+    $split_columns['column2'][] =
+      [
+        'path' => '@molecules/action-downloads.twig',
+        'data' => [
+          'actionDownloads' => Molecules::prepareActionDownloads($node),
+        ],
+      ];
+  }
+
+  // Make the mappedLocations data structure available in twig template.
+  $variables['splitColumns'] = $split_columns;
+
 }
 
 /**
