@@ -15,6 +15,7 @@ module:
   ctools: 0
   datalayer: 0
   datetime: 0
+  dblog: 0
   devel: 0
   draggableviews: 0
   dropzonejs: 0
@@ -29,6 +30,7 @@ module:
   entity_reference_revisions: 0
   field: 0
   field_group: 0
+  field_tokens: 0
   field_ui: 0
   file: 0
   file_browser: 0
@@ -57,7 +59,9 @@ module:
   mass_styles: 0
   mass_types: 0
   mass_utility: 0
+  mass_validation: 0
   mass_workbench_ui: 0
+  mayflower: 0
   menu_ui: 0
   metatag: 0
   metatag_open_graph: 0
@@ -73,11 +77,14 @@ module:
   password_policy_characters: 0
   password_policy_length: 0
   path: 0
+  rabbit_hole: 0
   rdf: 0
   redirect: 0
   rest: 0
   restrict_by_ip: 0
   restui: 0
+  rh_taxonomy: 0
+  rh_node: 0
   seckit: 0
   security_review: 0
   serialization: 0

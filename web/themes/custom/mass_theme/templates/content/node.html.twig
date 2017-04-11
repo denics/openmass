@@ -77,6 +77,7 @@
 {% set _preContent = block('preContent')|trim %}
 {% set _sidebar = block('sidebar')|trim %}
 {% set _postContent = block('postContent')|trim %}
+{% set _schemaContent = block('schemaContent')|trim %}
 
 {# Produce the .pre-content div if either the twig block or the theme region is present #}
 {% if _preContent is not empty or pre_content %}
@@ -87,7 +88,7 @@
 {% endif %}
 
 {% block main %}
-  <div class="main-content{{ _sidebar is not empty ? ' main-content--two': ''}}">
+  <div class="main-content{{ _sidebar is not empty ? ' main-content--two': ' main-content--full'}}">
     <div class="page-content">
       {% block pageContent %}
         {{ content }}
@@ -95,7 +96,9 @@
     </div>
     {% if _sidebar is not empty %}
       <div class="sidebar">
-        {{ _sidebar|raw }}
+        {% block sidebar %}
+          {{ _sidebar|raw }}
+        {% endblock %}
       </div>
     {% endif %}
   </div>
@@ -107,4 +110,8 @@
     {{ _postContent|raw }}
     {{ post_content }}
   </div>
+{% endif %}
+
+{% if _schemaContent is not empty %}
+  {{ _schemaContent|raw }}
 {% endif %}

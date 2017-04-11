@@ -37,150 +37,150 @@ settings:
   handler: 'default:paragraph'
   handler_settings:
     target_bundles:
+      subhead: subhead
+      rich_text: rich_text
       action_step: action_step
       action_step_numbered_list: action_step_numbered_list
-      callout_link: callout_link
-      callout_alert: callout_alert
       file_download: file_download
-      iframe: iframe
-      rich_text: rich_text
-      stat: stat
-      subhead: subhead
-      video: video
-      map: map
-      callout_button: callout_button
       hours: hours
       activities: activities
+      callout_link: callout_link
+      callout_alert: callout_alert
+      callout_button: callout_button
+      stat: stat
+      map: map
+      video: video
+      iframe: iframe
       pull_quote: pull_quote
       map_row: map_row
     target_bundles_drag_drop:
-      action_step:
-        enabled: true
-        weight: -19
-      action_step_numbered_list:
-        enabled: true
-        weight: -18
-      callout_link:
-        enabled: true
-        weight: -17
-      callout_alert:
-        enabled: true
-        weight: -16
-      file_download:
-        enabled: true
-        weight: -15
-      iframe:
-        enabled: true
-        weight: -14
-      rich_text:
-        enabled: true
-        weight: -13
-      stat:
-        enabled: true
-        weight: -12
-      contact:
-        weight: -11
-        enabled: false
       subhead:
         enabled: true
-        weight: -10
-      action_step_numbered:
-        weight: -9
-        enabled: false
-      action_address:
-        weight: 16
-        enabled: false
-      video:
+        weight: -87
+      rich_text:
         enabled: true
-        weight: 16
-      action_address_info:
-        weight: 17
-        enabled: false
-      action_area:
-        weight: 18
-        enabled: false
-      map:
+        weight: -86
+      action_step:
         enabled: true
-        weight: 19
-      full_bleed:
-        weight: 25
-        enabled: false
-      location_information:
-        weight: 27
-        enabled: false
-      callout_button:
+        weight: -85
+      action_step_numbered_list:
         enabled: true
-        weight: 31
-      contact_group:
-        weight: 33
-        enabled: false
-      contact_info:
-        weight: 34
-        enabled: false
+        weight: -84
+      file_download:
+        enabled: true
+        weight: -83
       hours:
         enabled: true
-        weight: 37
-      icon:
-        weight: 38
-        enabled: false
+        weight: -82
       activities:
         enabled: true
-        weight: 38
-      activity:
-        weight: 39
-        enabled: false
+        weight: -81
+      callout_link:
+        enabled: true
+        weight: -80
+      callout_alert:
+        enabled: true
+        weight: -79
+      callout_button:
+        enabled: true
+        weight: -78
+      stat:
+        enabled: true
+        weight: -77
+      map:
+        enabled: true
+        weight: -76
+      video:
+        enabled: true
+        weight: -75
+      iframe:
+        enabled: true
+        weight: -74
       pull_quote:
         enabled: true
-        weight: 41
-      quick_action:
-        weight: 42
-        enabled: false
-      related_link:
-        weight: 43
-        enabled: false
-      completion_time:
-        weight: 43
-        enabled: false
-      1up_stacked_band:
-        weight: 44
-        enabled: false
-      2up_stacked_band:
-        weight: 45
-        enabled: false
-      slideshow:
-        weight: 45
-        enabled: false
-      3_up_content:
-        weight: 46
-        enabled: false
-      3_up_text:
-        weight: 47
-        enabled: false
-      action_set:
-        weight: 51
-        enabled: false
-      stacked_band:
-        weight: 59
-        enabled: false
-      emergency_alert:
-        weight: 64
-        enabled: false
-      icon_link:
-        weight: 69
-        enabled: false
-      icon_links:
-        weight: 70
-        enabled: false
-      image:
-        weight: 72
-        enabled: false
+        weight: -73
       map_row:
         enabled: true
-        weight: 75
+        weight: -72
+      contact:
+        weight: -71
+        enabled: false
+      action_step_numbered:
+        weight: -70
+        enabled: false
+      action_address:
+        weight: -69
+        enabled: false
+      action_address_info:
+        weight: -68
+        enabled: false
+      action_area:
+        weight: -67
+        enabled: false
+      full_bleed:
+        weight: -66
+        enabled: false
+      location_information:
+        weight: -65
+        enabled: false
+      contact_group:
+        weight: -64
+        enabled: false
+      contact_info:
+        weight: -63
+        enabled: false
+      icon:
+        weight: -62
+        enabled: false
+      activity:
+        weight: -61
+        enabled: false
+      quick_action:
+        weight: -60
+        enabled: false
+      related_link:
+        weight: -59
+        enabled: false
+      completion_time:
+        weight: -58
+        enabled: false
+      1up_stacked_band:
+        weight: -57
+        enabled: false
+      slideshow:
+        weight: -56
+        enabled: false
+      2up_stacked_band:
+        weight: -55
+        enabled: false
+      3_up_content:
+        weight: -54
+        enabled: false
+      3_up_text:
+        weight: -53
+        enabled: false
+      action_set:
+        weight: -52
+        enabled: false
+      stacked_band:
+        weight: -51
+        enabled: false
+      emergency_alert:
+        weight: -50
+        enabled: false
+      icon_link:
+        weight: -49
+        enabled: false
+      icon_links:
+        weight: -48
+        enabled: false
+      image:
+        weight: -47
+        enabled: false
       related_content:
-        weight: 78
+        weight: -46
         enabled: false
       search_band:
-        weight: 81
+        weight: -45
         enabled: false
 field_type: entity_reference_revisions

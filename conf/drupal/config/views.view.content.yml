@@ -4,10 +4,10 @@ status: true
 dependencies:
   config:
     - node.type.action
-    - node.type.agency
     - node.type.emergency_alerts
     - node.type.error_page
     - node.type.interstitial
+    - node.type.org_page
     - node.type.page
     - node.type.section_landing
     - node.type.stacked_layout
@@ -424,11 +424,11 @@ display:
           operator: in
           value:
             all: all
-            agency: agency
             page: page
             emergency_alerts: emergency_alerts
             error_page: error_page
             interstitial: interstitial
+            org_page: org_page
             action: action
             section_landing: section_landing
             stacked_layout: stacked_layout

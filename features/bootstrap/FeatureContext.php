@@ -279,7 +279,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   }
 
   /**
-   * Verify the field is an input field of the given type.
+   * Verify the field is an checkbox field of the given type.
    *
    * @param $field
    * @param $expectedType
@@ -462,5 +462,134 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
       throw new \Exception(sprintf('User %d could not be loaded.', $this->drupalContext->user->uid));
     }
     return $account;
+  }
+
+  /**
+   * @Then :content_type content has the correct fields
+   */
+  public function assertContentTypeFields($content_type) {
+    $this->minkContext->visitPath('node/add/' . $content_type);
+    // All content types have a title.
+    $this->minkContext->assertElementOnPage('#edit-title-0-value');
+    // Fields for each content type.
+    switch ($content_type) {
+      case "contact_information":
+        $fields = array (
+          array (
+            'field' => 'field-display-title',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-ref-address',
+            'tag' => 'paragraphs',
+            'type' => 'address',
+          ),
+          array (
+            'field' => 'field-ref-fax-number',
+            'tag' => 'paragraphs',
+            'type' => 'fax-number',
+          ),
+          array (
+            'field' => 'field-ref-links',
+            'tag' => 'paragraphs',
+            'type' => 'links',
+          ),
+          array (
+            'field' => 'field-ref-phone-number',
+            'tag' => 'paragraphs',
+            'type' => 'phone-number',
+          ),
+        );
+        break;
+    }
+    foreach ($fields as $row) {
+      // Get all IDs that start with our field name. D8 prints fields
+      // differently than D7, so this is necessary.
+      $css_selector = '[id^=edit-' . $row['field'] . ']';
+
+      $this->minkContext->assertElementOnPage($css_selector);
+      $this->assertFieldType('edit-' . $row['field'], $row['tag'], $row['type']);
+    }
+  }
+
+  /**
+   * @Then :paragraph_type paragraph has the correct fields
+   */
+  public function assertParagraphTypeFields($paragraph_type) {
+    $this->minkContext->visitPath('admin/structure/paragraphs_type/' . $paragraph_type . '/form-display');
+    // Fields for each content type.
+    switch ($paragraph_type) {
+      case "address":
+        $fields = array (
+          array (
+            'field' => 'field-address-text',
+            'widget' => 'Text area (multiple rows)',
+          ),
+          array (
+            'field' => 'field-label',
+            'widget' => 'Textfield',
+          ),
+          array (
+            'field' => 'field-lat-long',
+            'widget' => 'Google Map Field default',
+          ),
+        );
+        break;
+      case "fax_number":
+        $fields = array (
+          array (
+            'field' => 'field-caption',
+            'widget' => 'Textfield',
+          ),
+          array (
+            'field' => 'field-label',
+            'widget' => 'Textfield',
+          ),
+          array (
+            'field' => 'field-fax',
+            'widget' => 'Telephone number',
+          ),
+        );
+        break;
+      case "phone_number":
+        $fields = array (
+          array (
+            'field' => 'field-caption',
+            'widget' => 'Textfield',
+          ),
+          array (
+            'field' => 'field-label',
+            'widget' => 'Textfield',
+          ),
+          array (
+            'field' => 'field-phone',
+            'widget' => 'Telephone number',
+          ),
+        );
+        break;
+      case "links":
+        $fields = array (
+          array (
+            'field' => 'field-link-single',
+            'widget' => 'Link',
+          ),
+          array (
+            'field' => 'field-label',
+            'widget' => 'Textfield',
+          ),
+        );
+        break;
+    }
+    foreach ($fields as $row) {
+      $id = 'edit-fields-' . $row['field'] . '-type';
+      $this->minkContext->assertElementOnPage("[id^={$id}]");
+
+      $widget = $this->getSession()->getPage()->find('css', "#{$id} option[selected='selected']")->getText();
+
+      if (strtolower($widget) !== strtolower($row['widget'])) {
+        throw new Exception(sprintf("Field %s has \"%s\" widget but should have \"%s\".", $row['field'], $widget, $row['widget']));
+      }
+    }
   }
 }

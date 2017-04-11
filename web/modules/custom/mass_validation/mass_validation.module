@@ -1,0 +1,59 @@
+<?php
+
+/**
+ * @file
+ * Contains mass_validation.module.
+ *
+ * Copyright 2017 Palantir.net, Inc.
+ */
+
+use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function mass_validation_help($route_name, RouteMatchInterface $route_match) {
+  $output = '';
+  switch ($route_name) {
+    case 'help.page.mass_validation':
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('This module allows validation to be applied to custom content types and fields.') . '</p>';
+      break;
+
+    default:
+  }
+  return $output;
+}
+
+/**
+ * Implements hook_entity_type_alter().
+ */
+function mass_validation_entity_type_alter(array &$entity_types) {
+  /** @var Drupal\Core\Entity\ContentEntityType $node */
+  $node = $entity_types['node'];
+  if (!empty($node)) {
+    $node->addConstraint('PreventEmptyImage', []);
+  }
+}
+
+/**
+ * Implements hook_entity_bundle_field_info_alter().
+ */
+function mass_validation_entity_bundle_field_info_alter(&$fields, EntityTypeInterface $entity_type, $bundle) {
+  /** @var Drupal\field\Entity\FieldConfig $field_social_links */
+  if ($entity_type->id() == 'node' && array_key_exists('field_social_links', $fields) && !empty($fields['field_social_links'])) {
+    $field_social_links = &$fields['field_social_links'];
+    $field_social_links->addConstraint('SocialLink', [
+      'allowedValues' => [
+        'twitter.com',
+        'flickr.com',
+        'facebook.com',
+        'instagram.com',
+        'linkedin.com',
+        'youtube.com',
+        'blog.mass.gov',
+      ],
+    ]);
+  }
+}

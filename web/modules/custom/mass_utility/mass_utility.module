@@ -82,3 +82,14 @@ function mass_utility_views_post_execute(ViewExecutable $view) {
     }));
   }
 }
+
+/**
+ * Implements hook_field_widget_form_alter().
+ */
+function mass_utility_field_widget_form_alter(&$element, FormStateInterface $form_state, $context) {
+  // Hide the map name field on the address google map field.
+  $field_definition = $context['items']->getFieldDefinition();
+  if ($field_definition->getType() == 'google_map_field' && $field_definition->getName() == 'field_lat_long') {
+    $element['name']['#type'] = 'hidden';
+  }
+}

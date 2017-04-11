@@ -182,6 +182,7 @@ content:
       edit_mode: open
       add_mode: button
       form_display_mode: default
+      default_paragraph_type: _none
     third_party_settings: {  }
   field_action_details:
     type: entity_reference_paragraphs
@@ -192,6 +193,7 @@ content:
       edit_mode: preview
       add_mode: button
       form_display_mode: default
+      default_paragraph_type: ''
     third_party_settings: {  }
   field_action_header:
     type: entity_reference_paragraphs
@@ -202,6 +204,7 @@ content:
       edit_mode: preview
       add_mode: button
       form_display_mode: default
+      default_paragraph_type: _none
     third_party_settings: {  }
   field_action_parent:
     weight: 4
@@ -220,6 +223,7 @@ content:
       edit_mode: preview
       add_mode: button
       form_display_mode: default
+      default_paragraph_type: ''
     third_party_settings: {  }
   field_alert_dropdown:
     weight: 26
@@ -261,6 +265,7 @@ content:
       edit_mode: preview
       add_mode: button
       form_display_mode: default
+      default_paragraph_type: ''
     third_party_settings: {  }
   field_image_credit:
     weight: 6

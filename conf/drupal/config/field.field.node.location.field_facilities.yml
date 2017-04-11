@@ -1,0 +1,19 @@
+uuid: 879b2171-2ccb-4dbd-a7ed-d90b8817430e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_facilities
+    - node.type.location
+id: node.location.field_facilities
+field_name: field_facilities
+entity_type: node
+bundle: location
+label: Facilities
+description: 'Describe the the features, facilities, and attractions of the location, including Wi-Fi, restrooms, visitor center, equipment rentals, etc.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

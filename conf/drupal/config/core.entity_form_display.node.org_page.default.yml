@@ -1,0 +1,291 @@
+uuid: 7c29b225-e8fb-4999-a8f8-bb34cf08bf12
+langcode: en
+status: true
+dependencies:
+  config:
+    - entity_browser.browser.browse_files_modal
+    - field.field.node.org_page.body
+    - field.field.node.org_page.field_action_set__bg_narrow
+    - field.field.node.org_page.field_action_set__bg_wide
+    - field.field.node.org_page.field_bg_narrow
+    - field.field.node.org_page.field_bg_wide
+    - field.field.node.org_page.field_link
+    - field.field.node.org_page.field_metatags
+    - field.field.node.org_page.field_ref_actions_3
+    - field.field.node.org_page.field_ref_actions_6
+    - field.field.node.org_page.field_ref_card_view_6
+    - field.field.node.org_page.field_ref_contact_info
+    - field.field.node.org_page.field_ref_contact_info_1
+    - field.field.node.org_page.field_ref_orgs
+    - field.field.node.org_page.field_social_links
+    - field.field.node.org_page.field_sub_brand
+    - field.field.node.org_page.field_sub_title
+    - field.field.node.org_page.field_title_sub_text
+    - node.type.org_page
+  module:
+    - entity_browser
+    - field_group
+    - link
+    - metatag
+    - text
+    - workbench_moderation
+third_party_settings:
+  field_group:
+    group_node_edit_form:
+      children:
+        - group_banner
+        - group_overview
+        - group_actions
+        - group_other
+      parent_name: ''
+      weight: 0
+      format_type: tabs
+      format_settings:
+        id: ''
+        classes: ''
+        direction: horizontal
+      label: 'Node Edit Form'
+    group_banner:
+      children:
+        - group_organization_name
+        - field_bg_wide
+        - field_bg_narrow
+        - field_ref_contact_info
+      parent_name: group_node_edit_form
+      weight: 20
+      format_type: tab
+      format_settings:
+        label: 'Title Banner'
+        formatter: closed
+        description: ''
+        required_fields: true
+        id: ''
+        classes: ''
+      label: 'Title Banner'
+    group_actions:
+      children:
+        - field_action_set__bg_wide
+        - field_action_set__bg_narrow
+        - field_ref_actions_3
+        - field_ref_actions_6
+        - field_link
+      parent_name: group_node_edit_form
+      weight: 24
+      format_type: tab
+      format_settings:
+        label: Actions
+        formatter: closed
+        description: 'This large, visual element will help call attention to specific actions that constituents may wish to take. You can feature up to 3 actions and list a total of 6 others. See <a href="http://mayflower.digital.mass.gov/?p=organisms-action-finder" target="_blank">here</a> for an example of what this element looks like.'
+        required_fields: true
+        id: ''
+        classes: ''
+      label: Actions
+    group_other:
+      children:
+        - field_ref_card_view_6
+        - field_ref_orgs
+      parent_name: group_node_edit_form
+      weight: 25
+      format_type: tab
+      format_settings:
+        label: More
+        formatter: closed
+        description: ''
+        required_fields: true
+        id: ''
+        classes: ''
+      label: More
+    group_overview:
+      children:
+        - field_sub_title
+        - field_sub_brand
+        - body
+        - field_social_links
+      parent_name: group_node_edit_form
+      weight: 22
+      format_type: tab
+      format_settings:
+        id: ''
+        classes: ''
+        formatter: closed
+        description: ''
+        required_fields: true
+      label: Overview
+    group_organization_name:
+      children:
+        - title
+        - field_title_sub_text
+      parent_name: group_banner
+      weight: 20
+      format_type: html_element
+      format_settings:
+        id: ''
+        classes: ''
+        element: div
+        show_label: true
+        label_element: h3
+        required_fields: true
+        attributes: ''
+        effect: none
+        speed: fast
+      label: 'Organization name'
+id: node.org_page.default
+targetEntityType: node
+bundle: org_page
+mode: default
+content:
+  body:
+    type: text_textarea_with_summary
+    weight: 31
+    settings:
+      rows: 9
+      placeholder: ''
+      summary_rows: 3
+    third_party_settings: {  }
+  field_action_set__bg_narrow:
+    weight: 3
+    settings:
+      entity_browser: browse_files_modal
+      field_widget_remove: true
+      open: true
+      selection_mode: selection_append
+      preview_image_style: thumbnail
+      field_widget_edit: true
+      view_mode: default
+    third_party_settings: {  }
+    type: entity_browser_file
+  field_action_set__bg_wide:
+    weight: 2
+    settings:
+      entity_browser: browse_files_modal
+      field_widget_remove: true
+      open: true
+      selection_mode: selection_append
+      preview_image_style: thumbnail
+      field_widget_edit: true
+      view_mode: default
+    third_party_settings: {  }
+    type: entity_browser_file
+  field_bg_narrow:
+    weight: 24
+    settings:
+      entity_browser: browse_files_modal
+      field_widget_remove: true
+      open: true
+      selection_mode: selection_append
+      preview_image_style: thumbnail
+      field_widget_edit: true
+      view_mode: default
+    third_party_settings: {  }
+    type: entity_browser_file
+  field_bg_wide:
+    weight: 23
+    settings:
+      entity_browser: browse_files_modal
+      field_widget_remove: true
+      open: true
+      selection_mode: selection_append
+      preview_image_style: thumbnail
+      field_widget_edit: true
+      view_mode: default
+    third_party_settings: {  }
+    type: entity_browser_file
+  field_link:
+    weight: 6
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+  field_metatags:
+    weight: 31
+    settings: {  }
+    third_party_settings: {  }
+    type: metatag_firehose
+  field_ref_actions_3:
+    weight: 4
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+  field_ref_actions_6:
+    weight: 5
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+  field_ref_card_view_6:
+    weight: 7
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+  field_ref_contact_info:
+    weight: 25
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+  field_ref_orgs:
+    weight: 8
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+  field_social_links:
+    weight: 32
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+  field_sub_brand:
+    weight: 30
+    settings:
+      entity_browser: browse_files_modal
+      field_widget_remove: true
+      selection_mode: selection_append
+      preview_image_style: thumbnail
+      field_widget_edit: true
+      open: false
+      view_mode: default
+    third_party_settings: {  }
+    type: entity_browser_file
+  field_sub_title:
+    weight: 29
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textarea
+  field_title_sub_text:
+    weight: 22
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  title:
+    type: string_textfield
+    weight: 21
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  field_ref_contact_info_1: true
+  path: true
+  promote: true
+  sticky: true
+  uid: true

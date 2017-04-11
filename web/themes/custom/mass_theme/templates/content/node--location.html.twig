@@ -1,0 +1,34 @@
+{#
+/**
+ * @file
+ * Theme override to display the full view mode of the location content type.
+ *
+ * @copyright Copyright (c) 2017 Palantir.net
+ */
+ #}
+{% extends 'node.html.twig' %}
+
+{% block preContent %}
+  {% include "@organisms/by-template/header-alert.twig" %}
+  {% include "@organisms/by-template/breadcrumbs.twig" %}
+  {% include "@organisms/by-template/action-header.twig" %}
+  {% include "@organisms/by-author/location-banner.twig" %}
+{% endblock %}
+
+{% block pageContent %}
+  {% include "@organisms/by-author/quick-actions.twig" %}
+  {% include "@organisms/by-author/action-details.twig" %}
+{% endblock %}
+
+{% block sidebar %}
+  {% include "@organisms/by-author/quick-actions.twig" %}
+  {% include "@organisms/by-author/sidebar-contact.twig" %}
+  {# include "@organisms/by-author/sidebar-widget.twig" #}
+{% endblock %}
+
+{% block postContent %}
+  {% if node.field_related_locations.value %}
+    {% include "@organisms/by-author/suggested-pages.twig" %}
+  {% endif %}
+  {% include "@organisms/by-template/breadcrumbs.twig" %}
+{% endblock %}

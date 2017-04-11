@@ -1,0 +1,14 @@
+<script>
+  (function() {
+    // Note: this js snippet should be required inline in the head of the document,
+    // since it redirects & thus should be run as early as possible on the page.
+    var referrerTest = /www.mass.gov\/(anf|portal|governor|eopss|eohhs|ocabr|lwd|hed|treasury|ago|mtrs|berkshireda|capeda|cjc|comptroller|dor|dppc|mdaa|elders|essexsheriff|essexda|edu|eea|hdc|informedma|ig|women|courts|mova|msa|massworkforce|childadvocate|pca|auditor|ethics|srbtf|veterans|resources|cgi-bin|itdemployee|alert|mcad|perac)\/.*/;
+    var interstitialURL = window.location.origin + '/entering-pilot?continueURL=' + window.location.href;
+
+    if (document.referrer.match(referrerTest) !== null && !window.localStorage.noInterstitial) {
+      // Do interstitial things.
+      window.location.href = interstitialURL;
+    }
+
+  })();
+</script>

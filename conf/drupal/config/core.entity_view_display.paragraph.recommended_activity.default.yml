@@ -1,0 +1,41 @@
+uuid: cc36a468-502c-4875-961a-a6c1391a350a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.recommended_activity.field_image
+    - field.field.paragraph.recommended_activity.field_lede
+    - field.field.paragraph.recommended_activity.field_title
+    - paragraphs.paragraphs_type.recommended_activity
+  module:
+    - image
+id: paragraph.recommended_activity.default
+targetEntityType: paragraph
+bundle: recommended_activity
+mode: default
+content:
+  field_image:
+    weight: 1
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+  field_lede:
+    weight: 2
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_title:
+    weight: 0
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+hidden:
+  created: true
+  uid: true

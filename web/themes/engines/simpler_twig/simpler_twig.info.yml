@@ -1,0 +1,4 @@
+name: Simpler Twig
+type: theme_engine
+core: 8.x
+package: Custom

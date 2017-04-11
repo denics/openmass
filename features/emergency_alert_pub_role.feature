@@ -31,11 +31,6 @@ Feature: Emergency Alert Publisher
     When I go to "node/add/action"
     Then the response status code should be 403
 
-  Scenario: Verify emergency alert pub team user cannot create agency content
-    Given I am logged in as a user with the "emergency_alert_publisher" role
-    When I go to "node/add/agency"
-    Then the response status code should be 403
-
   Scenario: Verify emergency alert pub team user cannot create basic page content
     Given I am logged in as a user with the "emergency_alert_publisher" role
     When I go to "node/add/page"

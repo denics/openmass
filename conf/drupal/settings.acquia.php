@@ -9,6 +9,9 @@ $settings['container_yamls'][] = $app_root . '/' . $site_path . '/services.yml';
 $settings['file_public_path'] = '${drupal.settings.file_public_path}';
 $settings['file_private_path'] = '${drupal.settings.file_private_path}';
 
+// Configure the temp directory.
+$config['system.file']['path']['temporary'] = "/mnt/gfs/{$_ENV['AH_SITE_GROUP']}.{$_ENV['AH_SITE_ENVIRONMENT']}/tmp";
+
 $settings['trusted_host_patterns'] = array(
   '^${acquia.accountname}dev.prod.acquia-sites.com',
   '^${acquia.accountname}stg.prod.acquia-sites.com',

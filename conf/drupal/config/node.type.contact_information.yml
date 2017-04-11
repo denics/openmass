@@ -1,0 +1,18 @@
+uuid: a0d996da-ac3d-441a-9419-1c0e8b8d7aa3
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus:
+      - main
+    parent: 'main:'
+name: 'Contact Information'
+type: contact_information
+description: ''
+help: ''
+new_revision: true
+preview_mode: 0
+display_submitted: false

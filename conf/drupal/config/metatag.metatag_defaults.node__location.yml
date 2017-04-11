@@ -1,0 +1,25 @@
+uuid: 9779607d-6d33-49aa-943c-5f36b022ba81
+langcode: en
+status: true
+dependencies: {  }
+id: node__location
+label: 'Content: Location'
+tags:
+  description: '[node:field_lede]'
+  geo_placename: '[node:title]'
+  geo_region: US-MA
+  title: '[node:title] | [site:name]'
+  og_description: '[node:field_lede]'
+  og_image: '[node:field_bg_wide:action_banner_large:url]'
+  og_site_name: '[site:name]'
+  og_title: '[node:title]'
+  og_type: website
+  og_url: '[node:url]'
+  twitter_cards_creator: '[node:url]'
+  twitter_cards_creator_id: '[node:field_social_links:0:title]'
+  twitter_cards_description: '[node:field_lede]'
+  twitter_cards_image: '[node:field_bg_wide:action_banner_large:url]'
+  twitter_cards_site: '@massgov'
+  twitter_cards_site_id: '16264003'
+  twitter_cards_title: '[node:title]'
+  twitter_cards_type: summary_large_image

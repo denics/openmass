@@ -1,0 +1,160 @@
+uuid: 0b60c6f8-5a17-4181-8755-798ee34b0101
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.location.field_accessibility
+    - field.field.node.location.field_bg_narrow
+    - field.field.node.location.field_bg_wide
+    - field.field.node.location.field_facilities
+    - field.field.node.location.field_hours
+    - field.field.node.location.field_iframe
+    - field.field.node.location.field_links
+    - field.field.node.location.field_location_activity_detail
+    - field.field.node.location.field_location_icons
+    - field.field.node.location.field_more_information
+    - field.field.node.location.field_overview
+    - field.field.node.location.field_parking
+    - field.field.node.location.field_ref_contact_info
+    - field.field.node.location.field_ref_contact_info_1
+    - field.field.node.location.field_related_locations
+    - field.field.node.location.field_restrictions
+    - field.field.node.location.field_services
+    - node.type.location
+  module:
+    - entity_reference_revisions
+    - image
+    - link
+    - user
+id: node.location.default
+targetEntityType: node
+bundle: location
+mode: default
+content:
+  field_accessibility:
+    weight: 112
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+  field_bg_narrow:
+    weight: 103
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+  field_bg_wide:
+    weight: 102
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+  field_facilities:
+    weight: 111
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+  field_hours:
+    type: entity_reference_revisions_entity_view
+    weight: 106
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+  field_iframe:
+    type: entity_reference_revisions_entity_view
+    weight: 104
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+  field_links:
+    weight: 115
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+  field_location_activity_detail:
+    type: entity_reference_revisions_entity_view
+    weight: 117
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+  field_location_icons:
+    weight: 118
+    label: above
+    settings:
+      link: true
+      view_mode: default
+    third_party_settings: {  }
+    type: entity_reference_entity_view
+  field_more_information:
+    weight: 110
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+  field_overview:
+    weight: 105
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+  field_parking:
+    weight: 107
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+  field_ref_contact_info:
+    weight: 116
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+  field_ref_contact_info_1:
+    weight: 101
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+  field_related_locations:
+    weight: 114
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+  field_restrictions:
+    weight: 113
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+  field_services:
+    weight: 109
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }

@@ -31,3 +31,7 @@ js-vendor:
 interstitial-page:
   js:
     libraries/interstitial/js/interstitial-page.js: {}
+mass-google-map-apis-location:
+  js:
+    //cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.6/handlebars.js: { type: external }
+    overrides/js/googleMap.js: {scope: footer, preprocess: false}

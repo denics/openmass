@@ -1,3 +1,6 @@
-<section class="google-map-field ma__action-map" aria-hidden="true" role="”presentation”">
-  <div class="map-container ma__action-map__google-map js-google-map" data-lat="{{ lat }}" data-lon="{{ lon }}" data-zoom="{{ zoom }}">map</div>
-</section>
+{{ attach_library('google_map_field/google-map-apis') }}
+{{ attach_library('google_map_field/google-map-field-renderer') }}
+{%
+  set map = content.field_map.0
+ %}
+<div class="map-container ma__action-map__google-map js-google-map" data-lat="{{ map['#lat'] }}" data-lon="{{ map['#lon'] }}" data-zoom="{{ map['#zoom'] }}">map</div>

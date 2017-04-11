@@ -23,11 +23,11 @@ function mass_utility_install() {
     }
 
     // Delete the field_contact_group field.
-    $properties = array(
+    $properties = [
       'entity_type' => 'node',
       'bundle' => 'action',
       'field_name' => 'field_contact_group',
-    );
+    ];
     $field_to_delete = \Drupal::entityManager()->getStorage('field_config')->loadByProperties($properties);
     foreach ($field_to_delete as $field) {
       $field->delete();
@@ -43,7 +43,7 @@ function mass_utility_install() {
  * Remove mass_theme blocks from the mass_admin_theme.
  */
 function mass_utility_update_8001(&$sandbox) {
-  $block_ids = array(
+  $block_ids = [
     'mass_admin_theme_views_block__subtopics_all_actions_block_1',
     'mass_admin_theme_views_block__subtopics_ordered_subtopic_list_block',
     'mass_admin_theme_views_block__ordered_topics_ordered_topic_list_block',
@@ -51,12 +51,12 @@ function mass_utility_update_8001(&$sandbox) {
     'mass_admin_theme_pilotmenu',
     'mass_admin_theme_footer2',
     'mass_admin_theme_footer3',
-  );
+  ];
 
   foreach ($block_ids as $id) {
     $blocks = \Drupal::entityTypeManager()
       ->getStorage('block')
-      ->loadByProperties(array('theme' => 'mass_admin_theme', 'id' => $id));
+      ->loadByProperties(['theme' => 'mass_admin_theme', 'id' => $id]);
 
     foreach ($blocks as $key => $block) {
       $block = Block::load($key);
@@ -123,12 +123,12 @@ function mass_utility_update_8002(&$sandbox) {
 
   ];
   foreach ($items as $name => $file_name) {
-    $term = Term::create(array(
-      'parent'            => array(),
+    $term = Term::create([
+      'parent'            => [],
       'name'              => $name,
       'field_sprite_name' => $file_name,
       'vid'               => $vocab,
-    ))->save();
+    ])->save();
   }
 }
 
@@ -161,4 +161,12 @@ function mass_utility_update_8004(&$sandbox) {
   $config = $config_factory->getEditable('mass_theme.settings');
   $config->set('languages', ['ar','es','fr','pt','ht','it','km','ko','ru','vi','zh-CN']);
   $config->save(TRUE);
+}
+
+/**
+ * Delete the agency content type.
+ */
+function mass_utility_update_8005(&$sandbox) {
+  $content_type = \Drupal::entityManager()->getStorage('node_type')->load('agency');
+  $content_type->delete();
 }

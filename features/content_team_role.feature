@@ -41,11 +41,6 @@ Feature: Content Management
     When I go to "node/add/action"
     Then the response status code should be 200
 
-  Scenario: Verify content team user can create agency content
-    Given I am logged in as a user with the "content_team" role
-    When I go to "node/add/agency"
-    Then the response status code should be 200
-
   Scenario: Verify content team user can create basic page content
     Given I am logged in as a user with the "content_team" role
     When I go to "node/add/page"
@@ -81,6 +76,6 @@ Feature: Content Management
     When I go to "admin/structure/taxonomy/manage/icons/overview"
     Then the response status code should be 200
 
-
-
-
+  Scenario: Verify that content team user can use draggable views
+    Given I am logged in as a user with the "content_team" role
+    Then I should have the "access draggableviews" permission

@@ -1,0 +1,26 @@
+uuid: d057c539-afdf-40b1-a213-a223e967a73e
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+    - workbench_moderation
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+  workbench_moderation:
+    enabled: true
+    allowed_moderation_states:
+      - published
+      - archived
+      - draft
+      - needs_review
+    default_moderation_state: draft
+name: 'Organization Landing Page'
+type: org_page
+description: 'Create Organization Landing Page.'
+help: ''
+new_revision: true
+preview_mode: 0
+display_submitted: false

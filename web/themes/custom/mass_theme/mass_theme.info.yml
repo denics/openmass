@@ -8,7 +8,8 @@ libraries:
   - mass_theme/js-header
   - mass_theme/js-vendor
 
-base theme: stable
+engine: simpler_twig
+base theme: false
 
 regions:
   emergency_alert: Emergency Alert
@@ -27,6 +28,9 @@ component-libraries:
   custom_includes:
     paths:
       - templates/includes
+  custom_templates:
+    paths:
+      - templates
   base:
     paths:
       - patterns/base
@@ -48,4 +52,6 @@ component-libraries:
   pilot:
     paths:
       - patterns/pilot
-
+  meta:
+    paths:
+      - patterns/meta

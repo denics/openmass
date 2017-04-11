@@ -1,0 +1,20 @@
+uuid: 9f0fc756-9f4f-41a5-8c3f-20642d9737ba
+langcode: en
+status: true
+dependencies: {  }
+id: node__org_page
+label: 'Content: Organization Landing Page'
+tags:
+  description: '[node:field_sub_title-formatted:0:plain_text_first_line]'
+  title: '[node:title] | [site:name]'
+  og_description: '[node:field_sub_title-formatted:0:plain_text_first_line]'
+  og_site_name: '[site:name]'
+  og_title: '[node:title]'
+  og_type: website
+  og_url: '[node:url]'
+  twitter_cards_description: '[node:field_sub_title-formatted:0:plain_text_first_line]'
+  twitter_cards_page_url: '[node:url]'
+  twitter_cards_site: '@massgov'
+  twitter_cards_site_id: '16264003'
+  twitter_cards_title: '[node:title]'
+  twitter_cards_type: summary_large_image

@@ -18,13 +18,22 @@
       }
     }
   </style>
-  <div
-    class="ma__location-banner__image"
-    id="GUID24872901570">
-  </div>
   {% if map is not empty %}
     <div class="ma__location-banner__map">
-      {{ map }}
+      <div
+          class="ma__google-map"
+          aria-hidden="true"
+          role="presentation">
+        <div class="ma__google-map__map js-google-map google-map-field">
+          {{ map }}
+        </div>
+       </div>
     </div>
   {% endif %}
+  <div
+      class="ma__location-banner__image"
+      id="GUID24872901570"
+      role="image"
+      title="{{ locationBanner.alt }}">
+  </div>
 </section>

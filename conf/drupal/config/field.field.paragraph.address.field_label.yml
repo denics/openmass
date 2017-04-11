@@ -1,0 +1,19 @@
+uuid: 9a86159e-c2ef-4960-a695-539853f668d0
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_label
+    - paragraphs.paragraphs_type.address
+id: paragraph.address.field_label
+field_name: field_label
+entity_type: paragraph
+bundle: address
+label: Label
+description: 'This optional label will sometimes be displayed above the address to help orient the user to how this address relates to this location. For example: "South Entrance".'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

@@ -1,0 +1,19 @@
+uuid: 865a4048-b70a-4589-9926-7480b923b1a1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_accessibility
+    - node.type.location
+id: node.location.field_accessibility
+field_name: field_accessibility
+entity_type: node
+bundle: location
+label: Accessibility
+description: 'If this location is accessible, use this section to give details, such as accessible programming, accessible hiking trails, etc. You can use paragraphs and bulleted lists.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

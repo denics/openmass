@@ -1,0 +1,22 @@
+uuid: 75fb640e-fdb1-4a67-b382-896f2d86f8c6
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - node.type.contact_information
+  module:
+    - user
+id: node.contact_information.teaser
+targetEntityType: node
+bundle: contact_information
+mode: teaser
+content:
+  links:
+    weight: 100
+hidden:
+  field_display_title: true
+  field_ref_address: true
+  field_ref_fax_number: true
+  field_ref_links: true
+  field_ref_phone_number: true

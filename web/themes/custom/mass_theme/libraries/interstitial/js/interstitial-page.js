@@ -10,7 +10,7 @@
     var parser = document.createElement('a');
     var destination = 'http://www.mass.gov/portal';
     parser.href = givenURL;
-    if (parser.hostname === 'www.mass.gov' || parser.hostname === 'mass.gov') {
+    if (parser.hostname === 'www.mass.gov' || parser.hostname === 'mass.gov' || parser.hostname === 'pilot.mass.gov') {
       destination = givenURL;
     }
     return destination;

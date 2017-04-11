@@ -1,0 +1,28 @@
+uuid: ae252742-39f0-453b-9cdf-8503ba49f2fc
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_ref_contact_info
+    - node.type.contact_information
+    - node.type.org_page
+id: node.org_page.field_ref_contact_info
+field_name: field_ref_contact_info
+entity_type: node
+bundle: org_page
+label: 'Primary Contact Information'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      contact_information: contact_information
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

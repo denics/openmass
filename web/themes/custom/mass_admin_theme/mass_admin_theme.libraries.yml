@@ -3,6 +3,7 @@ admin_overrides:
   css:
     theme:
       overrides/css/action-node-form.css: {}
+      overrides/css/org-page-node-form.css: {}
       overrides/css/images.css: {}
 entity_embed_dialog:
   version: 1.x

@@ -3,4 +3,4 @@ langcode: en
 status: true
 dependencies: {  }
 id: action_address
-label: Address
+label: 'Action Address'

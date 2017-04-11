@@ -1,0 +1,21 @@
+uuid: ada6aec1-6173-4195-9e46-e6a29db6fb88
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_lat_long
+    - paragraphs.paragraphs_type.address
+  module:
+    - google_map_field
+id: paragraph.address.field_lat_long
+field_name: field_lat_long
+entity_type: paragraph
+bundle: address
+label: 'Map (Lat/Long)'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: google_map_field

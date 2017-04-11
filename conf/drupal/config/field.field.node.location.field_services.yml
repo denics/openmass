@@ -1,0 +1,19 @@
+uuid: 0ad65fcc-193a-4029-bf99-6ab9c432d0be
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_services
+    - node.type.location
+id: node.location.field_services
+field_name: field_services
+entity_type: node
+bundle: location
+label: Services
+description: 'List the services available at this location in this section as a bulleted list. You may group lists with subheadings if a wide range of services are offered.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

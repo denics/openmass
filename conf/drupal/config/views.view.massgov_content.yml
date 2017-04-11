@@ -4,7 +4,6 @@ status: true
 dependencies:
   config:
     - node.type.action
-    - node.type.agency
     - node.type.emergency_alerts
     - node.type.error_page
     - node.type.interstitial
@@ -13,6 +12,7 @@ dependencies:
     - node.type.stacked_layout
     - node.type.subtopic
     - node.type.topic
+    - node.type.utility_drawer
   module:
     - node
     - rest
@@ -554,7 +554,6 @@ display:
           operator: in
           value:
             all: all
-            agency: agency
             page: page
             emergency_alerts: emergency_alerts
             error_page: error_page
@@ -564,6 +563,7 @@ display:
             stacked_layout: stacked_layout
             subtopic: subtopic
             topic: topic
+            utility_drawer: utility_drawer
           group: 1
           exposed: false
           expose:

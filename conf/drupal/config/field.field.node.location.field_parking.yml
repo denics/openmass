@@ -1,0 +1,19 @@
+uuid: 53320cb1-4ccb-41b0-bb92-734be683f3f5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_parking
+    - node.type.location
+id: node.location.field_parking
+field_name: field_parking
+entity_type: node
+bundle: location
+label: 'Parking'
+description: 'Describe the available parking. If there is no parking, please say that or list nearby parking options.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

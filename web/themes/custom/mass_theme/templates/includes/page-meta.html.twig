@@ -32,6 +32,7 @@
       {
           "@context": "http://schema.org",
           "@type": "Organization",
+          "@id": "{{ pageMetaData.id }}",
           "url": "{{ pageMetaData.urlDomain }}",
           {% if pageMetaData.logoSrc %}"logo": "{{ pageMetaData.urlDomain ~ '/' ~ directory ~ pageMetaData.logoSrc }}",{% endif %}
           "name": "{{ pageMetaData.orgName }}"{% if pageMetaData.socialMediaLinks %},

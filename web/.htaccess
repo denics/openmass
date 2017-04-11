@@ -69,6 +69,91 @@ AddEncoding gzip svgz
 <IfModule mod_rewrite.c>
   RewriteEngine on
 
+  ##### Start of Edit Domain Settings Section #####
+  ## Only allow certain IPs to access edit domain. ##
+  # Virtual machine addresses (10.20.0.0/16).
+  # RewriteCond %{ENV:AH_Client_IP} !^10\.20\.([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\.([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-4])
+  # MassIT VPN (146.243.0.0/16).
+  # RewriteCond %{ENV:AH_Client_IP} !^146\.243\.([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\.([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-4])
+  # MassIT VPN (170.63.0.0/16).
+  # RewriteCond %{ENV:AH_Client_IP} !^170\.63\.([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\.([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-4])
+  # Acquia internal
+  # RewriteCond %{ENV:AH_Client_IP} !^104\.247\.39\.34
+  # RewriteCond %{ENV:AH_Client_IP} !^40\.130\.238\.138
+  # RewriteCond %{ENV:AH_Client_IP} !^207\.173\.24\.186
+  # RewriteCond %{ENV:AH_Client_IP} !^50\.224\.63\.14
+  # RewriteCond %{ENV:AH_Client_IP} !^80\.71\.2\.77
+  # RewriteCond %{ENV:AH_Client_IP} !^66\.207\.219\.134
+  # RewriteCond %{ENV:AH_Client_IP} !^208\.66\.24\.54
+  # RewriteCond %{ENV:AH_Client_IP} !^50\.247\.79\.241
+  # RewriteCond %{ENV:AH_Client_IP} !^59\.100\.22\.81
+  # RewriteCond %{ENV:AH_Client_IP} !^14\.141\.169\.186
+  # Palantir IPs.
+  # RewriteCond %{ENV:AH_Client_IP} !^104\.223\.94\.74
+  # RewriteCond %{ENV:AH_Client_IP} !^104\.129\.28\.170
+  # RewriteCond %{ENV:AH_Client_IP} !^199\.229\.250\.110
+  # HTTP_HOST is edit domain.
+  # RewriteCond %{HTTP_HOST} ^edit(\.stage|\.pilot)?\.mass\.[a-z]+ [NC]
+  # Only apply IP blocking in Acquia Cloud Environment (Test and Prod environment).
+  # RewriteCond %{ENV:AH_SITE_ENVIRONMENT} ^(test|prod)$
+  # RewriteRule ^(.*)$ http://www.mass.gov [R=307,L]
+  ## End section IP blocking. ##
+
+  # Protect files and directories from prying eyes.
+  RewriteCond %{HTTP_HOST} !^edit(\.stage|\.pilot)?\.mass\.[a-z]+ [NC]
+  RewriteCond %{ENV:AH_SITE_ENVIRONMENT} ^(test|prod)$
+  RewriteRule "\.(engine|inc|info|install|module|profile|test|po|sh|.*sql|theme|tpl(\.php)?|xtmpl|svn-base)$|^(code-style\.pl|Entries.*|Repository|Root|Tag|Template|all-wcprops|entries|format)$" - [F]
+
+  # Disallow various other files
+  RewriteCond %{HTTP_HOST} !^edit(\.stage|\.pilot)?\.mass\.[a-z]+ [NC]
+  RewriteCond %{ENV:AH_SITE_ENVIRONMENT} ^(test|prod)$
+  RewriteCond %{REQUEST_URI} !^/sites/.+/files/
+  RewriteRule (README\.txt|INSTALL\.txt|CHANGELOG\.txt|COPYRIGHT\.txt|INSTALL\.mysql\.txt|INSTALL\.pgsql\.txt|LICENSE\.txt|MAINTAINERS\.txt|UPGRADE\.txt) - [F]
+
+  # Disallow admin paths
+  RewriteCond %{HTTP_HOST} !^edit(\.stage|\.pilot)?\.mass\.[a-z]+ [NC]
+  RewriteCond %{ENV:AH_SITE_ENVIRONMENT} ^(test|prod)$
+  RewriteRule ^((admin|scripts|profile|includes|cron\.php|install\.php|update\.php|xmlrpc\.php)/?(.*)?)$ - [F]
+
+  # Disallow access to the feed modules import path
+  RewriteCond %{HTTP_HOST} !^edit(\.stage|\.pilot)?\.mass\.[a-z]+ [NC]
+  RewriteCond %{ENV:AH_SITE_ENVIRONMENT} ^(test|prod)$
+  RewriteRule ^(import/?(.*)?)$ - [F]
+
+  # disable direct access to nodes with their canonical URLs
+  RewriteCond %{HTTP_HOST} !^edit(\.stage|\.pilot)?\.mass\.[a-z]+ [NC]
+  RewriteCond %{ENV:AH_SITE_ENVIRONMENT} ^(test|prod)$
+  RewriteRule ^(node/?(.*)?)$ - [F]
+
+  # Protect webform uploads
+  RewriteCond %{HTTP_HOST} !^edit(\.stage|\.pilot)?\.mass\.[a-z]+ [NC]
+  RewriteCond %{ENV:AH_SITE_ENVIRONMENT} ^(test|prod)$
+  RewriteRule ^(sites/default/files/webform/?(.*)?)$ - [F]
+
+  # Protect Taxonomy lists
+  RewriteCond %{HTTP_HOST} !^edit(\.stage|\.pilot)?\.mass\.[a-z]+ [NC]
+  RewriteCond %{ENV:AH_SITE_ENVIRONMENT} ^(test|prod)$
+  RewriteRule ^(taxonomy/?(.*)?)$ - [F]
+
+  # Make any PHP request a 404, except for our 404 page which is PHP and the main index
+  RewriteCond %{HTTP_HOST} !^edit(\.stage|\.pilot)?\.mass\.[a-z]+ [NC]
+  RewriteCond %{ENV:AH_SITE_ENVIRONMENT} ^(test|prod)$
+  RewriteCond %{REQUEST_URI} !^/sites/default/themes/themename/404/page-not-found\.php
+  RewriteCond %{REQUEST_URI} !^/index\.php
+  RewriteCond %{REQUEST_URI} \.(php)$
+  RewriteCond %{REQUEST_URI} !^404\.%1$
+  RewriteRule ^(.*)$ 404.%1 [R=404,L]
+
+  # All others where a file is missing
+  RewriteCond %{HTTP_HOST} !^edit(\.stage|\.pilot)?\.mass\.[a-z]+ [NC]
+  RewriteCond %{ENV:AH_SITE_ENVIRONMENT} ^(test|prod)$
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_URI} !^/sites/default/files/
+  RewriteCond %{REQUEST_URI} \.(png|gif|jpe?g|s?html?|css|js|cgi|ico|swf|flv|dll)$
+  RewriteCond %{REQUEST_URI} !^404.%1$
+  RewriteRule ^(.*)$ 404.%1 [R=404,L]
+  ##### End of Edit Domain Settings Section #####
+
   # Set "protossl" to "s" if we were accessed via https://.  This is used later
   # if you enable "www." stripping or enforcement, in order to ensure that
   # you don't bounce between http and https.

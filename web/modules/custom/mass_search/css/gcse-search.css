@@ -739,8 +739,9 @@ div.gs-visibleUrl, .gs-imageResult div.gs-visibleUrl {
   font-weight: 200;
 }
 
-
-
+.gsc-input input {
+  text-indent: 0px !important;
+}
 
 /* GOOGLE CUSTOM SEARCH RESULTS PAGE SEARCH FORM */
 .ma__content__search {

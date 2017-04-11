@@ -14,6 +14,115 @@ use Drupal\node\Entity\Node;
 use Drupal\Component\Utility\UrlHelper;
 use Drupal\Component\Utility\Unicode;
 use Drupal\Core\Menu\MenuTreeParameters;
+use Drupal\mayflower\Helper;
+use Drupal\mayflower\Prepare\Atoms;
+use Drupal\mayflower\Prepare\Molecules;
+use Drupal\mayflower\Prepare\Organisms;
+use Drupal\mayflower\Prepare\Schemas;
+
+/**
+ * Implements hook_theme_suggestions_alter().
+ */
+function mass_theme_theme_suggestions_paragraph_alter(array &$suggestions, array $variables) {
+  // Build a map of paragraph types and the twig files they map to.
+  $map = [
+    'action_step_numbered_list' => 'action_seq_list',
+    'activities' => 'action_activities',
+    'callout_link' => 'callout_links',
+  ];
+
+  // Add the appropriate theme suggestions.
+  if (array_key_exists($variables['elements']['#paragraph']->getType(), $map)) {
+    $suggestions[] = $map[$variables['elements']['#paragraph']->getType()];
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_alter().
+ */
+function mass_theme_theme_suggestions_node_alter(array &$suggestions, array $variables) {
+  // Build a map of paragraph types and the twig files they map to.
+  $map = [
+    'contact_information' => 'contact_us',
+  ];
+
+  // Add the appropriate theme suggestions.
+  if (array_key_exists($variables['elements']['#node']->getType(), $map)) {
+    $suggestions[] = $map[$variables['elements']['#node']->getType()];
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ *
+ * Break out url pieces for callout button paragraphs.
+ */
+function mass_theme_preprocess_callout_links(&$variables) {
+  $paragraph = $variables['elements']['#paragraph'];
+
+  $variables = [
+    'theme_hook_original' => $variables['theme_hook_original'],
+    'calloutLinks' => Molecules::prepareCalloutLinks($paragraph),
+  ];
+
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ *
+ * @see patterns/molecules/action-seq-list.twig
+ */
+function mass_theme_preprocess_action_seq_list(&$variables) {
+  $paragraph = $variables['elements']['#paragraph'];
+
+  // Sets the variable structure required for action-seq-list.twig.
+  $variables = [
+    'theme_hook_original' => $variables['theme_hook_original'],
+    'actionSeqLists' => Molecules::prepareActionSeqList($paragraph),
+  ];
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ *
+ * @see patterns/molecules/action-activities.twig
+ */
+function mass_theme_preprocess_action_activities(&$variables) {
+  $action_activities = [];
+  $parent_paragraph = $variables['elements']['#paragraph'];
+
+  $field_activities = $parent_paragraph->get('field_activities');
+
+  if ($field_activities->count() > 0) {
+    $items = $field_activities->referencedEntities();
+  }
+
+  foreach ($items as $id => $item) {
+    $activity = [];
+    $activity['title'] = $item->get('field_title')->view('full');
+    $activity['description'] = $item->get('field_teaser')->view('full');
+
+    $links = Helper::separatedLinks($item, 'field_link');
+
+    if (!empty($links)) {
+      $activity['linkTitle'] = $links[0]['text'];
+      $activity['href'] = $links[0]['href'];
+    }
+
+    $image = $item->get('field_image');
+
+    if ($image->count() > 0) {
+      $activity['image'] = Helper::getFieldImageUrl($item, 'activities_image', 'field_image');
+    }
+
+    $action_activities[] = $activity;
+  }
+
+  $variables = [
+    'theme_hook_original' => $variables['theme_hook_original'],
+    'actionActivities' => $action_activities,
+  ];
+}
 
 /**
  * Implements hook_theme_suggestions_alter().
@@ -46,6 +155,121 @@ function mass_theme_theme_suggestions_alter(array &$suggestions, array $variable
 }
 
 /**
+ * Implements hook_preprocess_node().
+ *
+ * Prepare the variables for the Org page.
+ */
+function mass_theme_preprocess_node_org_page(&$variables) {
+  $node = $variables['node'];
+
+  // Set static pageBanner properties to pass to prepare function.
+  $pageBanner_options = [
+    "size" => "large",
+    "icon" => NULL,
+  ];
+
+  // Make pageBanner data object available in twig template.
+  $variables['pageBanner'] = Organisms::preparePageBanner($node, $pageBanner_options);
+
+  // Set static actionHeader properties to pass to prepare function.
+  $actionHeader_options = [
+    // @todo Consider making this site-builder configurable vs hard-coded
+    'divider' => TRUE,
+  ];
+
+  // Prepare widgets that can be passed to the actionHeader.
+  $widgets = [];
+
+  // Prepare the option array for the organization image widget.
+  $org_image_options = [
+    'style' => 'organization_logo',
+    'height' => '',
+    'width' => 230,
+  ];
+
+  // Prepares the organization logo to use the mayflower image component.
+  if ($org_logo = Atoms::prepareImage($node, $org_image_options)) {
+    $widgets[] = [
+      'path' => '@atoms/09-media/image.twig',
+      'data' => [
+        'image' => $org_logo,
+      ],
+    ];
+  }
+
+  // Prepare the actionHeader data object.
+  $variables['actionHeader'] = Organisms::prepareActionHeader($node, $actionHeader_options, $widgets);
+  // Make stacked section data object available in twig template.
+  $variables['stackedRowSections'] = mayflower_prepare_stacked_row_sections($node);
+  // Prepare the schema.governmentOrganization data object.
+  $variables['schema'] = Schemas::prepareGovernmentOrganization($variables);
+}
+
+/**
+ * Implements hook_preprocess_node().
+ *
+ * Prepare the variables for the Location page.
+ */
+function mass_theme_preprocess_node_location(&$variables) {
+  $node = $variables['node'];
+
+  // We need a different Google map config for PL tpls.
+  $variables['#attached']['library'][] = 'mass_theme/mass-google-map-apis-location';
+
+  // Set static actionHeader properties to pass to prepare function.
+  $actionHeader_options = [
+    'divider' => FALSE,
+  ];
+
+  // Prepare widgets that can be passed to the actionHeader.
+  $widgets = [];
+  // Prepare widgets that can be passed to the actionHeader.
+  if ($node->field_location_icons->entity) {
+    $widgets[] = [
+      'path' => '@molecules/location-icons.twig',
+      'data' => [
+        'locationIcons' => [
+          'icons' => Molecules::prepareLocationIcons($node),
+        ],
+      ],
+    ];
+  }
+  // iFrames.
+  if ($node->field_iframe->entity) {
+    $widgets[] = [
+      'path' => '@atoms/11-text/raw-html.twig',
+      'data' => [
+        'rawHtml' => [
+          'content' => '<iframe src="' . $node->field_iframe->entity->field_url->uri . '" height="' . $node->field_iframe->entity->field_height->value . '" style="width:100%;"></iframe>',
+        ],
+      ],
+    ];
+  }
+
+  // Prepare the actionHeader data object.
+  $variables['actionHeader'] = Organisms::prepareActionHeader($node, $actionHeader_options, $widgets);
+
+  // Prepare the locationBanner data object.
+  $variables['locationBanner'] = Organisms::prepareLocationBanner($node);
+
+  // Prepare the actionDetails data object.
+  $variables['actionDetails'] = Organisms::prepareActionDetails($node);
+
+  // Prepare the suggestedPages data object.
+  $suggested_options = [
+    'title' => t('Related Parks'),
+    'style' => 'activities_image',
+  ];
+  $variables['suggestedPages'] = Organisms::prepareSuggestedPages($node, $suggested_options);
+
+  // Prepare the quickActions data object.
+  $variables['quickActions'] = Organisms::prepareQuickActions($node);
+
+  // Prepare the sidebarContact data object.
+  $variables['sidebarContact'] = Organisms::prepareSidebarContact($node);
+}
+
+/**
  * Implements hook_library_info_alter().
  */
 function mass_theme_library_info_alter(&$libraries) {
@@ -68,13 +292,13 @@ function mass_theme_preprocess_block(&$variables) {
  * Implements hook_preprocess_menu().
  */
 function mass_theme_preprocess_menu(&$variables) {
-  // Get Theme settings languages if available.
-  if (theme_get_setting('languages', 'mass_theme')) {
-    $variables['languages'] = implode(',', array_filter(theme_get_setting('languages', 'mass_theme')));
-  }
-
   // Use this formatting for Utility nav.
-  if ($variables['menu_name'] == 'utility') {
+  if (array_key_exists('menu_name', $variables) && $variables['menu_name'] == 'utility') {
+    // Get Theme settings languages if available.
+    if (theme_get_setting('languages', 'mass_theme')) {
+      $variables['languages'] = implode(',', array_filter(theme_get_setting('languages', 'mass_theme')));
+    }
+
     foreach ($variables['items'] as &$item) {
       $ref_node = $item['url']->getRouteParameters();
       // Load it up and get the field.
@@ -119,7 +343,7 @@ function mass_theme_preprocess_menu(&$variables) {
     $variables['items'] = $items;
   }
   // Use this formatting for Main Nav aka Topic Nav.
-  if ($variables['menu_name'] == 'main') {
+  if (array_key_exists('menu_name', $variables) && $variables['menu_name'] == 'main') {
     $mainNav = [];
     foreach ($variables['items'] as &$item) {
       $subNav = [];
@@ -331,9 +555,9 @@ function mass_theme_preprocess_node_stacked_layout(&$variables) {
 
   if ($image_field->count() > 0) {
     $values = $image_field->getValue();
-    $variables['image_url'] = mass_theme_get_field_image_url($node, 'illustrated_header', 'field_photo');
+    $variables['image_url'] = Helper::getFieldImageUrl($node, 'illustrated_header', 'field_photo');
     $variables['image_alt'] = $values[0]['alt'];
-    $variables['image_url_teaser_simple'] = mass_theme_get_field_image_url($node, 'thumbnail_130x160', 'field_photo');
+    $variables['image_url_teaser_simple'] = Helper::getFieldImageUrl($node, 'thumbnail_130x160', 'field_photo');
   }
 
   if ($field_related_content->count() > 0) {
@@ -349,7 +573,7 @@ function mass_theme_preprocess_node_stacked_layout(&$variables) {
           'quickaction' => 'FALSE',
           'href' => $item->url(),
           'text' => $item->getTitle(),
-          'image' => mass_theme_get_field_image_url($item, 'thumbnail_130x160', 'field_photo'),
+          'image' => Helper::getFieldImageUrl($item, 'thumbnail_130x160', 'field_photo'),
           'label' => trim($item->get('field_label')->value) == 'Guide' ? 'Guide:' : '',
         ],
       ];
@@ -392,10 +616,10 @@ function mass_theme_preprocess_node_1up_stacked_band(&$variables) {
 function mass_theme_preprocess_node_subtopic(&$variables) {
   $node = $variables['node'];
 
-  $variables['desktop_finder_image'] = mass_theme_get_field_image_url($node, 'action_finder', 'field_featured_image');
-  $variables['mobile_finder_image'] = mass_theme_get_field_image_url($node, 'action_finder_mobile', 'field_featured_mobile_image');
+  $variables['desktop_finder_image'] = Helper::getFieldImageUrl($node, 'action_finder', 'field_featured_image');
+  $variables['mobile_finder_image'] = Helper::getFieldImageUrl($node, 'action_finder_mobile', 'field_featured_mobile_image');
   if (empty($variables['mobile_finder_image'])) {
-    $variables['mobile_finder_image'] = mass_theme_get_field_image_url($node, 'action_finder_mobile', 'field_featured_image');
+    $variables['mobile_finder_image'] = Helper::getFieldImageUrl($node, 'action_finder_mobile', 'field_featured_image');
   }
 
   // Load Instance of the secondary menu block with variables.
@@ -431,10 +655,6 @@ function mass_theme_preprocess_node_topic(&$variables) {
 
   if ($node->field_featured_image->entity) {
     $variables['hero800x400_image_url'] = ImageStyle::load('hero800x400')->buildUrl($node->field_featured_image->entity->getFileUri());
-  }
-
-  if ($node->field_featured_mobile_image->entity) {
-    $variables['mobile800x400_image_url'] = ImageStyle::load('hero800x400')->buildUrl($node->field_featured_mobile_image->entity->getFileUri());
   }
 
   if ($variables['view_mode'] == 'full') {
@@ -638,9 +858,11 @@ function mass_theme_preprocess_html(&$variables) {
   // The colored state seal to be used by search engines.
   // Normally we would use theme_get_setting('logo.url')
   $logoSrc = "/images/stateseal-color.png";
+  $hostname = \Drupal::request()->getSchemeAndHttpHost();
   // Pass Schema.org markup data to page-meta.html.twig.
-  $variables['pageMetaData'] = [
-    'urlDomain' => \Drupal::request()->getSchemeAndHttpHost(),
+  $metadata = [
+    'id' => $hostname . "/#organization",
+    'urlDomain' => $hostname,
     'socialMediaLinks' => json_encode($socialMedia, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT),
     'urlPath' => \Drupal::request()->getBaseUrl() . \Drupal::request()->getPathInfo(),
     'logoSrc' => $logoSrc,
@@ -652,50 +874,9 @@ function mass_theme_preprocess_html(&$variables) {
     'orgName' => 'Commonwealth of Massachusetts',
     'schemaPageType' => $is_front_page ? 'Home' : '',
   ];
-  mass_theme_add_metatag_data($variables['pageMetaData']);
-}
+  Helper::addMetatagData($metadata);
 
-/**
- * Supplements page meta data from metatags.
- *
- * @param array &$page_meta_data
- *   Array of pageMetaData used by templates/includes/page-meta.html.twig.
- * @param array $map
- *   Array that maps metatags to page_meta_data keys in form tag=>key.
- *   Defaults to 'siteDescription'=>'siteDescription'.
- * @param string $meta_area
- *   The part of the metadata attachments array to search in.
- *   Defaults to html_head.
- */
-function mass_theme_add_metatag_data(array &$page_meta_data, array $map = [], $meta_area = 'html_head') {
-  // Code largely copied from metatag.module/metatag_preprocess_html()
-  if (!function_exists('metatag_is_current_route_supported') || !metatag_is_current_route_supported()) {
-    return;
-  }
-
-  if (empty($map)) {
-    $map = [
-      'siteDescription' => 'siteDescription',
-    ];
-  }
-
-  $attachments = drupal_static('metatag_attachments');
-  if (is_null($attachments)) {
-    $attachments = metatag_get_tags_from_route();
-  }
-
-  if (!$attachments || empty($attachments['#attached'][$meta_area])) {
-    return;
-  }
-
-  foreach ($attachments['#attached'][$meta_area] as $metatag) {
-    $tag_name = $metatag[1];
-    if (isset($map[$tag_name])) {
-      // It's safe to access the value directly because it was already
-      // processed in MetatagManager::generateElements().
-      $page_meta_data[$map[$tag_name]] = $metatag[0]['#attributes']['content'];
-    }
-  }
+  $variables['pageMetaData'] = $metadata;
 }
 
 /**
@@ -1182,6 +1363,7 @@ function mass_theme_preprocess_paragraph__related_content(&$variables) {
       // Default icon for content without icons but using the Topic card.
       $item->{'icon'} = '@atoms/05-icons/svg-marker.twig';
       $item->{'node_path'} = \Drupal::service('path.alias_manager')->getAliasByPath('/node/' . $item->get('nid')->value);
+      $item->{'image_thumbnail_url'} = $item->hasField('field_photo') ? Helper::getFieldImageUrl($item, 'thumbnail_130x160', 'field_photo') : '';
 
       // For Stacked Layout, if label or acronym is Guide then the label
       // should be "Guide:".
@@ -1356,19 +1538,19 @@ function mass_theme_preprocess_paragraph__action_set(&$variables) {
   if (!empty($featured_items)) {
     foreach ($featured_items as $id => $item) {
       $image_url = '';
+      $external_url = '';
       if ($item->hasField('field_external_url')) {
         $external_url = $item->get('field_external_url')->uri;
       }
-      if ($item->hasField('field_photo')) {
-        $image_url = mass_theme_get_field_image_url($item, '', 'field_photo');
-      }
+
       $featured_links[] = [
-        'image' => !empty($image_url) ? $image_url : '',
+        'image' => $item->hasField('field_photo') ? Helper::getFieldImageUrl($item, 'thumbnail_130x160', 'field_photo') : '',
         'text'  => $item->getTitle(),
         'type'  => $external_url ? 'external' : 'internal',
-        'href'  => $external_url ? $external_url : \Drupal::service('path.alias_manager')->getAliasByPath('/node/' . $item->get('nid')->value),
+        'href'  => $external_url ? $external_url : $item->toURL()->toString(),
       ];
     }
+
     $variables['featuredLinks'] = $featured_links;
   }
 
@@ -1385,19 +1567,19 @@ function mass_theme_preprocess_paragraph__action_set(&$variables) {
   if (!empty($link_items)) {
     foreach ($link_items as $id => $item) {
       $image_url = '';
+      $external_url = '';
       if ($item->hasField('field_external_url')) {
         $external_url = $item->get('field_external_url')->uri;
       }
-      if ($item->hasField('field_photo')) {
-        $image_url = mass_theme_get_field_image_url($item, '', 'field_photo');
-      }
+
       $links[] = [
-        'image' => !empty($image_url) ? $image_url : '',
+        'image' => $item->hasField('field_photo') ? Helper::getFieldImageUrl($item, 'thumbnail_130x160', 'field_photo') : '',
         'text'  => $item->getTitle(),
         'type'  => $external_url ? 'external' : 'internal',
-        'href'  => $external_url ? $external_url : \Drupal::service('path.alias_manager')->getAliasByPath('/node/' . $item->get('nid')->value),
+        'href'  => $external_url ? $external_url : $item->toURL()->toString(),
       ];
     }
+
     $variables['links'] = $links;
 
     if (!empty($paragraph->get('field_link_single')->uri)) {
@@ -1568,13 +1750,9 @@ function mass_theme_preprocess_paragraph__callout_link(&$variables) {
  * Break out url pieces for callout link - need-to-know paragraphs.
  */
 function mass_theme_preprocess_paragraph__callout_alert(&$variables) {
-  $url = $variables['paragraph']->get('field_link')->first();
+  $link = Helper::separatedLinks($variables['paragraph'], 'field_link');
 
-  $variables['calloutAlert']['decorativeLink'] = [
-    'text' => $url->getValue()['title'],
-    'href' => $url->getUrl()->toString(),
-    'type' => (UrlHelper::isExternal($url->getUrl()->toString())) ? 'external' : 'internal',
-  ];
+  $variables['calloutAlert']['decorativeLink'] = $link[0];
 }
 
 /**
@@ -1658,8 +1836,8 @@ function mass_theme_preprocess_paragraph__full_bleed(&$variables) {
           $images = [];
           foreach ($image_field as $id => $image) {
             $value = $image->getValue();
-            $image_small = mass_theme_get_field_image_url($item, 'action_banner_small', 'field_slideshow', $id);
-            $image_large = mass_theme_get_field_image_url($item, 'action_banner_large', 'field_slideshow', $id);
+            $image_small = Helper::getFieldImageUrl($item, 'action_banner_small', 'field_slideshow', $id);
+            $image_large = Helper::getFieldImageUrl($item, 'action_banner_large', 'field_slideshow', $id);
             $images[$id] = [
               'image' => $image_small,
               'imageLarge' => $image_large,
@@ -1958,7 +2136,7 @@ function mass_theme_preprocess_field__field_topic_callout_links(&$variables) {
  * Add theme suggestions for Footer Menus.
  */
 function mass_theme_theme_suggestions_menu_alter(array &$suggestions, array $variables) {
-  if (strpos($variables['menu_name'], 'footer') > -1) {
+  if (!empty($variables['menu_name']) && strpos($variables['menu_name'], 'footer') > -1) {
     $suggestions[] = "menu__footer_layout";
   }
 }
@@ -2158,7 +2336,7 @@ function mass_theme_preprocess_paragraph__icon_links(&$variables) {
 /**
  * Language config for Google translate.
  */
-function _googletranslate_options_languages() {
+function mass_theme_googletranslate_options_languages() {
   $language_codes = [
     'aa' => 'Afar' ,
     'ab' => 'Abkhazian' ,
@@ -2302,7 +2480,7 @@ function _googletranslate_options_languages() {
  * Add languages to theme settings.
  */
 function mass_theme_form_system_theme_settings_alter(&$form, $form_state) {
-  $languages = _googletranslate_options_languages();
+  $languages = mass_theme_googletranslate_options_languages();
 
   $form['mass_theme_settings'] = [
     '#type'  => 'details',

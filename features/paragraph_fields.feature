@@ -7,8 +7,8 @@ Feature: Paragraph type definitions
   Scenario: Verify that the action_area paragraph type has the correct field configuration
     Given I am logged in as a user with the "administrator" role
     Then the "action_area" paragraph has the fields:
-      | field                 | widget            |
-      | field-area-action-ref | Paragraphs        |
+      | field                 | widget             |
+      | field-area-action-ref | Paragraphs Classic |
 
   Scenario: Verify that the action_step paragraph type has the correct field configuration
     Given I am logged in as a user with the "administrator" role
@@ -29,7 +29,7 @@ Feature: Paragraph type definitions
     Given I am logged in as a user with the "administrator" role
     Then the "action_step_numbered_list" paragraph has the fields:
       | field                            | widget                    |
-      | field-action-step-numbered-items | Paragraphs                |
+      | field-action-step-numbered-items | Paragraphs Classic        |
 
   Scenario: Verify that the action_set paragraph type has the correct field configuration
     Given I am logged in as a user with the "administrator" role
@@ -60,11 +60,11 @@ Feature: Paragraph type definitions
   Scenario: Verify that the emergency_alert paragraph type has the correct field configuration
     Given I am logged in as a user with the "administrator" role
     Then the "emergency_alert" paragraph has the fields:
-      | field                           | widget        |
-      | field-emergency-alert-content   | Paragraphs    |
-      | field-emergency-alert-link      | Link          |
-      | field-emergency-alert-message   | Textfield     |
-      | field-emergency-alert-timestamp | Date and Time |
+      | field                           | widget             |
+      | field-emergency-alert-content   | Paragraphs Classic |
+      | field-emergency-alert-link      | Link               |
+      | field-emergency-alert-message   | Textfield          |
+      | field-emergency-alert-timestamp | Date and Time      |
 
   Scenario: Verify that the file_download paragraph type has the correct field configuration
     Given I am logged in as a user with the "administrator" role
@@ -83,7 +83,7 @@ Feature: Paragraph type definitions
     Given I am logged in as a user with the "administrator" role
     Then the "full_bleed" paragraph has the fields:
       | field                 | widget                    |
-      | field-full-bleed-ref  | Paragraphs                |
+      | field-full-bleed-ref  | Paragraphs Classic        |
 
   Scenario: Verify that the iframe paragraph type has the correct field configuration
     Given I am logged in as a user with the "administrator" role
@@ -152,10 +152,10 @@ Feature: Paragraph type definitions
   Scenario: Verify that the contact group paragraph type has the correct field configuration
     Given I am logged in as a user with the "administrator" role
     Then the "contact_group" paragraph has the fields:
-      | field                      | widget      |
-      | field-title                | Textfield   |
-      | field-contact-info         | Paragraphs  |
-      | field-contact-group-layout | Select list |
+      | field                      | widget             |
+      | field-title                | Textfield          |
+      | field-contact-info         | Paragraphs Classic |
+      | field-contact-group-layout | Select list        |
 
   Scenario: Verify that the contact info paragraph type has the correct field configuration
     Given I am logged in as a user with the "administrator" role
@@ -199,8 +199,8 @@ Feature: Paragraph type definitions
   Scenario: Verify that the icon_links paragraph type has the correct field configuration
     Given I am logged in as a user with the "administrator" role
     Then the "icon_links" paragraph has the fields:
-      | field            | widget      |
-      | field-icon-link  | Paragraphs  |
+      | field            | widget             |
+      | field-icon-link  | Paragraphs Classic |
 
   Scenario: Verify that the icon_link paragraph type has the correct field configuration
     Given I am logged in as a user with the "administrator" role

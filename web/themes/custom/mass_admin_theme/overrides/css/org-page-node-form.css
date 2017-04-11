@@ -1,0 +1,6 @@
+/**
+ * Hide the Title field on node-action extended header contact group.
+ */
+.node-org-page-form .field--name-field-social-links .field-multiple-table .description {
+  display: none;
+}

@@ -1,0 +1,23 @@
+uuid: dead2dc8-3cac-41f7-b2fd-c6dd948c27c9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_link
+    - node.type.org_page
+  module:
+    - link
+id: node.org_page.field_link
+field_name: field_link
+entity_type: node
+bundle: org_page
+label: 'See All Link'
+description: 'Provide a link for visitors to navigate to a complete listing of your organization''s actions or information.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 16
+  title: 1
+field_type: link

@@ -1,0 +1,23 @@
+uuid: ee289180-b6fb-4f9f-be2a-1630397f5472
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_links
+    - node.type.location
+  module:
+    - link
+id: node.location.field_links
+field_name: field_links
+entity_type: node
+bundle: location
+label: 'Quick Actions'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 17
+  title: 1
+field_type: link

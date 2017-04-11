@@ -1,0 +1,38 @@
+uuid: 2ce1469d-0cc4-48a8-8b78-6e554a8edaeb
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.address.field_address_text
+    - field.field.paragraph.address.field_label
+    - field.field.paragraph.address.field_lat_long
+    - paragraphs.paragraphs_type.address
+  module:
+    - google_map_field
+id: paragraph.address.default
+targetEntityType: paragraph
+bundle: address
+mode: default
+content:
+  field_address_text:
+    weight: 1
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+  field_label:
+    weight: 0
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_lat_long:
+    weight: 2
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: google_map_field_default
+hidden:
+  created: true
+  uid: true

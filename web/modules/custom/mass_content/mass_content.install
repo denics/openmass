@@ -45,108 +45,108 @@ function mass_content_update_8001(&$sandbox) {
     foreach ($node->field_action_contacts as $old_contact_id) {
       $old_contact = Paragraph::load($old_contact_id->target_id);
       // Keep track of the new paragraph ids.
-      $new_contacts = array();
+      $new_contacts = [];
       // Migrate address.
       if ($old_contact->field_address) {
         $new_address = Paragraph::create([
           'type' => 'contact_info',
-          'field_address' => array(
+          'field_address' => [
             "value" => $old_contact->field_address->value,
             "format" => $old_contact->field_address->format,
-          ),
-          'field_type' => array(
+          ],
+          'field_type' => [
             "value" => 'mail',
-          ),
+          ],
         ]);
         $new_address->save();
-        $new_contacts[] = array(
+        $new_contacts[] = [
           'target_id' => $new_address->id(),
           'target_revision_id' => $new_address->getRevisionId(),
-        );
+        ];
       }
       // Migrate email.
       if ($old_contact->field_email) {
         $new_email = Paragraph::create([
           'type' => 'contact_info',
-          'field_email' => array(
+          'field_email' => [
             "value" => $old_contact->field_email->value,
-          ),
-          'field_type' => array(
+          ],
+          'field_type' => [
             "value" => 'email',
-          ),
+          ],
         ]);
         $new_email->save();
-        $new_contacts[] = array(
+        $new_contacts[] = [
           'target_id' => $new_email->id(),
           'target_revision_id' => $new_email->getRevisionId(),
-        );
+        ];
       }
       // Migrate fax.
       if ($old_contact->field_fax) {
         $new_fax = Paragraph::create([
           'type' => 'contact_info',
-          'field_phone' => array(
+          'field_phone' => [
             "value" => $old_contact->field_fax->value,
-          ),
-          'field_type' => array(
+          ],
+          'field_type' => [
             "value" => 'fax',
-          ),
+          ],
         ]);
         $new_fax->save();
-        $new_contacts[] = array(
+        $new_contacts[] = [
           'target_id' => $new_fax->id(),
           'target_revision_id' => $new_fax->getRevisionId(),
-        );
+        ];
       }
       // Migrate phone.
       if ($old_contact->field_phone) {
         $new_phone = Paragraph::create([
           'type' => 'contact_info',
-          'field_phone' => array(
+          'field_phone' => [
             "value" => $old_contact->field_phone->value,
-          ),
-          'field_type' => array(
+          ],
+          'field_type' => [
             "value" => 'phone',
-          ),
+          ],
         ]);
         $new_phone->save();
-        $new_contacts[] = array(
+        $new_contacts[] = [
           'target_id' => $new_phone->id(),
           'target_revision_id' => $new_phone->getRevisionId(),
-        );
+        ];
       }
       // Migrate website.
       if ($old_contact->field_link) {
         $new_link = Paragraph::create([
           'type' => 'contact_info',
-          'field_link' => array(
+          'field_link' => [
             "title" => $old_contact->field_link->title,
             "uri" => $old_contact->field_link->uri,
-          ),
-          'field_type' => array(
+          ],
+          'field_type' => [
             "value" => 'online',
-          ),
+          ],
         ]);
         $new_link->save();
-        $new_contacts[] = array(
+        $new_contacts[] = [
           'target_id' => $new_link->id(),
           'target_revision_id' => $new_link->getRevisionId(),
-        );
+        ];
       }
 
       // Bundle contact info into group.
       $new_contact_group = Paragraph::create([
         'type' => 'contact_group',
-        'field_title' => array(
+        'field_title' => [
           "value" => $old_contact->field_name->value,
-        ),
+        ],
         'field_contact_info' => $new_contacts,
       ]);
       $new_contact_group->save();
-      $new_contact_group_id = array(
+      $new_contact_group_id = [
         'target_id' => $new_contact_group->id(),
         'target_revision_id' => $new_contact_group->getRevisionId(),
-      );
+      ];
 
       // If we haven't added a subhead to the node yet, do that.
       if (!$subhead_added) {
@@ -175,11 +175,11 @@ function mass_content_update_8001(&$sandbox) {
   }
 
   // Delete the field_action_contacts field.
-  $properties = array(
+  $properties = [
     'entity_type' => 'node',
     'bundle' => 'action',
     'field_name' => 'field_action_contacts',
-  );
+  ];
   $field = \Drupal::entityManager()->getStorage('field_config')->loadByProperties($properties);
   $field = reset($field);
   $field->delete();
@@ -309,10 +309,10 @@ function mass_content_update_8007() {
 
   if (!empty($vocabulary)) {
     // Add an array of term names that we want to create.
-    $terms = array(
+    $terms = [
       'Funnel',
       'Endpoint',
-    );
+    ];
 
     // Create taxonomy terms.
     foreach ($terms as $term_name) {

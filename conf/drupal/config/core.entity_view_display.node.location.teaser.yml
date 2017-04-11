@@ -1,0 +1,34 @@
+uuid: c7505f74-c9d5-4548-82a5-ce14dfedef5d
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - node.type.location
+  module:
+    - user
+id: node.location.teaser
+targetEntityType: node
+bundle: location
+mode: teaser
+content:
+  links:
+    weight: 100
+hidden:
+  field_accessibility: true
+  field_bg_narrow: true
+  field_bg_wide: true
+  field_facilities: true
+  field_hours: true
+  field_iframe: true
+  field_links: true
+  field_location_activity_detail: true
+  field_maps: true
+  field_more_information: true
+  field_overview: true
+  field_parking: true
+  field_ref_contact_info: true
+  field_ref_contact_info_1: true
+  field_related_locations: true
+  field_restrictions: true
+  field_services: true

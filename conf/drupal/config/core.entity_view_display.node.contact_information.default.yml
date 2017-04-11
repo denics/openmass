@@ -1,0 +1,61 @@
+uuid: a241ae20-f100-49e6-b468-fd8e13de0ee1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.contact_information.field_display_title
+    - field.field.node.contact_information.field_ref_address
+    - field.field.node.contact_information.field_ref_fax_number
+    - field.field.node.contact_information.field_ref_links
+    - field.field.node.contact_information.field_ref_phone_number
+    - node.type.contact_information
+  module:
+    - entity_reference_revisions
+    - user
+id: node.contact_information.default
+targetEntityType: node
+bundle: contact_information
+mode: default
+content:
+  field_display_title:
+    weight: 105
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_ref_address:
+    type: entity_reference_revisions_entity_view
+    weight: 101
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+  field_ref_fax_number:
+    type: entity_reference_revisions_entity_view
+    weight: 104
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+  field_ref_links:
+    type: entity_reference_revisions_entity_view
+    weight: 103
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+  field_ref_phone_number:
+    type: entity_reference_revisions_entity_view
+    weight: 102
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+  links:
+    weight: 100
+hidden: {  }
