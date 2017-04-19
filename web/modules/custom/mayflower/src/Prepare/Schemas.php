@@ -6,8 +6,6 @@ use Drupal\mayflower\Helper;
 
 /**
  * Provides variable structure for schema.org objects using prepare functions.
- *
- * Copyright 2017 Palantir.net, Inc.
  */
 class Schemas {
 

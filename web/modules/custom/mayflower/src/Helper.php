@@ -7,8 +7,6 @@ use Drupal\image\Entity\ImageStyle;
 
 /**
  * Provides mayflower prepare functions with helper functions.
- *
- * Copyright 2017 Palantir.net, Inc.
  */
 class Helper {
 

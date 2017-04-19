@@ -3,8 +3,6 @@
 /**
  * @file
  * Contains mass_utility.module.
- *
- * Copyright 2017 Palantir.net, Inc.
  */
 
 use Drupal\Core\Cache\Cache;

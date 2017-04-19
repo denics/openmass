@@ -2,15 +2,13 @@
 /**
  * @file
  * Partial for link list.
- *
- * @copyright Copyright (c) 2016 Palantir.net
  */
 #}
 {% set links = {} %}
 
 {# Use our array to wrap up our links #}
 {% for item in items %}
-  {% set links = links|merge({ (loop.index0) : {'url': item.content['#url'].getUri(), 'text': item.content['#title']} }) %}
+  {% set links = links|merge({ (loop.index0) : {'href': item.content['#url'].getUri(), 'text': item.content['#title']} }) %}
 {% endfor %}
 
 {%

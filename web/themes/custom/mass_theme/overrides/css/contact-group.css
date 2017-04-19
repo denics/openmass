@@ -1,7 +1,5 @@
 /**
  * Override css for the contact groups that are siblings but don't have a label.
- *
- * @copyright Copyright (c) 2017 Palantir.net
  */
 
 .ma__contact-group + .ma__contact-group {

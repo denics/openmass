@@ -2,7 +2,6 @@
 /**
  * @file
  *
- * @copyright Copyright (c) 2016 Palantir.net
  */
 
 use Drupal\DrupalExtension\Context\RawDrupalContext;

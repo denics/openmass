@@ -13,8 +13,6 @@ use Drupal\migrate\Row;
  *   id = "dump",
  *   handle_multiples = true
  * )
- *
- * (c) Copyright 2016 Palantir.net
  */
 class Dump extends ProcessPluginBase {
 
