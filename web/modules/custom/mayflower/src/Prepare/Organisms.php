@@ -7,8 +7,6 @@ use Drupal\Component\Utility\UrlHelper;
 
 /**
  * Provides variable structure for mayflower organisms using prepare functions.
- *
- * Copyright 2017 Palantir.net, Inc.
  */
 class Organisms {
 

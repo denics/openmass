@@ -3,8 +3,6 @@
 /**
  * @file
  * Contains mass_search_suppression.module.
- *
- * Copyright 2017 Palantir.net, Inc.
  */
 
 use Drupal\Core\Routing\RouteMatchInterface;

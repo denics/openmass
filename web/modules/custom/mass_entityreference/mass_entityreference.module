@@ -3,8 +3,6 @@
 /**
  * @file
  * Contains mass_entityreference.module.
- *
- * Copyright 2016 Palantir.net, Inc.
  */
 
 use Drupal\Core\Form\FormStateInterface;

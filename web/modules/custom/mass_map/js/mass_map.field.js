@@ -3,8 +3,6 @@
  * Renders map on .js-google-map div for map row page.
  *
  * Loads google maps results (loads once)
- *
- * Copyright 2017 Palantir.net, Inc.
  */
 (function ($, Drupal) {
   'use strict';

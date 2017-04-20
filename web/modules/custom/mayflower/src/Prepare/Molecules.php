@@ -8,8 +8,6 @@ use Drupal\file\Entity\File;
 
 /**
  * Provides variable structure for mayflower molecules using prepare functions.
- *
- * Copyright 2017 Palantir.net, Inc.
  */
 class Molecules {
 

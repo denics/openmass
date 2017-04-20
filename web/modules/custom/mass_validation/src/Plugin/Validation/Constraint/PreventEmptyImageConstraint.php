@@ -5,8 +5,6 @@ namespace Drupal\mass_validation\Plugin\Validation\Constraint;
 /**
  * @file
  * Contains PreventEmptyImageConstraint class.
- *
- * Copyright 2017 Palantir.net, Inc.
  */
 
 use Drupal\Core\Entity\Plugin\Validation\Constraint\CompositeConstraintBase;

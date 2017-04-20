@@ -17,8 +17,6 @@ use Drupal\migrate\Row;
  *   id = "mass_multiples",
  *   handle_multiples = false
  * )
- *
- * (c) Copyright 2016 Palantir.net
  */
 class MassMultiples extends ProcessPluginBase {
 

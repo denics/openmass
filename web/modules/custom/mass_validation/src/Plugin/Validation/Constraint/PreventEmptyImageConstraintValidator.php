@@ -5,8 +5,6 @@ namespace Drupal\mass_validation\Plugin\Validation\Constraint;
 /**
  * @file
  * Contains PreventEmptyImageConstraintValidator class.
- *
- * Copyright 2017 Palantir.net, Inc.
  */
 
 use Symfony\Component\Validator\Constraint;

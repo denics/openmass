@@ -1,6 +1,7 @@
 /**
  * @file
  * Common JS for google custom search HEADER + MOBILE forms (loads globally)
+ * Note overlap with customization of search input in mass_search.results.js.
  * Using Mass.gov custom search engine at cse.google.com
  * - api v1 js code
  * - search results page JS in mass_search.results.js
@@ -33,6 +34,10 @@
       /* search engine id */
       var cx = '010551267445528504028:ivl9x2rf5e8';
 
+      /* placeholders */
+      var longPlaceholder = 'What can we help you find?';
+      var shortPlaceholder = 'Search...';
+
       /* set string for message when no results are returned */
       var noResultsString = 'Sorry, we couldn\'t find any results for your query.  Please try searching with different words.';
 
@@ -47,6 +52,28 @@
         maxCompletions: 3
       };
       customSearchOptions['autoCompleteOptions'] = autoCompleteOptions;
+
+      // Utility function to customize search form produced by Google.
+      function customizeForm(searchForm, placeholderText, formClassNames, inputClassNames) {
+        // Search form classes.
+        var i;
+        for (i = 0; i < formClassNames.length; i++) {
+          searchForm.classList.add(formClassNames[i]);
+        }
+        // Input box customization.
+        var inputField = searchForm.querySelector('input.gsc-input');
+        for (i = 0; i < inputClassNames.length; i++) {
+          inputField.classList.add(inputClassNames[i]);
+        }
+        inputField.placeholder = placeholderText;
+        // Add label to search input for accessiblity.
+        var slabel = document.createElement('label');
+        slabel.textContent = 'Search';
+        slabel.classList.add('hidden');
+        slabel.setAttribute('for', inputField.id);
+        var inputCell = searchForm.querySelector('td.gsc-input');
+        inputCell.insertBefore(slabel, inputField);
+      }
 
       /** HEADER SEARCH FORM */
 
@@ -96,6 +123,7 @@
 
       if (headerSearchExists) {
         headerSearchControl.draw('cse-header-search-form', headerOptions);
+        customizeForm(document.querySelector('#cse-header-search-form form'), longPlaceholder, ['ma__form', 'js-header-search-form'], ['ma__header-search__input']);
       }
 
       // Customize "no results" message
@@ -151,7 +179,10 @@
       // Customize "no results" message
       mobileSearchControl.setNoResultsString(noResultsString);
 
-      /**
+      // Customize the form
+      customizeForm(document.querySelector('#cse-search-form-mobile form'), shortPlaceholder, ['ma__form'], []);
+
+        /**
        * Creates an instance of the CustomSearchControl object,
        * which represents a Custom Search Element. Calling this
        * constructor initializes the Custom Search service and UI.
@@ -205,6 +236,8 @@
       // Remove class on form for search banner <form>.
       var bannerSearchForm = document.querySelector('.ma__search-banner form.gsc-search-box');
       if (bannerSearchForm !== null) {
+        // Add standard customizations to form: hidden label and placeholder.
+        customizeForm(bannerSearchForm, shortPlaceholder, [], []);
         bannerSearchForm.classList.remove('gsc-search-box');
       }
 
@@ -220,7 +253,6 @@
         bannerInputField.classList.add('ma__search-banner__input');
         var bannerTextInput = document.querySelector('.ma__search-banner td.gsc-input input');
         bannerTextInput.classList.remove('gsc-input');
-        bannerTextInput.placeholder = 'Search...';
       }
 
       // Add classes to <button>.
@@ -230,19 +262,6 @@
         bannerSubmitField.classList.add('ma__search-banner__button');
         bannerSubmitField.classList.remove('gsc-search-button');
         bannerSubmitInput.placeholder = 'Search...';
-      }
-
-      // Add classes to header <form>.
-      var headerSearchForm = document.querySelector('.ma__header form.gsc-search-box');
-      if (headerSearchForm !== null) {
-        headerSearchForm.classList.add('ma__form');
-        headerSearchForm.classList.add('js-header-search-form');
-      }
-      // Add classes to <input>.
-      var headerInputField = document.querySelector('.ma__header input.gsc-input');
-      if (headerInputField !== null) {
-        headerInputField.classList.add('ma__header-search__input');
-        headerInputField.placeholder = 'What can we help you find?';
       }
 
     }, true);

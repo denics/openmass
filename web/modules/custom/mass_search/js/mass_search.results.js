@@ -3,6 +3,7 @@
  * Extends Drupal object with mass custom js objects
  *
  * Loads google custom search results page FORM + RESULTS (loads once)
+ * Note overlap with customization of search input in mass_search.forms.js.
  * Using Mass.gov custom search engine at cse.google.com
  * - api v1 js code
  * - header and mobile nav search forms js in mass_search.forms.js
@@ -145,7 +146,23 @@
         // Customize "no results" message
         resultsPageSearchControl.setNoResultsString(noResultsString);
 
-        // Get array of the url querystring params.
+        // Customize the form.
+        var searchForm = document.querySelector('#cse-search-results-form form');
+        if (searchForm !== null) {
+          searchForm.classList.add('ma__form');
+          // Input box customization.
+          var inputField = searchForm.querySelector('input.gsc-input');
+          inputField.placeholder = 'What can we help you find?';
+          // Add label to search input for accessiblity.
+          var slabel = document.createElement('label');
+          slabel.textContent = 'Search';
+          slabel.classList.add('hidden');
+          slabel.setAttribute('for', inputField.id);
+          var inputCell = searchForm.querySelector('td.gsc-input');
+          inputCell.insertBefore(slabel, inputField);
+        }
+
+          // Get array of the url querystring params.
         var urlParams = Drupal.mass.helpers.parseParamsFromUrl();
 
         // Define param for the search query.
