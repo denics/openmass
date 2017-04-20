@@ -1,0 +1,23 @@
+uuid: 683125cb-d705-4352-83e5-9a0f13e8fbf0
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_how_to_link_1
+    - node.type.how_to_page
+  module:
+    - link
+id: node.how_to_page.field_how_to_link_1
+field_name: field_how_to_link_1
+entity_type: node
+bundle: how_to_page
+label: 'Quick action (optional but recommended)'
+description: 'If this action can be completed online, add the link to where it can be completed.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 17
+  title: 2
+field_type: link

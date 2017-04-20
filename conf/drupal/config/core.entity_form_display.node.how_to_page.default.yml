@@ -1,0 +1,248 @@
+uuid: 0610e3b6-f7e8-4b15-baf2-eab14673f017
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.how_to_page.field_how_to_contacts_3
+    - field.field.node.how_to_page.field_how_to_files
+    - field.field.node.how_to_page.field_how_to_lede
+    - field.field.node.how_to_page.field_how_to_link_1
+    - field.field.node.how_to_page.field_how_to_links_5
+    - field.field.node.how_to_page.field_how_to_methods_5
+    - field.field.node.how_to_page.field_how_to_more_info
+    - field.field.node.how_to_page.field_how_to_next_steps
+    - field.field.node.how_to_page.field_how_to_ref_services
+    - field.field.node.how_to_page.field_how_to_taxo_action_type
+    - field.field.node.how_to_page.field_how_to_time
+    - field.field.node.how_to_page.field_how_to_what_you_need
+    - node.type.how_to_page
+  module:
+    - entity_browser_entity_form
+    - field_group
+    - inline_entity_form
+    - link
+    - paragraphs
+    - path
+    - text
+    - workbench_moderation
+third_party_settings:
+  field_group:
+    group_how_to_page_edit_form:
+      children:
+        - group_overview
+        - group_details
+        - group_additional_info
+        - group_contacts
+      parent_name: ''
+      weight: 20
+      format_type: tabs
+      format_settings:
+        id: ''
+        classes: ''
+        direction: horizontal
+      label: 'How To Page Edit Form'
+    group_overview:
+      children:
+        - title
+        - field_how_to_taxo_action_type
+        - field_how_to_ref_services
+        - field_how_to_lede
+        - field_how_to_time
+        - field_how_to_link_1
+      parent_name: group_how_to_page_edit_form
+      weight: 20
+      format_type: tab
+      format_settings:
+        id: ''
+        classes: ''
+        formatter: open
+        description: ''
+        required_fields: true
+      label: Overview
+    group_details:
+      children:
+        - field_how_to_what_you_need
+        - field_how_to_methods_5
+        - field_how_to_next_steps
+      parent_name: group_how_to_page_edit_form
+      weight: 21
+      format_type: tab
+      format_settings:
+        id: ''
+        classes: ''
+        formatter: closed
+        description: ''
+        required_fields: true
+      label: Details
+    group_additional_info:
+      children:
+        - field_how_to_more_info
+        - field_how_to_files
+        - field_how_to_links_5
+      parent_name: group_how_to_page_edit_form
+      weight: 22
+      format_type: tab
+      format_settings:
+        id: ''
+        classes: ''
+        formatter: closed
+        description: ''
+        required_fields: true
+      label: 'Additional info'
+    group_contacts:
+      children:
+        - field_how_to_contacts_3
+      parent_name: group_how_to_page_edit_form
+      weight: 23
+      format_type: tab
+      format_settings:
+        id: ''
+        classes: ''
+        formatter: closed
+        description: ''
+        required_fields: true
+      label: Contacts
+id: node.how_to_page.default
+targetEntityType: node
+bundle: how_to_page
+mode: default
+content:
+  created:
+    type: datetime_timestamp
+    weight: 10
+    settings: {  }
+    third_party_settings: {  }
+  field_how_to_contacts_3:
+    weight: 39
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+  field_how_to_files:
+    weight: 38
+    settings:
+      form_mode: default
+      label_singular: ''
+      label_plural: ''
+      allow_new: true
+      allow_existing: true
+      match_operator: CONTAINS
+      override_labels: false
+      collapsible: false
+      collapsed: false
+    third_party_settings:
+      entity_browser_entity_form:
+        entity_browser_id: media_browser
+    type: inline_entity_form_complex
+  field_how_to_lede:
+    weight: -2
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_how_to_link_1:
+    weight: 0
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+  field_how_to_links_5:
+    weight: 39
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+  field_how_to_methods_5:
+    type: entity_reference_paragraphs
+    weight: 37
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: ''
+    third_party_settings: {  }
+  field_how_to_more_info:
+    weight: 37
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textarea
+  field_how_to_next_steps:
+    type: entity_reference_paragraphs
+    weight: 38
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: ''
+    third_party_settings: {  }
+  field_how_to_ref_services:
+    weight: -3
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+  field_how_to_taxo_action_type:
+    weight: -4
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+  field_how_to_time:
+    weight: -1
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_how_to_what_you_need:
+    weight: 36
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+  path:
+    type: path
+    weight: 30
+    settings: {  }
+    third_party_settings: {  }
+  promote:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 15
+    third_party_settings: {  }
+  sticky:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 16
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: -5
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 5
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden: {  }
