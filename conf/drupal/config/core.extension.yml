@@ -81,11 +81,12 @@ module:
   rabbit_hole: 0
   rdf: 0
   redirect: 0
+  redirect_404: 0
   rest: 0
   restrict_by_ip: 0
   restui: 0
-  rh_taxonomy: 0
   rh_node: 0
+  rh_taxonomy: 0
   seckit: 0
   security_review: 0
   serialization: 0
