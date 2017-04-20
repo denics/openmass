@@ -77,7 +77,7 @@ class MassMarkupContext extends MarkupContext
     $this->assertRegionElement('section.ma__action-finder header.ma__action-finder__header > h2.ma__action-finder__title', 'page_main');
     $this->assertRegionElement('section.ma__action-finder .ma__action-finder__category', 'page_main');
     $this->assertRegionElement('section.ma__action-finder div.ma__action-finder__items a.ma__callout-link', 'page_main');
-    $this->assertRegionElement('section.ma__link-list > h2.ma__comp-heading', 'page_main');
+    $this->assertRegionElement('section.ma__link-list > .ma__link-list__container > h2.ma__comp-heading', 'page_main');
     $this->assertRegionElement('section.ma__link-list > .ma__link-list__container > ul.ma__link-list__items > li.ma__link-list__item > span.ma__decorative-link > a.js-clickable-link', 'page_main');
     $this->assertRegionElement('section.ma__image-credit > div.ma__image-credit__container > span.ma__image-credit__label', 'page_post');
   }
