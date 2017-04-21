@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "8f2d3780d1b1aec4d56f24403e0b5f28",
+    "content-hash": "2b1f791859503774aa8b2124b0db64dc",
     "packages": [
         {
             "name": "acquia/acquia-sdk-php",
@@ -5834,16 +5834,16 @@
         },
         {
             "name": "palantirnet/mayflower-artifacts",
-            "version": "3.6.0-alpha",
+            "version": "4.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/massgov/mayflower-artifacts.git",
-                "reference": "33d9958c56fcc821452e07b45c1fac3c930ffd07"
+                "reference": "43c94dd81a9d7a15faae1604fd3245bf33032711"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/massgov/mayflower-artifacts/zipball/33d9958c56fcc821452e07b45c1fac3c930ffd07",
-                "reference": "33d9958c56fcc821452e07b45c1fac3c930ffd07",
+                "url": "https://api.github.com/repos/massgov/mayflower-artifacts/zipball/43c94dd81a9d7a15faae1604fd3245bf33032711",
+                "reference": "43c94dd81a9d7a15faae1604fd3245bf33032711",
                 "shasum": ""
             },
             "type": "library",
@@ -5858,10 +5858,10 @@
             ],
             "description": "This repository is the product of the built artifact from massgov/mayflower",
             "support": {
-                "source": "https://github.com/massgov/mayflower-artifacts/tree/3.6.0-alpha",
+                "source": "https://github.com/massgov/mayflower-artifacts/tree/4.0.0",
                 "issues": "https://github.com/massgov/mayflower-artifacts/issues"
             },
-            "time": "2017-03-21T11:11:53+00:00"
+            "time": "2017-04-17T13:55:39+00:00"
         },
         {
             "name": "palantirnet/the-build",

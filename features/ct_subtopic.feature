@@ -1,5 +1,5 @@
 @api
-Feature: Section Landing Content type
+Feature: Subtopic Content type
   As a visitor
   I want to see all the action links related to a subtopic
   So that I can do something.
@@ -30,7 +30,6 @@ Feature: Section Landing Content type
     Then I see the subtopic page markup
     Then I see the text "Nature & Outdoor Activities"
     And I see the text "Outdoor Lede"
-    And I see the text "Outdoor description"
     And I should see the link "Find a State Park" in the "subtopic_featured_actions" region
     And I should see the link "Get a State Park Pass" in the "subtopic_all_actions" region
     And I should see the link "Reserve a Campsite" in the "subtopic_all_actions" region

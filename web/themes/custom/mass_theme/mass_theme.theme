@@ -27,8 +27,9 @@ use Drupal\mayflower\Prepare\Schemas;
 function mass_theme_theme_suggestions_paragraph_alter(array &$suggestions, array $variables) {
   // Build a map of paragraph types and the twig files they map to.
   $map = [
-    'action_step_numbered_list' => 'action_seq_list',
-    'activities' => 'action_activities',
+    'action_step_numbered_list' => 'steps_ordered',
+    'activities' => 'image_promos',
+    'image_promo' => 'image_promos',
     'callout_link' => 'callout_links',
   ];
 
@@ -86,42 +87,31 @@ function mass_theme_preprocess_action_seq_list(&$variables) {
 /**
  * Implements hook_preprocess_HOOK().
  *
- * @see patterns/molecules/action-activities.twig
+ * @see @organisms/by-author/steps-ordered.twig
  */
-function mass_theme_preprocess_action_activities(&$variables) {
-  $action_activities = [];
-  $parent_paragraph = $variables['elements']['#paragraph'];
+function mass_theme_preprocess_steps_ordered(&$variables) {
+  $paragraph = $variables['elements']['#paragraph'];
 
-  $field_activities = $parent_paragraph->get('field_activities');
+  // Sets the variable structure required for action-seq-list.twig.
+  $variables = [
+    'theme_hook_original' => $variables['theme_hook_original'],
+    'stepsOrdered' => Organisms::prepareStepsOrdered($paragraph),
+  ];
+}
 
-  if ($field_activities->count() > 0) {
-    $items = $field_activities->referencedEntities();
-  }
-
-  foreach ($items as $id => $item) {
-    $activity = [];
-    $activity['title'] = $item->get('field_title')->view('full');
-    $activity['description'] = $item->get('field_teaser')->view('full');
-
-    $links = Helper::separatedLinks($item, 'field_link');
-
-    if (!empty($links)) {
-      $activity['linkTitle'] = $links[0]['text'];
-      $activity['href'] = $links[0]['href'];
-    }
-
-    $image = $item->get('field_image');
-
-    if ($image->count() > 0) {
-      $activity['image'] = Helper::getFieldImageUrl($item, 'activities_image', 'field_image');
-    }
-
-    $action_activities[] = $activity;
-  }
+/**
+ * Implements hook_preprocess_HOOK().
+ *
+ * The action activities pattern has been deprecated in favor of image promos.
+ *
+ * @see @organisms/by-author/image-promos.twig
+ */
+function mass_theme_preprocess_image_promos(&$variables) {
+  $paragraph = $variables['elements']['#paragraph'];
 
   $variables = [
     'theme_hook_original' => $variables['theme_hook_original'],
-    'actionActivities' => $action_activities,
+    'imagePromos' => Organisms::prepareImagePromos($paragraph->field_activities),
   ];
 }
 
@@ -158,6 +148,245 @@ function mass_theme_theme_suggestions_alter(array &$suggestions, array $variable
 /**
  * Implements hook_preprocess_node().
  *
+ * Prepare the variables for the How-to page.
+ */
+function mass_theme_preprocess_node_how_to_page(&$variables) {
+  $node = $variables['node'];
+
+  // Set static details properties.
+  $variables['details'] = [
+    'contentTitle' => t('The Details'),
+  ];
+
+  // Get the action type taxonomy term.
+  if (Helper::isFieldPopulated($node, 'field_how_to_taxo_action_type')) {
+    $taxonomy_term = $node->get('field_how_to_taxo_action_type')->referencedEntities()[0];
+    $action_type = $taxonomy_term->get('name')->value;
+  }
+
+  // Set up optional contents for pageHeader prepare invocation.
+  $optionalContents = [];
+
+  // If callout time field is populated, add to optional content.
+  if (Helper::isFieldPopulated($node, 'field_how_to_time')) {
+    $optionalContents[] = [
+      'path' => '@organisms/by-author/callout-time.twig',
+      'data' => [
+        'calloutTime' => Molecules::prepareCalloutTime($node, 'field_how_to_time'),
+      ],
+    ];
+  }
+
+  // If recommended quick actions field is populated, add to optional content.
+  if (Helper::isFieldPopulated($node, 'field_how_to_link_1')) {
+    $optionalContents[] = [
+      'path' => '@organisms/by-author/key-actions.twig',
+      'data' => [
+        'keyActions' => Molecules::prepareKeyActions($node, 'field_how_to_link_1'),
+      ],
+    ];
+  }
+
+  // Set up widgets for prepare pageHeader invocation.
+  $widgets = NULL;
+
+  // Set static pageHeader properties to pass to prepare function.
+  $pageHeader_options = [
+    // @todo Consider making divider site-builder configurable vs hard-coded
+    "divider" => FALSE,
+    "optionalContents" => $optionalContents,
+    "widgets" => $widgets,
+  ];
+
+  // Make pageBanner data object available in twig template.
+  $variables['pageHeader'] = Organisms::preparePageHeader($node, $pageHeader_options);
+
+  // Set up pageContent for details section.
+  $pageContent = [];
+
+  // Set up Sticky Nav with entries corresponding used to details sections.
+  $stickyNav = [];
+
+  // Set up the sidebar.
+  $sidebar = [];
+
+  // Build what you need section, if that field is populated.
+  if (Helper::isFieldPopulated($node, 'field_how_to_what_you_need')) {
+    // Set up rich text elements for what you need.
+    $richTextElements = [
+      'rteElements' => [
+        Atoms::prepareRawHtml($node, ['field' => 'field_how_to_what_you_need']),
+      ],
+    ];
+
+    // Set up section title for heading, sticky nav.
+    $what_you_need_title = t('What you need');
+
+    // Set up heading for what you need.
+    $compHeading_options = [
+      'title' => $what_you_need_title,
+      'sub' => TRUE,
+    ];
+
+    $compHeading = Atoms::prepareCompHeading($compHeading_options);
+
+    $pageContent['intro'] = array_merge($compHeading, $richTextElements);
+
+    // Set up corresponding sticky nav entry for what you need.
+    $stickyNav[] = $what_you_need_title;
+
+  }
+
+  // Build methods unordered list if field is populated.
+  if (Helper::isFieldPopulated($node, 'field_how_to_methods_5')) {
+    // Set up title for section heading and sticky nav.
+    $how_to_title = t('How to @action', ['@action' => $action_type]);
+
+    // Set up options for how to ___.
+    $unorderedSteps_options = [
+      'heading' => [
+        'type' => 'compHeading',
+        'title' => $how_to_title,
+        'sub' => TRUE,
+      ],
+    ];
+
+    $stepsUnordered = Organisms::prepareStepsUnordered($node, $unorderedSteps_options);
+
+    $pageContent['stepsUnordered'] = $stepsUnordered;
+
+    // Set up corresponding sticky nav entry for how to ___.
+    $stickyNav[] = $how_to_title;
+
+  }
+
+  // Build next steps order list if field is populated.
+  if (Helper::isFieldPopulated($node, 'field_how_to_next_steps')) {
+    // Set up title for section and sticky nav.
+    $next_steps_title = t('Next Steps');
+
+    // Set up options for next steps.
+    $orderedSteps_options = [
+      'heading' => [
+        'type' => 'compHeading',
+        'title' => $next_steps_title,
+        'sub' => TRUE,
+      ],
+    ];
+
+    $stepsOrdered = Organisms::prepareStepsOrdered($node, $orderedSteps_options);
+
+    $pageContent['stepsOrdered'] = $stepsOrdered;
+
+    // Set up corresponding sticky nav entry for next steps.
+    $stickyNav[] = $next_steps_title;
+
+  }
+
+  // Build more info section, if that field is populated.
+  if (Helper::isFieldPopulated($node, 'field_how_to_more_info')) {
+    // Set up rich text elements for what you need.
+    $richTextElements = [
+      'rteElements' => [
+        Atoms::prepareParagraph($node, ['field' => 'field_how_to_more_info']),
+      ],
+    ];
+
+    // Set up title for more info section and sticky nav.
+    $more_info_title = t('More Info');
+
+    // Set up heading for More Info.
+    $compHeading_options = [
+      'title' => $more_info_title,
+      'sub' => TRUE,
+    ];
+
+    $compHeading = Atoms::prepareCompHeading($compHeading_options);
+
+    $pageContent['moreInfo'] = array_merge($compHeading, $richTextElements);
+
+    // Set up corresponding sticky nav entry for More Info.
+    $stickyNav[] = $more_info_title;
+
+  }
+
+  // Build downloads section, if field is populated.
+  if (Helper::isFieldPopulated($node, 'field_how_to_files')) {
+    // Set up title for downloads section and sticky nav.
+    $downloads_title = t('Downloads');
+
+    // Set up options for formDownloads prepare.
+    $downloadLinks_options = [
+      'heading' => [
+        'type' => 'compHeading',
+        'title' => $downloads_title,
+        'sub' => TRUE,
+      ],
+    ];
+
+    $pageContent['formDownloads'] = Organisms::prepareFormDownloads($node, $downloadLinks_options);
+
+    // Set up corresponding sticky nav entry for Downloads.
+    $stickyNav[] = $downloads_title;
+  }
+
+  // Build contact section, if field is populated.
+  if (Helper::isFieldPopulated($node, 'field_how_to_contacts_3')) {
+    // Set up title for contacts section and sticky nav.
+    $contacts_title = t("Contact");
+
+    // Set up options for contact list.
+    $contactList_options = [
+      'heading' => [
+        'type' => 'compHeading',
+        'title' => $contacts_title,
+        'sub' => TRUE,
+      ],
+      'groups' => [
+        'accordion' => TRUE,
+        'isExpanded' => FALSE,
+      ],
+    ];
+
+    $pageContent['contactList'] = Organisms::prepareContactList($node, $contactList_options);
+
+    // Build sidebar.contactList, which is a subset of pageContent.ContactList.
+    $sidebar['contactList'] = Helper::getPrimaryContactPhoneOnlineContactList($pageContent['contactList']);
+
+    // Set up corresponding sticky nav entry for contacts.
+    $stickyNav[] = $contacts_title;
+  }
+
+  // Build the sticky nav based on the array of titles.
+  if (!empty($stickyNav)) {
+    $variables['stickyNav'] = Molecules::prepareStickyNav($stickyNav);
+  }
+
+  // Make pageContent data structure available in template.
+  $variables['pageContent'] = $pageContent;
+
+  // Build related links section, if field is populated.
+  if (Helper::isFieldPopulated($node, 'field_how_to_links_5')) {
+    // Set up options for link list.
+    $linkList_options = [
+      'heading' => [
+        'type' => 'compHeading',
+        'title' => t('Related'),
+      ],
+      'stacked' => TRUE,
+    ];
+
+    $sidebar['linkList'] = Organisms::preparelinkList($node, 'field_how_to_links_5', $linkList_options);
+  }
+
+  // Make sidebar data structure available in template.
+  $variables['sidebar'] = $sidebar;
+
+}
+
+/**
+ * Implements hook_preprocess_node().
+ *
  * Prepare the variables for the Org page.
  */
 function mass_theme_preprocess_node_org_page(&$variables) {
@@ -173,23 +402,34 @@ function mass_theme_preprocess_node_org_page(&$variables) {
   $variables['pageBanner'] = Organisms::preparePageBanner($node, $pageBanner_options);
 
   // Set static actionHeader properties to pass to prepare function.
-  $actionHeader_options = [
+  $pageHeader_options = [
     // @todo Consider making this site-builder configurable vs hard-coded
     'divider' => TRUE,
   ];
 
-  // Prepare widgets that can be passed to the actionHeader.
+  // Prepare optional content to pass to pageHeader.
+  $optionalContents = [];
+
+  // Build contact us optional contents.
+  if (Helper::isFieldPopulated($node, 'field_ref_contact_info_1')) {
+    $optionalContents = array_merge($optionalContents, Helper::buildPageHeaderOptionalContentsContactUs($node, 'field_ref_contact_info_1'));
+  }
+
+  // Send optional contents as a pageHeader option.
+  $pageHeader_options['optionalContents'] = $optionalContents;
+
+  // Prepare widgets that can be passed to the pageHeader.
   $widgets = [];
 
   // Prepare the option array for the organization image widget.
-  $org_image_options = [
+  $orgImage_options = [
     'style' => 'organization_logo',
     'height' => '',
     'width' => 230,
   ];
 
   // Prepares the organization logo to use the mayflower image component.
-  if ($org_logo = Atoms::prepareImage($node, $org_image_options)) {
+  if ($org_logo = Atoms::prepareImage($node, $orgImage_options)) {
     $widgets[] = [
       'path' => '@atoms/09-media/image.twig',
       'data' => [
@@ -198,8 +438,11 @@ function mass_theme_preprocess_node_org_page(&$variables) {
     ];
   }
 
+  // Send widgets as a pageHeader option.
+  $pageHeader_options['widgets'] = $widgets;
+
   // Prepare the actionHeader data object.
-  $variables['actionHeader'] = Organisms::prepareActionHeader($node, $actionHeader_options, $widgets);
+  $variables['pageHeader'] = Organisms::preparePageHeader($node, $pageHeader_options);
   // Make stacked section data object available in twig template.
   $variables['stackedRowSections'] = mayflower_prepare_stacked_row_sections($node);
   // Prepare the schema.governmentOrganization data object.
@@ -218,13 +461,24 @@ function mass_theme_preprocess_node_location(&$variables) {
   $variables['#attached']['library'][] = 'mass_theme/mass-google-map-apis-location';
 
   // Set static actionHeader properties to pass to prepare function.
-  $actionHeader_options = [
+  $pageHeader_options = [
     'divider' => FALSE,
   ];
 
-  // Prepare widgets that can be passed to the actionHeader.
+  // Prepare optional content to pass to pageHeader.
+  $optionalContents = [];
+
+  // Build contact us optional contents.
+  if (Helper::isFieldPopulated($node, 'field_ref_contact_info_1')) {
+    $optionalContents = array_merge($optionalContents, Helper::buildPageHeaderOptionalContentsContactUs($node, 'field_ref_contact_info_1'));
+  }
+
+  // Send optional contents as a pageHeader option.
+  $pageHeader_options['optionalContents'] = $optionalContents;
+
+  // Prepare widgets that can be passed to the pageHeader.
   $widgets = [];
-  // Prepare widgets that can be passed to the actionHeader.
+
   if ($node->field_location_icons->entity) {
     $widgets[] = [
       'path' => '@molecules/location-icons.twig',
@@ -247,8 +501,11 @@ function mass_theme_preprocess_node_location(&$variables) {
     ];
   }
 
+  // Send widgets as pageHeader option.
+  $pageHeader_options['widgets'] = $widgets;
+
   // Prepare the actionHeader data object.
-  $variables['actionHeader'] = Organisms::prepareActionHeader($node, $actionHeader_options, $widgets);
+  $variables['pageHeader'] = Organisms::preparePageHeader($node, $pageHeader_options);
 
   // Prepare the locationBanner data object.
   $variables['locationBanner'] = Organisms::prepareLocationBanner($node);
@@ -264,14 +521,75 @@ function mass_theme_preprocess_node_location(&$variables) {
   $variables['suggestedPages'] = Organisms::prepareSuggestedPages($node, $suggested_options);
 
   // Prepare the quickActions data object.
-  $quickactions_options = [
-    'title' => t('Quick Actions'),
-    'color' => 'green',
+  $quickActions_options = [
+    'heading' => [
+      'type' => 'coloredHeading',
+      'title' => t('Quick Actions'),
+      'color' => 'green',
+    ],
   ];
-  $variables['quickActions'] = Organisms::prepareQuickActions($node, $quickactions_options);
+  $variables['quickActions'] = Organisms::prepareQuickActions($node, $quickActions_options);
+
+  // Prepare the quickActions data object.
+  $sidebarContacts_options = [
+    'heading' => [
+      'type' => 'coloredHeading',
+      'title' => t('Contacts'),
+    ],
+  ];
 
   // Prepare the sidebarContact data object.
-  $variables['sidebarContact'] = Organisms::prepareSidebarContact($node);
+  $variables['sidebarContact'] = Organisms::prepareSidebarContact($node, $sidebarContacts_options);
+}
+
+/**
+ * Implements hook_preprocess_node().
+ *
+ * Prepare the variables for the Services page.
+ */
+function mass_theme_preprocess_node_topic_page(&$variables) {
+  $node = $variables['node'];
+
+  // Create the map of all possible field names to use.
+  $map = [
+    'icon' => ['field_topic_ref_icon'],
+  ];
+
+  // Determines which field names to use from the map.
+  $fields = Helper::getMappedFields($node, $map);
+
+  $icon = Helper::getReferenceField($node->$fields['icon'], 'field_sprite_name');
+
+  if ($icon) {
+    $icon = Helper::getIconPath($icon);
+  }
+
+  // Set static pageBanner properties to pass to prepare function.
+  $pageBanner_options = [
+    'size' => 'columns',
+    'icon' => $icon,
+    'color' => '',
+  ];
+
+  // Make pageBanner data structure available in twig template.
+  $variables['pageBanner'] = Organisms::preparePageBanner($node, $pageBanner_options);
+
+  $sectionThreeUp = [
+    'heading' => [
+      'centered' => TRUE,
+    ],
+  ];
+
+  $variables['sectionThreeUp'] = Organisms::prepareSectionThreeUp($node->field_topic_ref_content_cards, $sectionThreeUp);
+
+  $linkList_options = [
+    'heading' => [
+      'title' => t('Related Topics'),
+      'type' => 'compHeading',
+    ],
+  ];
+
+  $variables['linkList'] = Organisms::prepareLinkList($node, 'field_topic_ref_related_topics', $linkList_options);
 }
 
 /**
@@ -320,12 +638,14 @@ function mass_theme_preprocess_node_service_page(&$variables) {
 
     // Set up static options for key actions component.
     // @TODO see if we can use this field label instead of hard coding text.
-    $key_actions_options = [
-      'title' => t('First time?'),
+    $keyActions_options = [
+      'heading' => [
+        'title' => t('First time?'),
+      ],
     ];
 
     // Append the keyActions data structure to introPageContent.
-    $intro_page_content['keyActions'] = Organisms::prepareKeyActions($node, 'field_service_ref_guide_page_1', $key_actions_options);
+    $intro_page_content['keyActions'] = Organisms::prepareKeyActions($node, 'field_service_ref_guide_page_1', $keyActions_options);
   }
 
   // Make the introPageContent data structure available in twig template.
@@ -335,14 +655,14 @@ function mass_theme_preprocess_node_service_page(&$variables) {
   $intro_sidebar = [];
 
   // Prepare the option array for the service logo widget.
-  $service_image_options = [
+  $serviceImage_options = [
     'style' => 'organization_logo',
     'height' => '',
     'width' => 230,
   ];
 
   // Prepare the service logo, if the logo field is populated.
-  if ($service_logo = Atoms::prepareImage($node, $service_image_options)) {
+  if ($service_logo = Atoms::prepareImage($node, $serviceImage_options)) {
     $intro_sidebar['logo'] = $service_logo;
   }
 
@@ -398,59 +718,57 @@ function mass_theme_preprocess_node_service_page(&$variables) {
 
   // Make the mappedLocations data structure available in twig template.
   if (Helper::isFieldPopulated($node, 'field_service_ref_locations')) {
+    $mappedLocations_options = [
+      'heading' => [
+        'title' => t('Locations'),
+        'type' => 'compHeading',
+      ],
+    ];
+
     // We need a different Google map config for PL tpls.
     $variables['#attached']['library'][] = 'mass_theme/mass-google-map-apis-location';
-    $variables['mappedLocations'] = Organisms ::prepareMappedLocations($node->field_service_ref_locations->referencedEntities());
+    $variables['mappedLocations'] = Organisms ::prepareMappedLocations($node->field_service_ref_locations->referencedEntities(), $mappedLocations_options);
   }
 
   // Prepare the split columns data structure (send only if there is content).
-  $split_columns = '';
-
-  // Scaffold out split column array if any of its content fields are populated.
-  $isColumn1Populated = Helper::isFieldPopulated($node, 'field_service_ref_services_6');
-  $isColumn2Populated = Helper::isFieldPopulated($node, 'field_service_file') || Helper::isFieldPopulated($node, 'field_service_links');
-
-  if ($isColumn1Populated || $isColumn2Populated) {
-    $split_columns = [
-      'column1' => [],
-      'column2' => [],
-    ];
-  }
+  $split_columns = [];
 
   // Prepare Related Services link list data structure.
-  if ($isColumn1Populated) {
+  if (Helper::isFieldPopulated($node, 'field_service_ref_services_6')) {
     // Set up link list static options.
-    $link_list_options = [
-      // @TODO consider making the title the field label value.
-      'title' => t('Related Services'),
+    // @TODO consider making the title the field label value.
+    $linkList_options = [
+      'heading' => [
+        'title' => t('Related Services'),
+        'type' => 'sidebarHeading',
+      ],
       'stacked' => TRUE,
-      'heading' => 'sidebarHeading',
     ];
 
     // Populate the first column.
-    $split_columns['column1'][] = [
+    $split_columns['columns'][]['items'][] = [
       'path' => '@organisms/by-author/link-list.twig',
-      'data' => Organisms::prepareLinkList($node->field_service_ref_services_6->referencedEntities(), $link_list_options),
+      'data' => [
+        'linkList' => Organisms::prepareLinkList($node, 'field_service_ref_services_6', $linkList_options),
+      ],
     ];
   }
 
   // Build Additional Resources sidebar heading and action downloads.
-  if ($isColumn2Populated) {
-    // Populate the second column.
-    $split_columns['column2'][] =
+  if (Helper::isFieldPopulated($node, 'field_service_file') || Helper::isFieldPopulated($node, 'field_service_links')) {
+
+    $download_options = [
+      'heading' => [
+        'type' => 'sidebarHeading',
+        'title' => t('Additional Resources'),
+      ],
+    ];
+
+    $split_columns['columns'][]['items'][] =
       [
-        'path' => '@atoms/04-headings/sidebar-heading.twig',
+        'path' => '@organisms/by-author/form-downloads.twig',
         'data' => [
-          'sidebarHeading' => [
-            'title' => t('Additional Resources'),
-          ],
-        ],
-      ];
-    $split_columns['column2'][] =
-      [
-        'path' => '@molecules/action-downloads.twig',
-        'data' => [
-          'actionDownloads' => Molecules::prepareActionDownloads($node),
+          'formDownloads' => Organisms::prepareFormDownloads($node, $download_options),
         ],
       ];
   }
@@ -511,7 +829,12 @@ function mass_theme_preprocess_node_guide_page(&$variables) {
     $field = Helper::getMappedFields($sectionEntity, $map_ref);
 
     if (Helper::isFieldPopulated($sectionEntity, $field['time'])) {
-      $pageContent[] = Molecules::prepareCalloutTime($sectionEntity, $field['time']);
+      $pageContent[] = [
+        'path' => '@organisms/by-author/callout-time.twig',
+        'data' => [
+          'calloutTime' => Molecules::prepareCalloutTime($sectionEntity, $field['time']),
+        ],
+      ];
     }
 
     if (isset($field['body']) && Helper::isFieldPopulated($sectionEntity, $field['body'])) {
@@ -536,19 +859,36 @@ function mass_theme_preprocess_node_guide_page(&$variables) {
 
     if (Helper::isFieldPopulated($sectionEntity, $field['actions'])) {
       $actions_options = [
-        'title' => t('Key Actions'),
+        'heading' => [
+          'type' => 'compHeading',
+          'title' => t('Key Actions'),
+          'sub' => TRUE,
+        ],
       ];
-      $pageContent[] = Molecules::prepareKeyActions($sectionEntity, $field['actions'], $actions_options);
+      $pageContent[] = [
+        'path' => '@organisms/by-author/key-actions.twig',
+        'data' => [
+          'keyActions' => Molecules::prepareKeyActions($sectionEntity, $field['actions'], $actions_options),
+        ],
+      ];
     }
 
     if (Helper::isFieldPopulated($sectionEntity, $field['downloads']) ||
         Helper::isFieldPopulated($sectionEntity, $field['links'])) {
       $downloads_options = [
-        'title' => t('Forms'),
+        'heading' => [
+          'type' => 'compHeading',
+          'title' => t('Additional Resources'),
+        ],
       ];
-      $pageContent[] = Organisms::prepareFormDownloads($sectionEntity, $downloads_options);
+      $pageContent[] =
+        [
+          'path' => '@organisms/by-author/form-downloads.twig',
+          'data' => [
+            'formDownloads' => Organisms::prepareFormDownloads($sectionEntity, $downloads_options),
+          ],
+        ];
     }
-
     if (isset($field['contacts']) && Helper::isFieldPopulated($sectionEntity, $field['contacts'])) {
       $sideBar[] = [
         'path' => '@atoms/04-headings/sidebar-heading.twig',
@@ -559,7 +899,15 @@ function mass_theme_preprocess_node_guide_page(&$variables) {
         ],
       ];
 
-      $contact_items = Organisms::prepareSidebarContact($sectionEntity);
+      // Prepare the quickActions data object.
+      $sidebarContacts_options = [
+        'heading' => [
+          'type' => 'coloredHeading',
+          'title' => t('Contacts'),
+        ],
+      ];
+
+      $contact_items = Organisms::prepareSidebarContact($sectionEntity, $sidebarContacts_options);
 
       foreach ($contact_items['items'] as $contact) {
         $sideBar[] = [
@@ -571,7 +919,7 @@ function mass_theme_preprocess_node_guide_page(&$variables) {
 
     $sections[] = [
       'title' => Helper::fieldValue($sectionEntity, $field['title']),
-      'id' => strtolower(preg_replace('/-+/', '-', preg_replace('/[^\wáéíóú]/', '-', Helper::fieldValue($sectionEntity, $field['title'])))),
+      'id' => Helper::createIdTitle(Helper::fieldValue($sectionEntity, $field['title'])),
       'pageContent' => $pageContent,
       'sideBar' => $sideBar,
     ];
@@ -650,14 +998,17 @@ function mass_theme_preprocess_menu(&$variables) {
           'closeText' => t('Close'),
           'panel'     => [
             'description' => [
-              'rteElements' => [[
-                'path' => '@atoms/11-text/paragraph.twig',
-                'data' => [
-                  'paragraph' => [
-                    'text' => $node->hasField('body') ? strip_tags($node->body->value, '<br><a><b>') : '',
+              'richText' => [
+                'rteElements' => [
+                  [
+                    'path' => '@atoms/11-text/paragraph.twig',
+                    'data' => [
+                      'paragraph' => [
+                        'text' => $node->hasField('body') ? strip_tags($node->body->value, '<br><a><b>') : '',
+                      ],
+                    ],
                   ],
                 ],
-              ],
               ],
             ],
             'links' => $links,
@@ -1217,6 +1568,21 @@ function mass_theme_preprocess_page(&$variables) {
 
   if ($node = \Drupal::routeMatch()->getParameter('node')) {
     $node = $variables['node'];
+
+    // Get the node bundle (content type).
+    $bundle = $node->bundle();
+
+    // Map out classes to be added to <main> based on bundle.
+    $map = [
+      'service_page' => 'ma__services',
+      'location' => 'ma__details',
+      'how_to_page' => 'ma__details',
+    ];
+
+    // Send main_class variable to page.
+    if (array_key_exists($bundle, $map)) {
+      $variables['main_class'] = $map[$bundle];
+    }
 
     // When loading a revision only the nid is returned. We need the object.
     if (ctype_digit($node)) {
@@ -1939,7 +2305,6 @@ function mass_theme_preprocess_paragraph__3_up_content(&$variables) {
   }
 
   if (!empty($items)) {
-    $list = [];
     foreach ($items as $id => $item) {
       $field_content = $item->get('field_content')->view('full');
       // Break out our paragraphs and render the field - it might have an image.
@@ -1960,26 +2325,32 @@ function mass_theme_preprocess_paragraph__3_up_content(&$variables) {
         }
       }
 
-      $list['column' . ++$id] = [
-        [
-          'path' => '@atoms/04-headings/column-heading.twig',
-          'data' => [
-            'columnHeading' => [
-              'text' => $item->get('field_heading')->value,
+      $list[] = [
+        'items' => [
+          [
+            'path' => '@atoms/04-headings/column-heading.twig',
+            'data' => [
+              'columnHeading' => [
+                'text' => $item->get('field_heading')->value,
+                'href' => '',
+                'info' => '',
+              ],
             ],
           ],
-        ],
-        [
-          'path' => '@organisms/by-author/rich-text.twig',
-          'data' => [
-            'rteElements' => $paragraphs,
+          [
+            'path' => '@organisms/by-author/rich-text.twig',
+            'data' => [
+              'richText' => [
+                'rteElements' => $paragraphs,
+              ],
+            ],
           ],
         ],
       ];
     }
   }
 
-  $variables['splitColumns'] = $list;
+  $variables['splitColumns']['columns'] = $list;
 }
 
 /**
@@ -2379,60 +2750,14 @@ function mass_theme_preprocess_paragraph__action_address(&$variables) {
  * Process various fields for downloads.
  */
 function mass_theme_preprocess_paragraph__file_download(&$variables) {
-  $theme_path = \Drupal::theme()->getActiveTheme()->getPath();
-  $path = DRUPAL_ROOT . '/' . $theme_path . '/patterns/atoms/';
+  if (isset($variables['paragraph'])) {
+    $paragraph = $variables['paragraph'];
 
-  $paragraph = $variables['paragraph'];
-  $action_downloads = [];
-  $field_downloads = $paragraph->get('field_downloads');
-  $files = '';
-
-  if ($field_downloads->count() > 0) {
-    $file_list = $field_downloads->getValue();
-    $files = $field_downloads->referencedEntities();
+    $variables = [
+      'theme_hook_original' => $variables['theme_hook_original'],
+      'formDownloads' => Organisms::prepareFormDownloads($paragraph),
+    ];
   }
-
-  if (!empty($files)) {
-    foreach ($files as $id => $file) {
-      // Default icon.
-      $icon = '@atoms/05-icons/svg-doc-generic.twig';
-
-      // Get the human readable file size.
-      $bytes = $file->getSize();
-      $readable_size = format_size($bytes);
-
-      // Use the description as the link text if available,
-      // if not, use the file name.
-      $filename = $file->getFilename();
-
-      $link_text = $filename;
-      if (!empty($file_list[$id]['description'])) {
-        $link_text = $file_list[$id]['description'];
-      }
-
-      // Set the file link variable.
-      $url = file_create_url($file->getFileUri());
-
-      // Get the file extension.
-      // see: http://php.net/manual/en/splfileinfo.getextension.php
-      $file_info = new SplFileInfo($filename);
-      $file_extension = $file_info->getExtension();
-
-      // Check if icon template exists.
-      if (file_exists($path . '05-icons/svg-doc-' . strtolower($file_extension) . '.twig')) {
-        $icon = '@atoms/05-icons/svg-doc-' . $file_extension . '.twig';
-      }
-
-      $action_downloads[] = [
-        'icon' => $icon,
-        'text' => $link_text,
-        'href' => $url,
-        'size' => $readable_size,
-        'type' => $file_extension,
-      ];
-    }
-  }
-  $variables['actionDownloads'] = $action_downloads;
 }
 
 /**

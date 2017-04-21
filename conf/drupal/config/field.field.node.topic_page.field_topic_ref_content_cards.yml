@@ -1,0 +1,31 @@
+uuid: 39e83373-c605-4ca9-b75d-e3b1004db835
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_topic_ref_content_cards
+    - node.type.org_page
+    - node.type.service_page
+    - node.type.topic_page
+id: node.topic_page.field_topic_ref_content_cards
+field_name: field_topic_ref_content_cards
+entity_type: node
+bundle: topic_page
+label: 'Content Cards'
+description: 'This topic is a collection of other topics and services. Choose at least two from existing service or topic pages.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      org_page: org_page
+      service_page: service_page
+      topic_page: topic_page
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: org_page
+field_type: entity_reference

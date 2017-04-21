@@ -38,16 +38,21 @@
 #}
 {%
 set actionStep = {
+  accordion: true,
+  isExpanded: false,
+  accordionLabel: title,
   icon: '@atoms/05-icons/svg-' ~ paragraph.field_para_icon_term.entity.field_sprite_name.value ~ '.twig',
   title: title,
-  rteElements: [{
-    'path': '@atoms/11-text/raw-html.twig',
-    'data': {
-      'rawHtml': {
-        'content': rich_text
-      }
-    },
-  }]
+  richText: {
+    rteElements: [{
+      'path': '@atoms/11-text/raw-html.twig',
+      'data': {
+        'rawHtml': {
+          'content': rich_text
+        }
+      },
+    }]
+  }
 }
 %}
 {% include "@molecules/action-step.twig" with actionStep %}

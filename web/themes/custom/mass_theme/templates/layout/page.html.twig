@@ -80,7 +80,7 @@
   </div>
   {{ page.header }}
 </header>
-<main role="main" id="main-content" tabindex="-1">{# Keeping this for accessibility purposes #}
+<main role="main" id="main-content" tabindex="-1"{% if main_class %} class="{{ main_class }}"{% endif %}>{# Keeping tabindex for accessibility purposes #}
   {% block preContent %}
     {% if page.pre_content %}
       <div class="pre-content">

@@ -3,8 +3,9 @@
 namespace Drupal\mayflower\Prepare;
 
 use Drupal\mayflower\Helper;
-use Drupal\Component\Utility\UrlHelper;
 use Drupal\file\Entity\File;
+use Drupal\link\Plugin\Field\FieldType\LinkItem;
+use Drupal\media_entity\Entity\Media;
 
 /**
  * Provides variable structure for mayflower molecules using prepare functions.
@@ -61,7 +62,7 @@ class Molecules {
       foreach ($items as $id => $item) {
         $actionSeqLists[$id] = [];
         $actionSeqLists[$id]['title'] = Helper::fieldFullView($item, $referenced_fields['title']);
-        $actionSeqLists[$id]['rteElements'][] = [
+        $actionSeqLists[$id]['richText']['rteElements'][] = [
           'path' => '@atoms/11-text/paragraph.twig',
           'data' => [
             'paragraph' => [
@@ -73,6 +74,94 @@ class Molecules {
     }
 
     return $actionSeqLists;
+  }
+
+  /**
+   * Returns the actionStep variable structure.
+   *
+   * @param object $entity
+   *   The object that contains the fields for the sequential list.
+   * @param array $referenced_fields
+   *   The reference fields on the entity.
+   * @param array $options
+   *   The static options for action steps: accordion, isExpanded, etc.
+   *
+   * @see @molecules/action-step.twig
+   *
+   * @return array
+   *   Return a structured array.
+   */
+  public static function prepareActionStep($entity, array $referenced_fields, array $options) {
+    $downloadLinks = [];
+
+    $actionStep = [
+      'accordion' => isset($options['accordion']) ? $options['accordion'] : FALSE,
+      'isExpanded' => isset($options['expanded']) ? $options['expanded'] : TRUE,
+      'accordionLabel' => isset($options['label']) ? $options['label'] : '',
+      'icon' => isset($options['icon_path']) ? $options['icon_path'] : '',
+      'title' => Helper::fieldFullView($entity, $referenced_fields['title']),
+      'richText' => [
+        'rteElements' => [
+          Atoms::prepareRawHtml($entity, ['field' => $referenced_fields['content']]),
+        ],
+      ],
+    ];
+
+    if (array_key_exists('downloads', $referenced_fields)) {
+      $downloadLinks = Helper::isFieldPopulated($entity, $referenced_fields['downloads']) ? Organisms::prepareFormDownloads($entity) : [];
+    }
+
+    if (array_key_exists('more_link', $referenced_fields)) {
+      $actionStep['decorativeLink'] = Helper::isFieldPopulated($entity, $referenced_fields['more_link']) ? Helper::separatedLink($entity->get($referenced_fields['more_link'])[0]) : [];
+    }
+
+    return array_merge($actionStep, $downloadLinks);
+  }
+
+  /**
+   * Returns the imagePromo variable structure.
+   *
+   * @param object $entity
+   *   The object that contains the fields for the sequential list.
+   * @param array $fields
+   *   The reference fields on the entity.
+   *
+   * @see @molecules/image-promo.twig
+   *
+   * @return array
+   *   Return a structured array.
+   */
+  public static function prepareImagePromo($entity, array $fields) {
+
+    $imagePromo = [];
+    if (array_key_exists('image', $fields)) {
+      if (Helper::isFieldPopulated($entity, $fields['image'])) {
+        $imagePromo['image'] = [
+          'src' => Helper::getFieldImageUrl($entity, 'activities_image', $fields['image']),
+          'alt' => $entity->$fields['image']->alt,
+          'href' => '',
+        ];
+      }
+    }
+
+    if (array_key_exists('title', $fields)) {
+      if (Helper::isFieldPopulated($entity, $fields['title'])) {
+        $imagePromo['title'] = [
+          'text' => Helper::fieldValue($entity, $fields['title']),
+          'href' => '',
+        ];
+      }
+    }
+
+    if (array_key_exists('lede', $fields)) {
+      if (Helper::isFieldPopulated($entity, $fields['lede'])) {
+        $imagePromo['description'] = [
+          'richText' => Atoms::preparePageContentParagraph($entity->$fields['lede']),
+        ];
+      }
+    }
+
+    return $imagePromo;
   }
 
   /**
@@ -211,20 +300,49 @@ class Molecules {
    *    }
    */
   public static function prepareSectionLink($entity, array $links) {
+    $map = [
+      'text' => [
+        'field_lede',
+        'field_service_body',
+        'field_guide_page_lede',
+        'field_topic_lede',
+        'field_sub_title',
+      ],
+      'icon' => [
+        'field_icon_term',
+        'field_topic_ref_icon',
+      ],
+    ];
+
+    // Determines which fieldnames to use from the map.
+    $fields = Helper::getMappedFields($entity, $map);
+
     $index = &drupal_static(__FUNCTION__);
     $index++;
+
+    $icon = '';
+
+    if ($fields['icon']) {
+      $icon = [
+        'icon' => Helper::getIconPath($entity->$fields['icon']->referencedEntities()[0]->field_sprite_name->value),
+        'small' => 'true',
+      ];
+    }
+
     return [
       'id' => 'section_link_' . $index,
-      'catIcon' => [
-        'icon' => Helper::getIconPath($entity->field_icon_term->referencedEntities()[0]->get('field_sprite_name')->value),
-        'small' => 'true',
-      ],
+      'catIcon' => $icon,
       'title' => [
-        'href' => '#',
+        'href' => $entity->toURL()->toString(),
         'text' => $entity->getTitle(),
       ],
-      'description' => $entity->field_lede->value,
+      'description' => Helper::fieldValue($entity, $fields['text']),
+      'type' => ($entity->getType() == 'service_page') ? 'callout' : '',
       'links' => $links,
+      'seeAll' => [
+        'href' => $entity->toURL()->toString(),
+        'text' => 'more',
+      ],
     ];
   }
 
@@ -467,13 +585,21 @@ class Molecules {
     $fields = Helper::getMappedFields($entity, $map);
 
     $display_title = $options['display_title'];
+    $link_title = isset($options['link_title']) ? $options['link_title'] : TRUE;
 
     if (isset($fields['title']) && Helper::isFieldPopulated($entity, $fields['title']) && $display_title != FALSE) {
-      $title = [
-        'href' => $entity->toURL()->toString(),
-        'text' => $entity->$fields['title']->value,
-        'chevron' => FALSE,
-      ];
+      if ($link_title != FALSE) {
+        $title = [
+          'href' => $entity->toURL()->toString(),
+          'text' => $entity->$fields['title']->value,
+          'chevron' => FALSE,
+        ];
+      }
+      else {
+        $title = [
+          'text' => $entity->$fields['title']->value,
+        ];
+      }
     }
 
     return [
@@ -482,8 +608,10 @@ class Molecules {
         'type' => 'CivicStructure',
       ],
       'schemaContactInfo' => $contactInfo,
+      'accordion' => isset($options['accordion']) ? $options['accordion'] : FALSE,
+      'isExpanded' => isset($options['isExpanded']) ? $options['isExpanded'] : TRUE,
       // TODO: Needs validation if empty or not.
-      'title' => $title,
+      'subTitle' => $title,
       'groups' => $groups,
     ];
   }
@@ -496,7 +624,14 @@ class Molecules {
    * @param string $field
    *   The field name.
    * @param array $options
-   *   An array of options.
+   *   An array of options including heading data structure.
+   *   options = [
+   *     heading => [
+   *       type = compHeading || sidebarHeading,
+   *       title = t('Key Actions'),
+   *       sub = FALSE,
+   *     ],
+   *   ].
    *
    * @see @molecules/callout-alert.twig
    *
@@ -504,6 +639,8 @@ class Molecules {
    *   Returns a structured array.
    */
   public static function prepareKeyActions($entity, $field = '', array $options = []) {
+    $key_actions = [];
+
     $map = [
       'field' => [$field],
     ];
@@ -512,76 +649,14 @@ class Molecules {
     $fields = Helper::getMappedFields($entity, $map);
 
     // Roll up our Key Action links.
-    $links = Helper::separatedLinks($entity, $fields['field']);
+    $key_actions['links'] = Helper::separatedLinks($entity, $fields['field']);
 
-    return [
-      'path' => '@organisms/by-author/key-actions.twig',
-      'data' => [
-        'keyActions' => [
-          'compHeading' => [
-            'title' => $options['title'],
-            'sub' => TRUE,
-          ],
-          'links' => $links,
-        ],
-      ],
-    ];
-  }
-
-  /**
-   * Returns the variables structure required to render actionActivities.
-   *
-   * @param object $entities
-   *   An EntityReferenceRevisionsFieldItemList that contains the entities.
-   *
-   * @see @molecules/action-activities.twig
-   *
-   * @return array
-   *   Returns an array of items that contains:
-   *    [[
-   *      "title": "Order a MassParks Pass online through Reserve America",
-   *      "into": "",
-   *      "id": "unique identifier",
-   *      "path": ""
-   *      "data": ""
-   *    ], ...]
-   */
-  public static function prepareActionActivities($entities) {
-    $actionActivities = [];
-
-    // Activities section.
-    foreach ($entities as $entity) {
-      $activityEntity = $entity->entity;
-
-      // Creates a map of fields that are on the entitiy.
-      $map = [
-        'image' => ['field_image'],
-        'title' => ['field_title'],
-        'lede' => ['field_lede'],
-      ];
-
-      // Determines which fieldnames to use from the map.
-      $fields = Helper::getMappedFields($activityEntity, $map);
-
-      $actionActivities[] = [
-        'image' => Helper::getFieldImageUrl($activityEntity, 'activities_image', $fields['image']),
-        'alt' => $activityEntity->$fields['image']->alt,
-        'title' => Helper::fieldValue($activityEntity, $fields['title']),
-        'description' => Helper::fieldValue($activityEntity, $fields['lede']),
-        'linkTitle' => '',
-        'href' => '',
-      ];
+    // Populate heading data structure based on options passed.
+    if (array_key_exists('heading', $options)) {
+      $key_actions[$options['heading']['type']] = $options['heading'];
     }
 
-    return [
-      'title' => t('Activities'),
-      'into' => '',
-      'id' => t('activities'),
-      'path' => '@molecules/action-activities.twig',
-      'data' => [
-        'actionActivities' => $actionActivities,
-      ],
-    ];
+    return $key_actions;
   }
 
   /**
@@ -934,12 +1009,7 @@ class Molecules {
     $fields = Helper::getMappedFields($entity, $map);
 
     return [
-      'path' => '@organisms/by-author/callout-time.twig',
-      'data' => [
-        'calloutTime' => [
-          'text' => Helper::fieldValue($entity, $fields['field']),
-        ],
-      ],
+      'text' => Helper::fieldValue($entity, $fields['field']),
     ];
   }
 
@@ -956,64 +1026,72 @@ class Molecules {
    * @return array
    *   Returns a structured array.
    */
-  public static function prepareActionDownloads($entity, array $options = []) {
-    $theme_path = \Drupal::theme()->getActiveTheme()->getPath();
-    $path = DRUPAL_ROOT . '/' . $theme_path . '/patterns/atoms/';
+  public static function prepareDownloadLink($entity, array $options = []) {
+    $itsAFile = FALSE;
+    $itsALink = FALSE;
+    $icon = '';
+    $title = '';
+    $href = '';
 
-    $map = [
-      'downloads' => ['field_guide_section_downloads', 'field_service_file'],
-      'link' => ['field_guide_section_link', 'field_service_links'],
-    ];
-
-    // Determines which field names to use from the map.
-    $fields = Helper::getMappedFields($entity, $map);
-
-    if (array_key_exists('link', $fields)) {
-      foreach ($entity->$fields['link'] as $link) {
-        $actionDownloads[] = [
-          'icon' => '@atoms/05-icons/svg-laptop.twig',
-          'text' => $link->getValue()['title'],
-          'href' => $link->getUrl()->toString(),
-          'type' => (UrlHelper::isExternal($link->getUrl()->toString())) ? 'external' : 'internal',
-          'size' => '',
-          'format' => 'form',
-        ];
-      }
-    }
-
-    // Default icon.
-    $icon = '@atoms/05-icons/svg-doc-generic.twig';
-
-    // Roll up our Action Downloads.
-    foreach ($entity->$fields['downloads'] as $file) {
-      $fileEntity = $file->entity;
-
-      $file = ($fileEntity instanceof File) ? $file : File::load($fileEntity->field_upload_file->target_id);
-
+    if ($entity instanceof File || $entity instanceof Media) {
+      $file = ($entity instanceof File) ? $entity : File::load($entity->field_upload_file->target_id);
+      $itsAFile = TRUE;
       // Get file info.
       $bytes = $file->getSize();
       $readable_size = format_size($bytes);
-      $filename = $file->getFilename();
-      $file_info = new \SplFileInfo($filename);
+      $title = !empty($entity->field_title->value) ? $entity->field_title->value : $file->getFilename();
+      $file_info = new \SplFileInfo($file->getFilename());
       $file_extension = $file_info->getExtension();
-      $url = file_create_url($file->getFileUri());
-
-      // Check if icon template exists.
-      if (file_exists($path . '05-icons/svg-doc-' . strtolower($file_extension) . '.twig')) {
-        $icon = '@atoms/05-icons/svg-doc-' . $file_extension . '.twig';
-      }
-
-      $actionDownloads[] = [
-        'icon' => $icon,
-        'text' => $fileEntity->field_title->value,
-        'href' => $url,
-        'type' => '',
-        'size' => strtoupper($readable_size),
-        'format' => strtoupper($file_extension),
-      ];
+      $href = file_create_url($file->getFileUri());
+      $icon = Helper::getIconPath(strtolower('doc-' . $file_extension));
     }
 
-    return $actionDownloads;
+    if ($entity instanceof LinkItem) {
+      $itsALink = TRUE;
+      $title = $entity->title;
+      $icon = Helper::getIconPath('laptop');
+      $href = $entity->getUrl()->toString();
+    }
+
+    return [
+      'downloadLink' => [
+        'iconSize' => '',
+        'icon' => $icon,
+        'decorativeLink' => [
+          'text' => $title,
+          'href' => $href,
+          'info' => '',
+          'propery' => '',
+        ],
+        'size' => ($itsAFile) ? strtoupper($readable_size) : '',
+        'format' => ($itsAFile) ? strtoupper($file_extension) : '',
+      ],
+    ];
+  }
+
+  /**
+   * Returns the data structure necessary for sticky nav.
+   *
+   * @param array $navLinksText
+   *   Array of strings (i.e. "What you need") used to generate anchor links.
+   *
+   * @see @molecules/sticky-nav.twig
+   *
+   * @return array
+   *   Returns a structured array.
+   */
+  public static function prepareStickyNav(array $navLinksText) {
+    $anchorLinks = array_map(function ($text) {
+      return [
+        "href" => Helper::createIdTitle($text),
+        "text" => $text,
+        "info" => "",
+      ];
+    }, $navLinksText);
+
+    return [
+      'anchorLinks' => $anchorLinks,
+    ];
   }
 
 }

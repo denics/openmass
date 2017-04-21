@@ -613,6 +613,40 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
           ),
         );
         break;
+      case "topic_page":
+        $fields = array (
+          array (
+            'field' => 'field-topic-ref-content-cards',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-topic-bg-wide',
+            'tag' => 'input',
+            'type' => 'submit',
+          ),
+          array (
+            'field' => 'field-topic-bg-narrow',
+            'tag' => 'input',
+            'type' => 'submit',
+          ),
+          array (
+            'field' => 'field-topic-ref-icon',
+            'tag' => 'select',
+            'type' => '',
+          ),
+          array (
+            'field' => 'field-topic-ref-related-topics',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-topic-lede',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+        );
+        break;
       case "how_to_page":
         $fields = array (
           array (

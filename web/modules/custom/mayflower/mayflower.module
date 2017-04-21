@@ -23,10 +23,15 @@ function mayflower_theme($existing, $type, $theme, $path) {
       'template' => 'action-seq-list',
       'path' => $patterns['molecules'],
     ],
-    'action_activities' => [
-      'variables' => ['actionActivities' => NULL],
-      'template' => 'action-activities',
-      'path' => $patterns['molecules'],
+    'steps_ordered' => [
+      'variables' => ['stepsOrdered' => NULL],
+      'template' => 'steps-ordered',
+      'path' => $patterns['organisms'] . '/by-author',
+    ],
+    'image_promos' => [
+      'variables' => ['imagePromos' => NULL],
+      'template' => 'image-promos',
+      'path' => $patterns['organisms'] . '/by-author',
     ],
     'callout_links' => [
       'variables' => ['calloutLinks' => NULL],
@@ -136,13 +141,16 @@ function mayflower_prepare_stacked_row_sections($entity) {
       ];
     }
 
+    $richTextElements = [];
+
+    if (Helper::isFieldPopulated($entity, $fields['text'])) {
+      $richTextElements[] = Atoms::prepareParagraph($entity, ['field' => $fields['text']]);
+    }
+
     $sections[] = [
       'title' => $entity->$fields['text']->getFieldDefinition()->getLabel(),
       'pageContent' => [
-        [
-          'path' => '@organisms/by-author/rich-text.twig',
-          'data' => Atoms::preparePageContentParagraph($entity->$fields['text']),
-        ],
+        Helper::prepareRichTextElements($richTextElements),
       ],
       'sideBar' => $sideBarSocial,
     ];
@@ -167,31 +175,40 @@ function mayflower_prepare_stacked_row_sections($entity) {
   }
 
   if ($entity->$fields['featuredTopics']->getValue()) {
+    $sectionThreeUp = [
+      'heading' => [
+        'title' => $entity->$fields['featuredTopics']->getFieldDefinition()->getLabel(),
+      ],
+    ];
+
     $sections[] = [
       'pageContent' => [
         [
           'path' => '@organisms/by-author/sections-three-up.twig',
-          // @todo Pass $options[] as 2nd arg for prepare functions
-          // Keep the label value as the array item value.
-          'data' => Organisms::prepareSectionThreeUp($entity->$fields['featuredTopics']->referencedEntities(), $entity->$fields['featuredTopics']->getFieldDefinition()->getLabel()),
+          'data' => [
+            'sectionThreeUp' => Organisms::prepareSectionThreeUp($entity->$fields['featuredTopics'], $sectionThreeUp),
+          ],
         ],
       ],
     ];
   }
 
   if ($entity->$fields['relatedLinks']->getValue()) {
-    $link_list_options = [
-      'title' => t('Related Organizations'),
-      'heading' => 'compHeading',
+    $linkList_options = [
+      'heading' => [
+        'title' => t('Related Organizations'),
+        'type' => 'compHeading',
+      ],
     ];
 
     $sections[] = [
       'pageContent' => [
         [
           'path' => '@organisms/by-author/link-list.twig',
-          // @todo Pass $options[] as 2nd arg for prepare functions
           // @todo Use field label vs string (need to update field label value)
-          'data' => Organisms::prepareLinkList($entity->$fields['relatedLinks']->referencedEntities(), $link_list_options),
+          'data' => [
+            'linkList' => Organisms::prepareLinkList($entity, $fields['relatedLinks'], $linkList_options),
+          ],
         ],
       ],
     ];
@@ -209,24 +226,16 @@ function mayflower_prepare_stacked_row_sections($entity) {
  * @return array
  *   Return structured sections.
  */
-function mayflower_prepare_topic_cards($entity) {
-  $sections = [];
-
-  // Get links for each Topic.
-  foreach ($entity as $node) {
-    // Get our Subtopics for each Topic.
-    $view_results = views_get_view_result('subtopics', 'section_links', $node->id());
-
-    // Roll up the list of subtopics.
-    $links = [];
-    foreach ($view_results as $key => $row) {
-      $links[] = [
-        'href' => $row->_entity->toURL()->toString(),
-        'text' => $row->_entity->get('title')->value,
-      ];
-    }
-    $sections[] = Molecules::prepareSectionLink($node, $links);
+function mayflower_prepare_subtopic_links($entity) {
+  $links = [];
+  // Get our Subtopics for each Topic.
+  $view_results = views_get_view_result('subtopics', 'section_links', $entity->id());
+  foreach ($view_results as $link) {
+    $links[] = [
+      'href' => $link->_entity->toURL()->toString(),
+      'text' => $link->_entity->get('title')->value,
+    ];
   }
 
-  return $sections;
+  return $links;
 }

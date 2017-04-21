@@ -379,12 +379,12 @@ a.gsc-trailing-more-results:link {
 }
 
 /* borrow + edit container scaffolding form Mayflower link-list */
-.ma__link-list {
+.search-results-page .ma__link-list {
   padding: 20px 0;
 }
 
 @media (min-width: 801px) {
-  .ma__link-list {
+  .search-results-page .ma__link-list {
     padding: 60px 0;
   }
 }
@@ -753,14 +753,14 @@ div.gs-visibleUrl, .gs-imageResult div.gs-visibleUrl {
 }
 
 @media (min-width: 781px) {
-  .ma__link-list__container {
+  .search-results-page .ma__link-list__container {
     padding-left:30px;
     padding-right: 30px
   }
 }
 
 @media (min-width: 911px) {
-  .ma__link-list__container {
+  .search-results-page .ma__link-list__container {
     padding-left:40px;
     padding-right: 40px
   }
@@ -972,7 +972,7 @@ div.gs-visibleUrl, .gs-imageResult div.gs-visibleUrl {
 
 /* reduce vertical spacing above linked list container for search results */
 @media (max-width: 620px) {
-  .ma__link-list {
+  .search-results-page .ma__link-list {
     padding-top: 20px;
   }
 }

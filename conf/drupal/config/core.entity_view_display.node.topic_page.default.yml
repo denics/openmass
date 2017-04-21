@@ -1,0 +1,70 @@
+uuid: 785a3be5-8fda-4738-a4c9-115b5e95ca0c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.topic_page.field_topic_bg_narrow
+    - field.field.node.topic_page.field_topic_bg_wide
+    - field.field.node.topic_page.field_topic_lede
+    - field.field.node.topic_page.field_topic_ref_content_cards
+    - field.field.node.topic_page.field_topic_ref_icon
+    - field.field.node.topic_page.field_topic_ref_related_topics
+    - image.style.hero820x460
+    - node.type.topic_page
+  module:
+    - image
+    - user
+id: node.topic_page.default
+targetEntityType: node
+bundle: topic_page
+mode: default
+content:
+  field_topic_bg_narrow:
+    weight: 104
+    label: above
+    settings:
+      image_style: hero800x400
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+  field_topic_bg_wide:
+    weight: 103
+    label: above
+    settings:
+      image_style: hero820x460
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+  field_topic_lede:
+    weight: 101
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_topic_ref_content_cards:
+    weight: 105
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+  field_topic_ref_icon:
+    weight: 102
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+  field_topic_ref_related_topics:
+    weight: 106
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }
