@@ -478,7 +478,6 @@ function mass_theme_preprocess_node_location(&$variables) {
 
   // Prepare widgets that can be passed to the pageHeader.
   $widgets = [];
-
   if ($node->field_location_icons->entity) {
     $widgets[] = [
       'path' => '@molecules/location-icons.twig',
@@ -875,6 +874,7 @@ function mass_theme_preprocess_node_guide_page(&$variables) {
 
     if (Helper::isFieldPopulated($sectionEntity, $field['downloads']) ||
         Helper::isFieldPopulated($sectionEntity, $field['links'])) {
+
       $downloads_options = [
         'heading' => [
           'type' => 'compHeading',
