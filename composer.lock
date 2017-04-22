@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "b8cda4ca82f4aec9f9cfabcc8c3de959",
+    "content-hash": "5e9dbe706877a2f40fcf1591d63b48b5",
     "packages": [
         {
             "name": "acquia/acquia-sdk-php",
@@ -3539,6 +3539,56 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/migrate_tools"
             }
+        },
+        {
+            "name": "drupal/node_edit_protection",
+            "version": "dev-1.x",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupal.org/project/node_edit_protection",
+                "reference": "902339c08222f838030c07aaea23bdc51ababebd"
+            },
+            "require": {
+                "drupal/core": "~8.0"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.x-dev",
+                    "datestamp": "1469109839"
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "czigor",
+                    "homepage": "https://www.drupal.org/user/826222"
+                },
+                {
+                    "name": "erynn",
+                    "homepage": "https://www.drupal.org/user/1163382"
+                },
+                {
+                    "name": "febbraro",
+                    "homepage": "https://www.drupal.org/user/43670"
+                },
+                {
+                    "name": "mgifford",
+                    "homepage": "https://www.drupal.org/user/27930"
+                }
+            ],
+            "description": "Protect the user against navigating away from a node edit form before saving their changes.",
+            "homepage": "https://www.drupal.org/project/node_edit_protection",
+            "support": {
+                "source": "http://cgit.drupalcode.org/node_edit_protection"
+            },
+            "time": "2016-07-21 12:38:12"
         },
         {
             "name": "drupal/paragraphs",
@@ -10981,6 +11031,7 @@
         "drupal/field_tokens": 10,
         "drupal/file_browser": 20,
         "drupal/inline_entity_form": 20,
+        "drupal/node_edit_protection": 20,
         "drupal/paragraphs": 20,
         "drupal/rabbit_hole": 20,
         "drupal/restrict_by_ip": 20,
