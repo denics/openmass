@@ -127,6 +127,7 @@
         "drupal/config_log": "^1",
         "drupal/core": "8.2.8",
         "drupal/crazyegg": "^1",
+        "drupal/diff": "1.x-dev",
         "drupal/draggableviews": "1.x-dev",
         "drupal/encrypt": "3.x-dev#19cda8cf22bfe7d020b819a7cfddf2e4883b78a8",
         "drupal/entity_browser": "^1",
