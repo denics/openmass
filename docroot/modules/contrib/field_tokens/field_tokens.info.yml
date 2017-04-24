@@ -1,0 +1,12 @@
+name: Field tokens
+description: Adds formatted field and field property tokens.
+type: module
+# core: 8.x
+dependencies:
+  - token
+
+# Information added by Drupal.org packaging script on 2016-02-05
+version: '8.x-1.0-beta1'
+core: '8.x'
+project: 'field_tokens'
+datestamp: 1454639355

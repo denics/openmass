@@ -1,129 +1,162 @@
-# mass.gov
-## The official website of the Commonwealth of Massachusetts
+# Mass.gov Drupal Site
+![Massachusetts Seal](http://www.mass.gov/resources/images/template/header-seal.gif)
+*The official website of the Commonwealth of Massachusetts*
 
-## Requirements
+This is the codebase for the Drupal8 site powering (currently) pilot.mass.gov, and eventually mass.gov.
+The Drupal theme (mass_theme) integrates with our Pattern Library [Mayflower](https://github.com/massgov/mayflower).
 
-* VMWare, or [virtualBox](https://www.virtualbox.org/wiki/Downloads) >= 5.0
-* [vagrant](http://downloads.vagrantup.com/) >= 1.8
-* [ansible](https://github.com/ansible/ansible) `brew install ansible`  (This is not possible on Windows host machines, but there is a workaround.)
-* [vagrant-hostmanager](https://github.com/smdahlen/vagrant-hostmanager) `vagrant plugin install vagrant-hostmanager`
-* [vagrant-auto_network](https://github.com/oscar-stack/vagrant-auto_network) `vagrant plugin install vagrant-auto_network`
-* [git](https://git-scm.com/downloads)
-* [composer](https://getcomposer.org/)
+[![CircleCI](https://circleci.com/gh/massgov/mass.svg?style=svg&circle-token=591bd0354ff2fce66095cbb97087fd8eae090b5d)](https://circleci.com/gh/massgov/mass)
 
 
-If you have been running a previous version of Vagrant you may need to do: `vagrant plugin update` to ensure that you can install the plugins.
+## Sections
 
-## Required Set Up
-Before you can install the site, you'll need to make sure that you have access to the Acquia environment so you can download the canonical database. Once you have access to the environment, please follow these steps:
+- [Preparing your machine](#preparing-your-machine)
+- [Setting up the local repo & virtual machine](#setting-up-the-local-repo-and-virtual-machine)
+- [Setting up authentication & credentials](#setting-up-authentication-and-credentials)
+- [Working locally](#working-locally)
+- [Deployment](#deployment)
+- [Troubleshooting](#troubleshooting)
 
-1. Log in to your Acquia account
+
+## Preparing your machine
+Make sure the following are installed on your machine:
+
+- VMWare, or [virtualBox](https://www.virtualbox.org/wiki/Downloads) >= 5.0
+- [vagrant](http://downloads.vagrantup.com/) >= 1.8
+- [ansible](https://github.com/ansible/ansible) `brew install ansible`  (You'll need to install [homebrew](https://brew.sh/) first. This is not available on Windows host machines, [but there is a workaround](https://docs.ansible.com/ansible/intro_windows.html).)
+- [vagrant-hostmanager](https://github.com/smdahlen/vagrant-hostmanager) `vagrant plugin install vagrant-hostmanager`
+- [vagrant-auto_network](https://github.com/oscar-stack/vagrant-auto_network) `vagrant plugin install vagrant-auto_network`
+- [git](https://git-scm.com/downloads)
+
+
+## Setting up the local repo and virtual machine
+*In order to keep our developmen environment consistent across all developers' machines, we use a VM(Virtual Machine) for local development. The root project directory `mass` is 'shared' with `/var/www/mass.local` within the VM. Which is to say that changes done on either side (vm or local machine) are immediately available to the developer, whether they are on the vm or the local machine.*
+**Our workflow is to author code changes & use git on your machine, but run commands *within the VM* (as that's where `drush` various other scripts can run).**
+
+1. Get a local copy of this repo: `git clone git@github.com:massgov/mass.git`
+1. Move into the project directory: `cd mass`
+1. Set up the VM by running: `vagrant up`
+1. You will be prompted for the administration password on your host machine. Obey.
+1. SSH into the VM by running: `vagrant ssh`
+
+**A few notes on our VM & convenience features**
+- The project root is in `/var/www/mass.local`. There is an alias provided so you can type `www` which is the equivalent of `cd /var/www/mass.local`
+- There are aliases for scripts within the `scripts/` directory. So you can just type, for example, `ma-test` to run tests, instead of `./scripts/ma-test`.
+
+## Setting up authentication and credentials
+
+### Acquia site aliases
+*We use [Acquia](http://acquia.com) for our hosting environment. Follow the steps below to set up your Acquia [Drush](http://www.drush.org/en/master/) integration (Drush is a command-line interface for Drupal). This allows you to run Drush commands that interact with the Acquia environments within the VM (you'll meet the VM in the next section).*
+
+1. Log in to your Acquia account at [www.acquia.com](http://www.acquia.com)
 1. Navigate to the "Credentials" tab under your profile
 1. Under the "Drush Integration" heading, click the "Download Drush aliases" link
 1. This will download acquiacloud.tar.gz
-1. Unzip this archive
-1. Place the resulting directory within this project's "artifacts" directory (create it if it doesn't exist)
-1. You should now have your Acquia Cloud credentials available at "${build.dir}/artifacts/acquiacloud" (which will have two subdirectories: .acquia and .drush)
+1. Unzip this archive into a directory called `acquiacloud`
+1. Place the `acquiacloud` directory within this project's `artifacts` directory. You should now have your Acquia Cloud credentials available at `artifacts/acquiacloud` (which will have two subdirectories: .acquia and .drush)
 
 
-## Getting Started
-
-1. From inside the project root, run:
- * `composer install`
- * `vagrant up`
-1. You will be prompted for the administration password on your host machine. Obey.
-1. SSH in and install the site:
-
-  ```
-    vagrant ssh
-    cd /var/www/mass.local
-    vendor/bin/phing build install
-  ```
-
-3. Visit [mass.local](http://mass.local) in your browser of choice.
-
-## How do I work on this?
-
-1. From inside the project root, type `vagrant ssh`
-1. Navigate to `/var/www/mass.local`
-1. Build, install: `vendor/bin/phing build install`
-1. Test: `vendor/bin/phing test`
-1. phing and drush tasks should be run from within the VM (using `vendor/bin/phing` and `vendor/bin/drush`).
-1. Git and composer tasks should be run from your host machine.
-
-If you must run `composer` and `git` commands from within the VM make sure you configure your name and email for proper attribution, and [configure your global .gitignore](https://github.com/palantirnet/development_documentation/blob/master/guidelines/git/gitignore.md):
-
+### Acquia command line API
+*In addition to setting up aliases for drush to interact with Acquia, in order to perform full deployments you'll need to interact with Acquia's Cloud API. All Cloud API calls need to be authenticated in order to work. You authenticate a call using your user name (the email address with which you sign in to Acquia) and a private key that you can find on your Acquia Profile page.*
+1. Move into the VM: `vagrant ssh`
+1. Move into the project root: `www`
+1. Authenticate with the Acquia cloud API `drush ac-api-login`. You'll be prompted for your email address and Acquia cloud API key. **You can find your cloud API key under Profile > Credentials and then the heading Cloud API**. Run the login command as follow:
 ```
-git config --global user.email 'me@palantir.net'
-git config --global user.name 'My Name'
+$ drush ac-api-login
+Email []: mass.developer@mass.gov
+Key []: ********** [paste you api key here, then hit Enter]
+Endpoint URL [https://cloudapi.acquia.com/v1]: [Enter for default endpoint url]
+$ < you are brought back to command prompt >
 ```
 
-## How do I Drupal?
 
-### The Drupal root
+### Composer Github authentication
+*You only need to do this if you plan to run things like `composer update` that pull down new dependencies.*
 
-This project uses [Composer Installers](https://github.com/composer/installers), [DrupalScaffold](https://github.com/drupal-composer/drupal-scaffold), and [the-build](https://github.com/palantirnet/the-build) to assemble our Drupal root in `web`. Dig into `web` to find the both contrib Drupal code (installed by composer) and custom Drupal code (included in the git repository).
+1. Go to [GitHub Settings - Tokens](https://github.com/settings/tokens)
+1. If setting up a new Token, make the scope only for the repo
+1. Once you have completed creating the token, add it to your composer config `composer config -g github-oauth.github.com <oauthtoken>`
 
-### Using drush
 
-You can run `drush` commands from anywhere within the repository, as long as you are ssh'ed into the vagrant.
+## Working Locally
 
-### Installing and reinstalling Drupal
+### Setup a local database
 
-Run `composer install` from your host machine and `vendor/bin/phing build install` within the VM.
-You should normally ignore messages from composer about an outdate composer.lock file.
+1. SSH into the VM: `vagrant ssh`
+1. Move into the project root within the VM: `www`
+1. Run this script from inside the VM & follow prompts to get a local database set up: `ma-refresh-local`
+1. You've got your very own mass.gov! Visit [mass.local](http://mass.local) in your browser of choice.
 
-### Configure Composer with OAuth Token
-* Go to [GitHub Settings - Tokens](https://github.com/settings/tokens)
-* If setting up a new Token, make the scope just for the repo
-* Once you have completed creating the token, add it to your composer config `composer config -g github-oauth.github.com <oauthtoken>`
 
-### Adding modules
+### Testing
+*We use [behat](http://behat.org/en/latest/) for tests, and also run code linters. You should be running these whenever you change things.*
 
-* Complete "__Configure Composer with OAuth Token__" first
-* Download modules with composer: `composer require drupal/bad_judgement:^8.1`
-* Enable the module: `drush en bad_judgement`
-* Export the config with the module enabled: `drush config-export`
-* Commit the changes to `composer.json`, `composer.lock`, and `conf/drupal/config/core.extension.yml`. The module code itself will be excluded by the project's `.gitignore`.
+1. SSH into the VM: `vagrant ssh`, `www`
+1. To test & lint all the things, run: `ma-test`
+1. You may only want to run a single test at a time, if so use behat directly: `behat feature/<your test file>`
 
-### Patching modules
+### Enabling development-only modules (e.g. Devel)
+You are welcome to enable development-only modules (e.g. Devel, Kint, Views UI, Migrate UI, ...) in your VM. In your Pull Requests,
+remember not to commit a core.extension.yml which enables these projects, and remember not to add the config files that
+ belong to these modules. @todo We can help devs avoid this error by adding common development config files to
+  our .gitignore. We could also add core.extension.yml and ask devs to use `git add --force` when they really want to change that
+  file.
 
-Sometimes we need to apply patches from the Drupal.org issue queues. These patches should be applied using composer using the [Composer Patches](https://github.com/cweagans/composer-patches) composer plugin.
-
-### Configuring Drupal settings.php
-
-Sometimes it is appropriate to configure specific Drupal variables in Drupal's `settings.php` file. Our `settings.php` file is built from a template found at `conf/drupal/settings.php` during the phing build.
-
-* Add your appropriately named values to `conf/build.default.properties` (like `drupal.my_setting=example`)
-* Update `conf/drupal/settings.php` to use your new variable (like `$conf['my_setting'] = '${drupal.my_setting}';`)
-* Run `vendor/bin/phing build`
-* Test
-* If the variable requires different values in different environments, add those to the appropriate properties files (`conf/build.vagrant.properties`, `conf/build.circle.properties`, `conf/build.acquia.properties`). Note that you may reference environment variables with `drupal.my_setting=${env.DRUPAL_MY_SETTING}`.
-* Finally, commit your changes.
 
 ### Adding or altering configuration
+*Many features will require edits to site configuration, such as adding new content types or altering the configuration of fields.  When you commit your changes, you must be careful only to add or edit the configuration you intend to alter.  This is made difficult by the fact that not all of the site's configuration is stored in code.*
 
-Many features will require edits to site configuration, such as adding new content types or altering the configuration of fields.  When you commit your changes, you must be careful only to add or edit the configuration you intend to alter.  This is made difficult by the fact that not all of the site's configuration is stored in code.
 * After performing a `drush config-export` NEVER perform a `git add .` or a `git add conf/drupal*`
 * All changes to config yml files should be added carefully and individually.
 * Suggested approach to make this process a bit easier:
-   * Before starting work, `drush config-export` so you have a clean baseline (`phing install` has already imported the configuration that is being tracked in code).
+   * Before starting work, `drush config-export` so you have a clean baseline.
    * Do any configuration changes needed, run tests.
    * Review (and perhaps copy or screenshot) Drupal's helpful list of the changes you have made to configuration at /admin/config/development/configuration
    * Run `drush config-export` again.
-   * With your list in hand, add config files to your branch interactively, using git add -i, or tools provided by your IDE.
+   * With your list in hand, add config files to your branch interactively, using `git add -i`, or tools provided by your IDE.
 
-## How do I run tests?
 
-### Behat
+### Adding a new module to composer
+*We manage dependencies with composer, and also track all dependencies with git. If you run `composer install`, you should see a 'Nothing to install or update' message, since git already has all the dependencies. Changes to dependencies still go through composer.*
 
-Run `vendor/bin/phing test` or `vendor/bin/behat features/installation.feature`.
+1. Download modules with composer: ex. `composer require drupal/bad_judgement:^8.1`
+1. Enable the module: `drush en bad_judgement`
+1. Export the config with the module enabled: `drush config-export`
+1. Sometimes composer will pull in a git directory instead of distribution files for a depdency. Please double check that there is no `.git` directory within the module code, and if so, please remove it. You can test with this command: `find . | grep ".git$"` and should ONLY see the output of: `./.git` (which is this projects git directory - don't delete that!).
+1. Commit the changes to `composer.json`, `composer.lock`, `conf/drupal/config/core.extension.yml`, and the module code itself.
+
+
+### Patching a module
+Sometimes we need to apply patches from the Drupal.org issue queues. These patches should be applied using composer using the [Composer Patches](https://github.com/cweagans/composer-patches) composer plugin.
+
 
 ## Deployment
+*We have various testing environments available in Acquia. Follow the steps to be able to deploy to them.*
 
-[Deploying a local install to Acquia DEV](docs/deploy.md)
+
+### Deploying work to a testing environment
+1. Outside the VM in the project root, make sure you've checked out the branch you want to test.
+1. (_This step will happen automatically via CircleCI if you've pushed your code to a branch in GitHub. Do this if you haven't._) Push that branch up to the Acquia git remote `git push acquia <your branch>`. Now that acquia knows about your code, we can move it to a server and run the necessary setup.
+1. SSH into the VM `vagrant ssh`, `cd /var/www/mass.local`
+1. Run the deploy script and pass in the environment you want to deploy to. `drush ma-deploy <environment> <branch name>`
+1. Wait a bit, watch the output, and soon you'll have your work on a remote environment for testing.
+
+## Releases
+*To release, we push a **release tag** to acquia and deploy that to staging. A manual move from staging to prod is how work gets release to Mass.gov constituents.*
 
 ## Troubleshooting
+
+### Woah. Everything got weird in my local Drupal. What do I do.
+If you want to reset everything to a working environment:
+```
+  vagrant ssh
+  # inside the VM
+  www
+  ma-refresh-local
+  # it'll ask for an environment, pull from prod (or whatever you want)
+```
+As long as you know your source code is stable, this should get you back up and running.
+
 
 ### DNS could not be found
 
@@ -132,19 +165,16 @@ If, on browsing to `http://mass.local`, you get the following error:
 
 Then `vagrant up` may have failed half way through. When this happens, the `vagrant-hostmanager` plugin does not add the hostname to `/etc/hosts`. Try halting and re-upping the machine: `vagrant halt && vagrant up`. Reload is not sufficient to trigger updating the hosts file.
 
-### Could not build, phing error
-
-If you try to build the site and get a phing saying the Drupal site could not be built, but you were recently building it successfully, you may need to run `composer install`. If you switch branches and the new branch has a composer dependency that you don't have installed on your branch, phing complains loudly.
 
 ### Windows troubleshooting
 
 - All host machine command line steps should be done from an elevated (admin) prompt.
 - Make sure that you have run `git config --local core.symlinks true` to enable symlinks when
 you checkout the repository.
-- If the symlinks from the theme to the patternlab assets are not working after running composer, 
+- If the symlinks from the theme to the patternlab assets are not working after running composer,
 delete the non-working symlinks and git checkout again.
-- You will find it helpful to copy web/.gitattributes to the root of the project.  [@todo - add this to the automation]
-- The Vagrantfile will required edits to run on Windows: 
-   - Run the ansible_local provisioner instead of ansible. 
+- You will find it helpful to copy docroot/.gitattributes to the root of the project.  [@todo - add this to the automation]
+- The Vagrantfile will required edits to run on Windows:
+   - Run the ansible_local provisioner instead of ansible.
    - Do not disable the vagrant directory.
    - Depending on whether your computer has ntfs support, you may need to change the settings for the share.

@@ -1,0 +1,14 @@
+{
+  "actionStep": {
+    "icon":"@atoms/05-icons/svg-circle-chevron.twig",
+    "title":"Some Other Method",
+    "rteElements": [{
+      "path": "@atoms/11-text/paragraph.twig",
+      "data": {
+        "paragraph": {
+          "text": "If you concentrate really hard, a Park Pass might magically appear in front of you"
+        }
+      }
+    }]
+  }
+}

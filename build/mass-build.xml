@@ -1,31 +1,5 @@
 <project name="mass-build" default="status">
 
-    <!-- Target: mass-run-eslint  -->
-    <target name="mass-run-eslint" description="Checks custom JS code against ESLint.">
-        <!-- custom modules  -->
-        <exec command="eslint --debug --ignore-path '${build.dir}/web/.eslintignore' '${build.dir}/web/modules/custom/**/*.js'" checkreturn="true" logoutput="true" />
-        <!-- custom themes (ignores mayflower artifacts) -->
-        <exec command="eslint --debug --ignore-path '${build.dir}/web/.eslintignore' '${build.dir}/web/themes/custom/**/*.js' "
-              checkreturn="true" logoutput="true" />
-        <echo>ESLint was successful</echo>
-    </target>
-
-  <target name="mass-drupal-test" description="Run Drupal tests.">
-      <property name="build.test_output" value="/dev/null" />
-
-      <if>
-          <available file="${build.test_output}" type="dir" />
-          <then>
-              <property name="behat.args" value="--strict --format=junit --out=${build.test_output}/behat" />
-          </then>
-          <else>
-              <property name="behat.args" value="" />
-          </else>
-      </if>
-
-      <exec command="vendor/bin/behat ${behat.args}" checkreturn="true" logoutput="true" />
-  </target>
-
   <!-- Target: install-from-acquia -->
   <target name="install-from-acquia" description="Use the Acquia stage environment for installation.">
       <!-- Configure the 'drush' Phing task. -->
@@ -154,14 +128,4 @@
 
   </target>
 
-  <target name="mass-local-modules" description="Install local modules.">
-    <drush command="pm-enable" assume="yes">
-        <param>devel</param>
-        <param>kint</param>
-        <param>views_ui</param>
-        <param>mass_types</param>
-        <param>mass_utility</param>
-        <param>migrate_tools</param>
-    </drush>
-  </target>
 </project>

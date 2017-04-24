@@ -1,0 +1,5 @@
+{% if coloredHeading.color %}
+  {% set class = "ma__colored-heading--" ~ coloredHeading.color %}
+{% endif %}
+
+<h3 class="ma__colored-heading {{class}}">{{coloredHeading.text}}</h3>

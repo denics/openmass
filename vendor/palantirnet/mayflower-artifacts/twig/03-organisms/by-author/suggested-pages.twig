@@ -1,0 +1,34 @@
+<section class="ma__suggested-pages">
+  <div class="ma__suggested-pages__container">
+    <h2 class="ma__suggested-pages__title">{{ suggestedPages.title }}</h2>
+    <div class="ma__suggested-pages__items">
+      {% if suggestedPages.view == "guide" %}
+        {% for page in suggestedPages.pages %}
+          {% set illustratedLink = { 
+            "text": page.link.text, 
+            "type": page.link.type, 
+            "href": page.link.href, 
+            "image": page.image,
+            "label": page.link.label } %}
+          <div class="ma__suggested-pages__item ma__suggested-pages__item--guide">
+            {% include "@molecules/illustrated-link.twig" %}
+          </div>
+        {% endfor %}
+      {% else %}
+        {% for page in suggestedPages.pages %}
+          <figure class="ma__suggested-pages__item ma__suggested-pages__item--figure">
+            <a href="{{ page.link.href }}">
+              <img alt="{{ page.altTag }}" src="{{ page.image }}">
+            </a>
+            {% set decorativeLink = page.link %}
+            {% include "@atoms/decorative-link.twig" %}
+          </figure>
+        {% endfor %}
+      {% endif %}
+    </div>
+    {% set buttonMinor = suggestedPages.buttonMinor %}
+    {% if buttonMinor.link %}
+      {% include "@atoms/01-buttons/button-link2-sm.twig" %}
+    {% endif %}
+  </div>
+</section>

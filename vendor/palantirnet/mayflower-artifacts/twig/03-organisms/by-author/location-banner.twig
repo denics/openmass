@@ -1,0 +1,26 @@
+<section class="ma__location-banner">
+  <style>
+    #GUID24872901570 {
+      background-image: url('{{locationBanner.bgNarrow}}');
+    }
+    
+    @media (min-width: 801px) {
+      #GUID24872901570 {
+        background-image: url('{{locationBanner.bgWide}}');
+      }
+    }
+  </style>
+  <div class="ma__location-banner__map">
+    {% set googleMap = locationBanner.actionMap %}
+    {% include "@molecules/google-map.twig" %}
+  </div>
+  <div 
+    class="ma__location-banner__image" 
+    id="GUID24872901570"
+    role="image"
+    title="{{locationBanner.bgTitle}}">
+  </div>
+{% if schemaPageType %}
+  <meta property="image" src="{{locationBanner.bgNarrow}}" alt="{{locationBanner.bgTitle}}" />
+{% endif %}
+</section>

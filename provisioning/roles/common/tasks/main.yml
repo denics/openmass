@@ -1,25 +1,39 @@
 ---
-- name: Common | Update apt cache
+- name: Update apt cache
   become: True
   apt:
     update_cache: yes
   tags: common
 
-- name: Common | Install System Packages
-  become: True
-  apt: pkg={{ item }} state=installed
-  with_items: "{{ system_packages }}"
+- name: Install PHPLint globally for PHP linting
+  become: yes
+  command: npm install -g phplint@v1.7.4
   tags: common
 
-- name: Common | Configure PALANTIR_ENVIRONMENT variable
+- name: Install System Packages
+  become: True
+  apt: pkg={{ item }} state=installed
+  with_items:
+    - php5.6-gd
+    - clamav
+    - python-setuptools
+    - python-pip
+  tags: common
+
+- name: Install Python packages
+  become: True
+  command: pip install gitpython
+  tags: common
+
+- name: Configure PALANTIR_ENVIRONMENT variable
   lineinfile: dest=/home/vagrant/.profile state=present line='export PALANTIR_ENVIRONMENT="vagrant"'
   tags: common
 
-- name: Common | Copy gitignore
+- name: Copy gitignore
   copy: src=roles/common/templates/gitignore dest=/home/vagrant/.gitignore
   tags: common
 
-- name: Common | Configure global gitignore
+- name: Configure global gitignore
   command: /usr/bin/git config --global core.excludesfile ~/.gitignore
   tags: common
 
@@ -34,4 +48,16 @@
 
 - name: Set path to include $HOME/bin for zsh too
   lineinfile: dest=/home/vagrant/.zshrc state=present line='export PATH="$PATH:$REPO/vendor/bin:$HOME/bin"'
+  tags: common
+
+- name: Set $PATH to include "vendor/bin" folder
+  lineinfile: dest=/home/vagrant/.profile state=present line='export PATH="$PATH:/var/www/mass.local/vendor/bin"'
+  tags: common
+
+- name: Set $PATH to include "scripts" folder
+  lineinfile: dest=/home/vagrant/.profile state=present line='export PATH="$PATH:/var/www/mass.local/scripts"'
+  tags: common
+
+- name: Add "www" alias to "/var/www/mass.local"
+  lineinfile: dest=/home/vagrant/.profile state=present line='alias www="cd /var/www/mass.local"'
   tags: common

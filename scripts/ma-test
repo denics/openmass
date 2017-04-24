@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+#
+# Author: Isaac Chansky(MassIT)
+# Date: 04.06.2017
+#
+# Description:
+# This is a convenience script for linting files & running behat tests.
+
+echo -e "\nLinting files... 🔍\n"
+
+# cd into project root
+echo -e "\n Changing directory to '/var/www/mass.local'... 🚀  🚀  🚀 \n"
+cd /var/www/mass.local
+
+# configure phpcs to recognize Drupal and DrupalPractice standards
+phpcs --config-set installed_paths vendor/drupal/coder/coder_sniffer
+
+# check drupal coding standards with php code sniffer
+phpcs --warning-severity=0 --standard=Drupal docroot/**/custom
+phpcs --warning-severity=0 --standard=DrupalPractice docroot/**/custom
+
+# php mess detector
+phpmd docroot/modules/custom text vendor/palantirnet/the-build/conf/phpmd.xml --suffixes php,module,inc --ignore-violations-on-exit
+phpmd docroot/themes/custom text vendor/palantirnet/the-build/conf/phpmd.xml --suffixes php,module,inc --ignore-violations-on-exit
+phpmd docroot/profiles/custom text vendor/palantirnet/the-build/conf/phpmd.xml --suffixes php,module,inc --ignore-violations-on-exit
+
+# phplint
+phplint "docroot/**/custom/**/*.php"
+
+# lint javascript
+eslint --ignore-path 'docroot/.eslintignore' 'docroot/**/custom/**/*.js'
+
+echo -e "\n Executing all tests... 🚀  🚀  🚀 \n"
+behat

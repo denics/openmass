@@ -11,7 +11,7 @@ if (!empty($output)) {
   $repo = current($output);
 
   # Configure Drush for the current project.
-  $options['root'] = "{$repo}/web";
+  $options['root'] = "{$repo}/docroot";
   $options['uri'] = "http://mass.local";
   $options['include'] = [
     // @todo Not needed after https://github.com/previousnext/drush_cmi_tools/issues/7
