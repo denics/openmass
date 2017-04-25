@@ -17,6 +17,7 @@ $settings['trusted_host_patterns'] = array(
   '^massgovstg\.prod\.acquia-sites\.com',
   '^massgovcd\.prod\.acquia-sites\.com',
   '^massgovfeature\d+.prod.acquia-sites.com',
+  '^edit(\.stage)?\.mass\.gov', # Edit domains for Stage and Prod
   '^pilot\.mass\.gov$',
 );
 
