@@ -1,0 +1,89 @@
+#!/usr/bin/env bash
+#
+# Author: Isaac Chansky(MassIT)
+# Date: 04.06.2017
+#
+# Description:
+# This is a convenience script for refreshing data & config from remote environments.
+# We have rsync behind a flag because it can be problematic and often you don't want to run it every time.
+
+# available environments to pull from
+remoteEnvironments=("prod" "test" "dev" "feature1" "feature2" "feature3")
+
+# cd into project root
+echo -e "\n Changing directory to '/var/www/mass.local'... 🚀  🚀  🚀 \n"
+cd /var/www/mass.local
+
+# Runs a command w/ success/fail handling
+function run {
+  # parameters
+  local theCommand=$1
+  local theCommandTitle=$2
+  local emoji=$3
+
+  echo -e "\n Running $theCommandTitle... $emoji  $emoji  $emoji \n\n$theCommand\n"
+  $theCommand
+  # capture return code
+  RC=$?
+  # test return code
+  if test "$RC" = "0"; then
+    echo -e "\n\x1B[01;92m"$theCommandTitle" completed.\x1B[0m 👍 \n"
+  else
+    echo -e "\n🔥  🔥  🔥  \x1B[01;91m"$theCommandTitle" failed. \x1B[0m 🔥  🔥  🔥\n"
+    exit
+  fi
+}
+
+# Checks to see if an array contains an element
+# Taken from: https://stackoverflow.com/questions/3685970/check-if-an-array-contains-a-value
+function containsElement () {
+  local e
+  for e in "${@:2}"; do [[ "$e" == "$1" ]] && return 0; done
+  return 1
+}
+
+# prompt for user input
+echo "Which environment would you like to pull from?"
+echo "(" ${remoteEnvironments[*]} ")"
+
+# read user input
+read desiredEnv
+
+# run function
+containsElement $desiredEnv "${remoteEnvironments[@]}"
+# check return code first
+if [ $? == 0 ]; then
+  # print confirmation
+  echo "Ok, using drush alias @massgov.$desiredEnv."
+  # bring db to local environment
+  echo -e "\n"
+  echo "sync db"
+  echo -e "------------------------------------------------------------------------"
+  run "drush -y --sanitize sql-sync @massgov.$desiredEnv @self" "drush sql-sync" "🚚"
+
+  # rsync files
+  echo -e "\n"
+  echo "rsync files"
+  echo -e "------------------------------------------------------------------------"
+  run "drush -y rsync @massgov.$desiredEnv:%files @self:%files" "drush rsync" "🚛"
+
+  # run db updates if any
+  echo -e "\n"
+  echo "db update"
+  echo -e "------------------------------------------------------------------------"
+  run "drush -y updatedb --entity-updates" "drush updatedb" "🆙"
+
+  # config import
+  echo -e "\n"
+  echo "config import"
+  echo -e "------------------------------------------------------------------------"
+  run "drush -y --include=../vendor/previousnext/drush_cmi_tools cimy" "drush cimy" "📦"
+
+  # rebuild drupal cache
+  echo -e "\n"
+  echo "rebuild cache"
+  echo -e "------------------------------------------------------------------------"
+  run "drush cr" "drush cr" "🚜"
+else
+  echo -e "\n Hm, that's not a valid environment.  😬\n"
+fi

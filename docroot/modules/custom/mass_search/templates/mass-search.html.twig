@@ -1,0 +1,45 @@
+{#
+/**
+ * @file
+ * Theme override to display a single page.
+ *
+ * @see hook_theme() in mass_search.module
+ * @see page--search.html.twig
+ *
+ */
+#}
+
+<div class="pre-content">
+  <section class="ma__breadcrumbs ">
+    <h2 id="system-breadcrumb" class="visually-hidden">Breadcrumb</h2>
+    <nav class="ma__breadcrumbs__container">
+      <ol class="ma__breadcrumbs__items">
+	<li class="ma__breadcrumbs__item"><a href="/">Home</a></li>
+	<li class="ma__breadcrumbs__item"><a href="/search">Search Results</a></li>
+      </ol>
+    </nav>
+  </section><!-- .ma__breadcrumbs -->
+  <section class="ma__page-header">
+    <div class="ma__page-header__content">
+      <h1 class="ma__page-header__title">Search Results<span class="visually-hidden"> Page</span></h1>
+    </div>
+  </section>
+
+  <div class="ma__content__search js-header-search-menu ma__link-list__container">
+    <h2 class="visually-hidden">Search Form</h2>
+    <section class="ma__content-search">
+      <!-- search form container -->
+      <div id="cse-search-results-form" role="search" style="width: 100%;" dir="ltr">Loading</div>
+    </section><!-- .ma__content__search -->
+  </div><!-- .ma__content-search -->
+</div><!-- .pre-content -->
+<main class="main-content" role="main" id="main-content" tabindex="-1">
+  <div class="page-content">
+    <section class="ma__link-list">
+      <div class="ma__link-list__container">
+	<!-- search results container -->
+	<div id="cse-search-results" style="width: 100%;">Loading</div>
+      </div><!-- .ma__link-list__container -->
+    </section><!-- .ma__link-list -->
+  </div><!-- .page-content -->
+</main><!-- .main-content -->

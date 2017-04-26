@@ -1,0 +1,15 @@
+mass-map-page-renderer:
+  js:
+    js/mass_map.page.js: {preprocess: false}
+  dependencies:
+    - core/jquery
+    - core/drupal
+mass-map-field-renderer:
+  js:
+    js/mass_map.field.js: {preprocess: false}
+  dependencies:
+    - core/jquery
+    - core/drupal
+mass-google-map-apis:
+  js:
+    //maps.googleapis.com/maps/api/js?key=AIzaSyD5HXUVAA4VyRXVX50taVe2hDY8hy2JSdA&libraries=geometry,places,geocoder: { type: external }

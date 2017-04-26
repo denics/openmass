@@ -2,17 +2,11 @@
     <!-- Run with: vendor/bin/phing -Dbuild.env=vagrant -->
     <!-- For a list of commands, try: vendor/bin/phing -Dbuild.env=vagrant -l -->
 
-
     <import file="vendor/palantirnet/the-build/tasks/boilerplate.xml" />
 
     <!-- Make these commands available by default. -->
     <import file="vendor/palantirnet/the-build/tasks/drupal.xml" />
     <import file="vendor/palantirnet/the-build/tasks/acquia.xml" />
-
-    <!-- Code Quality tools -->
-    <import file="vendor/palantirnet/the-build/tasks/code_review/drupal_code_sniffer.xml" />
-    <import file="vendor/palantirnet/the-build/tasks/code_review/phplint.xml" />
-    <import file="vendor/palantirnet/the-build/tasks/code_review/phpmd.xml" />
 
     <!-- Custom targets for this project. -->
     <import file="build/mass.xml" />
@@ -20,31 +14,18 @@
 
     <!-- Default target: build -->
     <target name="build" description="Build the application.">
-        <phingcall target="drupal-build" />
     </target>
-
 
     <!-- Target: install -->
     <target name="install" description="Install the application.">
         <phingcall target="install-from-acquia" />
-        <phingcall target="mass-local-modules" />
         <!-- <drush command="cron" /> -->
+	<drush command="cron" />
     </target>
 
     <target name="clean-install" description="Initialize a new copy of the site without a canonical DB.">
         <phingcall target="drupal-install" />
-        <phingcall target="mass-local-modules" />
     </target>
-
-    <!-- Target: test -->
-    <target name="test" description="Run all the tests.">
-        <phingcall target="test-run-code-sniffer" />
-        <phingcall target="test-run-phpmd" />
-        <phingcall target="test-run-phplint" />
-        <phingcall target="mass-drupal-test" />
-        <phingcall target="mass-run-eslint" />
-    </target>
-
 
     <!-- Target: deploy -->
     <target name="deploy" description="Build and deploy the application.">
@@ -53,6 +34,5 @@
         <phingcall target="build" />
         <phingcall target="acquia-deploy" />
     </target>
-
 
 </project>

@@ -7,28 +7,95 @@ machine:
     version: 0.12.17
   environment:
     PALANTIR_ENVIRONMENT: circle
+    PATH: ${HOME}/${CIRCLE_PROJECT_REPONAME}/vendor/bin:$PATH
+    DB_DB: circle_test
+    DB_USER: ubuntu
+    DB_PASS:
 
 dependencies:
   pre:
+    # copy apache config from git repo to ubuntu default host
     - cp $HOME/$CIRCLE_PROJECT_REPONAME/conf/apache.circle.conf /etc/apache2/sites-available/default
+    # search & replace the parent of docroot folder in DocumentRoot path
     - sed -e "s?%PROJECT_DIR%?$(pwd)?g" --in-place /etc/apache2/sites-available/default
+    # enabled apache module: mod_rewrite
     - sudo a2enmod rewrite
+    # prevent drush from sending emails
     - echo "sendmail_path=/bin/true" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
-    - echo "memory_limit=256M" > ~/.phpenv/versions/$(phpenv global)/etc/conf.d/memory.ini
+    # set php memory limit
+    - echo "memory_limit=1024M" > ~/.phpenv/versions/$(phpenv global)/etc/conf.d/memory.ini
+    # restart apache
     - sudo service apache2 restart
-    # Generate a GitHub token per project and add it to the CircleCI environment variables using the web UI.
+    # Generate a GitHub token per project and add it to the CircleCI environment variables using the docroot UI.
     - composer config --global github-oauth.github.com $GITHUB_TOKEN
 
   override:
-    - composer install --no-interaction
+    # install eslint globally
     - npm install -g eslint@v2.13.1
+    # install phplint globally
+    - npm install -g phplint@v1.7.4
+    # configure phpcs to recognize Drupal and DrupalPractice standards
+    - phpcs --config-set installed_paths ${HOME}/${CIRCLE_PROJECT_REPONAME}/vendor/drupal/coder/coder_sniffer
 
-  cache_directories:
-    - ~/.composer/cache
+  post:
+    # Copy database from @massgov.prod to @self (Transfers the database dump via rsync)
+    - cd docroot && drush -yv --sanitize sql-sync @massgov.prod @self
+    # Rsync Drupal files from @massgov.prod to @self
+    - cd docroot && drush -y rsync @massgov.prod:%files @self:%files
+    # Apply any database updates required (as with running update.php)
+    - cd docroot && drush -yv updatedb --entity-updates
+    # Import config
+    - cd docroot && drush -yv --include=../vendor/previousnext/drush_cmi_tools cimy
+    # Get a status
+    - cd docroot && drush status
 
 test:
-  pre:
-    - vendor/bin/phing build clean-install
-
   override:
-    - vendor/bin/phing test
+    # check drupal coding standards with php code sniffer
+    - phpcs -v --warning-severity=0 --standard=Drupal docroot/modules/custom
+    - phpcs -v --warning-severity=0 --standard=Drupal docroot/themes/custom
+    - phpcs -v --warning-severity=0 --standard=Drupal docroot/profiles/custom
+    # check drupal best practices with php code sniffer
+    - phpcs -v --warning-severity=0 --standard=DrupalPractice docroot/modules/custom
+    - phpcs -v --warning-severity=0 --standard=DrupalPractice docroot/themes/custom
+    - phpcs -v --warning-severity=0 --standard=DrupalPractice docroot/profiles/custom
+    # php mess detector
+    - phpmd docroot/modules/custom text vendor/palantirnet/the-build/conf/phpmd.xml --suffixes php,module,inc --ignore-violations-on-exit
+    - phpmd docroot/themes/custom text vendor/palantirnet/the-build/conf/phpmd.xml --suffixes php,module,inc --ignore-violations-on-exit
+    - phpmd docroot/profiles/custom text vendor/palantirnet/the-build/conf/phpmd.xml --suffixes php,module,inc --ignore-violations-on-exit
+    # phplint
+    - cd docroot/modules/custom && phplint --verbose "**/*.php"
+    - cd docroot/themes/custom && phplint --verbose "**/*.php"
+    - cd docroot/profiles/custom && phplint --verbose "**/*.php"
+    # lint javascript
+    - eslint --debug --ignore-path '/home/ubuntu/mass/docroot/.eslintignore' '/home/ubuntu/mass/docroot/modules/custom/**/*.js' 2>&1
+    - eslint --debug --ignore-path '/home/ubuntu/mass/docroot/.eslintignore' '/home/ubuntu/mass/docroot/themes/custom/**/*.js' 2>&1
+    - eslint --debug --ignore-path '/home/ubuntu/mass/docroot/.eslintignore' '/home/ubuntu/mass/docroot/profiles/custom/**/*.js' 2>&1
+    # Rebuild drupal cache
+    - cd docroot && drush cr
+    # behat testing
+    - behat --format=junit --out=$CIRCLE_TEST_REPORTS/behat --format=pretty --out=std
+
+# after tests pass, proceed with a deployment
+deployment:
+  # Acquia (this is just a label)
+  acquia:
+    # condition for which branch to act upon: any branch by using regex /.*/
+    branch: /.*/
+    commands:
+      # add Acquia repo as an additional remote
+      - git remote add acquia massgov@svn-20994.prod.hosting.acquia.com:massgov.git
+      # push the branch that meets our regex (/.*/ above) and get its name from an environment variable
+      - git push --force acquia $CIRCLE_BRANCH
+  # --- Deploy develop branch to CD ---
+  continuous_delivery:
+    branch: develop # Only run this when the branch is this
+    commands:
+      # Add Acquia Cloud Git repo as a remote repo
+      - git remote add acquia massgov@svn-20994.prod.hosting.acquia.com:massgov.git
+      # Push develop branch to Acquia Cloud Git repo
+      - git push --force acquia $CIRCLE_BRANCH
+      # Deploy to CD
+      - drush ma-deploy cd $CIRCLE_BRANCH
+      # Copy Files from Prod to CD
+      - drush -y rsync @massgov.prod:%files @massgov.cd:%files

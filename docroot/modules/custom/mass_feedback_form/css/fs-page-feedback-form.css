@@ -1,0 +1,110 @@
+/**
+* Override css for the Formstack multi page feedback form.
+*/
+
+.fsForm,
+.fsError {
+  float: none !important;
+}
+
+form#fsForm2521317 {
+  border: 2px solid #dcdcdc;
+  background: #ffffff;
+  max-width: 35em;
+  padding: 2.5em;
+  margin: auto;
+}
+
+input#fsSubmitButton2521317 {
+  color: white !important;
+}
+
+/* Formstack Validation overrides */
+.fsForm  div.fsError {
+  color: white;
+  border-radius: 0;
+  background-color: #f34343;
+  font-weight: bold;
+}
+.fsPage .fsValidationError {
+  background-color: transparent;
+}
+.fsPage .fsValidationError .fsLabel,
+.fsValidationError .fsLabel span,
+div.fsValidationError label.fsLabel {
+  color: #f34343 !important;
+  padding-left: 0;
+  background: none;
+}
+
+.fsPage .fsValidationError input,
+.fsPage .fsValidationError textarea {
+  border: 2px solid #f34343;
+}
+
+section.ma__suggested-pages + #feedback {
+  background: #f2f2f2;
+}
+
+div#feedback {
+  background: white;
+}
+
+.fsBody {
+  padding: 2.5em 0;
+}
+.fsBody .fsPagination {
+  text-align: right;
+  margin: 0;
+}
+
+.fsPage fieldset {
+  border: none;
+  padding-left: 0;
+}
+
+.fsPage label {
+  margin-bottom: 0;
+}
+.fsPage textarea {
+  width: 100%;
+  font-size: 1rem;
+}
+.fsPage .fsRowBody {
+  margin-bottom: 1em;
+}
+.fsPage .fsSupporting {
+  padding-top: 0.5em;
+  font-size: 0.8em;
+}
+.fsPage input[type="text"],
+.fsPage input[type="email"] {
+  max-width: 100%;
+}
+
+.fsPage legend.fsLabel {
+  font-weight: 700;
+}
+
+.fsPage label.fsLabel {
+  font-weight: 300;
+}
+
+.fsPage div.fsCounter {
+  width: 100% !important;
+  font-family: "Texta","Helvetica","Arial","sans-serif";
+}
+
+.fsPage .fsSubmitButton:hover {
+  cursor: pointer;
+}
+
+.fsForm hr {
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  form#fsForm2521317 {
+    padding: 1.5em;
+  }
+}

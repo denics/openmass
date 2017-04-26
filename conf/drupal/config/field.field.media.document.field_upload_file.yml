@@ -12,7 +12,7 @@ field_name: field_upload_file
 entity_type: media
 bundle: document
 label: 'Select the file'
-description: ''
+description: 'References the file corresponding to the document.'
 required: true
 translatable: false
 default_value: {  }
