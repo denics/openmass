@@ -89,3 +89,15 @@ deployment:
       - git remote add acquia massgov@svn-20994.prod.hosting.acquia.com:massgov.git
       # push the branch that meets our regex (/.*/ above) and get its name from an environment variable
       - git push --force acquia $CIRCLE_BRANCH
+  # --- Deploy develop branch to CD ---
+  continuous_delivery:
+    branch: develop # Only run this when the branch is this
+    commands:
+      # Add Acquia Cloud Git repo as a remote repo
+      - git remote add acquia massgov@svn-20994.prod.hosting.acquia.com:massgov.git
+      # Push develop branch to Acquia Cloud Git repo
+      - git push --force acquia $CIRCLE_BRANCH
+      # Deploy to CD
+      - drush ma-deploy cd $CIRCLE_BRANCH
+      # Copy Files from Prod to CD
+      - drush -y rsync @massgov.prod:%files @massgov.cd:%files
