@@ -19,13 +19,17 @@
 {% endblock %}
 
 {% block sidebar %}
-  {% include "@organisms/by-author/quick-actions.twig" %}
-  {% include "@organisms/by-author/sidebar-contact.twig" %}
+  {% if quickActions %}
+    {% include "@organisms/by-author/quick-actions.twig" %}
+  {% endif %}
+  {% if sidebarContact %}
+    {% include "@organisms/by-author/sidebar-contact.twig" %}
+  {% endif %}
   {# include "@organisms/by-author/sidebar-widget.twig" #}
 {% endblock %}
 
 {% block postContent %}
-  {% if node.field_related_locations.value %}
+  {% if suggestedPages %}
     {% include "@organisms/by-author/suggested-pages.twig" %}
   {% endif %}
   {% include "@organisms/by-template/breadcrumbs.twig" %}
