@@ -7323,125 +7323,6 @@
         ]
     },
     {
-        "name": "dflydev/embedded-composer-core",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
-        "target-dir": "Dflydev/EmbeddedComposer/Core",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/dflydev/dflydev-embedded-composer-core.git",
-            "reference": "ec7461d8ddcecc8041212c1acf6f6d020be773a0"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/dflydev/dflydev-embedded-composer-core/zipball/ec7461d8ddcecc8041212c1acf6f6d020be773a0",
-            "reference": "ec7461d8ddcecc8041212c1acf6f6d020be773a0",
-            "shasum": ""
-        },
-        "require": {
-            "composer/composer": "1.0.*@dev",
-            "php": ">=5.3.2",
-            "seld/jsonlint": "1.*",
-            "symfony/console": "~2.3@dev"
-        },
-        "time": "2015-03-23T20:10:26+00:00",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "1.0-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "Dflydev\\EmbeddedComposer\\Core": ""
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Dragonfly Development Inc.",
-                "email": "info@dflydev.com",
-                "homepage": "http://dflydev.com"
-            },
-            {
-                "name": "Beau Simensen",
-                "email": "beau@dflydev.com",
-                "homepage": "http://beausimensen.com"
-            }
-        ],
-        "description": "Embed Composer core",
-        "keywords": [
-            "composer",
-            "embedded",
-            "extensibility"
-        ],
-        "abandoned": "dflydev/embedded-composer"
-    },
-    {
-        "name": "dflydev/embedded-composer-console",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
-        "target-dir": "Dflydev/EmbeddedComposer/Console",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/dflydev/dflydev-embedded-composer-console.git",
-            "reference": "0f279f17dfe6f350d32f15f5baab55503eebe2fa"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/dflydev/dflydev-embedded-composer-console/zipball/0f279f17dfe6f350d32f15f5baab55503eebe2fa",
-            "reference": "0f279f17dfe6f350d32f15f5baab55503eebe2fa",
-            "shasum": ""
-        },
-        "require": {
-            "composer/composer": "@dev",
-            "dflydev/embedded-composer-core": "1.*@dev",
-            "php": ">=5.3.2",
-            "symfony/console": "~2.3@dev"
-        },
-        "time": "2014-09-17T04:02:52+00:00",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "1.0-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "Dflydev\\EmbeddedComposer\\Console": ""
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Dragonfly Development Inc.",
-                "email": "info@dflydev.com",
-                "homepage": "http://dflydev.com"
-            },
-            {
-                "name": "Beau Simensen",
-                "email": "beau@dflydev.com",
-                "homepage": "http://beausimensen.com"
-            }
-        ],
-        "description": "Embed Composer into a Symfony Console application",
-        "keywords": [
-            "composer",
-            "console",
-            "embedded",
-            "extensibility"
-        ],
-        "abandoned": "dflydev/embedded-composer"
-    },
-    {
         "name": "pear/console_table",
         "version": "v1.3.0",
         "version_normalized": "1.3.0.0",
@@ -10698,6 +10579,405 @@
         "support": {
             "source": "https://github.com/palantirnet/the-vagrant/tree/0.6.0",
             "issues": "https://github.com/palantirnet/the-vagrant/issues"
+        }
+    },
+    {
+        "name": "dflydev/embedded-composer-console",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/dflydev/dflydev-embedded-composer.git",
+            "reference": "c9ca20fd3ccfbfb7bfcc3c65c33191f458c8a3a7"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/dflydev/dflydev-embedded-composer/zipball/c9ca20fd3ccfbfb7bfcc3c65c33191f458c8a3a7",
+            "reference": "c9ca20fd3ccfbfb7bfcc3c65c33191f458c8a3a7",
+            "shasum": ""
+        },
+        "require": {
+            "composer/composer": "^1.0",
+            "php": ">=5.3.2"
+        },
+        "replace": {
+            "dflydev/embedded-composer-bundle": "self.version",
+            "dflydev/embedded-composer-console": "self.version",
+            "dflydev/embedded-composer-core": "self.version"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "~3.7.10",
+            "symfony/console": "~2.3@dev",
+            "symfony/http-kernel": "~2.1"
+        },
+        "suggest": {
+            "symfony/console": "~2.3",
+            "symfony/http-kernel": "~2.1"
+        },
+        "time": "2016-05-21T00:49:42+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.0-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Dflydev\\EmbeddedComposer": "src"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Dragonfly Development Inc.",
+                "email": "info@dflydev.com",
+                "homepage": "http://dflydev.com"
+            },
+            {
+                "name": "Beau Simensen",
+                "email": "beau@dflydev.com",
+                "homepage": "http://beausimensen.com"
+            }
+        ],
+        "description": "Embed Composer into another application",
+        "keywords": [
+            "composer",
+            "embedded",
+            "extensibility"
+        ]
+    },
+    {
+        "name": "drupal/entity",
+        "version": "1.0.0-alpha4",
+        "version_normalized": "1.0.0.0-alpha4",
+        "source": {
+            "type": "git",
+            "url": "https://git.drupal.org/project/entity",
+            "reference": "8.x-1.0-alpha4"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://ftp.drupal.org/files/projects/entity-8.x-1.0-alpha4.zip",
+            "reference": "8.x-1.0-alpha4",
+            "shasum": "c081d3757c159dfee74c9e5acb63bdee81c42e18"
+        },
+        "require": {
+            "drupal/core": "~8.1"
+        },
+        "type": "drupal-module",
+        "extra": {
+            "branch-alias": {
+                "dev-1.x": "1.x-dev"
+            },
+            "drupal": {
+                "version": "8.x-1.0-alpha4",
+                "datestamp": "1481194983"
+            }
+        },
+        "installation-source": "dist",
+        "notification-url": "https://packages.drupal.org/8/downloads",
+        "license": [
+            "GPL-2.0+"
+        ],
+        "authors": [
+            {
+                "name": "Berdir",
+                "homepage": "https://www.drupal.org/user/214652"
+            },
+            {
+                "name": "bojanz",
+                "homepage": "https://www.drupal.org/user/86106"
+            },
+            {
+                "name": "dawehner",
+                "homepage": "https://www.drupal.org/user/99340"
+            },
+            {
+                "name": "dixon_",
+                "homepage": "https://www.drupal.org/user/239911"
+            },
+            {
+                "name": "fago",
+                "homepage": "https://www.drupal.org/user/16747"
+            }
+        ],
+        "description": "Provides expanded entity APIs, which will be moved to Drupal core one day.",
+        "homepage": "http://drupal.org/project/entity",
+        "support": {
+            "source": "http://cgit.drupalcode.org/entity"
+        }
+    },
+    {
+        "name": "drupal/inline_entity_form",
+        "version": "dev-1.x",
+        "version_normalized": "dev-1.x",
+        "source": {
+            "type": "git",
+            "url": "https://git.drupal.org/project/inline_entity_form",
+            "reference": "dbfc93fc961b3e6c84497390c62ec36d02c1c4d7"
+        },
+        "require": {
+            "drupal/core": "~8.0"
+        },
+        "require-dev": {
+            "drupal/entity_reference_revisions": "*"
+        },
+        "time": "2016-11-14T20:32:26+00:00",
+        "type": "drupal-module",
+        "extra": {
+            "branch-alias": {
+                "dev-1.x": "1.x-dev"
+            },
+            "drupal": {
+                "version": "8.x-1.0-beta1+2-dev",
+                "datestamp": "1479155639"
+            }
+        },
+        "installation-source": "source",
+        "notification-url": "https://packages.drupal.org/8/downloads",
+        "license": [
+            "GPL-2.0+"
+        ],
+        "authors": [
+            {
+                "name": "bojanz",
+                "homepage": "https://www.drupal.org/user/86106"
+            },
+            {
+                "name": "dawehner",
+                "homepage": "https://www.drupal.org/user/99340"
+            },
+            {
+                "name": "rszrama",
+                "homepage": "https://www.drupal.org/user/49344"
+            },
+            {
+                "name": "slashrsm",
+                "homepage": "https://www.drupal.org/user/744628"
+            },
+            {
+                "name": "webflo",
+                "homepage": "https://www.drupal.org/user/254778"
+            }
+        ],
+        "description": "Provides a widget for inline management (creation, modification, removal) of referenced entities.",
+        "homepage": "https://www.drupal.org/project/inline_entity_form",
+        "support": {
+            "source": "http://cgit.drupalcode.org/inline_entity_form"
+        }
+    },
+    {
+        "name": "drupal/media_entity",
+        "version": "1.6.0",
+        "version_normalized": "1.6.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://git.drupal.org/project/media_entity",
+            "reference": "8.x-1.6"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://ftp.drupal.org/files/projects/media_entity-8.x-1.6.zip",
+            "reference": "8.x-1.6",
+            "shasum": "86fd1478f2448c034660faa30ef34c0e8519fecb"
+        },
+        "require": {
+            "drupal/core": "~8.1",
+            "drupal/entity": "^1.0.0-alpha3"
+        },
+        "require-dev": {
+            "drupal/entity": "*",
+            "drupal/inline_entity_form": "*"
+        },
+        "type": "drupal-module",
+        "extra": {
+            "branch-alias": {
+                "dev-1.x": "1.x-dev"
+            },
+            "drupal": {
+                "version": "8.x-1.6",
+                "datestamp": "1480363983"
+            }
+        },
+        "installation-source": "dist",
+        "notification-url": "https://packages.drupal.org/8/downloads",
+        "license": [
+            "GPL-2.0+"
+        ],
+        "authors": [
+            {
+                "name": "Berdir",
+                "homepage": "https://www.drupal.org/user/214652"
+            },
+            {
+                "name": "Dave Reid",
+                "homepage": "https://www.drupal.org/user/53892"
+            },
+            {
+                "name": "Drupal Media Team",
+                "homepage": "https://www.drupal.org/user/3260690"
+            },
+            {
+                "name": "Drupal media CI",
+                "homepage": "https://www.drupal.org/user/3057985"
+            },
+            {
+                "name": "Primsi",
+                "homepage": "https://www.drupal.org/user/282629"
+            },
+            {
+                "name": "boztek",
+                "homepage": "https://www.drupal.org/user/134410"
+            },
+            {
+                "name": "chr.fritsch",
+                "homepage": "https://www.drupal.org/user/2103716"
+            },
+            {
+                "name": "jcisio",
+                "homepage": "https://www.drupal.org/user/210762"
+            },
+            {
+                "name": "katzilla",
+                "homepage": "https://www.drupal.org/user/260398"
+            },
+            {
+                "name": "phenaproxima",
+                "homepage": "https://www.drupal.org/user/205645"
+            },
+            {
+                "name": "seanB",
+                "homepage": "https://www.drupal.org/user/545912"
+            },
+            {
+                "name": "slashrsm",
+                "homepage": "https://www.drupal.org/user/744628"
+            }
+        ],
+        "description": "Provides a lean and simple way to store media on Drupal 8 sites.",
+        "homepage": "https://www.drupal.org/project/media_entity",
+        "keywords": [
+            "Drupal"
+        ],
+        "support": {
+            "source": "https://www.drupal.org/project/media_entity",
+            "issues": "https://www.drupal.org/project/issues/media_entity"
+        }
+    },
+    {
+        "name": "drupal/media_entity_document",
+        "version": "1.1.0",
+        "version_normalized": "1.1.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://git.drupal.org/project/media_entity_document",
+            "reference": "8.x-1.1"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://ftp.drupal.org/files/projects/media_entity_document-8.x-1.1.zip",
+            "reference": "8.x-1.1",
+            "shasum": "88a45820cf0aeb5f8a3ade3338007771191508e4"
+        },
+        "require": {
+            "drupal/core": "~8.1",
+            "drupal/media_entity": "~1.0 || ~8.1.0"
+        },
+        "type": "drupal-module",
+        "extra": {
+            "branch-alias": {
+                "dev-1.x": "1.x-dev"
+            },
+            "drupal": {
+                "version": "8.x-1.1",
+                "datestamp": "1470211995"
+            }
+        },
+        "installation-source": "dist",
+        "notification-url": "https://packages.drupal.org/8/downloads",
+        "license": [
+            "GPL-2.0+"
+        ],
+        "authors": [
+            {
+                "name": "NerOcrO",
+                "homepage": "https://www.drupal.org/user/1728164",
+                "role": "Maintainer"
+            }
+        ],
+        "description": "Local documents integration for Drupal Media entity.",
+        "homepage": "https://www.drupal.org/project/media_entity_document",
+        "keywords": [
+            "Drupal",
+            "document",
+            "media"
+        ],
+        "support": {
+            "source": "https://www.drupal.org/project/media_entity_document",
+            "issues": "https://www.drupal.org/project/issues/media_entity_document"
+        }
+    },
+    {
+        "name": "drupal/video_embed_field",
+        "version": "1.4.0",
+        "version_normalized": "1.4.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://git.drupal.org/project/video_embed_field",
+            "reference": "8.x-1.4"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://ftp.drupal.org/files/projects/video_embed_field-8.x-1.4.zip",
+            "reference": "8.x-1.4",
+            "shasum": "7bf93a52e2e8d639b4dbefd65f0ee2b170d73f43"
+        },
+        "require": {
+            "drupal/core": "*"
+        },
+        "require-dev": {
+            "drupal/colorbox": "*",
+            "drupal/media_entity": "*",
+            "drupal/media_entity_embeddable_video": "*"
+        },
+        "type": "drupal-module",
+        "extra": {
+            "branch-alias": {
+                "dev-1.x": "1.x-dev"
+            },
+            "drupal": {
+                "version": "8.x-1.x",
+                "datestamp": "1484253183",
+                "package": "Field types"
+            }
+        },
+        "installation-source": "dist",
+        "notification-url": "https://packages.drupal.org/8/downloads",
+        "license": [
+            "GPL-2.0+"
+        ],
+        "authors": [
+            {
+                "name": "Sam152",
+                "homepage": "https://www.drupal.org/user/1485048"
+            },
+            {
+                "name": "jec006",
+                "homepage": "https://www.drupal.org/user/855980"
+            },
+            {
+                "name": "plopesc",
+                "homepage": "https://www.drupal.org/user/282415"
+            }
+        ],
+        "description": "A pluggable field type for storing videos from external video hosts such as Vimeo and YouTube.",
+        "homepage": "https://www.drupal.org/project/video_embed_field",
+        "support": {
+            "source": "http://cgit.drupalcode.org/video_embed_field"
         }
     }
 ]

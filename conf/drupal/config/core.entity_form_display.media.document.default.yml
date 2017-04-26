@@ -1,0 +1,157 @@
+uuid: 80667f6b-8905-4817-abd7-1fe05fa6dc7c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.media.document.field_contact_information
+    - field.field.media.document.field_contact_name
+    - field.field.media.document.field_contributing_agency
+    - field.field.media.document.field_creator
+    - field.field.media.document.field_description
+    - field.field.media.document.field_end_date
+    - field.field.media.document.field_file_mime
+    - field.field.media.document.field_geographic_place
+    - field.field.media.document.field_internal_notes
+    - field.field.media.document.field_link_classic_massgov
+    - field.field.media.document.field_link_related_content
+    - field.field.media.document.field_publishing_frequency
+    - field.field.media.document.field_size
+    - field.field.media.document.field_start_date
+    - field.field.media.document.field_tags
+    - field.field.media.document.field_title
+    - field.field.media.document.field_upload_file
+    - media_entity.bundle.document
+  module:
+    - datetime
+    - field_group
+    - file
+    - link
+    - workbench_moderation
+third_party_settings:
+  field_group:
+    group_timeframe:
+      children:
+        - field_start_date
+        - field_end_date
+      parent_name: ''
+      weight: 6
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: Timeframe
+id: media.document.default
+targetEntityType: media
+bundle: document
+mode: default
+content:
+  field_contact_information:
+    weight: 12
+    settings:
+      rows: 1
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textarea
+  field_contact_name:
+    weight: 11
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+  field_contributing_agency:
+    weight: 4
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+  field_creator:
+    weight: 2
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete_tags
+  field_description:
+    weight: 3
+    settings:
+      rows: 1
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textarea
+  field_end_date:
+    weight: 8
+    settings: {  }
+    third_party_settings: {  }
+    type: datetime_default
+  field_geographic_place:
+    weight: 9
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_internal_notes:
+    weight: 13
+    settings:
+      rows: 1
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textarea
+  field_link_classic_massgov:
+    weight: 15
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+  field_link_related_content:
+    weight: 14
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+  field_publishing_frequency:
+    weight: 5
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+  field_start_date:
+    weight: 7
+    settings: {  }
+    third_party_settings: {  }
+    type: datetime_default
+  field_tags:
+    weight: 10
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete_tags
+  field_title:
+    weight: 1
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_upload_file:
+    weight: 0
+    settings:
+      progress_indicator: throbber
+    third_party_settings: {  }
+    type: file_generic
+hidden:
+  created: true
+  field_file_mime: true
+  field_size: true
+  name: true
+  uid: true

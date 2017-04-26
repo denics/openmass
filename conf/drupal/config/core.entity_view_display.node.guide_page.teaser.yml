@@ -1,0 +1,22 @@
+uuid: ad4090fe-007d-4687-98ea-6e48fa8831ea
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - node.type.guide_page
+  module:
+    - user
+id: node.guide_page.teaser
+targetEntityType: node
+bundle: guide_page
+mode: teaser
+content:
+  links:
+    weight: 100
+hidden:
+  field_guide_page_bg_narrow: true
+  field_guide_page_bg_wide: true
+  field_guide_page_lede: true
+  field_guide_page_related_guides: true
+  field_guide_page_sections: true

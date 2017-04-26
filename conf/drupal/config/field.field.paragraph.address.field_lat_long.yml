@@ -15,7 +15,13 @@ label: 'Map (Lat/Long)'
 description: ''
 required: true
 translatable: false
-default_value: {  }
+default_value:
+  -
+    preview: ''
+    lat: '42.41'
+    name: ''
+    lon: '-71.38'
+    zoom: '9'
 default_value_callback: ''
 settings: {  }
 field_type: google_map_field

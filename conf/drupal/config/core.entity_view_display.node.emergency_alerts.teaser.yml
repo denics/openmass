@@ -27,4 +27,5 @@ content:
     settings: {  }
     third_party_settings: {  }
 hidden:
+  field_action_sidebar: true
   links: true

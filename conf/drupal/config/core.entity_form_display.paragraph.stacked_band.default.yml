@@ -8,7 +8,21 @@ id: paragraph.stacked_band.default
 targetEntityType: paragraph
 bundle: stacked_band
 mode: default
+content:
+  field_band:
+    weight: 6
+    settings:
+      form_mode: default
+      label_singular: ''
+      label_plural: ''
+      allow_new: true
+      allow_existing: true
+      match_operator: CONTAINS
+      override_labels: false
+    third_party_settings: {  }
+    type: inline_entity_form_complex
 hidden:
   created: true
+  field_band: true
   status: true
   uid: true

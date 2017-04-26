@@ -114,7 +114,9 @@ hidden:
   field_action_related: true
   field_contact_group: true
   field_external_url: true
+  field_funnel_endpoint_term: true
   field_header_cta: true
   field_metatags: true
   field_search: true
+  field_type_term: true
   links: true

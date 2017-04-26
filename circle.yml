@@ -51,8 +51,6 @@ dependencies:
 
 test:
   override:
-    # ensure checked in dependencies are valid & have not been messed with
-    - composer validate
     # check drupal coding standards with php code sniffer
     - phpcs -v --warning-severity=0 --standard=Drupal docroot/modules/custom
     - phpcs -v --warning-severity=0 --standard=Drupal docroot/themes/custom

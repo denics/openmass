@@ -1,0 +1,20 @@
+uuid: 76bf2334-f7be-41f7-bd59-78059cefa293
+langcode: en
+status: true
+dependencies:
+  module:
+    - media_entity
+    - taxonomy
+id: media.field_contributing_agency
+field_name: field_contributing_agency
+entity_type: media
+type: entity_reference
+settings:
+  target_type: taxonomy_term
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

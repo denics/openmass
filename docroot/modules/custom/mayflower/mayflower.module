@@ -180,13 +180,18 @@ function mayflower_prepare_stacked_row_sections($entity) {
   }
 
   if ($entity->$fields['relatedLinks']->getValue()) {
+    $link_list_options = [
+      'title' => t('Related Organizations'),
+      'heading' => 'compHeading',
+    ];
+
     $sections[] = [
       'pageContent' => [
         [
           'path' => '@organisms/by-author/link-list.twig',
           // @todo Pass $options[] as 2nd arg for prepare functions
           // @todo Use field label vs string (need to update field label value)
-          'data' => Organisms::prepareLinkList($entity->$fields['relatedLinks']->referencedEntities(), t('Related Organizations')),
+          'data' => Organisms::prepareLinkList($entity->$fields['relatedLinks']->referencedEntities(), $link_list_options),
         ],
       ],
     ];

@@ -34,11 +34,14 @@ hidden:
   field_action_set__bg_wide: true
   field_bg_narrow: true
   field_bg_wide: true
+  field_file_attachment: true
   field_link: true
+  field_metatags: true
   field_ref_actions_3: true
   field_ref_actions_6: true
   field_ref_card_view_6: true
   field_ref_contact_info: true
+  field_ref_contact_info_1: true
   field_ref_orgs: true
   field_social_links: true
   field_sub_brand: true

@@ -635,13 +635,9 @@ class ComposerStaticInitdb3dc5b77e24a90fb0c1b6b5d8f5da32
             array (
                 0 => __DIR__ . '/..' . '/doctrine/common/lib',
             ),
-            'Dflydev\\EmbeddedComposer\\Core' => 
+            'Dflydev\\EmbeddedComposer' => 
             array (
-                0 => __DIR__ . '/..' . '/dflydev/embedded-composer-core',
-            ),
-            'Dflydev\\EmbeddedComposer\\Console' => 
-            array (
-                0 => __DIR__ . '/..' . '/dflydev/embedded-composer-console',
+                0 => __DIR__ . '/..' . '/dflydev/embedded-composer-console/src',
             ),
         ),
         'C' => 

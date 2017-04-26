@@ -3,6 +3,8 @@
 namespace Drupal\mayflower\Prepare;
 
 use Drupal\mayflower\Helper;
+use Drupal\Component\Utility\UrlHelper;
+use Drupal\file\Entity\File;
 
 /**
  * Provides variable structure for mayflower molecules using prepare functions.
@@ -130,7 +132,7 @@ class Molecules {
   public static function prepareIconLinks($entity, array $options = []) {
     $items = [];
     $map = [
-      'socialLinks' => ['field_social_links'],
+      'socialLinks' => ['field_social_links', 'field_services_social_links'],
     ];
 
     // Determines which fieldnames to use from the map.
@@ -223,6 +225,40 @@ class Molecules {
       ],
       'description' => $entity->field_lede->value,
       'links' => $links,
+    ];
+  }
+
+  /**
+   * Returns the variables structure required to render alerts.
+   *
+   * @param object $entity
+   *   The object that contains the field.
+   * @param string $field
+   *   The field name.
+   *
+   * @see @molecules/callout-alert.twig
+   *
+   * @return array
+   *   Returns a structured array.
+   */
+  public static function prepareCalloutAlert($entity, $field) {
+    $map = [
+      'field' => [$field],
+    ];
+
+    // Determines which fieldnames to use from the map.
+    $fields = Helper::getMappedFields($entity, $map);
+
+    return [
+      'path' => '@organisms/by-author/callout-alert.twig',
+      'data' => [
+        'calloutAlert' => [
+          'decorativeLink' => [
+            'href' => '',
+            'text' => Helper::fieldValue($entity, $fields['field']),
+          ],
+        ],
+      ],
     ];
   }
 
@@ -432,9 +468,9 @@ class Molecules {
 
     $display_title = $options['display_title'];
 
-    if (Helper::isFieldPopulated($entity, $fields['title']) && $display_title != FALSE) {
+    if (isset($fields['title']) && Helper::isFieldPopulated($entity, $fields['title']) && $display_title != FALSE) {
       $title = [
-        'href' => '',
+        'href' => $entity->toURL()->toString(),
         'text' => $entity->$fields['title']->value,
         'chevron' => FALSE,
       ];
@@ -453,10 +489,50 @@ class Molecules {
   }
 
   /**
+   * Returns the variables structure required to render key actions.
+   *
+   * @param object $entity
+   *   The object that contains the field.
+   * @param string $field
+   *   The field name.
+   * @param array $options
+   *   An array of options.
+   *
+   * @see @molecules/callout-alert.twig
+   *
+   * @return array
+   *   Returns a structured array.
+   */
+  public static function prepareKeyActions($entity, $field = '', array $options = []) {
+    $map = [
+      'field' => [$field],
+    ];
+
+    // Determines which fieldnames to use from the map.
+    $fields = Helper::getMappedFields($entity, $map);
+
+    // Roll up our Key Action links.
+    $links = Helper::separatedLinks($entity, $fields['field']);
+
+    return [
+      'path' => '@organisms/by-author/key-actions.twig',
+      'data' => [
+        'keyActions' => [
+          'compHeading' => [
+            'title' => $options['title'],
+            'sub' => TRUE,
+          ],
+          'links' => $links,
+        ],
+      ],
+    ];
+  }
+
+  /**
    * Returns the variables structure required to render actionActivities.
    *
    * @param object $entities
-   *   An array of objects that contains the fields.
+   *   An EntityReferenceRevisionsFieldItemList that contains the entities.
    *
    * @see @molecules/action-activities.twig
    *
@@ -509,9 +585,45 @@ class Molecules {
   }
 
   /**
+   * Returns the variables structure required to render callout stats.
+   *
+   * @param object $entity
+   *   The object that contains the field.
+   * @param string $field
+   *   The field name.
+   * @param array $options
+   *   An array of options.
+   *
+   * @see @molecules/callout-stats.twig
+   *
+   * @return array
+   *   Returns a structured array.
+   */
+  public static function prepareCalloutStats($entity, $field = '', array $options = []) {
+    $map = [
+      'field' => [$field],
+      'label' => ['field_guide_section_label'],
+    ];
+
+    // Determines which fieldnames to use from the map.
+    $fields = Helper::getMappedFields($entity, $map);
+
+    return [
+      'path' => '@molecules/callout-stats.twig',
+      'data' => [
+        'statsCallout' => [
+          'pull' => $options['pull'],
+          'stat' => Helper::fieldValue($entity, $fields['field']),
+          'content' => Helper::fieldValue($entity, $fields['label']),
+        ],
+      ],
+    ];
+  }
+
+  /**
    * Returns the variables structure required to render googleMap.
    *
-   * @param object $entities
+   * @param array $entities
    *   The object that contains the fields.
    *
    * @see @molecules/google-map.twig
@@ -523,16 +635,15 @@ class Molecules {
    *      "markers": "",
    *    ], ...]
    */
-  public static function prepareGoogleMapFromContacts($entities) {
+  public static function prepareGoogleMapFromContacts(array $entities) {
 
     $phone_numbers = [];
     $fax_numbers = [];
     $markers = [];
     $links = [];
+    $index = 0;
 
     foreach ($entities as $entity) {
-
-      $ref_1 = $entity->entity;
 
       $map_ref = [
         'phone_numbers' => ['field_ref_phone_number'],
@@ -542,10 +653,10 @@ class Molecules {
       ];
 
       // Determines which field names to use from the map.
-      $fields = Helper::getMappedFields($entity->entity, $map_ref);
+      $fields = Helper::getMappedFields($entity, $map_ref);
 
       // Get phone numbers.
-      foreach ($ref_1->$fields['phone_numbers'] as $phone) {
+      foreach ($entity->$fields['phone_numbers'] as $phone) {
         $phoneEntity = $phone->entity;
 
         // Creates a map of fields that are on the entitiy.
@@ -559,7 +670,7 @@ class Molecules {
       }
 
       // Get fax numbers.
-      foreach ($ref_1->$fields['fax_numbers'] as $fax) {
+      foreach ($entity->$fields['fax_numbers'] as $fax) {
         $faxEntity = $fax->entity;
 
         // Creates a map of fields that are on the entitiy.
@@ -573,14 +684,14 @@ class Molecules {
       }
 
       // Get links.
-      foreach ($ref_1->$fields['links'] as $link) {
+      foreach ($entity->$fields['links'] as $link) {
         foreach ($link->entity->field_link_single as $linkData) {
           $links[] = $linkData->getValue()['title'];
         }
       }
 
       // Get Address and Map info.
-      foreach ($ref_1->$fields['addresses'] as $index => $address) {
+      foreach ($entity->$fields['addresses'] as $address) {
         $addressEntity = $address->entity;
 
         // Creates a map of fields that are on the entitiy.
@@ -623,7 +734,7 @@ class Molecules {
     $actionMap['map']['zoom'] = 12;
 
     if (empty($data)) {
-      return FALSE;
+      return [];
     }
 
     $centers = Helper::getCenterFromDegrees($data);
@@ -682,7 +793,7 @@ class Molecules {
     $actionMap['map']['zoom'] = 12;
 
     if (empty($data)) {
-      return FALSE;
+      return [];
     }
 
     $centers = Helper::getCenterFromDegrees($data);
@@ -797,6 +908,112 @@ class Molecules {
       ];
     }
     return $icons;
+  }
+
+  /**
+   * Returns the variables structure required to render key actions.
+   *
+   * @param object $entity
+   *   The object that contains the field.
+   * @param string $field
+   *   The field name.
+   * @param array $options
+   *   An array of options.
+   *
+   * @see @molecules/callout-time.twig
+   *
+   * @return array
+   *   Returns a structured array.
+   */
+  public static function prepareCalloutTime($entity, $field = '', array $options = []) {
+    $map = [
+      'field' => [$field],
+    ];
+
+    // Determines which fieldnames to use from the map.
+    $fields = Helper::getMappedFields($entity, $map);
+
+    return [
+      'path' => '@organisms/by-author/callout-time.twig',
+      'data' => [
+        'calloutTime' => [
+          'text' => Helper::fieldValue($entity, $fields['field']),
+        ],
+      ],
+    ];
+  }
+
+  /**
+   * Returns the variables structure required to render action downloads.
+   *
+   * @param object $entity
+   *   The object that contains the field.
+   * @param array $options
+   *   An array of options.
+   *
+   * @see @molecules/action-downloads.twig
+   *
+   * @return array
+   *   Returns a structured array.
+   */
+  public static function prepareActionDownloads($entity, array $options = []) {
+    $theme_path = \Drupal::theme()->getActiveTheme()->getPath();
+    $path = DRUPAL_ROOT . '/' . $theme_path . '/patterns/atoms/';
+
+    $map = [
+      'downloads' => ['field_guide_section_downloads', 'field_service_file'],
+      'link' => ['field_guide_section_link', 'field_service_links'],
+    ];
+
+    // Determines which field names to use from the map.
+    $fields = Helper::getMappedFields($entity, $map);
+
+    if (array_key_exists('link', $fields)) {
+      foreach ($entity->$fields['link'] as $link) {
+        $actionDownloads[] = [
+          'icon' => '@atoms/05-icons/svg-laptop.twig',
+          'text' => $link->getValue()['title'],
+          'href' => $link->getUrl()->toString(),
+          'type' => (UrlHelper::isExternal($link->getUrl()->toString())) ? 'external' : 'internal',
+          'size' => '',
+          'format' => 'form',
+        ];
+      }
+    }
+
+    // Default icon.
+    $icon = '@atoms/05-icons/svg-doc-generic.twig';
+
+    // Roll up our Action Downloads.
+    foreach ($entity->$fields['downloads'] as $file) {
+      $fileEntity = $file->entity;
+
+      $file = ($fileEntity instanceof File) ? $file : File::load($fileEntity->field_upload_file->target_id);
+
+      // Get file info.
+      $bytes = $file->getSize();
+      $readable_size = format_size($bytes);
+      $filename = $file->getFilename();
+      $file_info = new \SplFileInfo($filename);
+      $file_extension = $file_info->getExtension();
+      $url = file_create_url($file->getFileUri());
+
+      // Check if icon template exists.
+      if (file_exists($path . '05-icons/svg-doc-' . strtolower($file_extension) . '.twig')) {
+        $icon = '@atoms/05-icons/svg-doc-' . $file_extension . '.twig';
+      }
+
+      $actionDownloads[] = [
+        'icon' => $icon,
+        'text' => $fileEntity->field_title->value,
+        'href' => $url,
+        'type' => '',
+        'size' => strtoupper($readable_size),
+        'format' => strtoupper($file_extension),
+      ];
+    }
+
+    return $actionDownloads;
   }
 
 }
