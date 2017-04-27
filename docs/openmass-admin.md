@@ -19,8 +19,9 @@ Fetching DB/files from the Mass project
 
 Fetching new code from Mass project
 -------------
-- Merge PR from develop to openmass_master branches.
+- Merge PR from develop to openmass_master branches. Use --no-commit.
   - Resolve any conflicts
+  - Revert unwanted changes: `git reset --hard composer.json README.MD`  
   - Make sure tests pass
 - Push openmass_master branch to openmass repo
 
