@@ -141,8 +141,9 @@ Sometimes we need to apply patches from the Drupal.org issue queues. These patch
 1. Run the deploy script and pass in the environment you want to deploy to. `drush ma-deploy <environment> <branch name>`
 1. Wait a bit, watch the output, and soon you'll have your work on a remote environment for testing.
 
-## Releases
-*To release, we push a **release tag** to acquia and deploy that to staging. A manual move from staging to prod is how work gets release to Mass.gov constituents.*
+## Releases (Deploying to production)
+
+There's a series of steps that the team follows, including process actions and discrete technical steps. See [docs/Release to Prod.md](docs/Release.md) for instructions.
 
 ## Troubleshooting
 
