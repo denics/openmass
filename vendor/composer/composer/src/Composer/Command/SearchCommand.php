@@ -38,10 +38,9 @@ class SearchCommand extends BaseCommand
     {
         $this
             ->setName('search')
-            ->setDescription('Search for packages.')
+            ->setDescription('Search for packages')
             ->setDefinition(array(
                 new InputOption('only-name', 'N', InputOption::VALUE_NONE, 'Search only in name'),
-                new InputOption('type', 't', InputOption::VALUE_REQUIRED, 'Search for a specific package type'),
                 new InputArgument('tokens', InputArgument::IS_ARRAY | InputArgument::REQUIRED, 'tokens to search for'),
             ))
             ->setHelp(<<<EOT
@@ -69,10 +68,9 @@ EOT
         $composer->getEventDispatcher()->dispatch($commandEvent->getName(), $commandEvent);
 
         $onlyName = $input->getOption('only-name');
-        $type = $input->getOption('type') ?: null;
 
         $flags = $onlyName ? RepositoryInterface::SEARCH_NAME : RepositoryInterface::SEARCH_FULLTEXT;
-        $results = $repos->search(implode(' ', $input->getArgument('tokens')), $flags, $type);
+        $results = $repos->search(implode(' ', $input->getArgument('tokens')), $flags);
 
         foreach ($results as $result) {
             $io->write($result['name'] . (isset($result['description']) ? ' '. $result['description'] : ''));

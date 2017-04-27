@@ -12,10 +12,7 @@ namespace Behat\Behat\Output\Node\EventListener\Statistics;
 
 use Behat\Behat\EventDispatcher\Event\AfterStepTested;
 use Behat\Behat\EventDispatcher\Event\BeforeFeatureTested;
-use Behat\Behat\EventDispatcher\Event\BeforeScenarioTested;
 use Behat\Behat\EventDispatcher\Event\FeatureTested;
-use Behat\Behat\EventDispatcher\Event\ScenarioTested;
-use Behat\Behat\Output\Statistics\StepStatV2;
 use Behat\Behat\Output\Statistics\Statistics;
 use Behat\Behat\Output\Statistics\StepStat;
 use Behat\Behat\Tester\Exception\PendingException;
@@ -47,14 +44,6 @@ final class StepStatsListener implements EventListener
      * @var ExceptionPresenter
      */
     private $exceptionPresenter;
-    /**
-     * @var string
-     */
-    private $scenarioTitle;
-    /**
-     * @var string
-     */
-    private $scenarioPath;
 
     /**
      * Initializes listener.
@@ -75,8 +64,6 @@ final class StepStatsListener implements EventListener
     {
         $this->captureCurrentFeaturePathOnBeforeFeatureEvent($event);
         $this->forgetCurrentFeaturePathOnAfterFeatureEvent($eventName);
-        $this->captureScenarioOnBeforeFeatureEvent($event);
-        $this->forgetScenarioOnAfterFeatureEvent($eventName);
         $this->captureStepStatsOnAfterEvent($event);
     }
 
@@ -109,30 +96,6 @@ final class StepStatsListener implements EventListener
     }
 
     /**
-     * Captures current scenario title and path on scenario BEFORE event.
-     *
-     * @param Event $event
-     */
-    private function captureScenarioOnBeforeFeatureEvent(Event $event)
-    {
-        if (!$event instanceof BeforeScenarioTested) {
-            return;
-        }
-
-        $this->scenarioTitle = sprintf('%s: %s', $event->getScenario()->getKeyword(), $event->getScenario()->getTitle());
-        $this->scenarioPath = sprintf('%s:%s', $this->currentFeaturePath, $event->getScenario()->getLine());
-    }
-
-    private function forgetScenarioOnAfterFeatureEvent($eventName)
-    {
-        if (ScenarioTested::AFTER !== $eventName) {
-            return;
-        }
-
-        $this->scenarioTitle = $this->scenarioPath = null;
-    }
-
-    /**
      * Captures step stats on step AFTER event.
      *
      * @param Event $event
@@ -153,7 +116,7 @@ final class StepStatsListener implements EventListener
         $stdOut = $result instanceof ExecutedStepResult ? $result->getCallResult()->getStdOut() : null;
 
         $resultCode = $result->getResultCode();
-        $stat = new StepStatV2($this->scenarioTitle, $this->scenarioPath, $text, $path, $resultCode, $error, $stdOut);
+        $stat = new StepStat($text, $path, $resultCode, $error, $stdOut);
 
         $this->statistics->registerStepStat($stat);
     }

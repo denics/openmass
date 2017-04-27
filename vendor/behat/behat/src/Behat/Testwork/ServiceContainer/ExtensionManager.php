@@ -31,9 +31,6 @@ final class ExtensionManager
      * @var Extension[string]
      */
     private $locatedExtensions = array();
-    private $debugInformation = array(
-        'extensions_list' => array()
-    );
 
     /**
      * Initializes manager.
@@ -70,8 +67,6 @@ final class ExtensionManager
     public function activateExtension($locator)
     {
         $extension = $this->initialize($locator);
-
-        $this->debugInformation['extensions_list'][] = $extension->getConfigKey();
 
         return $this->extensions[$extension->getConfigKey()] = $extension;
     }
@@ -116,16 +111,6 @@ final class ExtensionManager
         foreach ($this->extensions as $extension) {
             $extension->initialize($this);
         }
-    }
-
-    /**
-     * Returns array with extensions debug information.
-     *
-     * @return array
-     */
-    public function debugInformation()
-    {
-        return $this->debugInformation;
     }
 
     /**

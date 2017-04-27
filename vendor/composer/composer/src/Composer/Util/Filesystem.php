@@ -358,11 +358,10 @@ class Filesystem
      * @param  string                    $from
      * @param  string                    $to
      * @param  bool                      $directories if true, the source/target are considered to be directories
-     * @param  bool                      $staticCode
      * @throws \InvalidArgumentException
      * @return string
      */
-    public function findShortestPathCode($from, $to, $directories = false, $staticCode = false)
+    public function findShortestPathCode($from, $to, $directories = false)
     {
         if (!$this->isAbsolutePath($from) || !$this->isAbsolutePath($to)) {
             throw new \InvalidArgumentException(sprintf('$from (%s) and $to (%s) must be absolute paths.', $from, $to));
@@ -389,11 +388,7 @@ class Filesystem
             return '__DIR__ . '.var_export(substr($to, strlen($from)), true);
         }
         $sourcePathDepth = substr_count(substr($from, strlen($commonPath)), '/') + $directories;
-        if ($staticCode) {
-            $commonPathCode = "__DIR__ . '".str_repeat('/..', $sourcePathDepth)."'";
-        } else {
-            $commonPathCode = str_repeat('dirname(', $sourcePathDepth).'__DIR__'.str_repeat(')', $sourcePathDepth);
-        }
+        $commonPathCode = str_repeat('dirname(', $sourcePathDepth).'__DIR__'.str_repeat(')', $sourcePathDepth);
         $relTarget = substr($to, strlen($commonPath));
 
         return $commonPathCode . (strlen($relTarget) ? '.' . var_export('/' . $relTarget, true) : '');
@@ -444,8 +439,7 @@ class Filesystem
         $prefix = '';
         $absolute = false;
 
-        // extract a prefix being a protocol://, protocol:, protocol://drive: or simply drive:
-        if (preg_match('{^( [0-9a-z]{2,}+: (?: // (?: [a-z]: )? )? | [a-z]: )}ix', $path, $match)) {
+        if (preg_match('{^([0-9a-z]+:(?://(?:[a-z]:)?)?)}i', $path, $match)) {
             $prefix = $match[1];
             $path = substr($path, strlen($prefix));
         }
@@ -477,7 +471,7 @@ class Filesystem
      */
     public static function isLocalPath($path)
     {
-        return (bool) preg_match('{^(file://(?!//)|/(?!/)|/?[a-z]:[\\\\/]|\.\.[\\\\/]|[a-z0-9_.-]+[\\\\/])}i', $path);
+        return (bool) preg_match('{^(file://|/|/?[a-z]:[\\\\/]|\.\.[\\\\/]|[a-z0-9_.-]+[\\\\/])}i', $path);
     }
 
     public static function getPlatformPath($path)

@@ -68,18 +68,16 @@ final class ContextFactory
     /**
      * Creates and initializes context class.
      *
-     * @param string             $class
-     * @param array              $arguments
-     * @param ArgumentResolver[] $singleUseResolvers
+     * @param string $class
+     * @param array  $arguments
      *
      * @return Context
      */
-    public function createContext($class, array $arguments = array(), array $singleUseResolvers = array())
+    public function createContext($class, array $arguments = array())
     {
         $reflection = new ReflectionClass($class);
-        $resolvers = array_merge($singleUseResolvers, $this->argumentResolvers);
-        $resolvedArguments = $this->resolveArguments($reflection, $arguments, $resolvers);
-        $context = $this->createInstance($reflection, $resolvedArguments);
+        $arguments = $this->createArguments($reflection, $arguments);
+        $context = $this->createInstance($reflection, $arguments);
         $this->initializeInstance($context);
 
         return $context;
@@ -88,15 +86,14 @@ final class ContextFactory
     /**
      * Resolves arguments for a specific class using registered argument resolvers.
      *
-     * @param ReflectionClass    $reflection
-     * @param array              $arguments
-     * @param ArgumentResolver[] $resolvers
+     * @param ReflectionClass $reflection
+     * @param array           $arguments
      *
      * @return mixed[]
      */
-    private function resolveArguments(ReflectionClass $reflection, array $arguments, array $resolvers)
+    private function createArguments(ReflectionClass $reflection, array $arguments)
     {
-        foreach ($resolvers as $resolver) {
+        foreach ($this->argumentResolvers as $resolver) {
             $arguments = $resolver->resolveArguments($reflection, $arguments);
         }
 
@@ -115,7 +112,7 @@ final class ContextFactory
      * @param ReflectionClass $reflection
      * @param array           $arguments
      *
-     * @return mixed
+     * @return Context
      */
     private function createInstance(ReflectionClass $reflection, array $arguments)
     {
@@ -130,6 +127,8 @@ final class ContextFactory
      * Initializes context class and returns new context instance.
      *
      * @param Context $context
+     *
+     * @return Context
      */
     private function initializeInstance(Context $context)
     {

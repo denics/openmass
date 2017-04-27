@@ -14,10 +14,8 @@ namespace Behat\Behat\Output\Statistics;
  * Behat step stat.
  *
  * @author Konstantin Kudryashov <ever.zet@gmail.com>
- *
- * @deprecated in favour of StepStatV2 and to be removed in 4.0
  */
-class StepStat
+final class StepStat
 {
     /**
      * @var string

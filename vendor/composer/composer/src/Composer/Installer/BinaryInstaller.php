@@ -47,7 +47,7 @@ class BinaryInstaller
         $this->filesystem = $filesystem ?: new Filesystem();
     }
 
-    public function installBinaries(PackageInterface $package, $installPath, $warnOnOverwrite = true)
+    public function installBinaries(PackageInterface $package, $installPath)
     {
         $binaries = $this->getBinaries($package);
         if (!$binaries) {
@@ -75,9 +75,7 @@ class BinaryInstaller
                     // is a fresh install of the vendor.
                     Silencer::call('chmod', $link, 0777 & ~umask());
                 }
-                if ($warnOnOverwrite) {
-                    $this->io->writeError('    Skipped installation of bin '.$bin.' for package '.$package->getName().': name conflicts with an existing file');
-                }
+                $this->io->writeError('    Skipped installation of bin '.$bin.' for package '.$package->getName().': name conflicts with an existing file');
                 continue;
             }
 
@@ -116,22 +114,6 @@ class BinaryInstaller
         if ((is_dir($this->binDir)) && ($this->filesystem->isDirEmpty($this->binDir))) {
             Silencer::call('rmdir', $this->binDir);
         }
-    }
-
-    public static function determineBinaryCaller($bin)
-    {
-        if ('.bat' === substr($bin, -4) || '.exe' === substr($bin, -4)) {
-            return 'call';
-        }
-
-        $handle = fopen($bin, 'r');
-        $line = fgets($handle);
-        fclose($handle);
-        if (preg_match('{^#!/(?:usr/bin/env )?(?:[^/]+/)*(.+)$}m', $line, $match)) {
-            return trim($match[1]);
-        }
-
-        return 'php';
     }
 
     protected function getBinaries(PackageInterface $package)
@@ -176,7 +158,18 @@ class BinaryInstaller
     protected function generateWindowsProxyCode($bin, $link)
     {
         $binPath = $this->filesystem->findShortestPath($link, $bin);
-        $caller = self::determineBinaryCaller($bin);
+        if ('.bat' === substr($bin, -4) || '.exe' === substr($bin, -4)) {
+            $caller = 'call';
+        } else {
+            $handle = fopen($bin, 'r');
+            $line = fgets($handle);
+            fclose($handle);
+            if (preg_match('{^#!/(?:usr/bin/env )?(?:[^/]+/)*(.+)$}m', $line, $match)) {
+                $caller = trim($match[1]);
+            } else {
+                $caller = 'php';
+            }
+        }
 
         return "@ECHO OFF\r\n".
             "setlocal DISABLEDELAYEDEXPANSION\r\n".

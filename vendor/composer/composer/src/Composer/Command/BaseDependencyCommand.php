@@ -217,7 +217,7 @@ class BaseDependencyCommand extends BaseCommand
     {
         $count = count($results);
         $idx = 0;
-        foreach ($results as $result) {
+        foreach ($results as $key => $result) {
             /**
              * @var PackageInterface $package
              * @var Link             $link

@@ -72,7 +72,7 @@ class Svn
     public function __construct($url, IOInterface $io, Config $config, ProcessExecutor $process = null)
     {
         $this->url = $url;
-        $this->io = $io;
+        $this->io  = $io;
         $this->config = $config;
         $this->process = $process ?: new ProcessExecutor;
     }
@@ -100,7 +100,7 @@ class Svn
     public function execute($command, $url, $cwd = null, $path = null, $verbose = false)
     {
         // Ensure we are allowed to use this URL by config
-        $this->config->prohibitUrlByConfig($url, $this->io);
+        $this->config->prohibitUrlByConfig($url);
 
         $svnCommand = $this->getCommand($command, $url, $path);
         $output = null;

@@ -1,25 +1,21 @@
-My `composer.json`:
+With the following composer.json:
 
 ```json
-...replace me...
-```
-
-Output of `composer diagnose`:
-
-```
-...replace me...
+{
+    ...
+}
 ```
 
 When I run this command:
 
 ```
-...replace me...
+composer command -vvv (please include -vvv!)
 ```
 
-I get the following output:
+I get this output:
 
 ```
-...replace me...
+
 ```
 
 And I expected this to happen:

@@ -16,7 +16,7 @@ use Behat\Testwork\Call\Exception\CallErrorException;
 use Exception;
 
 /**
- * Handles calls in the current runtime.
+ * Handles calls in teh current runtime.
  *
  * @author Konstantin Kudryashov <ever.zet@gmail.com>
  */
@@ -26,6 +26,7 @@ final class RuntimeCallHandler implements CallHandler
      * @var integer
      */
     private $errorReportingLevel;
+
 
     /**
      * @var bool
@@ -105,9 +106,9 @@ final class RuntimeCallHandler implements CallHandler
             $exception = $caught;
         }
 
-        $stdOut = $this->getBufferedStdOut();
+        $stdOud = $this->getBufferedStdOut();
 
-        return new CallResult($call, $return, $exception, $stdOut);
+        return new CallResult($call, $return, $exception, $stdOud);
     }
 
     /**

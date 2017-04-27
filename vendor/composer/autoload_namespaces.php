@@ -44,6 +44,7 @@ return array(
     'Doctrine\\Common\\Collections\\' => array($vendorDir . '/doctrine/collections/lib'),
     'Doctrine\\Common\\Annotations\\' => array($vendorDir . '/doctrine/annotations/lib'),
     'Doctrine\\Common\\' => array($vendorDir . '/doctrine/common/lib'),
+    'Dflydev\\EmbeddedComposer\\Core' => array($vendorDir . '/dflydev/embedded-composer-core'),
     'Dflydev\\EmbeddedComposer\\Console' => array($vendorDir . '/dflydev/embedded-composer-console'),
     'Consolidation' => array($vendorDir . '/drush/drush/lib'),
     'Console' => array($vendorDir . '/pear/console_getopt'),

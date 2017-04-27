@@ -97,7 +97,7 @@ class Solver
                 continue;
             }
 
-            $literals = $rule->getLiterals();
+            $literals = $rule->literals;
             $literal = $literals[0];
 
             if (!$this->decisions->decided(abs($literal))) {
@@ -139,7 +139,7 @@ class Solver
                     continue;
                 }
 
-                $assertRuleLiterals = $assertRule->getLiterals();
+                $assertRuleLiterals = $assertRule->literals;
                 $assertRuleLiteral = $assertRuleLiterals[0];
 
                 if (abs($literal) !== abs($assertRuleLiteral)) {
@@ -193,7 +193,7 @@ class Solver
 
                     if (!$this->pool->whatProvides($job['packageName'], $job['constraint'])) {
                         $problem = new Problem($this->pool);
-                        $problem->addRule(new GenericRule(array(), null, null, $job));
+                        $problem->addRule(new Rule(array(), null, null, $job));
                         $this->problems[] = $problem;
                     }
                     break;
@@ -413,7 +413,7 @@ class Solver
         while (true) {
             $this->learnedPool[count($this->learnedPool) - 1][] = $rule;
 
-            foreach ($rule->getLiterals() as $literal) {
+            foreach ($rule->literals as $literal) {
                 // skip the one true literal
                 if ($this->decisions->satisfy($literal)) {
                     continue;
@@ -498,7 +498,7 @@ class Solver
             );
         }
 
-        $newRule = new GenericRule($learnedLiterals, Rule::RULE_LEARNED, $why);
+        $newRule = new Rule($learnedLiterals, Rule::RULE_LEARNED, $why);
 
         return array($learnedLiterals[0], $ruleLevel, $newRule, $why);
     }
@@ -546,7 +546,7 @@ class Solver
         $this->problems[] = $problem;
 
         $seen = array();
-        $literals = $conflictRule->getLiterals();
+        $literals = $conflictRule->literals;
 
         foreach ($literals as $literal) {
             // skip the one true literal
@@ -569,7 +569,7 @@ class Solver
             $problem->addRule($why);
             $this->analyzeUnsolvableRule($problem, $why);
 
-            $literals = $why->getLiterals();
+            $literals = $why->literals;
 
             foreach ($literals as $literal) {
                 // skip the one true literal
@@ -703,7 +703,7 @@ class Solver
                         $decisionQueue = array();
                         $noneSatisfied = true;
 
-                        foreach ($rule->getLiterals() as $literal) {
+                        foreach ($rule->literals as $literal) {
                             if ($this->decisions->satisfy($literal)) {
                                 $noneSatisfied = false;
                                 break;
@@ -758,15 +758,13 @@ class Solver
                 $systemLevel = $level;
             }
 
-            $rulesCount = count($this->rules);
-
-            for ($i = 0, $n = 0; $n < $rulesCount; $i++, $n++) {
-                if ($i == $rulesCount) {
+            for ($i = 0, $n = 0; $n < count($this->rules); $i++, $n++) {
+                if ($i == count($this->rules)) {
                     $i = 0;
                 }
 
                 $rule = $this->rules->ruleById[$i];
-                $literals = $rule->getLiterals();
+                $literals = $rule->literals;
 
                 if ($rule->isDisabled()) {
                     continue;
@@ -807,7 +805,6 @@ class Solver
                 }
 
                 // something changed, so look at all rules again
-                $rulesCount = count($this->rules);
                 $n = -1;
             }
 
@@ -820,7 +817,7 @@ class Solver
                 $lastLiteral = null;
                 $lastLevel = null;
                 $lastBranchIndex = 0;
-                $lastBranchOffset = 0;
+                $lastBranchOffset  = 0;
 
                 for ($i = count($this->branches) - 1; $i >= 0; $i--) {
                     list($literals, $l) = $this->branches[$i];

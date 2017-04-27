@@ -12,7 +12,7 @@
 
 namespace Composer\Command;
 
-use Composer\Script\Event as ScriptEvent;
+use Composer\Script\CommandEvent;
 use Composer\Script\ScriptEvents;
 use Composer\Util\ProcessExecutor;
 use Symfony\Component\Console\Input\InputInterface;
@@ -81,9 +81,7 @@ EOT
         }
 
         $composer = $this->getComposer();
-        $devMode = $input->getOption('dev') || !$input->getOption('no-dev');
-        $event = new ScriptEvent($script, $composer, $this->getIO(), $devMode);
-        $hasListeners = $composer->getEventDispatcher()->hasEventListeners($event);
+        $hasListeners = $composer->getEventDispatcher()->hasEventListeners(new CommandEvent($script, $composer, $this->getIO()));
         if (!$hasListeners) {
             throw new \InvalidArgumentException(sprintf('Script "%s" is not defined in this package', $script));
         }
@@ -98,7 +96,7 @@ EOT
             ProcessExecutor::setTimeout((int) $timeout);
         }
 
-        return $composer->getEventDispatcher()->dispatchScript($script, $devMode, $args);
+        return $composer->getEventDispatcher()->dispatchScript($script, $input->getOption('dev') || !$input->getOption('no-dev'), $args);
     }
 
     protected function listScripts()

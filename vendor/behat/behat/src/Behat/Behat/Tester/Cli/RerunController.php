@@ -15,7 +15,6 @@ use Behat\Behat\EventDispatcher\Event\ExampleTested;
 use Behat\Behat\EventDispatcher\Event\ScenarioTested;
 use Behat\Testwork\Cli\Controller;
 use Behat\Testwork\EventDispatcher\Event\ExerciseCompleted;
-use Behat\Testwork\Tester\Result\TestResult;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -45,23 +44,17 @@ final class RerunController implements Controller
      * @var string[]
      */
     private $lines = array();
-    /**
-     * @var string
-     */
-    private $basepath;
 
     /**
      * Initializes controller.
      *
      * @param EventDispatcherInterface $eventDispatcher
      * @param null|string              $cachePath
-     * @param string                   $basepath
      */
-    public function __construct(EventDispatcherInterface $eventDispatcher, $cachePath, $basepath)
+    public function __construct(EventDispatcherInterface $eventDispatcher, $cachePath)
     {
         $this->eventDispatcher = $eventDispatcher;
         $this->cachePath = null !== $cachePath ? rtrim($cachePath, DIRECTORY_SEPARATOR) : null;
-        $this->basepath = $basepath;
     }
 
     /**
@@ -114,15 +107,14 @@ final class RerunController implements Controller
             return;
         }
 
-        if ($event->getTestResult()->getResultCode() !== TestResult::FAILED) {
+        if ($event->getTestResult()->isPassed()) {
             return;
         }
 
         $feature = $event->getFeature();
         $scenario = $event->getScenario();
-        $suitename = $event->getSuite()->getName();
 
-        $this->lines[$suitename][] = $feature->getFile() . ':' . $scenario->getLine();
+        $this->lines[] = $feature->getFile() . ':' . $scenario->getLine();
     }
 
     /**
@@ -142,7 +134,7 @@ final class RerunController implements Controller
             return;
         }
 
-        file_put_contents($this->getFileName(), json_encode($this->lines));
+        file_put_contents($this->getFileName(), trim(implode("\n", $this->lines)));
     }
 
     /**
@@ -160,8 +152,7 @@ final class RerunController implements Controller
             implode(' ', $input->getOption('name')) .
             implode(' ', $input->getOption('tags')) .
             $input->getOption('role') .
-            $input->getArgument('paths') .
-            $this->basepath
+            $input->getArgument('paths')
         );
     }
 
@@ -180,6 +171,6 @@ final class RerunController implements Controller
             mkdir($this->cachePath, 0777);
         }
 
-        return $this->cachePath . DIRECTORY_SEPARATOR . $this->key . '.rerun';
+        return $this->cachePath . DIRECTORY_SEPARATOR . $this->key . '.scenarios';
     }
 }

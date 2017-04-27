@@ -13,10 +13,10 @@
 namespace Composer\Repository\Vcs;
 
 use Composer\Config;
+use Composer\Json\JsonFile;
 use Composer\Util\ProcessExecutor;
 use Composer\Util\Filesystem;
 use Composer\IO\IOInterface;
-use Symfony\Component\Process\Process;
 
 /**
  * @author Per Bernhardt <plb@webfactory.de>
@@ -48,7 +48,7 @@ class HgDriver extends VcsDriver
             }
 
             // Ensure we are allowed to use this URL by config
-            $this->config->prohibitUrlByConfig($this->url, $this->io);
+            $this->config->prohibitUrlByConfig($this->url);
 
             // update the repo if it is a valid hg repository
             if (is_dir($this->repoDir) && 0 === $this->process->execute('hg summary', $output, $this->repoDir)) {
@@ -114,35 +114,28 @@ class HgDriver extends VcsDriver
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
-    public function getFileContent($file, $identifier)
+    public function getComposerInformation($identifier)
     {
-        $resource = sprintf('hg cat -r %s %s', ProcessExecutor::escape($identifier), ProcessExecutor::escape($file));
-        $this->process->execute(sprintf('hg cat -r %s', $resource), $content, $this->repoDir);
+        if (!isset($this->infoCache[$identifier])) {
+            $this->process->execute(sprintf('hg cat -r %s composer.json', ProcessExecutor::escape($identifier)), $composer, $this->repoDir);
 
-        if (!trim($content)) {
-            return;
+            if (!trim($composer)) {
+                return;
+            }
+
+            $composer = JsonFile::parseJson($composer, $identifier);
+
+            if (empty($composer['time'])) {
+                $this->process->execute(sprintf('hg log --template "{date|rfc3339date}" -r %s', ProcessExecutor::escape($identifier)), $output, $this->repoDir);
+                $date = new \DateTime(trim($output), new \DateTimeZone('UTC'));
+                $composer['time'] = $date->format('Y-m-d H:i:s');
+            }
+            $this->infoCache[$identifier] = $composer;
         }
 
-        return $content;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getChangeDate($identifier)
-    {
-        $this->process->execute(
-            sprintf(
-                'hg log --template "{date|rfc3339date}" -r %s',
-                ProcessExecutor::escape($identifier)
-            ),
-            $output,
-            $this->repoDir
-        );
-
-        return new \DateTime(trim($output), new \DateTimeZone('UTC'));
+        return $this->infoCache[$identifier];
     }
 
     /**
@@ -202,7 +195,7 @@ class HgDriver extends VcsDriver
      */
     public static function supports(IOInterface $io, Config $config, $url, $deep = false)
     {
-        if (preg_match('#(^(?:https?|ssh)://(?:[^@]+@)?bitbucket.org|https://(?:.*?)\.kilnhg.com)#i', $url)) {
+        if (preg_match('#(^(?:https?|ssh)://(?:[^@]@)?bitbucket.org|https://(?:.*?)\.kilnhg.com)#i', $url)) {
             return true;
         }
 

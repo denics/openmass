@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitdb3dc5b77e24a90fb0c1b6b5d8f5da32
+class ComposerStaticInit2cd3b4689a8bed32add346d654b85672
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -94,7 +94,6 @@ class ComposerStaticInitdb3dc5b77e24a90fb0c1b6b5d8f5da32
             'Psy\\' => 4,
             'Psr\\Log\\' => 8,
             'Psr\\Http\\Message\\' => 17,
-            'Psr\\Container\\' => 14,
             'PhpParser\\' => 10,
             'ParagonIE\\ConstantTime\\' => 23,
             'PDepend\\' => 8,
@@ -114,10 +113,6 @@ class ComposerStaticInitdb3dc5b77e24a90fb0c1b6b5d8f5da32
         'J' => 
         array (
             'JsonSchema\\' => 11,
-        ),
-        'I' => 
-        array (
-            'Interop\\Container\\' => 18,
         ),
         'H' => 
         array (
@@ -147,7 +142,6 @@ class ComposerStaticInitdb3dc5b77e24a90fb0c1b6b5d8f5da32
             'Composer\\Spdx\\' => 14,
             'Composer\\Semver\\' => 16,
             'Composer\\Installers\\' => 20,
-            'Composer\\CaBundle\\' => 18,
             'Composer\\' => 9,
         ),
         'B' => 
@@ -340,10 +334,6 @@ class ComposerStaticInitdb3dc5b77e24a90fb0c1b6b5d8f5da32
         array (
             0 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
-        'Psr\\Container\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/psr/container/src',
-        ),
         'PhpParser\\' => 
         array (
             0 => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser',
@@ -371,10 +361,6 @@ class ComposerStaticInitdb3dc5b77e24a90fb0c1b6b5d8f5da32
         'JsonSchema\\' => 
         array (
             0 => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema',
-        ),
-        'Interop\\Container\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/container-interop/container-interop/src/Interop/Container',
         ),
         'Humbug\\SelfUpdate\\' => 
         array (
@@ -443,10 +429,6 @@ class ComposerStaticInitdb3dc5b77e24a90fb0c1b6b5d8f5da32
         'Composer\\Installers\\' => 
         array (
             0 => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers',
-        ),
-        'Composer\\CaBundle\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/composer/ca-bundle/src',
         ),
         'Composer\\' => 
         array (
@@ -666,6 +648,10 @@ class ComposerStaticInitdb3dc5b77e24a90fb0c1b6b5d8f5da32
             'Doctrine\\Common\\' => 
             array (
                 0 => __DIR__ . '/..' . '/doctrine/common/lib',
+            ),
+            'Dflydev\\EmbeddedComposer\\Core' => 
+            array (
+                0 => __DIR__ . '/..' . '/dflydev/embedded-composer-core',
             ),
             'Dflydev\\EmbeddedComposer\\Console' => 
             array (
@@ -1564,11 +1550,11 @@ class ComposerStaticInitdb3dc5b77e24a90fb0c1b6b5d8f5da32
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitdb3dc5b77e24a90fb0c1b6b5d8f5da32::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitdb3dc5b77e24a90fb0c1b6b5d8f5da32::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInitdb3dc5b77e24a90fb0c1b6b5d8f5da32::$prefixesPsr0;
-            $loader->fallbackDirsPsr0 = ComposerStaticInitdb3dc5b77e24a90fb0c1b6b5d8f5da32::$fallbackDirsPsr0;
-            $loader->classMap = ComposerStaticInitdb3dc5b77e24a90fb0c1b6b5d8f5da32::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit2cd3b4689a8bed32add346d654b85672::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit2cd3b4689a8bed32add346d654b85672::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit2cd3b4689a8bed32add346d654b85672::$prefixesPsr0;
+            $loader->fallbackDirsPsr0 = ComposerStaticInit2cd3b4689a8bed32add346d654b85672::$fallbackDirsPsr0;
+            $loader->classMap = ComposerStaticInit2cd3b4689a8bed32add346d654b85672::$classMap;
 
         }, null, ClassLoader::class);
     }

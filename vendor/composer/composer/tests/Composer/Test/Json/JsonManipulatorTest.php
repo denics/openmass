@@ -292,7 +292,7 @@ class JsonManipulatorTest extends \PHPUnit_Framework_TestCase
     },
     "repositories": [
         {
-            "packagist.org": false
+            "packagist": false
         },
         {
             "type": "package",
@@ -773,7 +773,7 @@ class JsonManipulatorTest extends \PHPUnit_Framework_TestCase
     },
     "repositories": [
         {
-            "packagist.org": false
+            "packagist": false
         },
         {
             "type": "package",
@@ -1542,7 +1542,7 @@ class JsonManipulatorTest extends \PHPUnit_Framework_TestCase
 }
 ',
             ),
-            'works on deep repos with borked texts' => array(
+            'fails on deep repos with borked texts' => array(
                 '{
     "repositories": {
         "foo": {
@@ -1551,21 +1551,9 @@ class JsonManipulatorTest extends \PHPUnit_Framework_TestCase
     }
 }',
                 'bar',
-                true,
-                '{
-    "repositories": {
-        "foo": {
-            "package": { "bar": "ba{z" }
-        }
-    }
-}
-',
-
-                '{
-}
-',
+                false,
             ),
-            'works on deep repos with borked texts2' => array(
+            'fails on deep repos with borked texts2' => array(
                 '{
     "repositories": {
         "foo": {
@@ -1574,19 +1562,7 @@ class JsonManipulatorTest extends \PHPUnit_Framework_TestCase
     }
 }',
                 'bar',
-                true,
-                '{
-    "repositories": {
-        "foo": {
-            "package": { "bar": "ba}z" }
-        }
-    }
-}
-',
-
-                '{
-}
-',
+                false,
             ),
             'fails on deep arrays with borked texts' => array(
                 '{
@@ -1710,47 +1686,6 @@ class JsonManipulatorTest extends \PHPUnit_Framework_TestCase
     "require-dev": {
         "package/d": "*",
         "package/e": "*"
-    }
-}
-', $manipulator->getContents());
-    }
-
-    public function testAddExtraWithPackage()
-    {
-        //$this->markTestSkipped();
-        $manipulator = new JsonManipulator('{
-    "repositories": [
-        {
-            "type": "package",
-            "package": {
-                "authors": [],
-                "extra": {
-                    "package-xml": "package.xml"
-                }
-            }
-        }
-    ],
-    "extra": {
-        "auto-append-gitignore": true
-    }
-}');
-
-        $this->assertTrue($manipulator->addProperty('extra.foo-bar', true));
-        $this->assertEquals('{
-    "repositories": [
-        {
-            "type": "package",
-            "package": {
-                "authors": [],
-                "extra": {
-                    "package-xml": "package.xml"
-                }
-            }
-        }
-    ],
-    "extra": {
-        "auto-append-gitignore": true,
-        "foo-bar": true
     }
 }
 ', $manipulator->getContents());
@@ -2115,7 +2050,7 @@ class JsonManipulatorTest extends \PHPUnit_Framework_TestCase
         $manipulator = new JsonManipulator('{
     "foo": "bar"
 }');
-
+        
         $this->assertTrue($manipulator->addMainKey('bar', '$1baz'));
         $this->assertEquals('{
     "foo": "bar",
@@ -2134,7 +2069,7 @@ class JsonManipulatorTest extends \PHPUnit_Framework_TestCase
 }
 ', $manipulator->getContents());
     }
-
+    
     public function testUpdateMainKey()
     {
         $manipulator = new JsonManipulator('{
@@ -2207,67 +2142,7 @@ class JsonManipulatorTest extends \PHPUnit_Framework_TestCase
 }
 ', $manipulator->getContents());
     }
-
-    public function testRemoveMainKey()
-    {
-        $manipulator = new JsonManipulator('{
-    "repositories": [
-        {
-            "package": {
-                "require": {
-                    "this/should-not-end-up-in-root-require": "~2.0"
-                },
-                "require-dev": {
-                    "this/should-not-end-up-in-root-require-dev": "~2.0"
-                }
-            }
-        }
-    ],
-    "require": {
-        "package/a": "*",
-        "package/b": "*",
-        "package/c": "*"
-    },
-    "foo": "bar",
-    "require-dev": {
-        "package/d": "*"
-    }
-}');
-
-        $this->assertTrue($manipulator->removeMainKey('repositories'));
-        $this->assertEquals('{
-    "require": {
-        "package/a": "*",
-        "package/b": "*",
-        "package/c": "*"
-    },
-    "foo": "bar",
-    "require-dev": {
-        "package/d": "*"
-    }
-}
-', $manipulator->getContents());
-
-        $this->assertTrue($manipulator->removeMainKey('foo'));
-        $this->assertEquals('{
-    "require": {
-        "package/a": "*",
-        "package/b": "*",
-        "package/c": "*"
-    },
-    "require-dev": {
-        "package/d": "*"
-    }
-}
-', $manipulator->getContents());
-
-        $this->assertTrue($manipulator->removeMainKey('require'));
-        $this->assertTrue($manipulator->removeMainKey('require-dev'));
-        $this->assertEquals('{
-}
-', $manipulator->getContents());
-    }
-
+    
     public function testIndentDetection()
     {
         $manipulator = new JsonManipulator('{

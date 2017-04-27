@@ -73,7 +73,7 @@ class RootPackageLoader extends ArrayLoader
                 $version = getenv('COMPOSER_ROOT_VERSION');
                 $commit = null;
             } else {
-                $versionData = $this->versionGuesser->guessVersion($config, $cwd ?: getcwd());
+                $versionData =  $this->versionGuesser->guessVersion($config, $cwd ?: getcwd());
                 $version = $versionData['version'];
                 $commit = $versionData['commit'];
             }
@@ -139,10 +139,6 @@ class RootPackageLoader extends ArrayLoader
 
         if (isset($config['prefer-stable'])) {
             $realPackage->setPreferStable((bool) $config['prefer-stable']);
-        }
-
-        if (isset($config['config'])) {
-            $realPackage->setConfig($config['config']);
         }
 
         $repos = RepositoryFactory::defaultRepos(null, $this->config, $this->manager);

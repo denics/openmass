@@ -27,7 +27,6 @@ class ArtifactRepository extends ArrayRepository implements ConfigurableReposito
 
     protected $lookup;
     protected $repoConfig;
-    private $io;
 
     public function __construct(array $repoConfig, IOInterface $io)
     {
