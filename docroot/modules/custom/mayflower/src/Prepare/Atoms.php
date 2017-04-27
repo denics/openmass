@@ -207,6 +207,38 @@ class Atoms {
   }
 
   /**
+   * Returns the variables structure required to render comp heading.
+   *
+   * @param array $options
+   *   An array with options like sub, centered, and color.
+   *
+   * @see @atoms/04-headings/comp-heading.twig
+   *
+   * @return array
+   *   Returns correct array for compHeading:
+   *    [
+   *      "compHeading": [
+   *         "title": "Employment",
+   *         "sub": "",
+   *         "color": "",
+   *         "id": "employment",
+   *         "centered": ""
+   *      ],
+   *    ].
+   */
+  public static function prepareCompHeading(array $options) {
+    return [
+      'compHeading' => [
+        "title" => isset($options['title']) ? $options['title'] : "Title",
+        "sub" => isset($options['sub']) ? $options['sub'] : FALSE,
+        "color" => isset($options['color']) ? $options['color'] : "",
+        "id" => isset($options['title']) ? Helper::createIdTitle($options['title']) : "title",
+        "centered" => isset($options['centered']) ? $options['centered'] : "",
+      ],
+    ];
+  }
+
+  /**
    * Returns the variables structure required to render column heading.
    *
    * @param string $text

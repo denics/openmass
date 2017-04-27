@@ -4,6 +4,7 @@ namespace Drupal\mayflower;
 
 use Drupal\Component\Utility\UrlHelper;
 use Drupal\image\Entity\ImageStyle;
+use Drupal\mayflower\Prepare\Molecules;
 
 /**
  * Provides mayflower prepare functions with helper functions.
@@ -134,18 +135,35 @@ class Helper {
    *
    * @param object $entity
    *   Entity object that contains the link field.
-   * @param string $field_name
+   * @param string $field
    *   The name of the field.
    *
    * @return array
    *   Array that contains title, url and type (external, internal).
    */
-  public static function separatedLinks($entity, $field_name) {
-    $links = $entity->get($field_name);
+  public static function separatedLinks($entity, $field) {
     $items = [];
 
-    foreach ($links as $link) {
-      $items[] = Helper::separatedLink($link);
+    // Check if the target field is entity reference, else assume link field.
+    if (Helper::isEntityReferenceField($entity, $field)) {
+      // Retrieves the entities referenced from the entity field.
+      $entities = Helper::getReferencedEntitiesFromField($entity, $field);
+
+      foreach ($entities as $entity) {
+
+        $items[] = [
+          'url' => $entity->toURL()->toString(),
+          'href' => $entity->toURL()->toString(),
+          'text' => $entity->get('title')->value,
+        ];
+      }
+    }
+    else {
+      $links = $entity->get($field);
+
+      foreach ($links as $link) {
+        $items[] = Helper::separatedLink($link);
+      }
     }
 
     return $items;
@@ -163,9 +181,12 @@ class Helper {
   public static function separatedLink($link) {
     $url = $link->getUrl();
     return [
+      'image' => '',
       'text' => $link->getValue()['title'],
-      'href' => $url->toString(),
       'type' => (UrlHelper::isExternal($url->toString())) ? 'external' : 'internal',
+      'href' => $url->toString(),
+      'url' => $url->toString(),
+      'label' => '',
     ];
   }
 
@@ -616,7 +637,9 @@ class Helper {
    * @return array
    *   'path' => '@organisms/by-author/rich-text.twig',
    *     'data' => [
-   *       'rteElements' => array of rteElements,
+   *       'richText' => [
+   *         'rteElements' => array of rteElements,
+   *       ],
    *     ],
    *   ]
    */
@@ -627,7 +650,9 @@ class Helper {
     return [
       'path' => '@organisms/by-author/rich-text.twig',
       'data' => [
-        'rteElements' => $elements,
+        'richText' => [
+          'rteElements' => $elements,
+        ],
       ],
     ];
   }
@@ -716,8 +741,7 @@ class Helper {
    */
   public static function createIllustratedOrCalloutLinks($entity, $field) {
     // Check if the target field is entity reference, else assume link field.
-    $isEntityReferenceField = $entity->getFieldDefinition($field)->getType() === 'entity_reference' ? TRUE : FALSE;
-    if ($isEntityReferenceField) {
+    if (Helper::isEntityReferenceField($entity, $field)) {
       // Retrieves the entities referenced from the entity field.
       $referenced_entities = Helper::getReferencedEntitiesFromField($entity, $field);
 
@@ -729,6 +753,140 @@ class Helper {
     }
 
     return $links;
+  }
+
+  /**
+   * Returns SEO title.
+   *
+   * @param string $element
+   *   An element.
+   *
+   * @return string
+   *   A well processed link id.
+   */
+  public static function createIdTitle($element) {
+    return strtolower(preg_replace('/-+/', '-', preg_replace('/[^\wáéíóú]/', '-', $element)));
+  }
+
+  /**
+   * Return pageHeader.optionalContents structure populated with contactUs.
+   *
+   * @param object $entity
+   *   The entity which contains the entity reference or link field.
+   * @param object $field
+   *   The field which contains or refers to the link information.
+   *
+   * @see @molecules/contact-us.twig
+   * @see @organisms/by-template/page-header.twig
+   *
+   * @return array
+   *   Returns an array with the following structure:
+   *   [ [
+   *       'path' => '@molecules/contact-us.twig',
+   *       'data' => [
+   *         'contactUs' => [ contact us data structure ]
+   *       ],
+   *     ], ... ]
+   */
+  public static function buildPageHeaderOptionalContentsContactUs($entity, $field) {
+    $optionalContentsContactUs = [];
+    $contactUs = [];
+    $contact_items = Helper::getReferencedEntitiesFromField($entity, $field);
+
+    if (!empty($contact_items)) {
+      foreach ($contact_items as $contact_item) {
+        $contactUs = Molecules::prepareContactUs($contact_item, ['display_title' => FALSE]);
+      }
+
+      $optionalContentsContactUs[] = [
+        'path' => '@molecules/contact-us.twig',
+        'data' => ['contactUs' => $contactUs],
+      ];
+    }
+
+    return $optionalContentsContactUs;
+  }
+
+  /**
+   * Return structure necessary for either sidebar or comp heading.
+   *
+   * @param array $options
+   *   Array of options.
+   *   [
+   *     'type' => 'compHeading' || 'sidebarHeading' || 'coloredHeading',
+   *     'title' => 'My title text' / required,
+   *     'sub' => [required if TRUE],
+   *     'centered' => [required if TRUE],
+   *     'color' => [required if 'green', 'yellow'],
+   *   ].
+   *
+   * @return array
+   *   The data structure for either comp or sidebar heading.
+   */
+  public static function buildHeading(array $options) {
+    $heading_type = isset($options['type']) ? $options['type'] : 'compHeading';
+
+    $heading = [
+      $heading_type => [
+        'title' => isset($options['title']) ? $options['title'] : '',
+        'text' => isset($options['title']) ? $options['title'] : '',
+        'sub' => isset($options['sub']) ? $options['sub'] : FALSE,
+        'color' => isset($options['color']) ? $options['color'] : '',
+        'id' => isset($options['title']) ? Helper::createIdTitle($options['title']) : '',
+        'centered' => isset($options['centered']) ? $options['centered'] : '',
+      ],
+    ];
+
+    return $heading;
+  }
+
+  /**
+   * Return a subset of a contactList data structure with primary phone/online.
+   *
+   * @param array $contact_list
+   *   A contactList: see @organisms/by-author/contact-list.
+   *
+   * @return array
+   *   A contactList array with only phone and online info for primary contact.
+   */
+  public static function getPrimaryContactPhoneOnlineContactList(array $contact_list) {
+    // Build sidebar.contactList, a subset of pageContent.ContactList.
+    $sidebar_contact = [];
+
+    // Get the first contact point only.
+    $contact_list['contacts'] = array_slice($contact_list['contacts'], 0, 1);
+
+    // Make the contact render for sidebar contact list.
+    $contact_list['contacts'][0]['accordion'] = FALSE;
+
+    // Remove the address, fax, in person contact groups.
+    foreach ($contact_list['contacts'][0]['groups'] as $key => $item) {
+      if (in_array($item['name'], ['Address', 'Fax', 'In Person'])) {
+        unset($contact_list['contacts'][0]['groups'][$key]);
+      }
+    }
+
+    // If contact groups remain, they are online / phone, assign to return var.
+    if (count($contact_list['contacts'][0]['groups']) > 0) {
+      $sidebar_contact = $contact_list;
+    }
+
+    return $sidebar_contact;
+  }
+
+  /**
+   * Returns whether or not the entity's field is an entity reference field.
+   *
+   * @param object $entity
+   *   The object that has the field which we are checking.
+   * @param string $field
+   *   The name of the field which we are checking.
+   *
+   * @return bool
+   *   Whether or not this entity's field is entity reference.
+   */
+  public static function isEntityReferenceField($entity, $field) {
+    return $entity->getFieldDefinition($field)->getType() === 'entity_reference';
   }
 
 }

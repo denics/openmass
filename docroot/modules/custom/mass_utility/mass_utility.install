@@ -159,19 +159,7 @@ function mass_utility_update_8003(&$sandbox) {
 function mass_utility_update_8004(&$sandbox) {
   $config_factory = \Drupal::configFactory();
   $config = $config_factory->getEditable('mass_theme.settings');
-  $config->set('languages', [
-    'ar',
-    'es',
-    'fr',
-    'pt',
-    'ht',
-    'it',
-    'km',
-    'ko',
-    'ru',
-    'vi',
-    'zh-CN'
-    ]);
+  $config->set('languages', ['ar','es','fr','pt','ht','it','km','ko','ru','vi','zh-CN']);
   $config->save(TRUE);
 }
 
@@ -181,4 +169,43 @@ function mass_utility_update_8004(&$sandbox) {
 function mass_utility_update_8005(&$sandbox) {
   $content_type = \Drupal::entityManager()->getStorage('node_type')->load('agency');
   $content_type->delete();
+}
+
+/**
+ * Add action type taxo terms.
+ */
+function mass_utility_update_8006(&$sandbox) {
+  // Machine name of the Taxonomy vocabulary.
+  $vocab = 'action_type';
+
+  // Term names to be added.
+  $items = [
+    'apply',
+    'file',
+    'register',
+    'respond',
+    'pay',
+    'order',
+    'check',
+    'log in',
+    'manage',
+    'update',
+    'renew',
+    'replace',
+    'schedule',
+    'report',
+    'request',
+    'calculate',
+    'find',
+    'appeal',
+    'cancel',
+    'view',
+  ];
+  foreach ($items as $name) {
+    $term = Term::create([
+      'parent'            => [],
+      'name'              => $name,
+      'vid'               => $vocab,
+    ])->save();
+  }
 }
