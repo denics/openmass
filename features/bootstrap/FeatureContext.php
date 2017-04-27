@@ -613,6 +613,104 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
           ),
         );
         break;
+      case "topic_page":
+        $fields = array (
+          array (
+            'field' => 'field-topic-ref-content-cards',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-topic-bg-wide',
+            'tag' => 'input',
+            'type' => 'submit',
+          ),
+          array (
+            'field' => 'field-topic-bg-narrow',
+            'tag' => 'input',
+            'type' => 'submit',
+          ),
+          array (
+            'field' => 'field-topic-ref-icon',
+            'tag' => 'select',
+            'type' => '',
+          ),
+          array (
+            'field' => 'field-topic-ref-related-topics',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-topic-lede',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+        );
+        break;
+      case "how_to_page":
+        $fields = array (
+          array (
+            'field' => 'field-how-to-taxo-action-type',
+            'tag' => 'select',
+            'type' => '',
+          ),
+          array (
+            'field' => 'field-how-to-contacts-3',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-how-to-files',
+            'tag' => 'input',
+            'type' => 'submit',
+          ),
+          array (
+            'field' => 'field-how-to-methods-5',
+            'tag' => 'paragraphs',
+            'type' => 'method',
+          ),
+          array (
+            'field' => 'field-how-to-more-info',
+            'tag' => 'textarea',
+            'type' => '',
+          ),
+          array (
+            'field' => 'field-how-to-next-steps',
+            'tag' => 'paragraphs',
+            'type' => 'next-step',
+          ),
+          array (
+            'field' => 'field-how-to-link-1',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-how-to-links-5',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-how-to-ref-services',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-how-to-lede',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-how-to-time',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-how-to-what-you-need',
+            'tag' => 'textarea',
+            'type' => '',
+          ),
+        );
+        break;
     }
     foreach ($fields as $row) {
       // Get all IDs that start with our field name. D8 prints fields
@@ -787,6 +885,38 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
           array (
             'field' => 'field-guide-ref-contacts-3',
             'widget' => 'Autocomplete',
+          ),
+        );
+        break;
+      case "method":
+        $fields = array (
+          array (
+            'field' => 'field-method-type',
+            'widget' => 'Select List',
+          ),
+          array (
+            'field' => 'field-method-details',
+            'widget' => 'Text area (multiple rows)',
+          ),
+        );
+        break;
+      case "next_step":
+        $fields = array (
+          array (
+            'field' => 'field-next-step-link',
+            'widget' => 'Link',
+          ),
+          array (
+            'field' => 'field-next-step-details',
+            'widget' => 'Text area (multiple rows)',
+          ),
+          array (
+            'field' => 'field-next-step-downloads',
+            'widget' => 'Inline entity form - Complex',
+          ),
+          array (
+            'field' => 'field-next-step-title',
+            'widget' => 'Textfield',
           ),
         );
         break;

@@ -66,24 +66,23 @@ class Schemas {
 
     // Use first line of optional "who we serve" as disambiguating description.
     if (isset($variables['stackedRowSections'][0]) && array_key_exists('title', $variables['stackedRowSections'][0]) && $variables['stackedRowSections'][0]['title'] === "Who We Serve") {
-      $schema['governmentOrganization']['disambiguatingDescription'] = array_key_exists('rawHtml', $variables['stackedRowSections'][0]['pageContent'][0]['data']['rteElements'][0]['data']) ? Helper::getFirstParagraph($variables['stackedRowSections'][0]['pageContent'][0]['data']['rteElements'][0]['data']['rawHtml']['content']['#text']) : '';
+      $schema['governmentOrganization']['disambiguatingDescription'] = array_key_exists('rawHtml', $variables['stackedRowSections'][0]['pageContent'][0]['data']['richText']['rteElements'][0]['data']) ? Helper::getFirstParagraph($variables['stackedRowSections'][0]['pageContent'][0]['data']['richText']['rteElements'][0]['data']['rawHtml']['content']['#text']) : '';
     }
 
     // Use the metatags module description value for the description property.
-    $schema['governmentOrganization']['description'] = !empty($metatags['description']) ? $metatags['description'] : Helper::getFirstParagraph($variables['actionHeader']['pageHeader']['subTitle']);
+    $schema['governmentOrganization']['description'] = !empty($metatags['description']) ? $metatags['description'] : Helper::getFirstParagraph($variables['pageHeader']['subTitle']);
 
     // Use the optional logo url as the logo property.
-    if (array_key_exists('widgets', $variables['actionHeader']) && !empty($variables['actionHeader']['widgets'])) {
-      $schema['governmentOrganization']['logo'] = array_key_exists('image', $variables['actionHeader']['widgets'][0]['data']) ? Helper::sanitizeUrlCacheString($variables['actionHeader']['widgets'][0]['data']['image']['src'], "?itok=") : '';
+    if (array_key_exists('widgets', $variables['pageHeader']) && !empty($variables['pageHeader']['widgets'])) {
+      $schema['governmentOrganization']['logo'] = array_key_exists('image', $variables['pageHeader']['widgets'][0]['data']) ? Helper::sanitizeUrlCacheString($variables['pageHeader']['widgets'][0]['data']['image']['src'], "?itok=") : '';
     }
 
     // Use the current host + path alias as URL.
     $schema['governmentOrganization']['url'] = $hostname . $current_path;
-
     // Map first contactUs values to contact properties (address, phone, etc.).
     // @see Organisms::prepareContactUs + Molecules::prepareContactGroup
-    $schema['governmentOrganization']['contactInfo'] = array_key_exists('schemaContactInfo', $variables['actionHeader']['contactUs']) ?
-      Schemas::prepareContactInfo($variables['actionHeader']['contactUs']['schemaContactInfo']) : '';
+    $schema['governmentOrganization']['contactInfo'] = array_key_exists('contactUs', $variables['pageHeader']['optionalContents']) &&  array_key_exists('schemaContactInfo', $variables['pageHeader']['optionalContents']['contactUs']) ?
+      Schemas::prepareContactInfo($variables['pageHeader']['optionalContents']['contactUs']['schemaContactInfo']) : '';
 
     // Get the social media links, if that component was used.
     if (isset($variables['stackedRowSections'][0]) && array_key_exists('sideBar', $variables['stackedRowSections'][0]) && !empty($variables['stackedRowSections'][0]['sideBar'])) {

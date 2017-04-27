@@ -11,7 +11,7 @@ field_name: field_ref_contact_info
 entity_type: node
 bundle: org_page
 label: 'Primary Contact Information'
-description: ''
+description: 'Select the primary Contact information for your organization, such as the main office or headquarters. You might need to <a href="/node/add/contact_information">create it</a> before referencing it here.'
 required: false
 translatable: false
 default_value: {  }

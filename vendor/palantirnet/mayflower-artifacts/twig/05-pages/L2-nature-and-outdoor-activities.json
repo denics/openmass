@@ -16,20 +16,30 @@
   },
 
   "pageHeader": {
+    "divider": false,
     "title": "Get a State Park Pass",
     "subTitle": "Do you regularly visit Massachusetts parks or beaches? Our MassParks Pass offers you a significant savings over daily parking charges.",
-    "rteElements": [{
-      "path": "atoms-paragraph",
+    "headerTags": null, 
+    "optionalContents": [{
+      "path": "@organisms/by-author/rich-text.twig",
       "data": {
-        "paragraph" : {
-          "text": "Optional text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse dapibus pellentesque ultricies. Sed in ex nunc. Nam rhoncus eget purus id consectetur. Nunc sed enim rhoncus, cursus nulla non, dapibus nisi. Nullam hendrerit pharetra augue, sed gravida enim sagittis at. Nam eget tellus ullamcorper risus luctus fermentum. Nunc fermentum, arcu eu molestie finibus, leo neque hendrerit massa, eu vulputate est ex nec leo. Vivamus tortor nisi, maximus eu quam eget, interdum aliquam enim."
+        "richText": {
+          "rteElements": [{
+            "path": "atoms-paragraph",
+            "data": {
+              "paragraph" : {
+                "text": "Optional text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse dapibus pellentesque ultricies. Sed in ex nunc. Nam rhoncus eget purus id consectetur. Nunc sed enim rhoncus, cursus nulla non, dapibus nisi. Nullam hendrerit pharetra augue, sed gravida enim sagittis at. Nam eget tellus ullamcorper risus luctus fermentum. Nunc fermentum, arcu eu molestie finibus, leo neque hendrerit massa, eu vulputate est ex nec leo. Vivamus tortor nisi, maximus eu quam eget, interdum aliquam enim."
+              }
+            }
+          }]
         }
       }
     }],
-    "headerTags": "" 
+    "widgets": null
   },
 
   "actionFinder": {
+    "id": "GUID831741781374893",
     "bgWide":"/assets/images/placeholder/1600x600-lighthouse-blur.jpg",
     "bgNarrow":"/assets/images/placeholder/800x800.png",
     "title": "What Would You Like to Do?",

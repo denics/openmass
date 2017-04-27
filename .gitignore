@@ -20,3 +20,6 @@ styleguide/output_prod/
 
 # Ignore XML Sitemap ID configuration.
 conf/drupal/config/xmlsitemap.xmlsitemap.*.yml
+
+# Vendor .git folders
+docroot/modules/contrib/**/.git

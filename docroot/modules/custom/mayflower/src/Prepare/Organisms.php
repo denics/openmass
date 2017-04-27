@@ -132,32 +132,27 @@ class Organisms {
   }
 
   /**
-   * Returns the variables structure required to render an action header.
+   * Returns the variables structure required to render a page header.
    *
    * @param object $entity
    *   The object that contains the necessary fields.
-   * @param object $options
-   *   The object that contains static data and other options.
-   * @param object $widgets
-   *   Contains array of widget components prepared outside of this function.
-   *   "widgets": [[
-   *     "path": "[path/to/pattern]",
-   *     "data": []
-   *   ], ... ].
+   * @param array $options
+   *   The object that contains static data, widgets, and optional content.
    *
-   * @see @organisms/by-template/action-header.twig
+   * @see @organisms/by-template/page-header.twig
    *
    * @return array
    *   Returns an array of items.
-   *    "actionHeader": [
-   *      "pageHeader": [
-   *        "title": "Executive Office of Health and Human Services",
-   *        "titleNote": "(EOHHS)",
-   *        "subTitle": "",
-   *        "rteElements": "",
-   *        "headerTags": ""
-   *      ],
-   *      "contactUs": [],
+   *    "pageHeader": [
+   *      "title": "Executive Office of Health and Human Services",
+   *      "titleNote": "(EOHHS)",
+   *      "subTitle": "",
+   *      "rteElements": "",
+   *      "headerTags": ""
+   *      "optionalContents": [[
+   *         "path": "[path/to/pattern]",
+   *         "data": []
+   *       ], ... ],
    *      "divider": false / true,
    *      "widgets": [[
    *         "path": "[path/to/pattern]",
@@ -165,39 +160,28 @@ class Organisms {
    *       ], ... ]
    *    ]
    */
-  public static function prepareActionHeader($entity, $options, $widgets) {
+  public static function preparePageHeader($entity, array $options) {
     // Create the map of all possible field names to use.
     $map = [
       'title' => ['title'],
       'titleNote' => ['field_title_sub_text'],
-      'subTitle' => ['field_sub_title'],
-      'contactUs' => ['field_ref_contact_info_1'],
+      'subTitle' => ['field_sub_title', 'field_how_to_lede'],
     ];
 
     // Determines which field names to use from the map.
     $fields = Helper::getMappedFields($entity, $map);
 
-    $contactUs = [];
-
-    $contact_items = Helper::getReferencedEntitiesFromField($entity, $fields['contactUs']);
-
-    foreach ($contact_items as $contact_item) {
-      $contactUs = Molecules::prepareContactUs($contact_item, ['display_title' => FALSE]);
-    }
-
     // Create the actionHeader data structure.
-    $actionHeader = [
-      'pageHeader' => [
-        'title' => isset($entity->$fields['title']) ? $entity->$fields['title']->value : '',
-        'titleNote' => isset($fields['titleNote']) ? $entity->$fields['titleNote']->value : '',
-        'subTitle' => isset($fields['subTitle']) ? $entity->$fields['subTitle']->value : '',
-      ],
-      'divider' => $options['divider'],
-      'contactUs' => $contactUs,
-      'widgets' => $widgets,
+    $pageHeader = [
+      'title' => isset($entity->$fields['title']) ? $entity->$fields['title']->value : '',
+      'titleNote' => isset($fields['titleNote']) ? $entity->$fields['titleNote']->value : '',
+      'subTitle' => isset($fields['subTitle']) ? $entity->$fields['subTitle']->value : '',
+      'divider' => array_key_exists('divider', $options) ? $options['divider'] : FALSE,
+      'optionalContents' => array_key_exists('optionalContents', $options) ? $options['optionalContents'] : NULL,
+      'widgets' => array_key_exists('widgets', $options) ? $options['widgets'] : NULL,
     ];
 
-    return $actionHeader;
+    return $pageHeader;
   }
 
   /**
@@ -224,6 +208,15 @@ class Organisms {
     // Determines which field names to use from the map.
     $fields = Helper::getMappedFields($entity, $map);
 
+    $optionalContents = [];
+    $richTextElements = [];
+
+    if (Helper::isFieldPopulated($entity, $fields['lede'])) {
+      $richTextElements[] = Atoms::prepareParagraph($entity, ['field' => $fields['lede']]);
+    }
+
+    $optionalContents[] = Helper::prepareRichTextElements($richTextElements);
+
     // Create the illustratedHeader data structure.
     return [
       'bgTitle' => $entity->$fields['title']->value,
@@ -232,16 +225,7 @@ class Organisms {
       'pageHeader' => [
         'title' => $entity->$fields['title']->value,
         'subTitle' => '',
-        'rteElements' => [
-          [
-            'path' => '@atoms/11-text/paragraph.twig',
-            'data' => [
-              'paragraph' => [
-                'text' => $entity->$fields['lede']->value,
-              ],
-            ],
-          ],
-        ],
+        'optionalContents' => $optionalContents,
       ],
       'headerTags' => "",
     ];
@@ -270,6 +254,7 @@ class Organisms {
    */
   public static function prepareSidebarContact($entity, array $options = []) {
     $items = [];
+    $sidebarContact = [];
 
     // Create the map of all possible field names to use.
     $map = [
@@ -287,51 +272,69 @@ class Organisms {
       $items[] = ['contactUs' => Molecules::prepareContactUs($item, ['display_title' => TRUE])];
     }
 
-    // Create the actionHeader data structure.
-    $sidebarContact = [
-      'coloredHeading' => [
-        'text' => isset($options['title']) ? $options['title'] : t('Contacts'),
-        'color' => isset($options['color']) ? $options['color'] : '',
-      ],
-      'items' => $items,
-    ];
+    if (!empty($items)) {
+      $heading = Helper::buildHeading($options['heading']);
+      $sidebarContact = array_merge($heading, ['items' => $items]);
+    }
 
     return $sidebarContact;
   }
 
   /**
-   * Returns the variables structure required to render a sidebarWidget.
+   * Returns the variables structure required to render a contactList.
    *
    * @param object $entity
    *   The object that contains the necessary fields.
-   * @param string $title
-   *   The title displayed above widgets.
-   * @param string $type
-   *   The type of widgets to create.
+   * @param array $options
+   *   An array of options for sidebar contact.
    *
-   * @see @organisms/by-author/sidebar-widget.twig
+   * @see @organisms/by-author/contact-list.twig
    *
    * @return array
    *   Returns an array of items.
-   *   'sidebarContact': array(
-   *      'coloredHeading': array(
+   *   'contactList': array(
+   *      'compHeading': array(
    *        'text': string / required,
-   *        'color': string / optional
+   *        'color': string / optional,
+   *        'id': string / optional,
+   *        'sub': boolean / required if TRUE,
+   *        'centered': boolean / required if TRUE,
    *      ),
-   *      'items': array(
-   *         contactUs see @molecules/action-WIDGET
+   *      'contacts': array(
+   *         contactUs see @molecules/contact-us
    *      ).
    */
-  public static function prepareSidebarWidget($entity, $title, $type) {
-    $items = [];
+  public static function prepareContactList($entity, array $options = []) {
+    $contacts = [];
 
-    return [
-      'coloredHeading' => [
-        'text' => $title,
-        'color' => '',
-      ],
-      'items' => Molecules::prepareWidgets($items, $type),
+    // Create the map of all possible field names to use.
+    $map = [
+      'contacts' => ['field_how_to_contacts_3'],
     ];
+
+    // Determines which field names to use from the map.
+    $fields = Helper::getMappedFields($entity, $map);
+
+    $ref_contacts = Helper::getReferencedEntitiesFromField($entity, $fields['contacts']);
+
+    $options['groups']['display_title'] = TRUE;
+    $options['groups']['link_title'] = FALSE;
+
+    foreach ($ref_contacts as $contact) {
+      $contacts[] = Molecules::prepareContactUs($contact, $options['groups']);
+    }
+
+    $contactList = [];
+    if (!empty($contacts)) {
+      // Build a sidebar, comp, or colored heading based on heading type option.
+      $options['heading']['title'] = isset($options['heading']['title']) ? $options['heading']['title'] : t('Contacts');
+      $heading = Helper::buildHeading($options['heading']);
+
+      $contactList = array_merge($heading, ['contacts' => $contacts]);
+    }
+
+    // Create the contactList data structure.
+    return $contactList;
   }
 
   /**
@@ -358,20 +361,18 @@ class Organisms {
 
     $links = Helper::createIllustratedOrCalloutLinks($entity, $fields['field']);
 
-    return [
-      'compHeading' => [
-        'title' => $options['title'],
-        'sub' => TRUE,
-      ],
-      'links' => $links,
-    ];
+    $heading = Helper::buildHeading($options['heading']);
+
+    return array_merge($heading, ['links' => $links]);
   }
 
   /**
    * Returns the variables structure required to render link list.
    *
    * @param object $entity
-   *   The object that contains the fields.
+   *   An array of objects that contains the fields.
+   * @param string $field
+   *   The link / entity reference field name.
    * @param array $options
    *   An array of options for sidebar contact.
    *
@@ -387,29 +388,22 @@ class Organisms {
    *      ],... ]
    *    ]
    */
-  public static function prepareLinkList($entity, array $options = []) {
+  public static function prepareLinkList($entity, $field, array $options = []) {
 
-    // Set heading type: sidebarHeading or default to compHeading.
-    $heading_type = isset($options['heading']) ? $options['heading'] : 'compHeading';
+    $linkList = [];
 
     // Roll up the link list.
-    $links = [];
-    foreach ($entity as $link) {
-      $links[] = [
-        'url' => $link->toURL()->toString(),
-        'text' => $link->get('title')->value,
-      ];
+    $links = Helper::separatedLinks($entity, $field);
+
+    if (!empty($links)) {
+      // Build either sidebar or comp heading based on heading type option.
+      $heading = Helper::buildHeading($options['heading']);
+      $linkList = array_merge($heading, ['links' => $links]);
     }
 
-    return [
-      'linkList' => [
-        $heading_type => [
-          'title' => isset($options['title']) ? $options['title'] : '',
-        ],
-        'stacked' => isset($options['stacked']) ? $options['stacked'] : '',
-        'links' => $links,
-      ],
-    ];
+    $linkList['stacked'] = isset($options['stacked']) ? $options['stacked'] : '';
+
+    return $linkList;
   }
 
   /**
@@ -440,9 +434,17 @@ class Organisms {
     $map = [
       'title' => ['title'],
       'title_sub_text' => ['field_title_sub_text'],
-      'bg_wide' => ['field_bg_wide', 'field_service_bg_wide'],
-      'bg_narrow' => ['field_bg_narrow', 'field_service_bg_narrow'],
-      'description' => ['field_lede'],
+      'bg_wide' => [
+        'field_bg_wide',
+        'field_service_bg_wide',
+        'field_topic_bg_wide',
+      ],
+      'bg_narrow' => [
+        'field_bg_narrow',
+        'field_service_bg_narrow',
+        'field_topic_bg_narrow',
+      ],
+      'description' => ['field_lede', 'field_topic_lede'],
     ];
 
     // Determines which field names to use from the map.
@@ -481,31 +483,27 @@ class Organisms {
   /**
    * Returns the variables structure required to render section Three Up.
    *
-   * @param object $entity
+   * @param object $entities
    *   The object that contains the fields.
-   * @param string $title
-   *   A string containing text.
+   * @param array $options
+   *   An array containing options.
    *
    * @see @organsms/by-author/sections-three-up
    *
    * @return array
    *   Returns structured array.
    */
-  public static function prepareSectionThreeUp($entity, $title) {
-    // @todo Use $options[] as 2nd parameter in prepare functions
+  public static function prepareSectionThreeUp($entities, array $options = []) {
+    $sections = [];
 
-    return [
-      'sectionThreeUp' => [
-        'compHeading' => [
-          'title' => $title,
-          'sub' => '',
-          'color' => '',
-          'id' => '',
-          'centered' => '',
-        ],
-        'sections' => mayflower_prepare_topic_cards($entity),
-      ],
-    ];
+    foreach ($entities as $entity) {
+      $links = mayflower_prepare_subtopic_links($entity->entity);
+      $sections[] = Molecules::prepareSectionLink($entity->entity, $links);
+    }
+
+    $heading = Helper::buildHeading($options['heading']);
+
+    return array_merge($heading, ['sections' => $sections]);
   }
 
   /**
@@ -522,11 +520,12 @@ class Organisms {
    *   Returns structured array.
    */
   public static function prepareQuickActions($entity, array $options = []) {
+    $quickActions = [];
     $links = [];
 
     // Create the map of all possible field names to use.
     $map = [
-      'links' => ['field_links'],
+      'links' => ['field_links', 'field_how_to_links_5'],
     ];
 
     // Determines which field names to use from the map.
@@ -537,14 +536,13 @@ class Organisms {
       $links[] = Helper::separatedLink($link);
     }
 
-    return [
-      'coloredHeading' => [
-        'text' => isset($options['title']) ? $options['title'] : '',
-        'color' => isset($options['color']) ? $options['color'] : '',
-        'sidebarHeading' => '',
-      ],
-      'links' => $links,
-    ];
+    if (!empty($links)) {
+      // Build either sidebar or comp heading based on heading type option.
+      $heading = Helper::buildHeading($options['heading']);
+      $quickActions = array_merge($heading, ['links' => $links]);
+    }
+
+    return $quickActions;
   }
 
   /**
@@ -690,7 +688,17 @@ class Organisms {
 
     // Activities section.
     if (Helper::isFieldPopulated($entity, $fields['activities'])) {
-      $sections[] = Molecules::prepareActionActivities($entity->$fields['activities']);
+      $title = t('Activities');
+
+      $sections[] = [
+        'title' => $title,
+        'into' => '',
+        'id' => Helper::createIdTitle($title),
+        'path' => '@organisms/by-author/image-promos.twig',
+        'data' => [
+          'imagePromos' => Organisms::prepareImagePromos($entity->$fields['activities']),
+        ],
+      ];
     }
 
     // Facilities section.
@@ -771,6 +779,8 @@ class Organisms {
    *
    * @param array $entities
    *   An array of objects that contains the necessary fields.
+   * @param array $options
+   *   The array that contains static data and other options.
    *
    * @see @organisms/by-author/mapped-locations.twig
    *
@@ -817,7 +827,7 @@ class Organisms {
    *   ]
    *   ]
    */
-  public static function prepareMappedLocations(array $entities) {
+  public static function prepareMappedLocations(array $entities, array $options) {
     $mapData = [];
     $contact_entities = [];
 
@@ -830,17 +840,11 @@ class Organisms {
       $contact_entities = array_merge(Helper::getReferencedEntitiesFromField($entity, $fields['contact_info']), $contact_entities);
     }
 
-    return [
-      'compHeading' => [
-        'title' => t('Locations'),
-        'sub' => '',
-        'color' => '',
-        'id' => '',
-        'centered' => FALSE,
-      ],
-      'link' => [],
-      'googleMap' => Molecules::prepareGoogleMapFromContacts($contact_entities),
-    ];
+    $googleMap = Molecules::prepareGoogleMapFromContacts($contact_entities);
+
+    $heading = Helper::buildHeading($options['heading']);
+
+    return array_merge($heading, ['googleMap' => $googleMap]);
   }
 
   /**
@@ -950,12 +954,14 @@ class Organisms {
     return [
       'path' => '@organisms/by-author/rich-text.twig',
       'data' => [
-        'rteElements' => [
-          [
-            'path' => '@atoms/11-text/paragraph.twig',
-            'data' => [
-              'paragraph' => [
-                'text' => $entity->$fields['field']->value,
+        'richText' => [
+          'rteElements' => [
+            [
+              'path' => '@atoms/11-text/paragraph.twig',
+              'data' => [
+                'paragraph' => [
+                  'text' => $entity->$fields['field']->value,
+                ],
               ],
             ],
           ],
@@ -978,16 +984,46 @@ class Organisms {
    *   Returns a structured array.
    */
   public static function prepareFormDownloads($entity, array $options = []) {
-    return [
-      'path' => '@organisms/by-author/form-download.twig',
-      'data' => [
-        'compHeading' => [
-          'title' => $options['title'],
-          'sub' => TRUE,
-        ],
-        'actionDownloads' => Molecules::prepareActionDownloads($entity, $options),
+    $downloadLinks = [];
+
+    $map = [
+      'downloads' => [
+        'field_downloads',
+        'field_guide_section_downloads',
+        'field_service_file',
+        'field_action_downloads',
+        'field_next_step_downloads',
+        'field_how_to_files',
+      ],
+      'link' => [
+        'field_guide_section_link',
+        'field_service_links',
       ],
     ];
+
+    // Determines which field names to use from the map.
+    $fields = Helper::getMappedFields($entity, $map);
+
+    // Roll up our items.
+    if (array_key_exists('link', $fields)) {
+      foreach ($entity->$fields['link'] as $item) {
+        $downloadLinks[] = Molecules::prepareDownloadLink($item, $options);
+      }
+    }
+
+    foreach ($entity->$fields['downloads'] as $item) {
+      $downloadLinks[] = Molecules::prepareDownloadLink($item->entity, $options);
+    }
+
+    // Build either sidebar or comp heading based on heading type option.
+    $heading = [];
+    if (isset($options['heading']['type'])) {
+      $heading = Helper::buildHeading($options['heading']);
+    }
+
+    return [
+      'downloadLinks' => $downloadLinks,
+    ] + $heading;
   }
 
   /**
@@ -1024,9 +1060,9 @@ class Organisms {
 
     foreach ($map['heading'] as $index => $field_name) {
       if (Helper::isFieldPopulated($entity, $field_name)) {
-        $splitColumns['column' . ++$index] = [
+        $splitColumns['columns'][]['items'] = [
           $header[] = Atoms::prepareColumnHeading($entity->$field_name->value),
-          $body[] = Atoms::prepareRawHtml($entity, ['field' => $map['body'][--$index]]),
+          $body[] = Atoms::prepareRawHtml($entity, ['field' => $map['body'][$index]]),
         ];
       }
     }
@@ -1037,6 +1073,178 @@ class Organisms {
         'splitColumns' => $splitColumns,
       ],
     ];
+  }
+
+  /**
+   * Returns the variables structure required to render actionActivities.
+   *
+   * @param object $entities
+   *   An EntityReferenceRevisionsFieldItemList that contains the entities.
+   *
+   * @see @organisms/by-author/image-promos.twig
+   *
+   * @return array
+   *   Returns a structured array.
+   */
+  public static function prepareImagePromos($entities) {
+    $items = [];
+
+    // Activities section.
+    foreach ($entities as $entity) {
+      $activityEntity = $entity->entity;
+
+      // Creates a map of fields that are on the entitiy.
+      $map = [
+        'image' => ['field_image'],
+        'title' => ['field_title'],
+        'lede' => ['field_lede', 'field_teaser'],
+      ];
+
+      // Determines which fieldnames to use from the map.
+      $fields = Helper::getMappedFields($activityEntity, $map);
+
+      $items[] = Molecules::prepareImagePromo($activityEntity, $fields);
+    }
+
+    return ['items' => $items];
+  }
+
+  /**
+   * Returns the variables structure required to render steps ordered.
+   *
+   * @param object $entity
+   *   The object that contains the fields.
+   * @param array $options
+   *   This is an array of field names.
+   *
+   * @see @organisms/by-author/steps-ordered.twig
+   *
+   * @return array
+   *   Returns a structured array.
+   */
+  public static function prepareStepsOrdered($entity, array $options = []) {
+    $steps = [];
+
+    // Creates a map of fields on the parent entity.
+    $map = [
+      'reference' => ['field_action_step_numbered_items', 'field_how_to_next_steps'],
+    ];
+
+    // Determines which fieldnames to use from the map.
+    $fields = Helper::getMappedFields($entity, $map);
+
+    // Retrieves the referenced field from the entity.
+    $items = Helper::getReferencedEntitiesFromField($entity, $fields['reference']);
+
+    // Creates a map of fields that are on the referenced entitiy.
+    $referenced_fields_map = [
+      'title' => ['field_title', 'field_next_step_title'],
+      'content' => ['field_content', 'field_next_step_details'],
+      'downloads' => ['field_next_step_downloads'],
+      'more_link' => ['field_next_step_link'],
+    ];
+
+    // Determines the fieldsnames to use on the refrenced entity.
+    $referenced_fields = Helper::getMappedReferenceFields($items, $referenced_fields_map);
+
+    // Roll up our action steps.
+    if (!empty($items)) {
+      foreach ($items as $id => $item) {
+        // Set up action step options.
+        $step_options = [
+          'accordion' => FALSE,
+          'expanded' => TRUE,
+        ];
+
+        $steps[] = Molecules::prepareActionStep($item, $referenced_fields, $step_options);
+      }
+    }
+
+    // Build either sidebar or comp heading based on heading type option.
+    $heading = [];
+    if (isset($options['heading']['type'])) {
+      $heading = Helper::buildHeading($options['heading']);
+    }
+
+    return [
+      'steps' => $steps,
+    ] + $heading;
+  }
+
+  /**
+   * Returns the variables structure required to render steps unordered.
+   *
+   * @param object $entity
+   *   The object that contains the fields.
+   * @param array $options
+   *   This is an array of field names.
+   *
+   * @see @organisms/by-author/steps-unordered.twig
+   *
+   * @return array
+   *   Returns a structured array.
+   */
+  public static function prepareStepsUnordered($entity, array $options = []) {
+    $steps = [];
+
+    // Creates a map of fields on the parent entity.
+    $map = [
+      'reference' => ['field_how_to_methods_5'],
+    ];
+
+    // Determines which field names to use from the map.
+    $fields = Helper::getMappedFields($entity, $map);
+
+    // Retrieves the referenced field from the entity.
+    $items = Helper::getReferencedEntitiesFromField($entity, $fields['reference']);
+
+    // Creates a map of fields that are on the referenced entitiy.
+    $referenced_fields_map = [
+      'title' => ['field_method_type'],
+      'content' => ['field_method_details'],
+    ];
+
+    // Determines the field names to use on the referenced entity.
+    $referenced_fields = Helper::getMappedReferenceFields($items, $referenced_fields_map);
+
+    // Map method types to icon names.
+    $icon_map = [
+      'online' => 'laptop',
+      'phone' => 'phone',
+      'mail' => 'mail',
+      'fax' => 'fax-icon',
+      'in person' => 'profile',
+    ];
+
+    // Roll up our action steps.
+    if (!empty($items)) {
+      foreach ($items as $id => $item) {
+        // Get the icon path for the given method.
+        $title = $item->get($referenced_fields['title'])->value;
+        $icon_path = Helper::getIconPath($icon_map[$title]);
+
+        // Set up action step options.
+        $step_options = [
+          'icon_path' => $icon_path,
+          'accordion' => TRUE,
+          'expanded' => FALSE,
+          'label' => "Expand {$title} step.",
+
+        ];
+
+        $steps[] = Molecules::prepareActionStep($item, $referenced_fields, $step_options);
+      }
+    }
+
+    // Build either sidebar or comp heading based on heading type option.
+    $heading = [];
+    if (isset($options['heading']['type'])) {
+      $heading = Helper::buildHeading($options['heading']);
+    }
+
+    return [
+      'steps' => $steps,
+    ] + $heading;
   }
 
 }

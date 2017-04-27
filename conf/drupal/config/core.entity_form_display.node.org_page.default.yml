@@ -48,6 +48,7 @@ third_party_settings:
     group_banner:
       children:
         - group_organization_name
+        - field_ref_contact_info_1
         - field_bg_wide
         - field_bg_narrow
         - field_ref_contact_info_1
@@ -70,7 +71,7 @@ third_party_settings:
         - field_ref_actions_6
         - field_link
       parent_name: group_node_edit_form
-      weight: 24
+      weight: 23
       format_type: tab
       format_settings:
         label: Actions
@@ -85,7 +86,7 @@ third_party_settings:
         - field_ref_card_view_6
         - field_ref_orgs
       parent_name: group_node_edit_form
-      weight: 25
+      weight: 24
       format_type: tab
       format_settings:
         label: More
@@ -143,7 +144,7 @@ content:
       summary_rows: 3
     third_party_settings: {  }
   field_action_set__bg_narrow:
-    weight: 3
+    weight: 25
     settings:
       entity_browser: browse_files_modal
       field_widget_remove: true
@@ -155,7 +156,7 @@ content:
     third_party_settings: {  }
     type: entity_browser_file
   field_action_set__bg_wide:
-    weight: 2
+    weight: 24
     settings:
       entity_browser: browse_files_modal
       field_widget_remove: true
@@ -167,7 +168,7 @@ content:
     third_party_settings: {  }
     type: entity_browser_file
   field_bg_narrow:
-    weight: 22
+    weight: 23
     settings:
       entity_browser: browse_files_modal
       field_widget_remove: true
@@ -179,7 +180,7 @@ content:
     third_party_settings: {  }
     type: entity_browser_file
   field_bg_wide:
-    weight: 21
+    weight: 22
     settings:
       entity_browser: browse_files_modal
       field_widget_remove: true
@@ -191,7 +192,7 @@ content:
     third_party_settings: {  }
     type: entity_browser_file
   field_link:
-    weight: 6
+    weight: 28
     settings:
       placeholder_url: ''
       placeholder_title: ''
@@ -203,7 +204,7 @@ content:
     third_party_settings: {  }
     type: metatag_firehose
   field_ref_actions_3:
-    weight: 4
+    weight: 26
     settings:
       match_operator: CONTAINS
       size: 60
@@ -211,7 +212,7 @@ content:
     third_party_settings: {  }
     type: entity_reference_autocomplete
   field_ref_actions_6:
-    weight: 5
+    weight: 27
     settings:
       match_operator: CONTAINS
       size: 60
@@ -227,8 +228,8 @@ content:
     third_party_settings: {  }
     type: entity_reference_autocomplete
   field_ref_contact_info_1:
-    type: entity_reference_autocomplete
-    weight: 23
+    type: entity_reference_autocomplete_tags
+    weight: 21
     settings:
       match_operator: CONTAINS
       size: 60

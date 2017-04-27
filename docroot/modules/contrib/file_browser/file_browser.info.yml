@@ -15,3 +15,5 @@ dependencies:
   - path
   - text
   - views
+test_dependencies:
+  - ctools:ctools

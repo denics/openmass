@@ -215,6 +215,7 @@ body.search-results-page .gstl_50.gssb_c[style] {
   cursor: pointer;
 }
 
+
 /* GOOGLE CUSTOM SEARCH RESULTS PAGE STYLES */
 /*
 .gsc-resultsbox-visible * {
@@ -287,7 +288,6 @@ body.search-results-page .gstl_50.gssb_c[style] {
 .gs-imageResult a.gs-title:visited b {
   color: #444444;
 }
-
 .gs-webResult.gs-result a.gs-title:active,
 .gs-webResult.gs-result a.gs-title:active b,
 .gs-imageResult a.gs-title:active,
@@ -396,12 +396,12 @@ a.gsc-trailing-more-results:link {
 }
 
 /* borrow + edit container scaffolding form Mayflower link-list */
-.ma__link-list {
+.search-results-page .ma__link-list {
   padding: 20px 0;
 }
 
 @media (min-width: 801px) {
-  .ma__link-list {
+  .search-results-page .ma__link-list {
     padding: 60px 0;
   }
 }
@@ -503,6 +503,7 @@ a.gsc-trailing-more-results:link {
 .gsc-result.gsc-promotion a.gs-title[data-ctorig^="https://mass.gov"] {
   background: transparent url("/modules/custom/mass_search/images/arrow-white.svg") no-repeat right center !important;
 }
+
 
 /* regular results - external links + common styles */
 .gsc-webResult.gsc-result:not(.gsc-promotion) a.gs-title {
@@ -813,18 +814,19 @@ div.gs-visibleUrl,
 }
 
 @media (min-width: 781px) {
-  .ma__link-list__container {
+  .search-results-page .ma__link-list__container {
     padding-left: 30px;
     padding-right: 30px;
   }
 }
 
 @media (min-width: 911px) {
-  .ma__link-list__container {
+  .search-results-page .ma__link-list__container {
     padding-left: 40px;
     padding-right: 40px;
   }
 }
+
 
 /* search results page search form orverride */
 .ma__content__search form.gsc-search-box,
@@ -996,7 +998,7 @@ form.gsc-search-box,
 }
 @media (min-width: 700px) {
   /*.ma__content-search {
-	width: calc(100% - 250px);
+        width: calc(100% - 250px);
       }*/
   .ma__content-search__input {
     padding-right: 17px;
@@ -1041,7 +1043,7 @@ form.gsc-search-box,
 
 /* reduce vertical spacing above linked list container for search results */
 @media (max-width: 620px) {
-  .ma__link-list {
+  .search-results-page .ma__link-list {
     padding-top: 20px;
   }
 }
@@ -1130,6 +1132,7 @@ form.gsc-search-box,
     background-position: 115px center;
   }
 }
+
 
 /**
  * PILOT header overrides to make search forms show

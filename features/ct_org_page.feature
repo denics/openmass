@@ -87,7 +87,7 @@ Feature: Organization Landing Page Content type
       | field_social_links    | Facebook - http://www.facebook.com/masshhs, Twitter - http://www.twitter.com/masshhs     |
     Then I should see the text "Executive Office of Health and Human Services" in the "page_banner" region
     And I should see the text "(EOHHS)" in the "page_banner" region
-    And I should see the text "OHHS oversees health and general support services to help people" in the "action_header" region
+    And I should see the text "OHHS oversees health and general support services to help people" in the "page_header" region
     And I should see the text "Action title 1"
     And I should see the text "Action title 2"
     And I should see the text "Guide Title 1"

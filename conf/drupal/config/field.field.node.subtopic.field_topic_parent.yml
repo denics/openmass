@@ -6,6 +6,7 @@ dependencies:
     - field.storage.node.field_topic_parent
     - node.type.subtopic
     - node.type.topic
+    - node.type.topic_page
 id: node.subtopic.field_topic_parent
 field_name: field_topic_parent
 entity_type: node
@@ -21,6 +22,7 @@ settings:
   handler_settings:
     target_bundles:
       topic: topic
+      topic_page: topic_page
     sort:
       field: _none
     auto_create: false

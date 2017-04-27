@@ -1,0 +1,19 @@
+uuid: 7088dd5e-e404-4fe4-a8e0-fe86909c1923
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.field_topic_ref_content_cards
+field_name: field_topic_ref_content_cards
+entity_type: node
+type: entity_reference
+settings:
+  target_type: node
+module: core
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitdb3dc5b77e24a90fb0c1b6b5d8f5da32
+class ComposerStaticInit2cd3b4689a8bed32add346d654b85672
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -17,6 +17,9 @@ class ComposerStaticInitdb3dc5b77e24a90fb0c1b6b5d8f5da32
         '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
         '5255c38a0faeba867671b61dfda6d864' => __DIR__ . '/..' . '/paragonie/random_compat/lib/random.php',
         'def43f6c87e4f8dfd0c9e1b1bab14fe8' => __DIR__ . '/..' . '/symfony/polyfill-iconv/bootstrap.php',
+        '2cffec82183ee1cea088009cef9a6fc3' => __DIR__ . '/..' . '/ezyang/htmlpurifier/library/HTMLPurifier.composer.php',
+        'fbeead2280a8f3911a1fe6dd034f7d5e' => __DIR__ . '/..' . '/mkalkbrenner/php-htmldiff-advanced/src/HtmlDiffAdvancedInterface.php',
+        '96f8d8288528d52059397cad6ec61f17' => __DIR__ . '/..' . '/mkalkbrenner/php-htmldiff-advanced/src/HtmlDiffAdvanced.php',
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
         'e7223560d890eab89cda23685e711e2c' => __DIR__ . '/..' . '/psy/psysh/src/Psy/functions.php',
         'd9d39f82a605ebe5918f683dd402334c' => __DIR__ . '/..' . '/padraic/humbug_get_contents/src/function.php',
@@ -497,6 +500,10 @@ class ComposerStaticInitdb3dc5b77e24a90fb0c1b6b5d8f5da32
         ),
         'S' => 
         array (
+            'Sunra\\PhpSimple\\HtmlDomParser' => 
+            array (
+                0 => __DIR__ . '/..' . '/sunra/php-simple-html-dom-parser/Src',
+            ),
             'Stack' => 
             array (
                 0 => __DIR__ . '/..' . '/stack/builder/src',
@@ -537,6 +544,13 @@ class ComposerStaticInitdb3dc5b77e24a90fb0c1b6b5d8f5da32
             'JakubOnderka\\PhpConsoleColor' => 
             array (
                 0 => __DIR__ . '/..' . '/jakub-onderka/php-console-color/src',
+            ),
+        ),
+        'H' => 
+        array (
+            'HTMLPurifier' => 
+            array (
+                0 => __DIR__ . '/..' . '/ezyang/htmlpurifier/library',
             ),
         ),
         'G' => 
@@ -635,9 +649,13 @@ class ComposerStaticInitdb3dc5b77e24a90fb0c1b6b5d8f5da32
             array (
                 0 => __DIR__ . '/..' . '/doctrine/common/lib',
             ),
-            'Dflydev\\EmbeddedComposer' => 
+            'Dflydev\\EmbeddedComposer\\Core' => 
             array (
-                0 => __DIR__ . '/..' . '/dflydev/embedded-composer-console/src',
+                0 => __DIR__ . '/..' . '/dflydev/embedded-composer-core',
+            ),
+            'Dflydev\\EmbeddedComposer\\Console' => 
+            array (
+                0 => __DIR__ . '/..' . '/dflydev/embedded-composer-console',
             ),
         ),
         'C' => 
@@ -649,6 +667,10 @@ class ComposerStaticInitdb3dc5b77e24a90fb0c1b6b5d8f5da32
             'Console' => 
             array (
                 0 => __DIR__ . '/..' . '/pear/console_getopt',
+            ),
+            'Caxy\\HtmlDiff' => 
+            array (
+                0 => __DIR__ . '/..' . '/caxy/php-htmldiff/lib',
             ),
         ),
         'B' => 
@@ -1528,11 +1550,11 @@ class ComposerStaticInitdb3dc5b77e24a90fb0c1b6b5d8f5da32
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitdb3dc5b77e24a90fb0c1b6b5d8f5da32::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitdb3dc5b77e24a90fb0c1b6b5d8f5da32::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInitdb3dc5b77e24a90fb0c1b6b5d8f5da32::$prefixesPsr0;
-            $loader->fallbackDirsPsr0 = ComposerStaticInitdb3dc5b77e24a90fb0c1b6b5d8f5da32::$fallbackDirsPsr0;
-            $loader->classMap = ComposerStaticInitdb3dc5b77e24a90fb0c1b6b5d8f5da32::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit2cd3b4689a8bed32add346d654b85672::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit2cd3b4689a8bed32add346d654b85672::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit2cd3b4689a8bed32add346d654b85672::$prefixesPsr0;
+            $loader->fallbackDirsPsr0 = ComposerStaticInit2cd3b4689a8bed32add346d654b85672::$fallbackDirsPsr0;
+            $loader->classMap = ComposerStaticInit2cd3b4689a8bed32add346d654b85672::$classMap;
 
         }, null, ClassLoader::class);
     }
