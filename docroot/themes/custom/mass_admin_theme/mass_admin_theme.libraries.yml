@@ -5,6 +5,8 @@ admin_overrides:
       overrides/css/action-node-form.css: {}
       overrides/css/org-page-node-form.css: {}
       overrides/css/images.css: {}
+  js:
+    js/add-more-paragraph-scroll.js: {}
 entity_embed_dialog:
   version: 1.x
   js:
