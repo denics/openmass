@@ -164,12 +164,6 @@ body.search-results-page .gstl_50.gssb_c[style] {
   padding: 0 0 5px 7px !important;
 }
 
-@media (min-width: 801px) {
-  .gsq_a {
-    /*padding: 0 !important;*/
-  }
-}
-
 .gsq_a span {
   color: #535353 !important;
   font-family: "Texta","Helvetica","Arial","sans-serif";
@@ -293,13 +287,6 @@ body.search-results-page .gstl_50.gssb_c[style] {
 .gs-imageResult a.gs-title:visited,
 .gs-imageResult a.gs-title:visited b {
   color: #444444;
-}
-.gs-webResult.gs-result a.gs-title:hover,
-.gs-webResult.gs-result a.gs-title:hover b,
-.gs-imageResult a.gs-title:hover,
-.gs-imageResult a.gs-title:hover b {
-  /* color: #444444; */
-  /*color: #0000cc;*/
 }
 .gs-webResult.gs-result a.gs-title:active,
 .gs-webResult.gs-result a.gs-title:active b,
@@ -829,17 +816,16 @@ div.gs-visibleUrl,
 @media (min-width: 781px) {
   .search-results-page .ma__link-list__container {
     padding-left: 30px;
-    padding-right: 30px
+    padding-right: 30px;
   }
 }
 
 @media (min-width: 911px) {
   .search-results-page .ma__link-list__container {
     padding-left: 40px;
-    padding-right: 40px
+    padding-right: 40px;
   }
 }
-
 
 
 /* search results page search form orverride */
