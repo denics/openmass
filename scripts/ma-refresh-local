@@ -7,6 +7,7 @@
 # This is a convenience script for refreshing data & config from remote environments.
 # We have rsync behind a flag because it can be problematic and often you don't want to run it every time.
 
+
 # available environments to pull from
 remoteEnvironments=("prod" "test" "dev" "feature1" "feature2" "feature3")
 
@@ -61,11 +62,19 @@ if [ $? == 0 ]; then
   echo -e "------------------------------------------------------------------------"
   run "drush -y --sanitize sql-sync @massgov.$desiredEnv @self" "drush sql-sync" "🚚"
 
-  # rsync files
-  echo -e "\n"
-  echo "rsync files"
-  echo -e "------------------------------------------------------------------------"
-  run "drush -y rsync @massgov.$desiredEnv:%files @self:%files" "drush rsync" "🚛"
+
+  # Optionally pull files
+  echo -e "\n\nDo you want to pull files from acquia via rsync?\n(yes/no)"
+  # read user input
+  read pullFiles
+
+  if [ $pullFiles = 'yes' ]; then
+    # rsync files
+    echo -e "\n"
+    echo "rsync files"
+    echo -e "------------------------------------------------------------------------"
+    run "drush -y rsync @massgov.$desiredEnv:%files @self:%files" "drush rsync" "🚛"
+  fi
 
   # run db updates if any
   echo -e "\n"
