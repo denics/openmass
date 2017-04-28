@@ -26,8 +26,6 @@ dependencies:
     - echo "memory_limit=1024M" > ~/.phpenv/versions/$(phpenv global)/etc/conf.d/memory.ini
     # restart apache
     - sudo service apache2 restart
-    # Generate a GitHub token per project and add it to the CircleCI environment variables using the docroot UI.
-    - composer config --global github-oauth.github.com $GITHUB_TOKEN
 
   override:
     # install eslint globally
@@ -59,10 +57,6 @@ test:
     - phpcs -v --warning-severity=0 --standard=DrupalPractice docroot/modules/custom
     - phpcs -v --warning-severity=0 --standard=DrupalPractice docroot/themes/custom
     - phpcs -v --warning-severity=0 --standard=DrupalPractice docroot/profiles/custom
-    # php mess detector
-    - phpmd docroot/modules/custom text vendor/palantirnet/the-build/conf/phpmd.xml --suffixes php,module,inc --ignore-violations-on-exit
-    - phpmd docroot/themes/custom text vendor/palantirnet/the-build/conf/phpmd.xml --suffixes php,module,inc --ignore-violations-on-exit
-    - phpmd docroot/profiles/custom text vendor/palantirnet/the-build/conf/phpmd.xml --suffixes php,module,inc --ignore-violations-on-exit
     # phplint
     - cd docroot/modules/custom && phplint --verbose "**/*.php"
     - cd docroot/themes/custom && phplint --verbose "**/*.php"
@@ -76,26 +70,31 @@ test:
     # behat testing
     - behat --format=junit --out=$CIRCLE_TEST_REPORTS/behat --format=pretty --out=std
 
-# after tests pass, proceed with a deployment
+# after tests pass, proceed with deployment(s)
 deployment:
-  # Acquia (this is just a label)
+  # deploy current circleci's branch to acquia repo (task labeled as "acquia")
+  # note: current branch is pushed; but not activated
+  # developer(s) will activate branch of interest in available acquia enviroment on demand
   acquia:
-    # condition for which branch to act upon: any branch by using regex /.*/
+    # condition for which branch to act upon
+    # in this case, we have any branch by using the regex /.*/
     branch: /.*/
     commands:
-      # add Acquia repo as an additional remote
+      # add acquia repo as an additional remote
       - git remote add acquia massgov@svn-20994.prod.hosting.acquia.com:massgov.git
-      # push the branch that meets our regex (/.*/ above) and get its name from an environment variable
+      # push the branch that meets our regex (/.*/ above)
+      # get branch name from an environment variable
       - git push --force acquia $CIRCLE_BRANCH
-  # --- Deploy develop branch to CD ---
+  # deploy `develop` branch to `cd` (task labeled as "continuous_delivery")
   continuous_delivery:
-    branch: develop # Only run this when the branch is this
+    # only run when branch value is `develop`
+    branch: develop
     commands:
-      # Add Acquia Cloud Git repo as a remote repo
+      # add acquia cloud git repo as a remote for this circle ci build
       - git remote add acquia massgov@svn-20994.prod.hosting.acquia.com:massgov.git
-      # Push develop branch to Acquia Cloud Git repo
+      # push `develop` branch to acquia cloud git repo
       - git push --force acquia $CIRCLE_BRANCH
-      # Deploy to CD
+      # activate `develop` branch in `cd` environment
       - drush ma-deploy cd $CIRCLE_BRANCH
-      # Copy Files from Prod to CD
+      # copy files from `prod` environment to `cd`
       - drush -y rsync @massgov.prod:%files @massgov.cd:%files
