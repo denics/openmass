@@ -5,7 +5,7 @@ Fix duplicated image selection when click use selected button
 Source: https://www.drupal.org/files/issues/prevent-duplication.patch
 
 
-Fix for 'Undefined index: max_resolution'
+Fix for 'Undefined index: max_resolution' which occured what looking for max_resolution on non-images (https://www.drupal.org/node/2871372)
 Source: https://www.drupal.org/files/issues/entity-browser-widget-context-small-fix-2871372-2.patch
 
 
