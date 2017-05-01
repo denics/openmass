@@ -10,24 +10,24 @@ Feature: Location Landing Page Content type
       | name                    | field_sprite_name |
       | Behat: Transit Friendly | transit           |
     Then the content type "location" has the fields:
-      | field                          | tag        | type      | multivalue |
-      | field-accessibility            | textarea   |           | false      |
-      | field-ref-contact-info         | input      | text      | false      |
-      | field-facilities               | textarea   |           | false      |
-      | field-bg-wide                  | input      | submit    | false      |
-      | field-bg-narrow                | input      | submit    | false      |
-      | field-hours                    | paragraphs |           | false      |
-      | field-iframe                   | paragraphs | iframe    | false      |
-      | field-location-icons           | input      | checkbox  | false      |
-      | field-more-information         | textarea   |           | false      |
-      | field-overview                 | textarea   |           | false      |
-      | field-parking                  | textarea   |           | false      |
-      | field-ref-contact-info-1       | input      | text      | false      |
-      | field-links                    | input      | text      | false      |
-      | field-location-activity-detail | input      | submit    | false      |
-      | field-related-locations        | input      | text      | true       |
-      | field-restrictions             | textarea   |           | false      |
-      | field-services                 | textarea   |           | false      |
+      | field                           | tag        | type      | multivalue |
+      | field-accessibility             | textarea   |           | false      |
+      | field-ref-contact-info          | input      | text      | false      |
+      | field-location-facilities       | textarea   |           | false      |
+      | field-bg-wide                   | input      | submit    | false      |
+      | field-bg-narrow                 | input      | submit    | false      |
+      | field-hours                     | paragraphs |           | false      |
+      | field-iframe                    | paragraphs | iframe    | false      |
+      | field-location-icons            | input      | checkbox  | false      |
+      | field-location-more-information | textarea   |           | false      |
+      | field-overview                  | textarea   |           | false      |
+      | field-parking                   | textarea   |           | false      |
+      | field-ref-contact-info-1        | input      | text      | false      |
+      | field-links                     | input      | text      | false      |
+      | field-location-activity-detail  | input      | submit    | false      |
+      | field-related-locations         | input      | text      | true       |
+      | field-restrictions              | textarea   |           | false      |
+      | field-services                  | textarea   |           | false      |
 
   Scenario: Verify that pathauto patterns are applied to location nodes.
     Given I am viewing an "location" content with the title "Run the Test Suite"
