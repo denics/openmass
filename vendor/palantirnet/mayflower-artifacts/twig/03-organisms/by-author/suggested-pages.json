@@ -1,0 +1,43 @@
+{
+  "suggestedPages": {
+    "title": "Related Parks",
+    "view":"",
+    "buttonMinor" : {
+      "href": "#",
+      "text": "Do Something"
+    },
+    "pages": [{
+      "image": "/assets/images/placeholder/230x130.png",
+      "altTag": "Place Holder Image",
+      "link": {
+        "type": "",
+        "href": "#",
+        "text": "Title Link I"
+      }
+    },{
+      "image": "/assets/images/placeholder/230x130.png",
+      "altTag": "Place Holder Image",
+      "link": {
+        "type": "",
+        "href": "#",
+        "text": "Title Link II"
+      }
+    },{
+      "image": "/assets/images/placeholder/230x130.png",
+      "altTag": "Place Holder Image",
+      "link": {
+        "type": "",
+        "href": "#",
+        "text": "Title Link III"
+      }
+    },{
+      "image": "/assets/images/placeholder/230x130.png",
+      "altTag": "Place Holder Image",
+      "link": {
+        "type": "",
+        "href": "#",
+        "text": "Title Link IV"
+      }
+    }]
+  }
+}

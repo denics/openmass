@@ -1,0 +1,269 @@
+<?php
+
+/**
+ * @file
+ * Contains mass_validation.module.
+ */
+
+use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_help().
+ */
+function mass_validation_help($route_name, RouteMatchInterface $route_match) {
+  $output = '';
+  switch ($route_name) {
+    case 'help.page.mass_validation':
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('This module allows validation to be applied to custom content types and fields.') . '</p>';
+      break;
+
+    default:
+  }
+  return $output;
+}
+
+/**
+ * Implements hook_entity_type_alter().
+ */
+function mass_validation_entity_type_alter(array &$entity_types) {
+  /** @var Drupal\Core\Entity\ContentEntityType $node */
+  $node = $entity_types['node'];
+  if (!empty($node)) {
+    $node->addConstraint('PreventEmptyImage', []);
+  }
+}
+
+/**
+ * Implements hook_entity_bundle_field_info_alter().
+ */
+function mass_validation_entity_bundle_field_info_alter(&$fields, EntityTypeInterface $entity_type, $bundle) {
+  /** @var Drupal\field\Entity\FieldConfig $field_social_links */
+  if ($entity_type->id() == 'node' && array_key_exists('field_social_links', $fields) && !empty($fields['field_social_links'])) {
+    $field_social_links = &$fields['field_social_links'];
+    $field_social_links->addConstraint('SocialLink', [
+      'allowedValues' => [
+        'twitter.com',
+        'flickr.com',
+        'facebook.com',
+        'instagram.com',
+        'linkedin.com',
+        'youtube.com',
+        'blog.mass.gov',
+      ],
+    ]);
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for the FORM_ID() form.
+ */
+function mass_validation_form_node_guide_page_edit_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $form['#validate'][] = '_mass_validation_form_node_guide_page_form_validate';
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for the FORM_ID() form.
+ */
+function mass_validation_form_node_guide_page_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $form['#validate'][] = '_mass_validation_form_node_guide_page_form_validate';
+}
+
+/**
+ * Validates submission values in the FORM_ID() form.
+ */
+function _mass_validation_form_node_guide_page_form_validate(array &$form, FormStateInterface $form_state) {
+
+  // Verify links have titles.
+  _mass_link_validate_paragraph($form_state, 'field_guide_page_sections', ['field_guide_section_links_4', 'field_guide_section_link']);
+
+  // Validate that the Links and Downloads fields
+  // have no more than 6 values between them.
+  if ($form_state->hasValue('field_guide_page_sections')) {
+    // Look at each section.
+    $sections = $form_state->getValue('field_guide_page_sections');
+    unset($sections['add_more']);
+    foreach ($sections as $key => $section) {
+      if (in_array('subform', $section)) {
+        $num_links = 0;
+        // Count the links.
+        foreach ($section['subform']['field_guide_section_link'] as $link) {
+          if (is_array($link)) {
+            if (!empty($link['uri'])) {
+              $num_links += 1;
+            }
+          }
+        }
+      }
+      $num_docs = 0;
+      // Count the documents.
+      if (!empty($section['subform']['field_guide_section_downloads']['entities'])) {
+        $num_docs = count($section['subform']['field_guide_section_downloads']['entities']);
+      }
+      // Throw an error is there are more than 6.
+      if (($num_links + $num_docs) > 6) {
+        $form_state->setErrorByName('field_guide_page_sections][' . $key . '][subform][field_guide_section_link', t('You can only have max 6 values between the Links and Downloads fields in a section.'));
+        $form_state->setErrorByName('field_guide_page_sections][' . $key . '][subform][field_guide_section_downloads', t('You can only have max 6 values between the Links and Downloads fields in a section.'));
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for the FORM_ID() form.
+ */
+function mass_validation_form_node_service_page_edit_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $form['#validate'][] = '_mass_validation_form_node_service_page_form_validate';
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for the FORM_ID() form.
+ */
+function mass_validation_form_node_service_page_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $form['#validate'][] = '_mass_validation_form_node_service_page_form_validate';
+}
+
+/**
+ * Validates submission values in the FORM_ID() form.
+ */
+function _mass_validation_form_node_service_page_form_validate(array &$form, FormStateInterface $form_state) {
+
+  _mass_link_validate($form_state, 'field_service_ref_actions_2');
+  _mass_link_validate($form_state, 'field_service_ref_actions');
+  _mass_link_validate($form_state, 'field_service_links');
+
+  $num_links = 0;
+  // Validate that the Links and Downloads fields
+  // have no more than 6 values between them.
+  if ($form_state->hasValue('field_service_links') || $form_state->hasValue('field_service_file')) {
+    // Count the links.
+    $links = $form_state->getValue('field_service_links');
+    foreach ($links as $link) {
+      if (is_array($link)) {
+        if (!empty($link['uri'])) {
+          $num_links += 1;
+        }
+      }
+    }
+    // Count the documents.
+    $docs = $form_state->getValue('field_service_file');
+    $num_docs = 0;
+    if (!empty($docs['entities'])) {
+      $num_docs = count($docs['entities']);
+    }
+    // Throw an error is there are more than 6.
+    if (($num_links + $num_docs) > 6) {
+      $form_state->setErrorByName('field_service_links', t('You can only have max 6 values between the Links and Downloads fields.'));
+      $form_state->setErrorByName('field_service_file', t('You can only have max 6 values between the Links and Downloads fields.'));
+    }
+  }
+}
+
+/**
+ * Validate link fields in a paragraph have titles for each uri.
+ *
+ * @param Drupal\Core\Form\FormStateInterface $form_state
+ *   The form we are validating.
+ * @param string $field_name
+ *   The name of the link field to validate.
+ */
+function _mass_link_validate(FormStateInterface &$form_state, $field_name) {
+  $node_storage = \Drupal::entityManager()->getStorage('node');
+
+  // Fetch the field values.
+  if ($form_state->hasValue($field_name)) {
+    $featured_tasks = $form_state->getValue($field_name);
+    $is_updated = FALSE;
+    // Look at each field value.
+    foreach ($featured_tasks as $key => $task) {
+      if (is_array($task)) {
+        if (!empty($task['uri'])) {
+          if (empty($task['title'])) {
+            /*
+             * If a link had a uri, no title, and is internal
+             * set the title as the node title.
+             */
+            if (stripos($task['uri'], 'entity') === 0) {
+              // Get the node from the uri.
+              $uri_parts = explode('/', $task['uri']);
+              $nid = $uri_parts[1];
+              $node = $node_storage->load($nid);
+              // Update field array with new title.
+              $featured_tasks[$key]['title'] = $node->getTitle();
+              $is_updated = TRUE;
+            }
+            else {
+              // If the link has no title and is external throw an error.
+              $form_state->setErrorByName($field_name . '][' . $key, t('External links require a title.'));
+            }
+          }
+        }
+      }
+    }
+    if ($is_updated) {
+      $form_state->setValueForElement(['#parents' => [$field_name]], $featured_tasks);
+    }
+  }
+}
+
+/**
+ * Validate link fields in a paragraph have titles for each uri.
+ *
+ * @param Drupal\Core\Form\FormStateInterface $form_state
+ *   The form state object we are updating.
+ * @param string $paragraph_field_name
+ *   The name of the paragraph field we are checking.
+ * @param array $field_names
+ *   An array of link field titles in the paragraph to check.
+ */
+function _mass_link_validate_paragraph(FormStateInterface &$form_state, $paragraph_field_name, array $field_names) {
+  $node_storage = \Drupal::entityManager()->getStorage('node');
+
+  // Get the paragraphs field that contain the link fields.
+  if ($form_state->hasValue($paragraph_field_name)) {
+    $paragraphs = $form_state->getValue($paragraph_field_name);
+    $is_updated = FALSE;
+    // Validate each paragraph.
+    foreach ($paragraphs as $key => $paragraph) {
+      // Verify this is a paragraph with fields.
+      if (array_key_exists('subform', $paragraph)) {
+        // Look at each link field in the paragraph.
+        foreach ($field_names as $field_name) {
+          foreach ($paragraph['subform'][$field_name] as $field_key => $field) {
+            if (is_array($field)) {
+              // Verify the field has a uri.
+              if (!empty($field['uri'])) {
+                // Check to see if the link has a title.
+                if (empty($field['title'])) {
+                  /*
+                   * If it is an internal link and has no title
+                   * fill it with the node title.
+                   */
+                  if (stripos($field['uri'], 'entity') === 0) {
+                    // Get the node from the uri.
+                    $uri_parts = explode('/', $field['uri']);
+                    $nid = $uri_parts[1];
+                    $node = $node_storage->load($nid);
+                    // Set the node title as the link title.
+                    $paragraphs[$key]['subform'][$field_name][$field_key]['title'] = $node->getTitle();
+                    $is_updated = TRUE;
+                  }
+                  else {
+                    // If the link has no title and is external throw an error.
+                    $form_state->setErrorByName($paragraph_field_name . '][' . $key . '][subform][' . $field_name . '][' . $field_key, t('External links require a title.'));
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    if ($is_updated) {
+      // Update the paragraph with new values.
+      $form_state->setValueForElement(['#parents' => [$paragraph_field_name]], $paragraphs);
+    }
+  }
+}

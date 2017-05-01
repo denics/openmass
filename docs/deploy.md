@@ -34,6 +34,7 @@ Deploying to the dev environment involves building a full Drupal Deployment Arti
 1. Build and install. `vendor/bin/phing build install`
 1. Cut a tag. `git tag -a int-ds5-12-week-two-0.1 -m"DS-5 branch deployed to Feature1"`
 1. Push the tag. `git push origin int-ds5-12-week-two-0.1`
+1. Delete the artifacts/acquia directory. `rm -Rf artifacts/acquia`
 1. Deploy. `vendor/bin/phing -f build/deploy.xml -Dacquia.branch=int-ds5`
 1. Choose the environment you want to populate, e.g. @massgov.feature1.
 1. Provide the admin password.

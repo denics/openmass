@@ -26,8 +26,10 @@ content:
       image_link: ''
     third_party_settings: {  }
 hidden:
+  field_featured_mobile_image: true
   field_icon: true
   field_icon_term: true
   field_image_credit: true
+  field_metatags: true
   links: true
   workbench_moderation_control: true

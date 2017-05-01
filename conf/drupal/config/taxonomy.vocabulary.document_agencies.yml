@@ -1,0 +1,9 @@
+uuid: 1f3bee1e-50bc-445d-9091-622352c4dc8c
+langcode: en
+status: true
+dependencies: {  }
+name: 'Document Agencies'
+vid: document_agencies
+description: 'Agency or department'
+hierarchy: 0
+weight: 0

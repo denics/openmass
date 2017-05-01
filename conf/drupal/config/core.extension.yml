@@ -17,7 +17,7 @@ module:
   datalayer: 0
   datetime: 0
   dblog: 0
-  devel: 0
+  diff: 0
   draggableviews: 0
   dropzonejs: 0
   dropzonejs_eb_widget: 0
@@ -25,7 +25,9 @@ module:
   editor: 0
   embed: 0
   encrypt: 0
+  entity: 0
   entity_browser: 0
+  entity_browser_entity_form: 0
   entity_embed: 0
   entity_reference: 0
   entity_reference_revisions: 0
@@ -44,12 +46,13 @@ module:
   history: 0
   image: 0
   imagick: 0
+  inline_entity_form: 0
   inline_form_errors: 0
   key: 0
-  kint: 0
   libraries: 0
   link: 0
   mass_content: 0
+  mass_docs: 0
   mass_entityreference: 0
   mass_feedback_form: 0
   mass_formatters: 0
@@ -63,6 +66,8 @@ module:
   mass_validation: 0
   mass_workbench_ui: 0
   mayflower: 0
+  media_entity: 0
+  media_entity_document: 0
   menu_ui: 0
   metatag: 0
   metatag_open_graph: 0
@@ -72,6 +77,7 @@ module:
   migrate_source_csv: 0
   migrate_tools: 0
   node: 0
+  node_edit_protection: 0
   options: 0
   paragraphs: 0
   password_policy: 0
@@ -104,6 +110,8 @@ module:
   update: 0
   user: 0
   username_enumeration_prevention: 0
+  video_embed_field: 0
+  video_embed_media: 0
   views_ui: 0
   workbench_moderation: 0
   workbench_tabs: 0

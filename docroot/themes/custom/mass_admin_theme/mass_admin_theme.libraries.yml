@@ -1,0 +1,15 @@
+admin_overrides:
+  version: 1.x
+  css:
+    theme:
+      overrides/css/action-node-form.css: {}
+      overrides/css/org-page-node-form.css: {}
+      overrides/css/images.css: {}
+  js:
+    js/add-more-paragraph-scroll.js: {}
+  dependencies:
+    - core/jquery
+entity_embed_dialog:
+  version: 1.x
+  js:
+    js/entity-embed-dialog-alter.js: {}

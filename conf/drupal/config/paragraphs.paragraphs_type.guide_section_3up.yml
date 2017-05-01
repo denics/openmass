@@ -1,0 +1,6 @@
+uuid: 5f5cd793-0c79-43dd-918a-815b2b1169fb
+langcode: en
+status: true
+dependencies: {  }
+id: guide_section_3up
+label: 'Guide Section - 3 Column'

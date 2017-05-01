@@ -1,0 +1,75 @@
+{% set urlDomain = pageMetaData.urlDomain %}
+{% set urlPath = pageMetaData.urlPath %}
+{% set logoSrc = pageMetaData.logoSrc %}
+
+{#
+  SITE LEVEL DATA:
+  WEBSITE
+  - add to home (front) page only.
+  - about can be added when its content is ready.
+  - keywords can be added when its content is ready.
+#}
+    <script type="application/ld+json">
+	{
+	  "@context": "http://schema.org",
+	  "@type": "WebSite",
+	  "url": "{{ urlDomain }}",
+	  "name": "Mass.gov",
+	  "alternateName": "The Official Website of the Commonwealth of Massachusetts",
+	  "copyrightHolder": "Commonwealth of Massachusetts",
+	  "potentialAction": {
+	     "@type": "SearchAction",
+	     "target": "{{ urlDomain }}/search?q={search_term_string}",
+	     "query-input": "required name=search_term_string"}
+	}
+    </script>
+{#
+  SITE LEVEL COMMON DATA:
+  ORGANIZATION
+  - alternateName can be added later if helpful.
+#}
+    <script type="application/ld+json">
+      {
+	  "@context": "http://schema.org",
+	  "@type": "Organization",
+	  "url": "{{ urlDomain }}",
+	  {% if logoSrc %}"logo": "{{ urlDomain ~ '/' ~ directory ~ logoSrc }}", {% endif %}
+	  "name": "Commonwealth of Massachusetts",
+	  "sameAs": [
+	      "https://www.facebook.com/massgov/",
+	      "https://twitter.com/massgov/",
+	      "https://www.linkedin.com/company/commonwealth-of-massachusetts/",
+	      "https://www.youtube.com/user/massgov/",
+	      "https://www.instagram.com/massgov/"
+	    ]
+      }
+    </script>
+{#
+  SITE LEVEL COMMON DATA:
+  PAGE STRUCTURE - they match with the ids assigned to the area elements in the
+  <body>.
+  - header area
+  - footer area
+  - main navigation area
+#}
+    <script type="application/ld+json">
+      {
+	  "@context": "http://schema.org",
+	  "@type": "WPHeader",
+	  "@id": "{{ urlDomain ~ urlPath ~ '#header' }}"
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+	  "@context": "http://schema.org",
+	  "@type": "WPFooter",
+	  "@id": "{{ urlDomain ~ urlPath ~ '#footer' }}"
+      }
+    </script>
+    <script type="application/ld+json">
+	{
+	  "@context": "http://schema.org",
+	  "@type": "SiteNavigationElement",
+	  "@id": "{{ urlDomain ~ urlPath ~ '#block-mainnavigation'}}"
+	}
+    </script>

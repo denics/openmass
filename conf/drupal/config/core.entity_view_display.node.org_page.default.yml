@@ -13,6 +13,7 @@ dependencies:
     - field.field.node.org_page.field_ref_actions_3
     - field.field.node.org_page.field_ref_actions_6
     - field.field.node.org_page.field_ref_card_view_6
+    - field.field.node.org_page.field_ref_contact_info
     - field.field.node.org_page.field_ref_contact_info_1
     - field.field.node.org_page.field_ref_orgs
     - field.field.node.org_page.field_social_links

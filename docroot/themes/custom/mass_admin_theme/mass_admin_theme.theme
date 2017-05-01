@@ -1,0 +1,51 @@
+<?php
+
+/**
+ * @file
+ * Functions to support theming in the mass.gov admin theme.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function mass_admin_theme_form_entity_embed_dialog_alter(&$form, FormStateInterface $form_state, $form_id) {
+  if (array_key_exists('data-align', $form['attributes'])) {
+    unset($form['attributes']['data-align']['#options']['center']);
+  }
+  if (array_key_exists('data-entity-embed-display-settings', $form['attributes'])) {
+    $display_settings = $form['attributes']['data-entity-embed-display-settings'];
+    if (array_key_exists('image_style', $display_settings)) {
+      $image_style = $form['attributes']['data-entity-embed-display-settings']['image_style'];
+      $image_style['#title'] = t('Image width');
+      $image_style['#description'] = t('The width of the image is scaled to either 50% or 100% of the container it is embedded in.');
+      $form['attributes']['data-entity-embed-display-settings']['image_style'] = $image_style;
+    }
+    if (array_key_exists('image_link', $display_settings)) {
+      unset($form['attributes']['data-entity-embed-display-settings']['image_link']);
+    }
+  }
+  $form['#attached']['library'][] = 'mass_admin_theme/entity_embed_dialog';
+}
+
+/**
+ * Implements hook_preprocess_hook().
+ *
+ * Customize the help text for the field.
+ */
+function mass_admin_theme_preprocess_file_upload_help(&$variables) {
+  if (count($variables['descriptions']) == 3) {
+    /* @var $description \Drupal\Core\StringTranslation\TranslatableMarkup */
+    $description = $variables['descriptions'][1];
+    $variables['descriptions'][1] = t("Files must be less than @size.", $description->getArguments(), $description->getOptions());
+
+    $description = $variables['descriptions'][2];
+    $extensions = str_replace(' ', ', ', $description->getArguments()['@extensions']);
+    $variables['descriptions'][2] = t('Allowed types: @extensions', ['@extensions' => $extensions]);
+
+    // Removes first line of descriptions.
+    unset($variables['descriptions'][0]);
+    $variables['descriptions'] = array_values($variables['descriptions']);
+  }
+}

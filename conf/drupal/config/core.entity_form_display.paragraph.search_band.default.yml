@@ -69,5 +69,6 @@ content:
     type: string_textfield
 hidden:
   created: true
+  field_link: true
   status: true
   uid: true

@@ -1,0 +1,17 @@
+uuid: 4330aad3-fbfd-4cad-9892-21f60406e25c
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+name: 'How-To Page'
+type: how_to_page
+description: 'A how-to page is action-based. It enables someone to do something (apply, file, register, respond, pay, etc.) related to a government service. A how-to page may be linked from multiple service pages.'
+help: ''
+new_revision: true
+preview_mode: 1
+display_submitted: false

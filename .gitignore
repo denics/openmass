@@ -1,29 +1,9 @@
-# This file should contain only rules that are specific to this project. For
-# ignoring OS and IDE metadata files, please configure a global gitignore on
-# in your development environment:
-# https://github.com/palantirnet/development_documentation/blob/master/guidelines/git/gitignore.md
-
-# Ignore Drupal settings and files
-settings.php
-services.yml
-!conf/drupal/settings.php
-!conf/drupal/services.yml
-web/sites/*/files
+# Ignore Drupal files
+docroot/sites/*/files
 
 # Ignore virtual environment and artifacts
 .vagrant/
-/artifacts/
-
-# Ignore Drupal contrib downloaded by Composer
-drush/contrib
-web/core
-web/modules/contrib
-web/themes/contrib/
-web/profiles/contrib/
-web/libraries/
-
-# Ignore regular Composer dependencies
-/vendor/
+/artifacts/*
 
 # Ignore npm dependencies
 node_modules/
@@ -38,12 +18,8 @@ styleguide/source/code/css/*.css
 styleguide/output_dev/
 styleguide/output_prod/
 
-# Ignore theme assets
-/web/themes/custom/mass_theme/css
-/web/themes/custom/mass_theme/js
-/web/themes/custom/mass_theme/images
-/web/themes/custom/mass_theme/fonts
-/web/themes/custom/mass_theme/patterns
-
 # Ignore XML Sitemap ID configuration.
 conf/drupal/config/xmlsitemap.xmlsitemap.*.yml
+
+# Vendor .git folders
+docroot/modules/contrib/**/.git

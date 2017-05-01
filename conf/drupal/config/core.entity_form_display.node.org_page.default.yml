@@ -48,9 +48,10 @@ third_party_settings:
     group_banner:
       children:
         - group_organization_name
+        - field_ref_contact_info_1
         - field_bg_wide
         - field_bg_narrow
-        - field_ref_contact_info
+        - field_ref_contact_info_1
       parent_name: group_node_edit_form
       weight: 20
       format_type: tab
@@ -70,7 +71,7 @@ third_party_settings:
         - field_ref_actions_6
         - field_link
       parent_name: group_node_edit_form
-      weight: 24
+      weight: 23
       format_type: tab
       format_settings:
         label: Actions
@@ -85,7 +86,7 @@ third_party_settings:
         - field_ref_card_view_6
         - field_ref_orgs
       parent_name: group_node_edit_form
-      weight: 25
+      weight: 24
       format_type: tab
       format_settings:
         label: More
@@ -143,7 +144,7 @@ content:
       summary_rows: 3
     third_party_settings: {  }
   field_action_set__bg_narrow:
-    weight: 3
+    weight: 25
     settings:
       entity_browser: browse_files_modal
       field_widget_remove: true
@@ -155,18 +156,6 @@ content:
     third_party_settings: {  }
     type: entity_browser_file
   field_action_set__bg_wide:
-    weight: 2
-    settings:
-      entity_browser: browse_files_modal
-      field_widget_remove: true
-      open: true
-      selection_mode: selection_append
-      preview_image_style: thumbnail
-      field_widget_edit: true
-      view_mode: default
-    third_party_settings: {  }
-    type: entity_browser_file
-  field_bg_narrow:
     weight: 24
     settings:
       entity_browser: browse_files_modal
@@ -178,7 +167,7 @@ content:
       view_mode: default
     third_party_settings: {  }
     type: entity_browser_file
-  field_bg_wide:
+  field_bg_narrow:
     weight: 23
     settings:
       entity_browser: browse_files_modal
@@ -190,20 +179,32 @@ content:
       view_mode: default
     third_party_settings: {  }
     type: entity_browser_file
+  field_bg_wide:
+    weight: 22
+    settings:
+      entity_browser: browse_files_modal
+      field_widget_remove: true
+      open: true
+      selection_mode: selection_append
+      preview_image_style: thumbnail
+      field_widget_edit: true
+      view_mode: default
+    third_party_settings: {  }
+    type: entity_browser_file
   field_link:
-    weight: 6
+    weight: 28
     settings:
       placeholder_url: ''
       placeholder_title: ''
     third_party_settings: {  }
     type: link_default
   field_metatags:
-    weight: 31
+    weight: 1
     settings: {  }
     third_party_settings: {  }
     type: metatag_firehose
   field_ref_actions_3:
-    weight: 4
+    weight: 26
     settings:
       match_operator: CONTAINS
       size: 60
@@ -211,7 +212,7 @@ content:
     third_party_settings: {  }
     type: entity_reference_autocomplete
   field_ref_actions_6:
-    weight: 5
+    weight: 27
     settings:
       match_operator: CONTAINS
       size: 60
@@ -226,14 +227,14 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
-  field_ref_contact_info:
-    weight: 25
+  field_ref_contact_info_1:
+    type: entity_reference_autocomplete_tags
+    weight: 21
     settings:
       match_operator: CONTAINS
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    type: entity_reference_autocomplete
   field_ref_orgs:
     weight: 8
     settings:
@@ -284,7 +285,7 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
-  field_ref_contact_info_1: true
+  field_ref_contact_info: true
   path: true
   promote: true
   sticky: true

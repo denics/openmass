@@ -68,4 +68,5 @@ content:
     type: string
 hidden:
   created: true
+  field_link: true
   uid: true

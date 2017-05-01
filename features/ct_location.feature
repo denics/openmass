@@ -53,7 +53,7 @@ Feature: Location Landing Page Content type
       | field_restrictions     | Restrictions text              |
       | field_services         | Services text                  |
       | field_links            | Reserve a Campsite - http://www.google.com, Download a Park Map - http://www.google.com, Download a Trail Map  - http://www.google.com |
-    Then I should see the text "Behat: Mt Greylock State Park" in the "action_header" region
+    Then I should see the text "Behat: Mt Greylock State Park" in the "page_header" region
     And I should see the text "Accessibility text" in the "action_details" region
     And I should see the text "Facilities text" in the "action_details" region
     And I should see the text "More info text" in the "action_details" region

@@ -4,7 +4,12 @@
   apt: pkg={{ item }}
   with_items:
     - imagemagick
-    - php5-imagick
+    - php5.6-imagick
     - php5.6-xml
     - php5.6-dom
+  tags: mass
+
+- name: Restart Apache
+  become: True
+  service: name=apache2 state=restarted
   tags: mass

@@ -1,0 +1,21 @@
+uuid: b22c34a8-18ad-4c73-a131-92c4157e4f2b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_next_step_details
+    - paragraphs.paragraphs_type.next_step
+  module:
+    - text
+id: paragraph.next_step.field_next_step_details
+field_name: field_next_step_details
+entity_type: paragraph
+bundle: next_step
+label: 'Step details'
+description: 'Use lists, links, and paragraphs to explain the process as simply as possible.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long
