@@ -7,6 +7,8 @@ admin_overrides:
       overrides/css/images.css: {}
   js:
     js/add-more-paragraph-scroll.js: {}
+  dependencies:
+    - core/jquery
 entity_embed_dialog:
   version: 1.x
   js:
