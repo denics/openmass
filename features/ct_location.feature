@@ -43,16 +43,16 @@ Feature: Location Landing Page Content type
       | name                    | field_sprite_name |
       | Behat: Transit Friendly | transit           |
     When I am viewing an "location" content:
-      | title                  | Behat: Mt Greylock State Park  |
-      | field_location_icons   | Behat: Transit Friendly        |
-      | field_accessibility    | Accessibility text             |
-      | field_facilities       | Facilities text                |
-      | field_more_information | More info text                 |
-      | field_overview         | Overview text                  |
-      | field_parking          | Parking text                   |
-      | field_restrictions     | Restrictions text              |
-      | field_services         | Services text                  |
-      | field_links            | Reserve a Campsite - http://www.google.com, Download a Park Map - http://www.google.com, Download a Trail Map  - http://www.google.com |
+      | title                           | Behat: Mt Greylock State Park  |
+      | field_location_icons            | Behat: Transit Friendly        |
+      | field_accessibility             | Accessibility text             |
+      | field_location_facilities       | Facilities text                |
+      | field_location_more_information | More info text                 |
+      | field_overview                  | Overview text                  |
+      | field_parking                   | Parking text                   |
+      | field_restrictions              | Restrictions text              |
+      | field_services                  | Services text                  |
+      | field_links                     | Reserve a Campsite - http://www.google.com, Download a Park Map - http://www.google.com, Download a Trail Map  - http://www.google.com |
     Then I should see the text "Behat: Mt Greylock State Park" in the "page_header" region
     And I should see the text "Accessibility text" in the "action_details" region
     And I should see the text "Facilities text" in the "action_details" region

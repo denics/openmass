@@ -221,3 +221,28 @@ function mass_utility_update_8006(&$sandbox) {
     ])->save();
   }
 }
+
+/**
+ * Remove old location more info and facilities fields.
+ */
+function mass_utility_update_8007(&$sandbox) {
+  // Delete the locations facilities and more info fields.
+  $properties = [
+    [
+      'entity_type' => 'node',
+      'bundle' => 'location',
+      'field_name' => 'field_facilities',
+    ],
+    [
+      'entity_type' => 'node',
+      'bundle' => 'location',
+      'field_name' => 'field_more_information',
+    ]
+  ];
+  foreach ($properties as $property) {
+    $field_to_delete = \Drupal::entityManager()->getStorage('field_config')->loadByProperties($property);
+    foreach ($field_to_delete as $field) {
+      $field->delete();
+    }
+  }
+}
