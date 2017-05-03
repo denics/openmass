@@ -93,7 +93,7 @@ third_party_settings:
         formatter: closed
         description: 'This is where you add items to the “What would you like to do?” section.'
         required_fields: true
-      label: 'Tasks & key info'
+      label: 'Tasks and key info'
     group_map:
       children:
         - field_service_ref_locations
