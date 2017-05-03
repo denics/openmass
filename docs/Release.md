@@ -57,9 +57,11 @@ First time or need more detail? Read these:
 1. Open a GitHub Pull Request to merge the release branch into the `master` branch
   - Ideally, have a peer do the merge.
 1. Tag the `master` branch with the release version (ex: `v0.18.0`)
+  - Example `git tag 0.18.0`, followed by `git push origin tags/0.18.0` and `git push acquia tags/0.18.0`.
   - Right now, the version is `0.<sprint number>.<number of times deployed within sprint>`.
   - From the [GitHub Releases area](https://github.com/massgov/mass/releases), add the release notes to the tag. ([example](https://github.com/massgov/mass/releases/tag/0.17.1)
-1. Deploy the tag to Stage by running `drush ma-deploy test tag/<tag name>`.
+1. Deploy the tag to Stage by running `drush ma-deploy test tags/<tag name>`.
+1. Backup the Prod database. This can be done from the Acquia Cloud web interface by clicking into the Prod environment, then clicking Backup in th Database card.
 1. Deploy the release to Prod. From the Acquia Cloud web interface, do the following within the [`massgov (ACE)`](https://cloud.acquia.com/app/develop/applications/ff8ed1de-b8bc-48a4-b316-cd91bfa192c4) application:
   1. Drag the `Code` rectangle from `Stage` into `Prod`
   1. Drag the `Database` rectangle from `Stage` into `Prod`
@@ -83,7 +85,7 @@ First time or need more detail? Read these:
   1. Add a new release version with today's date
   1. Go to each shipped issue and update the `Fix Version/s` field
   1. Go to the list of issues contained within the release version and copy the URL into the release notes just below the `Summary` section
-1. Email the release notes out per [Communicate Releases](https://wiki.state.ma.us/display/massgovredesign/Communicating+Releases) instructions.
+1. Add your release notes to the [release notes document](https://docs.google.com/document/d/1IWsq4kVqQvUUcVNLvhD5fae0SIgQxKOm5NWbiqaDPIk/edit#heading=h.2oblvp1y124h) per [Communicate Releases](https://wiki.state.ma.us/display/massgovredesign/Communicating+Releases) instructions.
 1. Celebrate
 
 ![successful deployment](assets/successful_deployment.jpg)
