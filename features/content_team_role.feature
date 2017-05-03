@@ -66,6 +66,11 @@ Feature: Content Management
     When I go to "node/add/topic"
     Then the response status code should be 200
 
+  Scenario: Verify content team user can create service details content
+    Given I am logged in as a user with the "content_team" role
+    When I go to "node/add/service_details"
+    Then the response status code should be 200
+
   Scenario: Verify content team user can access the menu
     Given I am logged in as a user with the "content_team" role
     When I go to "admin/structure/menu"

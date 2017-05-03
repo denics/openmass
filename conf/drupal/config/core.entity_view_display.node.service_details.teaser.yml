@@ -1,0 +1,27 @@
+uuid: f9b7bad9-4d35-4a2c-8467-050063c03b6a
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - node.type.service_details
+  module:
+    - user
+id: node.service_details.teaser
+targetEntityType: node
+bundle: service_details
+mode: teaser
+content:
+  links:
+    weight: 100
+  workbench_moderation_control:
+    weight: -20
+hidden:
+  field_info_details_lede: true
+  field_info_details_sections: true
+  field_lede: true
+  field_promo_content: true
+  field_service_detail_lede: true
+  field_service_detail_links_5: true
+  field_service_detail_sections: true
+  field_service_details_parent: true

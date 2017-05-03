@@ -1,0 +1,33 @@
+{#
+/**
+ * @file
+ * Theme override to display the full view mode of the Service Details content type.
+ */
+ #}
+{% extends 'node.html.twig' %}
+
+{% block preContent %}
+  {% include "@organisms/by-template/page-header.twig" %}
+{% endblock %}
+
+{% block pageContent %}
+  {% for i in range(1, numOfSections) %}
+    {% set richText = pageContent[i]['title'] %}
+    {% include "@organisms/by-author/rich-text.twig" %}
+    {% set richText = pageContent[i]['richText'] %}
+    {% include "@organisms/by-author/rich-text.twig" %}
+    {% set keyActions = pageContent[i]['keyActions'] %}
+    {% include "@organisms/by-author/key-actions.twig" %}
+    {% set formDownloads = pageContent[i]['formDownloads'] %}
+    {% include "@organisms/by-author/form-downloads.twig" %}
+  {% endfor %}
+{% endblock %}
+
+{% block sidebar %}
+  {% set linkList = sidebar.linkList %}
+  {% include "@organisms/by-author/link-list.twig" %}
+{% endblock %}
+
+{% block postContent %}
+{% endblock %}
+

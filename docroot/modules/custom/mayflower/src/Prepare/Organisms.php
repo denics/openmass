@@ -165,7 +165,11 @@ class Organisms {
     $map = [
       'title' => ['title'],
       'titleNote' => ['field_title_sub_text'],
-      'subTitle' => ['field_sub_title', 'field_how_to_lede'],
+      'subTitle' => [
+        'field_sub_title',
+        'field_how_to_lede',
+        'field_service_detail_lede',
+      ],
     ];
 
     // Determines which field names to use from the map.
@@ -994,10 +998,12 @@ class Organisms {
         'field_action_downloads',
         'field_next_step_downloads',
         'field_how_to_files',
+        'field_section_downloads',
       ],
       'link' => [
         'field_guide_section_link',
         'field_service_links',
+        'field_section_links',
       ],
     ];
 
@@ -1015,15 +1021,9 @@ class Organisms {
       $downloadLinks[] = Molecules::prepareDownloadLink($item->entity, $options);
     }
 
-    // Build either sidebar or comp heading based on heading type option.
-    $heading = [];
-    if (isset($options['heading']['type'])) {
-      $heading = Helper::buildHeading($options['heading']);
-    }
+    $heading = Helper::buildHeading($options['heading']);
 
-    return [
-      'downloadLinks' => $downloadLinks,
-    ] + $heading;
+    return array_merge($heading, ['downloadLinks' => $downloadLinks]);
   }
 
   /**

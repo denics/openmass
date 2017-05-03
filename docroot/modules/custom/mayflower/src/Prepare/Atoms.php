@@ -32,7 +32,11 @@ class Atoms {
     $image = '';
 
     $map = [
-      'image' => ['field_sub_brand', 'field_service_sub_brand'],
+      'image' => [
+        'field_sub_brand',
+        'field_service_sub_brand',
+        'field_promo_image',
+      ],
     ];
 
     // Determines which field names to use from the map.
