@@ -104,7 +104,7 @@ third_party_settings:
         id: ''
         classes: ''
         formatter: closed
-        description: 'Enter locations here to produce a map automatically.'
+        description: ''
         required_fields: true
       label: Map
     group_additional_info:
