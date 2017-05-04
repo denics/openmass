@@ -162,6 +162,22 @@ function _mass_validation_form_node_service_page_form_validate(array &$form, For
 }
 
 /**
+ * Implements hook_form_FORM_ID_alter() for the FORM_ID() form.
+ */
+function mass_validation_form_node_how_to_page_edit_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $form['#validate'][] = '_mass_validation_form_node_how_to_page_form_validate';
+}
+
+/**
+ * Validates submission values in the FORM_ID() form.
+ */
+function _mass_validation_form_node_how_to_page_form_validate(array &$form, FormStateInterface $form_state) {
+  _mass_link_validate($form_state, 'field_how_to_links_5');
+  _mass_link_validate($form_state, 'field_how_to_link_1');
+  _mass_link_validate_paragraph($form_state, 'field_how_to_next_steps', ['field_next_step_link']);
+}
+
+/**
  * Implements hook_form_FORM_ID_alter() for the Service Details form.
  */
 function mass_validation_form_node_service_details_form_alter(&$form, FormStateInterface $form_state, $form_id) {
