@@ -784,10 +784,6 @@ class Molecules {
           1 => $addressEntity->$address_fields['lat_lng']->lon,
         ];
 
-        // Trim it up, remove \r\n, and strip tags.
-        $address_clean = preg_replace('/\s+/', ' ', trim(Helper::fieldValue($addressEntity, $address_fields['address'])));
-        $address_clean = strip_tags($address_clean);
-
         $markers[] = [
           'position' => [
             'lat' => $addressEntity->$address_fields['lat_lng']->lat,
@@ -798,7 +794,7 @@ class Molecules {
             'phone' => isset($phone_numbers[$index]) ? $phone_numbers[$index] : '',
             'fax' => isset($fax_numbers[$index]) ? $fax_numbers[$index] : '',
             'email' => isset($links[$index]) ? $links[$index] : '',
-            'address' => !empty($address_clean) ? $address_clean : '',
+            'address' => Helper::fieldValue($addressEntity, $address_fields['address']),
           ],
           'label' => ++$index,
         ];
