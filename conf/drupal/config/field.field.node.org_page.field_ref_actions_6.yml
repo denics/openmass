@@ -4,14 +4,15 @@ status: true
 dependencies:
   config:
     - field.storage.node.field_ref_actions_6
+    - node.type.action
     - node.type.org_page
-    - node.type.service_page
+    - node.type.stacked_layout
 id: node.org_page.field_ref_actions_6
 field_name: field_ref_actions_6
 entity_type: node
 bundle: org_page
-label: 'More Services'
-description: 'List up to 6 additional popular services.'
+label: 'All Actions'
+description: 'A list of up to 6 actions that constituents often engage your organization with.'
 required: false
 translatable: false
 default_value: {  }
@@ -20,7 +21,8 @@ settings:
   handler: 'default:node'
   handler_settings:
     target_bundles:
-      service_page: service_page
+      action: action
+      stacked_layout: stacked_layout
     sort:
       field: _none
     auto_create: false

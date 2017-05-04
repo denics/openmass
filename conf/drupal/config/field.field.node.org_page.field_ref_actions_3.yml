@@ -4,14 +4,15 @@ status: true
 dependencies:
   config:
     - field.storage.node.field_ref_actions_3
+    - node.type.action
     - node.type.org_page
-    - node.type.service_page
+    - node.type.stacked_layout
 id: node.org_page.field_ref_actions_3
 field_name: field_ref_actions_3
 entity_type: node
 bundle: org_page
-label: 'Featured Services'
-description: 'These services will be prominently displayed on the page. Up to 3 can be listed.'
+label: 'Featured Actions'
+description: 'These actions will be highlighted as and treated with greater visual importance on the page. Up to 3 can be listed.'
 required: false
 translatable: false
 default_value: {  }
@@ -20,9 +21,10 @@ settings:
   handler: 'default:node'
   handler_settings:
     target_bundles:
-      service_page: service_page
+      action: action
+      stacked_layout: stacked_layout
     sort:
       field: _none
     auto_create: false
-    auto_create_bundle: service_page
+    auto_create_bundle: action
 field_type: entity_reference
