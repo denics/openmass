@@ -7,6 +7,7 @@
 
 use Drupal\taxonomy\Entity\Term;
 use Drupal\block\Entity\Block;
+use Drupal\Core\Database\Database;
 
 /**
  * Implements hook_install().
@@ -226,6 +227,13 @@ function mass_utility_update_8006(&$sandbox) {
  * Remove old location more info and facilities fields.
  */
 function mass_utility_update_8007(&$sandbox) {
+
+  // Delete empty tables preventing field deletion.
+  Database::getConnection()->schema()->dropTable('field_deleted_data_c932aee570');
+  Database::getConnection()->schema()->dropTable('field_deleted_revision_c932aee570');
+  Database::getConnection()->schema()->dropTable('field_deleted_data_58c31a4b25');
+  Database::getConnection()->schema()->dropTable('field_deleted_revision_58c31a4b25');
+
   // Delete the locations facilities and more info fields.
   $properties = [
     [
@@ -239,6 +247,7 @@ function mass_utility_update_8007(&$sandbox) {
       'field_name' => 'field_more_information',
     ]
   ];
+
   foreach ($properties as $property) {
     $field_to_delete = \Drupal::entityManager()->getStorage('field_config')->loadByProperties($property);
     foreach ($field_to_delete as $field) {
