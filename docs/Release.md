@@ -89,3 +89,11 @@ First time or need more detail? Read these:
 1. Celebrate
 
 ![successful deployment](assets/successful_deployment.jpg)
+
+## Rollback
+
+1. Login to the Acquia Cloud web interface within the [`massgov (ACE)`](https://cloud. acquia.com/app/develop/applications/ff8ed1de-b8bc-48a4-b316-cd91bfa192c4) application.
+1. Navigate into Prod
+1. From the Code card, revert to the previously used code tag/branch
+1. From the Database card, revert to the backup database created during the release process
+1. Notify the team about the rollback per [Communicate Releases](https://wiki.state.ma.us/display/massgovredesign/Communicating+Releases) instructions.
