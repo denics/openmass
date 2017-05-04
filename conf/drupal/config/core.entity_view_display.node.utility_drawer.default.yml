@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.utility_drawer.body
+    - field.field.node.utility_drawer.field_aria_label
     - field.field.node.utility_drawer.field_icon_term
     - field.field.node.utility_drawer.field_links
     - node.type.utility_drawer
@@ -22,6 +23,13 @@ content:
     weight: 1
     settings: {  }
     third_party_settings: {  }
+  field_aria_label:
+    weight: 4
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
   field_icon_term:
     weight: 0
     label: hidden

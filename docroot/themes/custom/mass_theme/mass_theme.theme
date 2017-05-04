@@ -1077,6 +1077,11 @@ function mass_theme_preprocess_menu(&$variables) {
       $ref_node = $item['url']->getRouteParameters();
       // Load it up and get the field.
       if ($node = Node::load($ref_node['node'])) {
+        // Get aria label field value.
+        $aria_label = '';
+        if ($node->hasField('field_aria_label') && $node->get('field_aria_label')->value) {
+          $aria_label = $node->get('field_aria_label')->value;
+        }
         $icon = '';
         // Get icon.
         if ($node->hasField('field_icon_term') && array_key_exists('0', $node->get('field_icon_term')->referencedEntities())) {
@@ -1095,6 +1100,7 @@ function mass_theme_preprocess_menu(&$variables) {
         }
         $items[] = [
           'text'      => $item['title'],
+          'ariaLabelText' => $aria_label,
           'icon'      => icon_path($icon),
           'closeText' => t('Close'),
           'panel'     => [

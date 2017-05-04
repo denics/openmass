@@ -165,7 +165,7 @@
         "drupal/xmlsitemap": "1.x-dev",
         "enyo/dropzone": "4.3.0",
         "mikeyp/google_tag": "dev-8.x-1.x#3caa4f0b7f008576936ab7501d483bfcf58a4764",
-        "palantirnet/mayflower-artifacts": "4.0.0",
+        "palantirnet/mayflower-artifacts": "4.1.0",
         "palantirnet/the-build": "^1.3.3",
         "palantirnet/the-vagrant": "dev-master",
         "palantirnet/workbench_tabs": "dev-8.x-1.x",
