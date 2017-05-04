@@ -74,13 +74,13 @@ third_party_settings:
       weight: 23
       format_type: tab
       format_settings:
-        label: Actions
+        label: 'Services Offered'
         formatter: closed
-        description: 'This large, visual element will help call attention to specific actions that constituents may wish to take. You can feature up to 3 actions and list a total of 6 others. See <a href="http://mayflower.digital.mass.gov/?p=organisms-action-finder" target="_blank">here</a> for an example of what this element looks like.'
+        description: 'This large, visual element will help call attention to top services that constituents may need. You can feature up to 3 and list a total of 6 others.'
         required_fields: true
         id: ''
         classes: ''
-      label: Actions
+      label: 'Services Offered'
     group_other:
       children:
         - field_ref_card_view_6
