@@ -611,6 +611,11 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
             'tag' => 'input',
             'type' => 'submit',
           ),
+          array (
+            'field' => 'field-service-eligibility-info',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
         );
         break;
       case "topic_page":
