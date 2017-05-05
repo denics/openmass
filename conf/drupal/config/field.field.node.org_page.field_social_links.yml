@@ -12,7 +12,7 @@ field_name: field_social_links
 entity_type: node
 bundle: org_page
 label: 'Social Links'
-description: 'Enter your username, handle, or text that helps the user know what profile they will find when they click this social media link.'
+description: 'For the link text, enter your username, handle, or text that helps the user know what profile they will find when they click this social media link.'
 required: false
 translatable: false
 default_value: {  }
