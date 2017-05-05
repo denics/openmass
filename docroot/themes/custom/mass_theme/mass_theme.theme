@@ -20,6 +20,7 @@ use Drupal\mayflower\Prepare\Atoms;
 use Drupal\mayflower\Prepare\Molecules;
 use Drupal\mayflower\Prepare\Organisms;
 use Drupal\mayflower\Prepare\Schemas;
+use Drupal\Core\Site\Settings;
 
 /**
  * Implements hook_theme_suggestions_alter().
@@ -1610,6 +1611,7 @@ function mass_theme_preprocess_node_emergency_alerts(&$variables) {
  */
 function mass_theme_preprocess_html(&$variables) {
   // Add Schema.org markup for body.
+  $variables['deployment_identifier'] = Settings::get('deployment_identifier');
   if (isset($variables['node_type'])) {
     $variables['attributes']['vocab'][] = 'http://schema.org/';
     $variables['attributes']['typeof'][] = 'WebPage';
