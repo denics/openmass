@@ -664,11 +664,11 @@ class Organisms {
       'parking' => ['field_parking'],
       'markers' => ['field_maps'],
       'activities' => ['field_location_activity_detail'],
-      'facilities' => ['field_facilities'],
+      'facilities' => ['field_location_facilities'],
       'accessibility' => ['field_accessibility'],
       'restrictions' => ['field_restrictions'],
       'services' => ['field_services'],
-      'information' => ['field_more_information'],
+      'information' => ['field_location_more_information'],
     ];
 
     // Determines which field names to use from the map.
@@ -706,7 +706,7 @@ class Organisms {
 
     // Facilities section.
     if (Helper::isFieldPopulated($entity, $fields['facilities'])) {
-      $sections[] = Organisms::prepareRichText($entity, ['field' => 'field_facilities']);
+      $sections[] = Organisms::prepareRichText($entity, ['field' => 'field_location_facilities']);
     }
 
     // Services section.
@@ -726,7 +726,7 @@ class Organisms {
 
     // More info section.
     if (Helper::isFieldPopulated($entity, $fields['information'])) {
-      $sections[] = Organisms::prepareRichText($entity, ['field' => 'field_more_information']);
+      $sections[] = Organisms::prepareRichText($entity, ['field' => 'field_location_more_information']);
     }
 
     return [
