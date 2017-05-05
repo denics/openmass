@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "333b86f873813871aa157ab6b61b1c0c",
+    "content-hash": "726315391a26c31d05e1f063ecfa7059",
     "packages": [
         {
             "name": "acquia/acquia-sdk-php",
@@ -2673,7 +2673,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/field_group-8.x-1.0-rc6.zip",
-                "reference": "8.x-1.0-rc6",
+                "reference": null,
                 "shasum": "1ce3c6387e745a04a1099956a5bf39bb50096d44"
             },
             "require": {
@@ -2687,6 +2687,9 @@
                 "drupal": {
                     "version": "8.x-1.0-rc6",
                     "datestamp": "1480365484"
+                },
+                "patches_applied": {
+                    "Provide page level error messaging when publishing validation is not met": "https://www.drupal.org/files/issues/field_group-validation-2787179-9.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
