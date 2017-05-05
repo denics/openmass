@@ -578,6 +578,12 @@ function mass_theme_preprocess_node_topic_page(&$variables) {
     'heading' => [
       'centered' => TRUE,
     ],
+    'noSeeAll' => [
+      'topic_page',
+    ],
+    'useCallout' => [
+      'service_page',
+    ],
   ];
 
   $variables['sectionThreeUp'] = Organisms::prepareSectionThreeUp($node->field_topic_ref_content_cards, $sectionThreeUp);

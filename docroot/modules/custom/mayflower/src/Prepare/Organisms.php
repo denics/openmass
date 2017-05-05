@@ -501,8 +501,7 @@ class Organisms {
     $sections = [];
 
     foreach ($entities as $entity) {
-      $links = mayflower_prepare_subtopic_links($entity->entity);
-      $sections[] = Molecules::prepareSectionLink($entity->entity, $links);
+      $sections[] = Molecules::prepareSectionLink($entity->entity, $options);
     }
 
     $heading = Helper::buildHeading($options['heading']);
