@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "726315391a26c31d05e1f063ecfa7059",
+    "content-hash": "37ea14773440ec27d05f84e21e0101cc",
     "packages": [
         {
             "name": "acquia/acquia-sdk-php",
@@ -133,7 +133,8 @@
                 "url": "https://github.com/blakestein/drupal-datalayer-d8.git",
                 "reference": "3b2ffa7"
             },
-            "type": "drupal-module"
+            "type": "drupal-module",
+            "time": "2017-01-05 00:00:58"
         },
         {
             "name": "caxy/php-htmldiff",
@@ -10986,6 +10987,7 @@
         "drupal/diff": 20,
         "drupal/draggableviews": 20,
         "drupal/encrypt": 20,
+        "drupal/field_group": 5,
         "drupal/field_tokens": 10,
         "drupal/file_browser": 20,
         "drupal/inline_entity_form": 20,

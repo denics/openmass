@@ -132,7 +132,7 @@
         "drupal/encrypt": "3.x-dev#19cda8cf22bfe7d020b819a7cfddf2e4883b78a8",
         "drupal/entity_browser": "^1",
         "drupal/entity_reference_revisions": "~1.0",
-        "drupal/field_group": "^1",
+        "drupal/field_group": "^1.0@RC",
         "drupal/field_tokens": "^1.0@beta",
         "drupal/file_browser": "1.x-dev",
         "drupal/flood_unblock": "^1",
