@@ -155,3 +155,5 @@ permissions:
   155: 'edit own service_details content'
   156: 'revert service_details revisions'
   157: 'view service_details revisions'
+  158: 'rabbit hole bypass node'
+  159: 'rabbit hole bypass taxonomy_term'
