@@ -1,0 +1,22 @@
+uuid: 80afcd27-d54f-43b9-8ec5-40acd8309d48
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: how_to
+label: How-To
+type: 'canonical_entities:node'
+pattern: 'how-to/[node:title]'
+selection_criteria:
+  34d8f93a-297e-4135-b87a-c13646d1e587:
+    id: node_type
+    bundles:
+      how_to_page: how_to_page
+    negate: false
+    context_mapping:
+      node: node
+    uuid: 34d8f93a-297e-4135-b87a-c13646d1e587
+selection_logic: and
+weight: -5
+relationships: {  }

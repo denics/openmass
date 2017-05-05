@@ -56,7 +56,7 @@ third_party_settings:
         id: ''
         classes: ''
         formatter: closed
-        description: 'We recommend limiting a guide to 8 sections.'
+        description: "<p>Guides offer a high level overview of a process or service. They are made up of sections that provide detailed context about each phase or stage. Section titles automatically appear at the top of the guide to give direct access to each section.</p>\n\n<p>A guide section can have different layouts. It can be one column, with room for contact information on the side, or it can be 3 columns of text, each with its own heading.</p>\n\n<p>Guide sections also allow different kinds callouts. These callouts can highlight the estimated time a stage takes, draw attention to an important number/stat, or provide an alert about an important deadline or requirement.</p>\n\n<p>In general, a guide should have at least 3 sections but not more than 8.</p>"
         required_fields: true
       label: Sections
     group_related:

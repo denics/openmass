@@ -269,8 +269,8 @@ class Molecules {
    *
    * @param object $entity
    *   The object that contains the title/lede fields.
-   * @param array $links
-   *   The array of links.
+   * @param array $options
+   *   An array containing options.
    *
    * @see @molecules/section-links.twig
    *
@@ -299,7 +299,7 @@ class Molecules {
    *      }]
    *    }
    */
-  public static function prepareSectionLink($entity, array $links) {
+  public static function prepareSectionLink($entity, array $options = []) {
     $map = [
       'text' => [
         'field_lede',
@@ -312,9 +312,13 @@ class Molecules {
         'field_icon_term',
         'field_topic_ref_icon',
       ],
+      'links' => [
+        'field_topic_ref_content_cards',
+        'field_service_ref_actions_2',
+      ],
     ];
 
-    // Determines which fieldnames to use from the map.
+    // Determines which field names to use from the map.
     $fields = Helper::getMappedFields($entity, $map);
 
     $index = &drupal_static(__FUNCTION__);
@@ -329,6 +333,16 @@ class Molecules {
       ];
     }
 
+    if ($fields['links']) {
+      $links = Helper::separatedLinks($entity, $fields['links']);
+    }
+
+    $seeAll = [
+      'href' => $entity->toURL()->toString(),
+      'text' => 'more',
+    ];
+
+    // Different options for topic_page, org_page, and service_page.
     return [
       'id' => 'section_link_' . $index,
       'catIcon' => $icon,
@@ -337,12 +351,9 @@ class Molecules {
         'text' => $entity->getTitle(),
       ],
       'description' => Helper::fieldValue($entity, $fields['text']),
-      'type' => ($entity->getType() == 'service_page') ? 'callout' : '',
+      'type' => in_array($entity->getType(), $options['useCallout']) ? 'callout' : '',
       'links' => $links,
-      'seeAll' => [
-        'href' => $entity->toURL()->toString(),
-        'text' => 'more',
-      ],
+      'seeAll' => in_array($entity->getType(), $options['noSeeAll']) ? '' : $seeAll,
     ];
   }
 

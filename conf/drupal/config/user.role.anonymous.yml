@@ -30,3 +30,4 @@ permissions:
   - 'access_unpublished node service_details'
   - 'access_unpublished node service_page'
   - 'view media'
+  - 'access_unpublished node org_page'

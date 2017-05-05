@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "3bf966e20b9a7ef38c6a84efd1bd5d9c",
+    "content-hash": "726315391a26c31d05e1f063ecfa7059",
     "packages": [
         {
             "name": "acquia/acquia-sdk-php",
@@ -1696,12 +1696,12 @@
             "version": "8.2.8",
             "source": {
                 "type": "git",
-                "url": "https://github.com/drupal-composer/drupal-core.git",
+                "url": "https://github.com/drupal/core.git",
                 "reference": "c63ef7a000bdfe2286cf2eeec6efdf4298dfc6a8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/drupal-composer/drupal-core/zipball/c63ef7a000bdfe2286cf2eeec6efdf4298dfc6a8",
+                "url": "https://api.github.com/repos/drupal/core/zipball/c63ef7a000bdfe2286cf2eeec6efdf4298dfc6a8",
                 "reference": "c63ef7a000bdfe2286cf2eeec6efdf4298dfc6a8",
                 "shasum": ""
             },
@@ -1937,7 +1937,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/ctools-8.x-3.0.zip",
-                "reference": null,
+                "reference": "8.x-3.0",
                 "shasum": "302e869ecd1e59fe55663673999fee2ccac5daa8"
             },
             "require": {
@@ -2673,7 +2673,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/field_group-8.x-1.0-rc6.zip",
-                "reference": "8.x-1.0-rc6",
+                "reference": null,
                 "shasum": "1ce3c6387e745a04a1099956a5bf39bb50096d44"
             },
             "require": {
@@ -2687,6 +2687,9 @@
                 "drupal": {
                     "version": "8.x-1.0-rc6",
                     "datestamp": "1480365484"
+                },
+                "patches_applied": {
+                    "Provide page level error messaging when publishing validation is not met": "https://www.drupal.org/files/issues/field_group-validation-2787179-9.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -6096,16 +6099,16 @@
         },
         {
             "name": "palantirnet/mayflower-artifacts",
-            "version": "4.0.0",
+            "version": "4.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/massgov/mayflower-artifacts.git",
-                "reference": "43c94dd81a9d7a15faae1604fd3245bf33032711"
+                "reference": "53d45bd51b0124f483799bf5c69f42dda9b1995c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/massgov/mayflower-artifacts/zipball/43c94dd81a9d7a15faae1604fd3245bf33032711",
-                "reference": "43c94dd81a9d7a15faae1604fd3245bf33032711",
+                "url": "https://api.github.com/repos/massgov/mayflower-artifacts/zipball/53d45bd51b0124f483799bf5c69f42dda9b1995c",
+                "reference": "53d45bd51b0124f483799bf5c69f42dda9b1995c",
                 "shasum": ""
             },
             "type": "library",
@@ -6120,10 +6123,10 @@
             ],
             "description": "This repository is the product of the built artifact from massgov/mayflower",
             "support": {
-                "source": "https://github.com/massgov/mayflower-artifacts/tree/4.0.0",
+                "source": "https://github.com/massgov/mayflower-artifacts/tree/4.1.0",
                 "issues": "https://github.com/massgov/mayflower-artifacts/issues"
             },
-            "time": "2017-04-17T13:55:39+00:00"
+            "time": "2017-05-02T18:33:34+00:00"
         },
         {
             "name": "palantirnet/the-build",

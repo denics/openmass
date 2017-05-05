@@ -53,6 +53,7 @@ class Details extends FieldGroupFormatterBase {
       $element['#attached']['library'][] = 'field_group/formatter.details';
       $element['#attached']['library'][] = 'field_group/core';
     }
+    $element['#attached']['library'][] = 'field_group/details_validation';
   }
 
   /**
