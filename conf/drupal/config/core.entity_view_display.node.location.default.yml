@@ -6,13 +6,13 @@ dependencies:
     - field.field.node.location.field_accessibility
     - field.field.node.location.field_bg_narrow
     - field.field.node.location.field_bg_wide
-    - field.field.node.location.field_facilities
     - field.field.node.location.field_hours
     - field.field.node.location.field_iframe
     - field.field.node.location.field_links
     - field.field.node.location.field_location_activity_detail
+    - field.field.node.location.field_location_facilities
     - field.field.node.location.field_location_icons
-    - field.field.node.location.field_more_information
+    - field.field.node.location.field_location_more_information
     - field.field.node.location.field_overview
     - field.field.node.location.field_parking
     - field.field.node.location.field_ref_contact_info
@@ -25,6 +25,7 @@ dependencies:
     - entity_reference_revisions
     - image
     - link
+    - text
     - user
 id: node.location.default
 targetEntityType: node
@@ -53,12 +54,6 @@ content:
       image_link: ''
     third_party_settings: {  }
     type: image
-  field_facilities:
-    weight: 111
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: basic_string
   field_hours:
     type: entity_reference_revisions_entity_view
     weight: 106
@@ -94,6 +89,12 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
+  field_location_facilities:
+    weight: 119
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
   field_location_icons:
     weight: 118
     label: above
@@ -102,12 +103,12 @@ content:
       view_mode: default
     third_party_settings: {  }
     type: entity_reference_entity_view
-  field_more_information:
-    weight: 110
+  field_location_more_information:
+    weight: 120
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: basic_string
+    type: text_default
   field_overview:
     weight: 105
     label: above

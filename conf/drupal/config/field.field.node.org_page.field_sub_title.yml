@@ -10,7 +10,7 @@ field_name: field_sub_title
 entity_type: node
 bundle: org_page
 label: 'Short Description'
-description: 'A 1-2 sentence description that summarizes the organization''s high-level work.'
+description: 'A description of your organization in one paragraph with no formatting.'
 required: true
 translatable: false
 default_value: {  }

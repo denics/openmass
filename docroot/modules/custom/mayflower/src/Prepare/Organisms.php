@@ -165,7 +165,11 @@ class Organisms {
     $map = [
       'title' => ['title'],
       'titleNote' => ['field_title_sub_text'],
-      'subTitle' => ['field_sub_title', 'field_how_to_lede'],
+      'subTitle' => [
+        'field_sub_title',
+        'field_how_to_lede',
+        'field_service_detail_lede',
+      ],
     ];
 
     // Determines which field names to use from the map.
@@ -497,8 +501,7 @@ class Organisms {
     $sections = [];
 
     foreach ($entities as $entity) {
-      $links = mayflower_prepare_subtopic_links($entity->entity);
-      $sections[] = Molecules::prepareSectionLink($entity->entity, $links);
+      $sections[] = Molecules::prepareSectionLink($entity->entity, $options);
     }
 
     $heading = Helper::buildHeading($options['heading']);
@@ -661,11 +664,11 @@ class Organisms {
       'parking' => ['field_parking'],
       'markers' => ['field_maps'],
       'activities' => ['field_location_activity_detail'],
-      'facilities' => ['field_facilities'],
+      'facilities' => ['field_location_facilities'],
       'accessibility' => ['field_accessibility'],
       'restrictions' => ['field_restrictions'],
       'services' => ['field_services'],
-      'information' => ['field_more_information'],
+      'information' => ['field_location_more_information'],
     ];
 
     // Determines which field names to use from the map.
@@ -703,7 +706,7 @@ class Organisms {
 
     // Facilities section.
     if (Helper::isFieldPopulated($entity, $fields['facilities'])) {
-      $sections[] = Organisms::prepareRichText($entity, ['field' => 'field_facilities']);
+      $sections[] = Organisms::prepareRichText($entity, ['field' => 'field_location_facilities']);
     }
 
     // Services section.
@@ -723,7 +726,7 @@ class Organisms {
 
     // More info section.
     if (Helper::isFieldPopulated($entity, $fields['information'])) {
-      $sections[] = Organisms::prepareRichText($entity, ['field' => 'field_more_information']);
+      $sections[] = Organisms::prepareRichText($entity, ['field' => 'field_location_more_information']);
     }
 
     return [
@@ -994,10 +997,12 @@ class Organisms {
         'field_action_downloads',
         'field_next_step_downloads',
         'field_how_to_files',
+        'field_section_downloads',
       ],
       'link' => [
         'field_guide_section_link',
         'field_service_links',
+        'field_section_links',
       ],
     ];
 
@@ -1015,15 +1020,9 @@ class Organisms {
       $downloadLinks[] = Molecules::prepareDownloadLink($item->entity, $options);
     }
 
-    // Build either sidebar or comp heading based on heading type option.
-    $heading = [];
-    if (isset($options['heading']['type'])) {
-      $heading = Helper::buildHeading($options['heading']);
-    }
+    $heading = Helper::buildHeading($options['heading']);
 
-    return [
-      'downloadLinks' => $downloadLinks,
-    ] + $heading;
+    return array_merge($heading, ['downloadLinks' => $downloadLinks]);
   }
 
   /**

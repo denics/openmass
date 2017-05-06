@@ -93,7 +93,7 @@ third_party_settings:
         formatter: closed
         description: 'This is where you add items to the “What would you like to do?” section.'
         required_fields: true
-      label: 'Tasks & key info'
+      label: 'Tasks and key info'
     group_map:
       children:
         - field_service_ref_locations
@@ -104,7 +104,7 @@ third_party_settings:
         id: ''
         classes: ''
         formatter: closed
-        description: 'Enter locations here to produce a map automatically.'
+        description: ''
         required_fields: true
       label: Map
     group_additional_info:

@@ -1,14 +1,16 @@
-uuid: e261e6a1-905c-4903-904e-bad99580ba0c
+uuid: f9c741f7-e6a4-47bc-a79d-7d2234969555
 langcode: en
 status: true
 dependencies:
   module:
     - node
-id: node.field_facilities
-field_name: field_facilities
+id: node.field_aria_label
+field_name: field_aria_label
 entity_type: node
-type: string_long
+type: string
 settings:
+  max_length: 255
+  is_ascii: false
   case_sensitive: false
 module: core
 locked: false

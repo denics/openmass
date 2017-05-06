@@ -162,6 +162,60 @@ function _mass_validation_form_node_service_page_form_validate(array &$form, For
 }
 
 /**
+ * Implements hook_form_FORM_ID_alter() for the Service Details form.
+ */
+function mass_validation_form_node_service_details_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $form['#validate'][] = '_mass_validation_form_node_service_details_form_validate';
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for the Service Details edit form.
+ */
+function mass_validation_form_node_service_details_edit_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $form['#validate'][] = '_mass_validation_form_node_service_details_form_validate';
+}
+
+/**
+ * Validates submission values in the FORM_ID() form.
+ */
+function _mass_validation_form_node_service_details_form_validate(array &$form, FormStateInterface $form_state) {
+  // Verify links have titles.
+  _mass_link_validate_paragraph($form_state, 'field_service_detail_sections', ['field_section_links', 'field_section_key_actions']);
+  _mass_link_validate($form_state, 'field_service_detail_links_5');
+
+  // Validate that the Links and Downloads fields
+  // have no more than 6 values between them.
+  if ($form_state->hasValue('field_service_detail_sections')) {
+    // Look at each section.
+    $sections = $form_state->getValue('field_service_detail_sections');
+    unset($sections['add_more']);
+    foreach ($sections as $key => $section) {
+      if (in_array('subform', $section)) {
+        $num_links = 0;
+        // Count the links.
+        foreach ($section['subform']['field_section_links'] as $link) {
+          if (is_array($link)) {
+            if (!empty($link['uri'])) {
+              $num_links += 1;
+            }
+          }
+        }
+      }
+      $num_docs = 0;
+      // Count the documents.
+      if (!empty($section['subform']['field_section_downloads']['entities'])) {
+        $num_docs = count($section['subform']['field_section_downloads']['entities']);
+      }
+      // Throw an error is there are more than 6.
+      if (($num_links + $num_docs) > 6) {
+        $form_state->setErrorByName('field_service_detail_sections][' . $key . '][subform][field_section_links', t('You can only have max 6 values between the Links and Downloads fields in a section.'));
+        $form_state->setErrorByName('field_service_detail_sections][' . $key . '][subform][field_section_downloads', t('You can only have max 6 values between the Links and Downloads fields in a section.'));
+      }
+    }
+  }
+}
+
+/**
  * Validate link fields in a paragraph have titles for each uri.
  *
  * @param Drupal\Core\Form\FormStateInterface $form_state

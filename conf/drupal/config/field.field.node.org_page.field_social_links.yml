@@ -12,7 +12,7 @@ field_name: field_social_links
 entity_type: node
 bundle: org_page
 label: 'Social Links'
-description: 'Add full external links to any of the following the organization''s social media profiles on: twitter.com, flickr.com, facebook.com, instagram.com, linkedin.com, youtube.com.'
+description: 'For the link text, enter your username, handle, or text that helps the user know what profile they will find when they click this social media link.'
 required: false
 translatable: false
 default_value: {  }

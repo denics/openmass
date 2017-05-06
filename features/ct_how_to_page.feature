@@ -9,3 +9,7 @@ Feature: How To Page Content type
     Then "how_to_page" content has the correct fields
     And "method" paragraph has the correct fields
     And "next_step" paragraph has the correct fields
+
+  Scenario: Verify that pathauto patterns are applied to How-To Page nodes.
+    Given I am viewing a "how_to_page" content with the title "test how to page"
+    Then I am on "how-to/test-how-page"

@@ -3,4 +3,6 @@ langcode: en
 status: true
 dependencies: {  }
 id: guide_section_3up
-label: 'Guide Section - 3 Column'
+label: '3 column section'
+icon_uuid: null
+behavior_plugins: {  }

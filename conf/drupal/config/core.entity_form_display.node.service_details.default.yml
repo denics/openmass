@@ -1,0 +1,141 @@
+uuid: b39807d5-c5a5-4119-ba6b-b5077579a19c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.service_details.field_service_detail_lede
+    - field.field.node.service_details.field_service_detail_links_5
+    - field.field.node.service_details.field_service_detail_sections
+    - node.type.service_details
+  module:
+    - field_group
+    - link
+    - paragraphs
+    - path
+    - workbench_moderation
+third_party_settings:
+  field_group:
+    group_node_edit_form:
+      children:
+        - group_overview
+        - group_sections
+        - group_cross_promotional_content
+      parent_name: ''
+      weight: 0
+      format_type: tabs
+      format_settings:
+        id: ''
+        classes: ''
+        direction: horizontal
+      label: 'Node Edit Form'
+    group_overview:
+      children:
+        - title
+        - field_service_detail_lede
+      parent_name: group_node_edit_form
+      weight: 20
+      format_type: tab
+      format_settings:
+        label: Overview
+        formatter: open
+        description: "You should use a Service Detail Page to provide more details than can be provided on the parent service page.  A Service Detail Page <strong>must</strong> be connected to a Service Page when it is created.  Please make sure that you have a Service Page in mind before you start.\n\nThe title should describe the subject of the guide. Keep it as short as possible and use plain language."
+        required_fields: true
+        id: ''
+        classes: ''
+      label: Overview
+    group_sections:
+      children:
+        - field_service_detail_sections
+      parent_name: group_node_edit_form
+      weight: 21
+      format_type: tab
+      format_settings:
+        label: Sections
+        formatter: closed
+        description: 'We recommend limiting a service details page to no more than 8 sections.'
+        id: ''
+        classes: ''
+        required_fields: false
+      label: Sections
+    group_cross_promotional_content:
+      children:
+        - field_service_detail_links_5
+      parent_name: group_node_edit_form
+      weight: 22
+      format_type: tab
+      format_settings:
+        label: 'Cross Promotional Content'
+        formatter: closed
+        description: 'You can add promotional content to appear in the sidebar.  You should use this area to briefly describe and point to related content.  You should not use it for primary content: user research tells us that visitors will usually expect and understand content in this area to be promotional content not relevant to the main point.  See <a href="http://mayflower.digital.mass.gov/patterns/05-pages-GEN-Building-Energy-Codes/05-pages-GEN-Building-Energy-Codes.html">our styleguide</a> for examples.'
+        id: ''
+        classes: ''
+        required_fields: false
+      label: 'Cross Promotional Content'
+id: node.service_details.default
+targetEntityType: node
+bundle: service_details
+mode: default
+content:
+  created:
+    type: datetime_timestamp
+    weight: 7
+    settings: {  }
+    third_party_settings: {  }
+  field_service_detail_lede:
+    weight: 23
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_service_detail_links_5:
+    weight: 28
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+  field_service_detail_sections:
+    type: entity_reference_paragraphs
+    weight: 27
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: ''
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 10
+    settings: {  }
+    third_party_settings: {  }
+  promote:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 8
+    third_party_settings: {  }
+  sticky:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 9
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 22
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 6
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden: {  }

@@ -12,7 +12,7 @@ field_name: field_service_bg_narrow
 entity_type: node
 bundle: service_page
 label: 'Banner image (mobile)'
-description: 'An optional mobile background image. Needs to be a minimum of 800x800.'
+description: 'An optional mobile background image. Needs to be a minimum of 800x400.'
 required: false
 translatable: false
 default_value: {  }

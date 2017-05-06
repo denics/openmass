@@ -63,12 +63,14 @@ function mass_docs_preprocess_input__submit(array &$variables) {
     }
 
     // Change "Add another item" by "Add another agency or department".
-    if ($attr_value->getUntranslatedString() == 'Add another item' && in_array('field_contributing_agency', $variables['element']['#parents'])) {
+    // Note that in_array() must use strict match to avoid inadvertent matches
+    // with values of 0 that may appear in #parents.
+    if ($attr_value->getUntranslatedString() == 'Add another item' && in_array('field_contributing_agency', $variables['element']['#parents'], TRUE)) {
       $attr_value = t('Add another agency or department');
     }
 
     // Change "Add another item" by "Add another geographic place".
-    if ($attr_value->getUntranslatedString() == 'Add another item' && in_array('field_geographic_place', $variables['element']['#parents'])) {
+    if ($attr_value->getUntranslatedString() == 'Add another item' && in_array('field_geographic_place', $variables['element']['#parents'], TRUE)) {
       $attr_value = t('Add another geographic place');
     }
   }

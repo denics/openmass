@@ -11,7 +11,7 @@ field_name: field_service_ref_locations
 entity_type: node
 bundle: service_page
 label: Map
-description: 'Select locations to create a map.'
+description: 'Select one or more existing Location pages here to produce a map automatically. If the Location you want to add does not yet exist, you will need to <a href="/node/add/location">create it</a> first.'
 required: false
 translatable: false
 default_value: {  }

@@ -4,6 +4,7 @@
  * Theme override for the basic structure of a single Drupal page.
  *
  * Variables:
+ * - deployment_identifier: Current deployment_identifier from Drupal settings.
  * - logged_in: A flag indicating if user is logged in.
  * - root_path: The root path of the current page (e.g., node, admin, user).
  * - node_type: The content type for the current node, if the page is a node.
@@ -26,6 +27,7 @@
 <!DOCTYPE html>
 <html{{ html_attributes }} >
   <head>
+    <!-- DEPLOYMENT IDENTIFIER: {{ deployment_identifier}} -->
     <head-placeholder token="{{ placeholder_token|raw }}">
     <title>{{ head_title|safe_join(' | ') }}</title>
     {% include directory ~ "/libraries/interstitial/old-to-new-inline-js.html" %}
@@ -34,6 +36,7 @@
     {% include directory ~ "/templates/includes/page-meta.html.twig" %}
   </head>
   <body{{ attributes }}>
+
     {{ page_top }}
     {{ page }}
     {{ page_bottom }}
