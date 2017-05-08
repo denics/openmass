@@ -365,7 +365,7 @@ class Organisms {
 
     $links = Helper::createIllustratedOrCalloutLinks($entity, $fields['field']);
 
-    $heading = Helper::buildHeading($options['heading']);
+    $heading = isset($options['heading']) ? Helper::buildHeading($options['heading']) : [];
 
     return array_merge($heading, ['links' => $links]);
   }
@@ -401,7 +401,7 @@ class Organisms {
 
     if (!empty($links)) {
       // Build either sidebar or comp heading based on heading type option.
-      $heading = Helper::buildHeading($options['heading']);
+      $heading = isset($options['heading']) ? Helper::buildHeading($options['heading']) : [];
       $linkList = array_merge($heading, ['links' => $links]);
     }
 
@@ -504,7 +504,7 @@ class Organisms {
       $sections[] = Molecules::prepareSectionLink($entity->entity, $options);
     }
 
-    $heading = Helper::buildHeading($options['heading']);
+    $heading = isset($options['heading']) ? Helper::buildHeading($options['heading']) : [];
 
     return array_merge($heading, ['sections' => $sections]);
   }
@@ -541,7 +541,7 @@ class Organisms {
 
     if (!empty($links)) {
       // Build either sidebar or comp heading based on heading type option.
-      $heading = Helper::buildHeading($options['heading']);
+      $heading = isset($options['heading']) ? Helper::buildHeading($options['heading']) : [];
       $quickActions = array_merge($heading, ['links' => $links]);
     }
 
@@ -845,7 +845,7 @@ class Organisms {
 
     $googleMap = Molecules::prepareGoogleMapFromContacts($contact_entities);
 
-    $heading = Helper::buildHeading($options['heading']);
+    $heading = isset($options['heading']) ? Helper::buildHeading($options['heading']) : [];
 
     return array_merge($heading, ['googleMap' => $googleMap]);
   }
@@ -1020,7 +1020,7 @@ class Organisms {
       $downloadLinks[] = Molecules::prepareDownloadLink($item->entity, $options);
     }
 
-    $heading = Helper::buildHeading($options['heading']);
+    $heading = isset($options['heading']) ? Helper::buildHeading($options['heading']) : [];
 
     return array_merge($heading, ['downloadLinks' => $downloadLinks]);
   }
