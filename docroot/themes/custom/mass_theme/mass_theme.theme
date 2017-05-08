@@ -1250,7 +1250,7 @@ function mass_theme_preprocess_node_section_landing(&$variables) {
         'small' => 'true',
       ],
       'title' => [
-        'href' => 'node/' . $row->_entity->get('nid')->value,
+        'href' => \Drupal::service('path.alias_manager')->getAliasByPath('/node/' . $row->_entity->get('nid')->value),
         'text' => $row->_entity->get('title')->value,
       ],
       'description' => $row->_entity->get('field_lede')->value,
