@@ -365,7 +365,7 @@ class Organisms {
 
     $links = Helper::createIllustratedOrCalloutLinks($entity, $fields['field']);
 
-    $heading = Helper::buildHeading($options['heading']);
+    $heading = isset($options['heading']) ? Helper::buildHeading($options['heading']) : [];
 
     return array_merge($heading, ['links' => $links]);
   }
@@ -401,7 +401,7 @@ class Organisms {
 
     if (!empty($links)) {
       // Build either sidebar or comp heading based on heading type option.
-      $heading = Helper::buildHeading($options['heading']);
+      $heading = isset($options['heading']) ? Helper::buildHeading($options['heading']) : [];
       $linkList = array_merge($heading, ['links' => $links]);
     }
 
@@ -501,11 +501,10 @@ class Organisms {
     $sections = [];
 
     foreach ($entities as $entity) {
-      $links = mayflower_prepare_subtopic_links($entity->entity);
-      $sections[] = Molecules::prepareSectionLink($entity->entity, $links);
+      $sections[] = Molecules::prepareSectionLink($entity->entity, $options);
     }
 
-    $heading = Helper::buildHeading($options['heading']);
+    $heading = isset($options['heading']) ? Helper::buildHeading($options['heading']) : [];
 
     return array_merge($heading, ['sections' => $sections]);
   }
@@ -542,7 +541,7 @@ class Organisms {
 
     if (!empty($links)) {
       // Build either sidebar or comp heading based on heading type option.
-      $heading = Helper::buildHeading($options['heading']);
+      $heading = isset($options['heading']) ? Helper::buildHeading($options['heading']) : [];
       $quickActions = array_merge($heading, ['links' => $links]);
     }
 
@@ -665,11 +664,11 @@ class Organisms {
       'parking' => ['field_parking'],
       'markers' => ['field_maps'],
       'activities' => ['field_location_activity_detail'],
-      'facilities' => ['field_facilities'],
+      'facilities' => ['field_location_facilities'],
       'accessibility' => ['field_accessibility'],
       'restrictions' => ['field_restrictions'],
       'services' => ['field_services'],
-      'information' => ['field_more_information'],
+      'information' => ['field_location_more_information'],
     ];
 
     // Determines which field names to use from the map.
@@ -707,7 +706,7 @@ class Organisms {
 
     // Facilities section.
     if (Helper::isFieldPopulated($entity, $fields['facilities'])) {
-      $sections[] = Organisms::prepareRichText($entity, ['field' => 'field_facilities']);
+      $sections[] = Organisms::prepareRichText($entity, ['field' => 'field_location_facilities']);
     }
 
     // Services section.
@@ -727,7 +726,7 @@ class Organisms {
 
     // More info section.
     if (Helper::isFieldPopulated($entity, $fields['information'])) {
-      $sections[] = Organisms::prepareRichText($entity, ['field' => 'field_more_information']);
+      $sections[] = Organisms::prepareRichText($entity, ['field' => 'field_location_more_information']);
     }
 
     return [
@@ -846,7 +845,7 @@ class Organisms {
 
     $googleMap = Molecules::prepareGoogleMapFromContacts($contact_entities);
 
-    $heading = Helper::buildHeading($options['heading']);
+    $heading = isset($options['heading']) ? Helper::buildHeading($options['heading']) : [];
 
     return array_merge($heading, ['googleMap' => $googleMap]);
   }
@@ -1021,7 +1020,7 @@ class Organisms {
       $downloadLinks[] = Molecules::prepareDownloadLink($item->entity, $options);
     }
 
-    $heading = Helper::buildHeading($options['heading']);
+    $heading = isset($options['heading']) ? Helper::buildHeading($options['heading']) : [];
 
     return array_merge($heading, ['downloadLinks' => $downloadLinks]);
   }

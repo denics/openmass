@@ -60,7 +60,7 @@ third_party_settings:
         id: ''
         classes: ''
         formatter: open
-        description: ''
+        description: 'The name of a service is usually a noun. Keep it as short as possible and use plain language.'
         required_fields: true
       label: Banner
     group_overview:

@@ -20,6 +20,7 @@ use Drupal\mayflower\Prepare\Atoms;
 use Drupal\mayflower\Prepare\Molecules;
 use Drupal\mayflower\Prepare\Organisms;
 use Drupal\mayflower\Prepare\Schemas;
+use Drupal\Core\Site\Settings;
 
 /**
  * Implements hook_theme_suggestions_alter().
@@ -576,6 +577,12 @@ function mass_theme_preprocess_node_topic_page(&$variables) {
   $sectionThreeUp = [
     'heading' => [
       'centered' => TRUE,
+    ],
+    'noSeeAll' => [
+      'topic_page',
+    ],
+    'useCallout' => [
+      'service_page',
     ],
   ];
 
@@ -1243,7 +1250,7 @@ function mass_theme_preprocess_node_section_landing(&$variables) {
         'small' => 'true',
       ],
       'title' => [
-        'href' => 'node/' . $row->_entity->get('nid')->value,
+        'href' => \Drupal::service('path.alias_manager')->getAliasByPath('/node/' . $row->_entity->get('nid')->value),
         'text' => $row->_entity->get('title')->value,
       ],
       'description' => $row->_entity->get('field_lede')->value,
@@ -1610,6 +1617,7 @@ function mass_theme_preprocess_node_emergency_alerts(&$variables) {
  */
 function mass_theme_preprocess_html(&$variables) {
   // Add Schema.org markup for body.
+  $variables['deployment_identifier'] = Settings::get('deployment_identifier');
   if (isset($variables['node_type'])) {
     $variables['attributes']['vocab'][] = 'http://schema.org/';
     $variables['attributes']['typeof'][] = 'WebPage';

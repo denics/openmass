@@ -132,7 +132,7 @@
         "drupal/encrypt": "3.x-dev#19cda8cf22bfe7d020b819a7cfddf2e4883b78a8",
         "drupal/entity_browser": "^1",
         "drupal/entity_reference_revisions": "~1.0",
-        "drupal/field_group": "^1",
+        "drupal/field_group": "^1.0@RC",
         "drupal/field_tokens": "^1.0@beta",
         "drupal/file_browser": "1.x-dev",
         "drupal/flood_unblock": "^1",
@@ -239,8 +239,10 @@
             },
             "drupal/access_unpublished": {
               "Allow to view unpublished content moderated using Workbench Moderation": "https://www.drupal.org/files/issues/access_unpublished-integration_with_workbench_moderation_module-2848938-4.patch"
+            },
+            "drupal/field_group": {
+              "Provide page level error messaging when publishing validation is not met": "https://www.drupal.org/files/issues/field_group-validation-2787179-9.patch"
             }
-
         }
     }
 }

@@ -6,13 +6,13 @@ dependencies:
     - field.field.node.location.field_accessibility
     - field.field.node.location.field_bg_narrow
     - field.field.node.location.field_bg_wide
-    - field.field.node.location.field_facilities
     - field.field.node.location.field_hours
     - field.field.node.location.field_iframe
     - field.field.node.location.field_links
     - field.field.node.location.field_location_activity_detail
+    - field.field.node.location.field_location_facilities
     - field.field.node.location.field_location_icons
-    - field.field.node.location.field_more_information
+    - field.field.node.location.field_location_more_information
     - field.field.node.location.field_overview
     - field.field.node.location.field_parking
     - field.field.node.location.field_ref_contact_info
@@ -84,7 +84,6 @@ third_party_settings:
         - field_overview
         - field_hours
         - field_parking
-        - field_maps
       parent_name: group_primary
       weight: 4
       format_type: tab
@@ -98,9 +97,9 @@ third_party_settings:
     group_optional_details:
       children:
         - field_services
-        - field_more_information
+        - field_location_more_information
         - field_location_activity_detail
-        - field_facilities
+        - field_location_facilities
         - field_accessibility
         - field_restrictions
         - field_related_locations
@@ -159,13 +158,6 @@ content:
       preview_image_style: thumbnail
     third_party_settings: {  }
     type: image_image
-  field_facilities:
-    weight: 10
-    settings:
-      rows: 5
-      placeholder: ''
-    third_party_settings: {  }
-    type: string_textarea
   field_hours:
     type: entity_reference_paragraphs
     weight: 8
@@ -206,18 +198,25 @@ content:
       form_display_mode: default
       default_paragraph_type: _none
     third_party_settings: {  }
+  field_location_facilities:
+    weight: 10
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
   field_location_icons:
     weight: 26
     settings: {  }
     third_party_settings: {  }
     type: options_buttons
-  field_more_information:
+  field_location_more_information:
     weight: 8
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
-    type: string_textarea
+    type: text_textarea
   field_overview:
     weight: 7
     settings:

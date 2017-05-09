@@ -1,18 +1,32 @@
 #!/usr/bin/env bash
 #
-# Author: Isaac Chansky(MassIT)
-# Date: 04.06.2017
+# Usage:
+# ma-refresh-local [-e (prod|test|dev|feature1|feature2|feature3|cd)] [-s]
+#   -e Environment to pull database and files from
+#   -s Skip pulling files (i.e. skip file rsync)
 #
 # Description:
-# This is a convenience script for refreshing data & config from remote environments.
-# We have rsync behind a flag because it can be problematic and often you don't want to run it every time.
+# This is a convenience script for refreshing database, config and files from a remote Acquia environment.
 
+# Default arguments
+desiredEnv='test'
+pullFiles=true
+
+# Get arguments
+while getopts e:s option
+do
+  case "${option}"
+    in
+      e) desiredEnv=${OPTARG};;
+      s) pullFiles=false;;
+    esac
+done
 
 # available environments to pull from
-remoteEnvironments=("prod" "test" "dev" "feature1" "feature2" "feature3")
+# @TODO pull available environments via api
+remoteEnvironments=("prod" "test" "dev" "feature1" "feature2" "feature3" "cd")
 
 # cd into project root
-echo -e "\n Changing directory to '/var/www/mass.local'... 🚀  🚀  🚀 \n"
 cd /var/www/mass.local
 
 # Runs a command w/ success/fail handling
@@ -22,7 +36,7 @@ function run {
   local theCommandTitle=$2
   local emoji=$3
 
-  echo -e "\n Running $theCommandTitle... $emoji  $emoji  $emoji \n\n$theCommand\n"
+  echo -e "\nRunning $theCommandTitle... $emoji  $emoji  $emoji \n\n$theCommand\n"
   $theCommand
   # capture return code
   RC=$?
@@ -43,37 +57,34 @@ function containsElement () {
   return 1
 }
 
-# prompt for user input
-echo "Which environment would you like to pull from?"
-echo "(" ${remoteEnvironments[*]} ")"
-
-# read user input
-read desiredEnv
-
 # run function
 containsElement $desiredEnv "${remoteEnvironments[@]}"
 # check return code first
 if [ $? == 0 ]; then
   # print confirmation
-  echo "Ok, using drush alias @massgov.$desiredEnv."
+  echo -e "\n"
+  echo -e "ℹ️  \033[1;36m Source environment: @massgov.$desiredEnv \x1B[0m"
+  echo -e "ℹ️  \033[1;36m To use a different source (e.g. dev), use: \x1B[0m ma-refresh-local -e dev"
+  echo -e "ℹ️  \033[1;36m Skip files rsync with '-s', e.g.: \x1B[0m ma-refresh-local -e dev -s"
+
   # bring db to local environment
   echo -e "\n"
   echo "sync db"
   echo -e "------------------------------------------------------------------------"
   run "drush -y --sanitize sql-sync @massgov.$desiredEnv @self" "drush sql-sync" "🚚"
 
-
   # Optionally pull files
-  echo -e "\n\nDo you want to pull files from acquia via rsync?\n(yes/no)"
-  # read user input
-  read pullFiles
-
-  if [ $pullFiles = 'yes' ]; then
+  if $pullFiles; then
     # rsync files
     echo -e "\n"
     echo "rsync files"
     echo -e "------------------------------------------------------------------------"
     run "drush -y rsync @massgov.$desiredEnv:%files @self:%files" "drush rsync" "🚛"
+  else
+    echo "rsync files"
+    echo -e "------------------------------------------------------------------------"
+    echo -e "ℹ️  \033[1;36m '-s' argument found"
+    echo -e "ℹ️  \033[1;36m skipping 'files' rsync \x1B[0m"
   fi
 
   # run db updates if any
