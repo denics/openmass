@@ -35,7 +35,6 @@ third_party_settings:
     group_primary:
       children:
         - group_header
-        - group_features
         - group_required_details
         - group_optional_details
         - group_sidebar
@@ -51,6 +50,8 @@ third_party_settings:
       children:
         - title
         - field_ref_contact_info_1
+        - field_location_icons
+        - field_iframe
         - field_bg_wide
         - field_bg_narrow
       parent_name: group_primary
@@ -59,26 +60,11 @@ third_party_settings:
       format_settings:
         label: Header
         formatter: open
-        description: 'The "Header" and "Features" tabs power the visual banner across the top of your location page. See <a href="http://mayflower.digital.mass.gov/?p=organisms-action-header" target="_blank">here</a> and <a href="http://mayflower.digital.mass.gov/?p=organisms-location-banner" target="_blank">here</a> for an example of what it will look like when completely filled out.'
+        description: '<p>The "Header" and "Features" tabs power the visual banner across the top of your location page. See <a href="http://mayflower.digital.mass.gov/?p=organisms-action-header" target="_blank">here</a> and <a href="http://mayflower.digital.mass.gov/?p=organisms-location-banner" target="_blank">here</a> for an example of what it will look like when completely filled out.</p> <p>Location page titles should be a clear and complete name for the location. Try to keep titles short and avoid abbreviations when possible. Use acronyms only when they are very familiar to the public (e.g. "RMV").</p>'
         required_fields: true
         id: ''
         classes: ''
       label: Header
-    group_features:
-      children:
-        - field_location_icons
-        - field_iframe
-      parent_name: group_primary
-      weight: 3
-      format_type: tab
-      format_settings:
-        label: Features
-        formatter: closed
-        description: 'The "Header" and "Features" tabs power the visual banner across the top of your location page. See <a href="http://mayflower.digital.mass.gov/?p=organisms-action-header" target="_blank">here</a> and <a href="http://mayflower.digital.mass.gov/?p=organisms-location-banner" target="_blank">here</a> for an example of what it will look like when completely filled out.'
-        required_fields: true
-        id: ''
-        classes: ''
-      label: Features
     group_required_details:
       children:
         - field_overview
@@ -124,9 +110,9 @@ third_party_settings:
         id: ''
         classes: ''
         formatter: closed
-        description: 'This information will appear in the sidebar of the page.'
+        description: 'Provide up to 3 links where a user can perform an action online or download a helpful pdf related to the in-person experience.'
         required_fields: true
-      label: Sidebar
+      label: Related
 id: node.location.default
 targetEntityType: node
 bundle: location
@@ -145,14 +131,14 @@ content:
     third_party_settings: {  }
     type: text_textarea
   field_bg_narrow:
-    weight: 4
+    weight: 6
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
     third_party_settings: {  }
     type: image_image
   field_bg_wide:
-    weight: 3
+    weight: 5
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
@@ -171,7 +157,7 @@ content:
     third_party_settings: {  }
   field_iframe:
     type: entity_reference_paragraphs
-    weight: 27
+    weight: 4
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -206,7 +192,7 @@ content:
     third_party_settings: {  }
     type: text_textarea
   field_location_icons:
-    weight: 26
+    weight: 3
     settings: {  }
     third_party_settings: {  }
     type: options_buttons

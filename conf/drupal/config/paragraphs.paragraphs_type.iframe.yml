@@ -3,4 +3,4 @@ langcode: en
 status: true
 dependencies: {  }
 id: iframe
-label: IFrame
+label: iFrame
