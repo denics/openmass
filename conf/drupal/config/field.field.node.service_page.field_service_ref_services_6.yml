@@ -10,7 +10,7 @@ field_name: field_service_ref_services_6
 entity_type: node
 bundle: service_page
 label: 'Related services'
-description: 'Choose up to 6 related services.'
+description: 'Optional. Select up to 6 other Service Pages on Mass.gov that are related to this service.'
 required: false
 translatable: false
 default_value: {  }
