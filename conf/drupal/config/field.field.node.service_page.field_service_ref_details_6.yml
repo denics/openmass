@@ -5,13 +5,14 @@ dependencies:
   config:
     - field.storage.node.field_service_ref_details_6
     - node.type.guide_page
+    - node.type.service_details
     - node.type.service_page
 id: node.service_page.field_service_ref_details_6
 field_name: field_service_ref_details_6
 entity_type: node
 bundle: service_page
 label: 'Key information links'
-description: 'Select up to 6 guides, service detail pages, or listing pages.'
+description: 'Select up to 6 guides, service detail pages, or listing pages. You may need to <a href="/node/add" target="_blank">create a page</a> before referencing it here.'
 required: false
 translatable: false
 default_value: {  }
@@ -21,6 +22,7 @@ settings:
   handler_settings:
     target_bundles:
       guide_page: guide_page
+      service_details: service_details
       service_page: service_page
     sort:
       field: _none

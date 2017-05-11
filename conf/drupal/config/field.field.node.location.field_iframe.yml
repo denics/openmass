@@ -12,8 +12,8 @@ id: node.location.field_iframe
 field_name: field_iframe
 entity_type: node
 bundle: location
-label: iFrame
-description: 'Do you have any tools that help people decide to go to a location, such as a wait time estimator? You may embed remote information in an iframe (up to 230px wide) in this space.'
+label: 'Widget Area'
+description: 'Do you have any tools that help people decide to go to a location, such as a wait time estimator? You may embed remote information in an iFrame (up to 230px wide) in this space.'
 required: false
 translatable: false
 default_value: {  }

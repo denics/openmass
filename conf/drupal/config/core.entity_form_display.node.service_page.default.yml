@@ -60,7 +60,7 @@ third_party_settings:
         id: ''
         classes: ''
         formatter: open
-        description: ''
+        description: 'The name of a service is usually a noun. Keep it as short as possible and use plain language.'
         required_fields: true
       label: Banner
     group_overview:
@@ -118,7 +118,7 @@ third_party_settings:
         id: ''
         classes: ''
         formatter: closed
-        description: ''
+        description: 'Optional. Add other resources that are less critical but may be helpful to users of this service.'
         required_fields: true
       label: 'Additional info'
     group_what_would_you_like_to_do_:
@@ -156,7 +156,7 @@ third_party_settings:
       format_settings:
         id: ''
         classes: ''
-        description: ''
+        description: 'Optional. If there are additional resources that contain helpful information, add them here.'
         required_fields: true
       label: 'Additional resources'
 id: node.service_page.default

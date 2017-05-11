@@ -12,7 +12,7 @@ field_name: field_bg_narrow
 entity_type: node
 bundle: location
 label: 'Header Image (Mobile)'
-description: 'The mobile-optimized background image needs to be a minimum of 800x400.'
+description: 'Optional. Upload an alternate version of your image to show on smaller screens, where the image will be a different shape. A mobile image must be a minimum of 800 x 400 pixels.'
 required: false
 translatable: true
 default_value: {  }

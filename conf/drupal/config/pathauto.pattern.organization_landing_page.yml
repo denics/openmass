@@ -7,16 +7,16 @@ dependencies:
 id: organization_landing_page
 label: 'Organization Landing Page'
 type: 'canonical_entities:node'
-pattern: '[node:title]'
+pattern: '/orgs/[node:title]'
 selection_criteria:
-  a46e8384-d989-4183-90ce-af852e902ec8:
+  8922f645-2f6d-4c60-9bf9-b00f1d4276ce:
     id: node_type
     bundles:
       org_page: org_page
     negate: false
     context_mapping:
       node: node
-    uuid: a46e8384-d989-4183-90ce-af852e902ec8
+    uuid: 8922f645-2f6d-4c60-9bf9-b00f1d4276ce
 selection_logic: and
 weight: -5
 relationships: {  }
