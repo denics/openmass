@@ -702,7 +702,7 @@ function mass_theme_preprocess_node_service_page(&$variables) {
     };
   }
 
-  if (Helper::isFieldPopulated($node, 'field_service_ref_details_6')) {
+  if (Helper::isFieldPopulated($node, 'field_service_key_info_links_6')) {
     // Prepare the "What you need to know" action finder.
     $learn_action_finder_options = [
       'title' => t("What you need to know"),
@@ -713,7 +713,7 @@ function mass_theme_preprocess_node_service_page(&$variables) {
 
     // Create the field map for this action finder.
     $learn_action_map = [
-      'all_actions' => ['field_service_ref_details_6'],
+      'all_actions' => ['field_service_key_info_links_6'],
     ];
 
     // Send learnActionFinder data structure to twig template only if populated.

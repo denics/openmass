@@ -133,6 +133,7 @@ function _mass_validation_form_node_service_page_form_validate(array &$form, For
   _mass_link_validate($form_state, 'field_service_ref_actions_2');
   _mass_link_validate($form_state, 'field_service_ref_actions');
   _mass_link_validate($form_state, 'field_service_links');
+  _mass_link_validate($form_state, 'field_service_key_info_links_6');
 
   $num_links = 0;
   // Validate that the Links and Downloads fields
