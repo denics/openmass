@@ -228,7 +228,7 @@
               "Configure crazyegg for specific pages. (https://www.drupal.org/node/2812783)": "https://www.drupal.org/files/issues/2812783-configure-for-specific-pages.patch"
             },
             "drupal/password_policy": {
-              "Removes field updates from the install file. (https://www.drupal.org/node/2771129#comment-11954803)": "https://www.drupal.org/files/issues/password-policy-remove-install-2771129-8.patch"
+              "Removes field updates from the install file. (https://www.drupal.org/node/2771129#comment-11954803)": "https://www.drupal.org/files/issues/password-policy-config-import-field-error-2771129-10-D8.patch"
             },
             "drupal/tfa": {
                 "Drush sanitize plugin for TFA user data. (https://www.drupal.org/node/2862312)": "https://www.drupal.org/files/issues/drush_27.patch"
