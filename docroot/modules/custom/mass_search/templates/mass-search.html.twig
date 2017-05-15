@@ -25,21 +25,20 @@
     </div>
   </section>
 
-  <div class="ma__content__search js-header-search-menu ma__link-list__container">
+  <div class="ma__content__search js-header-search-menu main-content--two">
     <h2 class="visually-hidden">Search Form</h2>
     <section class="ma__content-search">
       <!-- search form container -->
-      <div id="cse-search-results-form" role="search" style="width: 100%;" dir="ltr">Loading</div>
+      {% include directory ~ "/templates/includes/molecules-header-search.html.twig" with { 'searchFormId': "cse-search-form-results" } %}
     </section><!-- .ma__content__search -->
   </div><!-- .ma__content-search -->
 </div><!-- .pre-content -->
 <main class="main-content" role="main" id="main-content" tabindex="-1">
-  <div class="page-content">
-    <section class="ma__link-list">
-      <div class="ma__link-list__container">
-	<!-- search results container -->
-	<div id="cse-search-results" style="width: 100%;">Loading</div>
-      </div><!-- .ma__link-list__container -->
-    </section><!-- .ma__link-list -->
+  <div class="page-content search-results-page">
+    <section class="main-content--two">
+    	<!-- search results container -->
+      <h2 class="ma__search-heading">Search Results</h2>
+      <gcse:searchresults-only></gcse:searchresults-only>
+    </section>
   </div><!-- .page-content -->
 </main><!-- .main-content -->

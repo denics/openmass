@@ -1757,6 +1757,10 @@ function mass_theme_preprocess_html(&$variables) {
     }
   }
 
+  if (isset($variables['root_path']) && $variables['root_path'] == 'search') {
+    $variables['attributes']['class'][] = 'search-results-page';
+  }
+
   // Add a variable for the emergency alerts banner view for front template.
   $is_front_page = \Drupal::service('path.matcher')->isFrontPage();
 

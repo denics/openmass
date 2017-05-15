@@ -1,18 +1,6 @@
-google-jsapi:
-  header: true
-  js:
-    //www.google.com/jsapi: { type: external, weight: -50 }
-
 google-cse:
   js:
-    js/mass_search.forms.js: {}
+    js/mass_search.google_cse.js: {}
   css:
     theme:
-      css/gcse-search.css: {}
-
-google-cse-results:
-  js:
-    js/mass_search.results.js: {}
-  dependencies:
-    - core/drupal
-    - core/drupal.announce
+      css/mass_search.google_cse.css: {}

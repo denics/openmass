@@ -24,7 +24,7 @@ class DefaultController extends ControllerBase {
       '#theme' => 'mass_search',
       '#attached' => [
         'library' => [
-          'mass_search/google-cse-results',
+          'mass_search/google-cse',
         ],
       ],
     ];
