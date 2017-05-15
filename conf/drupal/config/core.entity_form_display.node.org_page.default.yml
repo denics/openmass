@@ -11,6 +11,7 @@ dependencies:
     - field.field.node.org_page.field_bg_wide
     - field.field.node.org_page.field_link
     - field.field.node.org_page.field_metatags
+    - field.field.node.org_page.field_org_ref_locations
     - field.field.node.org_page.field_ref_actions_3
     - field.field.node.org_page.field_ref_actions_6
     - field.field.node.org_page.field_ref_card_view_6
@@ -38,6 +39,7 @@ third_party_settings:
         - group_banner
         - group_overview
         - group_actions
+        - group_map
         - group_other
       parent_name: ''
       weight: 0
@@ -72,7 +74,7 @@ third_party_settings:
         - field_ref_actions_6
         - field_link
       parent_name: group_node_edit_form
-      weight: 23
+      weight: 22
       format_type: tab
       format_settings:
         label: Actions
@@ -104,7 +106,7 @@ third_party_settings:
         - body
         - field_social_links
       parent_name: group_node_edit_form
-      weight: 22
+      weight: 21
       format_type: tab
       format_settings:
         id: ''
@@ -131,6 +133,19 @@ third_party_settings:
         effect: none
         speed: fast
       label: 'Organization name'
+    group_map:
+      children:
+        - field_org_ref_locations
+      parent_name: group_node_edit_form
+      weight: 23
+      format_type: tab
+      format_settings:
+        id: ''
+        classes: ''
+        formatter: closed
+        description: ''
+        required_fields: true
+      label: Map
 id: node.org_page.default
 targetEntityType: node
 bundle: org_page
@@ -194,6 +209,14 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: metatag_firehose
+  field_org_ref_locations:
+    weight: 33
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
   field_ref_actions_3:
     weight: 26
     settings:

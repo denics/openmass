@@ -351,9 +351,9 @@ class Molecules {
         'text' => $entity->getTitle(),
       ],
       'description' => Helper::fieldValue($entity, $fields['text']),
-      'type' => in_array($entity->getType(), $options['useCallout']) ? 'callout' : '',
+      'type' => in_array($entity->getType(), isset($options['useCallout']) ? $options['useCallout'] : []) ? 'callout' : '',
       'links' => $links,
-      'seeAll' => in_array($entity->getType(), $options['noSeeAll']) ? '' : $seeAll,
+      'seeAll' => in_array($entity->getType(), isset($options['noSeeAll']) ? $options['noSeeAll'] : []) ? '' : $seeAll,
     ];
   }
 

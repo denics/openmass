@@ -5,10 +5,7 @@
  * Contains mayflower.module.
  */
 
-use Drupal\mayflower\Helper;
-use Drupal\mayflower\Prepare\Atoms;
 use Drupal\mayflower\Prepare\Molecules;
-use Drupal\mayflower\Prepare\Organisms;
 
 /**
  * Implements hook_theme().
@@ -95,126 +92,6 @@ function mayflower_preprocess_contact_us(&$variables) {
     'theme_hook_original' => $variables['theme_hook_original'],
     'contactUs' => Molecules::prepareContactUs($node, ['display_title' => TRUE]),
   ];
-}
-
-/**
- * Returns the variables structure required to render stacked row template.
- *
- * @param object $entity
- *   The object that contains the fields.
- *
- * @see @organisms/by-author/stacked-row-section
- *
- * @return array
- *   Returns an array of items that contain: title, page_content, sidebar.
- */
-function mayflower_prepare_stacked_row_sections($entity) {
-  // @todo conform with  widgets[] in mass_theme_preprocess_node_org_page
-  // ^^ Let the node preprocess configure the necessary child patterns.
-  $sections = [];
-
-  $map = [
-    'text' => ['body'],
-    'social' => ['field_social_links'],
-    'featuredActions' => ['field_ref_actions_3'],
-    'allActions' => ['field_ref_actions_6'],
-    'featuredTopics' => ['field_ref_card_view_6'],
-    'relatedLinks' => ['field_ref_orgs'],
-  ];
-
-  // Determines which fieldnames to use from the map.
-  $fields = Helper::getMappedFields($entity, $map);
-
-  if ($entity->$fields['text']->getValue()) {
-    $sideBarSocial = '';
-
-    if (Helper::isFieldPopulated($entity, $fields['social'])) {
-      $sideBarSocial = [
-        [
-          'path' => '@atoms/04-headings/sidebar-heading.twig',
-          'data' => Atoms::prepareSidebarHeading(t('Social')),
-        ],
-        [
-          'path' => '@molecules/icon-links.twig',
-          'data' => Molecules::prepareIconLinks($entity),
-        ],
-      ];
-    }
-
-    $richTextElements = [];
-
-    if (Helper::isFieldPopulated($entity, $fields['text'])) {
-      $richTextElements[] = Atoms::prepareParagraph($entity, ['field' => $fields['text']]);
-    }
-
-    $sections[] = [
-      'title' => $entity->$fields['text']->getFieldDefinition()->getLabel(),
-      'pageContent' => [
-        Helper::prepareRichTextElements($richTextElements),
-      ],
-      'sideBar' => $sideBarSocial,
-    ];
-  }
-
-  if ($entity->$fields['featuredActions']->getValue() || $entity->$fields['allActions']->getValue()) {
-    $action_finder_options = [
-      // @todo refactor the strings below to be corresponding field label values
-      'title' => t('What Would You Like to Do?'),
-      'featuredHeading' => t('Featured:'),
-      'generalHeading' => t('How-Tos & Guides:'),
-    ];
-
-    $sections[] = [
-      'pageContent' => [
-        [
-          'path' => '@organisms/by-author/action-finder.twig',
-          'data' => Organisms::prepareActionFinder($entity, $action_finder_options),
-        ],
-      ],
-    ];
-  }
-
-  if ($entity->$fields['featuredTopics']->getValue()) {
-    $sectionThreeUp = [
-      'heading' => [
-        'title' => $entity->$fields['featuredTopics']->getFieldDefinition()->getLabel(),
-      ],
-    ];
-
-    $sections[] = [
-      'pageContent' => [
-        [
-          'path' => '@organisms/by-author/sections-three-up.twig',
-          'data' => [
-            'sectionThreeUp' => Organisms::prepareSectionThreeUp($entity->$fields['featuredTopics'], $sectionThreeUp),
-          ],
-        ],
-      ],
-    ];
-  }
-
-  if ($entity->$fields['relatedLinks']->getValue()) {
-    $linkList_options = [
-      'heading' => [
-        'title' => t('Related Organizations'),
-        'type' => 'compHeading',
-      ],
-    ];
-
-    $sections[] = [
-      'pageContent' => [
-        [
-          'path' => '@organisms/by-author/link-list.twig',
-          // @todo Use field label vs string (need to update field label value)
-          'data' => [
-            'linkList' => Organisms::prepareLinkList($entity, $fields['relatedLinks'], $linkList_options),
-          ],
-        ],
-      ],
-    ];
-  }
-
-  return $sections;
 }
 
 /**
