@@ -9,14 +9,43 @@ namespace Drupal\Console\Command\User;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Output\OutputInterface;
-use Drupal\Console\Command\ConfirmationTrait;
-use Drupal\Console\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Command\Command;
+use Drupal\Console\Core\Command\Shared\CommandTrait;
+use Drupal\Core\Database\Connection;
+use Drupal\Console\Core\Utils\ChainQueue;
+use Drupal\Console\Command\Shared\ConfirmationTrait;
 use Drupal\user\Entity\User;
-use Drupal\Console\Style\DrupalStyle;
+use Drupal\Console\Core\Style\DrupalStyle;
 
-class PasswordResetCommand extends ContainerAwareCommand
+class PasswordResetCommand extends Command
 {
+    use CommandTrait;
     use ConfirmationTrait;
+
+    /**
+     * @var Connection
+     */
+    protected $database;
+
+    /**
+     * @var ChainQueue
+     */
+    protected $chainQueue;
+
+    /**
+     * PasswordHashCommand constructor.
+     *
+     * @param Connection $database
+     * @param ChainQueue $chainQueue
+     */
+    public function __construct(
+        Connection $database,
+        ChainQueue $chainQueue
+    ) {
+        $this->database = $database;
+        $this->chainQueue = $chainQueue;
+        parent::__construct();
+    }
 
     /**
      * {@inheritdoc}
@@ -50,7 +79,7 @@ class PasswordResetCommand extends ContainerAwareCommand
                 )
             );
 
-            return;
+            return 1;
         }
 
         $password = $input->getArgument('password');
@@ -62,19 +91,24 @@ class PasswordResetCommand extends ContainerAwareCommand
                 )
             );
 
-            return;
+            return 1;
         }
 
         try {
             $user->setPassword($password);
             $user->save();
-            // Clear all failed login attempts after setup new password to user account.
-            $this->getChain()
-                ->addCommand('user:login:clear:attempts', ['uid' => $uid]);
+
+            $schema = $this->database->schema();
+            $flood = $schema->findTables('flood');
+
+            if ($flood) {
+                $this-$this->chainQueue
+                    ->addCommand('user:login:clear:attempts', ['uid' => $uid]);
+            }
         } catch (\Exception $e) {
             $io->error($e->getMessage());
 
-            return;
+            return 1;
         }
 
         $io->success(
@@ -140,7 +174,6 @@ class PasswordResetCommand extends ContainerAwareCommand
                                 return false;
                             }
                         }
-
                     }
                 );
 
