@@ -31,3 +31,6 @@ permissions:
   - 'access_unpublished node service_page'
   - 'view media'
   - 'access_unpublished node org_page'
+  - 'access_unpublished node contact_information'
+  - 'access_unpublished node how_to_page'
+  - 'access_unpublished node topic_page'

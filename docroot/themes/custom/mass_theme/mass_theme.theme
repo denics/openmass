@@ -444,8 +444,138 @@ function mass_theme_preprocess_node_org_page(&$variables) {
 
   // Prepare the actionHeader data object.
   $variables['pageHeader'] = Organisms::preparePageHeader($node, $pageHeader_options);
+
   // Make stacked section data object available in twig template.
-  $variables['stackedRowSections'] = mayflower_prepare_stacked_row_sections($node);
+  $sections = [];
+
+  $map = [
+    'text' => ['body'],
+    'social' => ['field_social_links'],
+    'featuredActions' => ['field_ref_actions_3'],
+    'allActions' => ['field_ref_actions_6'],
+    'featuredTopics' => ['field_ref_card_view_6'],
+    'relatedLinks' => ['field_ref_orgs'],
+    'mappedLocations' => ['field_org_ref_locations'],
+  ];
+
+  // Determines which fieldnames to use from the map.
+  $fields = Helper::getMappedFields($node, $map);
+
+  if (Helper::isFieldPopulated($node, $fields['text'])) {
+    $sideBarSocial = '';
+
+    if (Helper::isFieldPopulated($node, $fields['social'])) {
+      $sideBarSocial = [
+        [
+          'path' => '@atoms/04-headings/sidebar-heading.twig',
+          'data' => Atoms::prepareSidebarHeading(t('Social')),
+        ],
+        [
+          'path' => '@molecules/icon-links.twig',
+          'data' => Molecules::prepareIconLinks($node),
+        ],
+      ];
+    }
+
+    $richTextElements = [];
+
+    if (Helper::isFieldPopulated($node, $fields['text'])) {
+      $richTextElements[] = Atoms::prepareParagraph($node, ['field' => $fields['text']]);
+    }
+
+    $sections[] = [
+      'title' => $node->$fields['text']->getFieldDefinition()->getLabel(),
+      'pageContent' => [
+        Helper::prepareRichTextElements($richTextElements),
+      ],
+      'sideBar' => $sideBarSocial,
+    ];
+  }
+
+  if (Helper::isFieldPopulated($node, $fields['featuredActions']) || Helper::isFieldPopulated($node, $fields['allActions'])) {
+    $action_finder_options = [
+      'title' => t('What Would You Like to Do?'),
+      'featuredHeading' => t('Featured:'),
+      'generalHeading' => t('How-Tos & Guides:'),
+    ];
+
+    $sections[] = [
+      'pageContent' => [
+        [
+          'path' => '@organisms/by-author/action-finder.twig',
+          'data' => Organisms::prepareActionFinder($node, $action_finder_options),
+        ],
+      ],
+    ];
+  }
+
+  if (Helper::isFieldPopulated($node, $fields['featuredTopics'])) {
+    $sectionThreeUp = [
+      'heading' => [
+        'title' => $node->$fields['featuredTopics']->getFieldDefinition()->getLabel(),
+      ],
+    ];
+
+    $sections[] = [
+      'pageContent' => [
+        [
+          'path' => '@organisms/by-author/sections-three-up.twig',
+          'data' => [
+            'sectionThreeUp' => Organisms::prepareSectionThreeUp($node->$fields['featuredTopics'], $sectionThreeUp),
+          ],
+        ],
+      ],
+    ];
+  }
+
+  if (Helper::isFieldPopulated($node, $fields['mappedLocations'])) {
+    $mappedLocations_options = [
+      'heading' => [
+        'title' => t('Locations'),
+        'type' => 'compHeading',
+      ],
+      'locationDetailsLink' => [
+        'display' => TRUE,
+        'nid' => $node->id(),
+      ],
+    ];
+
+    // We need a different Google map config for PL tpls.
+    $variables['#attached']['library'][] = 'mass_theme/mass-google-map-apis-location';
+
+    $sections[] = [
+      'pageContent' => [
+        [
+          'path' => '@organisms/by-author/mapped-locations.twig',
+          'data' => [
+            'mappedLocations' => Organisms::prepareMappedLocations($node->field_org_ref_locations->referencedEntities(), $mappedLocations_options),
+          ],
+        ],
+      ],
+    ];
+  }
+
+  if (Helper::isFieldPopulated($node, $fields['relatedLinks'])) {
+    $linkList_options = [
+      'heading' => [
+        'title' => t('Related Organizations'),
+        'type' => 'compHeading',
+      ],
+    ];
+
+    $sections[] = [
+      'pageContent' => [
+        [
+          'path' => '@organisms/by-author/link-list.twig',
+          'data' => [
+            'linkList' => Organisms::prepareLinkList($node, $fields['relatedLinks'], $linkList_options),
+          ],
+        ],
+      ],
+    ];
+  }
+
+  $variables['stackedRowSections'] = $sections;
   // Prepare the schema.governmentOrganization data object.
   $variables['schema'] = Schemas::prepareGovernmentOrganization($variables);
 }
@@ -702,7 +832,7 @@ function mass_theme_preprocess_node_service_page(&$variables) {
     };
   }
 
-  if (Helper::isFieldPopulated($node, 'field_service_ref_details_6')) {
+  if (Helper::isFieldPopulated($node, 'field_service_key_info_links_6')) {
     // Prepare the "What you need to know" action finder.
     $learn_action_finder_options = [
       'title' => t("What you need to know"),
@@ -713,7 +843,7 @@ function mass_theme_preprocess_node_service_page(&$variables) {
 
     // Create the field map for this action finder.
     $learn_action_map = [
-      'all_actions' => ['field_service_ref_details_6'],
+      'all_actions' => ['field_service_key_info_links_6'],
     ];
 
     // Send learnActionFinder data structure to twig template only if populated.
@@ -1625,6 +1755,10 @@ function mass_theme_preprocess_html(&$variables) {
     if ($variables['node_type'] == 'action') {
       $variables['attributes']['class'][] = 'action-page';
     }
+  }
+
+  if (isset($variables['root_path']) && $variables['root_path'] == 'search') {
+    $variables['attributes']['class'][] = 'search-results-page';
   }
 
   // Add a variable for the emergency alerts banner view for front template.

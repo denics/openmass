@@ -12,7 +12,7 @@ field_name: field_link
 entity_type: node
 bundle: org_page
 label: 'See All Link'
-description: 'Provide a link for visitors to navigate to a complete listing of your organization''s actions or information.'
+description: 'Provide a link for visitors to navigate to a complete listing of your organization''s services or information.'
 required: false
 translatable: false
 default_value: {  }
