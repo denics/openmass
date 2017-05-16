@@ -4054,239 +4054,6 @@
         ]
     },
     {
-        "name": "drupal/core",
-        "version": "8.2.8",
-        "version_normalized": "8.2.8.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/drupal/core.git",
-            "reference": "c63ef7a000bdfe2286cf2eeec6efdf4298dfc6a8"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/drupal/core/zipball/c63ef7a000bdfe2286cf2eeec6efdf4298dfc6a8",
-            "reference": "c63ef7a000bdfe2286cf2eeec6efdf4298dfc6a8",
-            "shasum": ""
-        },
-        "require": {
-            "asm89/stack-cors": "~1.0",
-            "composer/semver": "~1.0",
-            "doctrine/annotations": "1.2.*",
-            "doctrine/common": "2.5.*",
-            "easyrdf/easyrdf": "0.9.*",
-            "egulias/email-validator": "1.2.*",
-            "guzzlehttp/guzzle": "^6.2.1",
-            "masterminds/html5": "~2.1",
-            "paragonie/random_compat": "^1|^2",
-            "php": ">=5.5.9",
-            "stack/builder": "1.0.*",
-            "symfony-cmf/routing": "~1.4",
-            "symfony/class-loader": "~2.8",
-            "symfony/console": "~2.8",
-            "symfony/dependency-injection": "~2.8",
-            "symfony/event-dispatcher": "~2.8",
-            "symfony/http-foundation": "~2.8",
-            "symfony/http-kernel": "~2.8",
-            "symfony/polyfill-iconv": "~1.0",
-            "symfony/process": "~2.8",
-            "symfony/psr-http-message-bridge": "v0.2",
-            "symfony/routing": "~2.8",
-            "symfony/serializer": "~2.8",
-            "symfony/translation": "~2.8",
-            "symfony/validator": "~2.8",
-            "symfony/yaml": "~2.8",
-            "twig/twig": "^1.23.1",
-            "zendframework/zend-diactoros": "~1.1",
-            "zendframework/zend-feed": "~2.4"
-        },
-        "replace": {
-            "drupal/action": "self.version",
-            "drupal/aggregator": "self.version",
-            "drupal/automated_cron": "self.version",
-            "drupal/ban": "self.version",
-            "drupal/bartik": "self.version",
-            "drupal/basic_auth": "self.version",
-            "drupal/big_pipe": "self.version",
-            "drupal/block": "self.version",
-            "drupal/block_content": "self.version",
-            "drupal/block_place": "self.version",
-            "drupal/book": "self.version",
-            "drupal/breakpoint": "self.version",
-            "drupal/ckeditor": "self.version",
-            "drupal/classy": "self.version",
-            "drupal/color": "self.version",
-            "drupal/comment": "self.version",
-            "drupal/config": "self.version",
-            "drupal/config_translation": "self.version",
-            "drupal/contact": "self.version",
-            "drupal/content_moderation": "self.version",
-            "drupal/content_translation": "self.version",
-            "drupal/contextual": "self.version",
-            "drupal/core-annotation": "self.version",
-            "drupal/core-assertion": "self.version",
-            "drupal/core-bridge": "self.version",
-            "drupal/core-datetime": "self.version",
-            "drupal/core-dependency-injection": "self.version",
-            "drupal/core-diff": "self.version",
-            "drupal/core-discovery": "self.version",
-            "drupal/core-event-dispatcher": "self.version",
-            "drupal/core-file-cache": "self.version",
-            "drupal/core-filesystem": "self.version",
-            "drupal/core-gettext": "self.version",
-            "drupal/core-graph": "self.version",
-            "drupal/core-http-foundation": "self.version",
-            "drupal/core-php-storage": "self.version",
-            "drupal/core-plugin": "self.version",
-            "drupal/core-proxy-builder": "self.version",
-            "drupal/core-render": "self.version",
-            "drupal/core-serialization": "self.version",
-            "drupal/core-transliteration": "self.version",
-            "drupal/core-utility": "self.version",
-            "drupal/core-uuid": "self.version",
-            "drupal/datetime": "self.version",
-            "drupal/datetime_range": "self.version",
-            "drupal/dblog": "self.version",
-            "drupal/dynamic_page_cache": "self.version",
-            "drupal/editor": "self.version",
-            "drupal/entity_reference": "self.version",
-            "drupal/field": "self.version",
-            "drupal/field_ui": "self.version",
-            "drupal/file": "self.version",
-            "drupal/filter": "self.version",
-            "drupal/forum": "self.version",
-            "drupal/hal": "self.version",
-            "drupal/help": "self.version",
-            "drupal/history": "self.version",
-            "drupal/image": "self.version",
-            "drupal/inline_form_errors": "self.version",
-            "drupal/language": "self.version",
-            "drupal/link": "self.version",
-            "drupal/locale": "self.version",
-            "drupal/menu_link_content": "self.version",
-            "drupal/menu_ui": "self.version",
-            "drupal/migrate": "self.version",
-            "drupal/migrate_drupal": "self.version",
-            "drupal/migrate_drupal_ui": "self.version",
-            "drupal/minimal": "self.version",
-            "drupal/node": "self.version",
-            "drupal/options": "self.version",
-            "drupal/outside_in": "self.version",
-            "drupal/page_cache": "self.version",
-            "drupal/path": "self.version",
-            "drupal/quickedit": "self.version",
-            "drupal/rdf": "self.version",
-            "drupal/responsive_image": "self.version",
-            "drupal/rest": "self.version",
-            "drupal/search": "self.version",
-            "drupal/serialization": "self.version",
-            "drupal/seven": "self.version",
-            "drupal/shortcut": "self.version",
-            "drupal/simpletest": "self.version",
-            "drupal/standard": "self.version",
-            "drupal/stark": "self.version",
-            "drupal/statistics": "self.version",
-            "drupal/syslog": "self.version",
-            "drupal/system": "self.version",
-            "drupal/taxonomy": "self.version",
-            "drupal/telephone": "self.version",
-            "drupal/text": "self.version",
-            "drupal/toolbar": "self.version",
-            "drupal/tour": "self.version",
-            "drupal/tracker": "self.version",
-            "drupal/update": "self.version",
-            "drupal/user": "self.version",
-            "drupal/views": "self.version",
-            "drupal/views_ui": "self.version"
-        },
-        "require-dev": {
-            "behat/mink": "~1.7",
-            "behat/mink-goutte-driver": "~1.2",
-            "jcalderonzumba/gastonjs": "~1.0.2",
-            "jcalderonzumba/mink-phantomjs-driver": "~0.3.1",
-            "mikey179/vfsstream": "~1.2",
-            "phpunit/phpunit": ">=4.8.28 <5",
-            "symfony/css-selector": "~2.8"
-        },
-        "time": "2017-04-19T16:45:52+00:00",
-        "type": "drupal-core",
-        "extra": {
-            "patches_applied": {
-                "Remove drupal.js error. (https://www.drupal.org/node/2661880)": "https://www.drupal.org/files/issues/quickedit-undefined-attr-2661880-14.patch",
-                "Don't break if telephone number is less than 6 digits. (https://www.drupal.org/node/2575577#comment-11750724)": "https://www.drupal.org/files/issues/2575577-11.patch",
-                "Replace (in ajax_view.js) $.size with .length since .size is deprecated.": "https://www.drupal.org/files/issues/drupal-8.3.x-remove-jquery-size-for-ajax_view-2828140-3_0.patch",
-                "Fix photo disappearing from org page. Fix Contextual Links js bug.": "https://www.drupal.org/files/issues/2551373-32.patch"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "Drupal\\Core\\": "lib/Drupal/Core",
-                "Drupal\\Component\\": "lib/Drupal/Component",
-                "Drupal\\Driver\\": "../drivers/lib/Drupal/Driver"
-            },
-            "classmap": [
-                "lib/Drupal.php",
-                "lib/Drupal/Component/Utility/Timer.php",
-                "lib/Drupal/Component/Utility/Unicode.php",
-                "lib/Drupal/Core/Database/Database.php",
-                "lib/Drupal/Core/DrupalKernel.php",
-                "lib/Drupal/Core/DrupalKernelInterface.php",
-                "lib/Drupal/Core/Site/Settings.php"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "GPL-2.0+"
-        ],
-        "description": "Drupal is an open source content management platform powering millions of websites and applications."
-    },
-    {
-        "name": "drupal/access_unpublished",
-        "version": "dev-1.x",
-        "version_normalized": "dev-1.x",
-        "source": {
-            "type": "git",
-            "url": "https://git.drupal.org/project/access_unpublished",
-            "reference": "61f4e1704ff2497ab87dcf29f6566392d447685a"
-        },
-        "require": {
-            "drupal/core": "~8.0"
-        },
-        "type": "drupal-module",
-        "extra": {
-            "branch-alias": {
-                "dev-1.x": "1.x-dev"
-            },
-            "drupal": {
-                "version": "8.x-1.0-alpha1+1-dev",
-                "datestamp": "1480946284"
-            },
-            "patches_applied": {
-                "Allow to view unpublished content moderated using Workbench Moderation": "https://www.drupal.org/files/issues/access_unpublished-integration_with_workbench_moderation_module-2848938-4.patch"
-            }
-        },
-        "installation-source": "source",
-        "notification-url": "https://packages.drupal.org/8/downloads",
-        "license": [
-            "GPL-2.0+"
-        ],
-        "authors": [
-            {
-                "name": "chr.fritsch",
-                "homepage": "https://www.drupal.org/user/2103716"
-            },
-            {
-                "name": "martin_klima",
-                "homepage": "https://www.drupal.org/user/2784335"
-            }
-        ],
-        "description": "Grants access to view unpublished content to anyone who has a unique URL and appropriate permissions.",
-        "homepage": "https://www.drupal.org/project/access_unpublished",
-        "support": {
-            "source": "http://cgit.drupalcode.org/access_unpublished"
-        }
-    },
-    {
         "name": "drupal/acquia_connector",
         "version": "1.10.0",
         "version_normalized": "1.10.0.0",
@@ -4854,58 +4621,6 @@
         "homepage": "https://www.drupal.org/project/config_log",
         "support": {
             "source": "http://cgit.drupalcode.org/config_log"
-        }
-    },
-    {
-        "name": "drupal/crazyegg",
-        "version": "1.0.0",
-        "version_normalized": "1.0.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://git.drupal.org/project/crazyegg",
-            "reference": "8.x-1.0"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://ftp.drupal.org/files/projects/crazyegg-8.x-1.0.zip",
-            "reference": "8.x-1.0",
-            "shasum": "9685891447be9d67c72e1b6151f6f8fffbb62199"
-        },
-        "require": {
-            "drupal/core": "~8.0"
-        },
-        "type": "drupal-module",
-        "extra": {
-            "branch-alias": {
-                "dev-1.x": "1.x-dev"
-            },
-            "drupal": {
-                "version": "8.x-1.0",
-                "datestamp": "1485389883"
-            },
-            "patches_applied": {
-                "Configure crazyegg for specific pages. (https://www.drupal.org/node/2812783)": "https://www.drupal.org/files/issues/2812783-configure-for-specific-pages.patch"
-            }
-        },
-        "installation-source": "dist",
-        "notification-url": "https://packages.drupal.org/8/downloads",
-        "license": [
-            "GPL-2.0+"
-        ],
-        "authors": [
-            {
-                "name": "Michelle",
-                "homepage": "https://www.drupal.org/user/23570"
-            },
-            {
-                "name": "noahlively",
-                "homepage": "https://www.drupal.org/user/399510"
-            }
-        ],
-        "description": "Provides Drupal integration for CrazyEgg.com heat maps and on-page analytics",
-        "homepage": "https://www.drupal.org/project/crazyegg",
-        "support": {
-            "source": "http://cgit.drupalcode.org/crazyegg"
         }
     },
     {
@@ -5545,92 +5260,6 @@
         }
     },
     {
-        "name": "drupal/entity_browser",
-        "version": "1.0.0",
-        "version_normalized": "1.0.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://git.drupal.org/project/entity_browser",
-            "reference": "8.x-1.0"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://ftp.drupal.org/files/projects/entity_browser-8.x-1.0.zip",
-            "reference": "8.x-1.0",
-            "shasum": "6bd7bbcda1eebacc3685e9edaad2ad29b525b2ad"
-        },
-        "require": {
-            "drupal/core": "~8.0"
-        },
-        "require-dev": {
-            "drupal/ctools": "*",
-            "drupal/inline_entity_form": "*",
-            "drupal/media_entity": "*",
-            "drupal/paragraphs": "*",
-            "drupal/token": "*"
-        },
-        "type": "drupal-module",
-        "extra": {
-            "branch-alias": {
-                "dev-1.x": "1.x-dev",
-                "dev-8.x-1.x": "8.1.x-dev"
-            },
-            "drupal": {
-                "version": "8.x-1.0",
-                "datestamp": "1492678144"
-            },
-            "patches_applied": {
-                "Fix duplicated image selection when click use selected button": "https://www.drupal.org/files/issues/prevent-duplication.patch",
-                "Fix for 'Undefined index: max_resolution' which occured what looking for max_resolution on non-images (https://www.drupal.org/node/2871372)": "https://www.drupal.org/files/issues/entity-browser-widget-context-small-fix-2871372-2.patch"
-            }
-        },
-        "installation-source": "dist",
-        "notification-url": "https://packages.drupal.org/8/downloads",
-        "license": [
-            "GPL-2.0+"
-        ],
-        "authors": [
-            {
-                "name": "Janez Urevc",
-                "homepage": "https://github.com/slashrsm",
-                "role": "Maintainer"
-            },
-            {
-                "name": "Primoz Hmeljak",
-                "homepage": "https://github.com/primsi",
-                "role": "Maintainer"
-            },
-            {
-                "name": "See other contributors",
-                "homepage": "https://www.drupal.org/node/1943336/committers",
-                "role": "contributor"
-            },
-            {
-                "name": "Primsi",
-                "homepage": "https://www.drupal.org/user/282629"
-            },
-            {
-                "name": "marcingy",
-                "homepage": "https://www.drupal.org/user/77320"
-            },
-            {
-                "name": "samuel.mortenson",
-                "homepage": "https://www.drupal.org/user/2582268"
-            },
-            {
-                "name": "slashrsm",
-                "homepage": "https://www.drupal.org/user/744628"
-            }
-        ],
-        "description": "Entity browsing and selecting component.",
-        "homepage": "http://drupal.org/project/entity_browser",
-        "support": {
-            "source": "http://cgit.drupalcode.org/entity_browser",
-            "issues": "http://drupal.org/project/issues/entity_browser",
-            "irc": "irc://irc.freenode.org/drupal-contribute"
-        }
-    },
-    {
         "name": "drupal/dropzonejs",
         "version": "1.0.0-alpha6",
         "version_normalized": "1.0.0.0-alpha6",
@@ -6108,61 +5737,6 @@
             "rfc6238",
             "totp"
         ]
-    },
-    {
-        "name": "drupal/tfa",
-        "version": "dev-1.x",
-        "version_normalized": "dev-1.x",
-        "source": {
-            "type": "git",
-            "url": "https://git.drupal.org/project/tfa",
-            "reference": "ea39e6b85c2e35b0dc2c0bd0abe1c6bd6162ee22"
-        },
-        "require": {
-            "christian-riesen/otp": "2.*",
-            "drupal/core": "~8.0",
-            "drupal/encrypt": "*"
-        },
-        "require-dev": {
-            "drupal/services": "*"
-        },
-        "type": "drupal-module",
-        "extra": {
-            "branch-alias": {
-                "dev-1.x": "1.x-dev"
-            },
-            "drupal": {
-                "version": "8.x-1.x-dev",
-                "datestamp": "1472231339"
-            },
-            "patches_applied": {
-                "Drush sanitize plugin for TFA user data. (https://www.drupal.org/node/2862312)": "https://www.drupal.org/files/issues/drush_27.patch"
-            }
-        },
-        "installation-source": "source",
-        "notification-url": "https://packages.drupal.org/8/downloads",
-        "license": [
-            "GPL-2.0+"
-        ],
-        "authors": [
-            {
-                "name": "coltrane",
-                "homepage": "https://www.drupal.org/user/91990"
-            },
-            {
-                "name": "greggles",
-                "homepage": "https://www.drupal.org/user/36762"
-            },
-            {
-                "name": "nerdstein",
-                "homepage": "https://www.drupal.org/user/1557710"
-            }
-        ],
-        "description": "Pluggable provider of two factor authentication for Drupal",
-        "homepage": "https://www.drupal.org/project/tfa",
-        "support": {
-            "source": "http://cgit.drupalcode.org/tfa"
-        }
     },
     {
         "name": "drupal/ga_login",
@@ -7560,66 +7134,6 @@
         }
     },
     {
-        "name": "drupal/username_enumeration_prevention",
-        "version": "1.0.0-beta1",
-        "version_normalized": "1.0.0.0-beta1",
-        "source": {
-            "type": "git",
-            "url": "https://git.drupal.org/project/username_enumeration_prevention",
-            "reference": "8.x-1.0-beta1"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://ftp.drupal.org/files/projects/username_enumeration_prevention-8.x-1.0-beta1.zip",
-            "reference": "8.x-1.0-beta1",
-            "shasum": "65d473dae34a6d81f43bdd6f5b01dfa71ec0b0bc"
-        },
-        "require": {
-            "drupal/core": "~8.0"
-        },
-        "type": "drupal-module",
-        "extra": {
-            "branch-alias": {
-                "dev-1.x": "1.x-dev"
-            },
-            "drupal": {
-                "version": "8.x-1.0-beta1",
-                "datestamp": "1466633339"
-            },
-            "patches_applied": {
-                "Fix install error": "https://www.drupal.org/files/issues/username_enumeration_prevention_requirements_severity-2823440-1.patch"
-            }
-        },
-        "installation-source": "dist",
-        "notification-url": "https://packages.drupal.org/8/downloads",
-        "license": [
-            "GPL-2.0+"
-        ],
-        "authors": [
-            {
-                "name": "Matt V.",
-                "homepage": "https://www.drupal.org/user/88338"
-            },
-            {
-                "name": "ToneUK",
-                "homepage": "https://www.drupal.org/user/1307446"
-            },
-            {
-                "name": "fizk",
-                "homepage": "https://www.drupal.org/user/473174"
-            },
-            {
-                "name": "pbull",
-                "homepage": "https://www.drupal.org/user/13896"
-            }
-        ],
-        "description": "Removes the error message produced, from the forgot password form, when an incorrect user has been supplied.",
-        "homepage": "https://www.drupal.org/project/username_enumeration_prevention",
-        "support": {
-            "source": "http://cgit.drupalcode.org/username_enumeration_prevention"
-        }
-    },
-    {
         "name": "drupal/video_embed_field",
         "version": "1.5.0",
         "version_normalized": "1.5.0.0",
@@ -7676,110 +7190,6 @@
         "homepage": "https://www.drupal.org/project/video_embed_field",
         "support": {
             "source": "http://cgit.drupalcode.org/video_embed_field"
-        }
-    },
-    {
-        "name": "drupal/workbench_moderation",
-        "version": "1.2.0",
-        "version_normalized": "1.2.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://git.drupal.org/project/workbench_moderation",
-            "reference": "8.x-1.2"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://ftp.drupal.org/files/projects/workbench_moderation-8.x-1.2.zip",
-            "reference": "8.x-1.2",
-            "shasum": "3d37b29ed1e7fbf398160fe2494abc4361e4341c"
-        },
-        "require": {
-            "drupal/core": "*"
-        },
-        "type": "drupal-module",
-        "extra": {
-            "branch-alias": {
-                "dev-1.x": "1.x-dev"
-            },
-            "drupal": {
-                "version": "8.x-1.2",
-                "datestamp": "1483529942"
-            },
-            "patches_applied": {
-                "Fix type errors from WorkbenchModeration edit tab labeling (https://www.drupal.org/node/2769119#comment-11624207)": "https://www.drupal.org/files/issues/workbench_moderation-edit_tab-2769119-6.patch"
-            }
-        },
-        "installation-source": "dist",
-        "notification-url": "https://packages.drupal.org/8/downloads",
-        "license": [
-            "GPL-2.0+"
-        ],
-        "authors": [
-            {
-                "name": "Crell",
-                "homepage": "https://www.drupal.org/user/26398"
-            },
-            {
-                "name": "Dave Reid",
-                "homepage": "https://www.drupal.org/user/53892"
-            },
-            {
-                "name": "agentrickard",
-                "homepage": "https://www.drupal.org/user/20975"
-            },
-            {
-                "name": "becw",
-                "homepage": "https://www.drupal.org/user/81067"
-            },
-            {
-                "name": "caroltron",
-                "homepage": "https://www.drupal.org/user/171342"
-            },
-            {
-                "name": "colan",
-                "homepage": "https://www.drupal.org/user/58704"
-            },
-            {
-                "name": "das-peter",
-                "homepage": "https://www.drupal.org/user/762870"
-            },
-            {
-                "name": "josephdpurcell",
-                "homepage": "https://www.drupal.org/user/2944035"
-            },
-            {
-                "name": "larowlan",
-                "homepage": "https://www.drupal.org/user/395439"
-            },
-            {
-                "name": "robeano",
-                "homepage": "https://www.drupal.org/user/67660"
-            },
-            {
-                "name": "srjosh",
-                "homepage": "https://www.drupal.org/user/165878"
-            },
-            {
-                "name": "stevector",
-                "homepage": "https://www.drupal.org/user/179805"
-            },
-            {
-                "name": "tedbow",
-                "homepage": "https://www.drupal.org/user/240860"
-            },
-            {
-                "name": "timmillwood",
-                "homepage": "https://www.drupal.org/user/227849"
-            }
-        ],
-        "description": "Provides moderation states for content",
-        "homepage": "http://drupal.org/project/workbench_moderation",
-        "keywords": [
-            "Drupal"
-        ],
-        "support": {
-            "source": "http://cgit.drupalcode.org/workbench_moderation",
-            "issues": "http://drupal.org/project/issues/workbench_moderation"
         }
     },
     {
@@ -11230,6 +10640,390 @@
         }
     },
     {
+        "name": "drupal/core",
+        "version": "8.2.8",
+        "version_normalized": "8.2.8.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/drupal/core.git",
+            "reference": "7ccc248f4058dd5985ad0c61c129243d0d2b58b8"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/drupal/core/zipball/7ccc248f4058dd5985ad0c61c129243d0d2b58b8",
+            "reference": "7ccc248f4058dd5985ad0c61c129243d0d2b58b8",
+            "shasum": ""
+        },
+        "require": {
+            "asm89/stack-cors": "~1.0",
+            "composer/semver": "~1.0",
+            "doctrine/annotations": "1.2.*",
+            "doctrine/common": "2.5.*",
+            "easyrdf/easyrdf": "0.9.*",
+            "egulias/email-validator": "1.2.*",
+            "guzzlehttp/guzzle": "^6.2.1",
+            "masterminds/html5": "~2.1",
+            "paragonie/random_compat": "^1|^2",
+            "php": ">=5.5.9",
+            "stack/builder": "1.0.*",
+            "symfony-cmf/routing": "~1.4",
+            "symfony/class-loader": "~2.8",
+            "symfony/console": "~2.8",
+            "symfony/dependency-injection": "~2.8",
+            "symfony/event-dispatcher": "~2.8",
+            "symfony/http-foundation": "~2.8",
+            "symfony/http-kernel": "~2.8",
+            "symfony/polyfill-iconv": "~1.0",
+            "symfony/process": "~2.8",
+            "symfony/psr-http-message-bridge": "v0.2",
+            "symfony/routing": "~2.8",
+            "symfony/serializer": "~2.8",
+            "symfony/translation": "~2.8",
+            "symfony/validator": "~2.8",
+            "symfony/yaml": "~2.8",
+            "twig/twig": "^1.23.1",
+            "zendframework/zend-diactoros": "~1.1",
+            "zendframework/zend-feed": "~2.4"
+        },
+        "replace": {
+            "drupal/action": "self.version",
+            "drupal/aggregator": "self.version",
+            "drupal/automated_cron": "self.version",
+            "drupal/ban": "self.version",
+            "drupal/bartik": "self.version",
+            "drupal/basic_auth": "self.version",
+            "drupal/big_pipe": "self.version",
+            "drupal/block": "self.version",
+            "drupal/block_content": "self.version",
+            "drupal/block_place": "self.version",
+            "drupal/book": "self.version",
+            "drupal/breakpoint": "self.version",
+            "drupal/ckeditor": "self.version",
+            "drupal/classy": "self.version",
+            "drupal/color": "self.version",
+            "drupal/comment": "self.version",
+            "drupal/config": "self.version",
+            "drupal/config_translation": "self.version",
+            "drupal/contact": "self.version",
+            "drupal/content_moderation": "self.version",
+            "drupal/content_translation": "self.version",
+            "drupal/contextual": "self.version",
+            "drupal/core-annotation": "self.version",
+            "drupal/core-assertion": "self.version",
+            "drupal/core-bridge": "self.version",
+            "drupal/core-datetime": "self.version",
+            "drupal/core-dependency-injection": "self.version",
+            "drupal/core-diff": "self.version",
+            "drupal/core-discovery": "self.version",
+            "drupal/core-event-dispatcher": "self.version",
+            "drupal/core-file-cache": "self.version",
+            "drupal/core-filesystem": "self.version",
+            "drupal/core-gettext": "self.version",
+            "drupal/core-graph": "self.version",
+            "drupal/core-http-foundation": "self.version",
+            "drupal/core-php-storage": "self.version",
+            "drupal/core-plugin": "self.version",
+            "drupal/core-proxy-builder": "self.version",
+            "drupal/core-render": "self.version",
+            "drupal/core-serialization": "self.version",
+            "drupal/core-transliteration": "self.version",
+            "drupal/core-utility": "self.version",
+            "drupal/core-uuid": "self.version",
+            "drupal/datetime": "self.version",
+            "drupal/datetime_range": "self.version",
+            "drupal/dblog": "self.version",
+            "drupal/dynamic_page_cache": "self.version",
+            "drupal/editor": "self.version",
+            "drupal/entity_reference": "self.version",
+            "drupal/field": "self.version",
+            "drupal/field_ui": "self.version",
+            "drupal/file": "self.version",
+            "drupal/filter": "self.version",
+            "drupal/forum": "self.version",
+            "drupal/hal": "self.version",
+            "drupal/help": "self.version",
+            "drupal/history": "self.version",
+            "drupal/image": "self.version",
+            "drupal/inline_form_errors": "self.version",
+            "drupal/language": "self.version",
+            "drupal/link": "self.version",
+            "drupal/locale": "self.version",
+            "drupal/menu_link_content": "self.version",
+            "drupal/menu_ui": "self.version",
+            "drupal/migrate": "self.version",
+            "drupal/migrate_drupal": "self.version",
+            "drupal/migrate_drupal_ui": "self.version",
+            "drupal/minimal": "self.version",
+            "drupal/node": "self.version",
+            "drupal/options": "self.version",
+            "drupal/outside_in": "self.version",
+            "drupal/page_cache": "self.version",
+            "drupal/path": "self.version",
+            "drupal/quickedit": "self.version",
+            "drupal/rdf": "self.version",
+            "drupal/responsive_image": "self.version",
+            "drupal/rest": "self.version",
+            "drupal/search": "self.version",
+            "drupal/serialization": "self.version",
+            "drupal/seven": "self.version",
+            "drupal/shortcut": "self.version",
+            "drupal/simpletest": "self.version",
+            "drupal/standard": "self.version",
+            "drupal/stark": "self.version",
+            "drupal/statistics": "self.version",
+            "drupal/syslog": "self.version",
+            "drupal/system": "self.version",
+            "drupal/taxonomy": "self.version",
+            "drupal/telephone": "self.version",
+            "drupal/text": "self.version",
+            "drupal/toolbar": "self.version",
+            "drupal/tour": "self.version",
+            "drupal/tracker": "self.version",
+            "drupal/update": "self.version",
+            "drupal/user": "self.version",
+            "drupal/views": "self.version",
+            "drupal/views_ui": "self.version"
+        },
+        "require-dev": {
+            "behat/mink": "~1.7",
+            "behat/mink-goutte-driver": "~1.2",
+            "jcalderonzumba/gastonjs": "~1.0.2",
+            "jcalderonzumba/mink-phantomjs-driver": "~0.3.1",
+            "mikey179/vfsstream": "~1.2",
+            "phpunit/phpunit": ">=4.8.28 <5",
+            "symfony/css-selector": "~2.8"
+        },
+        "time": "2017-04-19T16:45:52+00:00",
+        "type": "drupal-core",
+        "extra": {
+            "patches_applied": {
+                "Remove drupal.js error. (https://www.drupal.org/node/2661880)": "https://www.drupal.org/files/issues/quickedit-undefined-attr-2661880-14.patch",
+                "Don't break if telephone number is less than 6 digits. (https://www.drupal.org/node/2575577#comment-11750724)": "https://www.drupal.org/files/issues/2575577-11.patch",
+                "Replace (in ajax_view.js) $.size with .length since .size is deprecated.": "https://www.drupal.org/files/issues/drupal-8.3.x-remove-jquery-size-for-ajax_view-2828140-3_0.patch",
+                "Fix photo disappearing from org page. Fix Contextual Links js bug.": "https://www.drupal.org/files/issues/2551373-32.patch"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Drupal\\Core\\": "lib/Drupal/Core",
+                "Drupal\\Component\\": "lib/Drupal/Component",
+                "Drupal\\Driver\\": "../drivers/lib/Drupal/Driver"
+            },
+            "classmap": [
+                "lib/Drupal.php",
+                "lib/Drupal/Component/Utility/Timer.php",
+                "lib/Drupal/Component/Utility/Unicode.php",
+                "lib/Drupal/Core/Database/Database.php",
+                "lib/Drupal/Core/DrupalKernel.php",
+                "lib/Drupal/Core/DrupalKernelInterface.php",
+                "lib/Drupal/Core/Site/Settings.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "GPL-2.0+"
+        ],
+        "description": "Drupal is an open source content management platform powering millions of websites and applications."
+    },
+    {
+        "name": "drupal/password_policy",
+        "version": "dev-3.x",
+        "version_normalized": "dev-3.x",
+        "source": {
+            "type": "git",
+            "url": "https://git.drupal.org/project/password_policy",
+            "reference": "8ee51e4e58b1b9493867c43ddfecbdac20e04b0c"
+        },
+        "require": {
+            "drupal/core": "*",
+            "drupal/ctools": "*"
+        },
+        "type": "drupal-module",
+        "extra": {
+            "branch-alias": {
+                "dev-3.x": "3.x-dev"
+            },
+            "drupal": {
+                "version": "8.x-3.0-alpha3+3-dev",
+                "datestamp": "1488167584"
+            },
+            "patches_applied": {
+                "Removes field updates from the install file. (https://www.drupal.org/node/2771129#comment-11954803)": "https://www.drupal.org/files/issues/password-policy-config-import-field-error-2771129-10-D8.patch"
+            }
+        },
+        "installation-source": "source",
+        "notification-url": "https://packages.drupal.org/8/downloads",
+        "license": [
+            "GPL-2.0+"
+        ],
+        "authors": [
+            {
+                "name": "AohRveTPV",
+                "homepage": "https://www.drupal.org/user/2760115"
+            },
+            {
+                "name": "deekayen",
+                "homepage": "https://www.drupal.org/user/972"
+            },
+            {
+                "name": "miglius",
+                "homepage": "https://www.drupal.org/user/18741"
+            },
+            {
+                "name": "nerdstein",
+                "homepage": "https://www.drupal.org/user/1557710"
+            },
+            {
+                "name": "shrop",
+                "homepage": "https://www.drupal.org/user/14767"
+            }
+        ],
+        "description": "Sets up constraints and expiration of passwords.",
+        "homepage": "https://www.drupal.org/project/password_policy",
+        "support": {
+            "source": "http://cgit.drupalcode.org/password_policy"
+        }
+    },
+    {
+        "name": "drupal/crazyegg",
+        "version": "1.0.0",
+        "version_normalized": "1.0.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://git.drupal.org/project/crazyegg",
+            "reference": "8.x-1.0"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://ftp.drupal.org/files/projects/crazyegg-8.x-1.0.zip",
+            "reference": "8.x-1.0",
+            "shasum": "9685891447be9d67c72e1b6151f6f8fffbb62199"
+        },
+        "require": {
+            "drupal/core": "~8.0"
+        },
+        "type": "drupal-module",
+        "extra": {
+            "branch-alias": {
+                "dev-1.x": "1.x-dev"
+            },
+            "drupal": {
+                "version": "8.x-1.0",
+                "datestamp": "1485389883"
+            },
+            "patches_applied": {
+                "Configure crazyegg for specific pages. (https://www.drupal.org/node/2812783)": "https://www.drupal.org/files/issues/2812783-configure-for-specific-pages.patch"
+            }
+        },
+        "installation-source": "dist",
+        "notification-url": "https://packages.drupal.org/8/downloads",
+        "license": [
+            "GPL-2.0+"
+        ],
+        "authors": [
+            {
+                "name": "Michelle",
+                "homepage": "https://www.drupal.org/user/23570"
+            },
+            {
+                "name": "noahlively",
+                "homepage": "https://www.drupal.org/user/399510"
+            }
+        ],
+        "description": "Provides Drupal integration for CrazyEgg.com heat maps and on-page analytics",
+        "homepage": "https://www.drupal.org/project/crazyegg",
+        "support": {
+            "source": "http://cgit.drupalcode.org/crazyegg"
+        }
+    },
+    {
+        "name": "drupal/entity_browser",
+        "version": "1.0.0",
+        "version_normalized": "1.0.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://git.drupal.org/project/entity_browser",
+            "reference": "8.x-1.0"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://ftp.drupal.org/files/projects/entity_browser-8.x-1.0.zip",
+            "reference": "8.x-1.0",
+            "shasum": "6bd7bbcda1eebacc3685e9edaad2ad29b525b2ad"
+        },
+        "require": {
+            "drupal/core": "~8.0"
+        },
+        "require-dev": {
+            "drupal/ctools": "*",
+            "drupal/inline_entity_form": "*",
+            "drupal/media_entity": "*",
+            "drupal/paragraphs": "*",
+            "drupal/token": "*"
+        },
+        "type": "drupal-module",
+        "extra": {
+            "branch-alias": {
+                "dev-1.x": "1.x-dev",
+                "dev-8.x-1.x": "8.1.x-dev"
+            },
+            "drupal": {
+                "version": "8.x-1.0",
+                "datestamp": "1492678144"
+            },
+            "patches_applied": {
+                "Fix duplicated image selection when click use selected button": "https://www.drupal.org/files/issues/prevent-duplication.patch",
+                "Fix for 'Undefined index: max_resolution' which occured what looking for max_resolution on non-images (https://www.drupal.org/node/2871372)": "https://www.drupal.org/files/issues/entity-browser-widget-context-small-fix-2871372-2.patch"
+            }
+        },
+        "installation-source": "dist",
+        "notification-url": "https://packages.drupal.org/8/downloads",
+        "license": [
+            "GPL-2.0+"
+        ],
+        "authors": [
+            {
+                "name": "Janez Urevc",
+                "homepage": "https://github.com/slashrsm",
+                "role": "Maintainer"
+            },
+            {
+                "name": "Primoz Hmeljak",
+                "homepage": "https://github.com/primsi",
+                "role": "Maintainer"
+            },
+            {
+                "name": "See other contributors",
+                "homepage": "https://www.drupal.org/node/1943336/committers",
+                "role": "contributor"
+            },
+            {
+                "name": "Primsi",
+                "homepage": "https://www.drupal.org/user/282629"
+            },
+            {
+                "name": "marcingy",
+                "homepage": "https://www.drupal.org/user/77320"
+            },
+            {
+                "name": "samuel.mortenson",
+                "homepage": "https://www.drupal.org/user/2582268"
+            },
+            {
+                "name": "slashrsm",
+                "homepage": "https://www.drupal.org/user/744628"
+            }
+        ],
+        "description": "Entity browsing and selecting component.",
+        "homepage": "http://drupal.org/project/entity_browser",
+        "support": {
+            "source": "http://cgit.drupalcode.org/entity_browser",
+            "issues": "http://drupal.org/project/issues/entity_browser",
+            "irc": "irc://irc.freenode.org/drupal-contribute"
+        }
+    },
+    {
         "name": "drupal/field_group",
         "version": "1.0.0-rc6",
         "version_normalized": "1.0.0.0-RC6",
@@ -11294,79 +11088,192 @@
         }
     },
     {
-        "name": "drupal/password_policy",
-        "version": "dev-3.x",
-        "version_normalized": "dev-3.x",
+        "name": "drupal/username_enumeration_prevention",
+        "version": "1.0.0-beta1",
+        "version_normalized": "1.0.0.0-beta1",
         "source": {
             "type": "git",
-            "url": "https://git.drupal.org/project/password_policy",
-            "reference": "8ee51e4e58b1b9493867c43ddfecbdac20e04b0c"
+            "url": "https://git.drupal.org/project/username_enumeration_prevention",
+            "reference": "8.x-1.0-beta1"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://ftp.drupal.org/files/projects/username_enumeration_prevention-8.x-1.0-beta1.zip",
+            "reference": "8.x-1.0-beta1",
+            "shasum": "65d473dae34a6d81f43bdd6f5b01dfa71ec0b0bc"
         },
         "require": {
-            "drupal/core": "*",
-            "drupal/ctools": "*"
+            "drupal/core": "~8.0"
         },
         "type": "drupal-module",
         "extra": {
-            "drupal-scaffold": {
-                "excludes": [
-                    ".htaccess",
-                    "robots.txt"
-                ],
-                "omit-defaults": false
+            "branch-alias": {
+                "dev-1.x": "1.x-dev"
             },
-            "installer-paths": {
-                "docroot/core": [
-                    "type:drupal-core"
-                ],
-                "docroot/libraries/{$name}": [
-                    "type:drupal-library"
-                ],
-                "docroot/modules/contrib/{$name}": [
-                    "type:drupal-module"
-                ],
-                "docroot/profiles/contrib/{$name}": [
-                    "type:drupal-profile"
-                ],
-                "docroot/themes/contrib/{$name}": [
-                    "type:drupal-theme"
-                ],
-                "drush/contrib/{$name}": [
-                    "type:drupal-drush"
-                ]
+            "drupal": {
+                "version": "8.x-1.0-beta1",
+                "datestamp": "1466633339"
             },
-            "patches": {
-                "drupal/core": {
-                    "Remove drupal.js error. (https://www.drupal.org/node/2661880)": "https://www.drupal.org/files/issues/quickedit-undefined-attr-2661880-14.patch",
-                    "Don't break if telephone number is less than 6 digits. (https://www.drupal.org/node/2575577#comment-11750724)": "https://www.drupal.org/files/issues/2575577-11.patch",
-                    "Replace (in ajax_view.js) $.size with .length since .size is deprecated.": "https://www.drupal.org/files/issues/drupal-8.3.x-remove-jquery-size-for-ajax_view-2828140-3_0.patch",
-                    "Fix photo disappearing from org page. Fix Contextual Links js bug.": "https://www.drupal.org/files/issues/2551373-32.patch"
-                },
-                "drupal/workbench_moderation": {
-                    "Fix type errors from WorkbenchModeration edit tab labeling (https://www.drupal.org/node/2769119#comment-11624207)": "https://www.drupal.org/files/issues/workbench_moderation-edit_tab-2769119-6.patch"
-                },
-                "drupal/crazyegg": {
-                    "Configure crazyegg for specific pages. (https://www.drupal.org/node/2812783)": "https://www.drupal.org/files/issues/2812783-configure-for-specific-pages.patch"
-                },
-                "drupal/password_policy": {
-                    "Removes field updates from the install file. (https://www.drupal.org/node/2771129#comment-11792230)": "https://www.drupal.org/files/issues/password-policy-remove-install-2771129-5.patch"
-                },
-                "drupal/tfa": {
-                    "Drush sanitize plugin for TFA user data. (https://www.drupal.org/node/2862312)": "https://www.drupal.org/files/issues/drush_27.patch"
-                },
-                "drupal/username_enumeration_prevention": {
-                    "Fix install error": "https://www.drupal.org/files/issues/username_enumeration_prevention_requirements_severity-2823440-1.patch"
-                },
-                "drupal/entity_browser": {
-                    "Fix duplicated image selection when click use selected button": "https://www.drupal.org/files/issues/prevent-duplication.patch",
-                    "Fix for 'Undefined index: max_resolution' which occured what looking for max_resolution on non-images (https://www.drupal.org/node/2871372)": "https://www.drupal.org/files/issues/entity-browser-widget-context-small-fix-2871372-2.patch"
-                },
-                "drupal/access_unpublished": {
-                    "Allow to view unpublished content moderated using Workbench Moderation": "https://www.drupal.org/files/issues/access_unpublished-integration_with_workbench_moderation_module-2848938-4.patch"
-                },
-                "drupal/field_group": {
-                    "Provide page level error messaging when publishing validation is not met": "https://www.drupal.org/files/issues/field_group-validation-2787179-9.patch"
-                }
+            "patches_applied": {
+                "Fix install error": "https://www.drupal.org/files/issues/username_enumeration_prevention_requirements_severity-2823440-1.patch"
+            }
+        },
+        "installation-source": "dist",
+        "notification-url": "https://packages.drupal.org/8/downloads",
+        "license": [
+            "GPL-2.0+"
+        ],
+        "authors": [
+            {
+                "name": "Matt V.",
+                "homepage": "https://www.drupal.org/user/88338"
+            },
+            {
+                "name": "ToneUK",
+                "homepage": "https://www.drupal.org/user/1307446"
+            },
+            {
+                "name": "fizk",
+                "homepage": "https://www.drupal.org/user/473174"
+            },
+            {
+                "name": "pbull",
+                "homepage": "https://www.drupal.org/user/13896"
+            }
+        ],
+        "description": "Removes the error message produced, from the forgot password form, when an incorrect user has been supplied.",
+        "homepage": "https://www.drupal.org/project/username_enumeration_prevention",
+        "support": {
+            "source": "http://cgit.drupalcode.org/username_enumeration_prevention"
+        }
+    },
+    {
+        "name": "drupal/workbench_moderation",
+        "version": "1.2.0",
+        "version_normalized": "1.2.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://git.drupal.org/project/workbench_moderation",
+            "reference": "8.x-1.2"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://ftp.drupal.org/files/projects/workbench_moderation-8.x-1.2.zip",
+            "reference": "8.x-1.2",
+            "shasum": "3d37b29ed1e7fbf398160fe2494abc4361e4341c"
+        },
+        "require": {
+            "drupal/core": "*"
+        },
+        "type": "drupal-module",
+        "extra": {
+            "branch-alias": {
+                "dev-1.x": "1.x-dev"
+            },
+            "drupal": {
+                "version": "8.x-1.2",
+                "datestamp": "1483529942"
+            },
+            "patches_applied": {
+                "Fix type errors from WorkbenchModeration edit tab labeling (https://www.drupal.org/node/2769119#comment-11624207)": "https://www.drupal.org/files/issues/workbench_moderation-edit_tab-2769119-6.patch"
+            }
+        },
+        "installation-source": "dist",
+        "notification-url": "https://packages.drupal.org/8/downloads",
+        "license": [
+            "GPL-2.0+"
+        ],
+        "authors": [
+            {
+                "name": "Crell",
+                "homepage": "https://www.drupal.org/user/26398"
+            },
+            {
+                "name": "Dave Reid",
+                "homepage": "https://www.drupal.org/user/53892"
+            },
+            {
+                "name": "agentrickard",
+                "homepage": "https://www.drupal.org/user/20975"
+            },
+            {
+                "name": "becw",
+                "homepage": "https://www.drupal.org/user/81067"
+            },
+            {
+                "name": "caroltron",
+                "homepage": "https://www.drupal.org/user/171342"
+            },
+            {
+                "name": "colan",
+                "homepage": "https://www.drupal.org/user/58704"
+            },
+            {
+                "name": "das-peter",
+                "homepage": "https://www.drupal.org/user/762870"
+            },
+            {
+                "name": "josephdpurcell",
+                "homepage": "https://www.drupal.org/user/2944035"
+            },
+            {
+                "name": "larowlan",
+                "homepage": "https://www.drupal.org/user/395439"
+            },
+            {
+                "name": "robeano",
+                "homepage": "https://www.drupal.org/user/67660"
+            },
+            {
+                "name": "srjosh",
+                "homepage": "https://www.drupal.org/user/165878"
+            },
+            {
+                "name": "stevector",
+                "homepage": "https://www.drupal.org/user/179805"
+            },
+            {
+                "name": "tedbow",
+                "homepage": "https://www.drupal.org/user/240860"
+            },
+            {
+                "name": "timmillwood",
+                "homepage": "https://www.drupal.org/user/227849"
+            }
+        ],
+        "description": "Provides moderation states for content",
+        "homepage": "http://drupal.org/project/workbench_moderation",
+        "keywords": [
+            "Drupal"
+        ],
+        "support": {
+            "source": "http://cgit.drupalcode.org/workbench_moderation",
+            "issues": "http://drupal.org/project/issues/workbench_moderation"
+        }
+    },
+    {
+        "name": "drupal/access_unpublished",
+        "version": "dev-1.x",
+        "version_normalized": "dev-1.x",
+        "source": {
+            "type": "git",
+            "url": "https://git.drupal.org/project/access_unpublished",
+            "reference": "61f4e1704ff2497ab87dcf29f6566392d447685a"
+        },
+        "require": {
+            "drupal/core": "~8.0"
+        },
+        "type": "drupal-module",
+        "extra": {
+            "branch-alias": {
+                "dev-1.x": "1.x-dev"
+            },
+            "drupal": {
+                "version": "8.x-1.0-alpha1+1-dev",
+                "datestamp": "1480946284"
+            },
+            "patches_applied": {
+                "Allow to view unpublished content moderated using Workbench Moderation": "https://www.drupal.org/files/issues/access_unpublished-integration_with_workbench_moderation_module-2848938-4.patch"
             }
         },
         "installation-source": "source",
@@ -11376,30 +11283,73 @@
         ],
         "authors": [
             {
-                "name": "AohRveTPV",
-                "homepage": "https://www.drupal.org/user/2760115"
+                "name": "chr.fritsch",
+                "homepage": "https://www.drupal.org/user/2103716"
             },
             {
-                "name": "deekayen",
-                "homepage": "https://www.drupal.org/user/972"
+                "name": "martin_klima",
+                "homepage": "https://www.drupal.org/user/2784335"
+            }
+        ],
+        "description": "Grants access to view unpublished content to anyone who has a unique URL and appropriate permissions.",
+        "homepage": "https://www.drupal.org/project/access_unpublished",
+        "support": {
+            "source": "http://cgit.drupalcode.org/access_unpublished"
+        }
+    },
+    {
+        "name": "drupal/tfa",
+        "version": "dev-1.x",
+        "version_normalized": "dev-1.x",
+        "source": {
+            "type": "git",
+            "url": "https://git.drupal.org/project/tfa",
+            "reference": "ea39e6b85c2e35b0dc2c0bd0abe1c6bd6162ee22"
+        },
+        "require": {
+            "christian-riesen/otp": "2.*",
+            "drupal/core": "~8.0",
+            "drupal/encrypt": "*"
+        },
+        "require-dev": {
+            "drupal/services": "*"
+        },
+        "type": "drupal-module",
+        "extra": {
+            "branch-alias": {
+                "dev-1.x": "1.x-dev"
+            },
+            "drupal": {
+                "version": "8.x-1.x-dev",
+                "datestamp": "1472231339"
+            },
+            "patches_applied": {
+                "Drush sanitize plugin for TFA user data. (https://www.drupal.org/node/2862312)": "https://www.drupal.org/files/issues/drush_27.patch"
+            }
+        },
+        "installation-source": "source",
+        "notification-url": "https://packages.drupal.org/8/downloads",
+        "license": [
+            "GPL-2.0+"
+        ],
+        "authors": [
+            {
+                "name": "coltrane",
+                "homepage": "https://www.drupal.org/user/91990"
             },
             {
-                "name": "miglius",
-                "homepage": "https://www.drupal.org/user/18741"
+                "name": "greggles",
+                "homepage": "https://www.drupal.org/user/36762"
             },
             {
                 "name": "nerdstein",
                 "homepage": "https://www.drupal.org/user/1557710"
-            },
-            {
-                "name": "shrop",
-                "homepage": "https://www.drupal.org/user/14767"
             }
         ],
-        "description": "Sets up constraints and expiration of passwords.",
-        "homepage": "https://www.drupal.org/project/password_policy",
+        "description": "Pluggable provider of two factor authentication for Drupal",
+        "homepage": "https://www.drupal.org/project/tfa",
         "support": {
-            "source": "http://cgit.drupalcode.org/password_policy"
+            "source": "http://cgit.drupalcode.org/tfa"
         }
     }
 ]
