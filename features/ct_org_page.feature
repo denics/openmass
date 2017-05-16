@@ -28,17 +28,17 @@ Feature: Organization Landing Page Content type
     Then I am on "run-test-suite"
 
   Scenario: Verify validation for background image.
-    Given I am viewing an "action" content:
-      | title  | Some Featured Action |
+    Given I am viewing an "service_page" content:
+      | title  | Some Featured Service |
       | status | 1                    |
     And I am logged in as a user with the "administrator" role
     When I am viewing an "org_page" content:
       | title                    | Some Nice Org Page 2   |
       | field-action-set-bg-wide | A header image         |
       | field-sub-title          | Some lede text.        |
-      | field-ref-actions-3      | Some Featured Action   |
+      | field-ref-actions-3      | Some Featured Service   |
     And I follow "Edit draft"
-    And I fill in "edit-field-ref-actions-3-0-target-id" with "Some Featured Action"
+    And I fill in "edit-field-ref-actions-3-0-target-id" with "Some Featured Service"
     And I press "Save and Create New Draft"
     Then I should see the text "field must not be empty"
 
