@@ -10,7 +10,7 @@ field_name: field_services
 entity_type: node
 bundle: location
 label: Services
-description: 'List the services available at this location in this section as a bulleted list. You may group lists with subheadings if a wide range of services are offered.'
+description: 'List the services available at this location as a bulleted list. You may also use subheadings if the list can be grouped.'
 required: false
 translatable: false
 default_value: {  }

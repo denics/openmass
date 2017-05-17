@@ -4,7 +4,7 @@ status: true
 dependencies: {  }
 id: developer
 label: Developer
-weight: -7
+weight: -4
 is_admin: false
 permissions:
   0: 'administer blocks'
@@ -239,3 +239,38 @@ permissions:
   234: 'update media'
   235: 'rabbit hole bypass node'
   236: 'rabbit hole bypass taxonomy_term'
+  237: 'select which pages should suppress the header search'
+  238: 'create contact_information content'
+  239: 'delete any contact_information content'
+  240: 'delete own contact_information content'
+  241: 'delete contact_information revisions'
+  242: 'edit any contact_information content'
+  243: 'edit own contact_information content'
+  244: 'revert contact_information revisions'
+  245: 'view contact_information revisions'
+  246: 'create guide_page content'
+  247: 'delete any guide_page content'
+  248: 'delete own guide_page content'
+  249: 'delete guide_page revisions'
+  250: 'edit any guide_page content'
+  251: 'edit own guide_page content'
+  252: 'revert guide_page revisions'
+  253: 'view guide_page revisions'
+  254: 'create how_to_page content'
+  255: 'delete any how_to_page content'
+  256: 'delete own how_to_page content'
+  257: 'delete how_to_page revisions'
+  258: 'edit any how_to_page content'
+  259: 'edit own how_to_page content'
+  260: 'revert how_to_page revisions'
+  261: 'view how_to_page revisions'
+  262: 'create topic_page content'
+  263: 'delete any topic_page content'
+  264: 'delete own topic_page content'
+  265: 'delete topic_page revisions'
+  266: 'edit any topic_page content'
+  267: 'edit own topic_page content'
+  268: 'revert topic_page revisions'
+  269: 'view topic_page revisions'
+  270: 'edit behavior plugin settings'
+  271: 'use archived_draft transition'

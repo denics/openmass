@@ -24,7 +24,8 @@ form.gsc-search-box,
 @media (max-width: 620px) {
   .cse form.gsc-search-box,
   .ma__header__container form.gsc-search-box,
-  .ma__header__container .gsc-search-box {
+  .ma__header__container .gsc-search-box,
+  .ma__header__search .ma__header-search .ma__button-search {
     display: none;
   }
 
@@ -42,20 +43,20 @@ form.gsc-search-box,
     display: none;
   }
 }
-table.gsc-search-box {
+.ma__header-search table.gsc-search-box {
   margin: 0;
 }
-form.gsc-search-box .gsc-search-box tr {
+.ma__header-search form.gsc-search-box .gsc-search-box tr {
   background-color: #f6f6f2;
   border: none;
 }
-table.gsc-search-box tbody td {
+.ma__header-search table.gsc-search-box tbody td {
   border: none;
 }
-table.gsc-search-box td.gsc-input {
+.ma__header-search table.gsc-search-box td.gsc-input {
   padding: 0;
 }
-table.gsc-search-box input.gsc-input {
+.ma__header-search table.gsc-search-box input.gsc-input {
   font-size: 16px;
   font-size: 1rem;
   height: 46px;
@@ -65,11 +66,11 @@ table.gsc-search-box input.gsc-input {
   border: 2px solid #dcdcdc;
 }
 
-table.gsc-search-box input.gsc-input[style] {
+.ma__header-search table.gsc-search-box input.gsc-input[style] {
   background: none !important;
   background-color: #fff !important;
 }
-table.gsc-search-box td.gsc-input {
+.ma__header-search table.gsc-search-box td.gsc-input {
   padding: 0 !important;
 }
 .ma__header-search table.gsc-search-box td.gsc-search-button {
@@ -127,6 +128,11 @@ table.gsc-search-box td.gsc-input {
     padding-right: 45px;
     padding-left: 10px;
   }
+
+  .is-front .ma__search-banner .ma__search-banner__button {
+    height: 46px;
+    width: 60px;
+  }
 }
 
 /* mobile autocomplete styles */
@@ -145,9 +151,11 @@ table.gsc-search-box td.gsc-input {
   what page we are on.  In our search results js we add the search results-page to the
   body tag because here and only here, the mobile search form is first, semantically.
   On all other pages, the mobile search form is second, after the global header form. */
-body.not-front:not(.search-results-page) .gstl_51.gssb_c[style],
-body.search-results-page .gstl_50.gssb_c[style] {
-  left: calc(100% + 10px) !important; /* 1 */
+
+body.not-front:not(.search-results-page) .gstl_51.gssb_c,
+body.is-front .gstl_50.gssb_c,
+body.search-results-page .gstl_50.gssb_c {
+  left: calc(100% + 20px) !important; /* 1 */
 }
 
 .gssb_e {
@@ -458,32 +466,38 @@ a.gsc-trailing-more-results:link {
   display: none;
 }
 
+
+@media (min-width: 425px) {
+  .gsc-webResult.gsc-result.gsc-promotion,
+  .gsc-webResult.gsc-result.gsc-promotion:hover {
+    width: 100%;
+  }
+}
+
 @media (min-width: 601px) {
   .gsc-webResult.gsc-result.gsc-promotion,
   .gsc-webResult.gsc-result.gsc-promotion:hover {
     width: 100%;
     max-width: 55em;
   }
-
-  @media (min-width: 1101px) {
-    .gsc-webResult.gsc-result.gsc-promotion,
-    .gsc-webResult.gsc-result.gsc-promotion:hover {
-      display: inline-block;
-      margin-top: 1em;
-      margin-bottom: 4em !important;
-      width: calc( 33% - 1.2em);
-      vertical-align: top;
-      margin-left: 2em !important;
-      height: auto;
-      /*min-height: 300px;*/
-      border-bottom: 0 !important;
-    }
-  }
-  .gsc-webResult.gsc-result.gsc-promotion:first-of-type {
-    margin-left: 0 !important;
-  }
   .gs-promotion.gs-result {
     margin-top: .5em !important;
+  }
+}
+
+@media (min-width: 1101px) {
+  .gsc-webResult.gsc-result.gsc-promotion,
+  .gsc-webResult.gsc-result.gsc-promotion:hover {
+    display: inline-block;
+    margin-top: 1em;
+    margin-bottom: 4em !important;
+    width: calc( 33% - 1.7em);
+    vertical-align: top;
+    height: auto;
+    border-bottom: 0 !important;
+  }
+  .gsc-webResult.gsc-result.gsc-promotion + .gsc-webResult.gsc-result.gsc-promotion {
+    margin-left: 2em !important;
   }
 }
 
@@ -537,6 +551,8 @@ a.gsc-trailing-more-results:link {
   .gsc-webResult.gsc-result:not(.gsc-promotion) {
     margin: 2em 0;
     width: 100%;
+  }
+  .gsc-webResult.gsc-result:not(.gsc-promotion) > * {
     max-width: 65em;
   }
 
@@ -546,6 +562,9 @@ a.gsc-trailing-more-results:link {
     margin: 0 !important;
     padding: 2em 0 !important;
     width: 100%;
+  }
+
+  .gsc-expansionArea .gsc-webResult.gsc-result:not(.gsc-promotion) > * {
     max-width: 65em;
   }
 }
@@ -767,6 +786,10 @@ div.gs-visibleUrl,
 .gsc-above-wrapper-area {
   border-bottom: none;
 }
+.gsc-results {
+  display: flex !important;
+  flex-wrap: wrap;
+}
 .gsc-results .gsc-cursor-box {
   margin-top: 0 !important;
   padding-top: 1rem;
@@ -833,6 +856,7 @@ div.gs-visibleUrl,
 form.gsc-search-box,
 .gsc-search-box {
   width: 100%;
+  max-width: 746px;
   margin: 0;
   padding: 0 !important;
 }
@@ -972,6 +996,7 @@ form.gsc-search-box,
 .ma__content-search {
   position: relative;
   width: 100%;
+  margin-bottom: 40px;
 }
 .ma__content-search__label {
   position: absolute;
@@ -1048,13 +1073,14 @@ form.gsc-search-box,
   }
 }
 
+
 /**
  * Banner Search Overrides for GSC search.
  */
 .ma__search-banner__form {
   width: auto !important;
 }
-.ma__search-banner .gsc-control-searchbox-only {
+.ma__search-banner__form > * {
   width: 100%;
 }
 .ma__search-banner table.gsc-search-box tbody td {
@@ -1164,5 +1190,29 @@ form.gsc-search-box,
     color: transparent;
     padding: 0;
     background-position: center;
+  }
+}
+
+.ma__search-banner__form {
+  margin: 0px !important;
+}
+
+/*.ma__search-banner__form.cse-header-search-form,*/
+.ma__search-banner__form.cse-search-form-results,
+.ma__search-banner__form.cse-search-band-search-form {
+  margin: 0 auto 60px !important;
+}
+
+/* pagination on mobile*/
+@media (max-width: 620px) {
+  .gsc-results .gsc-cursor-box .gsc-cursor {
+    display: flex !important;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin-top: 40px;
+  }
+  .gsc-results .gsc-cursor-box .gsc-cursor .gsc-cursor-page {
+    padding: 10px 20px !important;
+    margin-right: 10px !important;
   }
 }

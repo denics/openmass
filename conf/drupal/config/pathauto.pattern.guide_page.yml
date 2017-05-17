@@ -7,16 +7,16 @@ dependencies:
 id: guide_page
 label: 'Guide Page'
 type: 'canonical_entities:node'
-pattern: '[node:title]-guide'
+pattern: '/guides/[node:title]'
 selection_criteria:
-  03d0c085-f1d2-446d-ab7c-e92e42e808f5:
+  18bd836c-f939-4ce6-9d6a-6fe3b2e94521:
     id: node_type
     bundles:
       guide_page: guide_page
     negate: false
     context_mapping:
       node: node
-    uuid: 03d0c085-f1d2-446d-ab7c-e92e42e808f5
+    uuid: 18bd836c-f939-4ce6-9d6a-6fe3b2e94521
 selection_logic: and
 weight: -5
 relationships: {  }

@@ -7,16 +7,16 @@ dependencies:
 id: how_to
 label: How-To
 type: 'canonical_entities:node'
-pattern: 'how-to/[node:title]'
+pattern: '/how-to/[node:title]'
 selection_criteria:
-  34d8f93a-297e-4135-b87a-c13646d1e587:
+  bb9296a9-6c24-4d0a-95f9-bf1eaecac613:
     id: node_type
     bundles:
       how_to_page: how_to_page
     negate: false
     context_mapping:
       node: node
-    uuid: 34d8f93a-297e-4135-b87a-c13646d1e587
+    uuid: bb9296a9-6c24-4d0a-95f9-bf1eaecac613
 selection_logic: and
 weight: -5
 relationships: {  }

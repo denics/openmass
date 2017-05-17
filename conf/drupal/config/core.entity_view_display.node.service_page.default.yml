@@ -6,12 +6,13 @@ dependencies:
     - field.field.node.service_page.field_service_bg_narrow
     - field.field.node.service_page.field_service_bg_wide
     - field.field.node.service_page.field_service_body
+    - field.field.node.service_page.field_service_eligibility_info
     - field.field.node.service_page.field_service_file
+    - field.field.node.service_page.field_service_key_info_links_6
     - field.field.node.service_page.field_service_lede
     - field.field.node.service_page.field_service_links
     - field.field.node.service_page.field_service_ref_actions
     - field.field.node.service_page.field_service_ref_actions_2
-    - field.field.node.service_page.field_service_ref_details_6
     - field.field.node.service_page.field_service_ref_guide_page_1
     - field.field.node.service_page.field_service_ref_locations
     - field.field.node.service_page.field_service_ref_services_6
@@ -50,6 +51,13 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: basic_string
+  field_service_eligibility_info:
+    weight: 117
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
   field_service_file:
     weight: 113
     label: above
@@ -57,6 +65,17 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+  field_service_key_info_links_6:
+    weight: 117
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
   field_service_lede:
     weight: 101
     label: above
@@ -97,13 +116,6 @@ content:
       target: ''
     third_party_settings: {  }
     type: link
-  field_service_ref_details_6:
-    weight: 110
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
   field_service_ref_guide_page_1:
     weight: 114
     label: above
@@ -153,4 +165,6 @@ content:
     type: link
   links:
     weight: 100
+  workbench_moderation_control:
+    weight: -20
 hidden: {  }

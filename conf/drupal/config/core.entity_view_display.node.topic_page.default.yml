@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.node.topic_page.field_topic_bg_narrow
     - field.field.node.topic_page.field_topic_bg_wide
+    - field.field.node.topic_page.field_topic_display_links
     - field.field.node.topic_page.field_topic_lede
     - field.field.node.topic_page.field_topic_ref_content_cards
     - field.field.node.topic_page.field_topic_ref_icon
@@ -35,6 +36,15 @@ content:
       image_link: ''
     third_party_settings: {  }
     type: image
+  field_topic_display_links:
+    weight: 107
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
   field_topic_lede:
     weight: 101
     label: above
@@ -67,4 +77,6 @@ content:
     weight: 100
     settings: {  }
     third_party_settings: {  }
+  workbench_moderation_control:
+    weight: -20
 hidden: {  }

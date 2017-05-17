@@ -4,6 +4,8 @@ namespace Drupal\mass_map;
 
 use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\image\Entity\ImageStyle;
+use Drupal\node\Entity\Node;
+use Drupal\node\Entity;
 
 /**
  * Class MapLocationFetcher.
@@ -64,37 +66,52 @@ class MapLocationFetcher {
     foreach ($nodes as $node) {
       $nid = $node->nid->value;
 
+      // Extract location and address info.
+      if ($node->getType() != 'action' || $node->getType() != 'stacked_layout') {
+        $locations['googleMap']['markers'][$nid] = $this->getLocation($node);
+        $locations['imagePromos']['items'][$nid] = $this->getContacts($node);
+      }
       // Extract location and address info from right rail layout.
       if ($node->getType() == 'action') {
         $locations['googleMap']['markers'][$nid] = $this->getActionLocation($node);
-        $locations['imagePromos'][$nid] = $this->getActionContacts($node);
+        $locations['imagePromos']['items'][$nid] = $this->getActionContacts($node);
       }
       // Extract location and address info from stacked layout.
       if ($node->getType() == 'stacked_layout') {
         $locations['googleMap']['markers'][$nid] = $this->getStackedLayoutLocation($node);
-        $locations['imagePromos'][$nid] = $this->getStackedLayoutContacts($node);
+        $locations['imagePromos']['items'][$nid] = $this->getStackedLayoutContacts($node);
       }
 
-      $locations['googleMap']['markers'][$nid]['infoWindow'] = $locations['imagePromos'][$nid]['infoWindow'];
+      $locations['googleMap']['markers'][$nid]['infoWindow'] = $locations['imagePromos']['items'][$nid]['infoWindow'];
       $locations['googleMap']['markers'][$nid]['infoWindow']['name'] = $node->getTitle();
       $locations['googleMap']['markers'][$nid]['infoWindow']['description'] = $node->field_lede->value;
-      unset($locations['imagePromos'][$nid]['infoWindow']);
+      unset($locations['imagePromos']['items'][$nid]['infoWindow']);
 
       // Get the node title and link.
-      $locations['imagePromos'][$nid]['title'] = [
+      $locations['imagePromos']['items'][$nid]['title'] = [
         'text' => $node->getTitle(),
         'href' => $node->toUrl()->toString(),
         'type' => '',
       ];
 
+      $overview = '';
+
+      if (!empty($node->field_lede->value)) {
+        $overview = $node->field_lede->value;
+      }
+
+      if (!empty($node->field_overview->value)) {
+        $overview = $node->field_overview->value;
+      }
+
       // Get the description for the node.
-      $locations['imagePromos'][$nid]['description'] = [
+      $locations['imagePromos']['items'][$nid]['description']['richText'] = [
         'rteElements' => [
           [
             'path' => '@atoms/11-text/raw-html.twig',
             'data' => [
               'rawHtml' => [
-                'content' => $node->field_lede->value,
+                'content' => $overview,
               ],
             ],
           ],
@@ -102,18 +119,27 @@ class MapLocationFetcher {
       ];
 
       // Get the link for the node.
-      $locations['imagePromos'][$nid]['link'] = [
+      $locations['imagePromos']['items'][$nid]['link'] = [
         'text' => "Directions",
-        'href' => 'https://www.google.com/maps/place/' . $locations['imagePromos'][$nid]['location']['text'],
+        'href' => 'https://www.google.com/maps/place/' . $locations['imagePromos']['items'][$nid]['location']['text'],
         'type' => "external",
         'info' => '',
       ];
 
+      // Phone icon and number.
+      if (!empty($node->field_ref_contact_info_1->entity->field_ref_phone_number->entity->field_phone->value)) {
+        $phone = $node->field_ref_contact_info_1->entity->field_ref_phone_number->entity->field_phone->value;
+        // Get the phone for the node.
+        $locations['imagePromos']['items'][$nid]['phone'] = [
+          'text' => $phone,
+        ];
+      }
+
       // Get image.
-      $locations['imagePromos'][$nid]['image'] = '';
+      $locations['imagePromos']['items'][$nid]['image'] = '';
       if ($node->hasField('field_photo') && $node->get('field_photo')->referencedEntities()) {
         $locations['googleMap']['markers'][$nid]['infoWindow']['image'] = ImageStyle::load('thumbnail_190_107')->buildUrl($node->get('field_photo')->referencedEntities()[0]->getFileUri());
-        $locations['imagePromos'][$nid]['image'] = [
+        $locations['imagePromos']['items'][$nid]['image'] = [
           'image' => ImageStyle::load('thumbnail_190_107')->buildUrl($node->get('field_photo')->referencedEntities()[0]->getFileUri()),
           'text'  => $node->getTitle(),
           'href'  => '',
@@ -122,6 +148,69 @@ class MapLocationFetcher {
     }
 
     return $locations;
+  }
+
+  /**
+   * Get location information from node.
+   *
+   * @param object $node
+   *   Current node.
+   *
+   * @return array
+   *   And array containing the location information.
+   */
+  private function getLocation($node) {
+    $location = [];
+    $index = &drupal_static(__FUNCTION__);
+
+    if (!is_int($index)) {
+      $index = 0;
+    }
+
+    if (!empty($node->field_ref_contact_info_1)) {
+      $contactField = $node->field_ref_contact_info_1;
+      if (!empty($contactField->entity->field_ref_address)) {
+        $addressData = $contactField->entity->field_ref_address;
+
+        $location['lat'] = $addressData->entity->field_lat_long->lat;
+        $location['lon'] = $addressData->entity->field_lat_long->lon;
+      }
+    }
+
+    return [
+      'position' => [
+        'lat' => !empty($location['lat']) ? $location['lat'] : [],
+        'lng' => !empty($location['lon']) ? $location['lon'] : [],
+      ],
+      'label' => ++$index,
+    ];
+  }
+
+  /**
+   * Get address information from node.
+   *
+   * @param object $node
+   *   Current node.
+   *
+   * @return array
+   *   And array containing the address information.
+   */
+  private function getContacts($node) {
+    $contacts = [];
+
+    if (!empty($node->field_ref_contact_info_1)) {
+      foreach ($node->field_ref_contact_info_1 as $entity) {
+        $node = Node::load($entity->target_id);
+        $contacts = [
+          'field_phone' => $node->field_ref_phone_number->entity->field_phone->value,
+          'field_fax' => $node->field_ref_fax_number->entity->field_fax->value,
+          'field_email' => $node->field_ref_links->entity->field_email->value,
+          'field_address' => $node->field_ref_address->entity->field_address_text->value,
+        ];
+      }
+    }
+
+    return $this->formatContacts($contacts);
   }
 
   /**
@@ -369,7 +458,7 @@ class MapLocationFetcher {
       'infoWindow' => [
         'name'     => '',
         'phone'    => isset($contacts['field_phone']) ? $contacts['field_phone'] : '',
-        'fax'      => '',
+        'fax'      => isset($contacts['field_fax']) ? $contacts['field_fax'] : '',
         'email'    => isset($contacts['field_email']) ? $contacts['field_email'] : '',
         'address'  => isset($contacts['field_address']) ? $contacts['field_address'] : '',
       ],

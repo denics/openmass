@@ -572,7 +572,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
             'type' => 'text',
           ),
           array (
-            'field' => 'field-service-ref-details-6',
+            'field' => 'field-service-key-info-links-6',
             'tag' => 'input',
             'type' => 'text',
           ),
@@ -610,6 +610,11 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
             'field' => 'field-service-video',
             'tag' => 'input',
             'type' => 'submit',
+          ),
+          array (
+            'field' => 'field-service-eligibility-info',
+            'tag' => 'input',
+            'type' => 'text',
           ),
         );
         break;

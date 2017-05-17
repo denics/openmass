@@ -26,7 +26,7 @@ Feature: Topic Content type
     And I am viewing a "topic" content:
       | title           | Run the Test Suite   |
       | field_icon_term | Behat Test: Building |
-    Then I am at "topics/run-test-suite"
+    Then I am at "topics/run-the-test-suite"
 
   Scenario: Verify top actions markup is correct
     Given default test content exists

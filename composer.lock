@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "37ea14773440ec27d05f84e21e0101cc",
+    "content-hash": "71281d187030be4cd6209550a1c99e47",
     "packages": [
         {
             "name": "acquia/acquia-sdk-php",
@@ -133,8 +133,7 @@
                 "url": "https://github.com/blakestein/drupal-datalayer-d8.git",
                 "reference": "3b2ffa7"
             },
-            "type": "drupal-module",
-            "time": "2017-01-05 00:00:58"
+            "type": "drupal-module"
         },
         {
             "name": "caxy/php-htmldiff",
@@ -1316,7 +1315,8 @@
             "homepage": "https://www.drupal.org/project/access_unpublished",
             "support": {
                 "source": "http://cgit.drupalcode.org/access_unpublished"
-            }
+            },
+            "time": "2017-01-26 16:59:48"
         },
         {
             "name": "drupal/acquia_connector",
@@ -1698,12 +1698,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/drupal/core.git",
-                "reference": "c63ef7a000bdfe2286cf2eeec6efdf4298dfc6a8"
+                "reference": "7ccc248f4058dd5985ad0c61c129243d0d2b58b8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/drupal/core/zipball/c63ef7a000bdfe2286cf2eeec6efdf4298dfc6a8",
-                "reference": "c63ef7a000bdfe2286cf2eeec6efdf4298dfc6a8",
+                "url": "https://api.github.com/repos/drupal/core/zipball/7ccc248f4058dd5985ad0c61c129243d0d2b58b8",
+                "reference": "7ccc248f4058dd5985ad0c61c129243d0d2b58b8",
                 "shasum": ""
             },
             "require": {
@@ -2674,7 +2674,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/field_group-8.x-1.0-rc6.zip",
-                "reference": null,
+                "reference": "8.x-1.0-rc6",
                 "shasum": "1ce3c6387e745a04a1099956a5bf39bb50096d44"
             },
             "require": {
@@ -3659,20 +3659,15 @@
         },
         {
             "name": "drupal/password_policy",
-            "version": "3.0.0-alpha2",
+            "version": "dev-3.x",
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/password_policy",
-                "reference": "8.x-3.0-alpha2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/password_policy-8.x-3.0-alpha2.zip",
-                "reference": "8.x-3.0-alpha2",
-                "shasum": "606dd464cd8c94169ba0fe44c4c4a1679c7ba26d"
+                "reference": "8ee51e4e58b1b9493867c43ddfecbdac20e04b0c"
             },
             "require": {
-                "drupal/core": "~8.0"
+                "drupal/core": "*",
+                "drupal/ctools": "*"
             },
             "type": "drupal-module",
             "extra": {
@@ -3680,11 +3675,11 @@
                     "dev-3.x": "3.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-3.0-alpha2",
-                    "datestamp": "1488135183"
+                    "version": "8.x-3.0-alpha3+3-dev",
+                    "datestamp": "1488167584"
                 },
                 "patches_applied": {
-                    "Removes field updates from the install file. (https://www.drupal.org/node/2771129#comment-11792230)": "https://www.drupal.org/files/issues/password-policy-remove-install-2771129-5.patch"
+                    "Removes field updates from the install file. (https://www.drupal.org/node/2771129#comment-11954803)": "https://www.drupal.org/files/issues/password-policy-config-import-field-error-2771129-10-D8.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -3713,10 +3708,12 @@
                     "homepage": "https://www.drupal.org/user/14767"
                 }
             ],
+            "description": "Sets up constraints and expiration of passwords.",
             "homepage": "https://www.drupal.org/project/password_policy",
             "support": {
                 "source": "http://cgit.drupalcode.org/password_policy"
-            }
+            },
+            "time": "2017-02-27 15:47:09"
         },
         {
             "name": "drupal/pathauto",
@@ -4360,7 +4357,8 @@
             "homepage": "https://www.drupal.org/project/tfa",
             "support": {
                 "source": "http://cgit.drupalcode.org/tfa"
-            }
+            },
+            "time": "2016-08-23 20:32:20"
         },
         {
             "name": "drupal/token",
@@ -10993,6 +10991,7 @@
         "drupal/inline_entity_form": 20,
         "drupal/node_edit_protection": 20,
         "drupal/paragraphs": 20,
+        "drupal/password_policy": 20,
         "drupal/rabbit_hole": 20,
         "drupal/restrict_by_ip": 20,
         "drupal/security_review": 20,
