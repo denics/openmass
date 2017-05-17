@@ -22,15 +22,10 @@ class ComposerStaticInit72d0a5d5429a1b8a10600f374f2cc034
         '96f8d8288528d52059397cad6ec61f17' => __DIR__ . '/..' . '/mkalkbrenner/php-htmldiff-advanced/src/HtmlDiffAdvanced.php',
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
         'e7223560d890eab89cda23685e711e2c' => __DIR__ . '/..' . '/psy/psysh/src/Psy/functions.php',
-        'd9d39f82a605ebe5918f683dd402334c' => __DIR__ . '/..' . '/padraic/humbug_get_contents/src/function.php',
-        'decc78cc4436b1292c6c0d151b19445c' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/bootstrap.php',
+        '5a12a5271c58108e0aa33355e6ac54ea' => __DIR__ . '/..' . '/drupal/console-core/src/functions.php',
     );
 
     public static $prefixLengthsPsr4 = array (
-        'p' => 
-        array (
-            'phpseclib\\' => 10,
-        ),
         'c' => 
         array (
             'cweagans\\Composer\\' => 18,
@@ -68,6 +63,7 @@ class ComposerStaticInit72d0a5d5429a1b8a10600f374f2cc034
             'Symfony\\Component\\HttpFoundation\\' => 33,
             'Symfony\\Component\\Finder\\' => 25,
             'Symfony\\Component\\Filesystem\\' => 29,
+            'Symfony\\Component\\ExpressionLanguage\\' => 37,
             'Symfony\\Component\\EventDispatcher\\' => 34,
             'Symfony\\Component\\DomCrawler\\' => 29,
             'Symfony\\Component\\DependencyInjection\\' => 38,
@@ -114,11 +110,6 @@ class ComposerStaticInit72d0a5d5429a1b8a10600f374f2cc034
         array (
             'JsonSchema\\' => 11,
         ),
-        'H' => 
-        array (
-            'Humbug\\SelfUpdate\\' => 18,
-            'Humbug\\' => 7,
-        ),
         'G' => 
         array (
             'GuzzleHttp\\Psr7\\' => 16,
@@ -130,6 +121,8 @@ class ComposerStaticInit72d0a5d5429a1b8a10600f374f2cc034
         array (
             'Drupal\\Driver\\' => 14,
             'Drupal\\Core\\' => 12,
+            'Drupal\\Console\\Core\\' => 20,
+            'Drupal\\Console\\Composer\\Plugin\\' => 31,
             'Drupal\\Console\\' => 15,
             'Drupal\\Component\\' => 17,
             'DrupalComposer\\DrupalScaffold\\' => 30,
@@ -158,10 +151,6 @@ class ComposerStaticInit72d0a5d5429a1b8a10600f374f2cc034
     );
 
     public static $prefixDirsPsr4 = array (
-        'phpseclib\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib',
-        ),
         'cweagans\\Composer\\' => 
         array (
             0 => __DIR__ . '/..' . '/cweagans/composer-patches/src',
@@ -253,6 +242,10 @@ class ComposerStaticInit72d0a5d5429a1b8a10600f374f2cc034
         'Symfony\\Component\\Filesystem\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/filesystem',
+        ),
+        'Symfony\\Component\\ExpressionLanguage\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/expression-language',
         ),
         'Symfony\\Component\\EventDispatcher\\' => 
         array (
@@ -362,14 +355,6 @@ class ComposerStaticInit72d0a5d5429a1b8a10600f374f2cc034
         array (
             0 => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema',
         ),
-        'Humbug\\SelfUpdate\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/padraic/phar-updater/src',
-        ),
-        'Humbug\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/padraic/humbug_get_contents/src/Humbug',
-        ),
         'GuzzleHttp\\Psr7\\' => 
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/psr7/src',
@@ -393,6 +378,14 @@ class ComposerStaticInit72d0a5d5429a1b8a10600f374f2cc034
         'Drupal\\Core\\' => 
         array (
             0 => __DIR__ . '/../..' . '/docroot/core/lib/Drupal/Core',
+        ),
+        'Drupal\\Console\\Core\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/drupal/console-core/src',
+        ),
+        'Drupal\\Console\\Composer\\Plugin\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/drupal/console-extend-plugin/src',
         ),
         'Drupal\\Console\\' => 
         array (
@@ -649,6 +642,10 @@ class ComposerStaticInit72d0a5d5429a1b8a10600f374f2cc034
             array (
                 0 => __DIR__ . '/..' . '/doctrine/common/lib',
             ),
+            'Dflydev\\PlaceholderResolver' => 
+            array (
+                0 => __DIR__ . '/..' . '/dflydev/placeholder-resolver/src',
+            ),
             'Dflydev\\EmbeddedComposer\\Core' => 
             array (
                 0 => __DIR__ . '/..' . '/dflydev/embedded-composer-core',
@@ -656,6 +653,14 @@ class ComposerStaticInit72d0a5d5429a1b8a10600f374f2cc034
             'Dflydev\\EmbeddedComposer\\Console' => 
             array (
                 0 => __DIR__ . '/..' . '/dflydev/embedded-composer-console',
+            ),
+            'Dflydev\\DotAccessData' => 
+            array (
+                0 => __DIR__ . '/..' . '/dflydev/dot-access-data/src',
+            ),
+            'Dflydev\\DotAccessConfiguration' => 
+            array (
+                0 => __DIR__ . '/..' . '/dflydev/dot-access-configuration/src',
             ),
         ),
         'C' => 
@@ -824,6 +829,7 @@ class ComposerStaticInit72d0a5d5429a1b8a10600f374f2cc034
         'DocBlox_Parallel_Worker' => __DIR__ . '/..' . '/phing/phing/classes/phing/contrib/DocBlox/Parallel/Worker.php',
         'DocBlox_Parallel_WorkerPipe' => __DIR__ . '/..' . '/phing/phing/classes/phing/contrib/DocBlox/Parallel/WorkerPipe.php',
         'Drupal' => __DIR__ . '/../..' . '/docroot/core/lib/Drupal.php',
+        'DrupalFinder\\DrupalFinder' => __DIR__ . '/..' . '/webflo/drupal-finder/src/DrupalFinder.php',
         'Drupal\\Component\\Utility\\Timer' => __DIR__ . '/../..' . '/docroot/core/lib/Drupal/Component/Utility/Timer.php',
         'Drupal\\Component\\Utility\\Unicode' => __DIR__ . '/../..' . '/docroot/core/lib/Drupal/Component/Utility/Unicode.php',
         'Drupal\\Core\\Database\\Database' => __DIR__ . '/../..' . '/docroot/core/lib/Drupal/Core/Database/Database.php',

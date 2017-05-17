@@ -7,19 +7,36 @@
 
 namespace Drupal\Console\Command\Multisite;
 
-use Drupal\Console\Command\Command;
-use Drupal\Console\Style\DrupalStyle;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Command\Command;
+use Drupal\Console\Core\Command\Shared\CommandTrait;
+use Drupal\Console\Core\Style\DrupalStyle;
 
 /**
  * Class SiteDebugCommand
+ *
  * @package Drupal\Console\Command\Site
  */
 class DebugCommand extends Command
 {
+    use CommandTrait;
+
+    protected $appRoot;
+
     /**
-     * @{@inheritdoc}
+     * DebugCommand constructor.
+     *
+     * @param $appRoot
+     */
+    public function __construct($appRoot)
+    {
+        $this->appRoot = $appRoot;
+        parent::__construct();
+    }
+
+    /**
+     * {@inheritdoc}
      */
     public function configure()
     {
@@ -41,7 +58,7 @@ class DebugCommand extends Command
 
         $multiSiteFile = sprintf(
             '%s/sites/sites.php',
-            $this->getDrupalHelper()->getRoot()
+            $this->appRoot
         );
 
         if (file_exists($multiSiteFile)) {
@@ -53,7 +70,7 @@ class DebugCommand extends Command
                 $this->trans('commands.multisite.debug.messages.no-multisites')
             );
 
-            return;
+            return 1;
         }
 
         $io->info(
@@ -69,10 +86,12 @@ class DebugCommand extends Command
         foreach ($sites as $site => $directory) {
             $tableRows[] = [
                 $site,
-                $this->getDrupalHelper()->getRoot()  . '/' . $directory
+                $this->appRoot  . '/sites/' . $directory
             ];
         }
 
         $io->table($tableHeader, $tableRows);
+
+        return 0;
     }
 }
