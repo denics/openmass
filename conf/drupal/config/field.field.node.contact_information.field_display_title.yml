@@ -10,7 +10,7 @@ field_name: field_display_title
 entity_type: node
 bundle: contact_information
 label: 'Display Title'
-description: 'The title that will be displayed when the context calls for the title to be visible.'
+description: ''
 required: true
 translatable: false
 default_value: {  }
