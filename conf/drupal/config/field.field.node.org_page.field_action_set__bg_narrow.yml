@@ -12,7 +12,7 @@ field_name: field_action_set__bg_narrow
 entity_type: node
 bundle: org_page
 label: 'Background Image (Mobile)'
-description: 'An optional mobile background image for the ''Action Set'' element. Needs to be a minimum of 800x800.'
+description: 'An optional mobile background image for the Services area. Needs to be a minimum of 800x800.'
 required: false
 translatable: false
 default_value: {  }

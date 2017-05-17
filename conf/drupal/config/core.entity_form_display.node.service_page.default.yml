@@ -129,10 +129,11 @@ third_party_settings:
       weight: 20
       format_type: fieldset
       format_settings:
+        label: 'What would you like to do?'
+        description: 'This section provides links to all transactions related to this service.'
+        required_fields: true
         id: ''
         classes: ''
-        description: ''
-        required_fields: true
       label: 'What would you like to do?'
     group_what_you_need_to_know:
       children:
@@ -141,10 +142,11 @@ third_party_settings:
       weight: 21
       format_type: fieldset
       format_settings:
+        label: 'What you need to know'
+        description: 'This section provides links to key information needed to use this service.'
+        required_fields: true
         id: ''
         classes: ''
-        description: ''
-        required_fields: true
       label: 'What you need to know'
     group_additional_resources:
       children:

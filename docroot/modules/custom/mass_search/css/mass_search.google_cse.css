@@ -151,9 +151,11 @@ form.gsc-search-box,
   what page we are on.  In our search results js we add the search results-page to the
   body tag because here and only here, the mobile search form is first, semantically.
   On all other pages, the mobile search form is second, after the global header form. */
-body.not-front:not(.search-results-page) .gstl_51.gssb_c[style],
-body.search-results-page .gstl_50.gssb_c[style] {
-  left: calc(100% + 10px) !important; /* 1 */
+
+body.not-front:not(.search-results-page) .gstl_51.gssb_c,
+body.is-front .gstl_50.gssb_c,
+body.search-results-page .gstl_50.gssb_c {
+  left: calc(100% + 20px) !important; /* 1 */
 }
 
 .gssb_e {

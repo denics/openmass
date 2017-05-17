@@ -12,7 +12,7 @@ field_name: field_service_key_info_links_6
 entity_type: node
 bundle: service_page
 label: 'Key information links'
-description: 'Select up to 6 guides, service detail pages, or listing pages.'
+description: 'Select up to 6 guides, service detail pages, or listing pages on Mass.gov that are important to this service.'
 required: false
 translatable: false
 default_value: {  }
