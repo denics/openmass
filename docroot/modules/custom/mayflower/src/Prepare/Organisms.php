@@ -1105,6 +1105,7 @@ class Organisms {
         'image' => ['field_image'],
         'title' => ['field_title'],
         'lede' => ['field_lede', 'field_teaser'],
+        'link' => ['field_ref_location_details_page'],
       ];
 
       // Determines which fieldnames to use from the map.

@@ -132,14 +132,15 @@ class Molecules {
    *   Return a structured array.
    */
   public static function prepareImagePromo($entity, array $fields) {
-
     $imagePromo = [];
+    $href = !empty($entity->$fields['link']->entity) ? $entity->$fields['link']->entity->toURL()->toString() : [];
+
     if (array_key_exists('image', $fields)) {
       if (Helper::isFieldPopulated($entity, $fields['image'])) {
         $imagePromo['image'] = [
           'src' => Helper::getFieldImageUrl($entity, 'activities_image', $fields['image']),
           'alt' => $entity->$fields['image']->alt,
-          'href' => '',
+          'href' => $href,
         ];
       }
     }
@@ -148,7 +149,7 @@ class Molecules {
       if (Helper::isFieldPopulated($entity, $fields['title'])) {
         $imagePromo['title'] = [
           'text' => Helper::fieldValue($entity, $fields['title']),
-          'href' => '',
+          'href' => $href,
         ];
       }
     }
@@ -157,6 +158,17 @@ class Molecules {
       if (Helper::isFieldPopulated($entity, $fields['lede'])) {
         $imagePromo['description'] = [
           'richText' => Atoms::preparePageContentParagraph($entity->$fields['lede']),
+        ];
+      }
+    }
+
+    if (array_key_exists('link', $fields)) {
+      if (Helper::isFieldPopulated($entity, $fields['link'])) {
+        $imagePromo['link'] = [
+          'text' => 'More',
+          'href' => $href,
+          'type' => 'chevron',
+          'info' => t('Read More about @activity', ['@activity' => Helper::fieldValue($entity, $fields['title'])]),
         ];
       }
     }

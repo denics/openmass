@@ -735,7 +735,25 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
           ),
         );
         break;
-
+      case "location_details":
+        $fields = array (
+          array (
+            'field' => 'field-location-details-links-5',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-location-details-sections',
+            'tag' => 'input',
+            'type' => 'submit',
+          ),
+          array (
+            'field' => 'field-location-details-lede',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+        );
+        break;
     }
     foreach ($fields as $row) {
       // Get all IDs that start with our field name. D8 prints fields
@@ -965,6 +983,26 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
           ),
           array (
             'field' => 'field-next-step-title',
+            'widget' => 'Textfield',
+          ),
+        );
+        break;
+      case "section":
+        $fields = array (
+          array (
+            'field' => 'field-section-downloads',
+            'widget' => 'Inline entity form - Complex',
+          ),
+          array (
+            'field' => 'field-section-links',
+            'widget' => 'Link',
+          ),
+          array (
+            'field' => 'field-section-body',
+            'widget' => 'Text area (multiple rows)',
+          ),
+          array (
+            'field' => 'field-section-title',
             'widget' => 'Textfield',
           ),
         );

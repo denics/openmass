@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.paragraph.recommended_activity.field_image
     - field.field.paragraph.recommended_activity.field_lede
+    - field.field.paragraph.recommended_activity.field_ref_location_details_page
     - field.field.paragraph.recommended_activity.field_title
     - image.style.thumbnail
     - paragraphs.paragraphs_type.recommended_activity
@@ -30,6 +31,14 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+  field_ref_location_details_page:
+    weight: 9
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
   field_title:
     weight: 6
     settings:

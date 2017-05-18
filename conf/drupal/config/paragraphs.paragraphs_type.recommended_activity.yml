@@ -4,3 +4,5 @@ status: true
 dependencies: {  }
 id: recommended_activity
 label: 'Recommended Activity'
+icon_uuid: null
+behavior_plugins: {  }
