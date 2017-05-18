@@ -3,7 +3,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - entity_browser.browser.browse_files_modal
     - field.field.node.org_page.body
     - field.field.node.org_page.field_action_set__bg_narrow
     - field.field.node.org_page.field_action_set__bg_wide
@@ -25,7 +24,6 @@ dependencies:
     - image.style.thumbnail
     - node.type.org_page
   module:
-    - entity_browser
     - field_group
     - image
     - link
@@ -160,27 +158,17 @@ content:
   field_action_set__bg_narrow:
     weight: 25
     settings:
-      entity_browser: browse_files_modal
-      field_widget_remove: true
-      open: true
-      selection_mode: selection_append
       preview_image_style: thumbnail
-      field_widget_edit: true
-      view_mode: default
+      progress_indicator: throbber
     third_party_settings: {  }
-    type: entity_browser_file
+    type: image_image
   field_action_set__bg_wide:
     weight: 24
     settings:
-      entity_browser: browse_files_modal
-      field_widget_remove: true
-      open: true
-      selection_mode: selection_append
       preview_image_style: thumbnail
-      field_widget_edit: true
-      view_mode: default
+      progress_indicator: throbber
     third_party_settings: {  }
-    type: entity_browser_file
+    type: image_image
   field_bg_narrow:
     weight: 23
     settings:
@@ -265,15 +253,10 @@ content:
   field_sub_brand:
     weight: 30
     settings:
-      entity_browser: browse_files_modal
-      field_widget_remove: true
-      selection_mode: selection_append
       preview_image_style: thumbnail
-      field_widget_edit: true
-      open: false
-      view_mode: default
+      progress_indicator: throbber
     third_party_settings: {  }
-    type: entity_browser_file
+    type: image_image
   field_sub_title:
     weight: 29
     settings:
