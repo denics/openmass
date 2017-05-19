@@ -3,7 +3,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - entity_browser.browser.browse_files_modal
     - field.field.node.org_page.body
     - field.field.node.org_page.field_action_set__bg_narrow
     - field.field.node.org_page.field_action_set__bg_wide
@@ -11,6 +10,7 @@ dependencies:
     - field.field.node.org_page.field_bg_wide
     - field.field.node.org_page.field_link
     - field.field.node.org_page.field_metatags
+    - field.field.node.org_page.field_org_ref_locations
     - field.field.node.org_page.field_ref_actions_3
     - field.field.node.org_page.field_ref_actions_6
     - field.field.node.org_page.field_ref_card_view_6
@@ -21,10 +21,11 @@ dependencies:
     - field.field.node.org_page.field_sub_brand
     - field.field.node.org_page.field_sub_title
     - field.field.node.org_page.field_title_sub_text
+    - image.style.thumbnail
     - node.type.org_page
   module:
-    - entity_browser
     - field_group
+    - image
     - link
     - metatag
     - text
@@ -36,6 +37,7 @@ third_party_settings:
         - group_banner
         - group_overview
         - group_actions
+        - group_map
         - group_other
       parent_name: ''
       weight: 0
@@ -51,12 +53,10 @@ third_party_settings:
         - field_ref_contact_info_1
         - field_bg_wide
         - field_bg_narrow
-        - field_ref_contact_info_1
       parent_name: group_node_edit_form
       weight: 20
       format_type: tab
       format_settings:
-        label: 'Title Banner'
         formatter: closed
         description: ''
         required_fields: true
@@ -71,16 +71,15 @@ third_party_settings:
         - field_ref_actions_6
         - field_link
       parent_name: group_node_edit_form
-      weight: 23
+      weight: 22
       format_type: tab
       format_settings:
-        label: Actions
         formatter: closed
-        description: 'This large, visual element will help call attention to specific actions that constituents may wish to take. You can feature up to 3 actions and list a total of 6 others. See <a href="http://mayflower.digital.mass.gov/?p=organisms-action-finder" target="_blank">here</a> for an example of what this element looks like.'
+        description: 'This large, visual element will help call attention to top services that constituents may need. You can feature up to 3 and list a total of 6 others.'
         required_fields: true
         id: ''
         classes: ''
-      label: Actions
+      label: 'Services Offered'
     group_other:
       children:
         - field_ref_card_view_6
@@ -103,7 +102,7 @@ third_party_settings:
         - body
         - field_social_links
       parent_name: group_node_edit_form
-      weight: 22
+      weight: 21
       format_type: tab
       format_settings:
         id: ''
@@ -130,6 +129,19 @@ third_party_settings:
         effect: none
         speed: fast
       label: 'Organization name'
+    group_map:
+      children:
+        - field_org_ref_locations
+      parent_name: group_node_edit_form
+      weight: 23
+      format_type: tab
+      format_settings:
+        id: ''
+        classes: ''
+        formatter: closed
+        description: ''
+        required_fields: true
+      label: Map
 id: node.org_page.default
 targetEntityType: node
 bundle: org_page
@@ -146,51 +158,31 @@ content:
   field_action_set__bg_narrow:
     weight: 25
     settings:
-      entity_browser: browse_files_modal
-      field_widget_remove: true
-      open: true
-      selection_mode: selection_append
       preview_image_style: thumbnail
-      field_widget_edit: true
-      view_mode: default
+      progress_indicator: throbber
     third_party_settings: {  }
-    type: entity_browser_file
+    type: image_image
   field_action_set__bg_wide:
     weight: 24
     settings:
-      entity_browser: browse_files_modal
-      field_widget_remove: true
-      open: true
-      selection_mode: selection_append
       preview_image_style: thumbnail
-      field_widget_edit: true
-      view_mode: default
+      progress_indicator: throbber
     third_party_settings: {  }
-    type: entity_browser_file
+    type: image_image
   field_bg_narrow:
     weight: 23
     settings:
-      entity_browser: browse_files_modal
-      field_widget_remove: true
-      open: true
-      selection_mode: selection_append
       preview_image_style: thumbnail
-      field_widget_edit: true
-      view_mode: default
+      progress_indicator: throbber
     third_party_settings: {  }
-    type: entity_browser_file
+    type: image_image
   field_bg_wide:
     weight: 22
     settings:
-      entity_browser: browse_files_modal
-      field_widget_remove: true
-      open: true
-      selection_mode: selection_append
       preview_image_style: thumbnail
-      field_widget_edit: true
-      view_mode: default
+      progress_indicator: throbber
     third_party_settings: {  }
-    type: entity_browser_file
+    type: image_image
   field_link:
     weight: 28
     settings:
@@ -203,6 +195,14 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: metatag_firehose
+  field_org_ref_locations:
+    weight: 33
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
   field_ref_actions_3:
     weight: 26
     settings:
@@ -253,15 +253,10 @@ content:
   field_sub_brand:
     weight: 30
     settings:
-      entity_browser: browse_files_modal
-      field_widget_remove: true
-      selection_mode: selection_append
       preview_image_style: thumbnail
-      field_widget_edit: true
-      open: false
-      view_mode: default
+      progress_indicator: throbber
     third_party_settings: {  }
-    type: entity_browser_file
+    type: image_image
   field_sub_title:
     weight: 29
     settings:

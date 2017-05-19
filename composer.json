@@ -125,6 +125,7 @@
         "drupal/components": "^1",
         "drupal/config_installer": "^1",
         "drupal/config_log": "^1",
+        "drupal/console": "~1.0",
         "drupal/core": "8.2.8",
         "drupal/crazyegg": "^1",
         "drupal/diff": "1.x-dev",
@@ -149,7 +150,7 @@
         "drupal/migrate_tools": "^3",
         "drupal/node_edit_protection": "1.x-dev",
         "drupal/paragraphs": "1.x-dev",
-        "drupal/password_policy": "3.0-alpha2",
+        "drupal/password_policy": "3.x-dev",
         "drupal/pathauto": "^1",
         "drupal/rabbit_hole": "1.x-dev",
         "drupal/redirect": "^1",
@@ -179,7 +180,6 @@
         "composer/composer": "@dev",
         "dflydev/embedded-composer-console": "@dev",
         "dflydev/embedded-composer-core": "@dev",
-        "drupal/console": "^0.11.3",
         "drupal/devel": "1.x-dev",
         "drupal/drupal-extension": "^3.1",
         "drush/drush": "8.1.10",
@@ -228,7 +228,7 @@
               "Configure crazyegg for specific pages. (https://www.drupal.org/node/2812783)": "https://www.drupal.org/files/issues/2812783-configure-for-specific-pages.patch"
             },
             "drupal/password_policy": {
-              "Removes field updates from the install file. (https://www.drupal.org/node/2771129#comment-11792230)": "https://www.drupal.org/files/issues/password-policy-remove-install-2771129-5.patch"
+              "Removes field updates from the install file. (https://www.drupal.org/node/2771129#comment-11954803)": "https://www.drupal.org/files/issues/password-policy-config-import-field-error-2771129-10-D8.patch"
             },
             "drupal/tfa": {
                 "Drush sanitize plugin for TFA user data. (https://www.drupal.org/node/2862312)": "https://www.drupal.org/files/issues/drush_27.patch"

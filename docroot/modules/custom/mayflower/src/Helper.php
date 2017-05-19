@@ -2,6 +2,7 @@
 
 namespace Drupal\mayflower;
 
+use Drupal\Core\Url;
 use Drupal\Component\Utility\UrlHelper;
 use Drupal\image\Entity\ImageStyle;
 use Drupal\mayflower\Prepare\Molecules;
@@ -180,9 +181,20 @@ class Helper {
    */
   public static function separatedLink($link) {
     $url = $link->getUrl();
+
+    $text = $link->getValue()['title'];
+
+    // If there is no title on an internal item, load the referenced node title.
+    if (empty($text) && strpos($link->getValue()['uri'], 'entity:node') !== FALSE) {
+      $params = Url::fromUri("internal:" . $url->toString())->getRouteParameters();
+      $entity_type = key($params);
+      $entity = \Drupal::entityTypeManager()->getStorage($entity_type)->load($params[$entity_type]);
+      $text = $entity->getTitle();
+    }
+
     return [
       'image' => '',
-      'text' => $link->getValue()['title'],
+      'text' => $text,
       'type' => (UrlHelper::isExternal($url->toString())) ? 'external' : 'internal',
       'href' => $url->toString(),
       'url' => $url->toString(),

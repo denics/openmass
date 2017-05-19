@@ -26,6 +26,7 @@ class {{ entity_class }}ListBuilder extends EntityListBuilder {% endblock %}
   use LinkGeneratorTrait;
 {% endblock %}
 {% block class_methods %}
+
   /**
    * {@inheritdoc}
    */
@@ -44,9 +45,9 @@ class {{ entity_class }}ListBuilder extends EntityListBuilder {% endblock %}
     $row['name'] = $this->l(
       $entity->label(),
       new Url(
-        'entity.{{ entity_name }}.edit_form', array(
+        'entity.{{ entity_name }}.edit_form', [
           '{{ entity_name }}' => $entity->id(),
-        )
+        ]
       )
     );
     return $row + parent::buildRow($entity);

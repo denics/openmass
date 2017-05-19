@@ -335,6 +335,10 @@ class Molecules {
 
     if ($fields['links']) {
       $links = Helper::separatedLinks($entity, $fields['links']);
+      if (in_array($entity->getType(), $options['use4TopLinks'])) {
+        // Only show top 4 links.
+        $links = array_slice($links, 0, 4);
+      }
     }
 
     $seeAll = [
@@ -345,14 +349,14 @@ class Molecules {
     // Different options for topic_page, org_page, and service_page.
     return [
       'id' => 'section_link_' . $index,
-      'catIcon' => $icon,
+      'catIcon' => in_array($entity->getType(), $options['useIcon']) ? $icon : '',
       'title' => [
         'href' => $entity->toURL()->toString(),
         'text' => $entity->getTitle(),
       ],
       'description' => Helper::fieldValue($entity, $fields['text']),
       'type' => in_array($entity->getType(), $options['useCallout']) ? 'callout' : '',
-      'links' => $links,
+      'links' => in_array($entity->getType(), $options['noCardLinks']) ? '' : $links,
       'seeAll' => in_array($entity->getType(), $options['noSeeAll']) ? '' : $seeAll,
     ];
   }

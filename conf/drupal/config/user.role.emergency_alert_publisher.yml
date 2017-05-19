@@ -4,7 +4,7 @@ status: true
 dependencies: {  }
 id: emergency_alert_publisher
 label: 'Emergency Alert Publisher'
-weight: -5
+weight: -6
 is_admin: null
 permissions:
   - 'create emergency_alerts content'

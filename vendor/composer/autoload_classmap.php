@@ -116,6 +116,7 @@ return array(
     'DocBlox_Parallel_Worker' => $vendorDir . '/phing/phing/classes/phing/contrib/DocBlox/Parallel/Worker.php',
     'DocBlox_Parallel_WorkerPipe' => $vendorDir . '/phing/phing/classes/phing/contrib/DocBlox/Parallel/WorkerPipe.php',
     'Drupal' => $baseDir . '/docroot/core/lib/Drupal.php',
+    'DrupalFinder\\DrupalFinder' => $vendorDir . '/webflo/drupal-finder/src/DrupalFinder.php',
     'Drupal\\Component\\Utility\\Timer' => $baseDir . '/docroot/core/lib/Drupal/Component/Utility/Timer.php',
     'Drupal\\Component\\Utility\\Unicode' => $baseDir . '/docroot/core/lib/Drupal/Component/Utility/Unicode.php',
     'Drupal\\Core\\Database\\Database' => $baseDir . '/docroot/core/lib/Drupal/Core/Database/Database.php',

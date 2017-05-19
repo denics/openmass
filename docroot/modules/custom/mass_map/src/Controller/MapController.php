@@ -49,7 +49,7 @@ class MapController extends ControllerBase {
    * Get a list of location ids from the parent id.
    *
    * @param int $id
-   *   The nid that contains a map row paragraph.
+   *   The nid that contains a map row paragraph or location nids.
    *
    * @return array
    *   A list of location node ids.
@@ -58,6 +58,10 @@ class MapController extends ControllerBase {
     // Get Locations from the given subtopic.
     $node_storage = \Drupal::entityManager()->getStorage('node');
     $node = $node_storage->load($id);
+
+    $locationIds = [];
+
+    $locationIds = $this->getLocationIds($node);
 
     // Extract location info from right rail layout.
     if ($node->getType() == 'action') {
@@ -124,6 +128,26 @@ class MapController extends ControllerBase {
             }
           }
         }
+      }
+    }
+    return $locationIds;
+  }
+
+  /**
+   * Get location ids from node.
+   *
+   * @param object $node
+   *   Current node.
+   *
+   * @return array
+   *   And array containing location ids.
+   */
+  private function getLocationIds($node) {
+    $locationIds = [];
+
+    if (!empty($node->field_org_ref_locations)) {
+      foreach ($node->field_org_ref_locations as $entity) {
+        $locationIds[] = $entity->target_id;
       }
     }
     return $locationIds;

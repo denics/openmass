@@ -3,16 +3,16 @@ langcode: en
 status: true
 dependencies:
   config:
-    - entity_browser.browser.browse_files_modal
     - field.field.node.service_page.field_service_bg_narrow
     - field.field.node.service_page.field_service_bg_wide
     - field.field.node.service_page.field_service_body
+    - field.field.node.service_page.field_service_eligibility_info
     - field.field.node.service_page.field_service_file
+    - field.field.node.service_page.field_service_key_info_links_6
     - field.field.node.service_page.field_service_lede
     - field.field.node.service_page.field_service_links
     - field.field.node.service_page.field_service_ref_actions
     - field.field.node.service_page.field_service_ref_actions_2
-    - field.field.node.service_page.field_service_ref_details_6
     - field.field.node.service_page.field_service_ref_guide_page_1
     - field.field.node.service_page.field_service_ref_locations
     - field.field.node.service_page.field_service_ref_services_6
@@ -22,7 +22,6 @@ dependencies:
     - image.style.thumbnail
     - node.type.service_page
   module:
-    - entity_browser
     - entity_browser_entity_form
     - field_group
     - image
@@ -70,6 +69,7 @@ third_party_settings:
         - field_service_sub_brand
         - field_services_social_links
         - field_service_ref_guide_page_1
+        - field_service_eligibility_info
       parent_name: group_service_edit_form
       weight: 21
       format_type: tab
@@ -98,7 +98,7 @@ third_party_settings:
       children:
         - field_service_ref_locations
       parent_name: group_service_edit_form
-      weight: 23
+      weight: 24
       format_type: tab
       format_settings:
         id: ''
@@ -112,7 +112,7 @@ third_party_settings:
         - field_service_ref_services_6
         - group_additional_resources
       parent_name: group_service_edit_form
-      weight: 24
+      weight: 25
       format_type: tab
       format_settings:
         id: ''
@@ -129,29 +129,31 @@ third_party_settings:
       weight: 20
       format_type: fieldset
       format_settings:
+        label: 'What would you like to do?'
+        description: 'This section provides links to all transactions related to this service.'
+        required_fields: true
         id: ''
         classes: ''
-        description: ''
-        required_fields: true
       label: 'What would you like to do?'
     group_what_you_need_to_know:
       children:
-        - field_service_ref_details_6
+        - field_service_key_info_links_6
       parent_name: group_tasks_key_info
       weight: 21
       format_type: fieldset
       format_settings:
+        label: 'What you need to know'
+        description: 'This section provides links to key information needed to use this service.'
+        required_fields: true
         id: ''
         classes: ''
-        description: ''
-        required_fields: true
       label: 'What you need to know'
     group_additional_resources:
       children:
         - field_service_links
         - field_service_file
       parent_name: group_additional_info
-      weight: 42
+      weight: 44
       format_type: fieldset
       format_settings:
         id: ''
@@ -172,27 +174,17 @@ content:
   field_service_bg_narrow:
     weight: -2
     settings:
-      entity_browser: browse_files_modal
-      field_widget_remove: true
-      open: true
-      selection_mode: selection_append
       preview_image_style: thumbnail
-      field_widget_edit: true
-      view_mode: default
+      progress_indicator: throbber
     third_party_settings: {  }
-    type: entity_browser_file
+    type: image_image
   field_service_bg_wide:
     weight: -3
     settings:
-      entity_browser: browse_files_modal
-      field_widget_remove: true
-      open: true
-      selection_mode: selection_append
       preview_image_style: thumbnail
-      field_widget_edit: true
-      view_mode: default
+      progress_indicator: throbber
     third_party_settings: {  }
-    type: entity_browser_file
+    type: image_image
   field_service_body:
     weight: 34
     settings:
@@ -200,6 +192,14 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textarea
+  field_service_eligibility_info:
+    weight: 39
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
   field_service_file:
     weight: 43
     settings:
@@ -216,6 +216,13 @@ content:
       entity_browser_entity_form:
         entity_browser_id: media_browser
     type: inline_entity_form_complex
+  field_service_key_info_links_6:
+    weight: 22
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
   field_service_lede:
     weight: -4
     settings:
@@ -244,14 +251,6 @@ content:
       placeholder_title: ''
     third_party_settings: {  }
     type: link_default
-  field_service_ref_details_6:
-    weight: 40
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: entity_reference_autocomplete
   field_service_ref_guide_page_1:
     weight: 38
     settings:
@@ -269,7 +268,7 @@ content:
     third_party_settings: {  }
     type: entity_reference_autocomplete
   field_service_ref_services_6:
-    weight: 41
+    weight: 43
     settings:
       match_operator: CONTAINS
       size: 60

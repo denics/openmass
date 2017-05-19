@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.org_page.field_bg_wide
     - field.field.node.org_page.field_link
     - field.field.node.org_page.field_metatags
+    - field.field.node.org_page.field_org_ref_locations
     - field.field.node.org_page.field_ref_actions_3
     - field.field.node.org_page.field_ref_actions_6
     - field.field.node.org_page.field_ref_card_view_6
@@ -80,6 +81,13 @@ content:
       target: ''
     third_party_settings: {  }
     type: link_separate
+  field_org_ref_locations:
+    weight: 117
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
   field_ref_actions_3:
     weight: 111
     label: hidden

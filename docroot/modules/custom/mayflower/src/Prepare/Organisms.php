@@ -843,11 +843,19 @@ class Organisms {
       $contact_entities = array_merge(Helper::getReferencedEntitiesFromField($entity, $fields['contact_info']), $contact_entities);
     }
 
-    $googleMap = Molecules::prepareGoogleMapFromContacts($contact_entities);
+    $link = [
+      'href' => '/map/' . $options['locationDetailsLink']['nid'],
+      'text' => t('Location Details'),
+      'chevron' => 'true',
+    ];
 
     $heading = isset($options['heading']) ? Helper::buildHeading($options['heading']) : [];
 
-    return array_merge($heading, ['googleMap' => $googleMap]);
+    $link = isset($options['locationDetailsLink']['display']) ? $link : [];
+
+    $googleMap = Molecules::prepareGoogleMapFromContacts($contact_entities);
+
+    return array_merge($heading, ['googleMap' => $googleMap, 'link' => $link]);
   }
 
   /**
