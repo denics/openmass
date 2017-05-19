@@ -773,7 +773,7 @@ function mass_theme_preprocess_node_service_page(&$variables) {
   }
 
   // Prepare the First Time? key actions component, if field is populated.
-  if (Helper::isFieldPopulated($node, 'field_service_ref_guide_page_1')) {
+  if (Helper::isFieldPopulated($node, 'field_service_ref_guide_page_1') || Helper::isFieldPopulated($node, 'field_service_eligibility_info')) {
 
     // Set up static options for key actions component.
     // @TODO see if we can use this field label instead of hard coding text.
@@ -785,6 +785,12 @@ function mass_theme_preprocess_node_service_page(&$variables) {
 
     // Append the keyActions data structure to introPageContent.
     $intro_page_content['keyActions'] = Organisms::prepareKeyActions($node, 'field_service_ref_guide_page_1', $keyActions_options);
+    $eligibilityInfo = Organisms::prepareKeyActions($node, 'field_service_eligibility_info', $keyActions_options);
+
+    foreach ($eligibilityInfo['links'] as $index => $eligibilityLink) {
+      $eligibilityLink['text'] = t('Check eligibility');
+      $intro_page_content['keyActions']['links'][] = $eligibilityLink;
+    }
   }
 
   // Make the introPageContent data structure available in twig template.
