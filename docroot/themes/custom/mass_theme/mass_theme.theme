@@ -238,6 +238,21 @@ function mass_theme_preprocess_node_how_to_page(&$variables) {
 
   }
 
+  // Build methods tabular data if field is populated.
+  if (Helper::isFieldPopulated($node, 'field_how_to_ref_fees')) {
+    // Set up options for how to ___.
+    $tabularData_options = [
+      'heading' => [
+        'type' => 'compHeading',
+        'title' => t('Fees'),
+        'sub' => TRUE,
+      ],
+    ];
+
+    $pageContent['tabularData'] = Organisms::prepareTabularData($node, $tabularData_options);
+
+  }
+
   // Build methods unordered list if field is populated.
   if (Helper::isFieldPopulated($node, 'field_how_to_methods_5')) {
     // Set up title for section heading and sticky nav.

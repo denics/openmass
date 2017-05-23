@@ -735,6 +735,25 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
           ),
         );
         break;
+      case "fee":
+        $fields = array (
+          array (
+            'field' => 'field-fee-fee',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-fee-name',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-fee-unit',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+        );
+        break;
       case "location_details":
         $fields = array (
           array (
