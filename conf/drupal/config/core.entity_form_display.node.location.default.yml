@@ -287,4 +287,6 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-hidden: {  }
+hidden:
+  field_facilities: true
+  field_more_information: true

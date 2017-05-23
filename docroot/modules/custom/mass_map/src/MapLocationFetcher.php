@@ -171,9 +171,8 @@ class MapLocationFetcher {
       $contactField = $node->field_ref_contact_info_1;
       if (!empty($contactField->entity->field_ref_address)) {
         $addressData = $contactField->entity->field_ref_address;
-
-        $location['lat'] = $addressData->entity->field_lat_long->lat;
-        $location['lon'] = $addressData->entity->field_lat_long->lon;
+        $location['lat'] = $addressData->entity->field_geofield->lat;
+        $location['lon'] = $addressData->entity->field_geofield->lon;
       }
     }
 
@@ -201,11 +200,20 @@ class MapLocationFetcher {
     if (!empty($node->field_ref_contact_info_1)) {
       foreach ($node->field_ref_contact_info_1 as $entity) {
         $node = Node::load($entity->target_id);
+        $address = '';
+        if (!empty($node->field_ref_address->entity->field_address_address)) {
+          $addressEntity = $node->field_ref_address->entity->field_address_address;
+          $address = !empty($addressEntity[0]->address_line1) ? $addressEntity[0]->address_line1 . ', ' : '';
+          $address .= !empty($addressEntity[0]->address_line2) ? $addressEntity[0]->address_line2 . ', ' : '';
+          $address .= !empty($addressEntity[0]->locality) ? $addressEntity[0]->locality : '';
+          $address .= !empty($addressEntity[0]->administrative_area) ? ', ' . $addressEntity[0]->administrative_area : '';
+          $address .= !empty($addressEntity[0]->postal_code) ? ' ' . $addressEntity[0]->postal_code : '';
+        }
         $contacts = [
           'field_phone' => $node->field_ref_phone_number->entity->field_phone->value,
           'field_fax' => $node->field_ref_fax_number->entity->field_fax->value,
           'field_email' => $node->field_ref_links->entity->field_email->value,
-          'field_address' => $node->field_ref_address->entity->field_address_text->value,
+          'field_address' => $address,
         ];
       }
     }

@@ -54,8 +54,7 @@ class AccessUnpublishedPermissions implements ContainerInjectionInterface {
 
     foreach ($definitions as $definition) {
 
-      // @todo: For 8.3 this should check for EntityPublishedInterface.
-      if (in_array('Drupal\node\NodeInterface', class_implements($definition->getClass()))) {
+      if (in_array('Drupal\Core\Entity\EntityPublishedInterface', class_implements($definition->getClass()))) {
 
         $bundles = $this->entityTypeManager->getStorage($definition->getBundleEntityType())
           ->loadMultiple();

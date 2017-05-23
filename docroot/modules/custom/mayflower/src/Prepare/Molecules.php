@@ -367,9 +367,9 @@ class Molecules {
         'text' => $entity->getTitle(),
       ],
       'description' => Helper::fieldValue($entity, $fields['text']),
-      'type' => in_array($entity->getType(), $options['useCallout']) ? 'callout' : '',
+      'type' => in_array($entity->getType(), isset($options['useCallout']) ? $options['useCallout'] : []) ? 'callout' : '',
       'links' => in_array($entity->getType(), $options['noCardLinks']) ? '' : $links,
-      'seeAll' => in_array($entity->getType(), $options['noSeeAll']) ? '' : $seeAll,
+      'seeAll' => in_array($entity->getType(), isset($options['noSeeAll']) ? $options['noSeeAll'] : []) ? '' : $seeAll,
     ];
   }
 
@@ -484,7 +484,7 @@ class Molecules {
       $map = [
         'details' => ['field_caption'],
         'label' => ['field_label'],
-        'value' => ['field_address_text', 'field_phone', 'field_fax'],
+        'value' => ['field_address_address', 'field_phone', 'field_fax'],
         'link' => ['field_link_single', 'field_email'],
       ];
 
@@ -500,12 +500,13 @@ class Molecules {
       }
 
       if ($type == 'address') {
-        $item['value'] = Helper::fieldFullView($entity, $fields['value']);
-        $item['link'] = 'https://maps.google.com/?q=' . urlencode(Helper::fieldValue($entity, $fields['value']));
+        $address = Helper::formatAddress($entity->$fields['value'], $options);
+        $item['value'] = $address;
+        $item['link'] = 'https://maps.google.com/?q=' . urlencode($address);
 
         // Respect first address provided if present.
         if (!$contactInfo['address']) {
-          $contactInfo['address'] = Helper::fieldValue($entity, $fields['value']);
+          $contactInfo['address'] = $address;
           $contactInfo['hasMap'] = $item['link'];
         }
       }
@@ -605,7 +606,7 @@ class Molecules {
     foreach ($referenced_fields as $id => $field) {
       if (Helper::isFieldPopulated($entity, $field)) {
         $items = Helper::getReferencedEntitiesFromField($entity, $field);
-        $groups[] = Molecules::prepareContactGroup($items, ['type' => $id], $contactInfo);
+        $groups[] = Molecules::prepareContactGroup($items, $options + ['type' => $id], $contactInfo);
       }
     }
 
@@ -798,8 +799,8 @@ class Molecules {
 
         // Creates a map of fields that are on the entitiy.
         $map = [
-          'lat_lng' => ['field_lat_long'],
-          'address' => ['field_address_text'],
+          'lat_lng' => ['field_geofield'],
+          'address' => ['field_address_address'],
           'label' => ['field_label'],
         ];
 
@@ -821,7 +822,7 @@ class Molecules {
             'phone' => isset($phone_numbers[$index]) ? $phone_numbers[$index] : '',
             'fax' => isset($fax_numbers[$index]) ? $fax_numbers[$index] : '',
             'email' => isset($links[$index]) ? $links[$index] : '',
-            'address' => Helper::fieldValue($addressEntity, $address_fields['address']),
+            'address' => Helper::formatAddress($addressEntity->$address_fields['address']),
           ],
           'label' => ++$index,
         ];

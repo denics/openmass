@@ -1,0 +1,347 @@
+{
+  "urlPath": "/?p=pages-ACTION-get-a-state-park-pass",
+
+  "COMMENT":"****PRECONTENT COMPONENTS****",
+
+  "breadcrumbs":{
+    "light": "true",
+    "links": [{
+      "text": "Your Government",
+      "href": ""
+    },{
+      "text": "State Agencies",
+      "href": ""
+    },{
+      "text": "Human Services",
+      "href": "#"
+    }]
+  },
+
+  "pageHeader": {
+    "divider": false,
+    "title": "Executive Office of Health and Human Services Locations",
+    "subTitle": "",
+    "headerTags": {
+      "label": "More about:",
+      "taxonomyTerms": [{
+        "href": "#",
+        "text": "Health and Human Services (EOHHS)"
+      }]
+    },
+    "optionalContents": [{
+      "path": "@organisms/by-author/rich-text.twig",
+      "data": {
+        "richText": {
+          "rteElements": [{
+            "path": "atoms-paragraph",
+            "data": {
+              "paragraph" : {
+                "text": "This is an optional descriptive paragraph field, explaining the map and listing of locations below. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget."
+              }
+            }
+          }]
+        }
+      }
+    }],
+    "widgets": null
+  },
+  
+  "COMMENT":"****PAGE CONTENT COMPONENTS****",
+  
+  "stackedRowSections": [{
+    "title":"",
+    "id":"",
+    "pageContent": [{
+      "path": "@organisms/by-author/location-listing.twig",
+      "data": {
+        "locationListing": {
+          "locationFilters": {
+            "zipcode": {
+              "inputText": {
+                "labelText": "Show closest to",
+                "required": false,
+                "id": "find-nearby",
+                "name": "find-nearby",
+                "placeholder": "City, town, or ZIP code"
+              }
+            },
+            "activity": {
+              "label":"Filter by activity / service",
+              "id":"activity-service",
+              "options":[{
+                "value":"",
+                "text":"Select"
+              },{
+                "value":"criminal-matters",
+                "text":"Criminal Matters"
+              },{
+                "value":"housing-cases",
+                "text":"Housing Cases"
+              }]
+            },
+            "tags": [{
+              "value": "handicapped",
+              "id": "handicapped",
+              "label": "Wheelchair accessible",
+              "checked": "false",
+              "icon": "@atoms/05-icons/svg-wheelchair.twig"
+            },{
+              "value": "open",
+              "id": "open",
+              "label": "Open now",
+              "checked": "false",
+              "icon": "@atoms/05-icons/svg-open-now.twig"
+            }],
+            "submitButton": "Submit"   
+          },
+          "googleMap": {
+            "map": {
+              "center": {
+                "lat": 42.430171,
+                "lng": -71.073886
+              },
+              "zoom": 16
+            },
+            "markers": [{
+              "position": {
+                "lat": 42.430171,
+                "lng": -71.073886
+              },
+              "label": "",
+              "infoWindow": {
+                "name": "Malden District Court",
+                "phone": "17813227500",
+                "fax": "",
+                "email": "",
+                "address": "89 Summer St, Malden, MA 02148"
+              }
+            },{
+              "position": {
+                "lat": 42.430171,
+                "lng": -71.073886
+              },
+              "label": "",
+              "infoWindow": {
+                "name": "Malden Housing Court",
+                "phone": "17813227500",
+                "fax": "",
+                "email": "",
+                "address": "89 Summer St, Malden, MA 02148"
+              }
+            },{
+              "position": {
+                "lat": 42.369584, 
+                "lng": -71.080485
+              },
+              "label": "",
+              "infoWindow": {
+                "name": "Middlesex Juvenile Court",
+                "phone": "17813227500",
+                "fax": "",
+                "email": "",
+                "address": "121 Third St, Cambridge, MA 02141"
+              }
+            },{
+              "position": {
+                "lat": 42.370769,
+                "lng": -71.079247
+              },
+              "label": "",
+              "infoWindow": {
+                "name": "Middlesex Probate and Family Court",
+                "phone": "17813227500",
+                "fax": "",
+                "email": "",
+                "address": "208 Cambridge St, Cambridge, MA 02141"
+              }
+            }]
+          },
+          "resultsHeading": {
+            "numResults": "11-20",
+            "totalResults": "108",
+            "tags": null
+          },
+          "imagePromos": {
+            "items": [{
+              "title": {
+                "text": "Malden District Court",
+                "href": "#",
+                "info": ""
+              },
+              "tags": [{
+                "label": "handicapped accessible",
+                "icon": "@atoms/05-icons/svg-wheelchair.twig"
+              },{
+                "label": "open now",
+                "icon": "@atoms/05-icons/svg-open-now.twig"
+              }],
+              "image": {
+                "src":"/assets/images/placeholder/190x107.png",
+                "alt": "placeholder image",
+                "href": "#"
+              },
+              "description": {
+                "richText": {
+                  "rteElements": [{
+                    "path": "@atoms/11-text/paragraph.twig",
+                    "data": {
+                      "paragraph" : {
+                        "text": "District Court hears criminal, civil, housing, juvenile, mental health, and other types of cases."
+                      }
+                    }
+                  }]
+                }
+              },
+              "link": {
+                "text": "Directions",
+                "href": "https://www.google.com/maps/place/Malden+District+Court/",
+                "info": ""
+              },
+              "location": {
+                "text": "89 Summer St, Malden, MA 02148",
+                "map": true
+              },
+              "phone": {
+                "text": "(781) 322-7500",
+                "href": "+17813227500"
+              }
+            },{
+              "title": {
+                "text": "Malden Housing Court",
+                "href": "#",
+                "info": ""
+              },
+              "tags": [{
+                "label": "handicapped accessible",
+                "icon": "@atoms/05-icons/svg-wheelchair.twig"
+              }],
+              "image": {
+                "src":"/assets/images/placeholder/190x107.png",
+                "alt": "placeholder image",
+                "href": "#"
+              },
+              "description": {
+                "property": "",
+                "richText": {
+                  "rteElements": [{
+                    "path": "@atoms/11-text/paragraph.twig",
+                    "data": {
+                      "paragraph" : {
+                        "text": "The Housing Court has jurisdiction over civil and criminal matters involving the use of resdiential property and activities affecting such use."
+                      }
+                    }
+                  }]
+                }
+              },
+              "link": {
+                "text": "Directions",
+                "href": "https://www.google.com/maps/search/Malden+Housing+Court",
+                "info": ""
+              },
+              "location": {
+                "text": "89 Summer St, Malden, MA 02148",
+                "map": true
+              },
+              "phone": {
+                "text": "(781) 322-7500",
+                "href": "+17813227500"
+              }
+            },{
+              "title": {
+                "text": "Middlesex Juvenile Court",
+                "href": "#",
+                "info": ""
+              },
+              "tags": null,
+              "image": {
+                "src":"/assets/images/placeholder/190x107.png",
+                "alt": "placeholder image",
+                "href": "#"
+              },
+              "description": null,
+              "link": {
+                "text": "",
+                "href": "https://www.google.com/maps/place/121+Third+St,+Cambridge,+MA+02141",
+                "info": ""
+              },
+              "location": {
+                "text": "121 Third St, Cambridge, MA 02141",
+                "map": true
+              },
+              "phone": {
+                "text": "(781) 322-7500",
+                "href": "+17813227500"
+              }
+            },{
+              "title": {
+                "text": "Middlesex Probate and Family Court",
+                "href": "#",
+                "info": ""
+              },
+              "tags": [{
+                "label": "open now",
+                "icon": "@atoms/05-icons/svg-open-now.twig"
+              }],
+              "image": {
+                "src":"/assets/images/placeholder/190x107.png",
+                "alt": "placeholder image",
+                "href": "#"
+              },
+              "description": {
+                "richText": {
+                  "rteElements": [{
+                    "path": "@atoms/11-text/paragraph.twig",
+                    "data": {
+                      "paragraph" : {
+                        "text": "Probate and Family Court has jurisdiction over a wide range of family matters, probate proceedings, and general equity"
+                      }
+                    }
+                  }]
+                }
+              },
+              "link": {
+                "text": "Directions",
+                "href": "https://www.google.com/maps/place/208+Cambridge+St,+Cambridge,+MA+02141",
+                "info": ""
+              },
+              "location": {
+                "text": "208 Cambridge St, Cambridge, MA 02141",
+                "map": true
+              },
+              "phone": {
+                "text": "(781) 322-7500",
+                "href": "+17813227500"
+              }            
+            }]
+          },
+          "pagination": {
+            "next": {
+              "disabled": false,
+              "text": "Next"
+            },
+            "prev": {
+              "disabled": false,
+              "text": "Previous"
+            },
+            "pages": [{
+              "active": false,
+              "text": "1"
+            },{
+              "active": true,
+              "text": "2"
+            },{
+              "active": false,
+              "text": "3"
+            },{
+              "active": false,
+              "text": "spacer"
+            },{
+              "active": false,
+              "text": "10"
+            }]
+          }
+        }
+      }
+    }]
+  }]
+}

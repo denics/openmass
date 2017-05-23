@@ -273,7 +273,8 @@ class Organisms {
     $ref_items = Helper::getReferencedEntitiesFromField($entity, $fields['items']);
 
     foreach ($ref_items as $item) {
-      $items[] = ['contactUs' => Molecules::prepareContactUs($item, ['display_title' => TRUE])];
+      $item_options = ['display_title' => TRUE, 'sidebar' => TRUE];
+      $items[] = ['contactUs' => Molecules::prepareContactUs($item, $item_options)];
     }
 
     if (!empty($items)) {

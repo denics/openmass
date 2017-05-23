@@ -9,7 +9,7 @@ id: node.location.field_parking
 field_name: field_parking
 entity_type: node
 bundle: location
-label: 'Parking'
+label: Parking
 description: 'Describe the available parking. If there is no parking, please say that or list nearby parking options.'
 required: true
 translatable: false

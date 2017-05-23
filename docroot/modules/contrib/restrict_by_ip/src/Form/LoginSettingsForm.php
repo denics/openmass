@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains Drupal\restrict_by_ip\Form\LoginSettingsForm.
- */
-
 namespace Drupal\restrict_by_ip\Form;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -54,23 +49,23 @@ class LoginSettingsForm extends ConfigFormBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
     $config = $this->config('restrict_by_ip.settings');
 
-    $form['current_ip'] = array(
-      '#markup' => t('Your current IP address is %ipaddress. If this is wrong, make sure you have the correct header configured in general settings.', array('%ipaddress' => $this->ip_tools->getUserIP())),
+    $form['current_ip'] = [
+      '#markup' => t('Your current IP address is %ipaddress. If this is wrong, make sure you have the correct header configured in general settings.', ['%ipaddress' => $this->ip_tools->getUserIP()]),
       '#prefix' => '<p>',
       '#suffix' => '</p>',
-    );
-    $form['restrict_by_ip_error_page'] = array(
+    ];
+    $form['restrict_by_ip_error_page'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Login denied error page'),
       '#description' => $this->t("This the address of the page to which the user will be redirected if they are not allowed to login. If you don't set this the user will not know why they couldn't login."),
       '#default_value' => $config->get('error_page'),
-    );
-    $form['restrict_by_ip_login_range'] = array(
+    ];
+    $form['restrict_by_ip_login_range'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Restrict global login to allowed IP range'),
       '#description' => $this->t('To restrict login for ALL users, enter global IP Address Ranges in CIDR Notation seperated with semi-colons, with no trailing semi-colon. E.G. 10.20.30.0/24;192.168.199.1/32;1.0.0.0/8<br />For more information on CIDR notation click <a href="http://www.brassy.net/2007/mar/cidr_basic_subnetting">here</a>.<br />Leave field blank to disable IP restrictions for user login.'),
       '#default_value' => $config->get('login_range'),
-    );
+    ];
 
     return parent::buildForm($form, $form_state);
   }
@@ -89,7 +84,7 @@ class LoginSettingsForm extends ConfigFormBase {
         try {
           $this->ip_tools->validateIP($ip);
         } catch (InvalidIPException $e) {
-          $form_state->setErrorByName('restrict_by_ip_login_range', $this->t($e->getMessage() . ' @ip.', array('@ip' => $ip)));
+          $form_state->setErrorByName('restrict_by_ip_login_range', $this->t($e->getMessage() . ' @ip.', ['@ip' => $ip]));
         }
       }
     }

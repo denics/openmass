@@ -901,4 +901,38 @@ class Helper {
     return $entity->getFieldDefinition($field)->getType() === 'entity_reference';
   }
 
+  /**
+   * Returns a formatted address from entity.
+   *
+   * @param object $addressEntity
+   *   The object that contains the field.
+   * @param array $options
+   *   An array of options.
+   *
+   * @return string
+   *   A flattened string of address info.
+   */
+  public static function formatAddress($addressEntity, array $options = []) {
+    $address = '';
+
+    if (isset($addressEntity[0])) {
+      // Add address module fields.
+      $address = !empty($addressEntity[0]->address_line1) ? $addressEntity[0]->address_line1 . ', ' : '';
+      // If we're in the sidebar add a newline.
+      if ($options['sidebar']) {
+        $address .= PHP_EOL;
+      }
+      $address .= !empty($addressEntity[0]->address_line2) ? $addressEntity[0]->address_line2 . ', ' : '';
+      // If we're in the sidebar add a newline.
+      if ($options['sidebar']) {
+        $address .= PHP_EOL;
+      }
+      $address .= !empty($addressEntity[0]->locality) ? $addressEntity[0]->locality : '';
+      $address .= !empty($addressEntity[0]->administrative_area) ? ', ' . $addressEntity[0]->administrative_area : '';
+      $address .= !empty($addressEntity[0]->postal_code) ? ' ' . $addressEntity[0]->postal_code : '';
+    }
+
+    return $address;
+  }
+
 }

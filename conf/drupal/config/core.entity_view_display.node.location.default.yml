@@ -158,4 +158,8 @@ content:
     weight: 100
     settings: {  }
     third_party_settings: {  }
-hidden: {  }
+  workbench_moderation_control:
+    weight: -20
+hidden:
+  field_facilities: true
+  field_more_information: true

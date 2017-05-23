@@ -366,26 +366,19 @@
     // [data-quickedit-entity-id] element's data-quickedit-entity-instance-id
     // attribute.
     var entityElementSelector = '[data-quickedit-entity-id="' + entityID + '"]';
-    var $entityElement = $(entityElementSelector);
-
-    if (!$entityElement.length) {
-      throw Drupal.t('The field [data-quickedit-field-id="@fieldID"] parent attribute [data-quickedit-entity-id] is missing.', {
-        '@fieldID': fieldID
-      })
-    }
-
-    var entityElement = $(fieldElement).closest($entityElement);
+    var entityElement = $(fieldElement).closest(entityElementSelector);
     // In the case of a full entity view page, the entity title is rendered
     // outside of "the entity DOM node": it's rendered as the page title. So in
     // this case, we find the lowest common parent element (deepest in the tree)
     // and consider that the entity element.
     if (entityElement.length === 0) {
-      var $lowestCommonParent = $entityElement.parents().has(fieldElement).first();
-      entityElement = $lowestCommonParent.find($entityElement);
+      var $lowestCommonParent = $(entityElementSelector).parents().has(fieldElement).first();
+      entityElement = $lowestCommonParent.find(entityElementSelector);
     }
-    if (typeof entityElement.get(0) !== 'undefined') {
-      var entityInstanceID = entityElement.get(0).getAttribute('data-quickedit-entity-instance-id');
-    }
+    var entityInstanceID = entityElement
+      .get(0)
+      .getAttribute('data-quickedit-entity-instance-id');
+
     // Early-return if metadata for this field is missing.
     if (!metadata.has(fieldID)) {
       fieldsMetadataQueue.push({

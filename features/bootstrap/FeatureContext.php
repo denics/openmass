@@ -797,16 +797,12 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
       case "address":
         $fields = array (
           array (
-            'field' => 'field-address-text',
-            'widget' => 'Text area (multiple rows)',
+            'field' => 'field-address-address',
+            'widget' => 'Address',
           ),
           array (
             'field' => 'field-label',
             'widget' => 'Textfield',
-          ),
-          array (
-            'field' => 'field-lat-long',
-            'widget' => 'Google Map Field default',
           ),
         );
         break;

@@ -199,5 +199,7 @@ content:
     type: string_textfield
 hidden:
   created: true
+  field_guide_section_label: true
+  field_guide_section_stat: true
   status: true
   uid: true
