@@ -1856,6 +1856,22 @@ function mass_theme_preprocess_page(&$variables) {
       }
     }
   }
+
+  $social_menu = \Drupal::menuTree()->load('social', new MenuTreeParameters());
+  $footerSocialLinks = [];
+  foreach ($social_menu as $menu_item) {
+    $icon = icon_path(strtolower($menu_item->link->getTitle()));
+    $footerSocialLinks[] = [
+      'altText' => t('Follow us on :service', [':service' => $menu_item->link->getTitle()]),
+      'href' => $menu_item->link->getUrlObject(),
+      'icon' => $icon,
+      'linkType' => strtolower($menu_item->link->getTitle()),
+    ];
+  }
+  $variables['footerSocialLinks'] = [
+    'items' => $footerSocialLinks,
+  ];
+
 }
 
 /**

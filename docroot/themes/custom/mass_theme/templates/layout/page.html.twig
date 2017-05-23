@@ -112,7 +112,8 @@
             </div>
           </div>
           <div class="ma__footer__social">
-            {{ page.footer_social }}
+            {% set socialLinks = footerSocialLinks %}
+            {% include "@molecules/social-links.twig" %}
           </div>
           <div class="ma__footer__copyright">
             <p><b>© {{ "now"|date("Y") }} Commonwealth of Massachusetts.</b></p>

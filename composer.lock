@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "1b6c35e8dc5610a35058c305e8acddc3",
+    "content-hash": "09f1aca5dbb59c56cd98ea038faee7bb",
     "packages": [
         {
             "name": "acquia/acquia-sdk-php",
@@ -2631,7 +2631,8 @@
             "homepage": "https://www.drupal.org/project/draggableviews",
             "support": {
                 "source": "http://cgit.drupalcode.org/draggableviews"
-            }
+            },
+            "time": "2016-10-21 18:47:50"
         },
         {
             "name": "drupal/dropzonejs",
@@ -2887,7 +2888,8 @@
             "homepage": "https://www.drupal.org/project/encrypt",
             "support": {
                 "source": "http://cgit.drupalcode.org/encrypt"
-            }
+            },
+            "time": "2016-08-05 15:43:56"
         },
         {
             "name": "drupal/entity",
@@ -3400,7 +3402,8 @@
             "homepage": "https://www.drupal.org/project/ga_login",
             "support": {
                 "source": "http://cgit.drupalcode.org/ga_login"
-            }
+            },
+            "time": "2016-08-19 19:20:09"
         },
         {
             "name": "drupal/google_map_field",
@@ -3672,7 +3675,8 @@
                 "source": "http://cgit.drupalcode.org/libraries",
                 "issues": "http://drupal.org/project/issues/libraries",
                 "irc": "irc://irc.freenode.org/drupal-contribute"
-            }
+            },
+            "time": "2017-03-15 17:04:08"
         },
         {
             "name": "drupal/media_entity",
@@ -4143,7 +4147,8 @@
             "homepage": "https://www.drupal.org/project/paragraphs",
             "support": {
                 "source": "http://cgit.drupalcode.org/paragraphs"
-            }
+            },
+            "time": "2017-04-20 08:52:17"
         },
         {
             "name": "drupal/password_policy",
@@ -4531,7 +4536,8 @@
             "support": {
                 "source": "https://cgit.drupalcode.org/rabbit_hole",
                 "issues": "https://www.drupal.org/project/issues/rabbit_hole"
-            }
+            },
+            "time": "2017-04-09 23:05:12"
         },
         {
             "name": "drupal/redirect",
@@ -4631,7 +4637,8 @@
             "homepage": "https://www.drupal.org/project/restrict_by_ip",
             "support": {
                 "source": "http://cgit.drupalcode.org/restrict_by_ip"
-            }
+            },
+            "time": "2016-06-26 23:12:23"
         },
         {
             "name": "drupal/restui",
@@ -4792,7 +4799,8 @@
             "homepage": "https://www.drupal.org/project/security_review",
             "support": {
                 "source": "http://cgit.drupalcode.org/security_review"
-            }
+            },
+            "time": "2016-10-20 15:43:48"
         },
         {
             "name": "drupal/tfa",
@@ -5285,7 +5293,8 @@
             "homepage": "https://www.drupal.org/project/xmlsitemap",
             "support": {
                 "source": "http://cgit.drupalcode.org/xmlsitemap"
-            }
+            },
+            "time": "2016-12-07 10:00:27"
         },
         {
             "name": "drush/drush",
@@ -6627,16 +6636,16 @@
         },
         {
             "name": "palantirnet/mayflower-artifacts",
-            "version": "4.1.0",
+            "version": "5.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/massgov/mayflower-artifacts.git",
-                "reference": "53d45bd51b0124f483799bf5c69f42dda9b1995c"
+                "reference": "07f684915962b4322084d655db98987ca11e7b73"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/massgov/mayflower-artifacts/zipball/53d45bd51b0124f483799bf5c69f42dda9b1995c",
-                "reference": "53d45bd51b0124f483799bf5c69f42dda9b1995c",
+                "url": "https://api.github.com/repos/massgov/mayflower-artifacts/zipball/07f684915962b4322084d655db98987ca11e7b73",
+                "reference": "07f684915962b4322084d655db98987ca11e7b73",
                 "shasum": ""
             },
             "type": "library",
@@ -6651,10 +6660,10 @@
             ],
             "description": "This repository is the product of the built artifact from massgov/mayflower",
             "support": {
-                "source": "https://github.com/massgov/mayflower-artifacts/tree/4.1.0",
+                "source": "https://github.com/massgov/mayflower-artifacts/tree/5.0.0",
                 "issues": "https://github.com/massgov/mayflower-artifacts/issues"
             },
-            "time": "2017-05-02T18:33:34+00:00"
+            "time": "2017-05-15T17:47:30+00:00"
         },
         {
             "name": "palantirnet/the-build",
