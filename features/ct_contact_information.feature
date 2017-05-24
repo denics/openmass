@@ -11,6 +11,7 @@ Feature: Contact Info Content type
     And "fax_number" paragraph has the correct fields
     And "phone_number" paragraph has the correct fields
     And "links" paragraph has the correct fields
+    And "hours" paragraph has the correct fields
 
   Scenario: Verify that the contact info content type can't be viewed by anonymous visitors.
     Given I am viewing a "contact_information" with the title "Test Contact Info"

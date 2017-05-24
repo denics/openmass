@@ -6,7 +6,6 @@ dependencies:
     - field.field.node.location.field_accessibility
     - field.field.node.location.field_bg_narrow
     - field.field.node.location.field_bg_wide
-    - field.field.node.location.field_hours
     - field.field.node.location.field_iframe
     - field.field.node.location.field_links
     - field.field.node.location.field_location_activity_detail
@@ -144,17 +143,6 @@ content:
       preview_image_style: thumbnail
     third_party_settings: {  }
     type: image_image
-  field_hours:
-    type: entity_reference_paragraphs
-    weight: 8
-    settings:
-      title: Paragraph
-      title_plural: Paragraphs
-      edit_mode: open
-      add_mode: dropdown
-      form_display_mode: default
-      default_paragraph_type: _none
-    third_party_settings: {  }
   field_iframe:
     type: entity_reference_paragraphs
     weight: 4

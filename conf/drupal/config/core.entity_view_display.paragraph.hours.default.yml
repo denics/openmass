@@ -3,36 +3,58 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.paragraph.hours.field_hours
-    - field.field.paragraph.hours.field_label
-    - field.field.paragraph.hours.field_time_frame
+    - field.field.paragraph.hours.field_hours_description
+    - field.field.paragraph.hours.field_hours_group_title
+    - field.field.paragraph.hours.field_hours_structured
     - paragraphs.paragraphs_type.hours
+  module:
+    - office_hours
 id: paragraph.hours.default
 targetEntityType: paragraph
 bundle: hours
 mode: default
 content:
-  field_hours:
-    weight: 1
+  field_hours_description:
+    weight: 4
     label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
     type: string
-  field_label:
-    weight: 2
+  field_hours_group_title:
+    weight: 5
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
     type: string
-  field_time_frame:
-    weight: 0
+  field_hours_structured:
+    weight: 3
     label: hidden
     settings:
-      link_to_entity: false
+      show_closed: open
+      office_hours_first_day: ''
+      day_format: long
+      time_format: g
+      grouped: '1'
+      closed_format: ''
+      separator:
+        days: '<br />'
+        grouped_days: ' - '
+        day_hours: ': '
+        hours_hours: '-'
+        more_hours: ', '
+      current_status:
+        position: hide
+        open_text: Open
+        closed_text: Closed
+      compress: 0
+      timezone_field: ''
     third_party_settings: {  }
-    type: string
+    type: office_hours
 hidden:
   created: true
+  field_hours: true
+  field_label: true
+  field_time_frame: true
   uid: true

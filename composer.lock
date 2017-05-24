@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "44c6b222063d337e50d50f7f4114dd13",
-    "content-hash": "60e36c010323182189d42585d3deddac",
+    "hash": "c3a3c887ac7ccc9091612a88b2d4fd4f",
+    "content-hash": "2ba565fa9891d396e10bb856e6235006",
     "packages": [
         {
             "name": "acquia/acquia-sdk-php",
@@ -4449,6 +4449,64 @@
             "homepage": "https://www.drupal.org/project/node_edit_protection",
             "support": {
                 "source": "http://cgit.drupalcode.org/node_edit_protection"
+            }
+        },
+        {
+            "name": "drupal/office_hours",
+            "version": "1.0.0-alpha2",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupal.org/project/office_hours",
+                "reference": "8.x-1.0-alpha2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/office_hours-8.x-1.0-alpha2.zip",
+                "reference": null,
+                "shasum": "bb9f1e64721ac9cf0d7b1865e07e89a2ab714113"
+            },
+            "require": {
+                "drupal/core": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.0-alpha2",
+                    "datestamp": "1489698183"
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "John Voskuilen",
+                    "homepage": "https://www.drupal.org/user/167994",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "johnv",
+                    "homepage": "https://www.drupal.org/user/591042"
+                },
+                {
+                    "name": "mikl",
+                    "homepage": "https://www.drupal.org/user/58679"
+                },
+                {
+                    "name": "skwashd",
+                    "homepage": "https://www.drupal.org/user/116305"
+                }
+            ],
+            "description": "Defines a 'weekly office hours' field type, allowing you to specify when an Entity is open or closed.",
+            "homepage": "http://drupal.org/project/office_hours",
+            "support": {
+                "source": "http://cgit.drupalcode.org/office_hours",
+                "issues": "http://drupal.org/project/office_hours",
+                "irc": "irc://irc.freenode.org/drupal-contribute"
             }
         },
         {
@@ -11806,6 +11864,7 @@
         "drupal/geofield": 15,
         "drupal/inline_entity_form": 20,
         "drupal/node_edit_protection": 20,
+        "drupal/office_hours": 15,
         "drupal/paragraphs": 20,
         "drupal/password_policy": 20,
         "drupal/rabbit_hole": 20,

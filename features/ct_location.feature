@@ -16,7 +16,6 @@ Feature: Location Landing Page Content type
       | field-location-facilities       | textarea   |           | false      |
       | field-bg-wide                   | input      | submit    | false      |
       | field-bg-narrow                 | input      | submit    | false      |
-      | field-hours                     | paragraphs |           | false      |
       | field-iframe                    | paragraphs | iframe    | false      |
       | field-location-icons            | input      | checkbox  | false      |
       | field-location-more-information | textarea   |           | false      |

@@ -503,6 +503,11 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
             'tag' => 'paragraphs',
             'type' => 'phone-number',
           ),
+          array (
+            'field' => 'field-ref-hours',
+            'tag' => 'paragraphs',
+            'type' => 'hours',
+          ),
         );
         break;
       case "guide_page":
@@ -847,6 +852,22 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
           array (
             'field' => 'field-label',
             'widget' => 'Textfield',
+          ),
+        );
+        break;
+      case "hours":
+        $fields = array (
+          array (
+            'field' => 'field-hours-group-title',
+            'widget' => 'Textfield',
+          ),
+          array (
+            'field' => 'field-hours-description',
+            'widget' => 'Textfield',
+          ),
+          array (
+            'field' => 'field-hours-structured',
+            'widget' => 'Office hours (list)',
           ),
         );
         break;
