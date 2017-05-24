@@ -53,6 +53,11 @@
   <div class="ma__contact-us__address">
     {{content.field_address|field_value}}
   </div>
+  {% if content.field_ref_hours|field_value is not empty %}
+    <div class="ma__contact-us__hours">
+      {{content.field_ref_hours|field_value}}
+    </div>
+  {% endif %}
   {% endif %}
   {% if content.field_link|field_value is not empty %}
   <p>{{content.field_link|field_value}}</p>

@@ -480,11 +480,12 @@ class Molecules {
 
       $item['type'] = $type;
 
-      // Creates a map of fields that are on the entitiy.
+      // Creates a map of fields that are on the entity.
       $map = [
         'details' => ['field_caption'],
         'label' => ['field_label'],
-        'value' => ['field_address_address', 'field_phone', 'field_fax'],
+        'hours' => ['field_ref_hours', 'field_hours'],
+        'value' => ['field_address_text', 'field_phone', 'field_fax'],
         'link' => ['field_link_single', 'field_email'],
       ];
 
@@ -497,6 +498,10 @@ class Molecules {
 
       if (array_key_exists('label', $fields) && Helper::isFieldPopulated($entity, $fields['label'])) {
         $item['label'] = Helper::fieldFullView($entity, $fields['label']);
+      }
+
+      if (array_key_exists('hours', $fields) && Helper::isFieldPopulated($entity, $fields['hours'])) {
+        $item['hours'] = Helper::fieldFullView($entity, $fields['hours']);
       }
 
       if ($type == 'address') {

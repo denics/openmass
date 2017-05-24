@@ -7,7 +7,6 @@ dependencies:
     - field.field.node.location.field_accessibility
     - field.field.node.location.field_bg_narrow
     - field.field.node.location.field_bg_wide
-    - field.field.node.location.field_hours
     - field.field.node.location.field_iframe
     - field.field.node.location.field_links
     - field.field.node.location.field_location_activity_detail
@@ -38,7 +37,6 @@ hidden:
   field_bg_narrow: true
   field_bg_wide: true
   field_facilities: true
-  field_hours: true
   field_iframe: true
   field_links: true
   field_location_activity_detail: true

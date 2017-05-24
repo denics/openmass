@@ -662,7 +662,8 @@ class Organisms {
     // Create the map of all possible field names to use.
     $map = [
       'overview' => ['field_overview'],
-      'hours' => ['field_hours'],
+      'primary_location' => ['field_ref_contact_info_1'],
+      'contacts' => ['field_ref_contact_info'],
       'parking' => ['field_parking'],
       'markers' => ['field_maps'],
       'activities' => ['field_location_activity_detail'],
@@ -682,8 +683,24 @@ class Organisms {
     }
 
     // Hours section.
-    if (Helper::isFieldPopulated($entity, $fields['hours'])) {
-      $sections[] = Helper::buildHours($entity->$fields['hours'], 'right');
+    if (Helper::isFieldPopulated($entity, $fields['primary_location'])) {
+
+      $contact_entities[] = Helper::getReferencedEntitiesFromField($entity, $fields['primary_location']);
+      foreach ($contact_entities as $contact) {
+        $contact_entity = $contact[0];
+        // Don't know why this map isn't working.
+        // $contact_fields = Helper::getMappedFields($contact_entity, $contact_map)
+        $sections[] = Helper::buildHours($contact_entity->field_ref_hours, 'Hours');
+      }
+    }
+    if (Helper::isFieldPopulated($entity, $fields['contacts'])) {
+      $contact_refs[] = Helper::getReferencedEntitiesFromField($entity, $fields['contacts']);
+      foreach ($contact_refs as $contact) {
+        $contact_ref = $contact[0];
+        // Don't know why this map isn't working.
+        // $contact_fields = Helper::getMappedFields($contact_entity, $contact_map)
+        $sections[] = Helper::buildHours($contact_ref->field_ref_hours, '');
+      }
     }
 
     // Parking section.

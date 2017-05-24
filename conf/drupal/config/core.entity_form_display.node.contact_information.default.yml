@@ -6,13 +6,55 @@ dependencies:
     - field.field.node.contact_information.field_display_title
     - field.field.node.contact_information.field_ref_address
     - field.field.node.contact_information.field_ref_fax_number
+    - field.field.node.contact_information.field_ref_hours
     - field.field.node.contact_information.field_ref_links
     - field.field.node.contact_information.field_ref_phone_number
     - node.type.contact_information
   module:
+    - field_group
     - paragraphs
     - path
     - workbench_moderation
+third_party_settings:
+  field_group:
+    group_contact_address:
+      children:
+        - field_ref_address
+      parent_name: ''
+      weight: 7
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: Address
+    group_phone_fax_online_email:
+      children:
+        - field_ref_phone_number
+        - field_ref_links
+        - field_ref_fax_number
+      parent_name: ''
+      weight: 8
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: 'Phone / Fax / Online / Email'
+    group_hours_of_operation:
+      children:
+        - field_ref_hours
+      parent_name: ''
+      weight: 12
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: 'Hours of operation'
 id: node.contact_information.default
 targetEntityType: node
 bundle: contact_information
@@ -32,10 +74,10 @@ content:
     type: string_textfield
   field_ref_address:
     type: entity_reference_paragraphs
-    weight: 7
+    weight: 8
     settings:
-      title: Paragraph
-      title_plural: Paragraphs
+      title: Address
+      title_plural: Addresses
       edit_mode: open
       add_mode: dropdown
       form_display_mode: default
@@ -43,10 +85,21 @@ content:
     third_party_settings: {  }
   field_ref_fax_number:
     type: entity_reference_paragraphs
-    weight: 10
+    weight: 11
     settings:
-      title: Paragraph
-      title_plural: Paragraphs
+      title: 'Fax Number'
+      title_plural: 'Fax Numbers'
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: _none
+    third_party_settings: {  }
+  field_ref_hours:
+    type: entity_reference_paragraphs
+    weight: 13
+    settings:
+      title: Hours
+      title_plural: Hours
       edit_mode: open
       add_mode: dropdown
       form_display_mode: default
@@ -54,10 +107,10 @@ content:
     third_party_settings: {  }
   field_ref_links:
     type: entity_reference_paragraphs
-    weight: 9
+    weight: 10
     settings:
-      title: Paragraph
-      title_plural: Paragraphs
+      title: Link
+      title_plural: Links
       edit_mode: open
       add_mode: dropdown
       form_display_mode: default
@@ -65,10 +118,10 @@ content:
     third_party_settings: {  }
   field_ref_phone_number:
     type: entity_reference_paragraphs
-    weight: 8
+    weight: 9
     settings:
-      title: Paragraph
-      title_plural: Paragraphs
+      title: 'Phone Number'
+      title_plural: 'Phone Numbers'
       edit_mode: open
       add_mode: dropdown
       form_display_mode: default

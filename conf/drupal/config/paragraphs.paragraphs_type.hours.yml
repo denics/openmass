@@ -3,4 +3,6 @@ langcode: en
 status: true
 dependencies: {  }
 id: hours
-label: Hours
+label: 'Group of hours'
+icon_uuid: null
+behavior_plugins: {  }
