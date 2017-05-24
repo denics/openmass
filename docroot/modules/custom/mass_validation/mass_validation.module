@@ -8,6 +8,7 @@
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\node\Entity\Node;
 
 /**
  * Implements hook_help().
@@ -241,35 +242,26 @@ function _mass_validation_form_node_service_details_form_validate(array &$form, 
  *   The name of the link field to validate.
  */
 function _mass_link_validate(FormStateInterface &$form_state, $field_name) {
-  $node_storage = \Drupal::entityManager()->getStorage('node');
-
   // Fetch the field values.
   if ($form_state->hasValue($field_name)) {
     $featured_tasks = $form_state->getValue($field_name);
     $is_updated = FALSE;
+
     // Look at each field value.
     foreach ($featured_tasks as $key => $task) {
       if (is_array($task)) {
-        if (!empty($task['uri'])) {
-          if (empty($task['title'])) {
-            /*
-             * If a link had a uri, no title, and is internal
-             * set the title as the node title.
-             */
-            if (stripos($task['uri'], 'entity') === 0) {
-              // Get the node from the uri.
-              $uri_parts = explode('/', $task['uri']);
-              $nid = $uri_parts[1];
-              $node = $node_storage->load($nid);
-              // Update field array with new title.
-              $featured_tasks[$key]['title'] = $node->getTitle();
-              $is_updated = TRUE;
-            }
-            else {
-              // If the link has no title and is external throw an error.
-              $form_state->setErrorByName($field_name . '][' . $key, t('External links require a title.'));
-            }
+        // If we have a uri but no title, fix or show an error.
+        if (!empty($task['uri']) && empty($task['title'])) {
+          $title = mass_validation_get_title_from_uri($task['uri']);
+          if ($title) {
+            // Update field array with new title.
+            $featured_tasks[$key]['title'] = $title;
+            $is_updated = TRUE;
           }
+          else {
+            $form_state->setErrorByName($field_name . '][' . $key, t('External links require a title.'));
+          }
+
         }
       }
     }
@@ -290,8 +282,6 @@ function _mass_link_validate(FormStateInterface &$form_state, $field_name) {
  *   An array of link field titles in the paragraph to check.
  */
 function _mass_link_validate_paragraph(FormStateInterface &$form_state, $paragraph_field_name, array $field_names) {
-  $node_storage = \Drupal::entityManager()->getStorage('node');
-
   // Get the paragraphs field that contain the link fields.
   if ($form_state->hasValue($paragraph_field_name)) {
     $paragraphs = $form_state->getValue($paragraph_field_name);
@@ -304,27 +294,16 @@ function _mass_link_validate_paragraph(FormStateInterface &$form_state, $paragra
         foreach ($field_names as $field_name) {
           foreach ($paragraph['subform'][$field_name] as $field_key => $field) {
             if (is_array($field)) {
-              // Verify the field has a uri.
-              if (!empty($field['uri'])) {
-                // Check to see if the link has a title.
-                if (empty($field['title'])) {
-                  /*
-                   * If it is an internal link and has no title
-                   * fill it with the node title.
-                   */
-                  if (stripos($field['uri'], 'entity') === 0) {
-                    // Get the node from the uri.
-                    $uri_parts = explode('/', $field['uri']);
-                    $nid = $uri_parts[1];
-                    $node = $node_storage->load($nid);
-                    // Set the node title as the link title.
-                    $paragraphs[$key]['subform'][$field_name][$field_key]['title'] = $node->getTitle();
-                    $is_updated = TRUE;
-                  }
-                  else {
-                    // If the link has no title and is external throw an error.
-                    $form_state->setErrorByName($paragraph_field_name . '][' . $key . '][subform][' . $field_name . '][' . $field_key, t('External links require a title.'));
-                  }
+              // If the field has a uri but no title, get one if possible.
+              if (!empty($field['uri']) && empty($field['title'])) {
+                $title = mass_validation_get_title_from_uri($field['uri']);
+                if ($title) {
+                  $paragraphs[$key]['subform'][$field_name][$field_key]['title'] = $title;
+                  $is_updated = TRUE;
+                }
+                else {
+                  // If the link has no title and is external throw an error.
+                  $form_state->setErrorByName($paragraph_field_name . '][' . $key . '][subform][' . $field_name . '][' . $field_key, t('External links require a title.'));
                 }
               }
             }
@@ -337,4 +316,31 @@ function _mass_link_validate_paragraph(FormStateInterface &$form_state, $paragra
       $form_state->setValueForElement(['#parents' => [$paragraph_field_name]], $paragraphs);
     }
   }
+}
+
+/**
+ * Retrieves title given an internal uri.
+ *
+ * Only works for nodes at present.
+ *
+ * @param string $uri
+ *   A uri created by the link widget.
+ *
+ * @return null|string
+ *   Returns NULL if title not found.
+ */
+function mass_validation_get_title_from_uri($uri) {
+  // If a link is to a node, get the node title.
+  if (stripos($uri, 'entity:node') === 0) {
+    // Get the node from the uri.
+    $uri_parts = explode('/', $uri);
+    $nid = count($uri_parts) > 1 ? intval($uri_parts[1]) : NULL;
+    if ($nid) {
+      $node = Node::load($nid);
+      if (!is_null($node)) {
+        return $node->getTitle();
+      }
+    }
+  }
+  return NULL;
 }
