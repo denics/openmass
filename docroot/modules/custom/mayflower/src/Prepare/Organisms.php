@@ -169,6 +169,7 @@ class Organisms {
         'field_sub_title',
         'field_how_to_lede',
         'field_service_detail_lede',
+        'field_location_details_lede',
       ],
     ];
 

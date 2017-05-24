@@ -1,7 +1,7 @@
 {#
 /**
  * @file
- * Theme override to display the full view mode of the Service Details content type.
+ * Theme override to display the full view mode of the Location Details content type.
  */
  #}
 {% extends 'node.html.twig' %}
@@ -32,6 +32,10 @@
       {% set formDownloads = pageContent[i]['formDownloads'] %}
       {% include "@organisms/by-author/form-downloads.twig" %}
     {% endif %}
+    {% if pageContent[i]['actionMap'] %}
+      {% set googleMap = pageContent[i]['actionMap'] %}
+      {% include "@molecules/google-map.twig" %}
+    {% endif %}
   {% endfor %}
 {% endblock %}
 
@@ -42,4 +46,3 @@
 
 {% block postContent %}
 {% endblock %}
-

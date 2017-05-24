@@ -857,6 +857,8 @@ class Molecules {
    *
    * @param array $entities
    *   An array of entities.
+   * @param string $address
+   *   A string address if exists.
    *
    * @see @molecules/google-map.twig
    *
@@ -867,7 +869,7 @@ class Molecules {
    *      "markers": "",
    *    ], ...]
    */
-  public static function prepareGoogleMap(array $entities) {
+  public static function prepareGoogleMap(array $entities, $address = '') {
     $markers = [];
 
     foreach ($entities as $index => $marker) {
@@ -887,7 +889,7 @@ class Molecules {
           'phone' => '',
           'fax' => '',
           'email' => '',
-          'address' => '',
+          'address' => !empty($address) ? $address : '',
         ],
       ];
     }
