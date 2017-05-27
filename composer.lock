@@ -198,8 +198,7 @@
                 "url": "https://github.com/blakestein/drupal-datalayer-d8.git",
                 "reference": "3b2ffa7"
             },
-            "type": "drupal-module",
-            "time": "2017-01-05 00:00:58"
+            "type": "drupal-module"
         },
         {
             "name": "caxy/php-htmldiff",
@@ -4577,7 +4576,7 @@
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/password_policy",
-                "reference": "435efce3dccfe4adbbe172048e15d28f861025a6"
+                "reference": "8ee51e4e58b1b9493867c43ddfecbdac20e04b0c"
             },
             "require": {
                 "drupal/core": "*",
@@ -4589,8 +4588,8 @@
                     "dev-3.x": "3.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-3.0-alpha3+4-dev",
-                    "datestamp": "1488210483"
+                    "version": "8.x-3.0-alpha3+3-dev",
+                    "datestamp": "1488167584"
                 },
                 "patches_applied": {
                     "Removes field updates from the install file. (https://www.drupal.org/node/2771129#comment-11954803)": "https://www.drupal.org/files/issues/password-policy-config-import-field-error-2771129-10-D8.patch"
@@ -4627,7 +4626,7 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/password_policy"
             },
-            "time": "2017-05-22 16:11:07"
+            "time": "2017-02-27 15:47:09"
         },
         {
             "name": "drupal/pathauto",
