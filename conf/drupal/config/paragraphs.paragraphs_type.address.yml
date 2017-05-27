@@ -4,3 +4,5 @@ status: true
 dependencies: {  }
 id: address
 label: Address
+icon_uuid: null
+behavior_plugins: {  }

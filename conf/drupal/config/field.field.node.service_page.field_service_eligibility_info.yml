@@ -11,7 +11,7 @@ field_name: field_service_eligibility_info
 entity_type: node
 bundle: service_page
 label: 'Eligibility Information'
-description: 'If this service has eligibility requirements, select the page that explains who is eligible for this service. If the page does not yet exist, you may need to <a href="/node/add/service_details" target="_blank">create it</a> first.'
+description: 'Optional: If there is eligibility information that applies to this service, you can add a link to a Service Details page containing eligibility information here. You might need to <a href="/node/add/service_details" target="_blank">create it</a> before referencing it.'
 required: false
 translatable: false
 default_value: {  }

@@ -169,6 +169,7 @@ class Organisms {
         'field_sub_title',
         'field_how_to_lede',
         'field_service_detail_lede',
+        'field_location_details_lede',
       ],
     ];
 
@@ -273,7 +274,8 @@ class Organisms {
     $ref_items = Helper::getReferencedEntitiesFromField($entity, $fields['items']);
 
     foreach ($ref_items as $item) {
-      $items[] = ['contactUs' => Molecules::prepareContactUs($item, ['display_title' => TRUE])];
+      $item_options = ['display_title' => TRUE, 'sidebar' => TRUE];
+      $items[] = ['contactUs' => Molecules::prepareContactUs($item, $item_options)];
     }
 
     if (!empty($items)) {
@@ -660,7 +662,8 @@ class Organisms {
     // Create the map of all possible field names to use.
     $map = [
       'overview' => ['field_overview'],
-      'hours' => ['field_hours'],
+      'primary_location' => ['field_ref_contact_info_1'],
+      'contacts' => ['field_ref_contact_info'],
       'parking' => ['field_parking'],
       'markers' => ['field_maps'],
       'activities' => ['field_location_activity_detail'],
@@ -680,8 +683,24 @@ class Organisms {
     }
 
     // Hours section.
-    if (Helper::isFieldPopulated($entity, $fields['hours'])) {
-      $sections[] = Helper::buildHours($entity->$fields['hours'], 'right');
+    if (Helper::isFieldPopulated($entity, $fields['primary_location'])) {
+
+      $contact_entities[] = Helper::getReferencedEntitiesFromField($entity, $fields['primary_location']);
+      foreach ($contact_entities as $contact) {
+        $contact_entity = $contact[0];
+        // Don't know why this map isn't working.
+        // $contact_fields = Helper::getMappedFields($contact_entity, $contact_map)
+        $sections[] = Helper::buildHours($contact_entity->field_ref_hours, 'Hours');
+      }
+    }
+    if (Helper::isFieldPopulated($entity, $fields['contacts'])) {
+      $contact_refs[] = Helper::getReferencedEntitiesFromField($entity, $fields['contacts']);
+      foreach ($contact_refs as $contact) {
+        $contact_ref = $contact[0];
+        // Don't know why this map isn't working.
+        // $contact_fields = Helper::getMappedFields($contact_entity, $contact_map)
+        $sections[] = Helper::buildHours($contact_ref->field_ref_hours, '');
+      }
     }
 
     // Parking section.
@@ -1083,6 +1102,64 @@ class Organisms {
   }
 
   /**
+   * Returns the variables structure required to render tabularData.
+   *
+   * @param object $entities
+   *   An EntityReferenceRevisionsFieldItemList that contains the entities.
+   * @param array $options
+   *   This is an array of field names.
+   *
+   * @see @organisms/by-author/tubular-data.twig
+   *
+   * @return array
+   *   Returns a structured array.
+   */
+  public static function prepareTabularData($entities, array $options) {
+    $items = [];
+
+    // Creates a map of fields on the parent entity.
+    $map = [
+      'fees' => ['field_how_to_ref_fees'],
+    ];
+
+    // Creates a map of fields that are on the entitiy.
+    $map_ref = [
+      'name' => ['field_fee_name'],
+      'fee' => ['field_fee_fee'],
+      'unit' => ['field_fee_unit'],
+    ];
+
+    // Determines which fieldnames to use from the map.
+    $fields = Helper::getMappedFields($entities, $map);
+
+    foreach ($map_ref as $indexFieldName => $fieldName) {
+      $head['rows'][$index]['cells'][] = [
+        'heading' => TRUE,
+        'text' => ucfirst($indexFieldName),
+      ];
+    }
+
+    foreach ($entities->$fields['fees'] as $index => $entity) {
+      $feeEntity = $entity->entity;
+
+      // Determines which fieldnames to use from the map.
+      $field = Helper::getMappedFields($feeEntity, $map_ref);
+      // Set our dollar sign.
+      setlocale(LC_MONETARY, 'en_US.UTF-8');
+
+      foreach ($map_ref as $indexFieldName => $fieldName) {
+        $items[$index]['rows'][$index]['cells'][] = [
+          'heading' => FALSE,
+          'text' => ($indexFieldName == 'fee') ? money_format('%.2n', Helper::fieldValue($feeEntity, $field[$indexFieldName])) : Helper::fieldValue($feeEntity, $field[$indexFieldName]),
+        ];
+      }
+    }
+
+    $heading = Helper::buildHeading($options['heading']);
+    return array_merge($heading, ['table' => ['head' => $head, 'bodies' => $items]]);
+  }
+
+  /**
    * Returns the variables structure required to render actionActivities.
    *
    * @param object $entities
@@ -1105,6 +1182,7 @@ class Organisms {
         'image' => ['field_image'],
         'title' => ['field_title'],
         'lede' => ['field_lede', 'field_teaser'],
+        'link' => ['field_ref_location_details_page'],
       ];
 
       // Determines which fieldnames to use from the map.

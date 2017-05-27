@@ -132,14 +132,15 @@ class Molecules {
    *   Return a structured array.
    */
   public static function prepareImagePromo($entity, array $fields) {
-
     $imagePromo = [];
+    $href = !empty($entity->$fields['link']->entity) ? $entity->$fields['link']->entity->toURL()->toString() : [];
+
     if (array_key_exists('image', $fields)) {
       if (Helper::isFieldPopulated($entity, $fields['image'])) {
         $imagePromo['image'] = [
           'src' => Helper::getFieldImageUrl($entity, 'activities_image', $fields['image']),
           'alt' => $entity->$fields['image']->alt,
-          'href' => '',
+          'href' => $href,
         ];
       }
     }
@@ -148,7 +149,7 @@ class Molecules {
       if (Helper::isFieldPopulated($entity, $fields['title'])) {
         $imagePromo['title'] = [
           'text' => Helper::fieldValue($entity, $fields['title']),
-          'href' => '',
+          'href' => $href,
         ];
       }
     }
@@ -157,6 +158,17 @@ class Molecules {
       if (Helper::isFieldPopulated($entity, $fields['lede'])) {
         $imagePromo['description'] = [
           'richText' => Atoms::preparePageContentParagraph($entity->$fields['lede']),
+        ];
+      }
+    }
+
+    if (array_key_exists('link', $fields)) {
+      if (Helper::isFieldPopulated($entity, $fields['link'])) {
+        $imagePromo['link'] = [
+          'text' => 'More',
+          'href' => $href,
+          'type' => 'chevron',
+          'info' => t('Read More about @activity', ['@activity' => Helper::fieldValue($entity, $fields['title'])]),
         ];
       }
     }
@@ -355,9 +367,9 @@ class Molecules {
         'text' => $entity->getTitle(),
       ],
       'description' => Helper::fieldValue($entity, $fields['text']),
-      'type' => in_array($entity->getType(), $options['useCallout']) ? 'callout' : '',
+      'type' => in_array($entity->getType(), isset($options['useCallout']) ? $options['useCallout'] : []) ? 'callout' : '',
       'links' => in_array($entity->getType(), $options['noCardLinks']) ? '' : $links,
-      'seeAll' => in_array($entity->getType(), $options['noSeeAll']) ? '' : $seeAll,
+      'seeAll' => in_array($entity->getType(), isset($options['noSeeAll']) ? $options['noSeeAll'] : []) ? '' : $seeAll,
     ];
   }
 
@@ -468,10 +480,11 @@ class Molecules {
 
       $item['type'] = $type;
 
-      // Creates a map of fields that are on the entitiy.
+      // Creates a map of fields that are on the entity.
       $map = [
         'details' => ['field_caption'],
         'label' => ['field_label'],
+        'hours' => ['field_ref_hours', 'field_hours'],
         'value' => ['field_address_text', 'field_phone', 'field_fax'],
         'link' => ['field_link_single', 'field_email'],
       ];
@@ -487,13 +500,18 @@ class Molecules {
         $item['label'] = Helper::fieldFullView($entity, $fields['label']);
       }
 
+      if (array_key_exists('hours', $fields) && Helper::isFieldPopulated($entity, $fields['hours'])) {
+        $item['hours'] = Helper::fieldFullView($entity, $fields['hours']);
+      }
+
       if ($type == 'address') {
-        $item['value'] = Helper::fieldFullView($entity, $fields['value']);
-        $item['link'] = 'https://maps.google.com/?q=' . urlencode(Helper::fieldValue($entity, $fields['value']));
+        $address = Helper::formatAddress($entity->$fields['value'], $options);
+        $item['value'] = $address;
+        $item['link'] = 'https://maps.google.com/?q=' . urlencode($address);
 
         // Respect first address provided if present.
         if (!$contactInfo['address']) {
-          $contactInfo['address'] = Helper::fieldValue($entity, $fields['value']);
+          $contactInfo['address'] = $address;
           $contactInfo['hasMap'] = $item['link'];
         }
       }
@@ -593,7 +611,7 @@ class Molecules {
     foreach ($referenced_fields as $id => $field) {
       if (Helper::isFieldPopulated($entity, $field)) {
         $items = Helper::getReferencedEntitiesFromField($entity, $field);
-        $groups[] = Molecules::prepareContactGroup($items, ['type' => $id], $contactInfo);
+        $groups[] = Molecules::prepareContactGroup($items, $options + ['type' => $id], $contactInfo);
       }
     }
 
@@ -786,8 +804,8 @@ class Molecules {
 
         // Creates a map of fields that are on the entitiy.
         $map = [
-          'lat_lng' => ['field_lat_long'],
-          'address' => ['field_address_text'],
+          'lat_lng' => ['field_geofield'],
+          'address' => ['field_address_address'],
           'label' => ['field_label'],
         ];
 
@@ -809,7 +827,7 @@ class Molecules {
             'phone' => isset($phone_numbers[$index]) ? $phone_numbers[$index] : '',
             'fax' => isset($fax_numbers[$index]) ? $fax_numbers[$index] : '',
             'email' => isset($links[$index]) ? $links[$index] : '',
-            'address' => Helper::fieldValue($addressEntity, $address_fields['address']),
+            'address' => Helper::formatAddress($addressEntity->$address_fields['address']),
           ],
           'label' => ++$index,
         ];
@@ -844,6 +862,8 @@ class Molecules {
    *
    * @param array $entities
    *   An array of entities.
+   * @param string $address
+   *   A string address if exists.
    *
    * @see @molecules/google-map.twig
    *
@@ -854,7 +874,7 @@ class Molecules {
    *      "markers": "",
    *    ], ...]
    */
-  public static function prepareGoogleMap(array $entities) {
+  public static function prepareGoogleMap(array $entities, $address = '') {
     $markers = [];
 
     foreach ($entities as $index => $marker) {
@@ -874,7 +894,7 @@ class Molecules {
           'phone' => '',
           'fax' => '',
           'email' => '',
-          'address' => '',
+          'address' => !empty($address) ? $address : '',
         ],
       ];
     }

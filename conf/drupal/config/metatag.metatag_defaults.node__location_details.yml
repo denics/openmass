@@ -1,0 +1,20 @@
+uuid: 343c9365-8d92-4911-a22c-dd493e13134a
+langcode: en
+status: true
+dependencies: {  }
+id: node__location_details
+label: 'Content: Location Details Page'
+tags:
+  description: '[node:field_lede]'
+  title: '[node:title] | [site:name]'
+  og_description: '[node:field_lede]'
+  og_site_name: '[site:name]'
+  og_title: '[node:title]'
+  og_type: website
+  og_url: '[node:url]'
+  twitter_cards_description: '[node:field_lede]'
+  twitter_cards_page_url: '[node:url]'
+  twitter_cards_site: '@massgov'
+  twitter_cards_site_id: '16264003'
+  twitter_cards_title: '[node:title]'
+  twitter_cards_type: summary

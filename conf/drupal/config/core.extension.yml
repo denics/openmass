@@ -1,6 +1,7 @@
 module:
   access_unpublished: 0
   acquia_connector: 0
+  address: 0
   automated_cron: 0
   block: 0
   block_content: 0
@@ -40,6 +41,11 @@ module:
   filter: 0
   flood_unblock: 0
   ga_login: 0
+  geocoder: 0
+  geocoder_address: 0
+  geocoder_field: 0
+  geocoder_geofield: 0
+  geofield: 0
   google_map_field: 0
   google_tag: 0
   help: 0
@@ -78,6 +84,7 @@ module:
   migrate_tools: 0
   node: 0
   node_edit_protection: 0
+  office_hours: 0
   options: 0
   paragraphs: 0
   password_policy: 0

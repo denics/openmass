@@ -13,15 +13,21 @@ entity_type: paragraph
 bundle: address
 label: 'Map (Lat/Long)'
 description: ''
-required: true
+required: false
 translatable: false
 default_value:
   -
     preview: ''
+    actions: {  }
     lat: '42.41'
     name: ''
     lon: '-71.38'
     zoom: '9'
+    type: roadmap
+    width: 100%
+    height: 450px
+    marker: '1'
+    controls: '1'
 default_value_callback: ''
 settings: {  }
 field_type: google_map_field

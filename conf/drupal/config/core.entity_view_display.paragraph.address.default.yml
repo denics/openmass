@@ -3,23 +3,33 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.paragraph.address.field_address_address
     - field.field.paragraph.address.field_address_text
+    - field.field.paragraph.address.field_geofield
     - field.field.paragraph.address.field_label
     - field.field.paragraph.address.field_lat_long
     - paragraphs.paragraphs_type.address
   module:
-    - google_map_field
+    - address
+    - geofield
 id: paragraph.address.default
 targetEntityType: paragraph
 bundle: address
 mode: default
 content:
-  field_address_text:
+  field_address_address:
     weight: 1
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: basic_string
+    type: address_default
+  field_geofield:
+    type: geofield_default
+    weight: 2
+    label: above
+    settings:
+      output_format: wkt
+    third_party_settings: {  }
   field_label:
     weight: 0
     label: above
@@ -27,12 +37,10 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
-  field_lat_long:
-    weight: 2
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: google_map_field_default
 hidden:
   created: true
+  field_address_text: true
+  field_geofield_7: true
+  field_lat_long: true
+  field_new_geofield: true
   uid: true

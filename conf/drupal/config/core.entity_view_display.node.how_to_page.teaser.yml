@@ -4,6 +4,19 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.how_to_page.field_how_to_contacts_3
+    - field.field.node.how_to_page.field_how_to_files
+    - field.field.node.how_to_page.field_how_to_lede
+    - field.field.node.how_to_page.field_how_to_link_1
+    - field.field.node.how_to_page.field_how_to_links_5
+    - field.field.node.how_to_page.field_how_to_methods_5
+    - field.field.node.how_to_page.field_how_to_more_info
+    - field.field.node.how_to_page.field_how_to_next_steps
+    - field.field.node.how_to_page.field_how_to_ref_fees
+    - field.field.node.how_to_page.field_how_to_ref_services
+    - field.field.node.how_to_page.field_how_to_taxo_action_type
+    - field.field.node.how_to_page.field_how_to_time
+    - field.field.node.how_to_page.field_how_to_what_you_need
     - node.type.how_to_page
   module:
     - user
@@ -14,6 +27,12 @@ mode: teaser
 content:
   links:
     weight: 100
+    settings: {  }
+    third_party_settings: {  }
+  workbench_moderation_control:
+    weight: -20
+    settings: {  }
+    third_party_settings: {  }
 hidden:
   field_how_to_contacts_3: true
   field_how_to_files: true
@@ -23,6 +42,7 @@ hidden:
   field_how_to_methods_5: true
   field_how_to_more_info: true
   field_how_to_next_steps: true
+  field_how_to_ref_fees: true
   field_how_to_ref_services: true
   field_how_to_taxo_action_type: true
   field_how_to_time: true

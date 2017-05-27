@@ -10,7 +10,7 @@ field_name: field_label
 entity_type: paragraph
 bundle: address
 label: Label
-description: 'This optional label will sometimes be displayed above the address to help orient the user to how this address relates to this location. For example: "South Entrance".'
+description: 'When a contact has more than one address, this optional label can be used as the title for an individual address, such as "South Entrance."'
 required: false
 translatable: true
 default_value: {  }

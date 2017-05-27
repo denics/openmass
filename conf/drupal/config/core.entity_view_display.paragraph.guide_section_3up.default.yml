@@ -115,4 +115,6 @@ content:
     type: string
 hidden:
   created: true
+  field_guide_section_label: true
+  field_guide_section_stat: true
   uid: true

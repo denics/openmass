@@ -11,7 +11,7 @@ field_name: field_service_file
 entity_type: node
 bundle: service_page
 label: Downloads
-description: 'Upload any important forms that apply to this section.'
+description: 'Add forms or other documents here that users may want to download.'
 required: false
 translatable: false
 default_value: {  }

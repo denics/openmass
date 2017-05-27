@@ -2,7 +2,9 @@ admin_overrides:
   version: 1.x
   css:
     theme:
+      overrides/css/address-fields.css: {}
       overrides/css/action-node-form.css: {}
+      overrides/css/contact-information-node-form.css: {}
       overrides/css/org-page-node-form.css: {}
       overrides/css/images.css: {}
   js:

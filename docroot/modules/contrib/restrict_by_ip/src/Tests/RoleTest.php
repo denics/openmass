@@ -1,4 +1,5 @@
 <?php
+
 namespace Drupal\restrict_by_ip\Tests;
 use Drupal\simpletest\WebTestBase;
 
@@ -11,7 +12,7 @@ use Drupal\simpletest\WebTestBase;
  */
 class RoleTest extends WebTestBase {
   private $regularUser;
-  private $role = array();
+  private $role = [];
 
   public static $modules = ['restrict_by_ip'];
 
@@ -24,14 +25,14 @@ class RoleTest extends WebTestBase {
 
     // Create a role with administer permissions so we can load the user edit,
     // page and test if the user has this role when logged in.
-    $rid = $this->drupalCreateRole(array('administer permissions'));
+    $rid = $this->drupalCreateRole(['administer permissions']);
     $roles = user_roles();
     $this->role['id'] = $rid;
     $this->role['name'] = $roles[$rid];
 
     // Add created role to user.
-    $new_roles = $this->regularUser->roles + array($rid => $roles[$rid]);
-    user_save($this->regularUser, array('roles' => $new_roles));
+    $new_roles = $this->regularUser->roles + [$rid => $roles[$rid]];
+    user_save($this->regularUser, ['roles' => $new_roles]);
   }
 
   public function testRoleAppliedNoRestrictions() {
@@ -58,7 +59,7 @@ class RoleTest extends WebTestBase {
   public function testUIRoleRenamed() {
     variable_set('restrict_by_ip_role_' . _restrict_by_ip_hash_role_name($this->role['name']), '127.0.0.0/8');
     $this->drupalLogin($this->regularUser);
-    $form = array();
+    $form = [];
     $form['name'] = 'a new role name';
     $this->drupalPost('admin/people/permissions/roles/edit/' . $this->role['id'], $form, t('Save role'));
     $this->assertText('The role has been renamed.');
@@ -69,7 +70,7 @@ class RoleTest extends WebTestBase {
   public function testUIRoleDeleted() {
     variable_set('restrict_by_ip_role_' . _restrict_by_ip_hash_role_name($this->role['name']), '127.0.0.0/8');
     $this->drupalLogin($this->regularUser);
-    $form = array();
+    $form = [];
     $this->drupalPost('admin/people/permissions/roles/edit/' . $this->role['id'], $form, t('Delete role'));
     $this->drupalPost(NULL, $form, t('Delete'));
     $this->assertText('The role has been deleted.');

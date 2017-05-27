@@ -1,0 +1,50 @@
+uuid: c252de49-e596-4c5d-a7af-179f3a3c4a5e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.fee.field_fee_fee
+    - field.field.node.fee.field_fee_name
+    - field.field.node.fee.field_fee_unit
+    - node.type.fee
+  module:
+    - workbench_moderation
+id: node.fee.default
+targetEntityType: node
+bundle: fee
+mode: default
+content:
+  field_fee_fee:
+    weight: 2
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_fee_name:
+    weight: 1
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_fee_unit:
+    weight: 3
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  title:
+    type: string_textfield
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  path: true
+  promote: true
+  sticky: true
+  uid: true

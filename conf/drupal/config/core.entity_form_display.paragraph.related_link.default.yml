@@ -22,5 +22,6 @@ content:
     type: link_default
 hidden:
   created: true
+  field_description: true
   status: true
   uid: true

@@ -156,10 +156,11 @@ third_party_settings:
       weight: 44
       format_type: fieldset
       format_settings:
+        label: 'Additional resources'
+        description: 'Add up to 6 items of additional information – informational pages, online forms, or file downloads – that may be important to this service.'
+        required_fields: true
         id: ''
         classes: ''
-        description: 'Optional. If there are additional resources that contain helpful information, add them here.'
-        required_fields: true
       label: 'Additional resources'
 id: node.service_page.default
 targetEntityType: node

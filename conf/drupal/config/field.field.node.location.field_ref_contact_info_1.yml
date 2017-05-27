@@ -4,25 +4,22 @@ status: true
 dependencies:
   config:
     - field.storage.node.field_ref_contact_info_1
-    - node.type.contact_information
     - node.type.location
 id: node.location.field_ref_contact_info_1
 field_name: field_ref_contact_info_1
 entity_type: node
 bundle: location
 label: 'Primary Location'
-description: 'Select the primary Contact information for this location. This should include the address you''d give a visitor for general directions. The address will power the map on this page. You might need to <a href="/node/add/contact_information" target="_blank">create it</a> before referencing it here.'
+description: 'Select the primary Contact information for this location. This should include the address you''d give a visitor for general directions. The address will power the map on this page. You might need to <a href="/node/add/contact_information" target="_blank">create it</a> before referencing it here. Only contacts with address and hours information will appear in this list.'
 required: true
 translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: 'default:node'
+  handler: views
   handler_settings:
-    target_bundles:
-      contact_information: contact_information
-    sort:
-      field: _none
-    auto_create: false
-    auto_create_bundle: ''
+    view:
+      view_name: contacts_with_hours
+      display_name: entity_reference_1
+      arguments: {  }
 field_type: entity_reference

@@ -1,0 +1,47 @@
+uuid: 95e8698f-0d4f-40cb-9e35-e6276251839c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.location_details.field_location_details_lede
+    - field.field.node.location_details.field_location_details_links_5
+    - field.field.node.location_details.field_location_details_sections
+    - node.type.location_details
+  module:
+    - entity_reference_revisions
+    - link
+    - user
+id: node.location_details.default
+targetEntityType: node
+bundle: location_details
+mode: default
+content:
+  field_location_details_lede:
+    weight: 103
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_location_details_links_5:
+    weight: 102
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+  field_location_details_sections:
+    weight: 101
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    type: entity_reference_revisions_entity_view
+  links:
+    weight: 100
+hidden: {  }
