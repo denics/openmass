@@ -25,7 +25,7 @@ class ComposerAutoloaderInit72d0a5d5429a1b8a10600f374f2cc034
 
         $includePaths = require __DIR__ . '/include_paths.php';
         array_push($includePaths, get_include_path());
-        set_include_path(join(PATH_SEPARATOR, $includePaths));
+        set_include_path(implode(PATH_SEPARATOR, $includePaths));
 
         $map = require __DIR__ . '/autoload_namespaces.php';
         foreach ($map as $namespace => $path) {

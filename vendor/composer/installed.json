@@ -3430,7 +3430,7 @@
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/drupal/core/zipball/7ccc248f4058dd5985ad0c61c129243d0d2b58b8",
+            "url": "https://api.github.com/repos/drupal/core/zipball/c63ef7a000bdfe2286cf2eeec6efdf4298dfc6a8",
             "reference": "c63ef7a000bdfe2286cf2eeec6efdf4298dfc6a8",
             "shasum": ""
         },
@@ -3613,7 +3613,7 @@
         "source": {
             "type": "git",
             "url": "https://git.drupal.org/project/access_unpublished",
-            "reference": "4759731cfa5a5dc08cf14541a1061ed8e086d989"
+            "reference": "61f4e1704ff2497ab87dcf29f6566392d447685a"
         },
         "require": {
             "drupal/core": "~8.0"
@@ -3625,8 +3625,8 @@
                 "dev-1.x": "1.x-dev"
             },
             "drupal": {
-                "version": "8.x-1.0-alpha2+5-dev",
-                "datestamp": "1495178884"
+                "version": "8.x-1.0-alpha1+1-dev",
+                "datestamp": "1480946284"
             },
             "patches_applied": {
                 "Allow to view unpublished content moderated using Workbench Moderation": "https://www.drupal.org/files/issues/access_unpublished-integration_with_workbench_moderation_module-2848938-4.patch"
@@ -6352,6 +6352,69 @@
         }
     },
     {
+        "name": "drupal/password_policy",
+        "version": "3.0.0-alpha2",
+        "version_normalized": "3.0.0.0-alpha2",
+        "source": {
+            "type": "git",
+            "url": "https://git.drupal.org/project/password_policy",
+            "reference": "8.x-3.0-alpha2"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://ftp.drupal.org/files/projects/password_policy-8.x-3.0-alpha2.zip",
+            "reference": "8.x-3.0-alpha2",
+            "shasum": "606dd464cd8c94169ba0fe44c4c4a1679c7ba26d"
+        },
+        "require": {
+            "drupal/core": "~8.0"
+        },
+        "type": "drupal-module",
+        "extra": {
+            "branch-alias": {
+                "dev-3.x": "3.x-dev"
+            },
+            "drupal": {
+                "version": "8.x-3.0-alpha2",
+                "datestamp": "1488135183"
+            },
+            "patches_applied": {
+                "Removes field updates from the install file. (https://www.drupal.org/node/2771129#comment-11792230)": "https://www.drupal.org/files/issues/password-policy-remove-install-2771129-5.patch"
+            }
+        },
+        "installation-source": "dist",
+        "notification-url": "https://packages.drupal.org/8/downloads",
+        "license": [
+            "GPL-2.0+"
+        ],
+        "authors": [
+            {
+                "name": "AohRveTPV",
+                "homepage": "https://www.drupal.org/user/2760115"
+            },
+            {
+                "name": "deekayen",
+                "homepage": "https://www.drupal.org/user/972"
+            },
+            {
+                "name": "miglius",
+                "homepage": "https://www.drupal.org/user/18741"
+            },
+            {
+                "name": "nerdstein",
+                "homepage": "https://www.drupal.org/user/1557710"
+            },
+            {
+                "name": "shrop",
+                "homepage": "https://www.drupal.org/user/14767"
+            }
+        ],
+        "homepage": "https://www.drupal.org/project/password_policy",
+        "support": {
+            "source": "http://cgit.drupalcode.org/password_policy"
+        }
+    },
+    {
         "name": "drupal/ctools",
         "version": "3.0.0",
         "version_normalized": "3.0.0.0",
@@ -7981,7 +8044,7 @@
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/mikeyp/google_tag/zipball/6a3c3e7914114cddc55536253c64b3ff2e9df772",
+            "url": "https://api.github.com/repos/mikeyp/google_tag/zipball/3caa4f0b7f008576936ab7501d483bfcf58a4764",
             "reference": "3caa4f0b7f008576936ab7501d483bfcf58a4764",
             "shasum": ""
         },
@@ -9844,7 +9907,7 @@
             "phpspec/phpspec": "~2.0",
             "phpunit/phpunit": "~4.0"
         },
-        "time": "2016-06-20 16:29:51",
+        "time": "2016-06-20T16:29:51+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -9907,7 +9970,7 @@
             "phpspec/phpspec": "~2.0",
             "phpunit/phpunit": "3.7.*"
         },
-        "time": "2016-06-30 21:12:18",
+        "time": "2016-06-30T21:12:18+00:00",
         "type": "behat-extension",
         "extra": {
             "branch-alias": {
@@ -9974,6 +10037,9 @@
             "proprietary"
         ],
         "authors": [
+            "proprietary"
+        ],
+        "authors": [
             {
                 "name": "Palantir.net",
                 "email": "white@palantir.net",
@@ -10023,6 +10089,103 @@
         "type": "drupal-module",
         "extra": {
             "branch-alias": {
+                "dev-1.x": "1.x-dev"
+            },
+            "drupal": {
+                "version": "8.x-1.0-rc6",
+                "datestamp": "1480365484"
+            },
+            "patches_applied": {
+                "Provide page level error messaging when publishing validation is not met": "https://www.drupal.org/files/issues/field_group-validation-2787179-9.patch"
+            }
+        },
+        "installation-source": "dist",
+        "notification-url": "https://packages.drupal.org/8/downloads",
+        "license": [
+            "GPL-2.0+"
+        ],
+        "authors": [
+            {
+                "name": "Hydra",
+                "homepage": "https://www.drupal.org/user/647364"
+            },
+            {
+                "name": "Stalski",
+                "homepage": "https://www.drupal.org/user/322618"
+            },
+            {
+                "name": "jyve",
+                "homepage": "https://www.drupal.org/user/591438"
+            },
+            {
+                "name": "swentel",
+                "homepage": "https://www.drupal.org/user/107403"
+            },
+            {
+                "name": "zuuperman",
+                "homepage": "https://www.drupal.org/user/361625"
+            }
+        ],
+        "description": "Provides the field_group module.",
+        "homepage": "https://www.drupal.org/project/field_group",
+        "support": {
+            "source": "http://cgit.drupalcode.org/field_group"
+        }
+    },
+    {
+        "name": "symfony/debug",
+        "version": "v2.8.20",
+        "version_normalized": "2.8.20.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/symfony/debug.git",
+            "reference": "344f50ce827413b3640bfcb1e37386a67d06ea1f"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/symfony/debug/zipball/344f50ce827413b3640bfcb1e37386a67d06ea1f",
+            "reference": "344f50ce827413b3640bfcb1e37386a67d06ea1f",
+            "shasum": ""
+        },
+        "time": "2017-05-02T18:33:34+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "license": [
+            "proprietary"
+        ],
+        "authors": [
+            {
+                "name": "Bryan Hirsch",
+                "email": "bryan.hirsch@mass.gov"
+            }
+        ],
+        "description": "This repository is the product of the built artifact from massgov/mayflower",
+        "support": {
+            "source": "https://github.com/massgov/mayflower-artifacts/tree/4.1.0",
+            "issues": "https://github.com/massgov/mayflower-artifacts/issues"
+        }
+    },
+    {
+        "name": "drupal/field_group",
+        "version": "1.0.0-rc6",
+        "version_normalized": "1.0.0.0-RC6",
+        "source": {
+            "type": "git",
+            "url": "https://git.drupal.org/project/field_group",
+            "reference": "8.x-1.0-rc6"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://ftp.drupal.org/files/projects/field_group-8.x-1.0-rc6.zip",
+            "reference": "8.x-1.0-rc6",
+            "shasum": "1ce3c6387e745a04a1099956a5bf39bb50096d44"
+        },
+        "require": {
+            "php": ">=5.3.9",
+            "psr/log": "~1.0"
+        },
+        "conflict": {
+            "symfony/http-kernel": ">=2.3,<2.3.24|~2.4.0|>=2.5,<2.5.9|>=2.6,<2.6.2"
                 "dev-1.x": "1.x-dev"
             },
             "drupal": {
@@ -11451,12 +11614,116 @@
         "time": "2017-05-08 16:49:07",
         "bin": [
             "bin/drupal"
+            "branch-alias": {
+                "dev-master": "2.8-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Symfony\\Component\\Finder\\": ""
+            },
+            "exclude-from-classmap": [
+                "/Tests/"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
         ],
         "type": "project",
+            {
+                "name": "Fabien Potencier",
+                "email": "fabien@symfony.com"
+            },
+            {
+                "name": "Symfony Community",
+                "homepage": "https://symfony.com/contributors"
+            }
+        ],
+        "description": "Symfony Finder Component",
+        "homepage": "https://symfony.com"
+    },
+    {
+        "name": "symfony/yaml",
+        "version": "v2.8.20",
+        "version_normalized": "2.8.20.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/symfony/yaml.git",
+            "reference": "93ccdde79f4b079c7558da4656a3cb1c50c68e02"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/symfony/yaml/zipball/93ccdde79f4b079c7558da4656a3cb1c50c68e02",
+            "reference": "93ccdde79f4b079c7558da4656a3cb1c50c68e02",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.9"
+        },
+        "time": "2017-05-01T14:31:55+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.8-dev"
+            }
+        },
         "installation-source": "dist",
         "autoload": {
             "psr-4": {
                 "Drupal\\Console\\": "src"
+            },
+            "exclude-from-classmap": [
+                "/Tests/"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Fabien Potencier",
+                "email": "fabien@symfony.com"
+            },
+            {
+                "name": "Symfony Community",
+                "homepage": "https://symfony.com/contributors"
+            }
+        ],
+        "description": "Symfony Yaml Component",
+        "homepage": "https://symfony.com"
+    },
+    {
+        "name": "drupal/console-extend-plugin",
+        "version": "0.6.0",
+        "version_normalized": "0.6.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/hechoendrupal/drupal-console-extend-plugin.git",
+            "reference": "4e7f57650eefc53eb02c89360bbc1f675c901a73"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/hechoendrupal/drupal-console-extend-plugin/zipball/4e7f57650eefc53eb02c89360bbc1f675c901a73",
+            "reference": "4e7f57650eefc53eb02c89360bbc1f675c901a73",
+            "shasum": ""
+        },
+        "require": {
+            "composer-plugin-api": "^1.0",
+            "symfony/finder": ">=2.7 <3.0",
+            "symfony/yaml": ">=2.7 <3.0"
+        },
+        "time": "2017-05-02T14:17:00+00:00",
+        "type": "composer-plugin",
+        "extra": {
+            "class": "Drupal\\Console\\Composer\\Plugin\\Extender"
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Drupal\\Console\\Composer\\Plugin\\": "src"
             }
         },
         "notification-url": "https://packagist.org/downloads/",
@@ -11468,24 +11735,109 @@
                 "name": "David Flores",
                 "email": "dmousex@gmail.com",
                 "homepage": "http://dmouse.net"
+        ],
+        "description": "Drupal Console Extend Plugin"
             },
             {
                 "name": "Jesus Manuel Olivas",
                 "email": "jesus.olivas@gmail.com",
                 "homepage": "http://jmolivas.com"
+        "source": {
+            "type": "git",
+            "url": "https://github.com/webflo/drupal-finder.git",
+            "reference": "6ef150707aad1755d91f9b0d2108bcc16661e76b"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/webflo/drupal-finder/zipball/6ef150707aad1755d91f9b0d2108bcc16661e76b",
+            "reference": "6ef150707aad1755d91f9b0d2108bcc16661e76b",
+            "shasum": ""
+        },
+        "require-dev": {
+            "mikey179/vfsstream": "^1.6",
+            "phpunit/phpunit": "^4.8"
+        },
+        "time": "2017-05-04T08:54:02+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "classmap": [
+                "src/DrupalFinder.php"
+            ]
             },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "GPL-2.0+"
+        ],
+        "authors": [
             {
                 "name": "Drupal Console Contributors",
                 "homepage": "https://github.com/hechoendrupal/DrupalConsole/graphs/contributors"
+            }
+        ],
+        "description": "Helper class to locate a Drupal installation from a given path."
             },
             {
                 "name": "Eduardo Garcia",
                 "email": "enzo@enzolutions.com",
                 "homepage": "http://enzolutions.com/"
+        "source": {
+            "type": "git",
+            "url": "https://github.com/symfony/translation.git",
+            "reference": "32b7c0bffc07772cf1a902e3464ef77117fa07c7"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/symfony/translation/zipball/32b7c0bffc07772cf1a902e3464ef77117fa07c7",
+            "reference": "32b7c0bffc07772cf1a902e3464ef77117fa07c7",
+            "shasum": ""
             },
+        "require": {
+            "php": ">=5.3.9",
+            "symfony/polyfill-mbstring": "~1.0"
+        },
+        "conflict": {
+            "symfony/config": "<2.7"
+        },
+        "require-dev": {
+            "psr/log": "~1.0",
+            "symfony/config": "~2.8",
+            "symfony/intl": "~2.7.25|^2.8.18|~3.2.5",
+            "symfony/yaml": "~2.2|~3.0.0"
+        },
+        "suggest": {
+            "psr/log": "To use logging capability in translator",
+            "symfony/config": "",
+            "symfony/yaml": ""
+        },
+        "time": "2017-04-12T14:07:15+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.8-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Symfony\\Component\\Translation\\": ""
+            },
+            "exclude-from-classmap": [
+                "/Tests/"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
             {
                 "name": "Omar Aguirre",
                 "email": "omersguchigu@gmail.com"
+            },
+            {
+                "name": "Symfony Community",
+                "homepage": "https://symfony.com/contributors"
             }
         ],
         "description": "The Drupal CLI. A tool to generate boilerplate code, interact with and debug Drupal.",
@@ -11702,6 +12054,7 @@
             "drupal/core": "*"
         },
         "type": "drupal-module",
+        "type": "library",
         "extra": {
             "branch-alias": {
                 "dev-1.x": "1.x-dev"
@@ -11713,6 +12066,14 @@
         },
         "installation-source": "dist",
         "notification-url": "https://packages.drupal.org/8/downloads",
+            "psr-4": {
+                "Symfony\\Component\\EventDispatcher\\": ""
+            },
+            "exclude-from-classmap": [
+                "/Tests/"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
         "license": [
             "GPL-2.0+"
         ],
@@ -11724,6 +12085,8 @@
             {
                 "name": "googletorp",
                 "homepage": "https://www.drupal.org/user/386230"
+        "description": "Symfony EventDispatcher Component",
+        "homepage": "https://symfony.com"
             },
             {
                 "name": "rszrama",
@@ -11751,14 +12114,76 @@
             "reference": "170ded831f49abc6a6061f655aba9bdbcf7b8111",
             "shasum": ""
         },
+        "require-dev": {
+            "symfony/config": "~2.2|~3.0.0",
+            "symfony/expression-language": "~2.6|~3.0.0",
+            "symfony/yaml": "~2.3.42|~2.7.14|~2.8.7|~3.0.7"
+        },
+        "suggest": {
+            "symfony/config": "",
+            "symfony/expression-language": "For using expressions in service container configuration",
+            "symfony/proxy-manager-bridge": "Generate service proxies to lazy load them",
+            "symfony/yaml": ""
+        },
+        "time": "2017-04-26T01:38:53+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.8-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Symfony\\Component\\DependencyInjection\\": ""
+            },
+            "exclude-from-classmap": [
+                "/Tests/"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+        },
         "require": {
             "php": ">=5.4"
+            }
+        ],
+        "description": "Symfony DependencyInjection Component",
+        "homepage": "https://symfony.com"
         },
         "time": "2014-12-15 23:03:51",
         "type": "library",
         "extra": {
             "branch-alias": {
                 "dev-master": "1.0-dev"
+            "type": "git",
+            "url": "https://github.com/symfony/config.git",
+            "reference": "0b8541d18507d10204a08384640ff6df3c739ebe"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/symfony/config/zipball/0b8541d18507d10204a08384640ff6df3c739ebe",
+            "reference": "0b8541d18507d10204a08384640ff6df3c739ebe",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.9",
+            "symfony/filesystem": "~2.3|~3.0.0"
+        },
+        "require-dev": {
+            "symfony/yaml": "~2.7|~3.0.0"
+        },
+        "suggest": {
+            "symfony/yaml": "To use the yaml reference dumper"
+        },
+        "time": "2017-04-12T14:07:15+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.8-dev"
             }
         },
         "installation-source": "dist",
@@ -11770,11 +12195,16 @@
         "notification-url": "https://packagist.org/downloads/",
         "license": [
             "MIT"
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
         ],
         "authors": [
             {
                 "name": "Igor Wiedler",
                 "email": "igor@wiedler.ch"
+                "name": "Symfony Community",
+                "homepage": "https://symfony.com/contributors"
             }
         ],
         "description": "Functions for for hash map (assoc array) traversal.",
@@ -11851,8 +12281,56 @@
         ],
         "authors": [
             {
+                "name": "Stephen Holdaway",
+                "email": "stephen@stecman.co.nz"
+            }
+        ],
+        "description": "Automatic BASH completion for Symfony Console Component based applications."
+    },
+    {
+        "name": "drupal/console-en",
+        "version": "1.0.0-rc19",
+        "version_normalized": "1.0.0.0-RC19",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/hechoendrupal/drupal-console-en.git",
+            "reference": "df4da4011500496fc9c1d611cd36343006079915"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/hechoendrupal/drupal-console-en/zipball/df4da4011500496fc9c1d611cd36343006079915",
+            "reference": "df4da4011500496fc9c1d611cd36343006079915",
+            "shasum": ""
+        },
+        "time": "2017-05-05T21:51:49+00:00",
+        "type": "drupal-console-language",
+        "installation-source": "dist",
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+        ],
+        "authors": [
+            {
                 "name": "Eric GELOEN",
                 "email": "geloen.eric@gmail.com"
+                "homepage": "http://dmouse.net"
+            },
+            {
+                "name": "Jesus Manuel Olivas",
+                "email": "jesus.olivas@gmail.com",
+                "homepage": "http://jmolivas.com"
+            },
+            {
+                "name": "Drupal Console Contributors",
+                "homepage": "https://github.com/hechoendrupal/DrupalConsole/graphs/contributors"
+            },
+            {
+                "name": "Eduardo Garcia",
+                "email": "enzo@enzolutions.com",
+                "homepage": "http://enzolutions.com/"
+            },
+            {
+                "name": "Omar Aguirre",
+                "email": "omersguchigu@gmail.com"
             }
         ],
         "description": "Issue HTTP request for PHP 5.3+.",
@@ -11915,6 +12393,12 @@
             {
                 "name": "William Durand",
                 "email": "william.durand1@gmail.com"
+                "homepage": "http://dflydev.com"
+            },
+            {
+                "name": "Beau Simensen",
+                "email": "beau@dflydev.com",
+                "homepage": "http://beausimensen.com"
             }
         ],
         "description": "The almost missing Geocoder PHP 5.4 library.",
@@ -11949,6 +12433,8 @@
             "drupal/address": "*",
             "drupal/geocoder_field": "*",
             "drupal/geofield": "*"
+                "dev-master": "1.0-dev"
+            }
         },
         "type": "drupal-module",
         "extra": {
@@ -12031,6 +12517,14 @@
             "phpunit/phpunit": "4.1.*"
         },
         "time": "2016-03-04 05:42:29",
+        },
+        "require-dev": {
+            "symfony/yaml": "~2.1"
+        },
+        "suggest": {
+            "symfony/yaml": "Required for using the YAML Configuration Builders"
+        },
+        "time": "2014-11-14T03:26:12+00:00",
         "type": "library",
         "installation-source": "source",
         "autoload": {
@@ -12081,6 +12575,11 @@
         },
         "installation-source": "dist",
         "notification-url": "https://packages.drupal.org/8/downloads",
+            "psr-0": {
+                "Dflydev\\DotAccessConfiguration": "src"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
         "license": [
             "GPL-2.0+"
         ],
@@ -12212,19 +12711,111 @@
         },
         "require": {
             "drupal/core": "*"
+            "drupal/console-en": "1.0.0-rc19",
+            "php": "^5.5.9 || ^7.0",
+            "stecman/symfony-console-completion": "~0.7",
+            "symfony/config": ">=2.7 <3.0",
+            "symfony/console": ">=2.7 <3.0",
+            "symfony/debug": ">=2.6 <3.0",
+            "symfony/dependency-injection": ">=2.7 <3.0",
+            "symfony/event-dispatcher": ">=2.7 <3.0",
+            "symfony/filesystem": ">=2.7 <3.0",
+            "symfony/finder": ">=2.7 <3.0",
+            "symfony/process": ">=2.7 <3.0",
+            "symfony/translation": ">=2.7 <3.0",
+            "symfony/yaml": ">=2.7 <3.0",
+            "twig/twig": "^1.23.1",
+            "webflo/drupal-finder": "0.*"
         },
         "type": "drupal-module",
         "extra": {
             "branch-alias": {
                 "dev-1.x": "1.x-dev"
+            "files": [
+                "src/functions.php"
+            ],
+            "psr-4": {
+                "Drupal\\Console\\Core\\": "src"
+            }
             },
             "drupal": {
                 "version": "8.x-1.0-alpha2",
                 "datestamp": "1489698183"
+        ],
+        "authors": [
+            {
+                "name": "David Flores",
+                "email": "dmousex@gmail.com",
+                "homepage": "http://dmouse.net"
+                "email": "jesus.olivas@gmail.com",
+                "homepage": "http://jmolivas.com"
+            },
+            {
+                "name": "Drupal Console Contributors",
+                "homepage": "https://github.com/hechoendrupal/DrupalConsole/graphs/contributors"
+            },
+            {
+                "name": "Eduardo Garcia",
+                "email": "enzo@enzolutions.com",
+                "homepage": "http://enzolutions.com/"
+            },
+            {
+                "name": "Omar Aguirre",
+                "email": "omersguchigu@gmail.com"
             }
+        ],
+        "description": "Drupal Console Core",
+        "homepage": "http://drupalconsole.com/",
+        "keywords": [
+            "console",
+            "development",
+            "drupal",
+            "symfony"
+        ]
+    },
+    {
+        "name": "drupal/console",
+        "version": "1.0.0-rc19",
+        "version_normalized": "1.0.0.0-RC19",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/hechoendrupal/drupal-console.git",
+            "reference": "98ad4c0362146689f3d4f895394ef35a4f95443d"
         },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/hechoendrupal/drupal-console/zipball/98ad4c0362146689f3d4f895394ef35a4f95443d",
+            "reference": "98ad4c0362146689f3d4f895394ef35a4f95443d",
+            "shasum": ""
+        },
+        "require": {
+            "alchemy/zippy": "0.4.3",
+            "composer/installers": "~1.0",
+            "doctrine/annotations": "1.2.*",
+            "doctrine/collections": "~1.3",
+            "drupal/console-core": "1.0.0-rc19",
+            "drupal/console-extend-plugin": "~0",
+            "gabordemooij/redbean": "~4.3",
+            "guzzlehttp/guzzle": "~6.1",
+            "php": "^5.5.9 || ^7.0",
+            "psy/psysh": "0.6.* || ~0.8",
+            "symfony/css-selector": ">=2.7 <3.0",
+            "symfony/dom-crawler": ">=2.7 <3.3",
+            "symfony/expression-language": ">=2.7 <3.0",
+            "symfony/http-foundation": ">=2.7 <3.0"
+        },
+        "time": "2017-05-08T16:49:07+00:00",
+        "bin": [
+            "bin/drupal"
+        ],
+        "type": "project",
         "installation-source": "dist",
         "notification-url": "https://packages.drupal.org/8/downloads",
+            "psr-4": {
+                "Drupal\\Console\\": "src"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
         "license": [
             "GPL-2.0+"
         ],
@@ -12237,10 +12828,12 @@
             {
                 "name": "johnv",
                 "homepage": "https://www.drupal.org/user/591042"
+                "homepage": "http://jmolivas.com"
             },
             {
                 "name": "mikl",
                 "homepage": "https://www.drupal.org/user/58679"
+                "homepage": "http://enzolutions.com/"
             },
             {
                 "name": "skwashd",
@@ -12253,6 +12846,7 @@
             "source": "http://cgit.drupalcode.org/office_hours",
             "issues": "http://drupal.org/project/office_hours",
             "irc": "irc://irc.freenode.org/drupal-contribute"
-        }
+            "symfony"
+        ]
     }
 ]
