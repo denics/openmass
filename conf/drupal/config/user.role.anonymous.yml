@@ -34,3 +34,4 @@ permissions:
   - 'access_unpublished node contact_information'
   - 'access_unpublished node how_to_page'
   - 'access_unpublished node topic_page'
+  - 'access_unpublished node location_details'

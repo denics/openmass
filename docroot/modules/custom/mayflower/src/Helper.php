@@ -557,17 +557,31 @@ class Helper {
   }
 
   /**
+   * Helper function to prepare the Hours.
+   *
+   * @param object $entity
+   *   The object that contains the necessary fields.
+   * @param array $options
+   *   The object that contains static data and other options..
+   *
+   * @return array
+   *   Return an array of items that contain:
+   *    "office hours": {
+   *    }
+   */
+
+  /**
    * Helper function to build Hours section.
    *
    * @param object $hours
    *   Send a field object.
-   * @param string $align
-   *   Which way to align statsCallout.
+   * @param string $title
+   *   Which generates the heading before a section.
    *
    * @return array
    *   Return structured array.
    */
-  public static function buildHours($hours, $align) {
+  public static function buildHours($hours, $title) {
     $rteElements = [];
 
     // Hours section.
@@ -580,54 +594,50 @@ class Helper {
 
       // Creates a map of fields that are on the entitiy.
       $map = [
-        'label' => ['field_label'],
-        'time' => ['field_time_frame'],
-        'hour' => ['field_hours'],
+        'label' => ['field_label', 'field_hours_group_title'],
+        'time' => ['field_time_frame', 'field_hours_structured'],
+        'hour' => ['field_hours', 'field_hours_description'],
+        'description' => ['field_hours_description'],
       ];
 
       // Determines which fieldnames to use from the map.
       $field = Helper::getMappedFields($entity, $map);
+      $hours_render_array = $entity->field_hours_structured->view('full');
 
-      // The first one is styled differently.
-      if ($index == 0) {
-        $rteElements[] = [
-          'path' => '@molecules/callout-stats.twig',
-          'data' => [
-            'statsCallout' => [
-              'pull' => $align,
-              'stat' => Helper::fieldValue($entity, $field['time']),
-              'content' => Helper::fieldValue($entity, $field['hour']),
-            ],
+      $rteElements[] = [
+        'path' => '@atoms/04-headings/heading-4.twig',
+        'data' => [
+          'heading4' => [
+            'text' => Helper::fieldValue($entity, $field['label']),
           ],
-        ];
-        continue;
-      }
-
-      if (Helper::isFieldPopulated($entity, $field['label'])) {
-        $rteElements[] = [
-          'path' => '@atoms/04-headings/heading-4.twig',
-          'data' => [
-            'heading4' => [
-              'text' => Helper::fieldValue($entity, $field['label']),
-            ],
-          ],
-        ];
-      }
+        ],
+      ];
 
       $rteElements[] = [
         'path' => '@atoms/11-text/paragraph.twig',
         'data' => [
           'paragraph' => [
-            'text' => Helper::fieldValue($entity, $field['time']) . '<br/>' . Helper::fieldValue($entity, $field['hour']),
+            'text' => $hours_render_array,
           ],
         ],
       ];
+
+      if (Helper::isFieldPopulated($entity, $field['description'])) {
+        $rteElements[] = [
+          'path' => '@atoms/11-text/paragraph.twig',
+          'data' => [
+            'paragraph' => [
+              'text' => Helper::fieldValue($entity, $field['description']),
+            ],
+          ],
+        ];
+      }
     }
 
     return [
-      'title' => Helper::getReferenceField($hours, 'field_label'),
+      'title' => $title,
       'into' => '',
-      'id' => Helper::getReferenceField($hours, 'field_label'),
+      'id' => Helper::createIdTitle($title),
       'path' => '@organisms/by-author/rich-text.twig',
       'data' => [
         'richText' => [
@@ -899,6 +909,40 @@ class Helper {
    */
   public static function isEntityReferenceField($entity, $field) {
     return $entity->getFieldDefinition($field)->getType() === 'entity_reference';
+  }
+
+  /**
+   * Returns a formatted address from entity.
+   *
+   * @param object $addressEntity
+   *   The object that contains the field.
+   * @param array $options
+   *   An array of options.
+   *
+   * @return string
+   *   A flattened string of address info.
+   */
+  public static function formatAddress($addressEntity, array $options = []) {
+    $address = '';
+
+    if (isset($addressEntity[0])) {
+      // Add address module fields.
+      $address = !empty($addressEntity[0]->address_line1) ? $addressEntity[0]->address_line1 . ', ' : '';
+      // If we're in the sidebar add a newline.
+      if ($options['sidebar']) {
+        $address .= PHP_EOL;
+      }
+      $address .= !empty($addressEntity[0]->address_line2) ? $addressEntity[0]->address_line2 . ', ' : '';
+      // If we're in the sidebar add a newline.
+      if ($options['sidebar']) {
+        $address .= PHP_EOL;
+      }
+      $address .= !empty($addressEntity[0]->locality) ? $addressEntity[0]->locality : '';
+      $address .= !empty($addressEntity[0]->administrative_area) ? ', ' . $addressEntity[0]->administrative_area : '';
+      $address .= !empty($addressEntity[0]->postal_code) ? ' ' . $addressEntity[0]->postal_code : '';
+    }
+
+    return $address;
   }
 
 }

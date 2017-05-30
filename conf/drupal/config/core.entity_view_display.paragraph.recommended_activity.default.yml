@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.paragraph.recommended_activity.field_image
     - field.field.paragraph.recommended_activity.field_lede
+    - field.field.paragraph.recommended_activity.field_ref_location_details_page
     - field.field.paragraph.recommended_activity.field_title
     - paragraphs.paragraphs_type.recommended_activity
   module:
@@ -29,6 +30,13 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+  field_ref_location_details_page:
+    weight: 3
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
   field_title:
     weight: 0
     label: above

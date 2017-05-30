@@ -21,16 +21,18 @@ The Drupal theme (mass_theme) integrates with our Pattern Library [Mayflower](ht
 ## Preparing your machine
 Make sure the following are installed on your machine:
 
-- VMWare, or [virtualBox](https://www.virtualbox.org/wiki/Downloads) >= 5.0
-- [vagrant](http://downloads.vagrantup.com/) >= 1.8
-- [ansible](https://github.com/ansible/ansible) `brew install ansible`  (You'll need to install [homebrew](https://brew.sh/) first. This is not available on Windows host machines, [but there is a workaround](https://docs.ansible.com/ansible/intro_windows.html).)
+Special MAC instructions will be labeled as the following, `macs are awesome`.
+
+- VMWare, or [virtualBox](https://www.virtualbox.org/wiki/Downloads) >= 5.0 `brew cask install virtualbox`. (You'll need to install [homebrew](https://brew.sh/) first. This is not available on Windows host machines, [but there is a workaround](https://docs.ansible.com/ansible/intro_windows.html).)
+- [vagrant](http://downloads.vagrantup.com/) >= 1.8 `brew cask install vagrant`
+- [ansible](https://github.com/ansible/ansible) `brew install ansible`  
 - [vagrant-hostmanager](https://github.com/smdahlen/vagrant-hostmanager) `vagrant plugin install vagrant-hostmanager`
 - [vagrant-auto_network](https://github.com/oscar-stack/vagrant-auto_network) `vagrant plugin install vagrant-auto_network`
 - [git](https://git-scm.com/downloads)
 
 
 ## Setting up the local repo and virtual machine
-*In order to keep our developmen environment consistent across all developers' machines, we use a VM(Virtual Machine) for local development. The root project directory `mass` is 'shared' with `/var/www/mass.local` within the VM. Which is to say that changes done on either side (vm or local machine) are immediately available to the developer, whether they are on the vm or the local machine.*
+*In order to keep our development environment consistent across all developers' machines, we use a VM(Virtual Machine) for local development. The root project directory `mass` is 'shared' with `/var/www/mass.local` within the VM. Which is to say that changes done on either side (vm or local machine) are immediately available to the developer, whether they are on the vm or the local machine.*
 **Our workflow is to author code changes & use git on your machine, but run commands *within the VM* (as that's where `drush` various other scripts can run).**
 
 1. Get a local copy of this repo: `git clone git@github.com:massgov/mass.git`
@@ -166,6 +168,12 @@ If, on browsing to `http://mass.local`, you get the following error:
 
 Then `vagrant up` may have failed half way through. When this happens, the `vagrant-hostmanager` plugin does not add the hostname to `/etc/hosts`. Try halting and re-upping the machine: `vagrant halt && vagrant up`. Reload is not sufficient to trigger updating the hosts file.
 
+### public key warning on `ma-refresh-ma`
+
+This happens when your local private key is not added to the vm, luckily we have a fix for that.
+
+- Copy both `~/.ssh/id_rsa` and `~/.ssh/id_rsa.pub` into the VM.  Now we can't go directly to the VM`s `~/.ssh/` directory but if we put it in the docroot that will allow us to pick it up on the box.
+- While SSH'd into the VM, move the key files from the docroot to `~/.ssh/`.
 
 ### Windows troubleshooting
 

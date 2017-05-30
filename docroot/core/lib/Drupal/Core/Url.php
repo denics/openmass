@@ -10,6 +10,7 @@ use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Utility\UnroutedUrlAssemblerInterface;
 use Symfony\Cmf\Component\Routing\RouteObjectInterface;
 use Symfony\Component\HttpFoundation\Request;
+
 /**
  * Defines an object that holds information about a URL.
  */
@@ -267,15 +268,7 @@ class Url {
     if (preg_match('/^base:\d/', $uri)) {
       $uri = str_replace('base:', 'base:/', $uri);
     }
-    if(preg_match('/^tel:/', $uri)) {
-      $parts = explode(':', $uri);
-      $uri_parts['scheme'] = $parts[0];
-      $uri_parts['path'] = $parts[1];
-    }
-    else {
-      $uri_parts = parse_url($uri);
-    }
-
+    $uri_parts = parse_url($uri);
     if ($uri_parts === FALSE) {
       throw new \InvalidArgumentException("The URI '$uri' is malformed.");
     }

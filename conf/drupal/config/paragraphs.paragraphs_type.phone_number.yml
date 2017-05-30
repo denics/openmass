@@ -4,3 +4,6 @@ status: true
 dependencies: {  }
 id: phone_number
 label: 'Phone Number'
+icon_uuid: null
+description: null
+behavior_plugins: {  }

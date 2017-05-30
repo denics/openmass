@@ -178,9 +178,10 @@ Feature: Paragraph type definitions
   Scenario: Verify that the hours paragraph type has the correct field configuration
     Given I am logged in as a user with the "administrator" role
     Then the "hours" paragraph has the fields:
-      | field            | widget    |
-      | field-time-frame | Textfield |
-      | field-hours      | Textfield |
+      | field                   | widget              |
+      | field-hours-description | Textfield           |
+      | field-hours-group-title | Textfield           |
+      | field-hours-structured  | Office hours (list) |
 
   Scenario: Verify that the pull_quote paragraph type has the correct field configuration
     Given I am logged in as a user with the "administrator" role

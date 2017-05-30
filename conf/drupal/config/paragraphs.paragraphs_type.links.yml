@@ -4,3 +4,6 @@ status: true
 dependencies: {  }
 id: links
 label: Link
+icon_uuid: null
+description: null
+behavior_plugins: {  }

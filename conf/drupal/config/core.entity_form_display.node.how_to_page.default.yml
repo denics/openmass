@@ -11,6 +11,7 @@ dependencies:
     - field.field.node.how_to_page.field_how_to_methods_5
     - field.field.node.how_to_page.field_how_to_more_info
     - field.field.node.how_to_page.field_how_to_next_steps
+    - field.field.node.how_to_page.field_how_to_ref_fees
     - field.field.node.how_to_page.field_how_to_ref_services
     - field.field.node.how_to_page.field_how_to_taxo_action_type
     - field.field.node.how_to_page.field_how_to_time
@@ -64,6 +65,7 @@ third_party_settings:
         - field_how_to_what_you_need
         - field_how_to_methods_5
         - field_how_to_next_steps
+        - field_how_to_ref_fees
       parent_name: group_how_to_page_edit_form
       weight: 21
       format_type: tab
@@ -186,6 +188,22 @@ content:
       form_display_mode: default
       default_paragraph_type: ''
     third_party_settings: {  }
+  field_how_to_ref_fees:
+    weight: 39
+    settings:
+      form_mode: default
+      override_labels: true
+      label_singular: Fee
+      label_plural: Fees
+      allow_new: true
+      allow_existing: true
+      match_operator: CONTAINS
+      collapsible: false
+      collapsed: false
+    third_party_settings:
+      entity_browser_entity_form:
+        entity_browser_id: _none
+    type: inline_entity_form_complex
   field_how_to_ref_services:
     weight: -3
     settings:

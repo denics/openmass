@@ -4,3 +4,6 @@ status: true
 dependencies: {  }
 id: fax_number
 label: FAX
+icon_uuid: null
+description: null
+behavior_plugins: {  }

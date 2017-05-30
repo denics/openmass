@@ -48,4 +48,7 @@ content:
     third_party_settings: {  }
   links:
     weight: 100
-hidden: {  }
+  workbench_moderation_control:
+    weight: -20
+hidden:
+  field_guide_page_bg_narrow: true

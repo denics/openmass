@@ -834,6 +834,7 @@ return array(
     'Zend_Sniffs_NamingConventions_ValidVariableNameSniff' => $vendorDir . '/squizlabs/php_codesniffer/CodeSniffer/Standards/Zend/Sniffs/NamingConventions/ValidVariableNameSniff.php',
     'ZipFileSet' => $vendorDir . '/phing/phing/classes/phing/tasks/ext/ZipTask.php',
     'ZipTask' => $vendorDir . '/phing/phing/classes/phing/tasks/ext/ZipTask.php',
+    'geoPHP' => $vendorDir . '/phayes/geophp/geoPHP.inc',
     'rSTTask' => $vendorDir . '/phing/phing/classes/phing/tasks/ext/rSTTask.php',
     'zsdtBaseTask' => $vendorDir . '/phing/phing/classes/phing/tasks/ext/zendserverdeploymenttool/zsdtBaseTask.php',
     'zsdtPackTask' => $vendorDir . '/phing/phing/classes/phing/tasks/ext/zendserverdeploymenttool/zsdtPackTask.php',

@@ -29,6 +29,7 @@ return array(
     'Guzzle\\Http' => array($vendorDir . '/guzzle/http'),
     'Guzzle\\Common' => array($vendorDir . '/guzzle/common'),
     'Guzzle\\Cache' => array($vendorDir . '/guzzle/cache'),
+    'Geocoder' => array($vendorDir . '/willdurand/geocoder/src'),
     'Egulias\\' => array($vendorDir . '/egulias/email-validator/src'),
     'EasyRdf_' => array($vendorDir . '/easyrdf/easyrdf/lib'),
     'Drush\\' => array($vendorDir . '/continuousphp/phing-drush-task/src'),

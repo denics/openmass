@@ -238,6 +238,21 @@ function mass_theme_preprocess_node_how_to_page(&$variables) {
 
   }
 
+  // Build methods tabular data if field is populated.
+  if (Helper::isFieldPopulated($node, 'field_how_to_ref_fees')) {
+    // Set up options for how to ___.
+    $tabularData_options = [
+      'heading' => [
+        'type' => 'compHeading',
+        'title' => t('Fees'),
+        'sub' => TRUE,
+      ],
+    ];
+
+    $pageContent['tabularData'] = Organisms::prepareTabularData($node, $tabularData_options);
+
+  }
+
   // Build methods unordered list if field is populated.
   if (Helper::isFieldPopulated($node, 'field_how_to_methods_5')) {
     // Set up title for section heading and sticky nav.
@@ -773,7 +788,7 @@ function mass_theme_preprocess_node_service_page(&$variables) {
   }
 
   // Prepare the First Time? key actions component, if field is populated.
-  if (Helper::isFieldPopulated($node, 'field_service_ref_guide_page_1')) {
+  if (Helper::isFieldPopulated($node, 'field_service_ref_guide_page_1') || Helper::isFieldPopulated($node, 'field_service_eligibility_info')) {
 
     // Set up static options for key actions component.
     // @TODO see if we can use this field label instead of hard coding text.
@@ -785,6 +800,12 @@ function mass_theme_preprocess_node_service_page(&$variables) {
 
     // Append the keyActions data structure to introPageContent.
     $intro_page_content['keyActions'] = Organisms::prepareKeyActions($node, 'field_service_ref_guide_page_1', $keyActions_options);
+    $eligibilityInfo = Organisms::prepareKeyActions($node, 'field_service_eligibility_info', $keyActions_options);
+
+    foreach ($eligibilityInfo['links'] as $index => $eligibilityLink) {
+      $eligibilityLink['text'] = t('Check eligibility');
+      $intro_page_content['keyActions']['links'][] = $eligibilityLink;
+    }
   }
 
   // Make the introPageContent data structure available in twig template.
@@ -956,10 +977,18 @@ function mass_theme_preprocess_node_service_details(&$variables) {
       'links' => ['field_section_links'],
       'actions' => ['field_section_key_actions'],
       'downloads' => ['field_section_downloads'],
+      'video_id' => ['field_video_id'],
+      'video_source' => ['field_video_source'],
     ];
 
     // Determines which field names to use from the map.
     $field = Helper::getMappedFields($sectionEntity, $map_ref);
+
+    if (Helper::isFieldPopulated($sectionEntity, $field['video_id']) && Helper::isFieldPopulated($sectionEntity, $field['video_source'])) {
+      $pageContent[$index]['video'] = [
+        'src' => '//www.' . $sectionEntity->$field['video_source']->value . '.com/embed/' . $sectionEntity->$field['video_id']->value,
+      ];
+    }
 
     if (Helper::isFieldPopulated($sectionEntity, $field['title'])) {
       $compHeading_options = [
@@ -992,7 +1021,7 @@ function mass_theme_preprocess_node_service_details(&$variables) {
       $downloadLinks_options = [
         'heading' => [
           'type' => 'compHeading',
-          'title' => t('Forms'),
+          'title' => t('Additional Resources'),
           'sub' => TRUE,
         ],
       ];
@@ -1114,7 +1143,7 @@ function mass_theme_preprocess_node_guide_page(&$variables) {
     }
 
     if (Helper::isFieldPopulated($sectionEntity, $field['downloads']) ||
-        Helper::isFieldPopulated($sectionEntity, $field['links'])) {
+      Helper::isFieldPopulated($sectionEntity, $field['links'])) {
 
       $downloads_options = [
         'heading' => [
@@ -1181,6 +1210,110 @@ function mass_theme_preprocess_node_guide_page(&$variables) {
     'view' => 'guide',
   ];
   $variables['suggestedPages'] = Organisms::prepareSuggestedPages($node, $suggested_options);
+}
+
+/**
+ * Implements hook_preprocess_node().
+ *
+ * Prepare the variables for the Location Details page.
+ */
+function mass_theme_preprocess_node_location_details(&$variables) {
+  $node = $variables['node'];
+
+  // Create the map of all possible field names to use.
+  $map = [
+    'sections' => ['field_location_details_sections'],
+    'links' => ['field_location_details_links_5'],
+  ];
+
+  // Determines which field names to use from the map.
+  $fields = Helper::getMappedFields($node, $map);
+
+  // Set static pageHeader properties to pass to prepare function.
+  $pageHeader_options = [
+    "divider" => FALSE,
+  ];
+
+  // Make pageBanner data object available in twig template.
+  $variables['pageHeader'] = Organisms::preparePageHeader($node, $pageHeader_options);
+
+  $pageContent = [];
+  $sideBar = [];
+
+  foreach ($node->$fields['sections'] as $index => $section) {
+    $variables['numOfSections'] = ++$index;
+    $sectionEntity = $section->entity;
+
+    // Create the map of the field names to use.
+    $map_ref = [
+      'title' => ['field_section_title'],
+      'body' => ['field_section_body'],
+      'downloads' => ['field_section_downloads'],
+      'links' => ['field_section_links'],
+      'video_id' => ['field_video_id'],
+      'video_source' => ['field_video_source'],
+      'address' => ['field_address_text'],
+      'map' => ['field_lat_long'],
+    ];
+
+    // Determines which field names to use from the map.
+    $field = Helper::getMappedFields($sectionEntity, $map_ref);
+
+    if (Helper::isFieldPopulated($sectionEntity, $field['video_id']) && Helper::isFieldPopulated($sectionEntity, $field['video_source'])) {
+      $pageContent[$index]['video'] = [
+        'src' => '//www.' . $sectionEntity->$field['video_source']->value . '.com/embed/' . $sectionEntity->$field['video_id']->value,
+      ];
+    }
+
+    if (Helper::isFieldPopulated($sectionEntity, $field['title'])) {
+      $compHeading_options = [
+        'title' => Helper::fieldValue($sectionEntity, $field['title']),
+      ];
+      $pageContent[$index]['title'] = Atoms::prepareCompHeading($compHeading_options);
+    }
+
+    if (Helper::isFieldPopulated($sectionEntity, $field['body'])) {
+      // Set up rich text elements for what you need.
+      $pageContent[$index]['richText'] = [
+        'rteElements' => [
+          Atoms::prepareRawHtml($sectionEntity, ['field' => 'field_section_body']),
+        ],
+      ];
+    }
+
+    if (Helper::isFieldPopulated($sectionEntity, $field['downloads']) || Helper::isFieldPopulated($sectionEntity, $field['links'])) {
+      // Set up options for formDownloads prepare.
+      $downloadLinks_options = [
+        'heading' => [
+          'type' => 'compHeading',
+          'title' => t('Additional Resources'),
+          'sub' => TRUE,
+        ],
+      ];
+      $pageContent[$index]['formDownloads'] = Organisms::prepareFormDownloads($sectionEntity, $downloadLinks_options);
+    }
+
+    if (Helper::isFieldPopulated($sectionEntity, $field['map']) && Helper::isFieldPopulated($sectionEntity, $field['address'])) {
+      $pageContent[$index]['actionMap'] = Molecules::prepareGoogleMap([0 => $sectionEntity->$field['map']], $sectionEntity->$field['address']->value);
+    }
+  }
+
+  // Make pageContent data structure available in template.
+  $variables['pageContent'] = $pageContent;
+
+  // Build related links section, if field is populated.
+  if (Helper::isFieldPopulated($node, 'field_location_details_links_5')) {
+    // Set up options for link list.
+    $linkList_options = [
+      'heading' => [
+        'type' => 'sidebarHeading',
+        'title' => t('Related'),
+      ],
+      'stacked' => TRUE,
+    ];
+
+    $variables['sidebar']['linkList'] = Organisms::preparelinkList($node, 'field_location_details_links_5', $linkList_options);
+  }
 }
 
 /**
@@ -1850,6 +1983,22 @@ function mass_theme_preprocess_page(&$variables) {
       }
     }
   }
+
+  $social_menu = \Drupal::menuTree()->load('social', new MenuTreeParameters());
+  $footerSocialLinks = [];
+  foreach ($social_menu as $menu_item) {
+    $icon = icon_path(strtolower($menu_item->link->getTitle()));
+    $footerSocialLinks[] = [
+      'altText' => t('Follow us on :service', [':service' => $menu_item->link->getTitle()]),
+      'href' => $menu_item->link->getUrlObject(),
+      'icon' => $icon,
+      'linkType' => strtolower($menu_item->link->getTitle()),
+    ];
+  }
+  $variables['footerSocialLinks'] = [
+    'items' => $footerSocialLinks,
+  ];
+
 }
 
 /**

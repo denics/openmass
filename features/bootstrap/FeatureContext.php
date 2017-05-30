@@ -503,6 +503,11 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
             'tag' => 'paragraphs',
             'type' => 'phone-number',
           ),
+          array (
+            'field' => 'field-ref-hours',
+            'tag' => 'paragraphs',
+            'type' => 'hours',
+          ),
         );
         break;
       case "guide_page":
@@ -726,7 +731,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
           array (
             'field' => 'field-service-detail-sections',
             'tag' => 'input',
-            'type' => 'text',
+            'type' => 'submit',
           ),
           array (
             'field' => 'field-service-detail-lede',
@@ -735,7 +740,44 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
           ),
         );
         break;
-
+      case "fee":
+        $fields = array (
+          array (
+            'field' => 'field-fee-fee',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-fee-name',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-fee-unit',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+        );
+        break;
+      case "location_details":
+        $fields = array (
+          array (
+            'field' => 'field-location-details-links-5',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-location-details-sections',
+            'tag' => 'input',
+            'type' => 'submit',
+          ),
+          array (
+            'field' => 'field-location-details-lede',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+        );
+        break;
     }
     foreach ($fields as $row) {
       // Get all IDs that start with our field name. D8 prints fields
@@ -760,16 +802,12 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
       case "address":
         $fields = array (
           array (
-            'field' => 'field-address-text',
-            'widget' => 'Text area (multiple rows)',
+            'field' => 'field-address-address',
+            'widget' => 'Address',
           ),
           array (
             'field' => 'field-label',
             'widget' => 'Textfield',
-          ),
-          array (
-            'field' => 'field-lat-long',
-            'widget' => 'Google Map Field default',
           ),
         );
         break;
@@ -814,6 +852,22 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
           array (
             'field' => 'field-label',
             'widget' => 'Textfield',
+          ),
+        );
+        break;
+      case "hours":
+        $fields = array (
+          array (
+            'field' => 'field-hours-group-title',
+            'widget' => 'Textfield',
+          ),
+          array (
+            'field' => 'field-hours-description',
+            'widget' => 'Textfield',
+          ),
+          array (
+            'field' => 'field-hours-structured',
+            'widget' => 'Office hours (list)',
           ),
         );
         break;
@@ -965,6 +1019,26 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
           ),
           array (
             'field' => 'field-next-step-title',
+            'widget' => 'Textfield',
+          ),
+        );
+        break;
+      case "section":
+        $fields = array (
+          array (
+            'field' => 'field-section-downloads',
+            'widget' => 'Inline entity form - Complex',
+          ),
+          array (
+            'field' => 'field-section-links',
+            'widget' => 'Link',
+          ),
+          array (
+            'field' => 'field-section-body',
+            'widget' => 'Text area (multiple rows)',
+          ),
+          array (
+            'field' => 'field-section-title',
             'widget' => 'Textfield',
           ),
         );

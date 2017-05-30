@@ -25,4 +25,5 @@ content:
     type: link_separate
 hidden:
   created: true
+  field_description: true
   uid: true

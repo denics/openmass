@@ -23,10 +23,10 @@ class AccessTest extends JavascriptTestBase {
    */
   public function testAccessAllowed() {
 
-    user_role_grant_permissions(RoleInterface::ANONYMOUS_ID, array(
+    user_role_grant_permissions(RoleInterface::ANONYMOUS_ID, [
       'access content',
       'access_unpublished node article',
-    ));
+    ]);
 
     $node = Node::create([
       'title' => 'Foo',

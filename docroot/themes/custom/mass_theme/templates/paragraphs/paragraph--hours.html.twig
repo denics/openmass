@@ -37,13 +37,13 @@
  */
 #}
 <section class="ma__rich-text">
-  {% if content.field_label %}
-    <h5>{{ content.field_label|field_value }}</h5>
+  {% if content.field_hours_group_title %}
+    <h5>{{ content.field_hours_group_title|field_value }}</h5>
   {% endif %}
   <p>
-    {% if content.field_time_frame|render|trim is not empty %}
-      {{ content.field_time_frame|field_value }}<br />
+    {% if content.field_hours_structured|render|trim is not empty %}
+      {{ content.field_hours_structured|field_value }}<br />
     {% endif %}
-    {{ content.field_hours|field_value }}
+    {{ content.field_hours_description|field_value }}
   </p>
 </section>
