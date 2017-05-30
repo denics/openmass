@@ -71,7 +71,7 @@ if [ $? == 0 ]; then
   echo -e "\n"
   echo "sync db"
   echo -e "------------------------------------------------------------------------"
-  run "drush -y --sanitize sql-sync @massgov.$desiredEnv @self" "drush sql-sync" "🚚"
+  run "drush -y -d --sanitize sql-sync @massgov.$desiredEnv @self" "drush sql-sync" "🚚"
 
   # Optionally pull files
   if $pullFiles; then
@@ -97,7 +97,7 @@ if [ $? == 0 ]; then
   echo -e "\n"
   echo "config import"
   echo -e "------------------------------------------------------------------------"
-  run "drush -y --include=../vendor/previousnext/drush_cmi_tools cimy" "drush cimy" "📦"
+  run "drush -y config-import" "drush config-import" "📦"
 
   # rebuild drupal cache
   echo -e "\n"
