@@ -485,7 +485,7 @@ class Molecules {
         'details' => ['field_caption'],
         'label' => ['field_label'],
         'hours' => ['field_ref_hours', 'field_hours'],
-        'value' => ['field_address_text', 'field_phone', 'field_fax'],
+        'value' => ['field_address_address', 'field_phone', 'field_fax'],
         'link' => ['field_link_single', 'field_email'],
       ];
 
