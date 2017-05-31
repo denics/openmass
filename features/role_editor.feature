@@ -51,10 +51,10 @@ Feature: editor Role
     When I go to "node/add/org_page"
     Then the response status code should be 200
 
-#  Scenario: Verify editor can create service_page content
-#    Given I am logged in as a user with the "editor" role
-#    When I go to "node/add/service_page"
-#    Then the response status code should be 200
+  Scenario: Verify editor can create service_page content
+    Given I am logged in as a user with the "editor" role
+    When I go to "node/add/service_page"
+    Then the response status code should be 200
 
   Scenario: Verify editor cannot create / edit / delete users
     Given I am logged in as a user with the "editor" role

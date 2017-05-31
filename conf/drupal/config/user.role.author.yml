@@ -43,3 +43,8 @@ permissions:
   74: 'setup own tfa'
   75: 'use archived_draft transition'
   80: 'rabbit hole bypass node'
+  81: 'create service_page content'
+  82: 'delete own service_page content'
+  83: 'edit any service_page content'
+  84: 'edit own service_page content'
+  85: 'view service_page revisions'
