@@ -66,6 +66,24 @@
   lineinfile: dest=/home/vagrant/.profile state=present line='export MASS_PROJECT_DIR="/var/www/mass.local"'
   tags: common
 
+- name: Copy private key from host to guest (vm)
+  template:
+    src: ~/.ssh/id_rsa
+    dest: /home/vagrant/.ssh/id_rsa
+    force: yes
+    owner: vagrant
+    group: vagrant
+    mode: 0400
+
+- name: Copy public key from host to guest (vm)
+  template:
+    src: ~/.ssh/id_rsa.pub
+    dest: /home/vagrant/.ssh/id_rsa.pub
+    force: yes
+    owner: vagrant
+    group: vagrant
+    mode: 0400
+    
 - name: Upgrade composer
   become: True
   command: composer self-update
