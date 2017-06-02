@@ -65,3 +65,8 @@
 - name: Configure MASS_PROJECT_DIR variable
   lineinfile: dest=/home/vagrant/.profile state=present line='export MASS_PROJECT_DIR="/var/www/mass.local"'
   tags: common
+
+- name: Upgrade composer
+  become: True
+  command: composer self-update
+  tags: common
