@@ -53,3 +53,8 @@ permissions:
   88: 'edit any how_to_page content'
   89: 'edit own how_to_page content'
   90: 'view how_to_page revisions'
+  91: 'create service_details content'
+  92: 'delete own service_details content'
+  93: 'edit any service_details content'
+  94: 'edit own service_details content'
+  95: 'view service_details revisions'
