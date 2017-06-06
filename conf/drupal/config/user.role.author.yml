@@ -58,3 +58,8 @@ permissions:
   93: 'edit any service_details content'
   94: 'edit own service_details content'
   95: 'view service_details revisions'
+  96: 'create location content'
+  97: 'delete own location content'
+  98: 'edit any location content'
+  99: 'edit own location content'
+  100: 'view location revisions'
