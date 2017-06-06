@@ -1,0 +1,7 @@
+name: Mass.gov Editorial Dashboard Module
+type: module
+description: Dashboard and misc improvements to the authoring experience.
+core: 8.x
+package: Custom
+dependencies:
+  workbench_moderation

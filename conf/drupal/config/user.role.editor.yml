@@ -60,3 +60,8 @@ permissions:
   86: 'edit own service_page content'
   87: 'revert service_page revisions'
   88: 'view service_page revisions'
+  89: 'use mass dashboard'
+  90: 'use needs_review_needs_review transition'
+  91: 'use needs_review_published transition'
+  92: 'use draft_needs_review transition'
+  93: 'use needs_review_draft transition'
