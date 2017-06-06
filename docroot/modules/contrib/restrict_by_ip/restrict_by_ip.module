@@ -81,19 +81,19 @@ function restrict_by_ip_form_alter(&$form, $form_state, $form_id) {
       $form['#validate'][] = 'restrict_by_ip_user_profile_validate';
       $form['actions']['submit']['#submit'][] = 'restrict_by_ip_user_profile_submit';
 
-      $form['rip'] = [
+      $form['rip'] = array(
         '#type'          => 'details',
-        '#attributes'    => ['class' => ['restrict-by-ip']],
+        '#attributes'    => array('class' => array('restrict-by-ip')),
         '#title'         => t('Restrict by IP settings'),
         '#weight'        => 5,
         '#open'          => TRUE,
-      ];
-      $form['rip']['restrict_by_ip_address'] = [
+      );
+      $form['rip']['restrict_by_ip_address'] = array(
         '#type'          => 'textfield',
         '#default_value' => $address_entry,
         '#maxlength'     => NULL,
         '#description'   => t('Enter IP Address Ranges in CIDR Notation seperated with semi-colons, with no trailing semi-colon. E.G. 10.20.30.0/24;192.168.199.1/32;1.0.0.0/8<br />For more information on CIDR notation <a href="http://www.brassy.net/2007/mar/cidr_basic_subnetting" target="_blank">click here</a>.<br /><strong>Leave field empty to disable IP restrictions for this user.</strong>'),
-      ];
+      );
     }
   }
 }

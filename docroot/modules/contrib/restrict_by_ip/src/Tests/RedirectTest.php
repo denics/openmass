@@ -1,5 +1,4 @@
 <?php
-
 namespace Drupal\restrict_by_ip\Tests;
 use Drupal\simpletest\WebTestBase;
 
@@ -78,19 +77,19 @@ class RedirectTest extends WebTestBase {
 
   // Assert user gets redirected when login denied.
   private function assertRedirected($destination = NULL) {
-    $edit = [
+    $edit = array(
       'name' => $this->regularUser->label(),
       'pass' => $this->regularUser->pass_raw
-    ];
+    );
 
-    $options = ['external' => FALSE];
+    $options = array('external' => FALSE);
     if (isset($destination)) {
-      $options['query'] = ['destination' => $destination];
+      $options['query'] = array('destination' => $destination);
     }
 
     $this->drupalPostForm('user/login', $edit, t('Log in'), $options);
 
-    $this->assertFalse($this->drupalUserIsLoggedIn($this->regularUser), t('User %name unsuccessfully logged in.', ['%name' => $this->regularUser->label()]));
+    $this->assertFalse($this->drupalUserIsLoggedIn($this->regularUser), t('User %name unsuccessfully logged in.', array('%name' => $this->regularUser->label())));
 
     $this->assertText($this->loginDeniedNode->label(), 'Title of login denied page found.');
   }

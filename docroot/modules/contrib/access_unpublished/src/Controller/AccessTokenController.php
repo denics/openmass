@@ -40,14 +40,14 @@ class AccessTokenController extends ControllerBase {
   /**
    * Renews a AccessToken.
    *
-   * @return \Symfony\Component\HttpFoundation\RedirectResponse
+   * @return RedirectResponse
    *   Returns to previous page.
    */
   public function renew($id) {
 
     $previousUrl = $this->requestStack->getCurrentRequest()->server->get('HTTP_REFERER');
 
-    /** @var \Drupal\access_unpublished\Entity\AccessToken $token */
+    /** @var AccessToken $token */
     $token = $this->entityTypeManager()->getStorage('access_token')->load($id);
 
     if ($token) {
@@ -62,14 +62,14 @@ class AccessTokenController extends ControllerBase {
   /**
    * Deletes a AccessToken.
    *
-   * @return \Symfony\Component\HttpFoundation\RedirectResponse
+   * @return RedirectResponse
    *   Returns to previous page.
    */
   public function delete($id) {
 
     $previousUrl = $this->requestStack->getCurrentRequest()->server->get('HTTP_REFERER');
 
-    /** @var \Drupal\access_unpublished\Entity\AccessToken $token */
+    /** @var AccessToken $token */
     $token = $this->entityTypeManager()->getStorage('access_token')->load($id);
 
     if ($token) {

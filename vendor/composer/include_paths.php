@@ -6,7 +6,6 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    $vendorDir . '/pear-pear.php.net/Net_DNS2',
     $vendorDir . '/pear/pear_exception',
     $vendorDir . '/pear/console_getopt',
     $vendorDir . '/pear/pear-core-minimal/src',
