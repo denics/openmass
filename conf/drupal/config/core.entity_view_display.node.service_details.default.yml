@@ -5,11 +5,13 @@ dependencies:
   config:
     - field.field.node.service_details.field_service_detail_lede
     - field.field.node.service_details.field_service_detail_links_5
+    - field.field.node.service_details.field_service_detail_overview
     - field.field.node.service_details.field_service_detail_sections
     - node.type.service_details
   module:
     - entity_reference_revisions
     - link
+    - text
     - user
 id: node.service_details.default
 targetEntityType: node
@@ -34,6 +36,12 @@ content:
       target: ''
     third_party_settings: {  }
     type: link
+  field_service_detail_overview:
+    weight: 8
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
   field_service_detail_sections:
     type: entity_reference_revisions_entity_view
     weight: 6
