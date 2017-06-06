@@ -975,7 +975,6 @@ function mass_theme_preprocess_node_service_details(&$variables) {
       'title' => ['field_section_title'],
       'body' => ['field_section_body'],
       'links' => ['field_section_links'],
-      'actions' => ['field_section_key_actions'],
       'downloads' => ['field_section_downloads'],
       'video_id' => ['field_video_id'],
       'video_source' => ['field_video_source'],
@@ -1004,16 +1003,6 @@ function mass_theme_preprocess_node_service_details(&$variables) {
           Atoms::prepareRawHtml($sectionEntity, ['field' => 'field_section_body']),
         ],
       ];
-    }
-
-    if (Helper::isFieldPopulated($sectionEntity, $field['actions'])) {
-      $keyActions_options = [
-        'heading' => [
-          'title' => t('Key Actions'),
-        ],
-      ];
-      $pageContent[$index]['keyActions'] = Organisms::prepareKeyActions($sectionEntity, $field['actions'], $keyActions_options);
-
     }
 
     if (Helper::isFieldPopulated($sectionEntity, $field['downloads']) || Helper::isFieldPopulated($sectionEntity, $field['links'])) {
