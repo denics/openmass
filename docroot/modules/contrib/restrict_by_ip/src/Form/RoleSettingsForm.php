@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @file
+ * Contains Drupal\restrict_by_ip\Form\RoleSettingsForm.
+ */
+
 namespace Drupal\restrict_by_ip\Form;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -53,21 +58,21 @@ class RoleSettingsForm extends ConfigFormBase {
     unset($user_roles['authenticated']); // Remove default authenticated user role
 
     if (count($user_roles) === 0) {
-      $form['no_roles'] = [
-        '#markup' => $this->t('No roles configured. <a href="@add-role">Add a role</a>.', ['@add-role' => $this->url('entity.user_role.collection')]),
+      $form['no_roles'] = array(
+        '#markup' => $this->t('No roles configured. <a href="@add-role">Add a role</a>.', array('@add-role' => $this->url('entity.user_role.collection'))),
         '#prefix' => '<p>',
         '#suffix' => '</p>',
-      ];
+      );
     }
 
     foreach ($user_roles as $role) {
-      $form['restrict_by_ip_role_' . $role->id()] = [
+      $form['restrict_by_ip_role_' . $role->id()] = array(
         '#type' => 'textfield',
-        '#title' => $this->t('@role-label role IP range', ['@role-label' => $role->label()]),
+        '#title' => $this->t('@role-label role IP range', array('@role-label' => $role->label())),
         '#maxlength' => NULL,
         '#description' => $this->t('Enter IP Address Ranges in CIDR Notation seperated with semi-colons, with no trailing semi-colon. E.G. 10.20.30.0/24;192.168.199.1/32;1.0.0.0/8<br />For more information on CIDR notation click <a href="http://www.brassy.net/2007/mar/cidr_basic_subnetting">here</a>.<br />Leave field blank to disable IP restrictions for ' . $role->label() . '.'),
         '#default_value' => $config->get('role.' . $role->id()),
-      ];
+      );
     }
 
     return parent::buildForm($form, $form_state);
@@ -86,7 +91,7 @@ class RoleSettingsForm extends ConfigFormBase {
           try {
             $this->ip_tools->validateIP($ip);
           } catch (InvalidIPException $e) {
-            $form_state->setErrorByName($key, $this->t($e->getMessage() . ' @ip.', ['@ip' => $ip]));
+            $form_state->setErrorByName($key, $this->t($e->getMessage() . ' @ip.', array('@ip' => $ip)));
           }
         }
       }

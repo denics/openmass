@@ -11,9 +11,6 @@ paragraphs.paragraphs_type.*:
     icon_uuid:
       type: string
       label: 'Icon uuid'
-    description:
-      type: text
-      label: 'Description'
     behavior_plugins:
       type: sequence
       label: 'Plugins'

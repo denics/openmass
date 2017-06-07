@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @file
+ * Contains Drupal\restrict_by_ip\IPToolsInterface.
+ */
+
 namespace Drupal\restrict_by_ip;
 
 /**

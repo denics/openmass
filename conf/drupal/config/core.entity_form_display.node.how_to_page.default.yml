@@ -50,6 +50,7 @@ third_party_settings:
         - field_how_to_lede
         - field_how_to_time
         - field_how_to_link_1
+        - field_how_to_ref_service_dtl_1
       parent_name: group_how_to_page_edit_form
       weight: 20
       format_type: tab
@@ -179,7 +180,7 @@ content:
     type: string_textarea
   field_how_to_next_steps:
     type: entity_reference_paragraphs
-    weight: 38
+    weight: 39
     settings:
       title: Paragraph
       title_plural: Paragraphs

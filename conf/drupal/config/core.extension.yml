@@ -58,6 +58,7 @@ module:
   libraries: 0
   link: 0
   mass_content: 0
+  mass_dashboard: 0
   mass_docs: 0
   mass_entityreference: 0
   mass_feedback_form: 0

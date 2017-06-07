@@ -18,6 +18,7 @@ return array(
     'PSolr' => array($vendorDir . '/cpliakas/psolr/src'),
     'PHPMD\\' => array($vendorDir . '/phpmd/phpmd/src/main/php'),
     'PEAR' => array($vendorDir . '/pear/pear_exception'),
+    'Net_DNS2' => array($vendorDir . '/pear/net_dns2'),
     'Lurker' => array($vendorDir . '/henrikbjorn/lurker/src'),
     'JakubOnderka\\PhpConsoleHighlighter' => array($vendorDir . '/jakub-onderka/php-console-highlighter/src'),
     'JakubOnderka\\PhpConsoleColor' => array($vendorDir . '/jakub-onderka/php-console-color/src'),

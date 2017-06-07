@@ -53,14 +53,6 @@ interface ParagraphsTypeInterface extends ConfigEntityInterface {
   public function getIconUrl();
 
   /**
-   * Gets the description.
-   *
-   * @return string
-   *   The description of this paragraph type.
-   */
-  public function getDescription();
-
-  /**
    * Returns TRUE if $plugin_id is enabled on this ParagraphType Entity.
    *
    * @param string $plugin_id

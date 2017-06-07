@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.node.service_details.field_service_detail_lede
     - field.field.node.service_details.field_service_detail_links_5
+    - field.field.node.service_details.field_service_detail_overview
     - field.field.node.service_details.field_service_detail_sections
     - node.type.service_details
   module:
@@ -12,6 +13,7 @@ dependencies:
     - link
     - paragraphs
     - path
+    - text
     - workbench_moderation
 third_party_settings:
   field_group:
@@ -32,6 +34,7 @@ third_party_settings:
       children:
         - title
         - field_service_detail_lede
+        - field_service_detail_overview
       parent_name: group_node_edit_form
       weight: 20
       format_type: tab
@@ -64,13 +67,12 @@ third_party_settings:
       weight: 22
       format_type: tab
       format_settings:
-        label: 'Cross Promotional Content'
         formatter: closed
         description: 'You can add promotional content to appear in the sidebar.  You should use this area to briefly describe and point to related content.  You should not use it for primary content: user research tells us that visitors will usually expect and understand content in this area to be promotional content not relevant to the main point.  See <a href="http://mayflower.digital.mass.gov/patterns/05-pages-GEN-Building-Energy-Codes/05-pages-GEN-Building-Energy-Codes.html">our styleguide</a> for examples.'
         id: ''
         classes: ''
         required_fields: false
-      label: 'Cross Promotional Content'
+      label: Related
 id: node.service_details.default
 targetEntityType: node
 bundle: service_details
@@ -95,9 +97,16 @@ content:
       placeholder_title: ''
     third_party_settings: {  }
     type: link_default
+  field_service_detail_overview:
+    weight: 24
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
   field_service_detail_sections:
     type: entity_reference_paragraphs
-    weight: 27
+    weight: 30
     settings:
       title: Paragraph
       title_plural: Paragraphs

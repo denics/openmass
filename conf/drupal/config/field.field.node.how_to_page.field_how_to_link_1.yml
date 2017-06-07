@@ -12,12 +12,12 @@ field_name: field_how_to_link_1
 entity_type: node
 bundle: how_to_page
 label: 'Quick action (optional but recommended)'
-description: 'If this action can be completed online, add the link to where it can be completed.'
+description: 'Optional: If this action can be completed online, add the link to where it can be completed. In that case, the text of the link should usually be "Apply Online." If eligibility can be checked online, or if eligibility is described on a Service Details page (you might need to <a href="/node/add/service_details" target="_blank">create the Service Details page</a> before referencing it), add the link to the eligibility checker or to the description. In this case the text of the link should usually be "Check Eligibility."'
 required: false
 translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
   link_type: 17
-  title: 2
+  title: 1
 field_type: link

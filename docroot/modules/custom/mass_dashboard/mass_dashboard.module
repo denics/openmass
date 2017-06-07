@@ -1,0 +1,119 @@
+<?php
+
+/**
+ * @file
+ * MA Dashboard module.
+ */
+
+use Drupal\Core\Url;
+use Drupal\Core\Menu\MenuTreeParameters;
+
+/**
+ * Implements hook_toolbar().
+ *
+ * Adds a dashboard link to the admin toolbar.
+ */
+function mass_dashboard_toolbar() {
+  $items = [];
+
+  $items['mass_dashboard'] = [
+    '#type' => 'toolbar_item',
+    // The tab appears in the black bar and toggles the "tray" menu.
+    'tab' => [
+      '#type' => 'link',
+      '#title' => t('My Content'),
+      '#url' => Url::fromRoute('mass_dashboard.edits'),
+      '#options' => [
+        'attributes' => [
+          'title' => t('Mass.gov editorial dashboard'),
+        ],
+      ],
+      '#attributes' => [
+        'class' => ['toolbar-icon', 'toolbar-icon-mass-dashboard-tab'],
+      ],
+    ],
+    // Pre_render adds tray items dynamically from the mass-dashboard menu.
+    'tray' => [
+      '#heading' => t('Editorial Dashboard'),
+      'mass_dashboard_toolbar' => [
+        '#pre_render' => [
+          'mass_dashboard_toolbar_prerender_tray',
+        ],
+      ],
+      '#type' => 'container',
+      '#attributes' => [
+        'class' => ['toolbar-menu-administration'],
+      ],
+    ],
+    '#attached' => [
+      'library' => [
+        'mass_dashboard/mass_dashboard.toolbar',
+      ],
+    ]
+  ];
+
+  return $items;
+}
+
+/**
+ * Implements hook_toolbar_alter().
+ *
+ * Removes the acquia connector notice unless user can do something about it.
+ */
+function mass_dashboard_toolbar_alter(&$items) {
+  if (!\Drupal::currentUser()->hasPermission('administer site configuration')) {
+    unset($items['acquia_connector']);
+  }
+}
+
+/**
+ * Render the MA Dashboard toolbar tray.
+ *
+ * Add the items in the mass-dashboard menu to the Dashboard tray.
+ * Copied shamelessly from the Workbench module.
+ *
+ * @param array $element
+ *   The tray render array.
+ *
+ * @return array
+ *   The tray render array with the Mass Dashboard items added.
+ *
+ * @see toolbar_prerender_toolbar_administration_tray()
+ * @see drupal_render()
+ */
+function mass_dashboard_toolbar_prerender_tray(array $element) {
+  $menu_tree = \Drupal::service('toolbar.menu_tree');
+
+  $parameters = new MenuTreeParameters();
+  $parameters->setMinDepth(1)->setMaxDepth(1);
+
+  $tree = $menu_tree->load('mass-dashboard', $parameters);
+
+  $manipulators = [
+    ['callable' => 'menu.default_tree_manipulators:checkAccess'],
+    ['callable' => 'menu.default_tree_manipulators:generateIndexAndSort'],
+    ['callable' => 'toolbar_menu_navigation_links'],
+  ];
+
+  $tree = $menu_tree->transform($tree, $manipulators);
+
+  $element['administration_menu'] = $menu_tree->build($tree);
+  return $element;
+}
+
+/**
+ * Implements hook_views_data_alter().
+ *
+ * Adds a better content bundle filter.
+ */
+function mass_dashboard_views_data_alter(array &$data) {
+  $data['node_field_data']['node_user_permitted_type_filter'] = [
+    'title' => t('Mass.gov user permitted content type filter'),
+    'filter' => [
+      'title' => t('User permitted content type'),
+      'help' => t('Filter nodes by their type, options limited by user add/edit permissions.'),
+      'field' => 'type',
+      'id' => 'mass_dashboard_user_permitted_bundle'
+    ],
+  ];
+}
