@@ -24,6 +24,7 @@ use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaNameBase;
  * )
  */
 class SchemaGovernmentServiceAreaServed extends SchemaNameBase {
+
   /**
    * Generate a form element for this meta tag.
    *
@@ -95,4 +96,5 @@ class SchemaGovernmentServiceAreaServed extends SchemaNameBase {
     }
     return $element;
   }
+
 }

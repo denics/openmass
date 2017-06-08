@@ -7,4 +7,3 @@ dependencies:
   - schema_metatag
 
 core: '8.x'
-project: 'mass_schema_government_service'
