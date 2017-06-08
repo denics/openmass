@@ -35,7 +35,7 @@ third_party_settings:
         - group_additional_info
         - group_contacts
       parent_name: ''
-      weight: 20
+      weight: 4
       format_type: tabs
       format_settings:
         id: ''
@@ -44,13 +44,11 @@ third_party_settings:
       label: 'How To Page Edit Form'
     group_overview:
       children:
-        - title
         - field_how_to_taxo_action_type
-        - field_how_to_ref_services
+        - title
         - field_how_to_lede
         - field_how_to_time
         - field_how_to_link_1
-        - field_how_to_ref_service_dtl_1
       parent_name: group_how_to_page_edit_form
       weight: 20
       format_type: tab
@@ -64,9 +62,9 @@ third_party_settings:
     group_details:
       children:
         - field_how_to_what_you_need
+        - field_how_to_ref_fees
         - field_how_to_methods_5
         - field_how_to_next_steps
-        - field_how_to_ref_fees
       parent_name: group_how_to_page_edit_form
       weight: 21
       format_type: tab
@@ -80,6 +78,7 @@ third_party_settings:
     group_additional_info:
       children:
         - field_how_to_more_info
+        - field_how_to_more_info_v2
         - field_how_to_files
         - field_how_to_links_5
       parent_name: group_how_to_page_edit_form
@@ -112,7 +111,7 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 10
+    weight: 1
     settings: {  }
     third_party_settings: {  }
   field_how_to_contacts_3:
@@ -124,7 +123,7 @@ content:
     third_party_settings: {  }
     type: entity_reference_autocomplete
   field_how_to_files:
-    weight: 38
+    weight: 46
     settings:
       form_mode: default
       label_singular: ''
@@ -140,21 +139,21 @@ content:
         entity_browser_id: media_browser
     type: inline_entity_form_complex
   field_how_to_lede:
-    weight: -2
+    weight: -1
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
   field_how_to_link_1:
-    weight: 0
+    weight: 1
     settings:
       placeholder_url: ''
       placeholder_title: ''
     third_party_settings: {  }
     type: link_default
   field_how_to_links_5:
-    weight: 39
+    weight: 47
     settings:
       placeholder_url: ''
       placeholder_title: ''
@@ -162,7 +161,7 @@ content:
     type: link_default
   field_how_to_methods_5:
     type: entity_reference_paragraphs
-    weight: 37
+    weight: 38
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -172,25 +171,25 @@ content:
       default_paragraph_type: ''
     third_party_settings: {  }
   field_how_to_more_info:
-    weight: 37
+    weight: 44
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
-    type: string_textarea
+    type: text_textarea
   field_how_to_next_steps:
     type: entity_reference_paragraphs
     weight: 39
     settings:
       title: Paragraph
       title_plural: Paragraphs
-      edit_mode: open
+      edit_mode: preview
       add_mode: dropdown
       form_display_mode: default
-      default_paragraph_type: ''
+      default_paragraph_type: next_step
     third_party_settings: {  }
   field_how_to_ref_fees:
-    weight: 39
+    weight: 37
     settings:
       form_mode: default
       override_labels: true
@@ -205,21 +204,13 @@ content:
       entity_browser_entity_form:
         entity_browser_id: _none
     type: inline_entity_form_complex
-  field_how_to_ref_services:
-    weight: -3
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: entity_reference_autocomplete
   field_how_to_taxo_action_type:
     weight: -4
     settings: {  }
     third_party_settings: {  }
     type: options_select
   field_how_to_time:
-    weight: -1
+    weight: 0
     settings:
       size: 60
       placeholder: ''
@@ -234,34 +225,35 @@ content:
     type: text_textarea
   path:
     type: path
-    weight: 30
+    weight: 5
     settings: {  }
     third_party_settings: {  }
   promote:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 15
+    weight: 2
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 16
+    weight: 3
     third_party_settings: {  }
   title:
     type: string_textfield
-    weight: -5
+    weight: -3
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 5
+    weight: 0
     settings:
       match_operator: CONTAINS
       size: 60
       placeholder: ''
     third_party_settings: {  }
-hidden: {  }
+hidden:
+  field_how_to_ref_services: true

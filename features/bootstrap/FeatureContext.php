@@ -700,11 +700,6 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
             'type' => 'text',
           ),
           array (
-            'field' => 'field-how-to-ref-services',
-            'tag' => 'input',
-            'type' => 'text',
-          ),
-          array (
             'field' => 'field-how-to-lede',
             'tag' => 'input',
             'type' => 'text',
