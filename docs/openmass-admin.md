@@ -17,7 +17,7 @@ Fetching DB/files from the Mass project
 - consider removing silly files: .DS_Store, etc.
 - tar -cvzf files.tar.gz .
 
-Fetching new code from Mass project
+Merging new code from Mass project
 -------------
 - Merge PR from develop to openmass_master branches. Use --no-commit.
   - Resolve any conflicts
