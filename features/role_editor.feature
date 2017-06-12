@@ -64,3 +64,10 @@ Feature: editor Role
   Scenario: Verify that editor can use draggable views
     Given I am logged in as a user with the "editor" role
     Then I should have the "access draggableviews" permission
+
+  Scenario: Verify that editor can edit and publish unpublished content
+    Given I am logged in as a user with the "editor" role
+    And I am editing an unpublished "org_page" with the title "Behat Org Page"
+    Then I should see the button "Save and Create New Draft" in the edit_actions
+    And I should see the button "Save and Request Review" in the edit_actions
+    And I should see the button "Save and Publish" in the edit_actions

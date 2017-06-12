@@ -166,3 +166,4 @@ permissions:
   166: 'edit own location_details content'
   167: 'revert location_details revisions'
   168: 'view location_details revisions'
+  169: 'use mass dashboard'

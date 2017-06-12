@@ -1,0 +1,40 @@
+/**
+ * Toolbar item: Mass Dashboard
+ */
+a.toolbar-icon-mass-dashboard-tab::before {
+  background-image: url("../images/icons/bebebe/mass-dashboard.svg");
+}
+a.toolbar-icon-mass-dashboard-tab.is-active::before,
+.toolbar-icon-mass-dashboard-content.is-active::before {
+  background-image: url("../images/icons/ffffff/mass-dashboard.svg");
+}
+
+/**
+ * Tray item: My Edits
+ */
+.toolbar-icon-mass-dashboard-edits::before {
+  background-image: url("../images/icons/787878/edits.svg");
+}
+.toolbar-icon-mass-dashboard-edits.is-active::before {
+  background-image: url("../images/icons/000000/edits.svg");
+}
+
+/**
+ * Tray item: Needs Review
+ */
+.toolbar-icon-mass-dashboard-needs-review::before {
+  background-image: url("../images/icons/787878/needs-review.svg");
+}
+.toolbar-icon-mass-dashboard-needs-review.is-active::before {
+  background-image: url("../images/icons/000000/needs-review.svg");
+}
+
+/**
+ * Tray item: All Content
+ */
+.toolbar-icon-mass-dashboard-all-content::before {
+  background-image: url("../images/icons/787878/all-content.svg");
+}
+.toolbar-icon-mass-dashboard-all-content.is-active::before {
+  background-image: url("../images/icons/000000/all-content.svg");
+}

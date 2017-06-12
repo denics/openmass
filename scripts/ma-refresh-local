@@ -24,7 +24,7 @@ done
 
 # available environments to pull from
 # @TODO pull available environments via api
-remoteEnvironments=("prod" "test" "dev" "feature1" "feature2" "feature3" "cd")
+remoteEnvironments=("prod" "test" "dev" "feature1" "feature2" "feature3" "feature4" "feature5" "cd")
 
 # cd into project root
 cd /var/www/mass.local

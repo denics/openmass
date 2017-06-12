@@ -5,12 +5,25 @@ dependencies:
   config:
     - field.storage.node.field_service_detail_lede
     - node.type.service_details
+  module:
+    - geocoder_field
+third_party_settings:
+  geocoder_field:
+    method: none
+    field: title
+    plugins: {  }
+    dumper: wkt
+    delta_handling: default
+    failure:
+      handling: preserve
+      status_message: true
+      log: true
 id: node.service_details.field_service_detail_lede
 field_name: field_service_detail_lede
 entity_type: node
 bundle: service_details
 label: 'Short description'
-description: 'The Introduction will appear at the top of the page, and may also be used as a summary of this page when shown on other pages.  Please be brief and to the point.  '
+description: 'The short description will appear at the top of the page, and may also be used as a summary of this page when shown on other pages.  Please be brief and to the point.  '
 required: true
 translatable: false
 default_value: {  }

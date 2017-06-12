@@ -1,4 +1,4 @@
-uuid: e8051ca2-5d84-45c8-897d-a86efdc9705f
+uuid: 2387bcdf-a7b6-4427-85eb-f467ae166f72
 langcode: en
 status: true
 dependencies:
@@ -12,7 +12,7 @@ type: text_long
 settings: {  }
 module: text
 locked: false
-cardinality: -1
+cardinality: 1
 translatable: true
 indexes: {  }
 persist_with_no_fields: false

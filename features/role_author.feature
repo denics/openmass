@@ -64,3 +64,12 @@ Feature: Author Role
   Scenario: Verify that author can use draggable views
     Given I am logged in as a user with the "author" role
     Then I should have the "access draggableviews" permission
+
+  Scenario: Verify that author can edit unpublished content, request review, but not publish
+    Given I am logged in as a user with the "author" role
+    And I am editing an unpublished "org_page" with the title "Behat Org Page"
+    Then I should see the button "Save and Create New Draft" in the edit_actions
+    And I should see the button "Save and Request Review" in the edit_actions
+    And I should not see the text "Save and Publish" in the edit_actions
+
+

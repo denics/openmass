@@ -15,11 +15,11 @@ access_unpublished.access_token_controller_delete:
     _permission: 'access content'
 
 access_unpublished.settings_form:
-  path: '/admin/config/content/access_unpublished'
+  path: '/admin/config/access_unpublished/settings'
   defaults:
     _form: '\Drupal\access_unpublished\Form\SettingsForm'
     _title: 'Access unpublished'
   requirements:
-    _permission: 'administer site configuration'
+    _permission: 'access administration pages'
   options:
     _admin_route: TRUE

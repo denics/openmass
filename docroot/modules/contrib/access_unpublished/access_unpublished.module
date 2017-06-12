@@ -5,13 +5,13 @@
  * Contains access_unpublished implementations.
  */
 
-use Drupal\Core\Entity\EntityPublishedInterface;
-use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Access\AccessResult;
-use Drupal\Core\Entity\EntityInterface;
-use Drupal\Core\Session\AccountInterface;
-use Drupal\Core\Url;
-use Drupal\Core\Entity\EntityForm;
+use \Drupal\Core\Form\FormStateInterface;
+use \Drupal\Core\Access\AccessResult;
+use \Drupal\Core\Entity\EntityInterface;
+use \Drupal\Core\Session\AccountInterface;
+use \Drupal\Core\Url;
+use \Drupal\node\NodeInterface;
+use \Drupal\Core\Entity\EntityForm;
 
 /**
  * Implements hook_entity_access().
@@ -23,7 +23,8 @@ function access_unpublished_entity_access(EntityInterface $entity, $operation, A
   if (
     $operation == 'view' &&
     \Drupal::request()->query->has($tokenKey) &&
-    $entity instanceof EntityPublishedInterface &&
+    // @todo: For 8.3 this should check for EntityPublishedInterface.
+    $entity instanceof NodeInterface &&
     $account->hasPermission('access_unpublished ' . $entity->getEntityTypeId() . ' ' . $entity->bundle()) &&
     !$entity->isPublished()
   ) {
@@ -74,7 +75,8 @@ function access_unpublished_form_alter(&$form, FormStateInterface $form_state) {
   /** @var \Drupal\Core\Entity\Entity $entity */
   $entity = $form_state->getFormObject()->getEntity();
 
-  if ($entity instanceof EntityPublishedInterface && !$entity->isPublished() && !$entity->isNew()) {
+  // @todo: For 8.3 this should check for EntityPublishedInterface.
+  if ($entity instanceof NodeInterface && !$entity->isPublished() && !$entity->isNew()) {
 
     $storage = \Drupal::entityTypeManager()->getStorage('access_token');
 
@@ -86,43 +88,43 @@ function access_unpublished_form_alter(&$form, FormStateInterface $form_state) {
     $form['#attached']['library'][] = 'access_unpublished/drupal.access_unpublished.admin';
 
     // Create the group for the fields.
-    $form['access_unpublished_settings'] = [
+    $form['access_unpublished_settings'] = array(
       '#type' => 'details',
       '#title' => t('Temporary unpublished access'),
       '#open' => !empty($tokens),
       '#weight' => 35,
-      '#attributes' => [
-        'class' => ['access-unpublished-form'],
-      ],
+      '#attributes' => array(
+        'class' => array('access-unpublished-form'),
+      ),
       '#optional' => FALSE,
       '#group' => 'advanced',
-    ];
+    );
 
     if ($tokens) {
 
       /** @var \Drupal\access_unpublished\Entity\AccessToken[] $tokens */
       $tokens = $storage->loadMultiple($tokens);
 
-      $form['access_unpublished_settings']['token_table'] = [
+      $form['access_unpublished_settings']['token_table'] = array(
         '#type' => 'table',
-        '#header' => [
+        '#header' => array(
           t('Valid'),
           t('Link'),
           t('Expire date'),
           t('Operations'),
-        ],
-      ];
+        ),
+      );
 
       $tokenKey = \Drupal::config('access_unpublished.settings')
         ->get('hash_key');
 
       foreach ($tokens as $id => $token) {
 
-        $form['access_unpublished_settings']['token_table'][$id]['expired'] = [
+        $form['access_unpublished_settings']['token_table'][$id]['expired'] = array(
           '#type' => 'checkbox',
           '#default_value' => !$token->isExpired(),
           '#disabled' => TRUE,
-        ];
+        );
 
         $route_name = '.canonical';
         // Check for moderated entity if Workbench module is installed.
@@ -160,25 +162,25 @@ function access_unpublished_form_alter(&$form, FormStateInterface $form_state) {
             'class' => ['clipboard-button'],
           ],
         ];
-        $form['access_unpublished_settings']['token_table'][$id]['expire_date'] = [
+        $form['access_unpublished_settings']['token_table'][$id]['expire_date'] = array(
           '#plain_text' => $token->get('expire')->value > 0 ? format_date($token->get('expire')->value) : t('Unlimited'),
-        ];
-        $form['access_unpublished_settings']['token_table'][$id]['operations'] = [
+        );
+        $form['access_unpublished_settings']['token_table'][$id]['operations'] = array(
           '#type' => 'operations',
-          '#links' => [],
-        ];
+          '#links' => array(),
+        );
 
         if ($token->isExpired()) {
-          $form['access_unpublished_settings']['token_table'][$id]['operations']['#links']['renew'] = [
+          $form['access_unpublished_settings']['token_table'][$id]['operations']['#links']['renew'] = array(
             'title' => t('Renew'),
-            'url' => Url::fromRoute('access_unpublished.access_token_controller_renew', ['id' => $id]),
-          ];
+            'url' => Url::fromRoute('access_unpublished.access_token_controller_renew', array('id' => $id)),
+          );
         }
         else {
-          $form['access_unpublished_settings']['token_table'][$id]['operations']['#links']['delete'] = [
+          $form['access_unpublished_settings']['token_table'][$id]['operations']['#links']['delete'] = array(
             'title' => t('Delete'),
-            'url' => Url::fromRoute('access_unpublished.access_token_controller_delete', ['id' => $id]),
-          ];
+            'url' => Url::fromRoute('access_unpublished.access_token_controller_delete', array('id' => $id)),
+          );
         }
       }
     }
@@ -199,11 +201,11 @@ function access_unpublished_form_alter(&$form, FormStateInterface $form_state) {
       '#default_value' => $duration,
     ];
 
-    $form['access_unpublished_settings']['generate_token'] = [
+    $form['access_unpublished_settings']['generate_token'] = array(
       '#type' => 'submit',
       '#value' => t('Generate token'),
       '#submit' => ['access_unpublished_generate_token'],
-    ];
+    );
   }
 }
 

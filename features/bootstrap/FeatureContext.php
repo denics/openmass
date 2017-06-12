@@ -700,11 +700,6 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
             'type' => 'text',
           ),
           array (
-            'field' => 'field-how-to-ref-services',
-            'tag' => 'input',
-            'type' => 'text',
-          ),
-          array (
             'field' => 'field-how-to-lede',
             'tag' => 'input',
             'type' => 'text',
@@ -1055,4 +1050,43 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
       }
     }
   }
+
+
+  /**
+   * Creates unpublished content of the given type.
+   * Except for status, is same as createNode().
+   *
+   * @Given I am viewing an unpublished :type (content )with the title :title
+   * @Given an unpublished :type (content )with the title :title
+   */
+  public function createUnpublishedNode($type, $title) {
+    $node = (object) [
+      'title' => $title,
+      'type' => $type,
+      'body' => $this->getRandom()->name(255),
+      'status' => 0,
+    ];
+    $saved = $this->nodeCreate($node);
+    // Set internal page on the new node.
+    $this->getSession()->visit($this->locatePath('/node/' . $saved->nid));
+  }
+
+  /**
+   * Creates unpublished content of the given type and brings up the edit form.
+   *
+   * @Given I am editing an unpublished :type (content )with the title :title
+   */
+  public function editUnpublishedNode($type, $title) {
+    $node = (object) [
+      'title' => $title,
+      'type' => $type,
+      'body' => $this->getRandom()->name(255),
+      'status' => 0,
+    ];
+    $saved = $this->nodeCreate($node);
+    // Set internal page on the new node.
+    $this->getSession()->visit($this->locatePath('/node/' . $saved->nid . '/edit'));
+  }
+
+
 }
