@@ -7,10 +7,12 @@ dependencies:
     - node.type.contact_information
     - node.type.emergency_alerts
     - node.type.error_page
+    - node.type.fee
     - node.type.guide_page
     - node.type.how_to_page
     - node.type.interstitial
     - node.type.location
+    - node.type.location_details
     - node.type.org_page
     - node.type.page
     - node.type.section_landing
@@ -435,9 +437,11 @@ display:
             contact_information: contact_information
             emergency_alerts: emergency_alerts
             error_page: error_page
+            fee: fee
             guide_page: guide_page
             how_to_page: how_to_page
             interstitial: interstitial
+            location_details: location_details
             location: location
             org_page: org_page
             action: action
@@ -464,10 +468,12 @@ display:
             remember_roles:
               authenticated: authenticated
               anonymous: '0'
+              author: '0'
+              editor: '0'
+              emergency_alert_publisher: '0'
               content_team: '0'
               developer: '0'
               administrator: '0'
-              emergency_alert_publisher: '0'
             reduce: true
           is_grouped: false
           group_info:
