@@ -122,6 +122,7 @@
         "drupal/acquia_connector": "^1",
         "drupal/acquia_purge": "^1",
         "drupal/address": "~1.0",
+        "drupal/better_field_descriptions": "1.x-dev",
         "drupal/clamav": "^1.0",
         "drupal/components": "^1",
         "drupal/config_installer": "^1",
@@ -249,6 +250,9 @@
             },
             "drupal/field_group": {
               "Provide page level error messaging when publishing validation is not met": "https://www.drupal.org/files/issues/field_group-validation-2787179-9.patch"
+            },
+            "drupal/better_field_descriptions": {
+                "Fix the positioning of the additional help text (https://www.drupal.org/node/2882765)": "https://www.drupal.org/files/issues/better_field_descriptions-position-help-2882765-0.patch"
             }
         }
     }

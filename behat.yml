@@ -56,3 +56,5 @@ default:
         quick_actions: "section.ma__quick-actions"
         mass_dashboard_menu: "#toolbar-item-mass-dashboard-tray ul.toolbar-menu"
         edit_actions: "#edit-actions ul"
+        admin_local_tasks: ".region-pre-content ul.secondary"
+        layout_container: ".layout-container"
