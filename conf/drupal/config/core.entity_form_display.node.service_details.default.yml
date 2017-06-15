@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.node.service_details.field_service_detail_lede
     - field.field.node.service_details.field_service_detail_links_5
+    - field.field.node.service_details.field_service_detail_overview
     - field.field.node.service_details.field_service_detail_sections
     - node.type.service_details
   module:
@@ -12,6 +13,7 @@ dependencies:
     - link
     - paragraphs
     - path
+    - text
     - workbench_moderation
 third_party_settings:
   field_group:
@@ -32,13 +34,14 @@ third_party_settings:
       children:
         - title
         - field_service_detail_lede
+        - field_service_detail_overview
       parent_name: group_node_edit_form
       weight: 20
       format_type: tab
       format_settings:
         label: Overview
         formatter: open
-        description: "You should use a Service Detail Page to provide more details than can be provided on the parent service page.  A Service Detail Page <strong>must</strong> be connected to a Service Page when it is created.  Please make sure that you have a Service Page in mind before you start.\n\nThe title should describe the subject of the guide. Keep it as short as possible and use plain language."
+        description: "Use a Service Detail page to add more details than can be provided on the parent Service page.  A Service Detail page <strong>must</strong> be connected to a Service page when it is created.  Please make sure that you have a Service page in mind before you start.\n\nThe title should describe the subject of the page. Keep it as short as possible and use plain language."
         required_fields: true
         id: ''
         classes: ''
@@ -52,7 +55,7 @@ third_party_settings:
       format_settings:
         label: Sections
         formatter: closed
-        description: 'We recommend limiting a service details page to no more than 8 sections.'
+        description: 'A Service Detail page is made up of one or more sections. Sections can contain text (with a header and, optionally, additional resources for that section), or a section can be a video. We recommend limiting a Service Detail page to no more than 8 sections.'
         id: ''
         classes: ''
         required_fields: false
@@ -64,13 +67,13 @@ third_party_settings:
       weight: 22
       format_type: tab
       format_settings:
-        label: 'Cross Promotional Content'
+        label: Related
         formatter: closed
-        description: 'You can add promotional content to appear in the sidebar.  You should use this area to briefly describe and point to related content.  You should not use it for primary content: user research tells us that visitors will usually expect and understand content in this area to be promotional content not relevant to the main point.  See <a href="http://mayflower.digital.mass.gov/patterns/05-pages-GEN-Building-Energy-Codes/05-pages-GEN-Building-Energy-Codes.html">our styleguide</a> for examples.'
+        description: 'Use this area to add related content.'
         id: ''
         classes: ''
         required_fields: false
-      label: 'Cross Promotional Content'
+      label: Related
 id: node.service_details.default
 targetEntityType: node
 bundle: service_details
@@ -95,9 +98,16 @@ content:
       placeholder_title: ''
     third_party_settings: {  }
     type: link_default
+  field_service_detail_overview:
+    weight: 24
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
   field_service_detail_sections:
     type: entity_reference_paragraphs
-    weight: 27
+    weight: 30
     settings:
       title: Paragraph
       title_plural: Paragraphs

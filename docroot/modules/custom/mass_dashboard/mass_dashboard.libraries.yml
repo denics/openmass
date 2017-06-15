@@ -1,0 +1,5 @@
+mass_dashboard.toolbar:
+  version: 1.x
+  css:
+    theme:
+      css/mass_dashboard.toolbar.css: {}

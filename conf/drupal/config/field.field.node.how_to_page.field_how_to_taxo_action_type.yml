@@ -11,7 +11,7 @@ field_name: field_how_to_taxo_action_type
 entity_type: node
 bundle: how_to_page
 label: 'Action type'
-description: 'Please select the action for this page. [select one from action type taxonomy].'
+description: 'Please select the action for this page. The action should describe a single task that you can do on this page, and the title of the page should start with a verb. Keep the title as short as possible and use plain language. Use sentence case.'
 required: true
 translatable: false
 default_value: {  }

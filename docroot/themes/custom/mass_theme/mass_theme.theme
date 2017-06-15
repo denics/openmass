@@ -975,7 +975,6 @@ function mass_theme_preprocess_node_service_details(&$variables) {
       'title' => ['field_section_title'],
       'body' => ['field_section_body'],
       'links' => ['field_section_links'],
-      'actions' => ['field_section_key_actions'],
       'downloads' => ['field_section_downloads'],
       'video_id' => ['field_video_id'],
       'video_source' => ['field_video_source'],
@@ -1004,16 +1003,6 @@ function mass_theme_preprocess_node_service_details(&$variables) {
           Atoms::prepareRawHtml($sectionEntity, ['field' => 'field_section_body']),
         ],
       ];
-    }
-
-    if (Helper::isFieldPopulated($sectionEntity, $field['actions'])) {
-      $keyActions_options = [
-        'heading' => [
-          'title' => t('Key Actions'),
-        ],
-      ];
-      $pageContent[$index]['keyActions'] = Organisms::prepareKeyActions($sectionEntity, $field['actions'], $keyActions_options);
-
     }
 
     if (Helper::isFieldPopulated($sectionEntity, $field['downloads']) || Helper::isFieldPopulated($sectionEntity, $field['links'])) {
@@ -1954,31 +1943,36 @@ function mass_theme_preprocess_page(&$variables) {
   if ($node = \Drupal::routeMatch()->getParameter('node')) {
     $node = $variables['node'];
 
-    // Get the node bundle (content type).
-    $bundle = $node->bundle();
-
-    // Map out classes to be added to <main> based on bundle.
-    $map = [
-      'service_page' => 'ma__services',
-      'location' => 'ma__details',
-      'how_to_page' => 'ma__details',
-    ];
-
-    // Send main_class variable to page.
-    if (array_key_exists($bundle, $map)) {
-      $variables['main_class'] = $map[$bundle];
-    }
-
     // When loading a revision only the nid is returned. We need the object.
     if (ctype_digit($node)) {
       $node = Node::load($node);
     }
 
-    // If we're using search band, lets tell page twig about it.
-    if ($node->hasField('field_bands') && $node->get('field_bands')->count() > 0) {
-      foreach ($node->get('field_bands')->referencedEntities() as $paragraph) {
-        if ($paragraph->getType() == 'search_band') {
-          $variables['hideHeaderSearch'] = TRUE;
+    // Trap errors.
+    if (!is_null($node)) {
+      // Get the node bundle (content type).
+      $bundle = $node->bundle();
+
+      // Map out classes to be added to <main> based on bundle.
+      $map = [
+        'service_page' => 'ma__services',
+        'location' => 'ma__details',
+        'how_to_page' => 'ma__details',
+      ];
+
+      // Send main_class variable to page.
+      if (array_key_exists($bundle, $map)) {
+        $variables['main_class'] = $map[$bundle];
+      }
+
+      // If we're using search band, lets tell page twig about it.
+      if ($node->hasField('field_bands') && $node->get('field_bands')->count() > 0
+      ) {
+        foreach ($node->get('field_bands')
+          ->referencedEntities() as $paragraph) {
+          if ($paragraph->getType() == 'search_band') {
+            $variables['hideHeaderSearch'] = TRUE;
+          }
         }
       }
     }

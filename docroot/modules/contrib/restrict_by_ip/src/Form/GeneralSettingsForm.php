@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @file
+ * Contains Drupal\restrict_by_ip\Form\GeneralSettingsForm.
+ */
+
 namespace Drupal\restrict_by_ip\Form;
 
 use Drupal\Core\Form\ConfigFormBase;
@@ -33,13 +38,13 @@ class GeneralSettingsForm extends ConfigFormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $config = $this->config('restrict_by_ip.settings');
-    $form['restrict_by_ip_header'] = [
+    $form['restrict_by_ip_header'] = array(
       '#type' => 'textfield',
       '#title' => $this->t('Header to check'),
       '#description' => $this->t('This is the HTTP request header that contains the client IP Address. It is sometimes re-written by reverse proxies and Content Distribution Networks.'),
       '#default_value' => $config->get('header'),
       '#required' => TRUE,
-    ];
+    );
 
     return parent::buildForm($form, $form_state);
   }

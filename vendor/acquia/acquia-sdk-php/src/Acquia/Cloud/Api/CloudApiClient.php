@@ -13,7 +13,6 @@ class CloudApiClient extends Client implements ServiceManagerAware
     const BASE_PATH        = '/v1';
 
     const INSTALL_MAKEFILE = 'make_url';
-    const INSTALL_NAME     = 'distro_name';
     const INSTALL_PROJECT  = 'distro_url';
 
     const LIVEDEV_ENABLE   = 'enable';
@@ -153,22 +152,6 @@ class CloudApiClient extends Client implements ServiceManagerAware
     }
 
     /**
-     * Install one of Acquia Cloud’s built-in supported distros.
-     *
-     * @param string $site
-     * @param string $env
-     * @param string $distro
-     *
-     * @return \Acquia\Cloud\Api\Response\Task
-     *
-     * @throws \Guzzle\Http\Exception\ClientErrorResponseException
-     */
-    public function installDistroByName($site, $env, $distro)
-    {
-        return $this->installDistro($site, $env, self::INSTALL_NAME, $distro);
-    }
-
-    /**
      * Install any publicly accessible, standard Drupal distribution.
      *
      * @param string $site
@@ -182,7 +165,7 @@ class CloudApiClient extends Client implements ServiceManagerAware
      */
     public function installDistroByProject($site, $env, $projectName, $version)
     {
-        $source = 'http://ftp.drupal.org/files/projects/' . $projectName . '-' . $version . 'tar.gz';
+        $source = 'http://ftp.drupal.org/files/projects/' . $projectName . '-' . $version . '-core.tar.gz';
         return $this->installDistro($site, $env, self::INSTALL_PROJECT, $source);
     }
 
@@ -317,12 +300,18 @@ class CloudApiClient extends Client implements ServiceManagerAware
      *
      * @return \Acquia\Cloud\Api\Response\Task
      *
-     * @throws \Guzzle\Http\Exception\ClientErrorResponseException
+     * @throws \Guzzle\Http\Exception\ClientErrorResponseException|\InvalidArgumentException
      *
      * @see http://cloudapi.acquia.com/#DELETE__sites__site_sshkeys__sshkeyid-instance_route
      */
     public function deleteSshKey($site, $keyId)
     {
+        if (!is_string($site)) {
+            throw new \InvalidArgumentException('The site parameter must be a string.');
+        }
+        if (!is_int($keyId)) {
+            throw new \InvalidArgumentException('The keyId parameter must be an integer.');
+        }
         $variables = array(
             'site' => $site,
             'id' => $keyId,

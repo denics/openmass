@@ -57,15 +57,17 @@ form.gsc-search-box,
   padding: 0;
 }
 .ma__header-search table.gsc-search-box input.gsc-input {
-  font-size: 16px;
-  font-size: 1rem;
   height: 46px;
   padding-right: 20px;
   padding-left: 17px;
   width: 100%;
   border: 2px solid #dcdcdc;
 }
-
+.ma__header-search table.gsc-search-box input.gsc-input,
+.ma__header-search table.gsc-search-box input.gsc-input::placeholder {
+  font-size: 20px !important;
+  font-size: 1.25rem !important;
+}
 .ma__header-search table.gsc-search-box input.gsc-input[style] {
   background: none !important;
   background-color: #fff !important;
@@ -895,14 +897,17 @@ form.gsc-search-box,
   padding: 0;
 }
 .ma__content__search table.gsc-search-box input.gsc-input {
-  font-size: 16px;
-  font-size: 1rem;
   height: 46px;
   padding-right: 85px;
   padding-left: 17px;
   width: 100%;
   background: #fff;
   border: 2px solid #dcdcdc;
+}
+.ma__content__search table.gsc-search-box input.gsc-input,
+.ma__content__search table.gsc-search-box input.gsc-input::placeholder {
+  font-size: 20px;
+  font-size: 1.25rem;
 }
 
 @media (min-width: 620px) {
@@ -1009,12 +1014,15 @@ form.gsc-search-box,
   border: 0;
 }
 .ma__content-search__input {
-  font-size: 16px;
-  font-size: 1rem;
   height: 46px;
   padding-right: 6%;
   padding-left: 17px;
   width: 100%;
+}
+.ma__content__search__input,
+.ma__content__search__input::placeholder {
+  font-size: 20px;
+  font-size: 1.25rem;
 }
 @media (max-width: 620px) {
   .ma__content__search .ma__content-search__input {

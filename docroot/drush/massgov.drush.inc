@@ -7,12 +7,12 @@ function massgov_drush_command() {
   $items['ma-deploy'] = array(
     'description' => 'Deploy code and database (if needed). Copies Prod DB to target environment and then runs config import, updb, varnish purge, etc.',
     'arguments' => array(
-      'target' => 'Target environment. Recognized values: dev, cd, test, feature1, feature2, feature3',
+      'target' => 'Target environment. Recognized values: dev, cd, test, feature1, feature2, feature3, feature4, feature5, prod',
       'git-ref' => 'Tag or branch to deploy. Must be pushed to Acquia.',
     ),
     'required-arguments' => TRUE,
     'options' => array(
-      'refresh-db' => 'Run sql-sync & pull the db from prod to replace target environment.',
+      'refresh-db' => 'Copy the DB from Prod to replace target environment\'s DB.',
       'skip-maint' => 'Skip maintenance mode enable/disable.',
     ),
     'drush dependencies' => array('acapi'),
@@ -24,14 +24,25 @@ function massgov_drush_command() {
   return $items;
 }
 
+// validate target environments
 function drush_massgov_ma_deploy_validate($target) {
-  $available_targets = array('dev', 'cd', 'test', 'feature1', 'feature2', 'feature3');
+  $available_targets = array('dev', 'cd', 'test', 'feature1', 'feature2', 'feature3', 'feature4', 'feature5', 'prod');
   if (!in_array($target, $available_targets)) {
     return drush_set_error('Invalid argument: target. \nYou entered "'.$target.'". Target must be one of: '.join(', ',$available_targets));
   }
 }
 
+// main code of ma-deploy functionality
 function drush_massgov_ma_deploy($target, $git_ref) {
+  // For production deployments, prompt the user if they are sure. If they say no, exit
+  $is_prod = ($target === 'prod');
+  if ($is_prod) {
+    if(!drush_confirm('This is for a production deployment. Are you sure?')) {
+      echo("Exiting. Nothing deployed. See you later!\n");
+      return drush_user_abort();
+    }
+  }
+
   $alias_target =  "@massgov.$target";
   $site = 'prod:massgov';
   $db_name = 'massgov';
@@ -46,7 +57,6 @@ function drush_massgov_ma_deploy($target, $git_ref) {
     'password' => acapi_get_option('key'),
   ));
 
-
   if (drush_get_option('skip-maint', FALSE) == FALSE) {
     // Turn on Maint mode
     $args = array('system.maintenance_mode', 1);
@@ -56,17 +66,19 @@ function drush_massgov_ma_deploy($target, $git_ref) {
     drush_log(dt("Maintenance mode enabled in $target."), 'success');
   }
 
-  $files = $cloudapi->copyFiles($site, 'prod', $target);
-
-  if (drush_get_option('refresh-db', FALSE)) {
+  // Copy files and database, but only for non-prod deploys and when refresh-db is set
+  if(!$is_prod && drush_get_option('refresh-db', FALSE)) {
+    // Copy Prod database to target
     $database = $cloudapi->copyDatabase($site, $db_name, 'prod', $target);
+    drush_log(dt("Copied database from Prod"), 'success');
+
     // Copy Prod files to target.
     $files = $cloudapi->copyFiles($site, 'prod', $target);
+    drush_log(dt("Copied files from Prod"), 'success');
 
     $id = $database->id();
     wait_for_task_to_complete($cloudapi, $site, $id);
   }
-
 
   // Deploy the new code.
   $code = $cloudapi->pushCode($site, $target, $git_ref);
@@ -93,10 +105,14 @@ function drush_massgov_ma_deploy($target, $git_ref) {
 
   // Purge Varnish cache.
   // Get a list of all an environment's domains.
-  $domains = $cloudapi->domains($site, $target);
+  $domains = $cloudapi->domains($site, $target); // Note: This also returns load balancer URLs
   foreach ($domains as $domain) {
-    $cloudapi->purgeVarnishCache($site, $target, $domain);
-    drush_log(dt("Purged Varnish cache for $domain in $target environment."), 'success');
+    // Skip Load Balancers
+    if(!preg_match('/.*\.elb\.amazonaws\.com$/', $domain) ) {
+      // Clear the cache for the domain
+      $cloudapi->purgeVarnishCache($site, $target, $domain);
+      drush_log(dt("Purged Varnish cache for $domain in $target environment."), 'success');
+    }
   }
 
   // @todo Disable System Notification block

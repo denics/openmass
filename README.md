@@ -120,11 +120,13 @@ remember not to commit a core.extension.yml which enables these projects, and re
 
 ### Adding a new module to composer
 *We manage dependencies with composer, and also track all dependencies with git. If you run `composer install`, you should see a 'Nothing to install or update' message, since git already has all the dependencies. Changes to dependencies still go through composer.*
+Note: As of [#47bfef3f](https://github.com/massgov/mass/commit/47bfef3f2220ba1b5a44f82e4b6677d7c71722d4), the VM has the latest composer version running.  To run composer in the VM, prepend any composer command with `php -d memory_limit=-1 /usr/local/bin/`.  E.g, to require Drupal module bad_judgement, run `php -d memory_limit=-1 /usr/local/bin/composer require --no-update drupal/bad_judgement:^2.0`. Once we update the memory_limit of the VM we won't need this command.  This will be fixed in [DP-3839](https://jira.state.ma.us/browse/DP-3839).
 
-1. Download modules with composer: ex. `composer require drupal/bad_judgement:^8.1`
+1. Add the module as a project dependency with composer *(without downloading it, or updating any other package)*: ex. `composer require --no-update drupal/bad_judgement:^2.0` *(If you checked `git status` you should see that only `composer.json` was updated)*
+1. Download module files with composer: ex. `composer update --with-dependencies drupal/bad_judgement` *(If you checked `git status` you should see that `composer.lock` was now also changed, but only to reflect the module that you just installed or updated, and all of the module files have been added, likely to `docroot/modules/contrib/your_module`.)*
 1. Enable the module: `drush en bad_judgement`
 1. Export the config with the module enabled: `drush config-export`
-1. Sometimes composer will pull in a git directory instead of distribution files for a depdency. Please double check that there is no `.git` directory within the module code, and if so, please remove it. You can test with this command: `find . | grep ".git$"` and should ONLY see the output of: `./.git` (which is this projects git directory - don't delete that!).
+1. Sometimes composer will pull in a git directory instead of distribution files for a dependency. Please double check that there is no `.git` directory within the module code, and if so, please remove it. You can test with this command: `find . | grep ".git$"` and should ONLY see the output of: `./.git` (which is this projects git directory - don't delete that!).
 1. Commit the changes to `composer.json`, `composer.lock`, `conf/drupal/config/core.extension.yml`, and the module code itself.
 
 

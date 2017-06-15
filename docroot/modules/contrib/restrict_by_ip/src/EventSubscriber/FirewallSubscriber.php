@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @file
+ * Contains Drupal\restrict_by_ip\FirewallSubscriber.
+ */
+
 namespace Drupal\restrict_by_ip\EventSubscriber;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -43,7 +48,7 @@ class FirewallSubscriber implements EventSubscriberInterface {
   *   An array of event listener definitions.
   */
   static function getSubscribedEvents() {
-    $events['kernel.request'] = ['loginFirewall'];
+    $events['kernel.request'] = array('loginFirewall');
 
     return $events;
   }
