@@ -2,11 +2,10 @@
 
 namespace Drupal\mass_schema_government_service\Plugin\metatag\Tag;
 
-use Drupal\metatag\Plugin\metatag\Tag\LinkRelBase;
 use \Drupal\schema_metatag\Plugin\metatag\Tag\SchemaNameBase;
 
 /**
- * Provides a plugin for the 'schema_government_service_potential_action' meta tag.
+ * Provides a plugin for 'schema_government_service_potential_action' meta tag.
  *
  * - 'id' should be a globally unique id.
  * - 'name' should match the Schema.org element name.
@@ -35,6 +34,9 @@ class SchemaGovernmentServicePotentialAction extends SchemaNameBase {
     return $form;
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function setValue($value) {
     $this->value = $value;
   }
@@ -50,7 +52,7 @@ class SchemaGovernmentServicePotentialAction extends SchemaNameBase {
     $element['#attributes']['content'] = [];
 
     foreach ($content as $link_values) {
-      $link_values = json_decode($link_values, true);
+      $link_values = json_decode($link_values, TRUE);
       if (is_array($link_values)) {
         foreach ($link_values as $item) {
           $element['#attributes']['content'][] = [
