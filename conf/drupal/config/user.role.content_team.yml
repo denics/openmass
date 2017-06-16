@@ -174,3 +174,4 @@ permissions:
   174: 'edit own fee content'
   175: 'revert fee revisions'
   176: 'view fee revisions'
+  170: 'add better descriptions to fields'
