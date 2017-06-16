@@ -29,25 +29,37 @@ function mass_schema_government_service_metatag_groups_alter(&$data) {
 function mass_schema_government_service_tokens($type, $tokens, array $data, array $options, BubbleableMetadata $bubbleable_metadata) {
   $replacements = [];
 
-  if ($type == 'entity' && !empty($data['entity'])) {
-    $entity = $data['entity'];
+  if ($type == 'node' && !empty($data['node'])) {
+    /** @var \Drupal\node\NodeInterface $node */
+    $node = $data['node'];
 
+    // Iterate through all the tokens.
     foreach ($tokens as $name => $original) {
-      if ($entity->hasField($name) && $entity->get($name)->getFieldDefinition()->getType() == 'link') {
+      // For tokens that reference a 'link' field, we want to update the
+      // replacement value, so that it contains the 'name' and the 'url' of the
+      // link.
+      if ($node->hasField($name) && $node->get($name)->getFieldDefinition()->getType() == 'link') {
         $data = [];
-        $value = $entity->get($name)->getValue();
+        // Get the link value. This value will be an array containing the link's
+        // attributes - such as the 'name' and 'uri'.
+        $value = $node->get($name)->getValue();
         foreach ($value as $link) {
           $name = !empty($link['title']) ? $link['title'] : '';
           $url = '';
           if (!empty($link['uri'])) {
+            // Compute the absolute URL given the uri.
             $url = Url::fromUri($link['uri'], ['absolute' => TRUE])->toString();
           }
+          // Store everything in the array object.
           $data[] = [
             'name' => $name,
             'url' => $url,
           ];
         }
 
+        // For each replacement token, JSON-encode the data. This data will be
+        // set as the value of the field token - for which it will need to be
+        // JSON-decoded before use.
         $replacements[$original] = json_encode($data);
       }
     }
