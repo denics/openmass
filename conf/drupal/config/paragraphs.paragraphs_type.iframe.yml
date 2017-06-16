@@ -4,3 +4,5 @@ status: true
 dependencies: {  }
 id: iframe
 label: iFrame
+icon_uuid: null
+behavior_plugins: {  }

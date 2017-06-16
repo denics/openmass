@@ -67,4 +67,6 @@ content:
     third_party_settings: {  }
   links:
     weight: 100
+  workbench_moderation_control:
+    weight: -20
 hidden: {  }

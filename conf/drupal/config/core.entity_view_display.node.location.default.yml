@@ -153,4 +153,5 @@ content:
     weight: -20
 hidden:
   field_facilities: true
+  field_hours: true
   field_more_information: true

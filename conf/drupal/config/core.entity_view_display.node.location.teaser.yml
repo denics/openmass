@@ -32,11 +32,14 @@ content:
     weight: 100
     settings: {  }
     third_party_settings: {  }
+  workbench_moderation_control:
+    weight: -20
 hidden:
   field_accessibility: true
   field_bg_narrow: true
   field_bg_wide: true
   field_facilities: true
+  field_hours: true
   field_iframe: true
   field_links: true
   field_location_activity_detail: true
