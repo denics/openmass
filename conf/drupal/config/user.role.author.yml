@@ -48,6 +48,7 @@ permissions:
   83: 'edit any service_page content'
   84: 'edit own service_page content'
   85: 'view service_page revisions'
+  86: 'use mass dashboard'
   87: 'use needs_review_needs_review transition'
   88: 'use draft_needs_review transition'
   89: 'use needs_review_draft transition'
