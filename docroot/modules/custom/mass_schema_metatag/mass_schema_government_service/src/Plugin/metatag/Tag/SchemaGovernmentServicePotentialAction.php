@@ -2,6 +2,7 @@
 
 namespace Drupal\mass_schema_government_service\Plugin\metatag\Tag;
 
+use Drupal\metatag\Plugin\metatag\Tag\LinkRelBase;
 use \Drupal\schema_metatag\Plugin\metatag\Tag\SchemaNameBase;
 
 /**
@@ -20,7 +21,7 @@ use \Drupal\schema_metatag\Plugin\metatag\Tag\SchemaNameBase;
  *   weight = 1,
  *   type = "string",
  *   secure = FALSE,
- *   multiple = FALSE
+ *   multiple = TRUE
  * )
  */
 class SchemaGovernmentServicePotentialAction extends SchemaNameBase {
@@ -34,12 +35,38 @@ class SchemaGovernmentServicePotentialAction extends SchemaNameBase {
     return $form;
   }
 
+  public function setValue($value) {
+    $this->value = $value;
+  }
+
   /**
    * {@inheritdoc}
    */
   public function output() {
     $element = parent::output();
-    \Drupal::logger('g9_video')->debug('Value: ' . print_r($this->value(), true));
+
+    $content = explode(', ', $this->value());
+
+    $element['#attributes']['content'] = [];
+
+    foreach ($content as $link_values) {
+      $link_values = json_decode($link_values, true);
+      if (is_array($link_values)) {
+        foreach ($link_values as $item) {
+          $element['#attributes']['content'][] = [
+            'name' => $item['name'],
+            'url' => $item['url'],
+          ];
+        }
+      }
+      else {
+        $element['#attributes']['content'][] = [
+          'name' => $link_values['name'],
+          'url' => $link_values['url'],
+        ];
+      }
+    }
+
     return $element;
   }
 
