@@ -1,8 +1,9 @@
-uuid: 8f3a715e-2834-478e-815f-3c2be72ea2ba
+uuid: cc799245-d712-4890-b3e0-288514e9a2ae
 langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_mode.node.token
     - field.field.node.service_page.field_service_bg_narrow
     - field.field.node.service_page.field_service_bg_wide
     - field.field.node.service_page.field_service_body
@@ -24,10 +25,10 @@ dependencies:
     - image
     - link
     - user
-id: node.service_page.default
+id: node.service_page.token
 targetEntityType: node
 bundle: service_page
-mode: default
+mode: token
 content:
   field_service_bg_narrow:
     weight: 103
@@ -104,18 +105,18 @@ content:
       rel: ''
       target: ''
     third_party_settings: {  }
-    type: link
+    type: link_separate
   field_service_ref_actions_2:
     weight: 108
     label: above
     settings:
       trim_length: 80
+      url_plain: true
       url_only: false
-      url_plain: false
-      rel: ''
-      target: ''
+      rel: '0'
+      target: '0'
     third_party_settings: {  }
-    type: link
+    type: link_separate
   field_service_ref_guide_page_1:
     weight: 114
     label: above
