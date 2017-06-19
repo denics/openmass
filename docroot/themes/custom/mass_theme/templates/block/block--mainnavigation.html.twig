@@ -33,6 +33,9 @@
 #}
 {% set ariaLabel = heading_id ?? 'main-navigation-heading' %}
 <nav class="ma__header__nav" role="navigation" aria-labelledby="{{ ariaLabel }}" id="main-navigation">
+  <div class="ma__header__utility-nav ma__header__utility-nav--wide">
+      {{ render_menu('utility') }}
+  </div>
   {# Label. If not displayed, we still provide it for screen readers. #}
   {% if not configuration.label_display %}
     {% set title_attributes = title_attributes.addClass('visually-hidden') %}
@@ -59,7 +62,7 @@
         {{ content }}
       {% endblock %}
     </div>
-    <div class="ma__header__utility-nav">
+    <div class="ma__header__utility-nav ma__header__utility-nav--narrow">
       {{ render_menu('utility') }}
     </div>
 </nav>
