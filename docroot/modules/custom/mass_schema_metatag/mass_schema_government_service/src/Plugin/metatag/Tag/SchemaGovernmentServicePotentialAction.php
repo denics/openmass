@@ -2,7 +2,7 @@
 
 namespace Drupal\mass_schema_government_service\Plugin\metatag\Tag;
 
-use \Drupal\schema_metatag\Plugin\metatag\Tag\SchemaNameBase;
+use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaNameBase;
 
 /**
  * Provides a plugin for 'schema_government_service_potential_action' meta tag.
