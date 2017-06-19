@@ -4,6 +4,7 @@ namespace Drupal\mayflower\Prepare;
 
 use Drupal\mayflower\Helper;
 use Drupal\Component\Utility\UrlHelper;
+use Drupal\Core\Url;
 
 /**
  * Provides variable structure for mayflower organisms using prepare functions.
@@ -493,21 +494,52 @@ class Organisms {
    *   The object that contains the fields.
    * @param array $options
    *   An array containing options.
+   * @param array $field_map
+   *   An optional array of fields.
    *
    * @see @organsms/by-author/sections-three-up
    *
    * @return array
    *   Returns structured array.
    */
-  public static function prepareSectionThreeUp($entities, array $options = []) {
+  public static function prepareSectionThreeUp($entities, array $options = [], array $field_map = NULL) {
     $sections = [];
+    $fields = [];
 
-    foreach ($entities as $entity) {
-      $sections[] = Molecules::prepareSectionLink($entity->entity, $options);
+    if ($field_map) {
+      $fields = Helper::getMappedFields($entities, $field_map);
+    }
+
+    // Load up our entity if internal.
+    if ($fields['topic_cards']) {
+      foreach ($entities->$fields['topic_cards'] as $card) {
+        $url = $card->getUrl();
+        $desc = '';
+
+        // Load up our entity if internal.
+        if ($url->isExternal() == FALSE) {
+          $params = Url::fromUri("internal:" . $url->toString())->getRouteParameters();
+          $entity_type = key($params);
+          $entity = \Drupal::entityTypeManager()->getStorage($entity_type)->load($params[$entity_type]);
+          $cards[] = Molecules::prepareSectionLink($entity, $options);
+        }
+        else {
+          $cards[] = [
+            'title' => Helper::separatedLink($card),
+            'description' => $desc,
+            'seeAll' => $seeAll,
+          ];
+        }
+        $sections = $cards;
+      }
+    }
+    else {
+      foreach ($entities as $entity) {
+        $sections[] = Molecules::prepareSectionLink($entity->entity, $options);
+      }
     }
 
     $heading = isset($options['heading']) ? Helper::buildHeading($options['heading']) : [];
-
     return array_merge($heading, ['sections' => $sections]);
   }
 

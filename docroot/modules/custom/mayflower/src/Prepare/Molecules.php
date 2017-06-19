@@ -312,11 +312,14 @@ class Molecules {
    *    }
    */
   public static function prepareSectionLink($entity, array $options = []) {
+
     $map = [
       'text' => [
         'field_lede',
         'field_service_body',
         'field_guide_page_lede',
+        'field_service_lede',
+        'field_topic_lede',
         'field_topic_lede',
         'field_sub_title',
       ],
@@ -325,7 +328,7 @@ class Molecules {
         'field_topic_ref_icon',
       ],
       'links' => [
-        'field_topic_ref_content_cards',
+        'field_topic_content_cards',
         'field_service_ref_actions_2',
       ],
     ];
@@ -346,7 +349,19 @@ class Molecules {
     }
 
     if ($fields['links']) {
-      $links = Helper::separatedLinks($entity, $fields['links']);
+      foreach ($entity->$fields['links'] as $link) {
+        $linkEntity = $link->entity;
+
+        if (!empty($linkEntity->field_content_card_link_cards)) {
+          foreach ($linkEntity->field_content_card_link_cards as $linkItem) {
+            $links[] = Helper::separatedLink($linkItem);
+          }
+        }
+        else {
+          $links = Helper::separatedLinks($entity, $fields['links']);
+        }
+      }
+
       if (in_array($entity->getType(), $options['use4TopLinks'])) {
         // Only show top 4 links.
         $links = array_slice($links, 0, 4);
@@ -361,12 +376,12 @@ class Molecules {
     // Different options for topic_page, org_page, and service_page.
     return [
       'id' => 'section_link_' . $index,
-      'catIcon' => in_array($entity->getType(), $options['useIcon']) ? $icon : '',
+      'catIcon' => in_array($entity->getType(), isset($options['useIcon']) ? $options['useIcon'] : []) ? $icon : '',
       'title' => [
         'href' => $entity->toURL()->toString(),
         'text' => $entity->getTitle(),
       ],
-      'description' => Helper::fieldValue($entity, $fields['text']),
+      'description' => !empty($entity->$fields['text']->value) ? Helper::fieldValue($entity, $fields['text']) : '',
       'type' => in_array($entity->getType(), isset($options['useCallout']) ? $options['useCallout'] : []) ? 'callout' : '',
       'links' => in_array($entity->getType(), $options['noCardLinks']) ? '' : $links,
       'seeAll' => in_array($entity->getType(), isset($options['noSeeAll']) ? $options['noSeeAll'] : []) ? '' : $seeAll,
