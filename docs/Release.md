@@ -11,7 +11,6 @@ If you've done this before, here's a quick refresher:
 1. Checkout `develop`.
 1. Email: Notify team of upcoming release.
 1. Create release branch.
-1. Add/commit deployment ID.
 1. Push release branch to GitHub.
 1. Write release notes.
 1. Deploy release branch to `Stage`.
@@ -35,8 +34,6 @@ First time or need more detail? Read these:
 1. Check the [GitHub `develop` branch](https://github.com/massgov/mass/commits/develop) to see if there is anything new to deliver. If not, stop here.
 1. If there is new code to be delivered, notify the team at least two hours ahead of time that a release is coming. Follow the [Communicate Releases](https://wiki.state.ma.us/display/massgovredesign/Communicating+Releases) instructions for Upcoming Deployments.
 1. Create a release branch (e.g.: `release-0.18.0`) from the GitHub `develop` branch. (Right now, the version is `0.<sprint number>.<number of times deployed within sprint>`. This is not a good long term versioning scheme, but it is what is currently happening today. We should change this.)
-1. Edit `mass/docroot/sites/deployment_id.php` to set `$settings['deployment_identifier']` to the release version.
-1. Stage and commit `deployment_id.php`.
 1. Push your release branch to GitHub (CircleCI will run against your release branch and push it to Acquia Cloud Git for you. However, CircleCI will not push your branch to Acquia Cloud Git if it does not pass automated tests)
 1. Write release notes for all the code being delivered in the release branch. Follow the [Communicate Releases](https://wiki.state.ma.us/display/massgovredesign/Communicating+Releases) instructions for Release Notes. (The release notes will be helpful for the verification steps that will follow. It's suggested that you make a list of all the JIRA tickets that are being delivered; this can help link tickets to the release version via JIRA later.)
 1. SSH into the mass Vagrant VM and `cd /var/www/mass.local` or use the alias `www`.
