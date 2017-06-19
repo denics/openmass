@@ -12,11 +12,11 @@ a.toolbar-icon-mass-dashboard-tab.is-active::before,
 /**
  * Tray item: My Edits
  */
-.toolbar-icon-mass-dashboard-edits::before {
-  background-image: url("../images/icons/787878/edits.svg");
+.toolbar-icon-mass-dashboard-my-work::before {
+  background-image: url("../images/icons/787878/my-work.svg");
 }
-.toolbar-icon-mass-dashboard-edits.is-active::before {
-  background-image: url("../images/icons/000000/edits.svg");
+.toolbar-icon-mass-dashboard-my-work.is-active::before {
+  background-image: url("../images/icons/000000/my-work.svg");
 }
 
 /**

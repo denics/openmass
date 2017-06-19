@@ -1,5 +1,5 @@
-mass_dashboard.edits:
-  path: '/admin/ma-dash/edits'
+mass_dashboard.my_work:
+  path: '/admin/ma-dash/my-work'
   requirements:
     _permission: 'use mass dashboard'
 mass_dashboard.needs_review:

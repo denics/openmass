@@ -5,13 +5,13 @@ dependencies:
     - mass_dashboard
     - node
     - user
-id: mass_dashboard_edits
-label: 'Mass Dashboard Edits'
+id: mass_dashboard_my_work
+label: 'Mass Dashboard My Work'
 module: views
-description: ''
+description: 'Content authored by me and revisions by me if latest'
 tag: ''
-base_table: node_field_revision
-base_field: vid
+base_table: node_field_data
+base_field: nid
 core: 8.x
 display:
   default:
@@ -39,16 +39,16 @@ display:
         type: basic
         options:
           submit_button: Apply
-          reset_button: true
+          reset_button: false
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
-          expose_sort_order: false
+          expose_sort_order: true
           sort_asc_label: Asc
           sort_desc_label: Desc
       pager:
         type: mini
         options:
-          items_per_page: 20
+          items_per_page: 25
           offset: 0
           id: 0
           total_pages: null
@@ -56,10 +56,10 @@ display:
             previous: ‹‹
             next: ››
           expose:
-            items_per_page: false
+            items_per_page: true
             items_per_page_label: 'Items per page'
             items_per_page_options: '5, 10, 25, 50'
-            items_per_page_options_all: false
+            items_per_page_options_all: true
             items_per_page_options_all_label: '- All -'
             offset: false
             offset_label: Offset
@@ -75,20 +75,14 @@ display:
           summary: ''
           description: ''
           columns:
-            changed: changed
             title: title
             type: type
+            status: status
+            uid: uid
             moderation_state: moderation_state
-            edit_node: edit_node
-            name: name
+            revision_timestamp: revision_timestamp
+            revision_log: revision_log
           info:
-            changed:
-              sortable: true
-              default_sort_order: desc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
             title:
               sortable: true
               default_sort_order: asc
@@ -102,6 +96,20 @@ display:
               align: ''
               separator: ''
               empty_column: false
+              responsive: priority-low
+            status:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: priority-medium
+            uid:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
               responsive: ''
             moderation_state:
               sortable: true
@@ -110,21 +118,21 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            edit_node:
-              sortable: false
+            revision_timestamp:
+              sortable: true
+              default_sort_order: desc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: priority-medium
+            revision_log:
+              sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
-              responsive: ''
-            name:
-              sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-          default: changed
+              responsive: priority-low
+          default: revision_timestamp
           empty_table: false
       row:
         type: fields
@@ -134,83 +142,9 @@ display:
           hide_empty: false
           default_field_elements: true
       fields:
-        changed:
-          id: changed
-          table: node_field_revision
-          field: changed
-          relationship: none
-          group_type: max
-          admin_label: ''
-          label: 'Revision Updated'
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: false
-            ellipsis: false
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: timestamp
-          settings:
-            date_format: short
-            custom_date_format: ''
-            timezone: ''
-          group_column: null
-          group_columns: null
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          set_precision: false
-          precision: 0
-          decimal: .
-          format_plural: false
-          format_plural_string: "1\x03@count"
-          prefix: ''
-          suffix: ''
-          entity_type: node
-          entity_field: changed
-          plugin_id: field
         title:
           id: title
-          table: node_field_revision
+          table: node_field_data
           field: title
           relationship: none
           group_type: group
@@ -260,7 +194,7 @@ display:
           type: string
           settings:
             link_to_entity: true
-          group_column: entity_id
+          group_column: value
           group_columns: {  }
           group_rows: true
           delta_limit: 0
@@ -273,14 +207,65 @@ display:
           entity_type: node
           entity_field: title
           plugin_id: field
+        edit_node:
+          id: edit_node
+          table: node
+          field: edit_node
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: ''
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          text: (edit)
+          entity_type: node
+          plugin_id: entity_link_edit
         type:
           id: type
           table: node_field_data
           field: type
-          relationship: nid
+          relationship: none
           group_type: group
           admin_label: ''
-          label: 'Content Type'
+          label: 'Content type'
           exclude: false
           alter:
             alter_text: false
@@ -338,14 +323,146 @@ display:
           entity_type: node
           entity_field: type
           plugin_id: field
+        status:
+          id: status
+          table: node_field_data
+          field: status
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: Published
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: boolean
+          settings:
+            format: yes-no
+            format_custom_true: ''
+            format_custom_false: ''
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          entity_type: node
+          entity_field: status
+          plugin_id: field
+        uid:
+          id: uid
+          table: node_field_revision
+          field: uid
+          relationship: latest_revision__node
+          group_type: group
+          admin_label: ''
+          label: 'Last revision by'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: target_id
+          type: entity_reference_label
+          settings:
+            link: false
+          group_column: target_id
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          entity_type: node
+          entity_field: uid
+          plugin_id: field
         moderation_state:
           id: moderation_state
           table: node_field_revision
           field: moderation_state
-          relationship: none
+          relationship: latest_revision__node
           group_type: group
           admin_label: ''
-          label: 'Publication Status of Revision'
+          label: 'Status of last revision'
           exclude: false
           alter:
             alter_text: false
@@ -403,14 +520,14 @@ display:
           entity_type: node
           entity_field: moderation_state
           plugin_id: field
-        edit_node:
-          id: edit_node
-          table: node
-          field: edit_node
-          relationship: nid
+        revision_timestamp:
+          id: revision_timestamp
+          table: node_revision
+          field: revision_timestamp
+          relationship: latest_revision__node
           group_type: group
           admin_label: ''
-          label: Edit
+          label: 'Revision date'
           exclude: false
           alter:
             alter_text: false
@@ -451,18 +568,34 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          text: 'Edit Content'
+          click_sort_column: value
+          type: timestamp
+          settings:
+            date_format: short
+            custom_date_format: ''
+            timezone: ''
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
           entity_type: node
-          plugin_id: entity_link_edit
-        name:
-          id: name
-          table: users_field_data
-          field: name
-          relationship: revision_uid
+          entity_field: revision_timestamp
+          plugin_id: field
+        revision_log:
+          id: revision_log
+          table: node_revision
+          field: revision_log
+          relationship: latest_revision__node
           group_type: group
           admin_label: ''
-          label: 'Name (hidden, for use in heading)'
-          exclude: true
+          label: 'Revision note'
+          exclude: false
           alter:
             alter_text: false
             text: ''
@@ -480,14 +613,14 @@ display:
             suffix: ''
             target: ''
             nl2br: false
-            max_length: 0
+            max_length: 180
             word_boundary: true
             ellipsis: true
             more_link: false
             more_link_text: ''
             more_link_path: ''
             strip_tags: false
-            trim: false
+            trim: true
             preserve_tags: ''
             html: false
           element_type: ''
@@ -503,9 +636,8 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
-          type: user_name
-          settings:
-            link_to_entity: false
+          type: basic_string
+          settings: {  }
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -516,20 +648,94 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          entity_type: user
-          entity_field: name
+          entity_type: node
+          entity_field: revision_log
           plugin_id: field
       filters:
+        uid_current:
+          id: uid_current
+          table: users
+          field: uid_current
+          relationship: uid
+          group_type: group
+          admin_label: ''
+          operator: '='
+          value: '1'
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          entity_type: user
+          plugin_id: user_current
+        uid_current_1:
+          id: uid_current_1
+          table: users
+          field: uid_current
+          relationship: revision_uid
+          group_type: group
+          admin_label: ''
+          operator: '='
+          value: '1'
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          entity_type: user
+          plugin_id: user_current
         title:
           id: title
           table: node_field_data
           field: title
-          relationship: nid
+          relationship: none
           group_type: group
           admin_label: ''
           operator: contains
           value: ''
-          group: 1
+          group: 2
           exposed: true
           expose:
             operator_id: title_op
@@ -569,12 +775,12 @@ display:
           id: node_user_permitted_type_filter
           table: node_field_data
           field: node_user_permitted_type_filter
-          relationship: nid
+          relationship: none
           group_type: group
           admin_label: ''
           operator: in
           value: {  }
-          group: 1
+          group: 2
           exposed: true
           expose:
             operator_id: node_user_permitted_type_filter_op
@@ -619,11 +825,11 @@ display:
           admin_label: ''
           operator: contains
           value: ''
-          group: 1
+          group: 2
           exposed: true
           expose:
             operator_id: moderation_state_op
-            label: 'Publication status'
+            label: 'Revision status'
             description: ''
             use_operator: false
             operator: moderation_state_op
@@ -655,22 +861,7 @@ display:
           entity_type: node
           entity_field: moderation_state
           plugin_id: string
-      sorts:
-        changed:
-          id: changed
-          table: node_field_revision
-          field: changed
-          relationship: none
-          group_type: group
-          admin_label: ''
-          order: DESC
-          exposed: false
-          expose:
-            label: ''
-          granularity: second
-          entity_type: node
-          entity_field: changed
-          plugin_id: date
+      sorts: {  }
       header:
         area:
           id: area
@@ -680,9 +871,9 @@ display:
           group_type: group
           admin_label: ''
           empty: false
-          tokenize: true
+          tokenize: false
           content:
-            value: "<h2>Content Revisions created or edited by {{ name }}</h2>\n<p><a href=\"/node/add\" class=\"button button-action button--primary button--small\" data-drupal-link-system-path=\"node/add\">Add content</a></p>\n<p>This is a list of revisions, not a list of pages.  Revisions are versions of a piece of content.  A single piece of content may have many revisions. Revisions can exist in several states: draft (also called \"unpublished\"); needs review; published; or archived. Only published revisions are visible to the public.</p>"
+            value: "<h2>My Content and My Revisions</h2>\n<p><a href=\"/node/add\" class=\"button button-action button--primary button--small\" data-drupal-link-system-path=\"node/add\">Add content</a></p>\n<p>This is a list of content that you have authored and content that you are the last person to propose a revision to.  Revisions are versions of a piece of content.  Revisions can exist in several states: draft (also called \"unpublished\"); needs review; published; or archived. Only published revisions are visible to the public.</p>"
             format: full_html
           plugin_id: text
       footer:
@@ -711,78 +902,44 @@ display:
             format: basic_html
           plugin_id: text
       relationships:
-        nid:
-          id: nid
-          table: node_field_revision
-          field: nid
+        uid:
+          id: uid
+          table: node_field_data
+          field: uid
           relationship: none
           group_type: group
-          admin_label: 'Get the actual content from a content revision.'
+          admin_label: 'content author'
           required: true
           entity_type: node
-          entity_field: nid
+          entity_field: uid
+          plugin_id: standard
+        latest_revision__node:
+          id: latest_revision__node
+          table: workbench_revision_tracker
+          field: latest_revision__node
+          relationship: none
+          group_type: group
+          admin_label: 'Content latest revision'
+          required: true
           plugin_id: standard
         revision_uid:
           id: revision_uid
           table: node_revision
           field: revision_uid
-          relationship: none
+          relationship: latest_revision__node
           group_type: group
           admin_label: 'revision user'
           required: true
           entity_type: node
           entity_field: revision_uid
           plugin_id: standard
-      arguments:
-        uid:
-          id: uid
-          table: node_field_revision
-          field: uid
-          relationship: none
-          group_type: group
-          admin_label: ''
-          default_action: default
-          exception:
-            value: all
-            title_enable: false
-            title: All
-          title_enable: false
-          title: ''
-          default_argument_type: current_user
-          default_argument_options: {  }
-          default_argument_skip_url: false
-          summary_options:
-            base_path: ''
-            count: true
-            items_per_page: 25
-            override: false
-          summary:
-            sort_order: asc
-            number_of_records: 0
-            format: default_summary
-          specify_validation: true
-          validate:
-            type: 'entity:user'
-            fail: 'not found'
-          validate_options:
-            access: true
-            operation: update
-            multiple: 0
-            restrict_roles: false
-            roles: {  }
-          break_phrase: false
-          not: false
-          entity_type: node
-          entity_field: uid
-          plugin_id: numeric
+      arguments: {  }
       display_extenders: {  }
       filter_groups:
         operator: AND
         groups:
-          1: AND
-      group_by: false
-      use_ajax: true
-      title: 'My Work'
+          1: OR
+          2: AND
     cache_metadata:
       max-age: 0
       contexts:
@@ -801,7 +958,16 @@ display:
     position: 1
     display_options:
       display_extenders: {  }
-      path: admin/ma-dash/edits
+      path: admin/ma-dash/my-work
+      menu:
+        type: none
+        title: 'My Work (revised)'
+        description: ''
+        expanded: false
+        parent: ''
+        weight: 4
+        context: '0'
+        menu_name: mass-dashboard
     cache_metadata:
       max-age: 0
       contexts:
