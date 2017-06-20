@@ -5376,61 +5376,6 @@
         ]
     },
     {
-        "name": "drupal/tfa",
-        "version": "dev-1.x",
-        "version_normalized": "dev-1.x",
-        "source": {
-            "type": "git",
-            "url": "https://git.drupal.org/project/tfa",
-            "reference": "ea39e6b85c2e35b0dc2c0bd0abe1c6bd6162ee22"
-        },
-        "require": {
-            "christian-riesen/otp": "2.*",
-            "drupal/core": "~8.0",
-            "drupal/encrypt": "*"
-        },
-        "require-dev": {
-            "drupal/services": "*"
-        },
-        "type": "drupal-module",
-        "extra": {
-            "branch-alias": {
-                "dev-1.x": "1.x-dev"
-            },
-            "drupal": {
-                "version": "8.x-1.x-dev",
-                "datestamp": "1472231339"
-            },
-            "patches_applied": {
-                "Drush sanitize plugin for TFA user data. (https://www.drupal.org/node/2862312)": "https://www.drupal.org/files/issues/drush_27.patch"
-            }
-        },
-        "installation-source": "source",
-        "notification-url": "https://packages.drupal.org/8/downloads",
-        "license": [
-            "GPL-2.0+"
-        ],
-        "authors": [
-            {
-                "name": "coltrane",
-                "homepage": "https://www.drupal.org/user/91990"
-            },
-            {
-                "name": "greggles",
-                "homepage": "https://www.drupal.org/user/36762"
-            },
-            {
-                "name": "nerdstein",
-                "homepage": "https://www.drupal.org/user/1557710"
-            }
-        ],
-        "description": "Pluggable provider of two factor authentication for Drupal",
-        "homepage": "https://www.drupal.org/project/tfa",
-        "support": {
-            "source": "http://cgit.drupalcode.org/tfa"
-        }
-    },
-    {
         "name": "drupal/ga_login",
         "version": "dev-1.x",
         "version_normalized": "dev-1.x",
@@ -12312,6 +12257,62 @@
         "support": {
             "source": "https://github.com/massgov/mayflower-artifacts/tree/5.2.0",
             "issues": "https://github.com/massgov/mayflower-artifacts/issues"
+        }
+    },
+    {
+        "name": "drupal/tfa",
+        "version": "dev-1.x",
+        "version_normalized": "dev-1.x",
+        "source": {
+            "type": "git",
+            "url": "https://git.drupal.org/project/tfa",
+            "reference": "ea39e6b85c2e35b0dc2c0bd0abe1c6bd6162ee22"
+        },
+        "require": {
+            "christian-riesen/otp": "2.*",
+            "drupal/core": "~8.0",
+            "drupal/encrypt": "*"
+        },
+        "require-dev": {
+            "drupal/services": "*"
+        },
+        "type": "drupal-module",
+        "extra": {
+            "branch-alias": {
+                "dev-1.x": "1.x-dev"
+            },
+            "drupal": {
+                "version": "8.x-1.x-dev",
+                "datestamp": "1472231339"
+            },
+            "patches_applied": {
+                "Drush sanitize plugin for TFA user data. (https://www.drupal.org/node/2862312)": "https://www.drupal.org/files/issues/drush_27.patch",
+                "Security patch for two-factor vulnerability where one could bypass first factor of authentication (not public yet)": "patches/tfa-token-verify.patch"
+            }
+        },
+        "installation-source": "source",
+        "notification-url": "https://packages.drupal.org/8/downloads",
+        "license": [
+            "GPL-2.0+"
+        ],
+        "authors": [
+            {
+                "name": "coltrane",
+                "homepage": "https://www.drupal.org/user/91990"
+            },
+            {
+                "name": "greggles",
+                "homepage": "https://www.drupal.org/user/36762"
+            },
+            {
+                "name": "nerdstein",
+                "homepage": "https://www.drupal.org/user/1557710"
+            }
+        ],
+        "description": "Pluggable provider of two factor authentication for Drupal",
+        "homepage": "https://www.drupal.org/project/tfa",
+        "support": {
+            "source": "http://cgit.drupalcode.org/tfa"
         }
     }
 ]
