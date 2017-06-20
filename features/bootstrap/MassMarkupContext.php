@@ -58,7 +58,8 @@ class MassMarkupContext extends MarkupContext
    */
   public function iShouldSeeTheCorrectMarkupForTheFooter()
   {
-    $this->assertRegionElement('button.ma__footer__back2top', 'footer');
+    // Commenting out back2top because removing it is likely temporary.
+    // $this->assertRegionElement('button.ma__footer__back2top', 'footer');
     $this->assertRegionElement('.ma__footer__container > .ma__footer__nav', 'footer');
     $this->assertRegionElement('.ma__footer__info > .ma__footer__logo', 'footer');
     $this->assertRegionElement('.ma__footer__info > .ma__footer__social', 'footer');
