@@ -3,6 +3,7 @@ module:
   acquia_connector: 0
   address: 0
   automated_cron: 0
+  better_field_descriptions: 0
   block: 0
   block_content: 0
   breakpoint: 0
@@ -17,7 +18,6 @@ module:
   ctools: 0
   datalayer: 0
   datetime: 0
-  dblog: 0
   diff: 0
   draggableviews: 0
   dropzonejs: 0

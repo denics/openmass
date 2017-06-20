@@ -30,8 +30,6 @@ dependencies:
   override:
     # install eslint globally
     - npm install -g eslint@v2.13.1
-    # install phplint globally
-    - npm install -g phplint@v1.7.4
     # configure phpcs to recognize Drupal and DrupalPractice standards
     - phpcs --config-set installed_paths ${HOME}/${CIRCLE_PROJECT_REPONAME}/vendor/drupal/coder/coder_sniffer
 
@@ -50,36 +48,39 @@ dependencies:
 test:
   override:
     # check drupal coding standards with php code sniffer
-    - phpcs -v --warning-severity=0 --standard=Drupal docroot/modules/custom
-    - phpcs -v --warning-severity=0 --standard=Drupal docroot/themes/custom
-    - phpcs -v --warning-severity=0 --standard=Drupal docroot/profiles/custom
+    - phpcs -v --warning-severity=0 --standard=Drupal docroot/modules/custom docroot/themes/custom docroot/profiles/custom
     # check drupal best practices with php code sniffer
-    - phpcs -v --warning-severity=0 --standard=DrupalPractice docroot/modules/custom
-    - phpcs -v --warning-severity=0 --standard=DrupalPractice docroot/themes/custom
-    - phpcs -v --warning-severity=0 --standard=DrupalPractice docroot/profiles/custom
-    # phplint
-    - cd docroot/modules/custom && phplint --verbose "**/*.php"
-    - cd docroot/themes/custom && phplint --verbose "**/*.php"
-    - cd docroot/profiles/custom && phplint --verbose "**/*.php"
+    - phpcs -v --warning-severity=0 --standard=DrupalPractice docroot/modules/custom docroot/themes/custom docroot/profiles/custom
+    # Quickly lint custom PHP files.
+    - php -l docroot/modules/custom
+    - php -l docroot/themes/custom
+    - php -l docroot/profiles/custom
     # lint javascript
-    - eslint --debug --ignore-path '/home/ubuntu/mass/docroot/.eslintignore' '/home/ubuntu/mass/docroot/modules/custom/**/*.js' 2>&1
-    - eslint --debug --ignore-path '/home/ubuntu/mass/docroot/.eslintignore' '/home/ubuntu/mass/docroot/themes/custom/**/*.js' 2>&1
-    - eslint --debug --ignore-path '/home/ubuntu/mass/docroot/.eslintignore' '/home/ubuntu/mass/docroot/profiles/custom/**/*.js' 2>&1
+    - eslint --debug --ignore-path '/home/ubuntu/mass/docroot/.eslintignore' '/home/ubuntu/mass/docroot/modules/custom/**/*.js' '/home/ubuntu/mass/docroot/themes/custom/**/*.js' '/home/ubuntu/mass/docroot/profiles/custom/**/*.js' 2>&1
     # Rebuild drupal cache
     - cd docroot && drush cr
     # behat testing
     - behat --format=junit --out=$CIRCLE_TEST_REPORTS/behat --format=pretty --out=std
 
+  post:
+    # identify the committer i.e. circleci deployment bot
+    - git config --global user.email "circleci@example.com"
+    - git config --global user.name "CircleCI Deployment Bot"
+
 # after tests pass, proceed with deployment(s)
 deployment:
   # deploy current circleci's branch to acquia repo (task labeled as "acquia")
   # note: current branch is pushed; but not activated
-  # developer(s) will activate branch of interest in available acquia enviroment on demand
+  # developer(s) will activate branch of interest in available acquia environment on demand
   acquia:
     # condition for which branch to act upon
     # in this case, we have any branch by using the regex /.*/
     branch: /.*/
     commands:
+      # add a deployment identifier for cache busting at Acquia.
+      - echo -e "<?php\n\n\$settings['deployment_identifier'] = '$CIRCLE_SHA1';" > ${HOME}/${CIRCLE_PROJECT_REPONAME}/docroot/sites/deployment_id.php
+      - git add ${HOME}/${CIRCLE_PROJECT_REPONAME}/docroot/sites/deployment_id.php
+      - git commit -m "Update deployment identifier"
       # add acquia repo as an additional remote
       - git remote add acquia massgov@svn-20994.prod.hosting.acquia.com:massgov.git
       # push the branch that meets our regex (/.*/ above)
@@ -90,6 +91,10 @@ deployment:
     # only run when branch value is `develop`
     branch: develop
     commands:
+      # add a deployment identifier for cache busting at Acquia.
+      - echo -e "<?php\n\n\$settings['deployment_identifier'] = '$CIRCLE_SHA1';" > ${HOME}/${CIRCLE_PROJECT_REPONAME}/docroot/sites/deployment_id.php
+      - git add ${HOME}/${CIRCLE_PROJECT_REPONAME}/docroot/sites/deployment_id.php
+      - git commit -m "Update deployment identifier"
       # add acquia cloud git repo as a remote for this circle ci build
       - git remote add acquia massgov@svn-20994.prod.hosting.acquia.com:massgov.git
       # push `develop` branch to acquia cloud git repo

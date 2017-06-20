@@ -7,7 +7,7 @@ function massgov_drush_command() {
   $items['ma-deploy'] = array(
     'description' => 'Deploy code and database (if needed). Copies Prod DB to target environment and then runs config import, updb, varnish purge, etc.',
     'arguments' => array(
-      'target' => 'Target environment. Recognized values: dev, cd, test, feature1, feature2, feature3, prod',
+      'target' => 'Target environment. Recognized values: dev, cd, test, feature1, feature2, feature3, feature4, feature5, prod',
       'git-ref' => 'Tag or branch to deploy. Must be pushed to Acquia.',
     ),
     'required-arguments' => TRUE,
@@ -26,7 +26,7 @@ function massgov_drush_command() {
 
 // validate target environments
 function drush_massgov_ma_deploy_validate($target) {
-  $available_targets = array('dev', 'cd', 'test', 'feature1', 'feature2', 'feature3', 'prod');
+  $available_targets = array('dev', 'cd', 'test', 'feature1', 'feature2', 'feature3', 'feature4', 'feature5', 'prod');
   if (!in_array($target, $available_targets)) {
     return drush_set_error('Invalid argument: target. \nYou entered "'.$target.'". Target must be one of: '.join(', ',$available_targets));
   }

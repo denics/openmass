@@ -67,3 +67,8 @@ permissions:
   102: 'edit any service_details content'
   103: 'edit own service_details content'
   104: 'view service_details revisions'
+  105: 'create fee content'
+  106: 'delete own fee content'
+  107: 'edit any fee content'
+  108: 'edit own fee content'
+  109: 'view fee revisions'

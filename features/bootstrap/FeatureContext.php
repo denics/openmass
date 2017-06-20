@@ -626,9 +626,9 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
       case "topic_page":
         $fields = array (
           array (
-            'field' => 'field-topic-ref-content-cards',
-            'tag' => 'input',
-            'type' => 'text',
+            'field' => 'field-topic-content-cards',
+            'tag' => 'paragraphs',
+            'type' => 'content-card-group',
           ),
           array (
             'field' => 'field-topic-bg-wide',
@@ -696,11 +696,6 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
           ),
           array (
             'field' => 'field-how-to-links-5',
-            'tag' => 'input',
-            'type' => 'text',
-          ),
-          array (
-            'field' => 'field-how-to-ref-services',
             'tag' => 'input',
             'type' => 'text',
           ),
@@ -1039,6 +1034,18 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
           ),
           array (
             'field' => 'field-section-title',
+            'widget' => 'Textfield',
+          ),
+        );
+        break;
+      case "content_card_group":
+        $fields = array (
+          array (
+            'field' => 'field-content-card-link-cards',
+            'widget' => 'Link',
+          ),
+          array (
+            'field' => 'field-content-card-category',
             'widget' => 'Textfield',
           ),
         );

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "1fdcf0d9788ab2b840695791ade12e80",
+    "content-hash": "d18deae3f15c20db3c19ca9cb2e63233",
     "packages": [
         {
             "name": "acquia/acquia-sdk-php",
@@ -1886,6 +1886,50 @@
             "homepage": "http://drupal.org/project/address",
             "support": {
                 "source": "http://cgit.drupalcode.org/address"
+            }
+        },
+        {
+            "name": "drupal/better_field_descriptions",
+            "version": "dev-1.x",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupal.org/project/better_field_descriptions",
+                "reference": "f78d6715a2177a4b40568bff3c180383fae8cb27"
+            },
+            "require": {
+                "drupal/core": "~8.0"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.0+2-dev",
+                    "datestamp": "1492425542"
+                },
+                "patches_applied": {
+                    "Fix the positioning of the additional help text (https://www.drupal.org/node/2882765)": "https://www.drupal.org/files/issues/better_field_descriptions-position-help-2882765-0.patch"
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Yogesh Pawar",
+                    "homepage": "https://www.drupal.org/user/2922907"
+                },
+                {
+                    "name": "odegard",
+                    "homepage": "https://www.drupal.org/user/703222"
+                }
+            ],
+            "description": "Allows users with certain roles to add themeable descriptions to fields in forms",
+            "homepage": "https://www.drupal.org/project/better_field_descriptions",
+            "support": {
+                "source": "http://cgit.drupalcode.org/better_field_descriptions"
             }
         },
         {
@@ -4623,8 +4667,7 @@
             "homepage": "https://www.drupal.org/project/password_policy",
             "support": {
                 "source": "http://cgit.drupalcode.org/password_policy"
-            },
-            "time": "2017-05-22 16:11:07"
+            }
         },
         {
             "name": "drupal/pathauto",
@@ -7173,16 +7216,16 @@
         },
         {
             "name": "palantirnet/mayflower-artifacts",
-            "version": "5.0.0",
+            "version": "5.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/massgov/mayflower-artifacts.git",
-                "reference": "07f684915962b4322084d655db98987ca11e7b73"
+                "reference": "633c2676977cfef8e1598d3c9d4b2727b3782091"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/massgov/mayflower-artifacts/zipball/07f684915962b4322084d655db98987ca11e7b73",
-                "reference": "07f684915962b4322084d655db98987ca11e7b73",
+                "url": "https://api.github.com/repos/massgov/mayflower-artifacts/zipball/633c2676977cfef8e1598d3c9d4b2727b3782091",
+                "reference": "633c2676977cfef8e1598d3c9d4b2727b3782091",
                 "shasum": ""
             },
             "type": "library",
@@ -7197,10 +7240,10 @@
             ],
             "description": "This repository is the product of the built artifact from massgov/mayflower",
             "support": {
-                "source": "https://github.com/massgov/mayflower-artifacts/tree/5.0.0",
+                "source": "https://github.com/massgov/mayflower-artifacts/tree/5.2.0",
                 "issues": "https://github.com/massgov/mayflower-artifacts/issues"
             },
-            "time": "2017-05-15T17:47:30+00:00"
+            "time": "2017-06-19T23:49:36+00:00"
         },
         {
             "name": "palantirnet/the-build",
@@ -10256,12 +10299,12 @@
             "version": "v3.3.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/geocoder-php/Geocoder.git",
+                "url": "https://github.com/geocoder-php/php-common.git",
                 "reference": "ccc178e2984c0af24881faa0ffe515f20e5e8c23"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/geocoder-php/Geocoder/zipball/ccc178e2984c0af24881faa0ffe515f20e5e8c23",
+                "url": "https://api.github.com/repos/geocoder-php/php-common/zipball/ccc178e2984c0af24881faa0ffe515f20e5e8c23",
                 "reference": "ccc178e2984c0af24881faa0ffe515f20e5e8c23",
                 "shasum": ""
             },
@@ -11864,6 +11907,7 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "drupal/access_unpublished": 20,
+        "drupal/better_field_descriptions": 20,
         "drupal/diff": 20,
         "drupal/draggableviews": 20,
         "drupal/encrypt": 20,

@@ -719,22 +719,26 @@ function mass_theme_preprocess_node_topic_page(&$variables) {
   // Make pageBanner data structure available in twig template.
   $variables['pageBanner'] = Organisms::preparePageBanner($node, $pageBanner_options);
 
-  $sectionThreeUp = [
-    'heading' => [
-      'centered' => TRUE,
-    ],
-    'noCardLinks' => [
-      ($node->field_topic_display_links->value == '1') ? 'topic_page' : [],
-    ],
-    'use4TopLinks' => [
-      'topic_page',
-    ],
-    'useCallout' => [
-      'service_page',
-    ],
-  ];
+  foreach ($node->field_topic_content_cards as $index => $section) {
+    $variables['numOfSections'] = ++$index;
 
-  $variables['sectionThreeUp'] = Organisms::prepareSectionThreeUp($node->field_topic_ref_content_cards, $sectionThreeUp);
+    $sectionThreeUp_options = [
+      'heading' => [
+        'title' => $section->entity->field_content_card_category->value,
+      ],
+      'noCardLinks' => [
+        ($node->field_topic_display_links->value == '1') ? 'topic_page' : [],
+      ],
+      'use4TopLinks' => [
+        'topic_page',
+      ],
+      'useCallout' => [
+        'service_page',
+      ],
+    ];
+
+    $variables['pageContent'][$index]['sectionThreeUp'] = Organisms::prepareSectionThreeUp($section->entity, $sectionThreeUp_options, ['topic_cards' => ['field_content_card_link_cards']]);
+  }
 
   $linkList_options = [
     'heading' => [

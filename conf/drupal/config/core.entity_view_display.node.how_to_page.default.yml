@@ -28,28 +28,28 @@ bundle: how_to_page
 mode: default
 content:
   field_how_to_contacts_3:
-    weight: 109
+    weight: 11
     label: above
     settings:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
   field_how_to_files:
-    weight: 108
+    weight: 10
     label: above
     settings:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
   field_how_to_lede:
-    weight: 103
+    weight: 4
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
     type: string
   field_how_to_link_1:
-    weight: 105
+    weight: 6
     label: above
     settings:
       trim_length: 80
@@ -60,7 +60,7 @@ content:
     third_party_settings: {  }
     type: link
   field_how_to_links_5:
-    weight: 110
+    weight: 12
     label: above
     settings:
       trim_length: 80
@@ -72,62 +72,66 @@ content:
     type: link
   field_how_to_methods_5:
     type: entity_reference_revisions_entity_view
-    weight: 112
+    weight: 14
     label: above
     settings:
       view_mode: default
       link: ''
     third_party_settings: {  }
   field_how_to_more_info:
-    weight: 107
+    weight: 8
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: basic_string
+    type: text_default
   field_how_to_next_steps:
     type: entity_reference_revisions_entity_view
-    weight: 111
+    weight: 13
     label: above
     settings:
       view_mode: default
       link: ''
     third_party_settings: {  }
   field_how_to_ref_fees:
-    weight: 113
+    weight: 15
     label: above
     settings:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
   field_how_to_ref_services:
-    weight: 101
+    weight: 2
     label: above
     settings:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
   field_how_to_taxo_action_type:
-    weight: 102
+    weight: 3
     label: above
     settings:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
   field_how_to_time:
-    weight: 104
+    weight: 5
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
     type: string
   field_how_to_what_you_need:
-    weight: 106
+    weight: 7
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
   links:
-    weight: 100
+    weight: 1
+    settings: {  }
+    third_party_settings: {  }
   workbench_moderation_control:
-    weight: -20
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
 hidden: {  }
