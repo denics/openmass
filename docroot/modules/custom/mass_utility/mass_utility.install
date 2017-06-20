@@ -8,6 +8,7 @@
 use Drupal\taxonomy\Entity\Term;
 use Drupal\block\Entity\Block;
 use Drupal\Core\Database\Database;
+use Drupal\user\Entity\User;
 
 /**
  * Implements hook_install().
@@ -296,4 +297,54 @@ function mass_utility_update_8009(&$sandbox) {
   foreach ($fields as $field) {
     $field->delete();
   }
+}
+
+/**
+ * Create new user with arbitrarily large uid.
+ *
+ * Users created in the future will have larger uids.
+ */
+function mass_utility_update_8010(&$sandbox) {
+  // Create a new, dummy user.
+  $user = User::create();
+  $user->setPassword('55e9be20f6');
+  $user->enforceIsNew();
+  $user->setEmail('foobar@bar.com');
+  $user->setUsername('Dummy User');
+  $user->save();
+  // The User object has no method to alter uid.
+  // So we do it manually.
+  $uid = $user->id();
+  // Random large number.
+  $new_uid = 3314432;
+  $uid_tables = [
+    'users',
+    'users_data',
+    'users_field_data'
+  ];
+  $entity_tables = [
+    'user__field_last_password_reset',
+    'user__field_password_expiration',
+    'user__roles',
+    'user__user_picture',
+  ];
+  $db = Database::getConnection();
+  foreach ($uid_tables as $table_name) {
+    $update = $db->update($table_name);
+    $update->condition('uid', $uid)
+      ->fields([
+        'uid' => $new_uid
+      ])
+      ->execute();
+  }
+  foreach ($entity_tables as $table_name) {
+    $update = $db->update($table_name);
+    $update->condition('entity_id', $uid)
+      ->fields([
+        'entity_id' => $new_uid,
+        'revision_id' => $new_uid,
+      ])
+      ->execute();
+  }
+
 }
