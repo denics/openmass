@@ -5,3 +5,7 @@ Drush sanitize plugin for TFA user data. (https://www.drupal.org/node/2862312)
 Source: https://www.drupal.org/files/issues/drush_27.patch
 
 
+Security patch for two-factor vulnerability where one could bypass first factor of authentication (not public yet)
+Source: patches/tfa-token-verify.patch
+
+
