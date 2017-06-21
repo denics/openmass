@@ -185,6 +185,8 @@ class Organisms {
       'divider' => array_key_exists('divider', $options) ? $options['divider'] : FALSE,
       'optionalContents' => array_key_exists('optionalContents', $options) ? $options['optionalContents'] : NULL,
       'widgets' => array_key_exists('widgets', $options) ? $options['widgets'] : NULL,
+      'category' => array_key_exists('category', $options) ? $options['category'] : NULL,
+      'headerTags' => array_key_exists('headerTags', $options) ? $options['headerTags'] : NULL,
     ];
 
     return $pageHeader;
@@ -316,7 +318,10 @@ class Organisms {
 
     // Create the map of all possible field names to use.
     $map = [
-      'contacts' => ['field_how_to_contacts_3'],
+      'contacts' => [
+        'field_how_to_contacts_3',
+        'field_press_release_media_contac',
+      ],
     ];
 
     // Determines which field names to use from the map.
@@ -400,7 +405,7 @@ class Organisms {
     $linkList = [];
 
     // Roll up the link list.
-    $links = Helper::separatedLinks($entity, $field);
+    $links = Helper::separatedLinks($entity, $field, $options);
 
     if (!empty($links)) {
       // Build either sidebar or comp heading based on heading type option.

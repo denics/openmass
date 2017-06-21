@@ -125,15 +125,18 @@ class Molecules {
    *   The object that contains the fields for the sequential list.
    * @param array $fields
    *   The reference fields on the entity.
+   * @param array $options
+   *   Allow the title to be set via an options array.
    *
    * @see @molecules/image-promo.twig
    *
    * @return array
    *   Return a structured array.
    */
-  public static function prepareImagePromo($entity, array $fields) {
+  public static function prepareImagePromo($entity, array $fields, array $options) {
     $imagePromo = [];
     $href = !empty($entity->$fields['link']->entity) ? $entity->$fields['link']->entity->toURL()->toString() : [];
+    $title = '';
 
     if (array_key_exists('image', $fields)) {
       if (Helper::isFieldPopulated($entity, $fields['image'])) {
@@ -145,14 +148,19 @@ class Molecules {
       }
     }
 
-    if (array_key_exists('title', $fields)) {
+    if (array_key_exists('title', $options)) {
+      $title = $options['title'];
+    }
+    elseif (array_key_exists('title', $fields)) {
       if (Helper::isFieldPopulated($entity, $fields['title'])) {
-        $imagePromo['title'] = [
-          'text' => Helper::fieldValue($entity, $fields['title']),
-          'href' => $href,
-        ];
+        $title = Helper::fieldValue($entity, $fields['title']);
       }
     }
+
+    $imagePromo['title'] = [
+      'text' => $title,
+      'href' => $href,
+    ];
 
     if (array_key_exists('lede', $fields)) {
       if (Helper::isFieldPopulated($entity, $fields['lede'])) {
@@ -168,7 +176,7 @@ class Molecules {
           'text' => 'More',
           'href' => $href,
           'type' => 'chevron',
-          'info' => t('Read More about @activity', ['@activity' => Helper::fieldValue($entity, $fields['title'])]),
+          'info' => t('Read More about @activity', ['@activity' => $title]),
         ];
       }
     }
@@ -491,6 +499,7 @@ class Molecules {
     ];
 
     foreach ($entities as $entity) {
+
       $item = [];
 
       $item['type'] = $type;
@@ -500,8 +509,17 @@ class Molecules {
         'details' => ['field_caption'],
         'label' => ['field_label'],
         'hours' => ['field_ref_hours', 'field_hours'],
-        'value' => ['field_address_address', 'field_phone', 'field_fax'],
-        'link' => ['field_link_single', 'field_email'],
+        'value' => [
+          'field_address_address',
+          'field_phone',
+          'field_fax',
+          'field_media_contact_phone',
+        ],
+        'link' => [
+          'field_link_single',
+          'field_email',
+          'field_media_contact_email',
+        ],
       ];
 
       // Determines which fieldnames to use from the map.
@@ -540,7 +558,7 @@ class Molecules {
         }
       }
       elseif ($type == 'online') {
-        if ($entity->getType() == 'online_email') {
+        if ($entity->getType() == 'online_email' || get_class($entity->$fields['link']) == 'Drupal\Core\Field\FieldItemList') {
           $link = Helper::separatedEmailLink($entity, $fields['link']);
           $item['link'] = $link['href'];
           $item['value'] = $link['text'];
@@ -615,7 +633,7 @@ class Molecules {
     ];
 
     $map = [
-      'title' => ['field_display_title'],
+      'title' => ['field_display_title', 'field_media_contact_name'],
     ];
 
     // Determines which fieldnames to use from the map.
@@ -623,11 +641,17 @@ class Molecules {
 
     $groups = [];
 
-    foreach ($referenced_fields as $id => $field) {
-      if (Helper::isFieldPopulated($entity, $field)) {
-        $items = Helper::getReferencedEntitiesFromField($entity, $field);
-        $groups[] = Molecules::prepareContactGroup($items, $options + ['type' => $id], $contactInfo);
+    if (!empty($referenced_fields)) {
+      foreach ($referenced_fields as $id => $field) {
+        if (Helper::isFieldPopulated($entity, $field)) {
+          $items = Helper::getReferencedEntitiesFromField($entity, $field);
+          $groups[] = Molecules::prepareContactGroup($items, $options + ['type' => $id], $contactInfo);
+        }
       }
+    }
+    else {
+      $groups[] = Molecules::prepareContactGroup([0 => $entity], $options + ['type' => 'phone'], $contactInfo);
+      $groups[] = Molecules::prepareContactGroup([0 => $entity], $options + ['type' => 'online'], $contactInfo);
     }
 
     $fields = Helper::getMappedFields($entity, $map);
@@ -1141,6 +1165,63 @@ class Molecules {
 
     return [
       'anchorLinks' => $anchorLinks,
+    ];
+  }
+
+  /**
+   * Returns the variables structure required to render pressStatus.
+   *
+   * @param object $entity
+   *   The object that contains the fields.
+   *
+   * @see @molecules/press-status.twig
+   *
+   * @return array
+   *   Return a structured array:
+   */
+  public static function preparePressStatus($entity) {
+    $names = [];
+
+    $map = [
+      'date' => ['field_press_release_date'],
+      'signees' => ['field_press_release_signees'],
+    ];
+
+    // Determines which field names to use from the map.
+    $field = Helper::getMappedFields($entity, $map);
+
+    if (!empty($entity->$field['signees']->entity)) {
+      foreach ($entity->$field['signees'] as $paragraph) {
+        $par_entity = $paragraph->entity;
+        $org_fields = [
+          'link' => ['field_state_org_ref_org'],
+          'title' => ['field_state_org_name', 'field_external_org_name'],
+          'lede' => ['field_state_org_description', 'field_external_org_description'],
+          'image' => ['field_state_org_photo', 'field_external_org_photo'],
+        ];
+
+        $org_data = Helper::getMappedFields($par_entity, $org_fields);
+
+        if ($par_entity->getParagraphType()->id == 'state_organization') {
+          if (Helper::isFieldPopulated($par_entity, $org_data['title'])) {
+            $names[]['text'] = Helper::fieldValue($par_entity, $org_data['title']);
+          }
+          else {
+            $names[]['text'] = $par_entity->field_state_org_ref_org->entity->getTitle();
+          }
+        }
+        elseif ($par_entity->getParagraphType()->id == 'external_organization') {
+          if (Helper::isFieldPopulated($par_entity, $org_data['title'])) {
+            $names[]['text'] = Helper::fieldValue($par_entity, $org_data['title']);
+          }
+        }
+      }
+    }
+
+    return [
+      'title' => t("For immediate release:"),
+      'date' => Helper::fieldFullView($entity, $field['date']),
+      'names' => $names,
     ];
   }
 

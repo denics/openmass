@@ -24,6 +24,10 @@ class Helper {
    *   Whether or not a field is populated.
    */
   public static function isFieldPopulated($entity, $field_name) {
+    if (!method_exists($entity, 'hasField')) {
+      return FALSE;
+    }
+
     $is_populated = FALSE;
 
     $has_field = $entity->hasField($field_name);
@@ -138,11 +142,13 @@ class Helper {
    *   Entity object that contains the link field.
    * @param string $field
    *   The name of the field.
+   * @param array $options
+   *   An array of options.
    *
    * @return array
    *   Array that contains title, url and type (external, internal).
    */
-  public static function separatedLinks($entity, $field) {
+  public static function separatedLinks($entity, $field, array $options = []) {
     $items = [];
 
     // Check if the target field is entity reference, else assume link field.
@@ -163,7 +169,7 @@ class Helper {
       $links = $entity->get($field);
 
       foreach ($links as $link) {
-        $items[] = Helper::separatedLink($link);
+        $items[] = Helper::separatedLink($link, $options);
       }
     }
 
@@ -175,21 +181,33 @@ class Helper {
    *
    * @param object $link
    *   The link object.
+   * @param array $options
+   *   An array of options.
    *
    * @return array
    *   Array that contains title, url and type (external, internal).
    */
-  public static function separatedLink($link) {
+  public static function separatedLink($link, array $options = []) {
     $url = $link->getUrl();
-
     $text = $link->getValue()['title'];
+    $date = '';
 
-    // If there is no title on an internal item, load the referenced node title.
-    if (empty($text) && strpos($link->getValue()['uri'], 'entity:node') !== FALSE) {
+    // On an internal item, load the referenced node title.
+    if (strpos($link->getValue()['uri'], 'entity:node') !== FALSE) {
       $params = Url::fromUri("internal:" . $url->toString())->getRouteParameters();
       $entity_type = key($params);
       $entity = \Drupal::entityTypeManager()->getStorage($entity_type)->load($params[$entity_type]);
-      $text = $entity->getTitle();
+      $content_type = $entity->getType();
+      $content_type_name = $entity->type->entity->label();
+
+      if (Helper::isFieldPopulated($entity, 'field_press_release_date')) {
+        $date = Helper::fieldFullView($entity, 'field_press_release_date');
+      }
+
+      // On internal item, if empty, grab enity title.
+      if (empty($text)) {
+        $text = $entity->getTitle();
+      }
     }
 
     return [
@@ -199,6 +217,8 @@ class Helper {
       'href' => $url->toString(),
       'url' => $url->toString(),
       'label' => '',
+      'eyebrow' => in_array($content_type, $options['useEyebrow']) ? $content_type_name : '',
+      'date' => !empty($date) ? $date : '',
     ];
   }
 

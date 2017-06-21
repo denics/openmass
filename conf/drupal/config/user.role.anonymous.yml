@@ -35,3 +35,4 @@ permissions:
   - 'access_unpublished node how_to_page'
   - 'access_unpublished node topic_page'
   - 'access_unpublished node location_details'
+  - 'access_unpublished node person'
