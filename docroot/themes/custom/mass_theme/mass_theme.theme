@@ -369,6 +369,9 @@ function mass_theme_preprocess_node_how_to_page(&$variables) {
     // Build sidebar.contactList, which is a subset of pageContent.ContactList.
     $sidebar['contactList'] = Helper::getPrimaryContactPhoneOnlineContactList($pageContent['contactList']);
 
+    // Hide the top contact on mobile.
+    $sidebar['contactList']['viewSpecific'] = TRUE;
+
     // Set up corresponding sticky nav entry for contacts.
     $stickyNav[] = $contacts_title;
   }
