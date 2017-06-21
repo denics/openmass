@@ -13,7 +13,13 @@
   {% include "@organisms/by-template/page-banner.twig" %}
 {% endblock %}
 {% block pageContent %}
-  {% include "@organisms/by-author/sections-three-up.twig" %}
+  {% for i in range(1, numOfSections) %}
+    {% if pageContent[i]['sectionThreeUp'] %}
+      {% set sectionThreeUp = pageContent[i]['sectionThreeUp'] %}
+      {% include "@organisms/by-author/sections-three-up.twig" %}
+    {% endif %}
+  {% endfor %}
+
   {% include "@organisms/by-author/link-list.twig" %}
 {% endblock %}
 {% block postContent %}

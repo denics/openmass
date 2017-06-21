@@ -1,0 +1,71 @@
+uuid: 441dcda6-0695-47cc-80f0-7c67c9bd3a3a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.state_organization.field_state_org_description
+    - field.field.paragraph.state_organization.field_state_org_name
+    - field.field.paragraph.state_organization.field_state_org_photo
+    - field.field.paragraph.state_organization.field_state_org_ref_org
+    - image.style.thumbnail
+    - paragraphs.paragraphs_type.state_organization
+  module:
+    - field_group
+    - image
+    - text
+    - workbench_moderation
+third_party_settings:
+  field_group:
+    group_static_content:
+      children:
+        - field_state_org_name
+        - field_state_org_description
+        - field_state_org_photo
+      parent_name: ''
+      weight: 1
+      format_type: details
+      format_settings:
+        label: 'Static content'
+        required_fields: true
+        id: ''
+        classes: ''
+        open: false
+      label: 'Static content'
+id: paragraph.state_organization.default
+targetEntityType: paragraph
+bundle: state_organization
+mode: default
+content:
+  field_state_org_description:
+    weight: 3
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+  field_state_org_name:
+    weight: 2
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_state_org_photo:
+    weight: 4
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+    type: image_image
+  field_state_org_ref_org:
+    weight: 0
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+hidden:
+  created: true
+  status: true
+  uid: true

@@ -4,6 +4,7 @@ namespace Drupal\mayflower\Prepare;
 
 use Drupal\mayflower\Helper;
 use Drupal\Component\Utility\UrlHelper;
+use Drupal\Core\Url;
 
 /**
  * Provides variable structure for mayflower organisms using prepare functions.
@@ -184,6 +185,8 @@ class Organisms {
       'divider' => array_key_exists('divider', $options) ? $options['divider'] : FALSE,
       'optionalContents' => array_key_exists('optionalContents', $options) ? $options['optionalContents'] : NULL,
       'widgets' => array_key_exists('widgets', $options) ? $options['widgets'] : NULL,
+      'category' => array_key_exists('category', $options) ? $options['category'] : NULL,
+      'headerTags' => array_key_exists('headerTags', $options) ? $options['headerTags'] : NULL,
     ];
 
     return $pageHeader;
@@ -263,7 +266,11 @@ class Organisms {
 
     // Create the map of all possible field names to use.
     $map = [
-      'items' => ['field_ref_contact_info', 'field_guide_ref_contacts_3'],
+      'items' => [
+        'field_ref_contact_info',
+        'field_guide_ref_contacts_3',
+        'field_event_contact_general'
+      ],
     ];
 
     // Determines which field names to use from the map.
@@ -315,7 +322,11 @@ class Organisms {
 
     // Create the map of all possible field names to use.
     $map = [
-      'contacts' => ['field_how_to_contacts_3'],
+      'contacts' => [
+        'field_how_to_contacts_3',
+        'field_press_release_media_contac',
+        'field_event_contact_general',
+      ],
     ];
 
     // Determines which field names to use from the map.
@@ -373,6 +384,48 @@ class Organisms {
   }
 
   /**
+   * Returns the variables structure required to render eventListing.
+   *
+   * @param object $entity
+   *   The object that contains the field.
+   * @param string $field
+   *   The field name.
+   * @param array $options
+   *   An array of options.
+   *
+   * @see @organisms/by-author/event-listing.twig
+   *
+   * @return array
+   *   Returns a structured array.
+   */
+  public static function prepareEventListing($entity, $field = '', array $options = []) {
+    $events = [];
+    $map = [
+      'entity_ref' => [$field],
+    ];
+    // Determines which fieldnames to use from the map.
+    $ref_field = Helper::getMappedFields($entity, $map);
+
+    // Create the map of event fields.
+    $eventFields = [
+      'date' => ['field_event_date'],
+      'time' => ['field_event_time'],
+      'lede' => ['field_event_lede'],
+      'contact' => ['field_event_ref_contact'],
+    ];
+
+    foreach ($entity->$ref_field['entity_ref'] as $event) {
+      $eventEntity = $event->entity;
+      // Determines which field names to use from event fields.
+      $fields = Helper::getMappedFields($eventEntity, $eventFields);
+      $events[] = Molecules::prepareEventTeaser($eventEntity, $fields);
+    }
+
+    $heading = isset($options['heading']) ? Helper::buildHeading($options['heading']) : [];
+    return array_merge($heading, ['events' => $events]);
+  }
+
+  /**
    * Returns the variables structure required to render link list.
    *
    * @param object $entity
@@ -398,15 +451,31 @@ class Organisms {
 
     $linkList = [];
 
+    // Build description, if option is set.
+    if (isset($options['description'])) {
+      $description = [
+        'rteElements' => [
+          [
+            'path' => '@atoms/11-text/paragraph.twig',
+            'data' => [
+              'paragraph' => [
+                'text' => $options['description']['text'],
+              ],
+            ],
+          ],
+        ],
+      ];
+    }
+
     // Roll up the link list.
-    $links = Helper::separatedLinks($entity, $field);
+    $links = Helper::separatedLinks($entity, $field, $options);
 
     if (!empty($links)) {
       // Build either sidebar or comp heading based on heading type option.
       $heading = isset($options['heading']) ? Helper::buildHeading($options['heading']) : [];
       $linkList = array_merge($heading, ['links' => $links]);
     }
-
+    $linkList['description'] = isset($options['description']) ? $description : '';
     $linkList['stacked'] = isset($options['stacked']) ? $options['stacked'] : '';
 
     return $linkList;
@@ -493,21 +562,52 @@ class Organisms {
    *   The object that contains the fields.
    * @param array $options
    *   An array containing options.
+   * @param array $field_map
+   *   An optional array of fields.
    *
    * @see @organsms/by-author/sections-three-up
    *
    * @return array
    *   Returns structured array.
    */
-  public static function prepareSectionThreeUp($entities, array $options = []) {
+  public static function prepareSectionThreeUp($entities, array $options = [], array $field_map = NULL) {
     $sections = [];
+    $fields = [];
 
-    foreach ($entities as $entity) {
-      $sections[] = Molecules::prepareSectionLink($entity->entity, $options);
+    if ($field_map) {
+      $fields = Helper::getMappedFields($entities, $field_map);
+    }
+
+    // Load up our entity if internal.
+    if ($fields['topic_cards']) {
+      foreach ($entities->$fields['topic_cards'] as $card) {
+        $url = $card->getUrl();
+        $desc = '';
+
+        // Load up our entity if internal.
+        if ($url->isExternal() == FALSE) {
+          $params = Url::fromUri("internal:" . $url->toString())->getRouteParameters();
+          $entity_type = key($params);
+          $entity = \Drupal::entityTypeManager()->getStorage($entity_type)->load($params[$entity_type]);
+          $cards[] = Molecules::prepareSectionLink($entity, $options);
+        }
+        else {
+          $cards[] = [
+            'title' => Helper::separatedLink($card),
+            'description' => $desc,
+            'seeAll' => $seeAll,
+          ];
+        }
+        $sections = $cards;
+      }
+    }
+    else {
+      foreach ($entities as $entity) {
+        $sections[] = Molecules::prepareSectionLink($entity->entity, $options);
+      }
     }
 
     $heading = isset($options['heading']) ? Helper::buildHeading($options['heading']) : [];
-
     return array_merge($heading, ['sections' => $sections]);
   }
 
@@ -1025,11 +1125,13 @@ class Organisms {
         'field_next_step_downloads',
         'field_how_to_files',
         'field_section_downloads',
+        'field_event_ref_downloads',
       ],
       'link' => [
         'field_guide_section_link',
         'field_service_links',
         'field_section_links',
+        'field_event_links',
       ],
     ];
 

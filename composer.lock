@@ -197,7 +197,8 @@
                 "url": "https://github.com/blakestein/drupal-datalayer-d8.git",
                 "reference": "3b2ffa7"
             },
-            "type": "drupal-module"
+            "type": "drupal-module",
+            "time": "2017-01-05 00:00:58"
         },
         {
             "name": "caxy/php-htmldiff",
@@ -1988,7 +1989,8 @@
             "homepage": "https://www.drupal.org/project/better_field_descriptions",
             "support": {
                 "source": "http://cgit.drupalcode.org/better_field_descriptions"
-            }
+            },
+            "time": "2017-04-17 10:36:09"
         },
         {
             "name": "drupal/clamav",
@@ -4728,7 +4730,8 @@
             "homepage": "https://www.drupal.org/project/password_policy",
             "support": {
                 "source": "http://cgit.drupalcode.org/password_policy"
-            }
+            },
+            "time": "2017-05-22 16:11:07"
         },
         {
             "name": "drupal/pathauto",
@@ -5454,7 +5457,8 @@
                     "datestamp": "1472231339"
                 },
                 "patches_applied": {
-                    "Drush sanitize plugin for TFA user data. (https://www.drupal.org/node/2862312)": "https://www.drupal.org/files/issues/drush_27.patch"
+                    "Drush sanitize plugin for TFA user data. (https://www.drupal.org/node/2862312)": "https://www.drupal.org/files/issues/drush_27.patch",
+                    "Security patch for two-factor vulnerability where one could bypass first factor of authentication (not public yet)": "patches/tfa-token-verify.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -5479,7 +5483,8 @@
             "homepage": "https://www.drupal.org/project/tfa",
             "support": {
                 "source": "http://cgit.drupalcode.org/tfa"
-            }
+            },
+            "time": "2016-08-23 20:32:20"
         },
         {
             "name": "drupal/token",
@@ -7383,16 +7388,16 @@
         },
         {
             "name": "palantirnet/mayflower-artifacts",
-            "version": "5.0.0",
+            "version": "5.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/massgov/mayflower-artifacts.git",
-                "reference": "07f684915962b4322084d655db98987ca11e7b73"
+                "reference": "633c2676977cfef8e1598d3c9d4b2727b3782091"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/massgov/mayflower-artifacts/zipball/07f684915962b4322084d655db98987ca11e7b73",
-                "reference": "07f684915962b4322084d655db98987ca11e7b73",
+                "url": "https://api.github.com/repos/massgov/mayflower-artifacts/zipball/633c2676977cfef8e1598d3c9d4b2727b3782091",
+                "reference": "633c2676977cfef8e1598d3c9d4b2727b3782091",
                 "shasum": ""
             },
             "type": "library",
@@ -7407,10 +7412,10 @@
             ],
             "description": "This repository is the product of the built artifact from massgov/mayflower",
             "support": {
-                "source": "https://github.com/massgov/mayflower-artifacts/tree/5.0.0",
+                "source": "https://github.com/massgov/mayflower-artifacts/tree/5.2.0",
                 "issues": "https://github.com/massgov/mayflower-artifacts/issues"
             },
-            "time": "2017-05-15T17:47:30+00:00"
+            "time": "2017-06-19T23:49:36+00:00"
         },
         {
             "name": "palantirnet/the-build",
@@ -10471,12 +10476,12 @@
             "version": "v3.3.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/geocoder-php/Geocoder.git",
+                "url": "https://github.com/geocoder-php/php-common.git",
                 "reference": "ccc178e2984c0af24881faa0ffe515f20e5e8c23"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/geocoder-php/Geocoder/zipball/ccc178e2984c0af24881faa0ffe515f20e5e8c23",
+                "url": "https://api.github.com/repos/geocoder-php/php-common/zipball/ccc178e2984c0af24881faa0ffe515f20e5e8c23",
                 "reference": "ccc178e2984c0af24881faa0ffe515f20e5e8c23",
                 "shasum": ""
             },

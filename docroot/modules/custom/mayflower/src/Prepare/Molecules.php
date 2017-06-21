@@ -125,15 +125,18 @@ class Molecules {
    *   The object that contains the fields for the sequential list.
    * @param array $fields
    *   The reference fields on the entity.
+   * @param array $options
+   *   Allow the title to be set via an options array.
    *
    * @see @molecules/image-promo.twig
    *
    * @return array
    *   Return a structured array.
    */
-  public static function prepareImagePromo($entity, array $fields) {
+  public static function prepareImagePromo($entity, array $fields, array $options) {
     $imagePromo = [];
     $href = !empty($entity->$fields['link']->entity) ? $entity->$fields['link']->entity->toURL()->toString() : [];
+    $title = '';
 
     if (array_key_exists('image', $fields)) {
       if (Helper::isFieldPopulated($entity, $fields['image'])) {
@@ -145,14 +148,19 @@ class Molecules {
       }
     }
 
-    if (array_key_exists('title', $fields)) {
+    if (array_key_exists('title', $options)) {
+      $title = $options['title'];
+    }
+    elseif (array_key_exists('title', $fields)) {
       if (Helper::isFieldPopulated($entity, $fields['title'])) {
-        $imagePromo['title'] = [
-          'text' => Helper::fieldValue($entity, $fields['title']),
-          'href' => $href,
-        ];
+        $title = Helper::fieldValue($entity, $fields['title']);
       }
     }
+
+    $imagePromo['title'] = [
+      'text' => $title,
+      'href' => $href,
+    ];
 
     if (array_key_exists('lede', $fields)) {
       if (Helper::isFieldPopulated($entity, $fields['lede'])) {
@@ -168,7 +176,7 @@ class Molecules {
           'text' => 'More',
           'href' => $href,
           'type' => 'chevron',
-          'info' => t('Read More about @activity', ['@activity' => Helper::fieldValue($entity, $fields['title'])]),
+          'info' => t('Read More about @activity', ['@activity' => $title]),
         ];
       }
     }
@@ -312,11 +320,14 @@ class Molecules {
    *    }
    */
   public static function prepareSectionLink($entity, array $options = []) {
+
     $map = [
       'text' => [
         'field_lede',
         'field_service_body',
         'field_guide_page_lede',
+        'field_service_lede',
+        'field_topic_lede',
         'field_topic_lede',
         'field_sub_title',
       ],
@@ -325,7 +336,7 @@ class Molecules {
         'field_topic_ref_icon',
       ],
       'links' => [
-        'field_topic_ref_content_cards',
+        'field_topic_content_cards',
         'field_service_ref_actions_2',
       ],
     ];
@@ -346,7 +357,19 @@ class Molecules {
     }
 
     if ($fields['links']) {
-      $links = Helper::separatedLinks($entity, $fields['links']);
+      foreach ($entity->$fields['links'] as $link) {
+        $linkEntity = $link->entity;
+
+        if (!empty($linkEntity->field_content_card_link_cards)) {
+          foreach ($linkEntity->field_content_card_link_cards as $linkItem) {
+            $links[] = Helper::separatedLink($linkItem);
+          }
+        }
+        else {
+          $links = Helper::separatedLinks($entity, $fields['links']);
+        }
+      }
+
       if (in_array($entity->getType(), $options['use4TopLinks'])) {
         // Only show top 4 links.
         $links = array_slice($links, 0, 4);
@@ -361,12 +384,12 @@ class Molecules {
     // Different options for topic_page, org_page, and service_page.
     return [
       'id' => 'section_link_' . $index,
-      'catIcon' => in_array($entity->getType(), $options['useIcon']) ? $icon : '',
+      'catIcon' => in_array($entity->getType(), isset($options['useIcon']) ? $options['useIcon'] : []) ? $icon : '',
       'title' => [
         'href' => $entity->toURL()->toString(),
         'text' => $entity->getTitle(),
       ],
-      'description' => Helper::fieldValue($entity, $fields['text']),
+      'description' => !empty($entity->$fields['text']->value) ? Helper::fieldValue($entity, $fields['text']) : '',
       'type' => in_array($entity->getType(), isset($options['useCallout']) ? $options['useCallout'] : []) ? 'callout' : '',
       'links' => in_array($entity->getType(), $options['noCardLinks']) ? '' : $links,
       'seeAll' => in_array($entity->getType(), isset($options['noSeeAll']) ? $options['noSeeAll'] : []) ? '' : $seeAll,
@@ -476,6 +499,7 @@ class Molecules {
     ];
 
     foreach ($entities as $entity) {
+
       $item = [];
 
       $item['type'] = $type;
@@ -485,8 +509,19 @@ class Molecules {
         'details' => ['field_caption'],
         'label' => ['field_label'],
         'hours' => ['field_ref_hours', 'field_hours'],
-        'value' => ['field_address_address', 'field_phone', 'field_fax'],
-        'link' => ['field_link_single', 'field_email'],
+        'value' => [
+          'field_address_address',
+          'field_phone',
+          'field_fax',
+          'field_media_contact_phone',
+          'field_person_phone',
+        ],
+        'link' => [
+          'field_link_single',
+          'field_email',
+          'field_media_contact_email',
+          'field_person_email',
+        ],
       ];
 
       // Determines which fieldnames to use from the map.
@@ -525,7 +560,7 @@ class Molecules {
         }
       }
       elseif ($type == 'online') {
-        if ($entity->getType() == 'online_email') {
+        if ($entity->getType() == 'online_email' || get_class($entity->$fields['link']) == 'Drupal\Core\Field\FieldItemList') {
           $link = Helper::separatedEmailLink($entity, $fields['link']);
           $item['link'] = $link['href'];
           $item['value'] = $link['text'];
@@ -600,7 +635,7 @@ class Molecules {
     ];
 
     $map = [
-      'title' => ['field_display_title'],
+      'title' => ['field_display_title', 'field_media_contact_name'],
     ];
 
     // Determines which fieldnames to use from the map.
@@ -608,16 +643,23 @@ class Molecules {
 
     $groups = [];
 
-    foreach ($referenced_fields as $id => $field) {
-      if (Helper::isFieldPopulated($entity, $field)) {
-        $items = Helper::getReferencedEntitiesFromField($entity, $field);
-        $groups[] = Molecules::prepareContactGroup($items, $options + ['type' => $id], $contactInfo);
+    if (!empty($referenced_fields)) {
+      foreach ($referenced_fields as $id => $field) {
+        if (Helper::isFieldPopulated($entity, $field)) {
+          $items = Helper::getReferencedEntitiesFromField($entity, $field);
+          $groups[] = Molecules::prepareContactGroup($items, $options + ['type' => $id], $contactInfo);
+        }
       }
+    }
+    else {
+      $groups[] = Molecules::prepareContactGroup([0 => $entity], $options + ['type' => 'phone'], $contactInfo);
+      $groups[] = Molecules::prepareContactGroup([0 => $entity], $options + ['type' => 'online'], $contactInfo);
     }
 
     $fields = Helper::getMappedFields($entity, $map);
 
     $display_title = $options['display_title'];
+    $only_address = $options['onlyAddress'];
     $link_title = isset($options['link_title']) ? $options['link_title'] : TRUE;
 
     if (isset($fields['title']) && Helper::isFieldPopulated($entity, $fields['title']) && $display_title != FALSE) {
@@ -633,6 +675,25 @@ class Molecules {
           'text' => $entity->$fields['title']->value,
         ];
       }
+    }
+    elseif ($display_title != FALSE) {
+      if ($link_title != FALSE) {
+        $title = [
+          'href' => $entity->toURL()->toString(),
+          'text' => $entity->getTitle(),
+          'chevron' => FALSE,
+        ];
+      }
+      else {
+        $title = [
+          'text' => $entity->getTitle(),
+        ];
+      }
+    }
+
+    // If set, only display address.
+    if ($only_address != FALSE && isset($groups[0])) {
+      $groups = array_slice($groups, 0, 1);
     }
 
     return [
@@ -1126,6 +1187,117 @@ class Molecules {
 
     return [
       'anchorLinks' => $anchorLinks,
+    ];
+  }
+
+  /**
+   * Returns the variables structure required to render event teaser.
+   *
+   * @param object $entity
+   *   The object that contains the fields.
+   * @param object $fields
+   *   Field objects for contact, date, time, location and lede.
+   * @param array $options
+   *   headerDate option to set the display to only display date and time.
+   *
+   * @see @molecules/event-teaser.twig
+   *
+   * @return array
+   *   Returns a structured array.
+   */
+  public static function prepareEventTeaser($entity, $fields, array $options = []) {
+    $location = '';
+    if (isset($fields['contact']) && !empty($entity->$fields['contact']->entity)) {
+      $contentUsEntity = $entity->$fields['contact']->entity;
+      $location = Helper::fieldValue($contentUsEntity->field_ref_address->entity, 'field_address_text');
+    }
+
+    $date = !empty($entity->$fields['date']->value) ? strtotime($entity->$fields['date']->value) : '';
+
+    if (isset($options['headerDate'])) {
+      return [
+        'date' => [
+          'summary' => \Drupal::service('date.formatter')->format($date, 'custom', 'l, F d, Y'),
+        ],
+        'time' => !empty($entity->$fields['time']->value) ? Helper::fieldValue($entity, $fields['time']) : '',
+      ];
+    }
+    else {
+      return [
+        'title' => [
+          'href' => $entity->toURL()->toString(),
+          'text' => Helper::fieldValue($entity, 'title'),
+          'info' => '',
+          'property' => '',
+        ],
+        'location' => $location,
+        'date' => [
+          'summary' => \Drupal::service('date.formatter')->format($date, 'custom', 'F d, Y'),
+          'startMonth' => \Drupal::service('date.formatter')->format($date, 'custom', 'M'),
+          'startDay' => \Drupal::service('date.formatter')->format($date, 'custom', 'd'),
+          'endMonth' => '',
+          'endDay' => '',
+        ],
+        'time' => !empty($entity->$fields['time']->value) ? Helper::fieldValue($entity, $fields['time']) : '',
+        'description' => !empty($entity->$fields['lede']->value) ? Helper::fieldValue($entity, $fields['lede']) : '',
+      ];
+    }
+  }
+
+  /**
+   * Returns the variables structure required to render pressStatus.
+   *
+   * @param object $entity
+   *   The object that contains the fields.
+   *
+   * @see @molecules/press-status.twig
+   *
+   * @return array
+   *   Return a structured array:
+   */
+  public static function preparePressStatus($entity) {
+    $names = [];
+
+    $map = [
+      'date' => ['field_press_release_date'],
+      'signees' => ['field_press_release_signees'],
+    ];
+
+    // Determines which field names to use from the map.
+    $field = Helper::getMappedFields($entity, $map);
+
+    if (!empty($entity->$field['signees']->entity)) {
+      foreach ($entity->$field['signees'] as $paragraph) {
+        $par_entity = $paragraph->entity;
+        $org_fields = [
+          'link' => ['field_state_org_ref_org'],
+          'title' => ['field_state_org_name', 'field_external_org_name'],
+          'lede' => ['field_state_org_description', 'field_external_org_description'],
+          'image' => ['field_state_org_photo', 'field_external_org_photo'],
+        ];
+
+        $org_data = Helper::getMappedFields($par_entity, $org_fields);
+
+        if ($par_entity->getParagraphType()->id == 'state_organization') {
+          if (Helper::isFieldPopulated($par_entity, $org_data['title'])) {
+            $names[]['text'] = Helper::fieldValue($par_entity, $org_data['title']);
+          }
+          else {
+            $names[]['text'] = $par_entity->field_state_org_ref_org->entity->getTitle();
+          }
+        }
+        elseif ($par_entity->getParagraphType()->id == 'external_organization') {
+          if (Helper::isFieldPopulated($par_entity, $org_data['title'])) {
+            $names[]['text'] = Helper::fieldValue($par_entity, $org_data['title']);
+          }
+        }
+      }
+    }
+
+    return [
+      'title' => t("For immediate release:"),
+      'date' => Helper::fieldFullView($entity, $field['date']),
+      'names' => $names,
     ];
   }
 

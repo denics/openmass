@@ -1,0 +1,19 @@
+uuid: 57128384-34b3-4917-8ac5-16b96b5eabe9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_external_org_name
+    - paragraphs.paragraphs_type.external_organization
+id: paragraph.external_organization.field_external_org_name
+field_name: field_external_org_name
+entity_type: paragraph
+bundle: external_organization
+label: 'Name '
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

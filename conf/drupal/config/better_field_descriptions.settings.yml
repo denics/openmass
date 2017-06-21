@@ -186,9 +186,9 @@ better_field_descriptions_settings:
   topic_page:
     field_topic_bg_narrow: field_topic_bg_narrow
     field_topic_bg_wide: field_topic_bg_wide
+    field_topic_content_cards: field_topic_content_cards
     field_topic_display_links: field_topic_display_links
     field_topic_lede: field_topic_lede
-    field_topic_ref_content_cards: field_topic_ref_content_cards
     field_topic_ref_icon: field_topic_ref_icon
     field_topic_ref_related_topics: field_topic_ref_related_topics
 _core:

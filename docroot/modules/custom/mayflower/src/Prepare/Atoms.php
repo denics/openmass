@@ -16,6 +16,8 @@ class Atoms {
    *   The object that contains the necessary fields.
    * @param object $options
    *   The object that contains static data and other options.
+   * @param string $field
+   *   The field name to use otherwise the field_map will be relied on.
    *
    * @see @atoms/09-media/image.twig
    *
@@ -28,19 +30,24 @@ class Atoms {
    *      "width": "230"
    *    }
    */
-  public static function prepareImage($entity, $options) {
+  public static function prepareImage($entity, $options, $field = NULL) {
     $image = '';
 
-    $map = [
-      'image' => [
-        'field_sub_brand',
-        'field_service_sub_brand',
-        'field_promo_image',
-      ],
-    ];
+    if ($field == NULL) {
+      $map = [
+        'image' => [
+          'field_sub_brand',
+          'field_service_sub_brand',
+          'field_promo_image',
+        ],
+      ];
 
-    // Determines which field names to use from the map.
-    $fields = Helper::getMappedFields($entity, $map);
+      // Determines which field names to use from the map.
+      $fields = Helper::getMappedFields($entity, $map);
+    }
+    else {
+      $fields['image'] = $field;
+    }
 
     if ($src = Helper::getFieldImageUrl($entity, $options['style'], $fields['image'])) {
       // Get image alt text from entity (set to '' on falsey return).

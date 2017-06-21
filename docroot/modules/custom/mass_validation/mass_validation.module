@@ -289,6 +289,78 @@ function _mass_validation_form_node_location_details_form_validate(array &$form,
 }
 
 /**
+ * Implements hook_form_FORM_ID_alter() for the FORM_ID() form.
+ */
+function mass_validation_form_node_event_edit_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $form['#validate'][] = '_mass_validation_form_node_event_form_validate';
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for the FORM_ID() form.
+ */
+function mass_validation_form_node_event_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $form['#validate'][] = '_mass_validation_form_node_event_form_validate';
+}
+
+/**
+ * Validates submission values in the FORM_ID() form.
+ */
+function _mass_validation_form_node_event_form_validate(array &$form, FormStateInterface $form_state) {
+
+  _mass_link_validate($form_state, 'field_event_links');
+  _mass_link_validate($form_state, 'field_event_link_sign_up');
+
+  $num_links = 0;
+  // Validate that the Links and Downloads fields
+  // have no more than 6 values between them.
+  if ($form_state->hasValue('field_event_links') || $form_state->hasValue('field_event_ref_downloads')) {
+    // Count the links.
+    $links = $form_state->getValue('field_event_links');
+    foreach ($links as $link) {
+      if (is_array($link)) {
+        if (!empty($link['uri'])) {
+          $num_links += 1;
+        }
+      }
+    }
+    // Count the documents.
+    $docs = $form_state->getValue('field_event_ref_downloads');
+    $num_docs = 0;
+    if (!empty($docs['entities'])) {
+      $num_docs = count($docs['entities']);
+    }
+    // Throw an error is there are more than 6.
+    if (($num_links + $num_docs) > 6) {
+      $form_state->setErrorByName('field_event_links', t('You can only have max 6 values between the Links and Downloads fields.'));
+      $form_state->setErrorByName('field_event_ref_downloads', t('You can only have max 6 values between the Links and Downloads fields.'));
+    }
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for the FORM_ID() form.
+ */
+function mass_validation_form_node_topic_page_edit_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $form['#validate'][] = '_mass_validation_form_node_topic_page_form_validate';
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for the FORM_ID() form.
+ */
+function mass_validation_form_node_topic_page_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $form['#validate'][] = '_mass_validation_form_node_topic_page_form_validate';
+}
+
+/**
+ * Validates submission values in the FORM_ID() form.
+ */
+function _mass_validation_form_node_topic_page_form_validate(array &$form, FormStateInterface $form_state) {
+
+  // Verify links have titles.
+  _mass_link_validate_paragraph($form_state, 'field_topic_content_cards', ['field_content_card_link_cards']);
+}
+
+/**
  * Validate link fields in a paragraph have titles for each uri.
  *
  * @param Drupal\Core\Form\FormStateInterface $form_state

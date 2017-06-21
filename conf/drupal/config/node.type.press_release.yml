@@ -1,0 +1,26 @@
+uuid: 4478c7b6-2e3a-458f-af5c-540c87fcdc8d
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+    - workbench_moderation
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+  workbench_moderation:
+    enabled: true
+    allowed_moderation_states:
+      - published
+      - archived
+      - draft
+      - needs_review
+    default_moderation_state: draft
+name: 'Press Release Page'
+type: press_release
+description: 'A formal press release page.'
+help: ''
+new_revision: true
+preview_mode: 0
+display_submitted: false
