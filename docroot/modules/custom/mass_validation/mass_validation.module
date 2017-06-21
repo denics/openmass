@@ -289,6 +289,30 @@ function _mass_validation_form_node_location_details_form_validate(array &$form,
 }
 
 /**
+ * Implements hook_form_FORM_ID_alter() for the FORM_ID() form.
+ */
+function mass_validation_form_node_topic_page_edit_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $form['#validate'][] = '_mass_validation_form_node_topic_page_form_validate';
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for the FORM_ID() form.
+ */
+function mass_validation_form_node_topic_page_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $form['#validate'][] = '_mass_validation_form_node_topic_page_form_validate';
+}
+
+/**
+ * Validates submission values in the FORM_ID() form.
+ */
+function _mass_validation_form_node_topic_page_form_validate(array &$form, FormStateInterface $form_state) {
+
+  // Verify links have titles.
+  _mass_link_validate_paragraph($form_state, 'field_topic_content_cards', ['field_content_card_link_cards']);
+
+}
+
+/**
  * Validate link fields in a paragraph have titles for each uri.
  *
  * @param Drupal\Core\Form\FormStateInterface $form_state

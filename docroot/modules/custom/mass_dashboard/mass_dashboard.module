@@ -22,7 +22,7 @@ function mass_dashboard_toolbar() {
     'tab' => [
       '#type' => 'link',
       '#title' => t('My Content'),
-      '#url' => Url::fromRoute('mass_dashboard.edits'),
+      '#url' => Url::fromRoute('mass_dashboard.my_work'),
       '#options' => [
         'attributes' => [
           'title' => t('Mass.gov editorial dashboard'),

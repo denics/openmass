@@ -469,8 +469,10 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
    */
   public function assertContentTypeFields($content_type) {
     $this->minkContext->visitPath('node/add/' . $content_type);
-    // All content types have a title.
-    $this->minkContext->assertElementOnPage('#edit-title-0-value');
+    // Test title for everything but person ct
+    if ( $content_type !== 'person' ) {
+      $this->minkContext->assertElementOnPage('#edit-title-0-value');
+    }
 
     $fields = [];
 
@@ -626,9 +628,9 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
       case "topic_page":
         $fields = array (
           array (
-            'field' => 'field-topic-ref-content-cards',
-            'tag' => 'input',
-            'type' => 'text',
+            'field' => 'field-topic-content-cards',
+            'tag' => 'paragraphs',
+            'type' => 'content-card-group',
           ),
           array (
             'field' => 'field-topic-bg-wide',
@@ -768,6 +770,35 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
           ),
           array (
             'field' => 'field-location-details-lede',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+        );
+        break;
+      case "person":
+        $fields = array (
+          array (
+            'field' => 'field-person-email',
+            'tag' => 'input',
+            'type' => 'email',
+          ),
+          array (
+            'field' => 'field-person-first-name',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-person-last-name',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-person-phone',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-person-role-title',
             'tag' => 'input',
             'type' => 'text',
           ),
@@ -1034,6 +1065,18 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
           ),
           array (
             'field' => 'field-section-title',
+            'widget' => 'Textfield',
+          ),
+        );
+        break;
+      case "content_card_group":
+        $fields = array (
+          array (
+            'field' => 'field-content-card-link-cards',
+            'widget' => 'Link',
+          ),
+          array (
+            'field' => 'field-content-card-category',
             'widget' => 'Textfield',
           ),
         );

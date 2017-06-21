@@ -369,6 +369,9 @@ function mass_theme_preprocess_node_how_to_page(&$variables) {
     // Build sidebar.contactList, which is a subset of pageContent.ContactList.
     $sidebar['contactList'] = Helper::getPrimaryContactPhoneOnlineContactList($pageContent['contactList']);
 
+    // Hide the top contact on mobile.
+    $sidebar['contactList']['viewSpecific'] = TRUE;
+
     // Set up corresponding sticky nav entry for contacts.
     $stickyNav[] = $contacts_title;
   }
@@ -719,22 +722,26 @@ function mass_theme_preprocess_node_topic_page(&$variables) {
   // Make pageBanner data structure available in twig template.
   $variables['pageBanner'] = Organisms::preparePageBanner($node, $pageBanner_options);
 
-  $sectionThreeUp = [
-    'heading' => [
-      'centered' => TRUE,
-    ],
-    'noCardLinks' => [
-      ($node->field_topic_display_links->value == '1') ? 'topic_page' : [],
-    ],
-    'use4TopLinks' => [
-      'topic_page',
-    ],
-    'useCallout' => [
-      'service_page',
-    ],
-  ];
+  foreach ($node->field_topic_content_cards as $index => $section) {
+    $variables['numOfSections'] = ++$index;
 
-  $variables['sectionThreeUp'] = Organisms::prepareSectionThreeUp($node->field_topic_ref_content_cards, $sectionThreeUp);
+    $sectionThreeUp_options = [
+      'heading' => [
+        'title' => $section->entity->field_content_card_category->value,
+      ],
+      'noCardLinks' => [
+        ($node->field_topic_display_links->value == '1') ? 'topic_page' : [],
+      ],
+      'use4TopLinks' => [
+        'topic_page',
+      ],
+      'useCallout' => [
+        'service_page',
+      ],
+    ];
+
+    $variables['pageContent'][$index]['sectionThreeUp'] = Organisms::prepareSectionThreeUp($section->entity, $sectionThreeUp_options, ['topic_cards' => ['field_content_card_link_cards']]);
+  }
 
   $linkList_options = [
     'heading' => [
@@ -810,7 +817,7 @@ function mass_theme_preprocess_node_service_page(&$variables) {
 
   // Make the introPageContent data structure available in twig template.
   $variables['introPageContent'] = $intro_page_content;
-  // dump($variables['introPageContent']);
+
   // Prepare the introduction sidebar.
   $intro_sidebar = [];
 
@@ -1034,6 +1041,166 @@ function mass_theme_preprocess_node_service_details(&$variables) {
 
     $variables['sidebar']['linkList'] = Organisms::preparelinkList($node, 'field_service_detail_links_5', $linkList_options);
   }
+}
+
+/**
+ * Implements hook_preprocess_node().
+ *
+ * Prepare the variables for the Press Release page.
+ */
+function mass_theme_preprocess_node_press_release(&$variables) {
+  $node = $variables['node'];
+  $sidebar = [];
+  // Create the map of all possible field names to use.
+  $map = [
+    'body' => ['field_press_release_body'],
+    'location' => ['field_press_release_location'],
+    'video' => ['field_press_release_video'],
+    'signees' => ['field_press_release_signees'],
+    'contact' => ['field_press_release_media_contac'],
+    'links' => ['field_press_release_links'],
+  ];
+
+  // Determines which field names to use from the map.
+  $field = Helper::getMappedFields($node, $map);
+
+  $taxonomyTerms = [];
+
+  if (!empty($node->$field['signees']->entity)) {
+    $org_fields = [
+      'link' => ['field_state_org_ref_org'],
+      'title' => ['field_external_org_name'],
+      'lede' => ['field_state_org_description', 'field_external_org_description'],
+      'image' => ['field_state_org_photo', 'field_external_org_photo'],
+    ];
+
+    $taxonomyTerms = [];
+
+    $signee_ref = Helper::getReferencedEntitiesFromField($node, $field['signees']);
+
+    foreach ($signee_ref as $signee_entity) {
+      $org_data = Helper::getMappedFields($signee_entity, $org_fields);
+      if ($signee_entity != NULL) {
+        if ($signee_entity->getParagraphType()->id == 'state_organization') {
+          $taxonomyTerms[] = [
+            'href' => $signee_entity->$org_data['link']->entity->toURL()->toString(),
+            'text' => Helper::fieldValue($signee_entity->$org_data['link']->entity, 'title'),
+          ];
+
+          $promo_options = [
+            'title' => Helper::fieldValue($signee_entity->$org_data['link']->entity, 'title'),
+          ];
+        }
+        else {
+          $promo_options = [
+            'title' => Helper::fieldValue($signee_entity, $org_data['title']),
+          ];
+        }
+      }
+      $org_fields + ['link' => TRUE];
+      $pageContent['personalMessage']['imagePromos'][] = Molecules::prepareImagePromo($signee_entity, $org_data, $promo_options);
+    }
+  }
+
+  // Set static pageHeader properties to pass to prepare function.
+  $pageHeader_options = [
+    'category' => t('Press Release'),
+    'divider' => FALSE,
+    'headerTags' => [
+      'label' => t('Related to:'),
+      'taxonomyTerms' => $taxonomyTerms,
+    ],
+  ];
+
+  // Make pageBanner data object available in twig template.
+  $variables['pageHeader'] = Organisms::preparePageHeader($node, $pageHeader_options);
+
+  $pageContent['pressStatus'] = Molecules::preparePressStatus($node);
+
+  if (Helper::isFieldPopulated($node, $field['video'])) {
+    if (!empty($node->$field['video']->entity)) {
+      $videoEntity = $node->$field['video']->entity;
+      $pageContent['video'] = [
+        'src' => '//www.' . $videoEntity->field_video_source->value . '.com/embed/' . $videoEntity->field_video_id->value,
+      ];
+    }
+  }
+
+  if (Helper::isFieldPopulated($node, $field['body'])) {
+    $body = '';
+    if (Helper::isFieldPopulated($node, $field['location'])) {
+      $location = Helper::fieldValue($node, $field['location']) . ' &mdash; ';
+      $body_array = explode('<p>', Helper::fieldValue($node, $field['body']));
+      $body_array[1] = $location . $body_array[1];
+      $body = implode($body_array, '<p>');
+    }
+    else {
+      $body = Helper::fieldValue($node, $field['location']);
+    }
+
+    // Set up rich text element.
+    $pageContent['richText'] = [
+      'rteElements' => [
+        [
+          'path' => '@atoms/11-text/raw-html.twig',
+          'data' => [
+            'rawHtml' => [
+              'content' => $body,
+            ],
+          ],
+        ],
+        [
+          'path' => '@atoms/11-text/paragraph.twig',
+          'data' => [
+            'paragraph' => [
+              'text' => '###',
+            ],
+          ],
+        ]
+      ],
+    ];
+  }
+
+  // Build contact section, if field is populated.
+  if (Helper::isFieldPopulated($node, $field['contact'])) {
+    // Set up options for contact list.
+    $contactList_options = [
+      'heading' => [
+        'type' => 'sidebarHeading',
+        'title' => t("Media Contact"),
+      ],
+      'groups' => [
+        'accordion' => TRUE,
+        'isExpanded' => FALSE,
+      ],
+    ];
+
+    $pageContent['contactList'] = Organisms::prepareContactList($node, $contactList_options);
+
+    // Build sidebar.contactList, which is a subset of pageContent.ContactList.
+    $sidebar['contactList'] = Helper::getPrimaryContactPhoneOnlineContactList($pageContent['contactList']);
+  }
+
+  // Build related links section, if field is populated.
+  if (Helper::isFieldPopulated($node, $field['links'])) {
+    // Set up options for link list.
+    $linkList_options = [
+      'heading' => [
+        'type' => 'sidebarHeading',
+        'title' => t('Related'),
+      ],
+      'stacked' => TRUE,
+      'useEyebrow' => [
+        'press_release',
+        'regulation',
+      ],
+    ];
+
+    $sidebar['linkList'] = Organisms::preparelinkList($node, $field['links'], $linkList_options);
+  }
+
+  $variables['pageContent'] = $pageContent;
+  $variables['sidebar'] = $sidebar;
 }
 
 /**

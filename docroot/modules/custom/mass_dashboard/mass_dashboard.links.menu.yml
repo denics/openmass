@@ -1,5 +1,5 @@
-mass_dashboard.edits:
-  route_name: mass_dashboard.edits
+mass_dashboard.my_work:
+  route_name: mass_dashboard.my_work
   title: 'My Work'
   menu_name: mass-dashboard
   weight: 0

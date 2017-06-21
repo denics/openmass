@@ -13,7 +13,7 @@ Feature: Mass Dashboard
 
   Scenario: Verify author access to the My Work page
     Given I am logged in as a user with the "author" role
-    When I go to "/admin/ma-dash/edits"
+    When I go to "/admin/ma-dash/my-work"
     Then the response status code should be 200
     And I should see the link "My Work" in the mass_dashboard_menu
 
@@ -37,6 +37,6 @@ Feature: Mass Dashboard
 
   Scenario: Verify that anonymous users cannot access the dashboard
     Given I am an anonymous user
-    When I go to "/admin/ma-dash/edits"
+    When I go to "/admin/ma-dash/my-work"
     Then the response status code should be 403
 
