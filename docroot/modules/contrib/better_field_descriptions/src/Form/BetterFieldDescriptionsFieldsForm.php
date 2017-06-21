@@ -167,6 +167,11 @@ class BetterFieldDescriptionsFieldsForm extends ConfigFormBase {
 
       foreach ($fields as $field_machine_name) {
 
+        // Skip if field no longer exists.
+        if (!isset($fields_instances[$field_machine_name])) {
+          continue;
+        }
+
         // Descriptions.
         $bfd_description = '';
         if (isset($bfd[$bundle_machine_name][$field_machine_name]['description'])) {
