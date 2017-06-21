@@ -514,11 +514,13 @@ class Molecules {
           'field_phone',
           'field_fax',
           'field_media_contact_phone',
+          'field_person_phone',
         ],
         'link' => [
           'field_link_single',
           'field_email',
           'field_media_contact_email',
+          'field_person_email',
         ],
       ];
 
@@ -657,6 +659,7 @@ class Molecules {
     $fields = Helper::getMappedFields($entity, $map);
 
     $display_title = $options['display_title'];
+    $only_address = $options['onlyAddress'];
     $link_title = isset($options['link_title']) ? $options['link_title'] : TRUE;
 
     if (isset($fields['title']) && Helper::isFieldPopulated($entity, $fields['title']) && $display_title != FALSE) {
@@ -672,6 +675,25 @@ class Molecules {
           'text' => $entity->$fields['title']->value,
         ];
       }
+    }
+    elseif ($display_title != FALSE) {
+      if ($link_title != FALSE) {
+        $title = [
+          'href' => $entity->toURL()->toString(),
+          'text' => $entity->getTitle(),
+          'chevron' => FALSE,
+        ];
+      }
+      else {
+        $title = [
+          'text' => $entity->getTitle(),
+        ];
+      }
+    }
+
+    // If set, only display address.
+    if ($only_address != FALSE && isset($groups[0])) {
+      $groups = array_slice($groups, 0, 1);
     }
 
     return [
@@ -1166,6 +1188,60 @@ class Molecules {
     return [
       'anchorLinks' => $anchorLinks,
     ];
+  }
+
+  /**
+   * Returns the variables structure required to render event teaser.
+   *
+   * @param object $entity
+   *   The object that contains the fields.
+   * @param object $fields
+   *   Field objects for contact, date, time, location and lede.
+   * @param array $options
+   *   headerDate option to set the display to only display date and time.
+   *
+   * @see @molecules/event-teaser.twig
+   *
+   * @return array
+   *   Returns a structured array.
+   */
+  public static function prepareEventTeaser($entity, $fields, array $options = []) {
+    $location = '';
+    if (isset($fields['contact']) && !empty($entity->$fields['contact']->entity)) {
+      $contentUsEntity = $entity->$fields['contact']->entity;
+      $location = Helper::fieldValue($contentUsEntity->field_ref_address->entity, 'field_address_text');
+    }
+
+    $date = !empty($entity->$fields['date']->value) ? strtotime($entity->$fields['date']->value) : '';
+
+    if (isset($options['headerDate'])) {
+      return [
+        'date' => [
+          'summary' => \Drupal::service('date.formatter')->format($date, 'custom', 'l, F d, Y'),
+        ],
+        'time' => !empty($entity->$fields['time']->value) ? Helper::fieldValue($entity, $fields['time']) : '',
+      ];
+    }
+    else {
+      return [
+        'title' => [
+          'href' => $entity->toURL()->toString(),
+          'text' => Helper::fieldValue($entity, 'title'),
+          'info' => '',
+          'property' => '',
+        ],
+        'location' => $location,
+        'date' => [
+          'summary' => \Drupal::service('date.formatter')->format($date, 'custom', 'F d, Y'),
+          'startMonth' => \Drupal::service('date.formatter')->format($date, 'custom', 'M'),
+          'startDay' => \Drupal::service('date.formatter')->format($date, 'custom', 'd'),
+          'endMonth' => '',
+          'endDay' => '',
+        ],
+        'time' => !empty($entity->$fields['time']->value) ? Helper::fieldValue($entity, $fields['time']) : '',
+        'description' => !empty($entity->$fields['lede']->value) ? Helper::fieldValue($entity, $fields['lede']) : '',
+      ];
+    }
   }
 
   /**

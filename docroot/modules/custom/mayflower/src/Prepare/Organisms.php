@@ -266,7 +266,11 @@ class Organisms {
 
     // Create the map of all possible field names to use.
     $map = [
-      'items' => ['field_ref_contact_info', 'field_guide_ref_contacts_3'],
+      'items' => [
+        'field_ref_contact_info',
+        'field_guide_ref_contacts_3',
+        'field_event_contact_general'
+      ],
     ];
 
     // Determines which field names to use from the map.
@@ -321,6 +325,7 @@ class Organisms {
       'contacts' => [
         'field_how_to_contacts_3',
         'field_press_release_media_contac',
+        'field_event_contact_general',
       ],
     ];
 
@@ -379,6 +384,48 @@ class Organisms {
   }
 
   /**
+   * Returns the variables structure required to render eventListing.
+   *
+   * @param object $entity
+   *   The object that contains the field.
+   * @param string $field
+   *   The field name.
+   * @param array $options
+   *   An array of options.
+   *
+   * @see @organisms/by-author/event-listing.twig
+   *
+   * @return array
+   *   Returns a structured array.
+   */
+  public static function prepareEventListing($entity, $field = '', array $options = []) {
+    $events = [];
+    $map = [
+      'entity_ref' => [$field],
+    ];
+    // Determines which fieldnames to use from the map.
+    $ref_field = Helper::getMappedFields($entity, $map);
+
+    // Create the map of event fields.
+    $eventFields = [
+      'date' => ['field_event_date'],
+      'time' => ['field_event_time'],
+      'lede' => ['field_event_lede'],
+      'contact' => ['field_event_ref_contact'],
+    ];
+
+    foreach ($entity->$ref_field['entity_ref'] as $event) {
+      $eventEntity = $event->entity;
+      // Determines which field names to use from event fields.
+      $fields = Helper::getMappedFields($eventEntity, $eventFields);
+      $events[] = Molecules::prepareEventTeaser($eventEntity, $fields);
+    }
+
+    $heading = isset($options['heading']) ? Helper::buildHeading($options['heading']) : [];
+    return array_merge($heading, ['events' => $events]);
+  }
+
+  /**
    * Returns the variables structure required to render link list.
    *
    * @param object $entity
@@ -404,6 +451,22 @@ class Organisms {
 
     $linkList = [];
 
+    // Build description, if option is set.
+    if (isset($options['description'])) {
+      $description = [
+        'rteElements' => [
+          [
+            'path' => '@atoms/11-text/paragraph.twig',
+            'data' => [
+              'paragraph' => [
+                'text' => $options['description']['text'],
+              ],
+            ],
+          ],
+        ],
+      ];
+    }
+
     // Roll up the link list.
     $links = Helper::separatedLinks($entity, $field, $options);
 
@@ -412,7 +475,7 @@ class Organisms {
       $heading = isset($options['heading']) ? Helper::buildHeading($options['heading']) : [];
       $linkList = array_merge($heading, ['links' => $links]);
     }
-
+    $linkList['description'] = isset($options['description']) ? $description : '';
     $linkList['stacked'] = isset($options['stacked']) ? $options['stacked'] : '';
 
     return $linkList;
@@ -1062,11 +1125,13 @@ class Organisms {
         'field_next_step_downloads',
         'field_how_to_files',
         'field_section_downloads',
+        'field_event_ref_downloads',
       ],
       'link' => [
         'field_guide_section_link',
         'field_service_links',
         'field_section_links',
+        'field_event_links',
       ],
     ];
 

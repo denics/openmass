@@ -775,6 +775,95 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
           ),
         );
         break;
+      case "event":
+        $fields = array (
+          array (
+            'field' => 'field_event_ref_contact',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field_event_capacity',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field_event_date',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field_event_description',
+            'tag' => 'textarea',
+            'type' => '',
+          ),
+          array (
+            'field' => 'field_event_ref_downloads',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field_event_image',
+            'tag' => 'input',
+            'type' => 'submit',
+          ),
+          array (
+            'field' => 'field_event_logo',
+            'tag' => 'input',
+            'type' => 'submit',
+          ),
+          array (
+            'field' => 'field_event_fees',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field_event_contact_general',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field_event_links',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field_event_lede',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field_event_link_sign_up',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field_event_ref_parents',
+            'tag' => 'textarea',
+            'type' => '',
+          ),
+          array (
+            'field' => 'field_event_rain_date',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field_event_ref_event_2',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field_event_time ',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field_event_you_will_need',
+            'tag' => 'textarea',
+            'type' => '',
+          ),
+        );
+        break;
       case "person":
         $fields = array (
           array (

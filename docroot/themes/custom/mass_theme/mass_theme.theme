@@ -756,6 +756,237 @@ function mass_theme_preprocess_node_topic_page(&$variables) {
 /**
  * Implements hook_preprocess_node().
  *
+ * Prepare the variables for the Event page.
+ */
+function mass_theme_preprocess_node_event(&$variables) {
+  $node = $variables['node'];
+  $sidebar = [];
+
+  // Create the map of all possible field names to use.
+  $map = [
+    'date' => ['field_event_date'],
+    'time' => ['field_event_time'],
+    'tags' => ['field_event_ref_parents'],
+    'links' => ['field_event_links'],
+    'image' => ['field_event_image'],
+    'logo' => ['field_event_logo'],
+    'downloads' => ['field_event_ref_downloads'],
+    'contact' => ['field_event_contact_general'],
+  ];
+
+  // Determines which field names to use from the map.
+  $fields = Helper::getMappedFields($node, $map);
+
+  $taxonomyTerms = [];
+  // @TODO build at Related To links.
+
+  if (!empty($node->$fields['tags'])) {
+    foreach ($node->$fields['tags'] as $tag) {
+      $taxonomyTerms[] = [
+        'href' => $tag->entity->toURL()->toString(),
+        'text' => Helper::fieldValue($tag->entity, 'title'),
+      ];
+    }
+  }
+
+  $optionalContents = [];
+
+  // Build date and time optional contents.
+  if (Helper::isFieldPopulated($node, 'field_event_date')) {
+    // Create the map of all possible field names to use.
+    $headerDate_options = [
+      'headerDate' => TRUE,
+    ];
+
+    $optionalContents[] = [
+      'path' => '@molecules/event-teaser.twig',
+      'data' => [
+        'eventTeaser' => Molecules::prepareEventTeaser($node, $fields, $headerDate_options),
+      ],
+    ];
+  }
+
+  // Build contact us optional contents.
+  if (Helper::isFieldPopulated($node, 'field_event_ref_contact')) {
+    // Prepare the option array header contact.
+    $headerContact_options = [
+      'onlyAddress' => TRUE,
+    ];
+    $optionalContents = array_merge($optionalContents, Helper::buildPageHeaderOptionalContentsContactUs($node, 'field_event_ref_contact', $headerContact_options));
+  }
+
+  // Build key action optional contents.
+  if (Helper::isFieldPopulated($node, 'field_event_link_sign_up')) {
+    $optionalContents[] = [
+      'path' => '@organisms/by-author/key-actions.twig',
+      'data' => [
+        'keyActions' => Molecules::prepareKeyActions($node, 'field_event_link_sign_up'),
+      ],
+    ];
+  }
+
+  // Prepare widgets that can be passed to the pageHeader.
+  $widgets = [];
+
+  // Prepare the option array for image widget.
+  $logo_options = [
+    'style' => 'organization_logo',
+    'height' => '',
+    'width' => 230,
+  ];
+
+  // Prepares logo to use the mayflower image component.
+  if ($image = Atoms::prepareImage($node, $logo_options, $fields['logo'])) {
+    $widgets[] = [
+      'path' => '@atoms/09-media/image.twig',
+      'data' => [
+        'image' => $image,
+      ],
+    ];
+  }
+
+  // Set static pageHeader properties to pass to prepare function.
+  $pageHeader_options = [
+    'category' => '',
+    'divider' => TRUE,
+    'headerTags' => [
+      'label' => t('Related to:'),
+      'taxonomyTerms' => $taxonomyTerms,
+    ],
+    'optionalContents' => $optionalContents,
+    'widgets' => $widgets,
+  ];
+
+  // Make pageBanner data object available in twig template.
+  $variables['pageHeader'] = Organisms::preparePageHeader($node, $pageHeader_options);
+
+  $items = [];
+
+  if (Helper::isFieldPopulated($node, 'field_event_rain_date')) {
+    $items[] = [
+      'label' => t('Rain date:'),
+      'text' => Helper::fieldValue($node, 'field_event_rain_date'),
+    ];
+  }
+
+  if (Helper::isFieldPopulated($node, 'field_event_fees')) {
+    $items[] = [
+      'label' => t('Fees:'),
+      'text' => Helper::fieldValue($node, 'field_event_fees'),
+    ];
+  }
+
+  if (Helper::isFieldPopulated($node, 'field_event_capacity')) {
+    $items[] = [
+      'label' => t('Capacity:'),
+      'text' => Helper::fieldValue($node, 'field_event_capacity'),
+    ];
+  }
+
+  $pageOverview_options = [
+    'heading' => [
+      'title' => t('Overview'),
+    ],
+    'image' => [
+      'style' => '',
+      'width' => 600,
+      'height' => '',
+    ],
+  ];
+
+  $pageOverview = Atoms::prepareCompHeading($pageOverview_options['heading']);
+  $pageOverview['image'] = Atoms::prepareImage($node, $pageOverview_options['image'], $fields['image']);
+  $pageOverview['labelledList'] = ['items' => $items];
+
+  if (Helper::isFieldPopulated($node, 'field_event_description')) {
+    // Set up rich text elements for what you need.
+    $pageOverview['richText'] = [
+      'rteElements' => [
+        Atoms::prepareRawHtml($node, ['field' => 'field_event_description']),
+      ],
+    ];
+  }
+
+  $mainContent['pageOverview'] = $pageOverview;
+
+  if (Helper::isFieldPopulated($node, 'field_event_you_will_need')) {
+    $youWillNeed_options = [
+      'heading' => [
+        'title' => t('You will need'),
+        'sub' => TRUE,
+      ],
+    ];
+    $youWillNeed = Atoms::prepareCompHeading($youWillNeed_options['heading']);
+    // Set up rich text elements for what you need.
+    $youWillNeed['rteElements'] = [
+      Atoms::prepareRawHtml($node, ['field' => 'field_event_you_will_need']),
+    ];
+
+    $mainContent['youWillNeed'] = $youWillNeed;
+  }
+
+  if (Helper::isFieldPopulated($node, $fields['downloads']) || Helper::isFieldPopulated($node, $fields['links'])) {
+    // Set up options for formDownloads prepare.
+    $downloadLinks_options = [
+      'heading' => [
+        'type' => 'compHeading',
+        'title' => t('Additional Resources'),
+        'sub' => TRUE,
+      ],
+    ];
+    $mainContent['formDownloads'] = Organisms::prepareFormDownloads($node, $downloadLinks_options);
+  }
+
+  // Build contact section, if field is populated.
+  if (Helper::isFieldPopulated($node, $fields['contact'])) {
+    // Set up options for contact list.
+    $contactList_options = [
+      'heading' => [
+        'title' => t("Contact"),
+        'sub' => TRUE,
+      ],
+      'groups' => [
+        'accordion' => TRUE,
+        'isExpanded' => FALSE,
+      ],
+    ];
+
+    $mainContent['contactList'] = Organisms::prepareContactList($node, $contactList_options);
+    // Build sidebar.contactList, which is a subset of pageContent.ContactList.
+    // Prepare the quickActions data object.
+    $sidebarContacts_options = [
+      'groups' => [
+        'accordion' => FALSE,
+        'isExpanded' => FALSE,
+      ],
+    ];
+    // Prepare the sidebarContact data object.
+    $sideContent['contactList'] = Organisms::prepareContactList($node, $sidebarContacts_options);
+    unset($sideContent['contactList']['compHeading']);
+    $sideContent['contactList']['sidebarHeading']['title'] = t('Contact');
+    $sidebar['contactList']['viewSpecific'] = TRUE;
+  }
+
+  // Build related links section, if field is populated.
+  if (Helper::isFieldPopulated($node, 'field_event_ref_event_2')) {
+    // Set up options for contact list.
+    $eventList_options = [
+      'heading' => [
+        'title' => t('Related Events'),
+        'centered' => TRUE,
+      ],
+    ];
+    $bottomContent['eventListing'] = Organisms::prepareEventListing($node, 'field_event_ref_event_2', $eventList_options);
+  }
+
+  $variables['mainContent'] = $mainContent;
+  $variables['sideContent'] = $sideContent;
+  $variables['bottomContent'] = $bottomContent;
+}
+
+/**
+ * Implements hook_preprocess_node().
+ *
  * Prepare the variables for the Services page.
  */
 function mass_theme_preprocess_node_service_page(&$variables) {
@@ -1179,6 +1410,7 @@ function mass_theme_preprocess_node_press_release(&$variables) {
 
     // Build sidebar.contactList, which is a subset of pageContent.ContactList.
     $sidebar['contactList'] = Helper::getPrimaryContactPhoneOnlineContactList($pageContent['contactList']);
+    $sidebar['contactList']['viewSpecific'] = TRUE;
   }
 
   // Build related links section, if field is populated.

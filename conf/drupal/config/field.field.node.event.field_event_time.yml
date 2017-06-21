@@ -1,0 +1,32 @@
+uuid: 33d412d2-e895-4e82-89ec-9da52a639da1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_event_time
+    - node.type.event
+  module:
+    - geocoder_field
+third_party_settings:
+  geocoder_field:
+    method: none
+    field: title
+    plugins: {  }
+    dumper: wkt
+    delta_handling: default
+    failure:
+      handling: preserve
+      status_message: true
+      log: true
+id: node.event.field_event_time
+field_name: field_event_time
+entity_type: node
+bundle: event
+label: Time
+description: 'This is the start time or range of time that this event will take place on. If this is an all day event, please list the start time and note it is an all day event in the description.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
