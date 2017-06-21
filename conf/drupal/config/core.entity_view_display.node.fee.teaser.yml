@@ -14,7 +14,4 @@ mode: teaser
 content:
   links:
     weight: 100
-hidden:
-  field_fee_fee: true
-  field_fee_name: true
-  field_fee_unit: true
+hidden: {  }

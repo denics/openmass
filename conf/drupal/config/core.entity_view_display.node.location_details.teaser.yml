@@ -14,9 +14,4 @@ mode: teaser
 content:
   links:
     weight: 100
-  workbench_moderation_control:
-    weight: -20
-hidden:
-  field_location_details_lede: true
-  field_location_details_links_5: true
-  field_location_details_sections: true
+hidden: {  }

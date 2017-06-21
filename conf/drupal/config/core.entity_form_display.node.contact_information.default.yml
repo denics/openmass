@@ -64,11 +64,12 @@ third_party_settings:
       weight: 0
       format_type: fieldset
       format_settings:
+        label: 'Contact titles'
+        description: 'The Display Title is the information that will appear on a page. The Admin Title provides a way to distinguish between 2 Contacts that use the same Display Title. The Admin Title is for internal use only and will never be displayed to the public. For example, the Governor’s Office might use the same Display title (“Governor’s Office”) for two offices - Boston and Springfield. The Admin Title can be different for each office.'
+        required_fields: true
         id: ''
         classes: ''
-        description: 'The Display Title is the information that will appear on a page. The Admin Title provides a way to distinguish between 2 Contacts that use the same Display Title. The Admin Title is for internal use only and will never be displayed to the public. For example, the Governor’s Office might use the same Display title ("Governor''s Office") for two offices - Boston and Springfield. The Admin Title can be different for each office.'
-        required_fields: true
-      label: 'Contact Titles'
+      label: 'Contact titles'
 id: node.contact_information.default
 targetEntityType: node
 bundle: contact_information
@@ -80,7 +81,7 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_display_title:
-    weight: 1
+    weight: 3
     settings:
       size: 60
       placeholder: ''
@@ -123,8 +124,8 @@ content:
     type: entity_reference_paragraphs
     weight: 10
     settings:
-      title: 'Online Link/Email'
-      title_plural: 'Online Links/Emails'
+      title: Link
+      title_plural: Links
       edit_mode: open
       add_mode: dropdown
       form_display_mode: default
@@ -160,7 +161,7 @@ content:
     third_party_settings: {  }
   title:
     type: string_textfield
-    weight: 2
+    weight: 4
     settings:
       size: 60
       placeholder: ''

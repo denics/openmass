@@ -277,5 +277,4 @@ content:
     third_party_settings: {  }
 hidden:
   field_facilities: true
-  field_hours: true
   field_more_information: true

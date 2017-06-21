@@ -44,6 +44,4 @@ content:
     type: entity_reference_revisions_entity_view
   links:
     weight: 100
-  workbench_moderation_control:
-    weight: -20
 hidden: {  }
