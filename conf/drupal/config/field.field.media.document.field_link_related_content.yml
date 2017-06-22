@@ -12,7 +12,7 @@ field_name: field_link_related_content
 entity_type: media
 bundle: document
 label: 'Related Content URL'
-description: 'Link web content related to your file. Example: "https://pilot.mass.gov/topics/early-childhood-education".'
+description: 'Enter the URL of web content that is related to your file.'
 required: false
 translatable: false
 default_value: {  }

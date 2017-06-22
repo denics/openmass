@@ -12,7 +12,7 @@ field_name: field_link_classic_massgov
 entity_type: media
 bundle: document
 label: 'Classic mass.gov URL'
-description: 'The classic mass.gov URL for the file. Example: "http://www.mass.gov/eohhs/docs/dcf/can-mandated-reporters-guide.pdf".'
+description: 'If one exists, enter the legacy mass.gov URL for the file that you are currently loading on your page. For example, http://www.mass.gov/eohhs/docs/dcf/can-mandated-reporters-guide.pdf.'
 required: false
 translatable: false
 default_value: {  }

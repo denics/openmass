@@ -37,10 +37,11 @@ third_party_settings:
       weight: 6
       format_type: fieldset
       format_settings:
+        label: Timeframe
+        description: 'Always use the start date, and if applicable an end date, to specify the period of time that is named, defined, or represented by the file''s subject matter.'
+        required_fields: true
         id: ''
         classes: ''
-        description: ''
-        required_fields: true
       label: Timeframe
 id: media.document.default
 targetEntityType: media
