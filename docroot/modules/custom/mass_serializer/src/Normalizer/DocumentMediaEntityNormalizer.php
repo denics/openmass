@@ -64,7 +64,9 @@ class DocumentMediaEntityNormalizer extends ContentEntityNormalizer {
       $contact = Term::load($contact_tid);
       $attributes['contactPoint']['@type'] = 'vcard:Contact';
       $attributes['contactPoint']['fn'] = $contact->getName();
-      $attributes['contactPoint']['hasEmail'] = "mailto:" . $attributes['field_contact_information'];
+      if(!is_null($attributes['field_contact_information'][0])) {
+        $attributes['contactPoint']['hasEmail'] = "mailto:" . $attributes['field_contact_information'];
+      }
     }
     else {
       $attributes['contactPoint'] = new \stdClass();
