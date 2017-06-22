@@ -259,6 +259,7 @@ class Molecules {
       'linkedin',
       'google',
       'instagram',
+      'youtube',
     ];
 
     foreach ($links as $link) {
