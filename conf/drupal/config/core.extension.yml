@@ -72,6 +72,7 @@ module:
   mass_schema_metatag: 0
   mass_search: 0
   mass_search_suppression: 0
+  mass_serializer: 0
   mass_styles: 0
   mass_types: 0
   mass_utility: 0

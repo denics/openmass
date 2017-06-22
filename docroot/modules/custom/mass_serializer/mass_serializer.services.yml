@@ -1,0 +1,11 @@
+services:
+  mass_serializer.media_entity:
+    class: Drupal\mass_serializer\Normalizer\DocumentMediaEntityNormalizer
+    arguments: ['@entity.manager']
+    tags:
+      - { name: normalizer, priority: 8 }
+
+  mass_serializer.typed_data:
+    class: Drupal\mass_serializer\Normalizer\MassTypedDataNormalizer
+    tags:
+      - { name: normalizer, priority: 2 }
