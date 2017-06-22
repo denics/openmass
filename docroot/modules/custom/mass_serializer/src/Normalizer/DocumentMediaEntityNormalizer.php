@@ -54,17 +54,13 @@ class DocumentMediaEntityNormalizer extends ContentEntityNormalizer {
     $attributes['@type'] = 'dcat:Dataset';
     $attributes['accessLevel'] = 'public';
 
-    if (!empty($attributes['field_link_classic_massgov'][0]['uri'])) {
-      $attributes['classicMassGovURL'] = $attributes['field_link_classic_massgov'][0]['uri'];
-    }
-
     // Set contactPoint.
     $contact_tid = $attributes['field_contact_name'][0]['target_id'];
     if (!is_null($contact_tid)) {
       $contact = Term::load($contact_tid);
       $attributes['contactPoint']['@type'] = 'vcard:Contact';
       $attributes['contactPoint']['fn'] = $contact->getName();
-      if(!is_null($attributes['field_contact_information'][0])) {
+      if (!is_null($attributes['field_contact_information'][0])) {
         $attributes['contactPoint']['hasEmail'] = "mailto:" . $attributes['field_contact_information'];
       }
     }
@@ -84,6 +80,9 @@ class DocumentMediaEntityNormalizer extends ContentEntityNormalizer {
         $attributes['distribution'][$i]['title'] = $attributes['name'];
         $attributes['distribution'][$i]['downloadURL'] = $file->url();
         $attributes['distribution'][$i]['mediaType'] = $attributes['field_file_mime'];
+        if (!empty($attributes['field_link_classic_massgov'][0]['uri'])) {
+          $attributes['distribution'][$i]['accessURL'] = $attributes['field_link_classic_massgov'][0]['uri'];
+        }
       }
     }
 
