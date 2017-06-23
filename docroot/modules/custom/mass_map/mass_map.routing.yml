@@ -1,7 +1,7 @@
 mass_map.map_page:
-  path: '/map/{id}'
+  path: '/node/{id}/locations'
   defaults:
     _controller: '\Drupal\mass_map\Controller\MapController::content'
-    _title: 'Map'
+    _title: 'Geographic Listings'
   requirements:
     _permission: 'access content'

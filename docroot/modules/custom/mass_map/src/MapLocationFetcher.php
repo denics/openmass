@@ -2,6 +2,7 @@
 
 namespace Drupal\mass_map;
 
+use Drupal\mayflower\Helper;
 use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\image\Entity\ImageStyle;
 use Drupal\node\Entity\Node;
@@ -18,16 +19,42 @@ class MapLocationFetcher {
    * Get location information from nodes.
    *
    * @param array $nids
-   *   A list of nodes containing locations.
+   *   A list of nids which reference contact info with addresses.
    *
    * @return array
-   *   An array of location data and addresses keyed by the nid it belongs to.
+   *   An array of location data to populate locationListing data structure.
    */
   public function getLocations(array $nids) {
     $node_storage = \Drupal::entityManager()->getStorage('node');
     $nodes = $node_storage->loadMultiple($nids);
 
+    // Create the locationListing parent data structure contents.
     $locations = [];
+
+    // Create the location filter form data structure.
+    // See @molecules/location-filters.md
+    $locations['locationFilters'] = [
+      'zipcode' => [
+        'inputText' => [
+          'labelText' => 'Show closest to',
+          'required' => FALSE,
+          'id' => 'filter-by-location',
+          'name' => 'filter-by-location',
+          'placeholder' => 'City, town, or ZIP code',
+        ],
+      ],
+      'tags' => [
+        // @TODO consider making this configurable
+        [
+          'value' => 'wheelchair',
+          'id' => 'wheelchair',
+          'label' => 'Wheelchair accessible',
+          'checked' => 'false',
+          'icon' => '@atoms/05-icons/svg-wheelchair.twig',
+        ]
+      ],
+      'submitButton' => 'Submit',
+    ];
 
     $locations['form'] = [
       'action' => '#',
@@ -52,60 +79,76 @@ class MapLocationFetcher {
       ],
     ];
 
-    $locations['activeFilters'] = [
-      'nearby' => '02155',
-    ];
-
-    // mapProp.
+    // Scaffold the googleMap data structure (markers added later).
+    // See: @molecules/google-map.md
+    // @TODO consider making this configurable
     $locations['googleMap']['map']['zoom'] = 16;
     $locations['googleMap']['map']['center'] = [
       'lat' => '42.4072107',
       'lng' => '-71.3824374',
     ];
 
+    // Establish the maximum items per listing page.
+    // @todo consider making this configurable somewhere
+    $maxItemsPerPage = 8;
+    $locations['maxItems'] = $maxItemsPerPage;
+
+    // Populate the resultsHeading data structure.
+    // See @molecules/results-heading.md
+    $total_locations = count($nids);
+    $locations['resultsHeading'] = [
+      'numResults' => $total_locations >= $maxItemsPerPage ? '1-' . $maxItemsPerPage : '1-' . $total_locations,
+      'totalResults' => $total_locations,
+      // No active filters applied by default.
+      'tags' => NULL,
+    ];
+
+    // Get the location information from the nodes.
+    // Use $key vs $nid because PHP data -> JS array wants sequential keys.
+    $key = 0;
     foreach ($nodes as $node) {
-      $nid = $node->nid->value;
+      $node_type = $node->getType();
 
-      // Extract location and address info.
-      if ($node->getType() != 'action' || $node->getType() != 'stacked_layout') {
-        $locations['googleMap']['markers'][$nid] = $this->getLocation($node);
-        $locations['imagePromos']['items'][$nid] = $this->getContacts($node);
+      // Get location info from prototype content types.
+      if (!in_array($node_type, ['action', 'stacked_layout'])) {
+        $locations['googleMap']['markers'][$key] = $this->getLocation($node);
+        $locations['imagePromos']['items'][$key] = $this->getContacts($node);
       }
-      // Extract location and address info from right rail layout.
-      if ($node->getType() == 'action') {
-        $locations['googleMap']['markers'][$nid] = $this->getActionLocation($node);
-        $locations['imagePromos']['items'][$nid] = $this->getActionContacts($node);
+      if ($node_type == 'action') {
+        $locations['googleMap']['markers'][$key] = $this->getActionLocation($node);
+        $locations['imagePromos']['items'][$key] = $this->getActionContacts($node);
       }
-      // Extract location and address info from stacked layout.
-      if ($node->getType() == 'stacked_layout') {
-        $locations['googleMap']['markers'][$nid] = $this->getStackedLayoutLocation($node);
-        $locations['imagePromos']['items'][$nid] = $this->getStackedLayoutContacts($node);
+      if ($node_type == 'stacked_layout') {
+        $locations['googleMap']['markers'][$key] = $this->getStackedLayoutLocation($node);
+        $locations['imagePromos']['items'][$key] = $this->getStackedLayoutContacts($node);
       }
 
-      $locations['googleMap']['markers'][$nid]['infoWindow'] = $locations['imagePromos']['items'][$nid]['infoWindow'];
-      $locations['googleMap']['markers'][$nid]['infoWindow']['name'] = $node->getTitle();
-      $locations['googleMap']['markers'][$nid]['infoWindow']['description'] = $node->field_lede->value;
-      unset($locations['imagePromos']['items'][$nid]['infoWindow']);
+      // Get location information from location pages.
+      // Populate the googleMap.markers and imagePromos data structures.
+      $locations['googleMap']['markers'][$key]['infoWindow'] = $locations['imagePromos']['items'][$key]['infoWindow'];
+      $locations['googleMap']['markers'][$key]['infoWindow']['name'] = $node->getTitle();
+      $locations['googleMap']['markers'][$key]['infoWindow']['description'] = $node->field_lede->value;
+      unset($locations['imagePromos']['items'][$key]['infoWindow']);
 
       // Get the node title and link.
-      $locations['imagePromos']['items'][$nid]['title'] = [
+      $locations['imagePromos']['items'][$key]['title'] = [
         'text' => $node->getTitle(),
         'href' => $node->toUrl()->toString(),
         'type' => '',
       ];
 
+      // Get location listing page overview.
+      // @TODO use a field map array
       $overview = '';
-
       if (!empty($node->field_lede->value)) {
         $overview = $node->field_lede->value;
       }
-
       if (!empty($node->field_overview->value)) {
         $overview = $node->field_overview->value;
       }
 
       // Get the description for the node.
-      $locations['imagePromos']['items'][$nid]['description']['richText'] = [
+      $locations['imagePromos']['items'][$key]['description']['richText'] = [
         'rteElements' => [
           [
             'path' => '@atoms/11-text/raw-html.twig',
@@ -118,34 +161,123 @@ class MapLocationFetcher {
         ],
       ];
 
-      // Get the link for the node.
-      $locations['imagePromos']['items'][$nid]['link'] = [
+      // Set the listing image.
+      $locations['imagePromos']['items'][$key]['image'] = '';
+
+      // Get the banner image from the location page node.
+      $thumbnail = '';
+      if (Helper::isFieldPopulated($node, 'field_bg_wide') && $node->get('field_bg_wide')->referencedEntities()) {
+        $thumbnail = Helper::getFieldImageUrl($node, 'thumbnail_190x107', 'field_bg_wide');
+      }
+
+      // Get image for prototype content type node.
+      if (Helper::isFieldPopulated($node, 'field_photo') && $node->get('field_photo')->referencedEntities()) {
+        $thumbnail = Helper::getFieldImageUrl($node, 'thumbnail_190x107', 'field_photo');
+      }
+
+      // If location page has a banner image, use it as the listing item image.
+      if ($thumbnail) {
+        $locations['imagePromos']['items'][$key]['image'] = [
+          'src' => $thumbnail,
+          'alt' => $node->getTitle(),
+        ];
+      }
+
+      // Get the available location icon taxonomy term names and sprites.
+      $tags = [];
+      if (Helper::isFieldPopulated($node, 'field_location_icons')) {
+        $icons = Helper::getReferencedEntitiesFromField($node, 'field_location_icons');
+
+        // Get the icon name (value) for each term.
+        foreach ($icons as $term) {
+          $field_sprite_name = $term->get('field_sprite_name');
+          if ($field_sprite_name->count() > 0) {
+            $sprite_name = $field_sprite_name->first()->getValue();
+            $sprite = $sprite_name['value'];
+          }
+
+          // For filterable icon/term types, create a tag.
+          // @TODO consider making the accepted values configurable.
+          if (in_array($sprite, ['wheelchair', 'open-now'])) {
+            $title = $term->getName();
+            $tags[] = [
+              "label" => $title,
+              "icon" => "@atoms/05-icons/svg-" . $sprite . ".twig",
+              "id" => $sprite,
+            ];
+          }
+        }
+      }
+
+      // Add all filterable icon/terms as this listing's imagePromo tags.
+      $locations['imagePromos']['items'][$key]['tags'] = $tags;
+
+      // Create a map link for the node.
+      $locations['imagePromos']['items'][$key]['link'] = [
         'text' => "Directions",
-        'href' => 'https://www.google.com/maps/place/' . $locations['imagePromos']['items'][$nid]['location']['text'],
+        'href' => 'https://www.google.com/maps/place/' . $locations['imagePromos']['items'][$key]['location']['text'],
         'type' => "external",
         'info' => '',
       ];
 
-      // Phone icon and number.
+      // Get phone number from the referenced contact info node.
       if (!empty($node->field_ref_contact_info_1->entity->field_ref_phone_number->entity->field_phone->value)) {
         $phone = $node->field_ref_contact_info_1->entity->field_ref_phone_number->entity->field_phone->value;
-        // Get the phone for the node.
-        $locations['imagePromos']['items'][$nid]['phone'] = [
+
+        // Add the phone number to the listing item imagePromo.
+        $locations['imagePromos']['items'][$key]['phone'] = [
           'text' => $phone,
         ];
       }
 
-      // Get image.
-      $locations['imagePromos']['items'][$nid]['image'] = '';
-      if ($node->hasField('field_photo') && $node->get('field_photo')->referencedEntities()) {
-        $locations['googleMap']['markers'][$nid]['infoWindow']['image'] = ImageStyle::load('thumbnail_190_107')->buildUrl($node->get('field_photo')->referencedEntities()[0]->getFileUri());
-        $locations['imagePromos']['items'][$nid]['image'] = [
-          'image' => ImageStyle::load('thumbnail_190_107')->buildUrl($node->get('field_photo')->referencedEntities()[0]->getFileUri()),
-          'text'  => $node->getTitle(),
-          'href'  => '',
-        ];
-      }
+      $key++;
     }
+
+    // IMPORTANT: imagePromos and googleMap.markers need to be in same order.
+    // Sort imagePromos alphabetically by title text by default.
+    usort($locations['imagePromos']['items'], function ($a, $b) {
+      return strcmp($a['title']['text'], $b['title']['text']);
+    });
+    // Sort map markers alphabetically by infoWindow Name by default.
+    usort($locations['googleMap']['markers'], function ($a, $b) {
+      return strcmp($a['infoWindow']['name'], $b['infoWindow']['name']);
+    });
+
+    // Scaffold out pagination data structure.
+    // See @molecules/pagination.md
+    $pages = [
+      'pages' => [],
+    ];
+
+    // Determine the number of pages by imagePromos + max items per page.
+    $numPages = ceil(count($locations['imagePromos']['items']) / $maxItemsPerPage);
+
+    // Populate the pagination, making the first page active by default.
+    for ($i = 1; $i <= $numPages; $i++) {
+      $pages['pages'][$i - 1] = [
+        'active' => $i === 1 ? TRUE : FALSE,
+        'text' => strval($i),
+      ];
+    }
+
+    // Populate pagination next button, enabled if there are +1 pages.
+    $next = [
+      'next' => [
+        'disabled' => $numPages <= 1 ? TRUE : FALSE,
+        'text' => 'Next',
+      ],
+    ];
+
+    // Populate pagination previous button, disabled by default.
+    $prev = [
+      'prev' => [
+        // Assumes we are sending page 1 active.
+        'disabled' => TRUE,
+        'text' => 'Previous',
+      ],
+    ];
+
+    $locations['pagination'] = array_merge($prev, $pages, $next);
 
     return $locations;
   }

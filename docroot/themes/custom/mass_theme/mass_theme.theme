@@ -555,11 +555,12 @@ function mass_theme_preprocess_node_org_page(&$variables) {
       'locationDetailsLink' => [
         'display' => TRUE,
         'nid' => $node->id(),
+        'path' => \Drupal::service('path.alias_manager')->getAliasByPath('/node/' . $node->id()),
       ],
     ];
 
     // We need a different Google map config for PL tpls.
-    $variables['#attached']['library'][] = 'mass_theme/mass-google-map-apis-location';
+    // $variables['#attached']['library'][] = 'mass_theme/mass-google-map-apis-location';.
 
     $sections[] = [
       'pageContent' => [
@@ -607,7 +608,7 @@ function mass_theme_preprocess_node_location(&$variables) {
   $node = $variables['node'];
 
   // We need a different Google map config for PL tpls.
-  $variables['#attached']['library'][] = 'mass_theme/mass-google-map-apis-location';
+  // $variables['#attached']['library'][] = 'mass_theme/mass-google-map-apis-location';.
 
   // Set static actionHeader properties to pass to prepare function.
   $pageHeader_options = [
@@ -1121,10 +1122,12 @@ function mass_theme_preprocess_node_service_page(&$variables) {
         'title' => t('Locations'),
         'type' => 'compHeading',
       ],
+      'locationDetailsLink' => [
+        'display' => TRUE,
+        'nid' => $node->id(),
+        'path' => \Drupal::service('path.alias_manager')->getAliasByPath('/node/' . $node->id()),
+      ],
     ];
-
-    // We need a different Google map config for PL tpls.
-    $variables['#attached']['library'][] = 'mass_theme/mass-google-map-apis-location';
     $variables['mappedLocations'] = Organisms ::prepareMappedLocations($node->field_service_ref_locations->referencedEntities(), $mappedLocations_options);
   }
 

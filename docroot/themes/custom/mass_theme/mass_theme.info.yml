@@ -7,6 +7,7 @@ libraries:
   - mass_theme/global-styling
   - mass_theme/js-header
   - mass_theme/js-vendor
+  - mass_theme/mass-google-map-apis-location
 
 engine: simpler_twig
 base theme: false

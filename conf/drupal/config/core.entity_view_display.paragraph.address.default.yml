@@ -4,7 +4,6 @@ status: true
 dependencies:
   config:
     - field.field.paragraph.address.field_address_address
-    - field.field.paragraph.address.field_address_text
     - field.field.paragraph.address.field_geofield
     - field.field.paragraph.address.field_label
     - field.field.paragraph.address.field_lat_long

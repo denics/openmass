@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "b044492adb854697281505b0aa749267",
+    "content-hash": "eb718539fc901efe3624efd7242ffeb0",
     "packages": [
         {
             "name": "acquia/acquia-sdk-php",
@@ -5265,6 +5265,53 @@
             }
         },
         {
+            "name": "drupal/subpathauto",
+            "version": "1.0.0-beta1",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupal.org/project/subpathauto",
+                "reference": "8.x-1.0-beta1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/subpathauto-8.x-1.0-beta1.zip",
+                "reference": "8.x-1.0-beta1",
+                "shasum": "9dc67937f6a4e8a07aa311fa380adf0740993def"
+            },
+            "require": {
+                "drupal/core": "~8.0"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.0-beta1",
+                    "datestamp": "1479450840"
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Dave Reid",
+                    "homepage": "https://www.drupal.org/user/53892"
+                },
+                {
+                    "name": "lauriii",
+                    "homepage": "https://www.drupal.org/user/1078742"
+                }
+            ],
+            "description": "Provides support for extending sub-paths of URL aliases.",
+            "homepage": "https://www.drupal.org/project/subpathauto",
+            "support": {
+                "source": "http://cgit.drupalcode.org/subpathauto"
+            }
+        },
+        {
             "name": "drupal/tfa",
             "version": "dev-1.x",
             "source": {
@@ -7222,16 +7269,16 @@
         },
         {
             "name": "palantirnet/mayflower-artifacts",
-            "version": "5.2.0",
+            "version": "5.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/massgov/mayflower-artifacts.git",
-                "reference": "633c2676977cfef8e1598d3c9d4b2727b3782091"
+                "reference": "f8330fdcdae286e717381a73a536a6310fffdd84"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/massgov/mayflower-artifacts/zipball/633c2676977cfef8e1598d3c9d4b2727b3782091",
-                "reference": "633c2676977cfef8e1598d3c9d4b2727b3782091",
+                "url": "https://api.github.com/repos/massgov/mayflower-artifacts/zipball/f8330fdcdae286e717381a73a536a6310fffdd84",
+                "reference": "f8330fdcdae286e717381a73a536a6310fffdd84",
                 "shasum": ""
             },
             "type": "library",
@@ -7246,10 +7293,10 @@
             ],
             "description": "This repository is the product of the built artifact from massgov/mayflower",
             "support": {
-                "source": "https://github.com/massgov/mayflower-artifacts/tree/5.2.0",
+                "source": "https://github.com/massgov/mayflower-artifacts/tree/5.3.0",
                 "issues": "https://github.com/massgov/mayflower-artifacts/issues"
             },
-            "time": "2017-06-19T23:49:36+00:00"
+            "time": "2017-06-23T14:38:10+00:00"
         },
         {
             "name": "palantirnet/the-build",
@@ -11930,6 +11977,7 @@
         "drupal/rabbit_hole": 20,
         "drupal/restrict_by_ip": 20,
         "drupal/security_review": 20,
+        "drupal/subpathauto": 10,
         "drupal/xmlsitemap": 20,
         "mikeyp/google_tag": 20,
         "palantirnet/the-vagrant": 20,

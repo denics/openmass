@@ -963,7 +963,7 @@ class Organisms {
     }
 
     $link = [
-      'href' => '/map/' . $options['locationDetailsLink']['nid'],
+      'href' => $options['locationDetailsLink']['path'] . '/locations',
       'text' => t('Location Details'),
       'chevron' => 'true',
     ];
