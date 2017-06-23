@@ -2946,21 +2946,29 @@ function mass_theme_preprocess_paragraph__related_content(&$variables) {
  *   The twig layout to be used.
  */
 function _get_layout(array $total_type_with_count, $total_count) {
-  // Tests for using bullets.
+  // If all content is "stacked_layout", we use "bullets".
   if (
-    $total_type_with_count['stacked_layout'] == $total_count) {
+    $total_type_with_count['stacked_layout'] == $total_count ||
+    $total_type_with_count['org_page'] == $total_count) {
     return 'bullets';
   }
-  // Tests for using Action Card layout.
+
+  // If all content is Right Rail, use actionCards.
+  // If content is Right Rail and Stacked Layout, use actionCards.
   if (
     $total_type_with_count['action'] == $total_count ||
-    $total_type_with_count['action'] + $total_type_with_count['stacked_layout'] == $total_count) {
+    $total_type_with_count['action'] + $total_type_with_count['stacked_layout'] == $total_count ||
+    $total_type_with_count['action'] + $total_type_with_count['how_to_page'] + $total_type_with_count['service_details'] == $total_count ||
+    $total_type_with_count['action'] + $total_type_with_count['how_to_page'] + $total_type_with_count['stacked_layout'] + $total_type_with_count['guide_page'] == $total_count) {
     return 'actionCards';
   }
+
   // Tests for using Topic Card layout.
   if (
     $total_type_with_count['topic'] + $total_type_with_count['subtopic'] == $total_count ||
-    $total_type_with_count['topic'] + $total_type_with_count['subtopic'] + $total_type_with_count['stacked_layout'] == $total_count) {
+    $total_type_with_count['topic'] + $total_type_with_count['subtopic'] + $total_type_with_count['stacked_layout'] == $total_count ||
+    $total_type_with_count['topic'] + $total_type_with_count['subtopic'] + $total_type_with_count['topic_page'] + $total_type_with_count['service_page'] == $total_count ||
+    $total_type_with_count['topic'] + $total_type_with_count['subtopic'] + $total_type_with_count['topic_page'] + $total_type_with_count['stacked_layout'] == $total_count) {
     return 'topicCards';
   }
 
