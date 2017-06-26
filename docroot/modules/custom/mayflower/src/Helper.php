@@ -667,14 +667,16 @@ class Helper {
       $field = Helper::getMappedFields($entity, $map);
       $hours_render_array = $entity->field_hours_structured->view('full');
 
-      $rteElements[] = [
-        'path' => '@atoms/04-headings/heading-4.twig',
-        'data' => [
-          'heading4' => [
-            'text' => Helper::fieldValue($entity, $field['label']),
+      if (Helper::isFieldPopulated($entity, $field['label'])) {
+        $rteElements[] = [
+          'path' => '@atoms/04-headings/heading-4.twig',
+          'data' => [
+            'heading4' => [
+              'text' => Helper::fieldValue($entity, $field['label']),
+            ],
           ],
-        ],
-      ];
+        ];
+      }
 
       $rteElements[] = [
         'path' => '@atoms/11-text/paragraph.twig',
