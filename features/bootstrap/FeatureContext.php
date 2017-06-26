@@ -1220,5 +1220,17 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
     $this->getSession()->visit($this->locatePath('/node/' . $saved->nid . '/edit'));
   }
 
+  /**
+   * @Then I should see text matching :string_match in field :field_css_selector
+   */
+  public function iShouldSeeTextMatchingInField($string_match, $field_css_selector)
+  {
+    $page = $this->getMink()->getSession()->getPage();
+    $match = $page->find('css', $field_css_selector)->getAttribute('value');
+    if ($match != $string_match){
+      throw new Exception('Incorrect result');
+    }
+  }
+
 
 }
