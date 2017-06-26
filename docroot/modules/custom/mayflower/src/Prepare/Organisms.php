@@ -1290,7 +1290,7 @@ class Organisms {
       // Determines which fieldnames to use from the map.
       $fields = Helper::getMappedFields($activityEntity, $map);
 
-      $items[] = Molecules::prepareImagePromo($activityEntity, $fields);
+      $items[] = Molecules::prepareImagePromo($activityEntity, $fields, []);
     }
 
     return ['items' => $items];
