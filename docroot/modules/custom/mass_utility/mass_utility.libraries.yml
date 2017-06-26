@@ -1,0 +1,6 @@
+mass_utility.signee_command:
+  version: 0.1
+  js:
+    js/mass_utility.populate_signee_command.js: {}
+  dependencies:
+     - core/drupal.ajax

@@ -1,14 +1,16 @@
-uuid: b2ac0e28-725a-43e2-b16f-cf5994ee6804
+uuid: 332bc5a6-6634-4a6a-9869-4617c9cc592e
 langcode: en
 status: true
 dependencies:
   module:
     - paragraphs
-id: paragraph.field_state_org_description
-field_name: field_state_org_description
+id: paragraph.field_state_org_photo_url
+field_name: field_state_org_photo_url
 entity_type: paragraph
-type: string_long
+type: string
 settings:
+  max_length: 255
+  is_ascii: false
   case_sensitive: false
 module: core
 locked: false

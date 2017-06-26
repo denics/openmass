@@ -11,7 +11,7 @@ id: paragraph.state_organization.field_state_org_photo
 field_name: field_state_org_photo
 entity_type: paragraph
 bundle: state_organization
-label: 'Photo (Optional)'
+label: 'Replace Photo'
 description: ''
 required: false
 translatable: false
@@ -23,7 +23,7 @@ settings:
   max_filesize: ''
   max_resolution: ''
   min_resolution: ''
-  alt_field: true
+  alt_field: false
   alt_field_required: true
   title_field: false
   title_field_required: false

@@ -9,25 +9,7 @@ dependencies:
     - field.field.paragraph.media_contact.field_media_contact_ref_person
     - paragraphs.paragraphs_type.media_contact
   module:
-    - field_group
     - workbench_moderation
-third_party_settings:
-  field_group:
-    group_static_content:
-      children:
-        - field_media_contact_name
-        - field_media_contact_email
-        - field_media_contact_phone
-      parent_name: ''
-      weight: 1
-      format_type: details
-      format_settings:
-        label: 'Static content'
-        required_fields: true
-        id: ''
-        classes: ''
-        open: false
-      label: 'Static content'
 id: paragraph.media_contact.default
 targetEntityType: paragraph
 bundle: media_contact

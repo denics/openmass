@@ -1413,6 +1413,8 @@ function mass_theme_preprocess_node_press_release(&$variables) {
 
     // Build sidebar.contactList, which is a subset of pageContent.ContactList.
     $sidebar['contactList'] = Helper::getPrimaryContactPhoneOnlineContactList($pageContent['contactList']);
+    unset($sidebar['contactList']['compHeading']);
+    $sidebar['contactList']['sidebarHeading']['title'] = t('Media Contact');
     $sidebar['contactList']['viewSpecific'] = TRUE;
   }
 

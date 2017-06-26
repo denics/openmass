@@ -6,11 +6,11 @@ dependencies:
     - field.field.paragraph.state_organization.field_state_org_description
     - field.field.paragraph.state_organization.field_state_org_name
     - field.field.paragraph.state_organization.field_state_org_photo
+    - field.field.paragraph.state_organization.field_state_org_photo_url
     - field.field.paragraph.state_organization.field_state_org_ref_org
     - paragraphs.paragraphs_type.state_organization
   module:
     - image
-    - text
 id: paragraph.state_organization.default
 targetEntityType: paragraph
 bundle: state_organization
@@ -21,7 +21,7 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: text_default
+    type: basic_string
   field_state_org_name:
     weight: 1
     label: above
@@ -30,13 +30,20 @@ content:
     third_party_settings: {  }
     type: string
   field_state_org_photo:
-    weight: 3
+    weight: 4
     label: above
     settings:
       image_style: ''
       image_link: ''
     third_party_settings: {  }
     type: image
+  field_state_org_photo_url:
+    weight: 3
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
   field_state_org_ref_org:
     weight: 0
     label: above
