@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "eb718539fc901efe3624efd7242ffeb0",
+    "content-hash": "e5be2fac75a6286dc0d36a6f7fbcadf9",
     "packages": [
         {
             "name": "acquia/acquia-sdk-php",
@@ -197,8 +197,7 @@
                 "url": "https://github.com/blakestein/drupal-datalayer-d8.git",
                 "reference": "3b2ffa7"
             },
-            "type": "drupal-module",
-            "time": "2017-01-05 00:00:58"
+            "type": "drupal-module"
         },
         {
             "name": "caxy/php-htmldiff",
@@ -1696,8 +1695,7 @@
             "homepage": "https://www.drupal.org/project/access_unpublished",
             "support": {
                 "source": "http://cgit.drupalcode.org/access_unpublished"
-            },
-            "time": "2017-01-26 16:59:48"
+            }
         },
         {
             "name": "drupal/acquia_connector",
@@ -1932,8 +1930,7 @@
             "homepage": "https://www.drupal.org/project/better_field_descriptions",
             "support": {
                 "source": "http://cgit.drupalcode.org/better_field_descriptions"
-            },
-            "time": "2017-04-17 10:36:09"
+            }
         },
         {
             "name": "drupal/clamav",
@@ -2430,12 +2427,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/drupal/core.git",
-                "reference": "c63ef7a000bdfe2286cf2eeec6efdf4298dfc6a8"
+                "reference": "7ccc248f4058dd5985ad0c61c129243d0d2b58b8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/drupal/core/zipball/c63ef7a000bdfe2286cf2eeec6efdf4298dfc6a8",
-                "reference": "c63ef7a000bdfe2286cf2eeec6efdf4298dfc6a8",
+                "url": "https://api.github.com/repos/drupal/core/zipball/7ccc248f4058dd5985ad0c61c129243d0d2b58b8",
+                "reference": "7ccc248f4058dd5985ad0c61c129243d0d2b58b8",
                 "shasum": ""
             },
             "require": {
@@ -2583,7 +2580,8 @@
                     "Remove drupal.js error. (https://www.drupal.org/node/2661880)": "https://www.drupal.org/files/issues/quickedit-undefined-attr-2661880-14.patch",
                     "Don't break if telephone number is less than 6 digits. (https://www.drupal.org/node/2575577#comment-11750724)": "https://www.drupal.org/files/issues/2575577-11.patch",
                     "Replace (in ajax_view.js) $.size with .length since .size is deprecated.": "https://www.drupal.org/files/issues/drupal-8.3.x-remove-jquery-size-for-ajax_view-2828140-3_0.patch",
-                    "Fix photo disappearing from org page. Fix Contextual Links js bug.": "https://www.drupal.org/files/issues/2551373-32.patch"
+                    "Fix photo disappearing from org page. Fix Contextual Links js bug.": "https://www.drupal.org/files/issues/2551373-32.patch",
+                    "Link autocomplete content type filter. (https://www.drupal.org/node/2887376)": "https://www.drupal.org/files/issues/link-autocomplete-ct-filter.patch"
                 }
             },
             "autoload": {
@@ -4670,8 +4668,7 @@
             "homepage": "https://www.drupal.org/project/password_policy",
             "support": {
                 "source": "http://cgit.drupalcode.org/password_policy"
-            },
-            "time": "2017-05-22 16:11:07"
+            }
         },
         {
             "name": "drupal/pathauto",
@@ -5363,8 +5360,7 @@
             "homepage": "https://www.drupal.org/project/tfa",
             "support": {
                 "source": "http://cgit.drupalcode.org/tfa"
-            },
-            "time": "2016-08-23 20:32:20"
+            }
         },
         {
             "name": "drupal/token",

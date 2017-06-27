@@ -32,7 +32,8 @@ class LinkItem extends FieldItemBase implements LinkItemInterface {
   public static function defaultFieldSettings() {
     return array(
       'title' => DRUPAL_OPTIONAL,
-      'link_type' => LinkItemInterface::LINK_GENERIC
+      'link_type' => LinkItemInterface::LINK_GENERIC,
+      'content_types' => array()
     ) + parent::defaultFieldSettings();
   }
 
@@ -107,6 +108,20 @@ class LinkItem extends FieldItemBase implements LinkItemInterface {
         DRUPAL_OPTIONAL => t('Optional'),
         DRUPAL_REQUIRED => t('Required'),
       ),
+    );
+    
+    // Get a list of content types.
+    $contentTypes = \Drupal::service('entity.manager')->getStorage('node_type')->loadMultiple();
+    $contentTypesList = [];
+    foreach ($contentTypes as $contentType) {
+      $contentTypesList[$contentType->id()] = $contentType->label();
+    }
+    // Add checkboxes for selecting content types to filter by.
+    $element['content_types'] = array(
+      '#type' => 'checkboxes',
+      '#title' => t('Content Types for Internal Links'),
+      '#default_value' => $this->getSetting('content_types'),
+      '#options' => $contentTypesList
     );
 
     return $element;
