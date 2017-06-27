@@ -240,16 +240,22 @@ function mass_theme_preprocess_node_how_to_page(&$variables) {
 
   // Build methods tabular data if field is populated.
   if (Helper::isFieldPopulated($node, 'field_how_to_ref_fees')) {
+    // Set up section title for heading, sticky nav.
+    $fees_title = t('Fees');
+
     // Set up options for how to ___.
     $tabularData_options = [
       'heading' => [
         'type' => 'compHeading',
-        'title' => t('Fees'),
+        'title' => $fees_title,
         'sub' => TRUE,
       ],
     ];
 
     $pageContent['tabularData'] = Organisms::prepareTabularData($node, $tabularData_options);
+
+    // Set up corresponding sticky nav entry for fees.
+    $stickyNav[] = $fees_title;
 
   }
 
