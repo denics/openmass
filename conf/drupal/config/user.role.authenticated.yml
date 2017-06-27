@@ -18,5 +18,3 @@ permissions:
   - 'access shortcuts'
   - 'search content'
   - 'view media'
-  - 'flag watch_content'
-  - 'unflag watch_content'
