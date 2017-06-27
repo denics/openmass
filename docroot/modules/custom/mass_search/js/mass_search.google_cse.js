@@ -30,10 +30,10 @@
     for (var i = 0, j = inputContainer.length; i < j; i++) {
       inputLabel = document.createElement('label');
       inputLabel.classList.add('visually-hidden');
-      inputLabel.textContent = 'Search';
+      inputLabel.textContent = 'Search terms';
       actualInput = inputContainer[i].querySelector('input');
       // Add placeholder
-      actualInput.setAttribute('placeholder', 'Search...');
+      actualInput.setAttribute('placeholder', 'Search Mass.gov');
 
       // Add label to search input
       inputLabel.setAttribute('for', actualInput.id);
