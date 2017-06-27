@@ -45,9 +45,9 @@ spi:
     variables: {  }
     time: 0
   cron_interval: 28800
-  site_name: 'MassIT - Commonwealth of Massachusetts: dev'
-  site_machine_name: ff8ed1de_b8bc_48a4_b316_cd91bfa192c4__massgovdev
-  site_uuid: 99a8af42-8e4b-4e8f-a1e1-8833240e276b
+  site_name: 'MassIT - Commonwealth of Massachusetts: prod'
+  site_machine_name: ff8ed1de_b8bc_48a4_b316_cd91bfa192c4__massgov
+  site_uuid: e5a6d475-1bec-4a33-af6a-67e6fba5d2f7
 mapping:
   acquia_spi_send_node_user:
     - acquia_connector.settings
