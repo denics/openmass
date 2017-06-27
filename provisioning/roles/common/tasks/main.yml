@@ -83,8 +83,60 @@
     owner: vagrant
     group: vagrant
     mode: 0400
-    
+
 - name: Upgrade composer
   become: True
   command: composer self-update
   tags: common
+
+# swap space starts
+# remove old 1G created swap
+- name: Disable old swap "drupalbox--vg-swap_1"
+  become: True
+  command: swapoff /dev/mapper/drupalbox--vg-swap_1
+
+- name: Remove old swap "drupalbox--vg-swap_1"
+  become: True
+  file: path=/dev/mapper/drupalbox--vg-swap_1 state=absent
+
+# create or update replacement swap
+- name: Disable swap file for modification
+  become: True
+  command: swapoff /swapfile
+
+- name: Remove swap file for replacement
+  become: True
+  file: path=/swapfile state=absent
+
+- name: Create a swap file
+  become: True
+  command: dd if=/dev/zero of=/swapfile bs=1G count=4
+
+- name: Set permissions on "/swapfile"
+  become: True
+  file: path=/swapfile mode=600 state=file
+
+- name: Mark "/swapfile" as swap space
+  become: True
+  command: mkswap /swapfile
+
+- name: Add "/swapfile" entry to "fstab"
+  become: True
+  action: lineinfile dest=/etc/fstab regexp="swapfile" line="/swapfile none swap sw 0 0" state=present
+
+- name: Mount "/swapfile"
+  become: True
+  command: swapon /swapfile
+
+- name: Set swapiness
+  become: True
+  sysctl:
+    name: vm.swappiness
+    value: "10"
+
+- name: Set swapiness
+  become: True
+  sysctl:
+    name: vm.vfs_cache_pressure
+    value: "50"
+# swap space ends.
