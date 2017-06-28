@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "e5be2fac75a6286dc0d36a6f7fbcadf9",
+    "content-hash": "55e2d7d8e3965650e34957d64256ab74",
     "packages": [
         {
             "name": "acquia/acquia-sdk-php",
@@ -197,7 +197,8 @@
                 "url": "https://github.com/blakestein/drupal-datalayer-d8.git",
                 "reference": "3b2ffa7"
             },
-            "type": "drupal-module"
+            "type": "drupal-module",
+            "time": "2017-01-05 00:00:58"
         },
         {
             "name": "caxy/php-htmldiff",
@@ -1695,7 +1696,8 @@
             "homepage": "https://www.drupal.org/project/access_unpublished",
             "support": {
                 "source": "http://cgit.drupalcode.org/access_unpublished"
-            }
+            },
+            "time": "2017-01-26 16:59:48"
         },
         {
             "name": "drupal/acquia_connector",
@@ -1930,7 +1932,8 @@
             "homepage": "https://www.drupal.org/project/better_field_descriptions",
             "support": {
                 "source": "http://cgit.drupalcode.org/better_field_descriptions"
-            }
+            },
+            "time": "2017-04-17 10:36:09"
         },
         {
             "name": "drupal/clamav",
@@ -2816,7 +2819,8 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/diff",
                 "issues": "https://www.drupal.org/project/issues/diff"
-            }
+            },
+            "time": "2017-01-09 10:31:38"
         },
         {
             "name": "drupal/draggableviews",
@@ -2873,7 +2877,8 @@
             "homepage": "https://www.drupal.org/project/draggableviews",
             "support": {
                 "source": "http://cgit.drupalcode.org/draggableviews"
-            }
+            },
+            "time": "2016-10-21 18:47:50"
         },
         {
             "name": "drupal/dropzonejs",
@@ -3129,7 +3134,8 @@
             "homepage": "https://www.drupal.org/project/encrypt",
             "support": {
                 "source": "http://cgit.drupalcode.org/encrypt"
-            }
+            },
+            "time": "2016-08-05 15:43:56"
         },
         {
             "name": "drupal/entity",
@@ -3541,6 +3547,78 @@
             "homepage": "https://www.drupal.org/project/file_browser",
             "support": {
                 "source": "http://cgit.drupalcode.org/file_browser"
+            },
+            "time": "2017-04-26 17:09:14"
+        },
+        {
+            "name": "drupal/flag",
+            "version": "4.0.0-alpha2",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupal.org/project/flag",
+                "reference": "8.x-4.0-alpha2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/flag-8.x-4.0-alpha2.zip",
+                "reference": "8.x-4.0-alpha2",
+                "shasum": "e9ead06aadc9d26364b9ad1225354b0c47d5ce02"
+            },
+            "require": {
+                "drupal/core": "~8.0"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-4.x": "4.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-4.0-alpha2",
+                    "datestamp": "1494517385"
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "fago",
+                    "homepage": "https://www.drupal.org/user/16747"
+                },
+                {
+                    "name": "fubhy",
+                    "homepage": "https://www.drupal.org/user/761344"
+                },
+                {
+                    "name": "joachim",
+                    "homepage": "https://www.drupal.org/user/107701"
+                },
+                {
+                    "name": "merlinofchaos",
+                    "homepage": "https://www.drupal.org/user/26979"
+                },
+                {
+                    "name": "mooffie",
+                    "homepage": "https://www.drupal.org/user/78454"
+                },
+                {
+                    "name": "quicksketch",
+                    "homepage": "https://www.drupal.org/user/35821"
+                },
+                {
+                    "name": "shabana.navas",
+                    "homepage": "https://www.drupal.org/user/1311398"
+                },
+                {
+                    "name": "socketwench",
+                    "homepage": "https://www.drupal.org/user/65793"
+                }
+            ],
+            "description": "Create customized flags that users can set on entities.",
+            "homepage": "https://www.drupal.org/project/flag",
+            "support": {
+                "source": "http://cgit.drupalcode.org/flag"
             }
         },
         {
@@ -3642,7 +3720,8 @@
             "homepage": "https://www.drupal.org/project/ga_login",
             "support": {
                 "source": "http://cgit.drupalcode.org/ga_login"
-            }
+            },
+            "time": "2016-08-19 19:20:09"
         },
         {
             "name": "drupal/geocoder",
@@ -3976,7 +4055,8 @@
             "homepage": "https://www.drupal.org/project/inline_entity_form",
             "support": {
                 "source": "http://cgit.drupalcode.org/inline_entity_form"
-            }
+            },
+            "time": "2016-11-14 20:32:26"
         },
         {
             "name": "drupal/key",
@@ -4082,7 +4162,8 @@
                 "source": "http://cgit.drupalcode.org/libraries",
                 "issues": "http://drupal.org/project/issues/libraries",
                 "irc": "irc://irc.freenode.org/drupal-contribute"
-            }
+            },
+            "time": "2017-03-15 17:04:08"
         },
         {
             "name": "drupal/media_entity",
@@ -4491,7 +4572,8 @@
             "homepage": "https://www.drupal.org/project/node_edit_protection",
             "support": {
                 "source": "http://cgit.drupalcode.org/node_edit_protection"
-            }
+            },
+            "time": "2016-07-21 12:38:12"
         },
         {
             "name": "drupal/office_hours",
@@ -4611,7 +4693,8 @@
             "homepage": "https://www.drupal.org/project/paragraphs",
             "support": {
                 "source": "http://cgit.drupalcode.org/paragraphs"
-            }
+            },
+            "time": "2017-04-20 08:52:17"
         },
         {
             "name": "drupal/password_policy",
@@ -4668,7 +4751,8 @@
             "homepage": "https://www.drupal.org/project/password_policy",
             "support": {
                 "source": "http://cgit.drupalcode.org/password_policy"
-            }
+            },
+            "time": "2017-05-22 16:11:07"
         },
         {
             "name": "drupal/pathauto",
@@ -4998,7 +5082,8 @@
             "support": {
                 "source": "https://cgit.drupalcode.org/rabbit_hole",
                 "issues": "https://www.drupal.org/project/issues/rabbit_hole"
-            }
+            },
+            "time": "2017-04-09 23:05:12"
         },
         {
             "name": "drupal/redirect",
@@ -5098,7 +5183,8 @@
             "homepage": "https://www.drupal.org/project/restrict_by_ip",
             "support": {
                 "source": "http://cgit.drupalcode.org/restrict_by_ip"
-            }
+            },
+            "time": "2016-06-26 23:12:23"
         },
         {
             "name": "drupal/restui",
@@ -5259,7 +5345,8 @@
             "homepage": "https://www.drupal.org/project/security_review",
             "support": {
                 "source": "http://cgit.drupalcode.org/security_review"
-            }
+            },
+            "time": "2016-10-20 15:43:48"
         },
         {
             "name": "drupal/subpathauto",
@@ -5360,7 +5447,8 @@
             "homepage": "https://www.drupal.org/project/tfa",
             "support": {
                 "source": "http://cgit.drupalcode.org/tfa"
-            }
+            },
+            "time": "2016-08-23 20:32:20"
         },
         {
             "name": "drupal/token",
@@ -5799,7 +5887,8 @@
             "homepage": "https://www.drupal.org/project/xmlsitemap",
             "support": {
                 "source": "http://cgit.drupalcode.org/xmlsitemap"
-            }
+            },
+            "time": "2016-12-07 10:00:27"
         },
         {
             "name": "drush/drush",
@@ -11400,7 +11489,8 @@
                 "source": "http://cgit.drupalcode.org/devel",
                 "issues": "http://drupal.org/project/devel",
                 "irc": "irc://irc.freenode.org/drupal-contribute"
-            }
+            },
+            "time": "2017-04-27 20:54:00"
         },
         {
             "name": "drupal/drupal-driver",
@@ -11963,6 +12053,7 @@
         "drupal/field_group": 5,
         "drupal/field_tokens": 10,
         "drupal/file_browser": 20,
+        "drupal/flag": 15,
         "drupal/geocoder": 15,
         "drupal/geofield": 15,
         "drupal/inline_entity_form": 20,

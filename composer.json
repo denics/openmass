@@ -138,6 +138,7 @@
         "drupal/field_group": "^1.0@RC",
         "drupal/field_tokens": "^1.0@beta",
         "drupal/file_browser": "1.x-dev",
+        "drupal/flag": "^4.0@alpha",
         "drupal/flood_unblock": "^1",
         "drupal/ga_login": "^1",
         "drupal/geocoder": "^2.0@alpha",
