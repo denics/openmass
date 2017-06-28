@@ -26,8 +26,8 @@ done
 # @TODO pull available environments via api
 remoteEnvironments=("prod" "test" "dev" "feature1" "feature2" "feature3" "feature4" "feature5" "cd")
 
-# cd into project root
-cd /var/www/mass.local
+# cd into document root so drush can see aliases
+cd /var/www/mass.local/docroot
 
 # Runs a command w/ success/fail handling
 function run {
@@ -97,7 +97,7 @@ if [ $? == 0 ]; then
   echo -e "\n"
   echo "config import"
   echo -e "------------------------------------------------------------------------"
-  run "drush -y --include=../vendor/previousnext/drush_cmi_tools cimy" "drush cimy" "📦"
+  run "drush -y config-import" "drush config-import" "📦"
 
   # rebuild drupal cache
   echo -e "\n"

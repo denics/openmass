@@ -93,13 +93,7 @@ function drush_massgov_ma_deploy($target, $git_ref) {
   drush_log(dt("Database and entity updates completed in $target."), 'success');
 
   // Import new config
-  // These options can be removed once /drush/drushrc.php is deployed everywhere.
-  $options = [
-    'include' => '../vendor/previousnext/drush_cmi_tools',
-    'source' => '../conf/drupal/config',
-    'delete-list' => '../conf/drupal/delete.yml',
-  ];
-  $return = drush_invoke_process($alias_target, 'cimy', [], $options);
+  $return = drush_invoke_process($alias_target, 'config-import', []);
   massgov_check_drush_error($return);
   drush_log(dt("Configuration imported in $target."), 'success');
 

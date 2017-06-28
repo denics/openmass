@@ -41,7 +41,7 @@ dependencies:
     # Apply any database updates required (as with running update.php)
     - cd docroot && drush -yv updatedb --entity-updates
     # Import config
-    - cd docroot && drush -yv --include=../vendor/previousnext/drush_cmi_tools cimy
+    - cd docroot && drush -yv config-import
     # Get a status
     - cd docroot && drush status
 
