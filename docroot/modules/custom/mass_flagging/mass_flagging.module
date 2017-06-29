@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * @file
+ * Contains mass_flagging.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function mass_flagging_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the mass_flagging module.
+    case 'help.page.mass_flagging':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Handles multiple flagging scenarios like watching and flagging.') . '</p>';
+      return $output;
+
+    default:
+  }
+}
