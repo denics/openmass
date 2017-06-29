@@ -19,8 +19,8 @@ if [ $REPO ] && [ -e $REPO/vendor/bin/drush ]; then
   THE_DRUSH="$REPO/vendor/bin/drush"
 fi
 
-if [ $REPO ] && [ -e $REPO/conf/drushrc.php ]; then
-  DRUSH_FLAGS="-c $REPO/conf/drushrc.php"
+if [ $REPO ]; then
+  DRUSH_FLAGS="-r $REPO/docroot"
 fi
 
 $THE_DRUSH $DRUSH_FLAGS $@
