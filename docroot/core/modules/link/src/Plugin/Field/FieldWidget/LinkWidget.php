@@ -184,6 +184,31 @@ class LinkWidget extends WidgetBase {
       // @todo The user should be able to select an entity type. Will be fixed
       //    in https://www.drupal.org/node/2423093.
       $element['uri']['#target_type'] = 'node';
+      // If limiting content types are selected in the settings, update the query.
+      if ($content_types = $this->getFieldSetting('content_types')) {
+        // Massage array values into format selections settings array expects.
+        foreach ($content_types as $key => $type) {
+          if ($type == '0') {
+            unset($content_types[$key]);
+          }
+          else {
+            $content_types[$key] = $key;
+          }
+        }
+        // Update selections settings to include limited list of content types.
+        if (!empty($content_types)) {
+          $element['uri']['#selection_handler'] = 'default:node';
+          $element['uri']['#selection_settings'] = [
+            'target_bundles' => $content_types,
+            'sort' => [
+              'field' => '_none',
+            ],
+            'auto_create' => FALSE,
+            'auto_create_bundle' => FALSE,
+            'match_operator' => 'CONTAINS',
+          ];
+        }
+      }
       // Disable autocompletion when the first character is '/', '#' or '?'.
       $element['uri']['#attributes']['data-autocomplete-first-character-blacklist'] = '/#?';
 

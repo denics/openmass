@@ -1,12 +1,10 @@
-uuid: 9766da83-19cc-479f-ae8c-f79496de943a
+uuid: 9a988b45-c958-4e6f-bd4a-e261a50a1cdd
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.paragraph.field_state_org_description
     - paragraphs.paragraphs_type.state_organization
-  module:
-    - text
 id: paragraph.state_organization.field_state_org_description
 field_name: field_state_org_description
 entity_type: paragraph
@@ -18,4 +16,4 @@ translatable: false
 default_value: {  }
 default_value_callback: ''
 settings: {  }
-field_type: text_long
+field_type: string_long

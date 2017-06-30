@@ -5,12 +5,16 @@
  * Contains mass_map.module.
  */
 
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\mayflower\Helper;
+
 /**
  * Implements hook_theme().
  */
 function mass_map_theme() {
   $theme['map_page'] = [
     'variables' => [
+      'pageHeader' => [],
       'locationListing' => [],
     ],
     'template' => 'map-page',
@@ -22,4 +26,217 @@ function mass_map_theme() {
     'template' => 'map-row',
   ];
   return $theme;
+}
+
+/**
+ * Implements hook_node_insert().
+ *
+ * @param \Drupal\Core\Entity\EntityInterface $node
+ *   The node being created.
+ */
+function mass_map_node_insert(EntityInterface $node) {
+
+  // Test if node type is one of those bundles with a location listing pages.
+  $location_listing_bundles = ['org_page', 'service_page'];
+  if (in_array($node->bundle(), $location_listing_bundles)) {
+    // Possible location fields for each bundle.
+    $map = [
+      'mappedLocations' => [
+        'field_org_ref_locations',
+        'field_service_ref_locations'
+      ],
+    ];
+
+    // Determines which field names to use from the map.
+    $fields = Helper::getMappedFields($node, $map);
+
+    $nid = $node->id();
+    if (!$nid) {
+      return;
+    }
+
+    // If there is a mapped location, make sure there's an active sitemap link.
+    if (array_key_exists('mappedLocations', $fields) && Helper::isFieldPopulated($node, $fields['mappedLocations'])) {
+      // Create an active site map link for this node's loc listing page.
+      $link = mass_map_make_location_listing_xmlsitemap_link($nid, 1);
+      // Add that link to the xml sitemap.
+      mass_map_xmlsitemap_add_link($link);
+    }
+  }
+}
+
+/**
+ * Implements hook_node_update().
+ *
+ * @param \Drupal\Core\Entity\EntityInterface $node
+ *   The node being updated.
+ */
+function mass_map_node_update(EntityInterface $node) {
+
+  // Test if node type is one of those bundles with a location listing pages.
+  $location_listing_bundles = ['org_page', 'service_page'];
+  if (in_array($node->bundle(), $location_listing_bundles)) {
+    // Possible location fields for each bundle.
+    $map = [
+      'mappedLocations' => [
+        'field_org_ref_locations',
+        'field_service_ref_locations'
+      ],
+    ];
+
+    // Determines which field names to use from the map.
+    $fields = Helper::getMappedFields($node, $map);
+
+    $nid = $node->id();
+    // Get listing page xmlsitemap link (enabled/disabled) associated with node.
+    $existing_sitemap_link = mass_map_get_location_listing_xmlsitemap_link($nid);
+
+    // If there is a mapped location, make sure there's an active sitemap link.
+    if (array_key_exists('mappedLocations', $fields) && Helper::isFieldPopulated($node, $fields['mappedLocations'])) {
+      // Create an active site map link for this node's loc listing page.
+      $link = mass_map_make_location_listing_xmlsitemap_link($nid, 1);
+
+      // Add the new enabled sitemap link.
+      if (empty($existing_sitemap_link)) {
+        mass_map_xmlsitemap_add_link($link);
+      }
+      // There's a link, but blindly enable + update it with up to date info.
+      else {
+        mass_map_xmlsitemap_update_link($link);
+      }
+    }
+    // There is no mapped location for the node (i.e. no listing page).
+    else {
+      // See if the node already has an xmlsitemap link associated with it.
+      if (!empty($existing_sitemap_link)) {
+        // Create a disabled sitemap link object with this node info.
+        $disabled_link = mass_map_make_location_listing_xmlsitemap_link($nid, 0);
+        // Update the sitemap link with disabled status and node info.
+        mass_map_xmlsitemap_update_link($disabled_link);
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_node_predelete().
+ *
+ * @param \Drupal\Core\Entity\EntityInterface $node
+ *   The node being deleted.
+ */
+function mass_map_node_predelete(EntityInterface $node) {
+
+  // Test if node type is one of those bundles with a location listing pages.
+  $location_listing_bundles = ['org_page', 'service_page'];
+  if (in_array($node->bundle(), $location_listing_bundles)) {
+
+    $nid = $node->id();
+    // See if it already has an enabled listing page sitemap link.
+    $existing_sitemap_link = mass_map_get_location_listing_xmlsitemap_link($nid, TRUE);
+
+    // Disable that link if it does.
+    if (!empty($existing_sitemap_link)) {
+      // Create a disabled sitemap link object with this node info.
+      $disabled_link = mass_map_make_location_listing_xmlsitemap_link($nid, 0);
+      // Set the status to exclude this from sitemap.
+      mass_map_xmlsitemap_update_link($disabled_link);
+    }
+  }
+}
+
+/**
+ * Adds an active xmlsitemap link to the xmlsitemap table in the DB.
+ *
+ * @param array $link
+ *   The xmlsitemap link array structure.
+ */
+function mass_map_xmlsitemap_add_link(array $link) {
+  db_insert('xmlsitemap')
+    ->fields([
+      'id' => $link['id'],
+      'type' => $link['type'],
+      'status' => $link['status'],
+      'loc' => $link['loc'],
+      'priority' => $link['priority'],
+      'changefreq' => $link['changefreq'],
+      'lastmod' => $link['lastmod'],
+      'language' => $link['language']
+    ])
+    ->execute();
+}
+
+/**
+ * Updates the past, status, and last modified date of an xmlsitemap link.
+ *
+ * @param array $link
+ *   The xmlsitemap link array structure.
+ */
+function mass_map_xmlsitemap_update_link(array $link) {
+  db_update('xmlsitemap')
+    ->fields([
+      'loc' => $link['loc'],
+      'status' => $link['status'],
+      'lastmod' => $link['lastmod'],
+    ])
+    ->condition('id', $link['id'])
+    ->condition('type', $link['type'])
+    ->execute();
+}
+
+/**
+ * Returns an xml sitemap link object or false if none exists.
+ *
+ * @param int $nid
+ *   The $nid whose listing page we are querying.
+ * @param bool $status
+ *   Whether or not to mandate that the sitemap link status be enabled.
+ *
+ * @return mixed
+ *   Associative array representing the link or False.
+ */
+function mass_map_get_location_listing_xmlsitemap_link($nid, $status = FALSE) {
+  $query = db_select('xmlsitemap', 'x');
+  $query->fields('x', ['loc', 'id', 'type', 'status', 'subtype']);
+  $query->condition('x.type', 'location_listing');
+  $query->condition('x.id', $nid);
+  if ($status) {
+    $query->condition('x.status', 1);
+  }
+  $links = $query->execute();
+  return $links->fetchAssoc();
+}
+
+/**
+ * Returns the array structure necessary to add a sitemap link to the DB.
+ *
+ * @param int $nid
+ *   The node id whose location listing route we are adding.
+ * @param int $status
+ *   The enabled (1) / disabled (0) state of the sitemap link.
+ *
+ * @return array
+ *   Returns the array structure necessary to add a sitemap link to the DB.
+ */
+function mass_map_make_location_listing_xmlsitemap_link($nid, $status) {
+  $node_path_alias = \Drupal::service('path.alias_manager')->getAliasByPath('/node/' . $nid);
+  // Use /node/id/locations only if the path alias doesn't resolve.
+  $path = $node_path_alias ? $node_path_alias : '/node/' . $nid;
+  // Get the current timestamp.
+  $timestamp = time();
+
+  return [
+    // Primary key with id.
+    'type' => 'location_listing',
+    // Primary key w/ type (so we can use $nid of parent node).
+    'id' => $nid,
+    // URL to be added to sitemap link.
+    'loc' => $path . '/locations',
+    // Whether or not this sitemap link is enabled 1/0.
+    'status' => $status,
+    'priority' => '0.5',
+    // 1 day = 24 h * 60 m * 60 s.
+    'changefreq' => '86400',
+    'language' => 'en',
+    'lastmod' => $timestamp,
+  ];
 }

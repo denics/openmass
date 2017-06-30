@@ -10,6 +10,9 @@ global-styling:
   js:
     libraries/jquery_once/jquery.once.min.js: {}
     overrides/js/env-drupal.js: {}
+#    overrides/js/locationListing.js: {scope: footer, preprocess: false}
+#    overrides/js/pagination.js: {scope: footer, preprocess: false}
+#    overrides/js/resultsHeading.js: {scope: footer, preprocess: false}
     js/index-generated.js: {}
     libraries/formstack/js/matchMayflower.js: {}
     libraries/ajax_views_ext/js/ajaxViewsExt.js: {}
@@ -22,6 +25,7 @@ js-header:
   header: true
   js:
     js/vendor/modernizr.js: {}
+    overrides/js/initGoogleMaps.js: {preprocess: false}
 
 js-vendor:
   header: true
@@ -33,5 +37,6 @@ interstitial-page:
     libraries/interstitial/js/interstitial-page.js: {}
 mass-google-map-apis-location:
   js:
-    //cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.6/handlebars.js: { type: external }
-    overrides/js/googleMap.js: {scope: footer, preprocess: false}
+    //maps.googleapis.com/maps/api/js?key=AIzaSyD5HXUVAA4VyRXVX50taVe2hDY8hy2JSdA&v=3.27&libraries=geometry,places,geocoder&callback=initGoogleMaps: {scope: header, type: external, attributes: { defer: true, async: true } }
+#    //cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.6/handlebars.js: { type: external }
+#    overrides/js/googleMap.js: {scope: footer, preprocess: false}

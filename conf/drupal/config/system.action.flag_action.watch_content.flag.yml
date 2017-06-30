@@ -1,0 +1,13 @@
+uuid: 63ce5c17-099d-4aa2-983a-06432c338a68
+langcode: en
+status: true
+dependencies:
+  module:
+    - flag
+id: flag_action.watch_content.flag
+label: Watch
+type: node
+plugin: 'flag_action:watch_content.flag'
+configuration:
+  flag_id: watch_content
+  flag_action: flag

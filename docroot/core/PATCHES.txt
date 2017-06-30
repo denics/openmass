@@ -17,3 +17,7 @@ Fix photo disappearing from org page. Fix Contextual Links js bug.
 Source: https://www.drupal.org/files/issues/2551373-32.patch
 
 
+Link autocomplete content type filter. (https://www.drupal.org/node/2887376)
+Source: https://www.drupal.org/files/issues/link-autocomplete-ct-filter.patch
+
+

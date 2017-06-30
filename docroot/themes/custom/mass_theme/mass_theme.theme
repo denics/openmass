@@ -240,16 +240,22 @@ function mass_theme_preprocess_node_how_to_page(&$variables) {
 
   // Build methods tabular data if field is populated.
   if (Helper::isFieldPopulated($node, 'field_how_to_ref_fees')) {
+    // Set up section title for heading, sticky nav.
+    $fees_title = t('Fees');
+
     // Set up options for how to ___.
     $tabularData_options = [
       'heading' => [
         'type' => 'compHeading',
-        'title' => t('Fees'),
+        'title' => $fees_title,
         'sub' => TRUE,
       ],
     ];
 
     $pageContent['tabularData'] = Organisms::prepareTabularData($node, $tabularData_options);
+
+    // Set up corresponding sticky nav entry for fees.
+    $stickyNav[] = $fees_title;
 
   }
 
@@ -555,11 +561,12 @@ function mass_theme_preprocess_node_org_page(&$variables) {
       'locationDetailsLink' => [
         'display' => TRUE,
         'nid' => $node->id(),
+        'path' => \Drupal::service('path.alias_manager')->getAliasByPath('/node/' . $node->id()),
       ],
     ];
 
     // We need a different Google map config for PL tpls.
-    $variables['#attached']['library'][] = 'mass_theme/mass-google-map-apis-location';
+    // $variables['#attached']['library'][] = 'mass_theme/mass-google-map-apis-location';.
 
     $sections[] = [
       'pageContent' => [
@@ -607,7 +614,7 @@ function mass_theme_preprocess_node_location(&$variables) {
   $node = $variables['node'];
 
   // We need a different Google map config for PL tpls.
-  $variables['#attached']['library'][] = 'mass_theme/mass-google-map-apis-location';
+  // $variables['#attached']['library'][] = 'mass_theme/mass-google-map-apis-location';.
 
   // Set static actionHeader properties to pass to prepare function.
   $pageHeader_options = [
@@ -1121,10 +1128,12 @@ function mass_theme_preprocess_node_service_page(&$variables) {
         'title' => t('Locations'),
         'type' => 'compHeading',
       ],
+      'locationDetailsLink' => [
+        'display' => TRUE,
+        'nid' => $node->id(),
+        'path' => \Drupal::service('path.alias_manager')->getAliasByPath('/node/' . $node->id()),
+      ],
     ];
-
-    // We need a different Google map config for PL tpls.
-    $variables['#attached']['library'][] = 'mass_theme/mass-google-map-apis-location';
     $variables['mappedLocations'] = Organisms ::prepareMappedLocations($node->field_service_ref_locations->referencedEntities(), $mappedLocations_options);
   }
 
@@ -1410,6 +1419,8 @@ function mass_theme_preprocess_node_press_release(&$variables) {
 
     // Build sidebar.contactList, which is a subset of pageContent.ContactList.
     $sidebar['contactList'] = Helper::getPrimaryContactPhoneOnlineContactList($pageContent['contactList']);
+    unset($sidebar['contactList']['compHeading']);
+    $sidebar['contactList']['sidebarHeading']['title'] = t('Media Contact');
     $sidebar['contactList']['viewSpecific'] = TRUE;
   }
 

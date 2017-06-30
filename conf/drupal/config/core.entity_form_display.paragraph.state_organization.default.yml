@@ -6,31 +6,12 @@ dependencies:
     - field.field.paragraph.state_organization.field_state_org_description
     - field.field.paragraph.state_organization.field_state_org_name
     - field.field.paragraph.state_organization.field_state_org_photo
+    - field.field.paragraph.state_organization.field_state_org_photo_url
     - field.field.paragraph.state_organization.field_state_org_ref_org
-    - image.style.thumbnail
     - paragraphs.paragraphs_type.state_organization
   module:
-    - field_group
     - image
-    - text
     - workbench_moderation
-third_party_settings:
-  field_group:
-    group_static_content:
-      children:
-        - field_state_org_name
-        - field_state_org_description
-        - field_state_org_photo
-      parent_name: ''
-      weight: 1
-      format_type: details
-      format_settings:
-        label: 'Static content'
-        required_fields: true
-        id: ''
-        classes: ''
-        open: false
-      label: 'Static content'
 id: paragraph.state_organization.default
 targetEntityType: paragraph
 bundle: state_organization
@@ -42,7 +23,7 @@ content:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
-    type: text_textarea
+    type: string_textarea
   field_state_org_name:
     weight: 2
     settings:
@@ -51,12 +32,19 @@ content:
     third_party_settings: {  }
     type: string_textfield
   field_state_org_photo:
-    weight: 4
+    weight: 5
     settings:
+      preview_image_style: ''
       progress_indicator: throbber
-      preview_image_style: thumbnail
     third_party_settings: {  }
     type: image_image
+  field_state_org_photo_url:
+    type: string_textfield
+    weight: 4
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   field_state_org_ref_org:
     weight: 0
     settings:
