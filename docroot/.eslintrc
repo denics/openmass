@@ -1,5 +1,5 @@
 {
-  "extends": "./core/.eslintrc",
+  "extends": "./core/.eslintrc.json",
   "globals": {
     "google": true
   },

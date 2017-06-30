@@ -58,7 +58,7 @@ class EntityExtender implements EntityExtenderInterface {
    * {@inheritdoc}
    */
   public function getGeneralExtraFields() {
-    $fields = array();
+    $fields = [];
     $fields['rh_action'] = BaseFieldDefinition::create('string')
       ->setName('rh_action')
       ->setLabel($this->t('Rabbit Hole action'))

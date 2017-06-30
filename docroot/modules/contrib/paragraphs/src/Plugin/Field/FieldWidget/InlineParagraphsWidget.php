@@ -6,6 +6,7 @@ use Drupal\Component\Utility\NestedArray;
 use Drupal\Component\Utility\Html;
 use Drupal\Core\Entity\Entity\EntityFormDisplay;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\EntityReferenceSelection\SelectionPluginManagerInterface;
 use Drupal\Core\Entity\RevisionableInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldFilteredMarkup;
@@ -18,6 +19,7 @@ use Drupal\node\Entity\Node;
 use Drupal\paragraphs;
 use Drupal\paragraphs\ParagraphInterface;
 use Symfony\Component\Validator\ConstraintViolationInterface;
+use Drupal\paragraphs\Plugin\EntityReferenceSelection\ParagraphSelection;
 
 
 /**
@@ -424,6 +426,7 @@ class InlineParagraphsWidget extends WidgetBase {
               '#weight' => 499,
               '#submit' => array(array(get_class($this), 'paragraphsItemSubmit')),
               '#delta' => $delta,
+              '#limit_validation_errors' => [array_merge($parents, [$field_name, 'add_more'])],
               '#ajax' => array(
                 'callback' => array(get_class($this), 'itemAjax'),
                 'wrapper' => $widget_state['ajax_wrapper_id'],
@@ -698,40 +701,26 @@ class InlineParagraphsWidget extends WidgetBase {
     return $element;
   }
 
+  /**
+   * Returns the sorted allowed types for a entity reference field.
+   *
+   * @return array
+   *   A list of arrays keyed by the paragraph type machine name with the following properties.
+   *     - label: The label of the paragraph type.
+   *     - weight: The weight of the paragraph type.
+   */
   public function getAllowedTypes() {
 
     $return_bundles = array();
-
-    $target_type = $this->getFieldSetting('target_type');
-    $bundles = \Drupal::service('entity_type.bundle.info')->getBundleInfo($target_type);
-
-    if ($this->getSelectionHandlerSetting('target_bundles') !== NULL) {
-      $bundles = array_intersect_key($bundles, $this->getSelectionHandlerSetting('target_bundles'));
-    }
-
-    // Support for the paragraphs reference type.
-    $drag_drop_settings = $this->getSelectionHandlerSetting('target_bundles_drag_drop');
-    if ($drag_drop_settings) {
-      $max_weight = count($bundles);
-
-      foreach ($drag_drop_settings as $bundle_info) {
-        if (isset($bundle_info['weight']) && $bundle_info['weight'] && $bundle_info['weight'] > $max_weight) {
-          $max_weight = $bundle_info['weight'];
-        }
-      }
-
-      // Default weight for new items.
-      $weight = $max_weight + 1;
-      foreach ($bundles as $machine_name => $bundle) {
-        $return_bundles[$machine_name] = array(
-          'label' => $bundle['label'],
-          'weight' => isset($drag_drop_settings[$machine_name]['weight']) ? $drag_drop_settings[$machine_name]['weight'] : $weight,
-        );
-        $weight++;
-      }
+    /** @var \Drupal\Core\Entity\EntityReferenceSelection\SelectionPluginManagerInterface $selection_manager */
+    $selection_manager = \Drupal::service('plugin.manager.entity_reference_selection');
+    $handler = $selection_manager->getSelectionHandler($this->fieldDefinition);
+    if ($handler instanceof ParagraphSelection) {
+      $return_bundles = $handler->getSortedAllowedTypes();
     }
     // Support for other reference types.
     else {
+      $bundles = \Drupal::service('entity_type.bundle.info')->getBundleInfo($this->getFieldSetting('target_type'));
       $weight = 0;
       foreach ($bundles as $machine_name => $bundle) {
         if (!count($this->getSelectionHandlerSetting('target_bundles'))
@@ -747,7 +736,6 @@ class InlineParagraphsWidget extends WidgetBase {
       }
     }
 
-    uasort($return_bundles, 'Drupal\Component\Utility\SortArray::sortByWeightElement');
 
     return $return_bundles;
   }
@@ -850,30 +838,33 @@ class InlineParagraphsWidget extends WidgetBase {
     $field_state['real_item_count'] = $this->realItemCount;
     static::setWidgetState($this->fieldParents, $field_name, $form_state, $field_state);
 
+    $elements += [
+      '#element_validate' => [[$this, 'multipleElementValidate']],
+      '#required' => $this->fieldDefinition->isRequired(),
+      '#field_name' => $field_name,
+      '#cardinality' => $cardinality,
+      '#max_delta' => $max - 1,
+    ];
+
     if ($this->realItemCount > 0) {
       $elements += array(
         '#theme' => 'field_multiple_value_form',
-        '#field_name' => $field_name,
-        '#cardinality' => $cardinality,
         '#cardinality_multiple' => $is_multiple,
-        '#required' => $this->fieldDefinition->isRequired(),
         '#title' => $title,
         '#description' => $description,
-        '#max_delta' => $max-1,
       );
     }
     else {
+      $classes = $this->fieldDefinition->isRequired() ? ['form-required'] : [];
       $elements += [
         '#type' => 'container',
         '#theme_wrappers' => ['container'],
-        '#field_name' => $field_name,
-        '#cardinality' => $cardinality,
         '#cardinality_multiple' => TRUE,
-        '#max_delta' => $max-1,
         'title' => [
           '#type' => 'html_tag',
           '#tag' => 'strong',
           '#value' => $title,
+          '#attributes' => ['class' => $classes],
         ],
         'text' => [
           '#type' => 'container',
@@ -1237,6 +1228,31 @@ class InlineParagraphsWidget extends WidgetBase {
   }
 
   /**
+   * Special handling to validate form elements with multiple values.
+   *
+   * @param array $elements
+   *   An associative array containing the substructure of the form to be
+   *   validated in this call.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The current state of the form.
+   * @param array $form
+   *   The complete form array.
+   */
+  public function multipleElementValidate(array $elements, FormStateInterface $form_state, array $form) {
+    $field_name = $this->fieldDefinition->getName();
+    $widget_state = static::getWidgetState($elements['#field_parents'], $field_name, $form_state);
+
+    $remove_mode_item_count = $this->getNumberOfParagraphsInMode($widget_state, 'remove');
+    $non_remove_mode_item_count = $widget_state['real_item_count'] - $remove_mode_item_count;
+
+    if ($elements['#required'] && $non_remove_mode_item_count < 1) {
+      $form_state->setError($elements, t('@name field is required.', ['@name' => $this->fieldDefinition->getLabel()]));
+    }
+
+    static::setWidgetState($elements['#field_parents'], $field_name, $form_state, $widget_state);
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function massageFormValues(array $values, array $form, FormStateInterface $form_state) {
@@ -1398,6 +1414,33 @@ class InlineParagraphsWidget extends WidgetBase {
     }
 
     return NULL;
+  }
+
+  /**
+   * Counts the number of paragraphs in a certain mode in a form substructure.
+   *
+   * @param array $widget_state
+   *   The widget state for the form substructure containing information about
+   *   the paragraphs within.
+   * @param string $mode
+   *   The mode to look for.
+   *
+   * @return int
+   *   The number of paragraphs is the given mode.
+   */
+  protected function getNumberOfParagraphsInMode(array $widget_state, $mode) {
+    if (!isset($widget_state['paragraphs'])) {
+      return 0;
+    }
+
+    $paragraphs_count = 0;
+    foreach ($widget_state['paragraphs'] as $paragraph) {
+      if ($paragraph['mode'] == $mode) {
+        $paragraphs_count++;
+      }
+    }
+
+    return $paragraphs_count;
   }
 
   /**

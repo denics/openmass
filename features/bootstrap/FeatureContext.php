@@ -1226,9 +1226,9 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   public function iShouldSeeTextMatchingInField($string_match, $field_css_selector)
   {
     $page = $this->getMink()->getSession()->getPage();
-    $match = $page->find('css', $field_css_selector)->getAttribute('value');
+    $match = $page->find('css', $field_css_selector)->getValue();
     if ($match != $string_match){
-      throw new Exception('Incorrect result');
+      throw new Exception(sprintf('Incorrect result'));
     }
   }
 

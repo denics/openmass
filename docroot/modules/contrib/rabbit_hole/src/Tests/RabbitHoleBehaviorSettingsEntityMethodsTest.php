@@ -19,7 +19,7 @@ use Drupal\rabbit_hole\Exception\InvalidBehaviorSettingException;
  * https://www.drupal.org/node/2399999.
  */
 class RabbitHoleBehaviorSettingsEntityMethodsTest extends WebTestBase {
-  public static $modules = array('rabbit_hole');
+  public static $modules = ['rabbit_hole'];
 
   /**
    * Drupal\Core\Config\ConfigFactory definition.
@@ -46,13 +46,13 @@ class RabbitHoleBehaviorSettingsEntityMethodsTest extends WebTestBase {
     $allow_override = BehaviorSettings::OVERRIDE_ALLOW;
 
     $entity = BehaviorSettings::create(
-      array(
+      [
         'id' => 'test_behavior_settings',
         'action' => $action,
         'allow_override' => $allow_override,
         'redirect_code' => $redirect_code,
         'redirect' => $redirect,
-      )
+      ]
     );
     $entity->save();
     $config_entity = $this->configFactory
@@ -84,7 +84,7 @@ class RabbitHoleBehaviorSettingsEntityMethodsTest extends WebTestBase {
     $entity = $this->createGenericTestEntity();
 
     $this->testBehaviorSettingExceptionThrown($entity,
-      'setAllowOverride', array('some non-bool value'), __METHOD__);
+      'setAllowOverride', ['some non-bool value'], __METHOD__);
     $entity->setAllowOverride(TRUE);
     $this->assertEqual(TRUE, $entity->getAllowOverride());
     $entity->setAllowOverride(FALSE);
@@ -102,12 +102,12 @@ class RabbitHoleBehaviorSettingsEntityMethodsTest extends WebTestBase {
 
     $entity->setAction('display_page');
     $this->testBehaviorSettingExceptionThrown($entity, 'setRedirectCode',
-      array(BehaviorSettings::REDIRECT_FOUND), __METHOD__);
+      [BehaviorSettings::REDIRECT_FOUND], __METHOD__);
 
     $entity->setAction('redirect');
 
     $this->testBehaviorSettingExceptionThrown($entity, 'setRedirectCode',
-      array(209458253), __METHOD__);
+      [209458253], __METHOD__);
 
     $entity->setRedirectCode(BehaviorSettings::REDIRECT_FOUND);
     $this->assertEqual(BehaviorSettings::REDIRECT_FOUND,
@@ -129,7 +129,7 @@ class RabbitHoleBehaviorSettingsEntityMethodsTest extends WebTestBase {
 
     $entity->setAction('display_page');
     $this->testBehaviorSettingExceptionThrown($entity, 'setRedirectPath',
-      array('/'), __METHOD__);
+      ['/'], __METHOD__);
 
     $entity->setAction('redirect');
     $path = '/somepage';
@@ -142,12 +142,12 @@ class RabbitHoleBehaviorSettingsEntityMethodsTest extends WebTestBase {
    */
   private function createGenericTestEntity() {
     return BehaviorSettings::create(
-      array(
+      [
         'id' => 'test_behavior_settings',
         'action' => 'access_denied',
         'redirect_code' => BehaviorSettings::REDIRECT_NOT_APPLICABLE,
         'redirect' => NULL,
-      )
+      ]
     );
   }
 
@@ -169,7 +169,7 @@ class RabbitHoleBehaviorSettingsEntityMethodsTest extends WebTestBase {
   private function testBehaviorSettingExceptionThrown(BehaviorSettings $entity, $method, array $args, $parent) {
     $exception_was_thrown = FALSE;
     try {
-      call_user_func(array($entity, $method), $args);
+      call_user_func([$entity, $method], $args);
     }
     catch (InvalidBehaviorSettingException $ex) {
       $exception_was_thrown = TRUE;

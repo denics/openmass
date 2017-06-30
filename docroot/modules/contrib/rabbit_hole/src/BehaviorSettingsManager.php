@@ -34,7 +34,7 @@ class BehaviorSettingsManager implements BehaviorSettingsManagerInterface {
 
     $entity = BehaviorSettings::load($id);
     if ($entity === NULL) {
-      $entity_array = array('id' => $id);
+      $entity_array = ['id' => $id];
       $entity_array += $settings;
       $entity = BehaviorSettings::create($entity_array);
     }

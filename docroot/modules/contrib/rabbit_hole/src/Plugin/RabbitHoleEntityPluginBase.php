@@ -13,14 +13,14 @@ abstract class RabbitHoleEntityPluginBase extends PluginBase implements RabbitHo
    * {@inheritdoc}
    */
   public function getFormSubmitHandlerAttachLocations() {
-    return array(array('actions', 'submit', '#submit'));
+    return [['actions', 'submit', '#submit']];
   }
 
   /**
    * {@inheritdoc}
    */
   public function getBundleFormSubmitHandlerAttachLocations() {
-    return array(array('actions', 'submit', '#submit'));
+    return [['actions', 'submit', '#submit']];
   }
 
   /**
@@ -34,14 +34,14 @@ abstract class RabbitHoleEntityPluginBase extends PluginBase implements RabbitHo
    * {@inheritdoc}
    */
   public function getGlobalFormSubmitHandlerAttachLocations() {
-    return array(array('actions', 'submit', '#submit'));
+    return [['actions', 'submit', '#submit']];
   }
 
   /**
    * {@inheritdoc}
    */
   public function getEntityTokenMap() {
-    $map = array();
+    $map = [];
     $map[$this->pluginDefinition['entityType']]
         = $this->pluginDefinition['entityType'];
     $bundle = \Drupal::entityTypeManager()

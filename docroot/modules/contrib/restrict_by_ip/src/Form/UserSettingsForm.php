@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains Drupal\restrict_by_ip\Form\UserSettingsForm.
- */
-
 namespace Drupal\restrict_by_ip\Form;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -54,31 +49,31 @@ class UserSettingsForm extends ConfigFormBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
     $config = $this->config('restrict_by_ip.settings');
 
-    $form['new_restriction'] = array(
+    $form['new_restriction'] = [
       '#type' => 'fieldset',
       '#title' => $this->t('Add new user allwed IP range'),
-    );
-    $form['new_restriction']['name'] = array(
+    ];
+    $form['new_restriction']['name'] = [
       '#type' => 'entity_autocomplete',
       '#target_type' => 'user',
       '#title' => t('Username'),
-    );
-    $form['new_restriction']['restriction'] = array(
+    ];
+    $form['new_restriction']['restriction'] = [
       '#type' => 'textfield',
       '#title' => t('Allowed IP range'),
       '#description' => t('Enter IP Address Ranges in CIDR Notation seperated with semi-colons, with no trailing semi-colon. E.G. 10.20.30.0/24;192.168.199.1/32;1.0.0.0/8<br />For more information on CIDR notation click <a href="http://www.brassy.net/2007/mar/cidr_basic_subnetting">here</a>.'),
       '#maxlength' => NULL,
-    );
+    ];
 
     // Current restrictions.
     foreach ($config->get('user') as $key => $value) {
       $account = \Drupal\user\Entity\User::load($key);
-      $form['restrict_by_ip_user_' . $key] = array(
+      $form['restrict_by_ip_user_' . $key] = [
         '#type' => 'textfield',
-        '#title' => $this->t('@name user IP range', array('@name' => $account->label())),
-        '#description' => $this->t('Enter IP Address Ranges in CIDR Notation seperated with semi-colons, with no trailing semi-colon. E.G. 10.20.30.0/24;192.168.199.1/32;1.0.0.0/8<br />For more information on CIDR notation click <a href="http://www.brassy.net/2007/mar/cidr_basic_subnetting">here</a>.<br />Leave field blank to disable IP restrictions for @name.', array('@name' => $account->label())),
+        '#title' => $this->t('@name user IP range', ['@name' => $account->label()]),
+        '#description' => $this->t('Enter IP Address Ranges in CIDR Notation seperated with semi-colons, with no trailing semi-colon. E.G. 10.20.30.0/24;192.168.199.1/32;1.0.0.0/8<br />For more information on CIDR notation click <a href="http://www.brassy.net/2007/mar/cidr_basic_subnetting">here</a>.<br />Leave field blank to disable IP restrictions for @name.', ['@name' => $account->label()]),
         '#default_value' => $config->get('user.' . $key),
-      );
+      ];
     }
 
     return parent::buildForm($form, $form_state);
@@ -101,7 +96,7 @@ class UserSettingsForm extends ConfigFormBase {
             $this->ip_tools->validateIP($ip);
           }
           catch (InvalidIPException $e) {
-            $form_state->setErrorByName($key, $this->t($e->getMessage() . ' @ip.', array('@ip' => $ip)));
+            $form_state->setErrorByName($key, $this->t($e->getMessage() . ' @ip.', ['@ip' => $ip]));
           }
         }
       }
@@ -121,7 +116,7 @@ class UserSettingsForm extends ConfigFormBase {
           $this->ip_tools->validateIP($ip);
         }
         catch (InvalidIPException $e) {
-          $form_state->setErrorByName('restriction', $this->t($e->getMessage() . ' @ip.', array('@ip' => $ip)));
+          $form_state->setErrorByName('restriction', $this->t($e->getMessage() . ' @ip.', ['@ip' => $ip]));
         }
       }
     }
