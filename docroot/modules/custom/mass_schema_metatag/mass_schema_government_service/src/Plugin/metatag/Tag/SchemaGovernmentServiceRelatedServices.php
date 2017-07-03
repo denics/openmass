@@ -2,6 +2,7 @@
 
 namespace Drupal\mass_schema_government_service\Plugin\metatag\Tag;
 
+use Drupal\node\Entity\Node;
 use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaNameBase;
 
 /**
@@ -13,7 +14,7 @@ use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaNameBase;
  *
  * @MetatagTag(
  *   id = "schema_government_service_related_services",
- *   label = @Translation("Related Services"),
+ *   label = @Translation("isRelatedTo"),
  *   description = @Translation("The related services."),
  *   name = "isRelatedTo",
  *   group = "schema_government_service",
@@ -47,31 +48,26 @@ class SchemaGovernmentServiceRelatedServices extends SchemaNameBase {
   public function output() {
     $element = parent::output();
 
-    // Since there could be multiple values, explode the string value.
+    // Explode the values, which are target ids of the service page entities
+    // referenced on the field.
     $content = explode(', ', $this->value());
 
-    $element['#attributes']['content'] = [];
-    foreach ($content as $link_values) {
-      // Decode the link values.
-      $link_values = json_decode($link_values, TRUE);
-      if (is_array($link_values)) {
-        // For each link item, append the values of the 'name' and 'url' to the
-        // 'content' key. This will be the value outputted on the markup.
-        foreach ($link_values as $item) {
-          $element['#attributes']['content'][] = [
-            'name' => $item['name'],
-            'url' => $item['url'],
-          ];
+    if (!empty($element) && is_array($content)) {
+      $element['#attributes']['content'] = [];
+
+      // Iterate through each target id and get the url of each node to
+      // reference as a related service.
+      foreach ($content as $target_id) {
+        $node = Node::load($target_id);
+        if (!$node) {
+          continue;
         }
-      }
-      else {
         $element['#attributes']['content'][] = [
-          'name' => $link_values['name'],
-          'url' => $link_values['url'],
+          '@type' => 'Service',
+          '@id' => $node->toUrl('canonical', ['absolute' => TRUE])->toString() . '#services',
         ];
       }
     }
-
     return $element;
   }
 
