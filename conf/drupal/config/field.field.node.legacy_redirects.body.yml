@@ -1,0 +1,34 @@
+uuid: b481fad5-a385-4d97-bfc4-41486c5af930
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.body
+    - node.type.legacy_redirects
+  module:
+    - geocoder_field
+    - text
+third_party_settings:
+  geocoder_field:
+    method: none
+    field: title
+    plugins: {  }
+    dumper: wkt
+    delta_handling: default
+    failure:
+      handling: preserve
+      status_message: false
+      log: false
+id: node.legacy_redirects.body
+field_name: body
+entity_type: node
+bundle: legacy_redirects
+label: 'Additional notes'
+description: 'Leave any optional notes here for other editors about this redirect. This is optional, and it is not meant for the general public.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: false
+field_type: text_with_summary

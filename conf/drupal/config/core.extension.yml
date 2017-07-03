@@ -16,6 +16,7 @@ module:
   config_log: 0
   contextual: 0
   crazyegg: 0
+  csv_serialization: 0
   ctools: 0
   datalayer: 0
   datetime: 0

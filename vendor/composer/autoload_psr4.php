@@ -57,6 +57,7 @@ return array(
     'Otp\\' => array($vendorDir . '/christian-riesen/otp/src'),
     'NilPortugues\\TodoFinder\\' => array($vendorDir . '/nilportugues/php_todo/src/TodoFinder'),
     'Masterminds\\' => array($vendorDir . '/masterminds/html5/src'),
+    'League\\Csv\\' => array($vendorDir . '/league/csv/src'),
     'JsonSchema\\' => array($vendorDir . '/justinrainbow/json-schema/src/JsonSchema'),
     'Ivory\\HttpAdapter\\' => array($vendorDir . '/egeloen/http-adapter/src'),
     'Interop\\Container\\' => array($vendorDir . '/container-interop/container-interop/src/Interop/Container'),

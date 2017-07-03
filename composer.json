@@ -131,6 +131,7 @@
         "drupal/console": "~1.0",
         "drupal/core": "8.3.4",
         "drupal/crazyegg": "^1",
+        "drupal/csv_serialization": "1.0.0",
         "drupal/diff": "1.x-dev",
         "drupal/draggableviews": "1.x-dev",
         "drupal/encrypt": "3.x-dev#19cda8cf22bfe7d020b819a7cfddf2e4883b78a8",

@@ -470,7 +470,8 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   public function assertContentTypeFields($content_type) {
     $this->minkContext->visitPath('node/add/' . $content_type);
     // Test title for everything but person ct
-    if ( $content_type !== 'person' ) {
+    $no_title_ct = ['legacy_redirects', 'person'];
+    if (!in_array($content_type, $no_title_ct)) {
       $this->minkContext->assertElementOnPage('#edit-title-0-value');
     }
 
@@ -888,6 +889,25 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
           ),
           array (
             'field' => 'field-person-role-title',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+        );
+        break;
+      case "legacy_redirects":
+        $fields = array (
+          array (
+            'field' => 'field-legacy-redirects-ref-conte',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-legacy-redirect-env',
+            'tag' => 'input',
+            'type' => 'radio',
+          ),
+          array (
+            'field' => 'field-legacy-redirects-legacyurl',
             'tag' => 'input',
             'type' => 'text',
           ),

@@ -361,6 +361,48 @@ function _mass_validation_form_node_topic_page_form_validate(array &$form, FormS
 }
 
 /**
+ * Implements hook_form_FORM_ID_alter() for the FORM_ID() form.
+ */
+function mass_validation_form_node_legacy_redirects_edit_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $form['#validate'][] = '_mass_validation_form_node_legacy_redirects_form_validate';
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for the FORM_ID() form.
+ */
+function mass_validation_form_node_legacy_redirects_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $form['#validate'][] = '_mass_validation_form_node_legacy_redirects_form_validate';
+}
+
+/**
+ * Validates submission values in the FORM_ID() form.
+ */
+function _mass_validation_form_node_legacy_redirects_form_validate(array &$form, FormStateInterface $form_state) {
+  if ($form_state->hasValue('field_legacy_redirects_legacyurl')) {
+    // Verify Legacy URL is a mass.gov link and does not link to the portal.
+    $legacy_urls = $form_state->getValue('field_legacy_redirects_legacyurl');
+    foreach ($legacy_urls as $key => $legacy_url) {
+      if (is_array($legacy_url)) {
+        if ($legacy_url['value'] != "") {
+          $illegal_urls = [
+            'http://www.mass.gov/portal/',
+            'http://www.mass.gov/portal',
+            'http://www.mass.gov',
+            'http://www.mass.gov/'
+          ];
+          if ((strpos($legacy_url['value'], "http://www.mass.gov") !== 0) && (strpos($legacy_url['value'], "https://www.mass.gov") !== 0)) {
+            $form_state->setErrorByName('field_legacy_redirects_legacyurl][' . $key, t('Legacy URL must start with "https://mass.gov" or "http://www.mass.gov".'));
+          }
+          elseif (in_array($legacy_url['value'], $illegal_urls)) {
+            $form_state->setErrorByName('field_legacy_redirects_legacyurl][' . $key, t('Legacy URL cannot be "http://www.mass.gov/portal" or "http://www.mass.gov".'));
+          }
+        }
+      }
+    }
+  }
+}
+
+/**
  * Validate link fields in a paragraph have titles for each uri.
  *
  * @param Drupal\Core\Form\FormStateInterface $form_state

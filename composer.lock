@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "8057c5596bd8a4bc264ef7c8718c00d4",
+    "content-hash": "fb194208cf3fa3089e8cd94cf0c07cb7",
     "packages": [
         {
             "name": "acquia/acquia-sdk-php",
@@ -197,8 +197,7 @@
                 "url": "https://github.com/blakestein/drupal-datalayer-d8.git",
                 "reference": "3b2ffa7"
             },
-            "type": "drupal-module",
-            "time": "2017-01-05 00:00:58"
+            "type": "drupal-module"
         },
         {
             "name": "caxy/php-htmldiff",
@@ -1635,8 +1634,7 @@
             "homepage": "https://www.drupal.org/project/access_unpublished",
             "support": {
                 "source": "http://cgit.drupalcode.org/access_unpublished"
-            },
-            "time": "2017-01-26 16:59:48"
+            }
         },
         {
             "name": "drupal/acquia_connector",
@@ -1927,8 +1925,7 @@
             "homepage": "https://www.drupal.org/project/better_field_descriptions",
             "support": {
                 "source": "http://cgit.drupalcode.org/better_field_descriptions"
-            },
-            "time": "2017-04-17 10:36:09"
+            }
         },
         {
             "name": "drupal/clamav",
@@ -2667,6 +2664,50 @@
             }
         },
         {
+            "name": "drupal/csv_serialization",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupal.org/project/csv_serialization",
+                "reference": "8.x-1.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/csv_serialization-8.x-1.0.zip",
+                "reference": null,
+                "shasum": "90023afb1a9296598c3d8ac9c8c81df4d00a2663"
+            },
+            "require": {
+                "drupal/core": "^8.0.4",
+                "league/csv": "^7.1"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.0",
+                    "datestamp": "1470405718"
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "grasmash",
+                    "homepage": "https://www.drupal.org/user/455714"
+                }
+            ],
+            "description": "Provides CSV as a serialization format.",
+            "homepage": "https://www.drupal.org/project/csv_serialization",
+            "support": {
+                "source": "http://cgit.drupalcode.org/csv_serialization"
+            }
+        },
+        {
             "name": "drupal/ctools",
             "version": "3.0.0",
             "source": {
@@ -2825,8 +2866,7 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/diff",
                 "issues": "https://www.drupal.org/project/issues/diff"
-            },
-            "time": "2017-01-09 10:31:38"
+            }
         },
         {
             "name": "drupal/draggableviews",
@@ -2883,8 +2923,7 @@
             "homepage": "https://www.drupal.org/project/draggableviews",
             "support": {
                 "source": "http://cgit.drupalcode.org/draggableviews"
-            },
-            "time": "2016-10-21 18:47:50"
+            }
         },
         {
             "name": "drupal/dropzonejs",
@@ -3140,8 +3179,7 @@
             "homepage": "https://www.drupal.org/project/encrypt",
             "support": {
                 "source": "http://cgit.drupalcode.org/encrypt"
-            },
-            "time": "2016-08-05 15:43:56"
+            }
         },
         {
             "name": "drupal/entity",
@@ -3553,8 +3591,7 @@
             "homepage": "https://www.drupal.org/project/file_browser",
             "support": {
                 "source": "http://cgit.drupalcode.org/file_browser"
-            },
-            "time": "2017-05-12 21:51:02"
+            }
         },
         {
             "name": "drupal/flag",
@@ -3726,8 +3763,7 @@
             "homepage": "https://www.drupal.org/project/ga_login",
             "support": {
                 "source": "http://cgit.drupalcode.org/ga_login"
-            },
-            "time": "2016-08-19 19:20:09"
+            }
         },
         {
             "name": "drupal/geocoder",
@@ -4061,8 +4097,7 @@
             "homepage": "https://www.drupal.org/project/inline_entity_form",
             "support": {
                 "source": "http://cgit.drupalcode.org/inline_entity_form"
-            },
-            "time": "2016-11-14 20:32:26"
+            }
         },
         {
             "name": "drupal/key",
@@ -4172,8 +4207,7 @@
                 "source": "http://cgit.drupalcode.org/libraries",
                 "issues": "http://drupal.org/project/issues/libraries",
                 "irc": "irc://irc.freenode.org/drupal-contribute"
-            },
-            "time": "2017-03-15 17:04:08"
+            }
         },
         {
             "name": "drupal/media_entity",
@@ -4582,8 +4616,7 @@
             "homepage": "https://www.drupal.org/project/node_edit_protection",
             "support": {
                 "source": "http://cgit.drupalcode.org/node_edit_protection"
-            },
-            "time": "2016-07-21 12:38:12"
+            }
         },
         {
             "name": "drupal/office_hours",
@@ -4703,8 +4736,7 @@
             "homepage": "https://www.drupal.org/project/paragraphs",
             "support": {
                 "source": "http://cgit.drupalcode.org/paragraphs"
-            },
-            "time": "2017-06-21 12:21:41"
+            }
         },
         {
             "name": "drupal/password_policy",
@@ -4761,8 +4793,7 @@
             "homepage": "https://www.drupal.org/project/password_policy",
             "support": {
                 "source": "http://cgit.drupalcode.org/password_policy"
-            },
-            "time": "2017-05-22 16:11:07"
+            }
         },
         {
             "name": "drupal/pathauto",
@@ -5092,8 +5123,7 @@
             "support": {
                 "source": "https://cgit.drupalcode.org/rabbit_hole",
                 "issues": "https://www.drupal.org/project/issues/rabbit_hole"
-            },
-            "time": "2017-06-10 21:38:28"
+            }
         },
         {
             "name": "drupal/redirect",
@@ -5193,8 +5223,7 @@
             "homepage": "https://www.drupal.org/project/restrict_by_ip",
             "support": {
                 "source": "http://cgit.drupalcode.org/restrict_by_ip"
-            },
-            "time": "2017-04-28 19:48:30"
+            }
         },
         {
             "name": "drupal/restui",
@@ -5349,8 +5378,7 @@
             "homepage": "https://www.drupal.org/project/security_review",
             "support": {
                 "source": "http://cgit.drupalcode.org/security_review"
-            },
-            "time": "2016-10-20 15:43:48"
+            }
         },
         {
             "name": "drupal/subpathauto",
@@ -5451,8 +5479,7 @@
             "homepage": "https://www.drupal.org/project/tfa",
             "support": {
                 "source": "http://cgit.drupalcode.org/tfa"
-            },
-            "time": "2016-08-23 20:32:20"
+            }
         },
         {
             "name": "drupal/token",
@@ -5890,8 +5917,7 @@
             "homepage": "https://www.drupal.org/project/xmlsitemap",
             "support": {
                 "source": "http://cgit.drupalcode.org/xmlsitemap"
-            },
-            "time": "2016-12-07 10:00:27"
+            }
         },
         {
             "name": "drush/drush",
@@ -7002,6 +7028,63 @@
                 }
             ],
             "time": "2015-04-20T18:58:01+00:00"
+        },
+        {
+            "name": "league/csv",
+            "version": "7.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thephpleague/csv.git",
+                "reference": "69bafa6ff924fbf9effe4275d6eb16be81a853ef"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thephpleague/csv/zipball/69bafa6ff924fbf9effe4275d6eb16be81a853ef",
+                "reference": "69bafa6ff924fbf9effe4275d6eb16be81a853ef",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "fabpot/php-cs-fixer": "^1.9",
+                "phpunit/phpunit": "^4.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "7.2-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "League\\Csv\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ignace Nyamagana Butera",
+                    "email": "nyamsprod@gmail.com",
+                    "homepage": "https://github.com/nyamsprod/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Csv data manipulation made easy in PHP",
+            "homepage": "http://csv.thephpleague.com",
+            "keywords": [
+                "csv",
+                "export",
+                "filter",
+                "import",
+                "read",
+                "write"
+            ],
+            "time": "2015-11-02T07:36:25+00:00"
         },
         {
             "name": "lstrojny/fxmlrpc",
@@ -11415,8 +11498,7 @@
                 "source": "http://cgit.drupalcode.org/devel",
                 "issues": "http://drupal.org/project/devel",
                 "irc": "irc://irc.freenode.org/drupal-contribute"
-            },
-            "time": "2017-06-14 12:11:52"
+            }
         },
         {
             "name": "drupal/drupal-driver",

@@ -111,6 +111,10 @@ class ComposerStaticInit38fa465226c4c18ff5a12440033683b4
         array (
             'Masterminds\\' => 12,
         ),
+        'L' => 
+        array (
+            'League\\Csv\\' => 11,
+        ),
         'J' => 
         array (
             'JsonSchema\\' => 11,
@@ -368,6 +372,10 @@ class ComposerStaticInit38fa465226c4c18ff5a12440033683b4
         'Masterminds\\' => 
         array (
             0 => __DIR__ . '/..' . '/masterminds/html5/src',
+        ),
+        'League\\Csv\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/league/csv/src',
         ),
         'JsonSchema\\' => 
         array (

@@ -11433,63 +11433,6 @@
         }
     },
     {
-        "name": "drupal/auto_entitylabel",
-        "version": "2.0.0-beta1",
-        "version_normalized": "2.0.0.0-beta1",
-        "source": {
-            "type": "git",
-            "url": "https://git.drupal.org/project/auto_entitylabel",
-            "reference": "8.x-2.0-beta1"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://ftp.drupal.org/files/projects/auto_entitylabel-8.x-2.0-beta1.zip",
-            "reference": "8.x-2.0-beta1",
-            "shasum": "9978f4b5f2cdb3955e685a83c6b7f57f6d0b999d"
-        },
-        "require": {
-            "drupal/core": "~8.0"
-        },
-        "type": "drupal-module",
-        "extra": {
-            "branch-alias": {
-                "dev-2.x": "2.x-dev"
-            },
-            "drupal": {
-                "version": "8.x-2.0-beta1",
-                "datestamp": "1487875383"
-            }
-        },
-        "installation-source": "dist",
-        "notification-url": "https://packages.drupal.org/8/downloads",
-        "license": [
-            "GPL-2.0+"
-        ],
-        "authors": [
-            {
-                "name": "Pravin Ajaaz",
-                "homepage": "https://www.drupal.org/user/2910049"
-            },
-            {
-                "name": "RenatoG",
-                "homepage": "https://www.drupal.org/user/3326031"
-            },
-            {
-                "name": "bforchhammer",
-                "homepage": "https://www.drupal.org/user/216396"
-            },
-            {
-                "name": "purushotam.rai",
-                "homepage": "https://www.drupal.org/user/3193859"
-            }
-        ],
-        "description": "Allows hiding of entity label fields and automatic label creation.",
-        "homepage": "https://www.drupal.org/project/auto_entitylabel",
-        "support": {
-            "source": "http://cgit.drupalcode.org/auto_entitylabel"
-        }
-    },
-    {
         "name": "drupal/flag",
         "version": "4.0.0-alpha2",
         "version_normalized": "4.0.0.0-alpha2",
@@ -12411,6 +12354,168 @@
         "homepage": "https://www.drupal.org/project/better_field_descriptions",
         "support": {
             "source": "http://cgit.drupalcode.org/better_field_descriptions"
+        }
+    },
+    {
+        "name": "league/csv",
+        "version": "7.2.0",
+        "version_normalized": "7.2.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/thephpleague/csv.git",
+            "reference": "69bafa6ff924fbf9effe4275d6eb16be81a853ef"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/thephpleague/csv/zipball/69bafa6ff924fbf9effe4275d6eb16be81a853ef",
+            "reference": "69bafa6ff924fbf9effe4275d6eb16be81a853ef",
+            "shasum": ""
+        },
+        "require": {
+            "ext-mbstring": "*",
+            "php": ">=5.4.0"
+        },
+        "require-dev": {
+            "fabpot/php-cs-fixer": "^1.9",
+            "phpunit/phpunit": "^4.0"
+        },
+        "time": "2015-11-02T07:36:25+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "7.2-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "League\\Csv\\": "src"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Ignace Nyamagana Butera",
+                "email": "nyamsprod@gmail.com",
+                "homepage": "https://github.com/nyamsprod/",
+                "role": "Developer"
+            }
+        ],
+        "description": "Csv data manipulation made easy in PHP",
+        "homepage": "http://csv.thephpleague.com",
+        "keywords": [
+            "csv",
+            "export",
+            "filter",
+            "import",
+            "read",
+            "write"
+        ]
+    },
+    {
+        "name": "drupal/csv_serialization",
+        "version": "1.0.0",
+        "version_normalized": "1.0.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://git.drupal.org/project/csv_serialization",
+            "reference": "8.x-1.0"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://ftp.drupal.org/files/projects/csv_serialization-8.x-1.0.zip",
+            "reference": null,
+            "shasum": "90023afb1a9296598c3d8ac9c8c81df4d00a2663"
+        },
+        "require": {
+            "drupal/core": "^8.0.4",
+            "league/csv": "^7.1"
+        },
+        "type": "drupal-module",
+        "extra": {
+            "branch-alias": {
+                "dev-1.x": "1.x-dev"
+            },
+            "drupal": {
+                "version": "8.x-1.0",
+                "datestamp": "1470405718"
+            }
+        },
+        "installation-source": "dist",
+        "notification-url": "https://packages.drupal.org/8/downloads",
+        "license": [
+            "GPL-2.0+"
+        ],
+        "authors": [
+            {
+                "name": "grasmash",
+                "homepage": "https://www.drupal.org/user/455714"
+            }
+        ],
+        "description": "Provides CSV as a serialization format.",
+        "homepage": "https://www.drupal.org/project/csv_serialization",
+        "support": {
+            "source": "http://cgit.drupalcode.org/csv_serialization"
+        }
+    },
+    {
+        "name": "drupal/auto_entitylabel",
+        "version": "2.0.0-beta1",
+        "version_normalized": "2.0.0.0-beta1",
+        "source": {
+            "type": "git",
+            "url": "https://git.drupal.org/project/auto_entitylabel",
+            "reference": "8.x-2.0-beta1"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://ftp.drupal.org/files/projects/auto_entitylabel-8.x-2.0-beta1.zip",
+            "reference": "8.x-2.0-beta1",
+            "shasum": "9978f4b5f2cdb3955e685a83c6b7f57f6d0b999d"
+        },
+        "require": {
+            "drupal/core": "~8.0"
+        },
+        "type": "drupal-module",
+        "extra": {
+            "branch-alias": {
+                "dev-2.x": "2.x-dev"
+            },
+            "drupal": {
+                "version": "8.x-2.0-beta1",
+                "datestamp": "1487875383"
+            }
+        },
+        "installation-source": "dist",
+        "notification-url": "https://packages.drupal.org/8/downloads",
+        "license": [
+            "GPL-2.0+"
+        ],
+        "authors": [
+            {
+                "name": "Pravin Ajaaz",
+                "homepage": "https://www.drupal.org/user/2910049"
+            },
+            {
+                "name": "RenatoG",
+                "homepage": "https://www.drupal.org/user/3326031"
+            },
+            {
+                "name": "bforchhammer",
+                "homepage": "https://www.drupal.org/user/216396"
+            },
+            {
+                "name": "purushotam.rai",
+                "homepage": "https://www.drupal.org/user/3193859"
+            }
+        ],
+        "description": "Allows hiding of entity label fields and automatic label creation.",
+        "homepage": "https://www.drupal.org/project/auto_entitylabel",
+        "support": {
+            "source": "http://cgit.drupalcode.org/auto_entitylabel"
         }
     }
 ]

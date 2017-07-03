@@ -11,6 +11,7 @@ dependencies:
     - node.type.guide_page
     - node.type.how_to_page
     - node.type.interstitial
+    - node.type.legacy_redirects
     - node.type.location
     - node.type.location_details
     - node.type.org_page
@@ -432,7 +433,6 @@ display:
           admin_label: ''
           operator: in
           value:
-            all: all
             page: page
             contact_information: contact_information
             emergency_alerts: emergency_alerts
@@ -441,6 +441,7 @@ display:
             guide_page: guide_page
             how_to_page: how_to_page
             interstitial: interstitial
+            legacy_redirects: legacy_redirects
             location_details: location_details
             location: location
             org_page: org_page
@@ -474,6 +475,7 @@ display:
               content_team: '0'
               developer: '0'
               administrator: '0'
+              redirect_creators: '0'
             reduce: true
           is_grouped: false
           group_info:
