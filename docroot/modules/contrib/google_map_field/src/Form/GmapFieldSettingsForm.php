@@ -51,47 +51,47 @@ class GmapFieldSettingsForm extends ConfigFormBase {
       $client_id = $settings['google_map_field_map_client_id'];
     }
 
-    $form['google_map_field_auth_method'] = array(
+    $form['google_map_field_auth_method'] = [
       '#type' => 'select',
       '#title' => $this->t('Google API Authentication Method'),
       '#default_value' => isset($settings['google_map_field_auth_method']) ? $settings['google_map_field_auth_method'] : GOOGLE_MAP_FIELD_AUTH_KEY,
-      '#options' => array(
+      '#options' => [
         GOOGLE_MAP_FIELD_AUTH_KEY => $this->t('API Key'),
         GOOGLE_MAP_FIELD_AUTH_WORK => $this->t('Google Maps API for Work'),
-      ),
-    );
+      ],
+    ];
 
-    $form['google_map_field_apikey'] = array(
+    $form['google_map_field_apikey'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Google Maps API Key'),
-      '#description' => $this->t('Obtain a Google Maps Javascript API key at <a href="@link">@link</a>', array(
+      '#description' => $this->t('Obtain a Google Maps Javascript API key at <a href="@link">@link</a>', [
         '@link' => 'https://developers.google.com/maps/documentation/javascript/get-api-key',
-      )),
+      ]),
       '#default_value' => $api_key,
       '#required' => FALSE,
       '#size' => 80,
-      '#states' => array(
-        'visible' => array(
-          ':input[name="google_map_field_auth_method"]' => array('value' => GOOGLE_MAP_FIELD_AUTH_KEY),
-        ),
-      ),
-    );
+      '#states' => [
+        'visible' => [
+          ':input[name="google_map_field_auth_method"]' => ['value' => GOOGLE_MAP_FIELD_AUTH_KEY],
+        ],
+      ],
+    ];
 
-    $form['google_map_field_map_client_id'] = array(
+    $form['google_map_field_map_client_id'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Google Maps API for Work: Client ID'),
-      '#description' => $this->t('For more information, visit: <a href="@link">@link</a>', array(
+      '#description' => $this->t('For more information, visit: <a href="@link">@link</a>', [
         '@link' => 'https://developers.google.com/maps/documentation/javascript/get-api-key#client-id',
-      )),
+      ]),
       '#default_value' => $client_id,
       '#required' => FALSE,
       '#size' => 80,
-      '#states' => array(
-        'visible' => array(
-          ':input[name="google_map_field_auth_method"]' => array('value' => GOOGLE_MAP_FIELD_AUTH_WORK),
-        ),
-      ),
-    );
+      '#states' => [
+        'visible' => [
+          ':input[name="google_map_field_auth_method"]' => ['value' => GOOGLE_MAP_FIELD_AUTH_WORK],
+        ],
+      ],
+    ];
 
     return parent::buildForm($form, $form_state);
   }

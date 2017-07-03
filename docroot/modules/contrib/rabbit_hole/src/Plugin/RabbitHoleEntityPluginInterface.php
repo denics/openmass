@@ -13,10 +13,10 @@ interface RabbitHoleEntityPluginInterface extends PluginInspectionInterface {
    * Return locations to attach submit handlers to entities.
    *
    * This should return an array of arrays, e.g.:
-   * array(
-   *   array('actions', 'submit', '#publish'),
-   *   array('actions', 'publish', '#submit'),
-   * ).
+   * [
+   *   ['actions', 'submit', '#publish'],
+   *   ['actions', 'publish', '#submit'],
+   * ].
    */
   public function getFormSubmitHandlerAttachLocations();
 
@@ -24,10 +24,10 @@ interface RabbitHoleEntityPluginInterface extends PluginInspectionInterface {
    * Return locations to attach submit handlers to entity bundles.
    *
    * This should return an array of arrays, e.g.:
-   * array(
-   *   array('actions', 'submit', '#publish'),
-   *   array('actions', 'publish', '#submit'),
-   * ).
+   * [
+   *   ['actions', 'submit', '#publish'],
+   *   ['actions', 'publish', '#submit'],
+   * ].
    *
    * @return array
    *   A multidimensional array.
@@ -49,10 +49,10 @@ interface RabbitHoleEntityPluginInterface extends PluginInspectionInterface {
    * Return locations to attach submit handlers to the global config form.
    *
    * This should return an array of arrays, e.g.:
-   * array(
-   *   array('actions', 'submit', '#publish'),
-   *   array('actions', 'publish', '#submit'),
-   * ).
+   * [
+   *   ['actions', 'submit', '#publish'],
+   *   ['actions', 'publish', '#submit'],
+   * ].
    */
   public function getGlobalFormSubmitHandlerAttachLocations();
 
@@ -61,7 +61,7 @@ interface RabbitHoleEntityPluginInterface extends PluginInspectionInterface {
    *
    * @return array
    *   A map of token IDs to entity IDs in the form
-   *   array('entity ID' => 'token ID')
+   *   ['entity ID' => 'token ID']
    */
   public function getEntityTokenMap();
 }

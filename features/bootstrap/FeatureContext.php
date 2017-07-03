@@ -470,7 +470,8 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   public function assertContentTypeFields($content_type) {
     $this->minkContext->visitPath('node/add/' . $content_type);
     // Test title for everything but person ct
-    if ( $content_type !== 'person' ) {
+    $no_title_ct = ['legacy_redirects', 'person'];
+    if (!in_array($content_type, $no_title_ct)) {
       $this->minkContext->assertElementOnPage('#edit-title-0-value');
     }
 
@@ -893,6 +894,25 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
           ),
         );
         break;
+      case "legacy_redirects":
+        $fields = array (
+          array (
+            'field' => 'field-legacy-redirects-ref-conte',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-legacy-redirect-env',
+            'tag' => 'input',
+            'type' => 'radio',
+          ),
+          array (
+            'field' => 'field-legacy-redirects-legacyurl',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+        );
+        break;
     }
     foreach ($fields as $row) {
       // Get all IDs that start with our field name. D8 prints fields
@@ -1226,9 +1246,9 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   public function iShouldSeeTextMatchingInField($string_match, $field_css_selector)
   {
     $page = $this->getMink()->getSession()->getPage();
-    $match = $page->find('css', $field_css_selector)->getAttribute('value');
+    $match = $page->find('css', $field_css_selector)->getValue();
     if ($match != $string_match){
-      throw new Exception('Incorrect result');
+      throw new Exception(sprintf('Incorrect result'));
     }
   }
 

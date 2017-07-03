@@ -19,6 +19,7 @@ class ParagraphsTypeListBuilder extends ConfigEntityListBuilder {
     ];
     $header['label'] = $this->t('Label');
     $header['id'] = $this->t('Machine name');
+    $header['description'] = $this->t('Description');
 
     return $header + parent::buildHeader();
   }
@@ -27,7 +28,7 @@ class ParagraphsTypeListBuilder extends ConfigEntityListBuilder {
    * {@inheritdoc}
    */
   public function buildRow(EntityInterface $entity) {
-    $row['icon_file'] = '';
+    $row['icon_file'] = [];
     if ($icon_url = $entity->getIconUrl()) {
       $row['icon_file']['class'][] = 'paragraphs-type-icon';
       $row['icon_file']['data'] = [
@@ -39,6 +40,7 @@ class ParagraphsTypeListBuilder extends ConfigEntityListBuilder {
     }
     $row['label'] = $entity->label();
     $row['id'] = $entity->id();
+    $row['description']['data'] = ['#markup' => $entity->getDescription()];
     // You probably want a few more properties here...
     return $row + parent::buildRow($entity);
   }

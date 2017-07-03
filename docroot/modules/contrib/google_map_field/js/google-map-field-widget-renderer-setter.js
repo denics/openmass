@@ -16,6 +16,7 @@
       var height = $('#edit-height').val();
       var show_marker = $('#edit-marker').prop('checked') ? "1" : "0";
       var show_controls = $('#edit-controls').prop('checked') ? "1" : "0";
+      var infowindow_text = $('#edit-infowindow').val();
 
       $('input[data-lat-delta="' + delta + '"]').prop('value', latlng.lat()).attr('value', latlng.lat());
       $('input[data-lon-delta="' + delta + '"]').prop('value', latlng.lng()).attr('value', latlng.lng());
@@ -25,6 +26,7 @@
       $('input[data-height-delta="' + delta + '"]').prop('value', height).attr('value', height);
       $('input[data-marker-delta="' + delta + '"]').prop('value', show_marker).attr('value', show_marker);
       $('input[data-controls-delta="' + delta + '"]').prop('value', show_controls).attr('value', show_controls);
+      $('input[data-infowindow-delta="' + delta + '"]').prop('value', infowindow_text).attr('value', infowindow_text);
 
       googleMapFieldPreviews(delta);
 
@@ -35,7 +37,7 @@
       $(this).dialog("close");
     };
 
-    dialogHTML = '';
+    var dialogHTML = '';
     dialogHTML += '<div id="google_map_field_dialog">';
     dialogHTML += '  <div>' + Drupal.t('Use the map below to drop a marker at the required location.') + '</div>';
     dialogHTML += '  <div id="google_map_field_container">';
@@ -46,6 +48,10 @@
     dialogHTML += '        <button onclick="return doCentre();" type="button" role="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only button">' + Drupal.t('Find') + '</button>';
     dialogHTML += '        <div id="map_error"></div>';
     dialogHTML += '        <div id="centre_map_results"></div>';
+    dialogHTML += '      </div>';
+    dialogHTML += '      <div id="infowindow_container">';
+    dialogHTML += '        <label for="edit-infowindow">' + Drupal.t('InfoWindow Popup text: (optional)') + '</label>';
+    dialogHTML += '        <textarea class="form-textarea" id="edit-infowindow" name="infowindow" rows="5" cols="70"></textarea>';
     dialogHTML += '      </div>';
     dialogHTML += '    </div>';
     dialogHTML += '    <div id="google_map_field_options">';
@@ -71,7 +77,7 @@
       modal: true,
       autoOpen: false,
       width: 750,
-      height: 550,
+      height: 640,
       closeOnEscape: true,
       resizable: false,
       draggable: false,
@@ -109,6 +115,7 @@
     var height = $('input[data-height-delta="' + delta + '"]').attr('value');
     var show_marker = $('input[data-marker-delta="' + delta + '"]').val() === "1";
     var show_controls = $('input[data-controls-delta="' + delta + '"]').val() === "1";
+    var infowindow_text = $('input[data-infowindow-delta="' + delta + '"]').attr('value');
 
     lat = googleMapFieldValidateLat(lat);
     lon = googleMapFieldValidateLon(lon);
@@ -118,8 +125,9 @@
     $('#edit-type').val(type);
     $('#edit-width').prop('value', width).attr('value', width);
     $('#edit-height').prop('value', height).attr('value', height);
-    $('#edit-marker').prop('checked', show_marker)
-    $('#edit-controls').prop('checked', show_controls)
+    $('#edit-marker').prop('checked', show_marker);
+    $('#edit-controls').prop('checked', show_controls);
+    $('#edit-infowindow').val(infowindow_text);
 
     // $('#edit-controls').prop('checked', controls);
 

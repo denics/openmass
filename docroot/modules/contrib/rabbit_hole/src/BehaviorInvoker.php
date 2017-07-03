@@ -132,7 +132,7 @@ class BehaviorInvoker implements BehaviorInvokerInterface {
    *   An array of string entity ids.
    */
   public function getPossibleEntityTypeKeys() {
-    $entity_type_keys = array();
+    $entity_type_keys = [];
     foreach ($this->rhEntityPluginManager->getDefinitions() as $def) {
       $entity_type_keys[] = $def['entityType'];
     }
@@ -152,7 +152,7 @@ class BehaviorInvoker implements BehaviorInvokerInterface {
    */
   private function getRabbitHoleValuesForEntity(ContentEntityBase $entity) {
     $field_keys = array_keys($this->rhEntityExtender->getGeneralExtraFields());
-    $values = array();
+    $values = [];
 
     $config = $this->rhBehaviorSettingsManager->loadBehaviorSettingsAsConfig(
       $entity->getEntityType()->getBundleEntityType()
