@@ -10,6 +10,8 @@ namespace Drupal\mass_flagging\Plugin\Derivative;
 use Drupal\Component\Plugin\Derivative\DeriverBase;
 use Drupal\Core\Plugin\Discovery\ContainerDeriverInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+
 /**
  * Defines dynamic local tasks.
  */
@@ -25,7 +27,7 @@ class DynamicLocalTasks extends DeriverBase implements ContainerDeriverInterface
   /**
    * Routematch.
    *
-   * @var Drupal\Core\Routing\RouteMatchInterface;
+   * @var \Drupal\Core\Routing\RouteMatchInterface;
    */
   protected $routeMatch;
 
@@ -33,7 +35,7 @@ class DynamicLocalTasks extends DeriverBase implements ContainerDeriverInterface
    * Constructs a \Drupal\mass_flagging\Plugin\Derivative\ViewsLocalTask instance.
    *
    * @param string $base_plugin_id
-   * @param Drupal\Core\Routing\RouteMatchInterface $route_match
+   * @param RouteMatchInterface $route_match
    *   The route match.
    */
   public function __construct($base_plugin_id, RouteMatchInterface $route_match) {
@@ -46,7 +48,8 @@ class DynamicLocalTasks extends DeriverBase implements ContainerDeriverInterface
    */
   public static function create(ContainerInterface $container, $base_plugin_id) {
     return new static(
-      $container->get('router.matcher')
+      $base_plugin_id,
+      $container->get('current_route_match')
     );
   }
 
@@ -59,7 +62,7 @@ class DynamicLocalTasks extends DeriverBase implements ContainerDeriverInterface
     #TODO: get txt value from flag to replace static
     $this->derivatives['mass_flagging.task_id']['title'] = "Watch";
 
-    $node = $this->routematch->getParameter('node');
+    $node = $this->routeMatch->getParameter('node');
     if ($node) {
       $node_id = $node->id();
     }
