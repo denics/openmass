@@ -16,6 +16,7 @@ module:
   config_log: 0
   contextual: 0
   crazyegg: 0
+  csv_serialization: 0
   ctools: 0
   datalayer: 0
   datetime: 0
@@ -103,6 +104,12 @@ module:
   restui: 0
   rh_node: 0
   rh_taxonomy: 0
+  schema_article: 0
+  schema_item_list: 0
+  schema_metatag: 0
+  schema_organization: 0
+  schema_web_page: 0
+  schema_web_site: 0
   seckit: 0
   security_review: 0
   serialization: 0
@@ -139,3 +146,4 @@ theme:
   mass_admin_theme: 0
 _core:
   default_config_hash: m2GVq11UAOVuNgj8x0t5fMOPujpvQQ_zxLoaly1BMEU
+profile: standard

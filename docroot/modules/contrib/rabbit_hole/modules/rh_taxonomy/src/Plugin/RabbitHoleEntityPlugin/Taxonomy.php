@@ -19,18 +19,18 @@ class Taxonomy extends RabbitHoleEntityPluginBase {
    * {@inheritdoc}
    */
   public function getFormSubmitHandlerAttachLocations() {
-    return array(
-      array('actions', 'submit', '#submit'),
-    );
+    return [
+      ['actions', 'submit', '#submit'],
+    ];
   }
 
   /**
    * {@inheritdoc}
    */
   public function getEntityTokenMap() {
-    return array(
+    return [
       'taxonomy_term' => 'term',
       'taxonomy_vocabulary' => 'vocabulary',
-    );
+    ];
   }
 }

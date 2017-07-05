@@ -2,7 +2,10 @@ node_type_person_status: '1'
 node_type_person_pattern: '[node:field_person_first_name] [node:field_person_last_name], [node:field_person_role_title]'
 node_type_person_php: 0
 submit: 'Save configuration'
-form_build_id: form-SkrKFcraZEq92rGZAnNLqG31Rl5y-pALk8dqHaYhEnE
-form_token: JR_xvbPyK1Y414igY72fqPux97XbXldsFpIg-vqXurg
+form_build_id: form-Q2SZKeHwxbv_qel529yVJHDEw2MZrWoPZBc5EjVWtVo
+form_token: NcGefU3tx5Shoe6s8VGeWbRhTxJcx_wIY1Q2EmN48L8
 form_id: auto_entitylabel_settings_form
 op: 'Save configuration'
+node_type_legacy_redirects_status: '1'
+node_type_legacy_redirects_pattern: 'Redirect for [node:field_legacy_redirects_ref_conte:entity:title]'
+node_type_legacy_redirects_php: 0

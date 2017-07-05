@@ -19,7 +19,6 @@ return array(
     'PHPMD\\' => array($vendorDir . '/phpmd/phpmd/src/main/php'),
     'PEAR' => array($vendorDir . '/pear/pear_exception'),
     'Net_DNS2' => array($vendorDir . '/pear/net_dns2'),
-    'Lurker' => array($vendorDir . '/henrikbjorn/lurker/src'),
     'JakubOnderka\\PhpConsoleHighlighter' => array($vendorDir . '/jakub-onderka/php-console-highlighter/src'),
     'JakubOnderka\\PhpConsoleColor' => array($vendorDir . '/jakub-onderka/php-console-color/src'),
     'HTMLPurifier' => array($vendorDir . '/ezyang/htmlpurifier/library'),
@@ -45,7 +44,6 @@ return array(
     'Doctrine\\Common\\Inflector\\' => array($vendorDir . '/doctrine/inflector/lib'),
     'Doctrine\\Common\\Collections\\' => array($vendorDir . '/doctrine/collections/lib'),
     'Doctrine\\Common\\Annotations\\' => array($vendorDir . '/doctrine/annotations/lib'),
-    'Doctrine\\Common\\' => array($vendorDir . '/doctrine/common/lib'),
     'Dflydev\\PlaceholderResolver' => array($vendorDir . '/dflydev/placeholder-resolver/src'),
     'Dflydev\\EmbeddedComposer\\Core' => array($vendorDir . '/dflydev/embedded-composer-core'),
     'Dflydev\\EmbeddedComposer\\Console' => array($vendorDir . '/dflydev/embedded-composer-console'),
@@ -59,7 +57,6 @@ return array(
     'Behat\\MinkExtension' => array($vendorDir . '/behat/mink-extension/src'),
     'Behat\\Gherkin' => array($vendorDir . '/behat/gherkin/src'),
     'Behat\\Behat' => array($vendorDir . '/behat/behat/src'),
-    'Archive_Tar' => array($vendorDir . '/pear/archive_tar'),
     'Acquia' => array($vendorDir . '/acquia/acquia-sdk-php/src'),
     '' => array($vendorDir . '/pear/pear-core-minimal/src'),
 );

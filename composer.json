@@ -117,19 +117,21 @@
         "cweagans/composer-patches": "~1.0",
         "desandro/imagesloaded": "^4.1",
         "desandro/masonry": "^4.1",
-        "drupal-composer/drupal-scaffold": "^1.0",
-        "drupal/access_unpublished": "1.x-dev",
+        "drupal-composer/drupal-scaffold": "2.3.0",
+        "drupal/access_unpublished": "dev-1.x#61f4e1704ff2497ab87dcf29f6566392d447685a",
         "drupal/acquia_connector": "^1",
         "drupal/acquia_purge": "^1",
         "drupal/address": "~1.0",
-        "drupal/better_field_descriptions": "1.x-dev",
+        "drupal/auto_entitylabel": "^2.0@beta",
+        "drupal/better_field_descriptions": "1.x-dev#f78d6715a2177a4b40568bff3c180383fae8cb27",
         "drupal/clamav": "^1.0",
         "drupal/components": "^1",
         "drupal/config_installer": "^1",
         "drupal/config_log": "^1",
         "drupal/console": "~1.0",
-        "drupal/core": "8.2.8",
+        "drupal/core": "8.3.4",
         "drupal/crazyegg": "^1",
+        "drupal/csv_serialization": "1.0.0",
         "drupal/diff": "1.x-dev",
         "drupal/draggableviews": "1.x-dev",
         "drupal/encrypt": "3.x-dev#19cda8cf22bfe7d020b819a7cfddf2e4883b78a8",
@@ -162,6 +164,7 @@
         "drupal/redirect": "^1",
         "drupal/restrict_by_ip": "4.x-dev",
         "drupal/restui": "^1",
+        "drupal/schema_metatag": "^1.0@RC",
         "drupal/seckit": "1.0-alpha2",
         "drupal/security_review": "1.x-dev",
         "drupal/subpathauto": "^1.0@beta",
@@ -211,7 +214,10 @@
         "drupal-scaffold": {
             "excludes": [
                 ".htaccess",
-                "robots.txt"
+                "robots.txt",
+                ".eslintrc",
+                ".eslintignore",
+                ".eslintrc.json"
             ],
             "omit-defaults": false
         },
@@ -227,9 +233,8 @@
             "drupal/core": {
                 "Remove drupal.js error. (https://www.drupal.org/node/2661880)": "https://www.drupal.org/files/issues/quickedit-undefined-attr-2661880-14.patch",
                 "Don't break if telephone number is less than 6 digits. (https://www.drupal.org/node/2575577#comment-11750724)": "https://www.drupal.org/files/issues/2575577-11.patch",
-                "Replace (in ajax_view.js) $.size with .length since .size is deprecated.": "https://www.drupal.org/files/issues/drupal-8.3.x-remove-jquery-size-for-ajax_view-2828140-3_0.patch",
                 "Fix photo disappearing from org page. Fix Contextual Links js bug.": "https://www.drupal.org/files/issues/2551373-32.patch",
-                "Link autocomplete content type filter. (https://www.drupal.org/node/2887376)": "https://www.drupal.org/files/issues/link-autocomplete-ct-filter.patch"
+                "Link autocomplete content type filter. (https://www.drupal.org/node/2887376#comment-12147367)": "https://www.drupal.org/files/issues/link-autocomplete-ct-filter-2887376-5-8.4.x.patch"
             },
             "drupal/workbench_moderation": {
                 "Fix type errors from WorkbenchModeration edit tab labeling (https://www.drupal.org/node/2769119#comment-11624207)": "https://www.drupal.org/files/issues/workbench_moderation-edit_tab-2769119-6.patch"            },
@@ -237,7 +242,7 @@
               "Configure crazyegg for specific pages. (https://www.drupal.org/node/2812783)": "https://www.drupal.org/files/issues/2812783-configure-for-specific-pages.patch"
             },
             "drupal/password_policy": {
-              "Removes field updates from the install file. (https://www.drupal.org/node/2771129#comment-11954803)": "https://www.drupal.org/files/issues/password-policy-config-import-field-error-2771129-10-D8.patch"
+              "Removes field updates from the install file. (https://www.drupal.org/node/2771129#comment-12108388)": "https://www.drupal.org/files/issues/password-policy-config-import-field-error-2771129-37-D8.patch"
             },
             "drupal/tfa": {
                 "Drush sanitize plugin for TFA user data. (https://www.drupal.org/node/2862312)": "https://www.drupal.org/files/issues/drush_27.patch",
@@ -257,7 +262,8 @@
               "Provide page level error messaging when publishing validation is not met": "https://www.drupal.org/files/issues/field_group-validation-2787179-9.patch"
             },
             "drupal/better_field_descriptions": {
-                "Fix the positioning of the additional help text (https://www.drupal.org/node/2882765)": "https://www.drupal.org/files/issues/better_field_descriptions-position-help-2882765-0.patch"
+                "Fix the positioning of the additional help text (https://www.drupal.org/node/2882765)": "https://www.drupal.org/files/issues/better_field_descriptions-position-help-2882765-0.patch",
+                "Prevent errors when deleting fields (https://www.drupal.org/node/2888240)": "https://www.drupal.org/files/issues/better_field_descriptions-stop-errors-when-field-deleted-2888240-1.patch"
             }
         }
     }

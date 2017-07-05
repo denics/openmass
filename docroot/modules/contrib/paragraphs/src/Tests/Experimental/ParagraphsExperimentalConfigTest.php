@@ -53,14 +53,15 @@ class ParagraphsExperimentalConfigTest extends ParagraphsExperimentalTestBase {
 
     // Create a node with a paragraph.
     $this->drupalPostAjaxForm('node/add/paragraphed_test', [], 'paragraphs_field_paragraph_type_test_add_more');
-    $this->drupalPostForm(NULL, ['title[0][value]' => 'paragraphed_title'], t('Save and publish'));
+    $edit = ['title[0][value]' => 'paragraphed_title'];
+    $this->drupalPostFormSave(NULL, $edit, t('Save and publish'), t('Save'), $edit + ['status[value]' => TRUE]);
 
     // Attempt to add a translation.
     $node = $this->drupalGetNodeByTitle('paragraphed_title');
     $this->drupalGet('node/' . $node->id() . '/translations');
     $this->clickLink(t('Add'));
     // Save the translation.
-    $this->drupalPostForm(NULL, [], t('Save and keep published (this translation)'));
+    $this->drupalPostFormSave(NULL, [], t('Save and keep published (this translation)'), t('Save (this translation)'));
     $this->assertText('paragraphed_test paragraphed_title has been updated.');
   }
 
@@ -158,4 +159,94 @@ class ParagraphsExperimentalConfigTest extends ParagraphsExperimentalTestBase {
     $this->assertNoOption('edit-fields-field-node-reference-type', 'paragraphs');
   }
 
+  /**
+   * Test included paragraph types.
+   */
+  public function testIncludedParagraphTypes() {
+    $this->loginAsAdmin();
+    // Add a Paragraph content type and 2 Paragraphs types.
+    $this->addParagraphedContentType('paragraphed_test', 'paragraphs');
+    $this->addParagraphsType('paragraph_type_test');
+    $this->addParagraphsType('text');
+
+    $this->drupalGet('admin/structure/types/manage/paragraphed_test/fields/node.paragraphed_test.paragraphs');
+    $edit = [
+      'settings[handler_settings][negate]' => 0,
+      'settings[handler_settings][target_bundles_drag_drop][paragraph_type_test][enabled]' => 1,
+    ];
+    $this->drupalPostForm(NULL, $edit, 'Save settings');
+    $this->assertText('Saved paragraphs configuration.');
+
+    $this->drupalGet('node/add/paragraphed_test');
+    $this->assertText('Add paragraph_type_test');
+    $this->assertNoText('Add text');
+    $edit = [
+      'title[0][value]' => 'Testing included types'
+    ];
+    $this->drupalPostFormSave(NULL, $edit, t('Save and publish'), t('Save'), $edit + ['status[value]' => TRUE]);
+    $this->assertText('paragraphed_test Testing included types has been created.');
+
+    // Include all types.
+    $this->drupalGet('admin/structure/types/manage/paragraphed_test/fields/node.paragraphed_test.paragraphs');
+    $edit = [
+      'settings[handler_settings][negate]' => 0,
+      'settings[handler_settings][target_bundles_drag_drop][text][enabled]' => 1,
+      'settings[handler_settings][target_bundles_drag_drop][paragraph_type_test][enabled]' => 1,
+    ];
+    $this->drupalPostForm(NULL, $edit, 'Save settings');
+    $this->drupalGet('node/add/paragraphed_test');
+    $button_paragraphed_type_test = $this->xpath('//input[@id=:id]', [':id' => 'paragraphs-paragraph-type-test-add-more']);
+    $button_text = $this->xpath('//input[@id=:id]', [':id' => 'paragraphs-text-add-more']);
+    $this->assertNotNull($button_paragraphed_type_test);
+    $this->assertNotNull($button_text);
+    $edit = [
+      'title[0][value]' => 'Testing all excluded types'
+    ];
+    $this->drupalPostFormSave(NULL, $edit, t('Save and publish'), t('Save'), $edit + ['status[value]' => TRUE]);
+    $this->assertText('paragraphed_test Testing all excluded types has been created.');
+  }
+
+  /**
+   * Test excluded paragraph types.
+   */
+  public function testExcludedParagraphTypes() {
+    $this->loginAsAdmin();
+    // Add a Paragraph content type and 2 Paragraphs types.
+    $this->addParagraphedContentType('paragraphed_test', 'paragraphs');
+    $this->addParagraphsType('paragraph_type_test');
+    $this->addParagraphsType('text');
+
+    $this->drupalGet('admin/structure/types/manage/paragraphed_test/fields/node.paragraphed_test.paragraphs');
+    $edit = [
+      'settings[handler_settings][negate]' => 1,
+      'settings[handler_settings][target_bundles_drag_drop][text][enabled]' => 1,
+    ];
+    $this->drupalPostForm(NULL, $edit, 'Save settings');
+    $this->assertText('Saved paragraphs configuration.');
+
+    $this->drupalGet('node/add/paragraphed_test');
+    $this->assertText('Add paragraph_type_test');
+    $this->assertNoText('Add text');
+    $edit = [
+      'title[0][value]' => 'Testing excluded types'
+    ];
+    $this->drupalPostFormSave(NULL, $edit, t('Save and publish'), t('Save'), $edit + ['status[value]' => TRUE]);
+    $this->assertText('paragraphed_test Testing excluded types has been created.');
+
+    // Exclude all types.
+    $this->drupalGet('admin/structure/types/manage/paragraphed_test/fields/node.paragraphed_test.paragraphs');
+    $edit = [
+      'settings[handler_settings][negate]' => 1,
+      'settings[handler_settings][target_bundles_drag_drop][text][enabled]' => 1,
+      'settings[handler_settings][target_bundles_drag_drop][paragraph_type_test][enabled]' => 1,
+    ];
+    $this->drupalPostForm(NULL, $edit, 'Save settings');
+    $this->drupalGet('node/add/paragraphed_test');
+    $this->assertText('You are not allowed to add any of the Paragraph types.');
+    $edit = [
+      'title[0][value]' => 'Testing all excluded types'
+    ];
+    $this->drupalPostFormSave(NULL, $edit, t('Save and publish'), t('Save'), $edit + ['status[value]' => TRUE]);
+    $this->assertText('paragraphed_test Testing all excluded types has been created.');
+  }
 }

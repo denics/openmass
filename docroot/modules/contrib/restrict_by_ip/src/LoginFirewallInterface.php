@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains Drupal\restrict_by_ip\LoginFirewallInterface.
- */
-
 namespace Drupal\restrict_by_ip;
 
 use Drupal\Core\Session\AccountInterface;

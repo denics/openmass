@@ -24,139 +24,147 @@ class GoogleMapFieldDefaultWidget extends WidgetBase {
    */
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
 
-    $element += array(
+    $element += [
       '#type' => 'fieldset',
       '#title' => $this->t('Map'),
-    );
+    ];
     $element['#attached']['library'][] = 'google_map_field/google-map-field-widget-renderer';
     $element['#attached']['library'][] = 'google_map_field/google-map-apis';
 
-    $element['preview'] = array(
+    $element['preview'] = [
       '#type' => 'item',
       '#title' => $this->t('Preview'),
       '#markup' => '<div class="google-map-field-preview" data-delta="' . $delta . '"></div>',
       '#prefix' => '<div class="google-map-field-widget right">',
       '#suffix' => '</div>',
-    );
+    ];
 
-    $element['intro'] = array(
+    $element['intro'] = [
       '#type' => 'markup',
       '#markup' => $this->t('Use the "Set Map" button for more options.'),
       '#prefix' => '<div class="google-map-field-widget left">',
-    );
+    ];
 
-    $element['name'] = array(
+    $element['name'] = [
       '#title' => $this->t('Map Name'),
       '#size' => 32,
       '#type' => 'textfield',
       '#default_value' => isset($items[$delta]->name) ? $items[$delta]->name : NULL,
-      '#attributes' => array(
+      '#attributes' => [
         'data-name-delta' => $delta,
-      ),
-    );
+      ],
+    ];
 
-    $element['lat'] = array(
+    $element['lat'] = [
       '#title' => $this->t('Latitude'),
       '#type' => 'textfield',
       '#size' => 18,
       '#default_value' => isset($items[$delta]->lat) ? $items[$delta]->lat : NULL,
-      '#attributes' => array(
+      '#attributes' => [
         'data-lat-delta' => $delta,
-        'class' => array(
+        'class' => [
           'google-map-field-watch-change',
-        ),
-      ),
-    );
+        ],
+      ],
+    ];
 
-    $element['lon'] = array(
+    $element['lon'] = [
       '#title' => $this->t('Longitude'),
       '#type' => 'textfield',
       '#size' => 18,
       '#default_value' => isset($items[$delta]->lon) ? $items[$delta]->lon : NULL,
-      '#attributes' => array(
+      '#attributes' => [
         'data-lon-delta' => $delta,
-        'class' => array(
+        'class' => [
           'google-map-field-watch-change',
-        ),
-      ),
+        ],
+      ],
       '#suffix' => '</div>',
-    );
+    ];
 
-    $element['zoom'] = array(
+    $element['zoom'] = [
       '#type' => 'hidden',
       '#default_value' => isset($items[$delta]->zoom) ? $items[$delta]->zoom : 9,
-      '#attributes' => array(
+      '#attributes' => [
         'data-zoom-delta' => $delta,
-      ),
-    );
+      ],
+    ];
 
-    $element['type'] = array(
+    $element['type'] = [
       '#type' => 'hidden',
       '#default_value' => isset($items[$delta]->type) ? $items[$delta]->type : 'roadmap',
-      '#attributes' => array(
+      '#attributes' => [
         'data-type-delta' => $delta,
-      ),
-    );
+      ],
+    ];
 
-    $element['width'] = array(
+    $element['width'] = [
       '#type' => 'hidden',
       '#default_value' => isset($items[$delta]->width) ? $items[$delta]->width : '100%',
-      '#attributes' => array(
+      '#attributes' => [
         'data-width-delta' => $delta,
-      ),
-    );
+      ],
+    ];
 
-    $element['height'] = array(
+    $element['height'] = [
       '#type' => 'hidden',
       '#default_value' => isset($items[$delta]->height) ? $items[$delta]->height : '450px',
-      '#attributes' => array(
+      '#attributes' => [
         'data-height-delta' => $delta,
-      ),
-    );
+      ],
+    ];
 
-    $element['marker'] = array(
+    $element['marker'] = [
       '#type' => 'hidden',
       '#default_value' => isset($items[$delta]->marker) ? $items[$delta]->marker : "1",
-      '#attributes' => array(
+      '#attributes' => [
         'data-marker-delta' => $delta,
-      ),
-    );
+      ],
+    ];
 
-    $element['controls'] = array(
+    $element['controls'] = [
       '#type' => 'hidden',
       '#default_value' => isset($items[$delta]->controls) ? $items[$delta]->controls : "1",
-      '#attributes' => array(
+      '#attributes' => [
         'data-controls-delta' => $delta,
-      ),
-    );
+      ],
+    ];
 
-    $element['actions'] = array(
+    $element['infowindow'] = [
+      '#type' => 'hidden',
+      '#default_value' => isset($items[$delta]->infowindow) ? $items[$delta]->infowindow : "",
+      '#attributes' => [
+        'data-infowindow-delta' => $delta,
+      ],
+    ];
+
+    $element['actions'] = [
       '#type' => 'actions',
-      '#attributes' => array(
-        'class' => array('field-map-actions'),
-      ),
-    );
+      '#attributes' => [
+        'class' => ['field-map-actions'],
+      ],
+    ];
 
-    $element['actions']['open_map'] = array(
+    $element['actions']['open_map'] = [
       '#type' => 'button',
       '#value' => $this->t('Set Map'),
-      '#attributes' => array(
+      '#attributes' => [
         'data-delta' => $delta,
         'id' => 'map_setter_' . $delta,
-      ),
-    );
+      ],
+    ];
 
-    $element['actions']['clear_fields'] = array(
+    $element['actions']['clear_fields'] = [
       '#type' => 'button',
       '#value' => $this->t('Clear'),
-      '#attributes' => array(
+      '#attributes' => [
         'data-delta' => $delta,
         'id' => 'clear_fields_' . $delta,
-        'class' => array(
+        'class' => [
           'google-map-field-clear',
-        ),
-      ),
-    );
+        ],
+      ],
+    ];
 
     return $element;
   }

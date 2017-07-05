@@ -18,7 +18,7 @@ class UnitTest extends UnitTestCase {
 
   public function testIpFailValidation() {
 
-    $invalid_ips = array(
+    $invalid_ips = [
       'string' => 'Not an IP address',
       '127.0.0.1' => 'Missing CIDR mask',
       '127.0.1' => 'Not enough octets',
@@ -31,7 +31,7 @@ class UnitTest extends UnitTestCase {
       '127.0.0.1/octet' => 'Invalid CIDR mask',
       '127.0.0.1/33' => 'Out of range CIDR mask',
       '127.0.0.1/-1' => 'Out of range CIDR mask',
-    );
+    ];
 
     foreach ($invalid_ips as $ip => $message) {
       try {
@@ -48,12 +48,12 @@ class UnitTest extends UnitTestCase {
   }
 
   public function testIpPassValidation() {
-    $valid_ips = array(
+    $valid_ips = [
       '127.0.0.0/8' => 'Valid /8',
       '127.1.0.0/16' => 'Valid /16',
       '127.1.1.0/24' => 'Valid /24',
       '127.0.0.1/32' => 'Valid /32',
-    );
+    ];
 
     foreach ($valid_ips as $ip => $message) {
       IPTools::validateIP($ip);

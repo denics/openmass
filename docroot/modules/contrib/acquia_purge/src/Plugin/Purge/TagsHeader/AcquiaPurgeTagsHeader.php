@@ -6,7 +6,7 @@ use Drupal\purge\Plugin\Purge\TagsHeader\TagsHeaderInterface;
 use Drupal\purge\Plugin\Purge\TagsHeader\TagsHeaderBase;
 
 /**
- * Exports te X-Acquia-Purge-Tags header.
+ * Exports the X-Acquia-Purge-Tags header.
  *
  * @PurgeTagsHeader(
  *   id = "acquiapurgetagsheader",
@@ -19,7 +19,11 @@ class AcquiaPurgeTagsHeader extends TagsHeaderBase implements TagsHeaderInterfac
    * {@inheritdoc}
    */
   public function getValue(array $tags) {
-    return implode('|', $tags);
+    $hashes = [];
+    foreach ($tags as $cache_tag) {
+      $hashes[] = substr(md5($cache_tag), 0, 4);
+    }
+    return implode(' ', $hashes);
   }
 
 }
