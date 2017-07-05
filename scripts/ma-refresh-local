@@ -9,7 +9,7 @@
 # This is a convenience script for refreshing database, config and files from a remote Acquia environment.
 
 # Default arguments
-desiredEnv='test'
+desiredEnv='prod'
 pullFiles=true
 
 # Get arguments
