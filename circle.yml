@@ -28,6 +28,7 @@ dependencies:
     - sudo service apache2 restart
 
   override:
+    - composer install --no-interaction
     # install eslint globally
     - npm install -g eslint@v2.13.1
     # configure phpcs to recognize Drupal and DrupalPractice standards
@@ -44,6 +45,9 @@ dependencies:
     - cd docroot && drush -yv config-import
     # Get a status
     - cd docroot && drush status
+
+  cache_directories:
+      - ~/.composer/cache
 
 test:
   override:
