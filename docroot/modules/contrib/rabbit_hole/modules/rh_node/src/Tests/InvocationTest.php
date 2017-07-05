@@ -20,7 +20,7 @@ class InvocationTest extends WebTestBase {
    *
    * @var array
    */
-  public static $modules = array('rabbit_hole', 'rh_node', 'node');
+  public static $modules = ['rabbit_hole', 'rh_node', 'node'];
 
   private $user;
 
@@ -122,15 +122,15 @@ class InvocationTest extends WebTestBase {
    */
   private function createTestNodeType($action = NULL) {
     $node_type = NodeType::create(
-      array(
+      [
         'type' => self::TEST_CONTENT_TYPE_ID,
         'name' => self::TEST_CONTENT_TYPE_ID,
-      )
+      ]
     );
     $node_type->save();
     if (isset($action)) {
       $this->behaviorSettingsManager->saveBehaviorSettings(
-        array('action' => $action, 'allow_override' => TRUE), 'node_type', $node_type->id());
+        ['action' => $action, 'allow_override' => TRUE], 'node_type', $node_type->id());
     }
     return $node_type;
   }
@@ -140,11 +140,11 @@ class InvocationTest extends WebTestBase {
    */
   private function createTestNodeOfType($node_type_id = self::TEST_CONTENT_TYPE_ID, $action = NULL) {
     $node = Node::create(
-      array(
+      [
         'nid' => NULL,
         'type' => $node_type_id,
         'title' => 'Test Behavior Settings Node',
-      )
+      ]
     );
     if (isset($action)) {
       $node->set('rh_action', $action);

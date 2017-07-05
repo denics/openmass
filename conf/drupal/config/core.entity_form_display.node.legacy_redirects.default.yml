@@ -1,0 +1,70 @@
+uuid: 501e7c39-b40c-47c8-8c5f-471c4031c8e6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.legacy_redirects.body
+    - field.field.node.legacy_redirects.field_legacy_redirect_env
+    - field.field.node.legacy_redirects.field_legacy_redirects_legacyurl
+    - field.field.node.legacy_redirects.field_legacy_redirects_ref_conte
+    - node.type.legacy_redirects
+  module:
+    - text
+    - workbench_moderation
+id: node.legacy_redirects.default
+targetEntityType: node
+bundle: legacy_redirects
+mode: default
+content:
+  body:
+    type: text_textarea_with_summary
+    weight: 5
+    settings:
+      rows: 9
+      summary_rows: 3
+      placeholder: ''
+    third_party_settings: {  }
+  created:
+    type: datetime_timestamp
+    weight: 6
+    settings: {  }
+    third_party_settings: {  }
+  field_legacy_redirect_env:
+    weight: 3
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
+  field_legacy_redirects_legacyurl:
+    weight: 1
+    settings:
+      size: 75
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_legacy_redirects_ref_conte:
+    weight: 2
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+  title:
+    type: string_textfield
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 7
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  path: true
+  promote: true
+  sticky: true

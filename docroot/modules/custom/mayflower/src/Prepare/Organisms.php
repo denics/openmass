@@ -38,6 +38,7 @@ class Organisms {
    *      "title": "What Would You Like to Do?",
    *      "featuredHeading":"Featured:",
    *      "generalHeading":"All Actions & Guides:",
+   *      "id": "UUID01234...",
    *      "seeAll": [
    *        "type": "external",
    *        "href": "http://www.google.com",
@@ -99,6 +100,9 @@ class Organisms {
       }
     }
 
+    // Set actionFinder id to entity uuid.
+    $id = 'UUID' . $entity->uuid();
+
     // Get desktop image, if it exists.
     $desktop_image = '';
     if (array_key_exists('bgWide', $fields)) {
@@ -123,6 +127,7 @@ class Organisms {
         'title' => $options["title"],
         'featuredHeading' => $featured_heading,
         'generalHeading' => $all_heading,
+        'id' => $id,
         'bgWide' => $desktop_image,
         'bgNarrow' => $mobile_image,
         'seeAll' => $see_all,

@@ -24,57 +24,62 @@ class GoogleMapFieldType extends FieldItemBase {
    * {@inheritdoc}
    */
   public static function schema(FieldStorageDefinitionInterface $field) {
-    return array(
-      'columns' => array(
-        'name' => array(
+    return [
+      'columns' => [
+        'name' => [
           'type' => 'varchar',
           'length' => 128,
           'not null' => FALSE,
-        ),
-        'lat' => array(
+        ],
+        'lat' => [
           'type' => 'float',
           'size' => 'big',
           'default' => 0.0,
           'not null' => FALSE,
-        ),
-        'lon' => array(
+        ],
+        'lon' => [
           'type' => 'float',
           'size' => 'big',
           'default' => 0.0,
           'not null' => FALSE,
-        ),
-        'zoom' => array(
+        ],
+        'zoom' => [
           'type' => 'int',
           'length' => 10,
           'not null' => FALSE,
-        ),
-        'type' => array(
+        ],
+        'type' => [
           'type' => 'varchar',
           'length' => 32,
           'not null' => FALSE,
-        ),
-        'width' => array(
+        ],
+        'width' => [
           'type' => 'varchar',
           'length' => 32,
           'not null' => FALSE,
-        ),
-        'height' => array(
+        ],
+        'height' => [
           'type' => 'varchar',
           'length' => 32,
           'not null' => FALSE,
-        ),
-        'marker' => array(
+        ],
+        'marker' => [
           'type' => 'int',
           'length' => 10,
           'not null' => FALSE,
-        ),
-        'controls' => array(
+        ],
+        'controls' => [
           'type' => 'int',
           'length' => 10,
           'not null' => FALSE,
-        ),
-      ),
-    );
+        ],
+        'infowindow' => [
+          'type' => 'text',
+          'size' => 'medium',
+          'not null' => FALSE,
+        ],
+      ],
+    ];
   }
 
   /**
@@ -115,6 +120,9 @@ class GoogleMapFieldType extends FieldItemBase {
 
     $properties['controls'] = DataDefinition::create('integer')
       ->setLabel(new TranslatableMarkup('Show controls'));
+
+    $properties['infowindow'] = DataDefinition::create('string')
+      ->setLabel(new TranslatableMarkup('InfoWindow message'));
 
     return $properties;
   }

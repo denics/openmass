@@ -57,18 +57,18 @@ class RabbitHolePermissionGenerator implements ContainerInjectionInterface {
       $entity_type = $this->entityTypeManager
               ->getStorage($def['entityType'])
               ->getEntityType();
-      $permissions += array(
-        'rabbit hole administer ' . $def['entityType'] => array(
+      $permissions += [
+        'rabbit hole administer ' . $def['entityType'] => [
           'title' => $this->t(
                       'Administer Rabbit Hole settings for %entity_type',
-                      array('%entity_type' => $entity_type->getLabel())),
-        ),
-        'rabbit hole bypass ' . $def['entityType'] => array(
+                      ['%entity_type' => $entity_type->getLabel()]),
+        ],
+        'rabbit hole bypass ' . $def['entityType'] => [
           'title' => $this->t(
                       'Bypass Rabbit Hole action for %entity_type',
-                      array('%entity_type' => $entity_type->getLabel())),
-        ),
-      );
+                      ['%entity_type' => $entity_type->getLabel()]),
+        ],
+      ];
     }
 
     return $permissions;

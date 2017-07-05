@@ -3,6 +3,7 @@
 namespace Drupal\paragraphs_demo\Tests;
 
 use Drupal\filter\Entity\FilterFormat;
+use Drupal\paragraphs\Tests\Classic\ParagraphsCoreVersionUiTestTrait;
 use Drupal\simpletest\WebTestBase;
 
 /**
@@ -11,6 +12,8 @@ use Drupal\simpletest\WebTestBase;
  * @group paragraphs
  */
 class ParagraphsDemoTest extends WebTestBase {
+
+  use ParagraphsCoreVersionUiTestTrait;
 
   /**
    * Modules to enable.
@@ -139,24 +142,18 @@ class ParagraphsDemoTest extends WebTestBase {
     $edit = [
       'field_paragraphs_demo[1][subform][field_user_demo][0][target_id]' => $admin_user->label() . ' (' . $admin_user->id() . ')',
     ];
-    $this->drupalPostForm(NULL, $edit, t('Save and publish'));
+    $this->drupalPostFormSave(NULL, $edit, t('Save and publish'), t('Save'), $edit + ['status[value]' => TRUE]);
 
     $this->assertText('Paragraphed article Paragraph title has been created.');
     $this->assertText('Paragraph title');
     $this->assertText('Paragraph text');
 
     // Search a nested Paragraph text.
-    /**
-     * @todo Reinstate this after search_api is fixed.
-     *
-     * search_api issue: https://www.drupal.org/node/2792277
-     * paragraphs issue: https://www.drupal.org/node/2791315
     $this->drupalGet('paragraphs_search', ['query' => ['search_api_fulltext' => 'A search api example']]);
     $this->assertRaw('Welcome to the Paragraphs Demo module!');
     // Search a node paragraph field text.
     $this->drupalGet('paragraphs_search', ['query' => ['search_api_fulltext' => 'It allows you']]);
     $this->assertRaw('Welcome to the Paragraphs Demo module!');
-    */
     // Search non existent text.
     $this->drupalGet('paragraphs_search', ['query' => ['search_api_fulltext' => 'foo']]);
     $this->assertNoRaw('Welcome to the Paragraphs Demo module!');

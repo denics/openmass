@@ -16,7 +16,7 @@ class RabbitHoleBehaviorPluginTest extends PluginTestBase {
    *
    * @var array
    */
-  public static $modules = array('rabbit_hole');
+  public static $modules = ['rabbit_hole'];
 
   /**
    * The plugin manager.
