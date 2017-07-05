@@ -104,6 +104,12 @@ module:
   restui: 0
   rh_node: 0
   rh_taxonomy: 0
+  schema_article: 0
+  schema_item_list: 0
+  schema_metatag: 0
+  schema_organization: 0
+  schema_web_page: 0
+  schema_web_site: 0
   seckit: 0
   security_review: 0
   serialization: 0
