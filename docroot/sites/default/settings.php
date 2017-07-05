@@ -25,4 +25,9 @@ if(isset($_ENV['AH_SITE_ENVIRONMENT'])) {
 } else {
   // if not in Acquia
   require $app_root . '/' . $site_path . '/settings.vm.php';
+
+  // Override as needed via a settings.local.php
+  if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
+    include $app_root . '/' . $site_path . '/settings.local.php';
+  }
 }
