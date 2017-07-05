@@ -108,6 +108,7 @@ module:
   rh_taxonomy: 0
   schema_article: 0
   schema_article_example: 0
+  schema_item_list: 0
   schema_metatag: 0
   schema_organization: 0
   schema_web_page: 0
