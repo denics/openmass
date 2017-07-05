@@ -10,14 +10,14 @@ If you've done this before, here's a quick refresher:
 
 1. Checkout `develop`.
 1. Email: Notify team of upcoming release.
+1. Add release notes to CHANGELOG.md, and then commit.
 1. Create release branch.
 1. Push release branch to GitHub.
-1. Write release notes.
 1. Deploy release branch to `Stage`.
 1. Verify release notes against `Stage`.
 1. Smoke test most important stuff in `Stage`.
 1. Merge a GitHub PR: release --> `master`.
-1. Acquia Git: Tag `master` with name of the release.
+1. Acquia Git: Tag `master` with name of the release. We don't tag at Github anymore.
 1. Deploy release tag to `Stage` for release smoke test.
 1. Deploy release tag to directly `Prod`. (Previously, stage db was copied to prod)
 1. Clear Drupal + Twig cache.
