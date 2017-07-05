@@ -62,7 +62,7 @@
       {# include "atoms-site-logo" #}
       <div class="ma__site-logo">
         <a href="/" title="Mass.gov home page">
-          <img src="{{ base_path ~ directory }}/images/stateseal.png" alt="Mass.gov" width="75" height="75" />
+          <img src="{{ base_path ~ directory }}/images/pilot-logo.png" alt="Mass.gov" width="164" height="75" />
         </a>
       </div>
       {# end "atoms-site-logo" #}
@@ -93,13 +93,17 @@
     {% endif %}
   {% endblock %}
 </main>
-
+<!-- @see @molecules/floating-action -->
+<div class="ma__floating-action ma__floating-action--alignment-right">
+  <a
+      href="https://pilot.mass.gov/feedback"
+      class="ma__button-minor-green ma__button--small"
+      title="Tell us what you think">
+    Tell us what you think
+  </a>
+</div>
 {% if page.footer or page.footer_navigation %}
     <footer id="footer" class="ma__footer js-footer" role="contentinfo">
-      <button class="ma__footer__back2top js-back2top">
-        {% include '@atoms/05-icons/svg-arrow.twig' ignore missing %}
-	       <span>Top</span>
-      </button>
       <div class="ma__footer__container">
 
         {{ page.footer }}

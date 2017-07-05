@@ -21,7 +21,7 @@ third_party_settings:
       children:
         - field_ref_address
       parent_name: ''
-      weight: 7
+      weight: 8
       format_type: fieldset
       format_settings:
         id: ''
@@ -35,19 +35,20 @@ third_party_settings:
         - field_ref_links
         - field_ref_fax_number
       parent_name: ''
-      weight: 8
+      weight: 9
       format_type: fieldset
       format_settings:
-        id: ''
-        classes: ''
+        label: 'Phone / Online Link / Email / Fax'
         description: ''
         required_fields: true
-      label: 'Phone / Fax / Online / Email'
+        id: ''
+        classes: ''
+      label: 'Phone / Online Link / Email / Fax'
     group_hours_of_operation:
       children:
         - field_ref_hours
       parent_name: ''
-      weight: 12
+      weight: 10
       format_type: fieldset
       format_settings:
         id: ''
@@ -55,6 +56,20 @@ third_party_settings:
         description: ''
         required_fields: true
       label: 'Hours of operation'
+    group_contact_titles:
+      children:
+        - field_display_title
+        - title
+      parent_name: ''
+      weight: 0
+      format_type: fieldset
+      format_settings:
+        label: 'Contact titles'
+        description: 'The Display Title is the information that will appear on a page. The Admin Title provides a way to distinguish between 2 Contacts that use the same Display Title. The Admin Title is for internal use only and will never be displayed to the public. For example, the Governor’s Office might use the same Display title (“Governor’s Office”) for two offices - Boston and Springfield. The Admin Title can be different for each office.'
+        required_fields: true
+        id: ''
+        classes: ''
+      label: 'Contact titles'
 id: node.contact_information.default
 targetEntityType: node
 bundle: contact_information
@@ -62,11 +77,11 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 3
+    weight: 4
     settings: {  }
     third_party_settings: {  }
   field_display_title:
-    weight: 1
+    weight: 3
     settings:
       size: 60
       placeholder: ''
@@ -129,31 +144,31 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 6
+    weight: 7
     settings: {  }
     third_party_settings: {  }
   promote:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 4
+    weight: 5
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 5
+    weight: 6
     third_party_settings: {  }
   title:
     type: string_textfield
-    weight: 0
+    weight: 4
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 2
+    weight: 3
     settings:
       match_operator: CONTAINS
       size: 60

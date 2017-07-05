@@ -1,3 +1,3 @@
 <?php
 
-$settings['deployment_identifier'] = 'v0.20.0';
+$settings['deployment_identifier'] = '0.21.2';

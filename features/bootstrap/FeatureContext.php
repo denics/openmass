@@ -626,9 +626,9 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
       case "topic_page":
         $fields = array (
           array (
-            'field' => 'field-topic-ref-content-cards',
-            'tag' => 'input',
-            'type' => 'text',
+            'field' => 'field-topic-content-cards',
+            'tag' => 'paragraphs',
+            'type' => 'content-card-group',
           ),
           array (
             'field' => 'field-topic-bg-wide',
@@ -696,11 +696,6 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
           ),
           array (
             'field' => 'field-how-to-links-5',
-            'tag' => 'input',
-            'type' => 'text',
-          ),
-          array (
-            'field' => 'field-how-to-ref-services',
             'tag' => 'input',
             'type' => 'text',
           ),
@@ -1043,6 +1038,18 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
           ),
         );
         break;
+      case "content_card_group":
+        $fields = array (
+          array (
+            'field' => 'field-content-card-link-cards',
+            'widget' => 'Link',
+          ),
+          array (
+            'field' => 'field-content-card-category',
+            'widget' => 'Textfield',
+          ),
+        );
+        break;
     }
     foreach ($fields as $row) {
       $id = 'edit-fields-' . $row['field'] . '-type';
@@ -1055,4 +1062,43 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
       }
     }
   }
+
+
+  /**
+   * Creates unpublished content of the given type.
+   * Except for status, is same as createNode().
+   *
+   * @Given I am viewing an unpublished :type (content )with the title :title
+   * @Given an unpublished :type (content )with the title :title
+   */
+  public function createUnpublishedNode($type, $title) {
+    $node = (object) [
+      'title' => $title,
+      'type' => $type,
+      'body' => $this->getRandom()->name(255),
+      'status' => 0,
+    ];
+    $saved = $this->nodeCreate($node);
+    // Set internal page on the new node.
+    $this->getSession()->visit($this->locatePath('/node/' . $saved->nid));
+  }
+
+  /**
+   * Creates unpublished content of the given type and brings up the edit form.
+   *
+   * @Given I am editing an unpublished :type (content )with the title :title
+   */
+  public function editUnpublishedNode($type, $title) {
+    $node = (object) [
+      'title' => $title,
+      'type' => $type,
+      'body' => $this->getRandom()->name(255),
+      'status' => 0,
+    ];
+    $saved = $this->nodeCreate($node);
+    // Set internal page on the new node.
+    $this->getSession()->visit($this->locatePath('/node/' . $saved->nid . '/edit'));
+  }
+
+
 }

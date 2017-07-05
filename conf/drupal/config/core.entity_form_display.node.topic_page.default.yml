@@ -5,9 +5,9 @@ dependencies:
   config:
     - field.field.node.topic_page.field_topic_bg_narrow
     - field.field.node.topic_page.field_topic_bg_wide
+    - field.field.node.topic_page.field_topic_content_cards
     - field.field.node.topic_page.field_topic_display_links
     - field.field.node.topic_page.field_topic_lede
-    - field.field.node.topic_page.field_topic_ref_content_cards
     - field.field.node.topic_page.field_topic_ref_icon
     - field.field.node.topic_page.field_topic_ref_related_topics
     - image.style.thumbnail
@@ -15,6 +15,7 @@ dependencies:
   module:
     - field_group
     - image
+    - paragraphs
     - path
     - workbench_moderation
 third_party_settings:
@@ -52,6 +53,7 @@ third_party_settings:
     group_content_cards:
       children:
         - field_topic_display_links
+        - field_topic_content_cards
         - field_topic_ref_content_cards
       parent_name: group_topic_page_edit_form
       weight: 21
@@ -100,6 +102,17 @@ content:
       progress_indicator: throbber
     third_party_settings: {  }
     type: image_image
+  field_topic_content_cards:
+    type: entity_reference_paragraphs
+    weight: 38
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: _none
+    third_party_settings: {  }
   field_topic_display_links:
     weight: 37
     settings:
@@ -113,14 +126,6 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
-  field_topic_ref_content_cards:
-    weight: 38
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: entity_reference_autocomplete
   field_topic_ref_icon:
     weight: -3
     settings: {  }

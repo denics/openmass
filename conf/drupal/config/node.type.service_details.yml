@@ -17,7 +17,7 @@ third_party_settings:
       - draft
       - needs_review
     default_moderation_state: draft
-name: 'Service Details Page'
+name: 'Service Detail Page'
 type: service_details
 description: 'A child page of a service page to provide more details than can be provided on the parent page.'
 help: ''

@@ -1,5 +1,4 @@
 <?php
-
 namespace Drupal\restrict_by_ip\Tests;
 use Drupal\simpletest\WebTestBase;
 
@@ -125,12 +124,12 @@ class LoginTest extends WebTestBase {
 
   // Assert user can't login.
   private function assertNoLogin() {
-    $edit = [
+    $edit = array(
       'name' => $this->regularUser->label(),
       'pass' => $this->regularUser->pass_raw
-    ];
+    );
     $this->drupalPostForm('user', $edit, t('Log in'));
 
-    $this->assertNoText('Member for', t('User %name unsuccessfully logged in.', ['%name' => $this->regularUser->label()]));
+    $this->assertNoText('Member for', t('User %name unsuccessfully logged in.', array('%name' => $this->regularUser->label())));
   }
 }

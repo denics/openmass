@@ -282,3 +282,6 @@ permissions:
   277: 'edit own location_details content'
   278: 'revert location_details revisions'
   279: 'view location_details revisions'
+  280: 'use mass dashboard'
+  281: 'add better descriptions to fields'
+  282: 'administer better field descriptions settings'

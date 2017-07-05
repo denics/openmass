@@ -1,16 +1,16 @@
-uuid: edf8dbed-50bb-4c1c-a2ca-dd9c8367d5c7
+uuid: 2e19bf72-0a61-47af-a114-710f3e962917
 langcode: en
 status: true
 dependencies:
   module:
     - node
+    - text
 id: node.field_how_to_more_info
 field_name: field_how_to_more_info
 entity_type: node
-type: string_long
-settings:
-  case_sensitive: false
-module: core
+type: text_long
+settings: {  }
+module: text
 locked: false
 cardinality: 1
 translatable: true

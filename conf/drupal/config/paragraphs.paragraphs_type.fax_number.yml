@@ -3,7 +3,6 @@ langcode: en
 status: true
 dependencies: {  }
 id: fax_number
-label: FAX
+label: Fax
 icon_uuid: null
-description: null
 behavior_plugins: {  }

@@ -34,14 +34,14 @@ class SettingsForm extends ConfigFormBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
     $config = $this->config('access_unpublished.settings');
 
-    $form['hash_key'] = [
+    $form['hash_key'] = array(
       '#type' => 'textfield',
       '#title' => $this->t('Hash key'),
       '#default_value' => $config->get('hash_key'),
       '#size' => 60,
       '#maxlength' => 128,
       '#required' => TRUE,
-    ];
+    );
 
     $form['duration'] = [
       '#type' => 'select',

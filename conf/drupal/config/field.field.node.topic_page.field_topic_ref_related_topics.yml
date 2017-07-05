@@ -11,7 +11,7 @@ field_name: field_topic_ref_related_topics
 entity_type: node
 bundle: topic_page
 label: 'Related Topics'
-description: 'If there are topics that users may expect here but that live in a different section of the site, you can provide a shortcut link here. Select relevant pages from existing services or topics.'
+description: 'If there are topics that users may expect here but that live in a different section of the site, you can provide a shortcut link here. Select up to 12 relevant pages from Service or Topic pages on Mass.gov.'
 required: false
 translatable: false
 default_value: {  }

@@ -5,7 +5,7 @@ dependencies:
   config:
     - field.storage.node.field_service_detail_sections
     - node.type.service_details
-    - paragraphs.paragraphs_type.section_with_heading
+    - paragraphs.paragraphs_type.section
     - paragraphs.paragraphs_type.video
   module:
     - entity_reference_revisions
@@ -23,7 +23,7 @@ settings:
   handler: 'default:paragraph'
   handler_settings:
     target_bundles:
-      section_with_heading: section_with_heading
+      section: section
       video: video
     target_bundles_drag_drop:
       1up_stacked_band:
@@ -147,45 +147,48 @@ settings:
         weight: 92
         enabled: false
       method:
-        weight: 92
-        enabled: false
-      next_step:
         weight: 93
         enabled: false
       quick_action:
-        weight: 93
-        enabled: false
-      recommended_activity:
         weight: 94
         enabled: false
-      related_content:
+      next_step:
         weight: 95
         enabled: false
-      related_link:
+      recommended_activity:
         weight: 96
         enabled: false
-      rich_text:
+      related_content:
         weight: 97
         enabled: false
-      search_band:
+      related_link:
         weight: 98
         enabled: false
-      section_with_heading:
-        enabled: true
+      rich_text:
         weight: 99
-      slideshow:
+        enabled: false
+      search_band:
         weight: 100
         enabled: false
-      stacked_band:
+      section_with_heading:
         weight: 101
         enabled: false
-      stat:
+      slideshow:
         weight: 102
         enabled: false
-      subhead:
+      stacked_band:
         weight: 103
         enabled: false
+      stat:
+        weight: 104
+        enabled: false
+      subhead:
+        weight: 105
+        enabled: false
+      section:
+        enabled: true
+        weight: 106
       video:
         enabled: true
-        weight: 104
+        weight: 107
 field_type: entity_reference_revisions
