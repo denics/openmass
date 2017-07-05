@@ -28,6 +28,7 @@ content:
       add_mode: button
       form_display_mode: default
     third_party_settings: {  }
+    region: content
   field_emergency_alert_link:
     weight: 8
     settings:
@@ -35,6 +36,7 @@ content:
       placeholder_title: ''
     third_party_settings: {  }
     type: link_default
+    region: content
   field_emergency_alert_message:
     weight: 6
     settings:
@@ -42,11 +44,13 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
   field_emergency_alert_timestamp:
     weight: 7
     settings: {  }
     third_party_settings: {  }
     type: datetime_default
+    region: content
 hidden:
   created: true
   status: true

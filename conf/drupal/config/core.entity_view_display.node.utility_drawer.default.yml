@@ -23,6 +23,7 @@ content:
     weight: 1
     settings: {  }
     third_party_settings: {  }
+    region: content
   field_aria_label:
     weight: 4
     label: above
@@ -30,6 +31,7 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
   field_icon_term:
     weight: 0
     label: hidden
@@ -38,6 +40,7 @@ content:
       view_mode: default
     third_party_settings: {  }
     type: entity_reference_entity_view
+    region: content
   field_links:
     weight: 2
     label: hidden
@@ -49,8 +52,10 @@ content:
       target: ''
     third_party_settings: {  }
     type: link_separate
+    region: content
   links:
     weight: 3
     settings: {  }
     third_party_settings: {  }
+    region: content
 hidden: {  }

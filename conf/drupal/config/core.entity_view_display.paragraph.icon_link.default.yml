@@ -24,6 +24,7 @@ content:
       target: ''
     third_party_settings: {  }
     type: link
+    region: content
   field_para_icon_term:
     weight: 0
     label: hidden
@@ -31,6 +32,7 @@ content:
       link: false
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
 hidden:
   created: true
   uid: true

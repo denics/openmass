@@ -40,6 +40,7 @@ content:
       view_mode: extended_header
       link: ''
     third_party_settings: {  }
+    region: content
   field_action_details:
     type: entity_reference_revisions_entity_view
     weight: 3
@@ -48,6 +49,7 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
+    region: content
   field_action_header:
     type: entity_reference_revisions_entity_view
     weight: 2
@@ -56,6 +58,7 @@ content:
       view_mode: extended_header
       link: ''
     third_party_settings: {  }
+    region: content
   field_action_sidebar:
     type: entity_reference_revisions_entity_view
     weight: 4
@@ -64,12 +67,14 @@ content:
       view_mode: sidebar
       link: ''
     third_party_settings: {  }
+    region: content
   field_alert_dropdown:
     type: list_default
     weight: 9
     label: hidden
     settings: {  }
     third_party_settings: {  }
+    region: content
   field_alert_link:
     type: string
     weight: 8
@@ -77,12 +82,14 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
+    region: content
   field_alert_text:
     type: basic_string
     weight: 7
     label: hidden
     settings: {  }
     third_party_settings: {  }
+    region: content
   field_header_cta:
     type: entity_reference_revisions_entity_view
     weight: 0
@@ -91,6 +98,7 @@ content:
       view_mode: extended_header
       link: ''
     third_party_settings: {  }
+    region: content
   field_image_credit:
     type: string
     weight: 10
@@ -98,16 +106,19 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
+    region: content
   field_lede:
     type: basic_string
     weight: 1
     label: above
     settings: {  }
     third_party_settings: {  }
+    region: content
   workbench_moderation_control:
     weight: 0
     settings: {  }
     third_party_settings: {  }
+    region: content
 hidden:
   field_action_downloads: true
   field_action_parent: true

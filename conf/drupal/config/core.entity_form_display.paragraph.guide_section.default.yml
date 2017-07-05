@@ -119,6 +119,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
+    region: content
   field_guide_section_alert_text:
     weight: 7
     settings:
@@ -126,6 +127,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
   field_guide_section_body:
     weight: 3
     settings:
@@ -133,6 +135,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
+    region: content
   field_guide_section_downloads:
     weight: 10
     settings:
@@ -149,6 +152,7 @@ content:
       entity_browser_entity_form:
         entity_browser_id: media_browser
     type: inline_entity_form_complex
+    region: content
   field_guide_section_label:
     weight: 6
     settings:
@@ -156,6 +160,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
   field_guide_section_link:
     weight: 9
     settings:
@@ -163,6 +168,7 @@ content:
       placeholder_title: ''
     third_party_settings: {  }
     type: link_default
+    region: content
   field_guide_section_links_4:
     weight: 7
     settings:
@@ -170,6 +176,7 @@ content:
       placeholder_title: ''
     third_party_settings: {  }
     type: link_default
+    region: content
   field_guide_section_name:
     weight: 1
     settings:
@@ -177,6 +184,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
   field_guide_section_stat:
     weight: 5
     settings:
@@ -184,6 +192,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
   field_guide_section_time:
     weight: 2
     settings:
@@ -191,6 +200,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
 hidden:
   created: true
   status: true

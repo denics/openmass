@@ -21,6 +21,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
   field_fee_name:
     weight: 1
     settings:
@@ -28,6 +29,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
   field_fee_unit:
     weight: 3
     settings:
@@ -35,6 +37,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
   title:
     type: string_textfield
     weight: 0
@@ -42,6 +45,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+    region: content
 hidden:
   created: true
   path: true

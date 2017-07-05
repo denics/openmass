@@ -22,10 +22,12 @@ content:
       view_mode: emergency_alert_banner
       link: ''
     third_party_settings: {  }
+    region: content
   workbench_moderation_control:
     weight: -20
     settings: {  }
     third_party_settings: {  }
+    region: content
 hidden:
   field_action_sidebar: true
   links: true

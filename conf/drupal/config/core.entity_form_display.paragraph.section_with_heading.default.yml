@@ -43,6 +43,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
+    region: content
   field_section_downloads:
     weight: 23
     settings:
@@ -59,6 +60,7 @@ content:
       entity_browser_entity_form:
         entity_browser_id: media_browser
     type: inline_entity_form_complex
+    region: content
   field_section_key_actions:
     weight: 2
     settings:
@@ -66,6 +68,7 @@ content:
       placeholder_title: ''
     third_party_settings: {  }
     type: link_default
+    region: content
   field_section_links:
     weight: 22
     settings:
@@ -73,6 +76,7 @@ content:
       placeholder_title: ''
     third_party_settings: {  }
     type: link_default
+    region: content
   field_section_title:
     weight: 0
     settings:
@@ -80,6 +84,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
 hidden:
   created: true
   field_downloads: true

@@ -19,6 +19,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: number
+    region: content
   field_url:
     weight: 0
     settings:
@@ -26,6 +27,7 @@ content:
       placeholder_title: ''
     third_party_settings: {  }
     type: link_default
+    region: content
 hidden:
   created: true
   status: true

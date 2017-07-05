@@ -139,6 +139,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
   field_event_contact_general:
     weight: 35
     settings:
@@ -147,11 +148,13 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
+    region: content
   field_event_date:
     weight: 0
     settings: {  }
     third_party_settings: {  }
     type: datetime_default
+    region: content
   field_event_description:
     weight: 42
     settings:
@@ -159,6 +162,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
+    region: content
   field_event_fees:
     weight: 40
     settings:
@@ -166,6 +170,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
   field_event_image:
     weight: 39
     settings:
@@ -173,6 +178,7 @@ content:
       preview_image_style: thumbnail
     third_party_settings: {  }
     type: image_image
+    region: content
   field_event_lede:
     weight: -3
     settings:
@@ -180,6 +186,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
   field_event_link_sign_up:
     weight: 38
     settings:
@@ -187,6 +194,7 @@ content:
       placeholder_title: 'Sign up'
     third_party_settings: {  }
     type: link_default
+    region: content
   field_event_links:
     weight: 29
     settings:
@@ -194,6 +202,7 @@ content:
       placeholder_title: ''
     third_party_settings: {  }
     type: link_default
+    region: content
   field_event_logo:
     weight: -2
     settings:
@@ -201,11 +210,13 @@ content:
       preview_image_style: thumbnail
     third_party_settings: {  }
     type: image_image
+    region: content
   field_event_metatags:
     weight: 1
     settings: {  }
     third_party_settings: {  }
     type: metatag_firehose
+    region: content
   field_event_rain_date:
     weight: 36
     settings:
@@ -213,6 +224,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
   field_event_ref_contact:
     weight: 37
     settings:
@@ -221,6 +233,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
+    region: content
   field_event_ref_downloads:
     weight: 30
     settings:
@@ -237,6 +250,7 @@ content:
       entity_browser_entity_form:
         entity_browser_id: media_browser
     type: inline_entity_form_complex
+    region: content
   field_event_ref_event_2:
     weight: 33
     settings:
@@ -245,6 +259,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
+    region: content
   field_event_ref_parents:
     weight: -4
     settings:
@@ -253,6 +268,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
+    region: content
   field_event_time:
     weight: 1
     settings:
@@ -260,6 +276,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
   field_event_you_will_need:
     weight: 43
     settings:
@@ -267,6 +284,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
+    region: content
   title:
     type: string_textfield
     weight: -5
@@ -274,6 +292,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+    region: content
 hidden:
   created: true
   path: true

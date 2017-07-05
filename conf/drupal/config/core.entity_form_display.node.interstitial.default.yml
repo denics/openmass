@@ -22,6 +22,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
   field_message:
     weight: 1
     settings:
@@ -29,11 +30,13 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
+    region: content
   path:
     type: path
     weight: 2
     settings: {  }
     third_party_settings: {  }
+    region: content
   title:
     type: string_textfield
     weight: 0
@@ -41,6 +44,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+    region: content
 hidden:
   created: true
   promote: true

@@ -83,6 +83,7 @@ content:
     weight: 2
     settings: {  }
     third_party_settings: {  }
+    region: content
   field_guide_page_bg_wide:
     weight: -3
     settings:
@@ -90,6 +91,7 @@ content:
       progress_indicator: throbber
     third_party_settings: {  }
     type: image_image
+    region: content
   field_guide_page_lede:
     weight: -4
     settings:
@@ -97,6 +99,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textarea
+    region: content
   field_guide_page_related_guides:
     weight: 34
     settings:
@@ -105,6 +108,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
+    region: content
   field_guide_page_sections:
     type: entity_reference_paragraphs
     weight: 35
@@ -116,23 +120,27 @@ content:
       form_display_mode: default
       default_paragraph_type: ''
     third_party_settings: {  }
+    region: content
   path:
     type: path
     weight: 5
     settings: {  }
     third_party_settings: {  }
+    region: content
   promote:
     type: boolean_checkbox
     settings:
       display_label: true
     weight: 3
     third_party_settings: {  }
+    region: content
   sticky:
     type: boolean_checkbox
     settings:
       display_label: true
     weight: 4
     third_party_settings: {  }
+    region: content
   title:
     type: string_textfield
     weight: -5
@@ -140,6 +148,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+    region: content
   uid:
     type: entity_reference_autocomplete
     weight: 1
@@ -148,5 +157,6 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+    region: content
 hidden:
   field_guide_page_bg_narrow: true

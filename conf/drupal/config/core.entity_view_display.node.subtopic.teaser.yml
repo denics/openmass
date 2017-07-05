@@ -33,6 +33,7 @@ content:
       rel: '0'
       target: '0'
     third_party_settings: {  }
+    region: content
 hidden:
   field_agency_links: true
   field_description: true
