@@ -22,6 +22,7 @@ content:
     weight: 10
     settings: {  }
     third_party_settings: {  }
+    region: content
   field_person_email:
     weight: 36
     settings:
@@ -29,6 +30,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: email_default
+    region: content
   field_person_first_name:
     weight: 31
     settings:
@@ -36,6 +38,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
   field_person_last_name:
     weight: 32
     settings:
@@ -43,6 +46,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
   field_person_phone:
     weight: 35
     settings:
@@ -50,6 +54,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
   field_person_role_title:
     weight: 33
     settings:
@@ -57,23 +62,27 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
   path:
     type: path
     weight: 30
     settings: {  }
     third_party_settings: {  }
+    region: content
   promote:
     type: boolean_checkbox
     settings:
       display_label: true
     weight: 15
     third_party_settings: {  }
+    region: content
   sticky:
     type: boolean_checkbox
     settings:
       display_label: true
     weight: 16
     third_party_settings: {  }
+    region: content
   title:
     type: string_textfield
     weight: -5
@@ -81,6 +90,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+    region: content
   uid:
     type: entity_reference_autocomplete
     weight: 5
@@ -89,4 +99,5 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+    region: content
 hidden: {  }

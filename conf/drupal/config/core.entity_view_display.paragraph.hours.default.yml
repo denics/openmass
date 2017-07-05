@@ -21,6 +21,7 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
   field_hours_group_title:
     weight: 5
     label: above
@@ -28,6 +29,7 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
   field_hours_structured:
     weight: 3
     label: hidden
@@ -52,6 +54,7 @@ content:
       timezone_field: ''
     third_party_settings: {  }
     type: office_hours
+    region: content
 hidden:
   created: true
   field_hours: true

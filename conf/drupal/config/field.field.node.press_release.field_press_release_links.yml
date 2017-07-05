@@ -20,4 +20,5 @@ default_value_callback: ''
 settings:
   link_type: 17
   title: 1
+  content_types: {  }
 field_type: link

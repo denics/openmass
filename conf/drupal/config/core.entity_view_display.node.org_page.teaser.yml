@@ -28,6 +28,7 @@ mode: teaser
 content:
   workbench_moderation_control:
     weight: -20
+    region: content
 hidden:
   body: true
   field_action_set__bg_narrow: true
@@ -37,6 +38,7 @@ hidden:
   field_file_attachment: true
   field_link: true
   field_metatags: true
+  field_org_ref_locations: true
   field_ref_actions_3: true
   field_ref_actions_6: true
   field_ref_card_view_6: true

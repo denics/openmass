@@ -155,6 +155,7 @@ content:
       placeholder: ''
       summary_rows: 3
     third_party_settings: {  }
+    region: content
   field_action_set__bg_narrow:
     weight: 25
     settings:
@@ -162,6 +163,7 @@ content:
       progress_indicator: throbber
     third_party_settings: {  }
     type: image_image
+    region: content
   field_action_set__bg_wide:
     weight: 24
     settings:
@@ -169,6 +171,7 @@ content:
       progress_indicator: throbber
     third_party_settings: {  }
     type: image_image
+    region: content
   field_bg_narrow:
     weight: 23
     settings:
@@ -176,6 +179,7 @@ content:
       progress_indicator: throbber
     third_party_settings: {  }
     type: image_image
+    region: content
   field_bg_wide:
     weight: 22
     settings:
@@ -183,6 +187,7 @@ content:
       progress_indicator: throbber
     third_party_settings: {  }
     type: image_image
+    region: content
   field_link:
     weight: 28
     settings:
@@ -190,11 +195,13 @@ content:
       placeholder_title: ''
     third_party_settings: {  }
     type: link_default
+    region: content
   field_metatags:
     weight: 1
     settings: {  }
     third_party_settings: {  }
     type: metatag_firehose
+    region: content
   field_org_ref_locations:
     weight: 33
     settings:
@@ -203,6 +210,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
+    region: content
   field_ref_actions_3:
     weight: 26
     settings:
@@ -211,6 +219,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
+    region: content
   field_ref_actions_6:
     weight: 27
     settings:
@@ -219,6 +228,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
+    region: content
   field_ref_card_view_6:
     weight: 7
     settings:
@@ -227,6 +237,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
+    region: content
   field_ref_contact_info_1:
     type: entity_reference_autocomplete_tags
     weight: 21
@@ -235,6 +246,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+    region: content
   field_ref_orgs:
     weight: 8
     settings:
@@ -243,6 +255,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
+    region: content
   field_social_links:
     weight: 32
     settings:
@@ -250,6 +263,7 @@ content:
       placeholder_title: ''
     third_party_settings: {  }
     type: link_default
+    region: content
   field_sub_brand:
     weight: 30
     settings:
@@ -257,6 +271,7 @@ content:
       progress_indicator: throbber
     third_party_settings: {  }
     type: image_image
+    region: content
   field_sub_title:
     weight: 29
     settings:
@@ -264,6 +279,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textarea
+    region: content
   field_title_sub_text:
     weight: 22
     settings:
@@ -271,6 +287,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
   title:
     type: string_textfield
     weight: 21
@@ -278,6 +295,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+    region: content
 hidden:
   created: true
   field_ref_contact_info: true

@@ -84,6 +84,7 @@ content:
     weight: 7
     settings: {  }
     third_party_settings: {  }
+    region: content
   field_service_detail_lede:
     weight: 23
     settings:
@@ -91,6 +92,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
   field_service_detail_links_5:
     weight: 28
     settings:
@@ -98,6 +100,7 @@ content:
       placeholder_title: ''
     third_party_settings: {  }
     type: link_default
+    region: content
   field_service_detail_overview:
     weight: 24
     settings:
@@ -105,6 +108,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
+    region: content
   field_service_detail_sections:
     type: entity_reference_paragraphs
     weight: 30
@@ -116,23 +120,27 @@ content:
       form_display_mode: default
       default_paragraph_type: ''
     third_party_settings: {  }
+    region: content
   path:
     type: path
     weight: 10
     settings: {  }
     third_party_settings: {  }
+    region: content
   promote:
     type: boolean_checkbox
     settings:
       display_label: true
     weight: 8
     third_party_settings: {  }
+    region: content
   sticky:
     type: boolean_checkbox
     settings:
       display_label: true
     weight: 9
     third_party_settings: {  }
+    region: content
   title:
     type: string_textfield
     weight: 22
@@ -140,6 +148,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+    region: content
   uid:
     type: entity_reference_autocomplete
     weight: 6
@@ -148,4 +157,5 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+    region: content
 hidden: {  }

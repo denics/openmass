@@ -21,6 +21,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
   field_video_id:
     weight: 7
     settings:
@@ -28,11 +29,13 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
   field_video_source:
     weight: 6
     settings: {  }
     third_party_settings: {  }
     type: options_select
+    region: content
 hidden:
   created: true
   status: true

@@ -172,6 +172,7 @@ content:
     weight: 10
     settings: {  }
     third_party_settings: {  }
+    region: content
   field_service_bg_narrow:
     weight: -2
     settings:
@@ -179,6 +180,7 @@ content:
       progress_indicator: throbber
     third_party_settings: {  }
     type: image_image
+    region: content
   field_service_bg_wide:
     weight: -3
     settings:
@@ -186,6 +188,7 @@ content:
       progress_indicator: throbber
     third_party_settings: {  }
     type: image_image
+    region: content
   field_service_body:
     weight: 34
     settings:
@@ -193,6 +196,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textarea
+    region: content
   field_service_eligibility_info:
     weight: 39
     settings:
@@ -201,6 +205,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
+    region: content
   field_service_file:
     weight: 43
     settings:
@@ -217,6 +222,7 @@ content:
       entity_browser_entity_form:
         entity_browser_id: media_browser
     type: inline_entity_form_complex
+    region: content
   field_service_key_info_links_6:
     weight: 22
     settings:
@@ -224,6 +230,7 @@ content:
       placeholder_title: ''
     third_party_settings: {  }
     type: link_default
+    region: content
   field_service_lede:
     weight: -4
     settings:
@@ -231,6 +238,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
   field_service_links:
     weight: 42
     settings:
@@ -238,6 +246,7 @@ content:
       placeholder_title: ''
     third_party_settings: {  }
     type: link_default
+    region: content
   field_service_ref_actions:
     weight: 39
     settings:
@@ -245,6 +254,7 @@ content:
       placeholder_title: ''
     third_party_settings: {  }
     type: link_default
+    region: content
   field_service_ref_actions_2:
     weight: 38
     settings:
@@ -252,6 +262,7 @@ content:
       placeholder_title: ''
     third_party_settings: {  }
     type: link_default
+    region: content
   field_service_ref_guide_page_1:
     weight: 38
     settings:
@@ -260,6 +271,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
+    region: content
   field_service_ref_locations:
     weight: 44
     settings:
@@ -268,6 +280,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
+    region: content
   field_service_ref_services_6:
     weight: 43
     settings:
@@ -276,6 +289,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
+    region: content
   field_service_sub_brand:
     weight: 36
     settings:
@@ -283,6 +297,7 @@ content:
       preview_image_style: thumbnail
     third_party_settings: {  }
     type: image_image
+    region: content
   field_service_video:
     weight: 35
     settings:
@@ -299,6 +314,7 @@ content:
       entity_browser_entity_form:
         entity_browser_id: media_browser
     type: inline_entity_form_complex
+    region: content
   field_services_social_links:
     weight: 37
     settings:
@@ -306,23 +322,27 @@ content:
       placeholder_title: ''
     third_party_settings: {  }
     type: link_default
+    region: content
   path:
     type: path
     weight: 30
     settings: {  }
     third_party_settings: {  }
+    region: content
   promote:
     type: boolean_checkbox
     settings:
       display_label: true
     weight: 15
     third_party_settings: {  }
+    region: content
   sticky:
     type: boolean_checkbox
     settings:
       display_label: true
     weight: 16
     third_party_settings: {  }
+    region: content
   title:
     type: string_textfield
     weight: -5
@@ -330,6 +350,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+    region: content
   uid:
     type: entity_reference_autocomplete
     weight: 5
@@ -338,4 +359,5 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+    region: content
 hidden: {  }

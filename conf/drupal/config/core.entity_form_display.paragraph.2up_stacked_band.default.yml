@@ -24,6 +24,7 @@ content:
       form_display_mode: default
     third_party_settings: {  }
     type: entity_reference_paragraphs
+    region: content
   field_right_rail:
     type: entity_reference_paragraphs
     weight: 7
@@ -34,6 +35,7 @@ content:
       add_mode: dropdown
       form_display_mode: default
     third_party_settings: {  }
+    region: content
 hidden:
   created: true
   status: true

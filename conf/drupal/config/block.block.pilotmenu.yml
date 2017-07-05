@@ -10,7 +10,7 @@ dependencies:
     - mass_theme
 id: pilotmenu
 theme: mass_theme
-region: '-1'
+region: emergency_alert
 weight: -4
 provider: null
 plugin: 'system_menu_block:pilot-menu'

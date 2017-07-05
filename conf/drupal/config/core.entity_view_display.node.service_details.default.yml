@@ -25,6 +25,7 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
   field_service_detail_links_5:
     weight: 7
     label: above
@@ -36,12 +37,14 @@ content:
       target: ''
     third_party_settings: {  }
     type: link
+    region: content
   field_service_detail_overview:
     weight: 8
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
+    region: content
   field_service_detail_sections:
     type: entity_reference_revisions_entity_view
     weight: 6
@@ -50,12 +53,15 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
+    region: content
   links:
     weight: 4
     settings: {  }
     third_party_settings: {  }
+    region: content
   workbench_moderation_control:
     weight: 0
     settings: {  }
     third_party_settings: {  }
+    region: content
 hidden: {  }
