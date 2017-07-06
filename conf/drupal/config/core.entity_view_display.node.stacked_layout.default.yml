@@ -39,6 +39,7 @@ content:
       link: ''
     third_party_settings: {  }
     type: entity_reference_revisions_entity_view
+    region: content
   field_action_header:
     weight: 12
     label: above
@@ -47,6 +48,7 @@ content:
       link: ''
     third_party_settings: {  }
     type: entity_reference_revisions_entity_view
+    region: content
   field_action_parent:
     type: entity_reference_entity_view
     weight: 6
@@ -55,6 +57,7 @@ content:
       view_mode: default
       link: false
     third_party_settings: {  }
+    region: content
   field_bands:
     type: entity_reference_revisions_entity_view
     weight: 7
@@ -63,6 +66,7 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
+    region: content
   field_header_cta:
     weight: 14
     label: above
@@ -71,6 +75,7 @@ content:
       link: ''
     third_party_settings: {  }
     type: entity_reference_revisions_entity_view
+    region: content
   field_image_credit:
     weight: 15
     label: above
@@ -78,6 +83,7 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
   field_label:
     weight: 3
     label: above
@@ -85,18 +91,21 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
   field_lede:
     weight: 4
     label: above
     settings: {  }
     third_party_settings: {  }
     type: basic_string
+    region: content
   field_metatags:
     weight: 11
     label: above
     settings: {  }
     third_party_settings: {  }
     type: metatag_empty_formatter
+    region: content
   field_photo:
     weight: 5
     label: above
@@ -105,6 +114,7 @@ content:
       image_link: ''
     third_party_settings: {  }
     type: image
+    region: content
   field_related_content:
     weight: 8
     label: above
@@ -112,6 +122,7 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
   field_topic_callout_links:
     type: link
     weight: 10
@@ -123,6 +134,7 @@ content:
       rel: ''
       target: ''
     third_party_settings: {  }
+    region: content
   field_topic_parent:
     type: entity_reference_entity_view
     weight: 9
@@ -131,6 +143,7 @@ content:
       view_mode: default
       link: false
     third_party_settings: {  }
+    region: content
   field_use_alt_header:
     weight: 0
     label: above
@@ -140,14 +153,17 @@ content:
       format_custom_true: ''
     third_party_settings: {  }
     type: boolean
+    region: content
   links:
     weight: 2
     settings: {  }
     third_party_settings: {  }
+    region: content
   workbench_moderation_control:
     weight: 1
     settings: {  }
     third_party_settings: {  }
+    region: content
 hidden:
   field_funnel_endpoint_term: true
   field_type_term: true

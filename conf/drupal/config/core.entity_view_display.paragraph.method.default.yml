@@ -20,10 +20,12 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: text_default
+    region: content
   field_method_type:
     weight: 0
     label: above
     settings: {  }
     third_party_settings: {  }
     type: list_default
+    region: content
 hidden: {  }

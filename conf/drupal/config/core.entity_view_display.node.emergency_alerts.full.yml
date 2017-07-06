@@ -23,6 +23,7 @@ content:
       view_mode: sidebar
       link: ''
     third_party_settings: {  }
+    region: content
   field_alert:
     type: entity_reference_revisions_entity_view
     weight: 1
@@ -31,9 +32,11 @@ content:
       view_mode: emergency_alert_full
       link: ''
     third_party_settings: {  }
+    region: content
   workbench_moderation_control:
     weight: 0
     settings: {  }
     third_party_settings: {  }
+    region: content
 hidden:
   links: true

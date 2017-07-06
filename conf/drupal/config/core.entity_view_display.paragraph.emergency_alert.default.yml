@@ -25,6 +25,7 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
+    region: content
   field_emergency_alert_link:
     weight: 2
     label: hidden
@@ -36,6 +37,7 @@ content:
       target: ''
     third_party_settings: {  }
     type: link
+    region: content
   field_emergency_alert_message:
     weight: 0
     label: hidden
@@ -43,6 +45,7 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
   field_emergency_alert_timestamp:
     weight: 1
     label: hidden
@@ -51,6 +54,7 @@ content:
       date_format: 'm.d.y, g:i a'
     third_party_settings: {  }
     type: datetime_custom
+    region: content
 hidden:
   created: true
   uid: true

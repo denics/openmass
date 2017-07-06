@@ -37,6 +37,7 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: basic_string
+    region: content
   field_bg_narrow:
     weight: 103
     label: above
@@ -45,6 +46,7 @@ content:
       image_link: ''
     third_party_settings: {  }
     type: image
+    region: content
   field_bg_wide:
     weight: 102
     label: above
@@ -53,6 +55,7 @@ content:
       image_link: ''
     third_party_settings: {  }
     type: image
+    region: content
   field_iframe:
     type: entity_reference_revisions_entity_view
     weight: 104
@@ -61,6 +64,7 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
+    region: content
   field_links:
     weight: 115
     label: above
@@ -72,6 +76,7 @@ content:
       target: ''
     third_party_settings: {  }
     type: link
+    region: content
   field_location_activity_detail:
     type: entity_reference_revisions_entity_view
     weight: 117
@@ -80,12 +85,14 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
+    region: content
   field_location_facilities:
     weight: 119
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
+    region: content
   field_location_icons:
     weight: 118
     label: above
@@ -94,24 +101,28 @@ content:
       view_mode: default
     third_party_settings: {  }
     type: entity_reference_entity_view
+    region: content
   field_location_more_information:
     weight: 120
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
+    region: content
   field_overview:
     weight: 105
     label: above
     settings: {  }
     third_party_settings: {  }
     type: basic_string
+    region: content
   field_parking:
     weight: 107
     label: above
     settings: {  }
     third_party_settings: {  }
     type: basic_string
+    region: content
   field_ref_contact_info:
     weight: 116
     label: above
@@ -119,6 +130,7 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
   field_ref_contact_info_1:
     weight: 101
     label: above
@@ -126,6 +138,7 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
   field_related_locations:
     weight: 114
     label: above
@@ -133,24 +146,29 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
   field_restrictions:
     weight: 113
     label: above
     settings: {  }
     third_party_settings: {  }
     type: basic_string
+    region: content
   field_services:
     weight: 109
     label: above
     settings: {  }
     third_party_settings: {  }
     type: basic_string
+    region: content
   links:
     weight: 100
     settings: {  }
     third_party_settings: {  }
+    region: content
   workbench_moderation_control:
     weight: -20
+    region: content
 hidden:
   field_facilities: true
   field_more_information: true

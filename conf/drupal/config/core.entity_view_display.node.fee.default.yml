@@ -21,6 +21,7 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
   field_fee_name:
     weight: 101
     label: above
@@ -28,6 +29,7 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
   field_fee_unit:
     weight: 103
     label: above
@@ -35,6 +37,8 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
   links:
     weight: 100
+    region: content
 hidden: {  }

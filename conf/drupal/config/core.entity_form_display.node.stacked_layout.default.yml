@@ -138,6 +138,7 @@ content:
       default_paragraph_type: _none
     third_party_settings: {  }
     type: entity_reference_paragraphs
+    region: content
   field_action_header:
     weight: 112
     settings:
@@ -149,6 +150,7 @@ content:
       default_paragraph_type: _none
     third_party_settings: {  }
     type: entity_reference_paragraphs
+    region: content
   field_action_parent:
     type: entity_reference_autocomplete
     weight: 120
@@ -157,6 +159,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+    region: content
   field_bands:
     type: entity_reference_paragraphs
     weight: 3
@@ -168,11 +171,13 @@ content:
       form_display_mode: default
       default_paragraph_type: ''
     third_party_settings: {  }
+    region: content
   field_funnel_endpoint_term:
     weight: 112
     settings: {  }
     third_party_settings: {  }
     type: options_select
+    region: content
   field_header_cta:
     weight: 114
     settings:
@@ -184,6 +189,7 @@ content:
       default_paragraph_type: ''
     third_party_settings: {  }
     type: entity_reference_paragraphs
+    region: content
   field_image_credit:
     weight: 115
     settings:
@@ -191,6 +197,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
   field_label:
     weight: 117
     settings:
@@ -198,6 +205,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
   field_lede:
     weight: 118
     settings:
@@ -205,11 +213,13 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textarea
+    region: content
   field_metatags:
     weight: 111
     settings: {  }
     third_party_settings: {  }
     type: metatag_firehose
+    region: content
   field_photo:
     weight: 119
     settings:
@@ -222,6 +232,7 @@ content:
       view_mode: default
     third_party_settings: {  }
     type: entity_browser_file
+    region: content
   field_related_content:
     weight: 110
     settings:
@@ -230,6 +241,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
+    region: content
   field_topic_callout_links:
     type: link_default
     weight: 2
@@ -237,6 +249,7 @@ content:
       placeholder_url: ''
       placeholder_title: ''
     third_party_settings: {  }
+    region: content
   field_topic_parent:
     type: entity_reference_autocomplete
     weight: 1
@@ -245,6 +258,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+    region: content
   field_type_term:
     weight: 113
     settings:
@@ -253,12 +267,14 @@ content:
       placeholder: 'Indicate type (E.g. “How To”)'
     third_party_settings: {  }
     type: entity_reference_autocomplete
+    region: content
   field_use_alt_header:
     weight: 115
     settings:
       display_label: true
     third_party_settings: {  }
     type: boolean_checkbox
+    region: content
   title:
     type: string_textfield
     weight: 116
@@ -266,6 +282,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+    region: content
 hidden:
   created: true
   path: true

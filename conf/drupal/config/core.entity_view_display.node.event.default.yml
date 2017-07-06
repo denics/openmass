@@ -41,6 +41,7 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
   field_event_contact_general:
     weight: 115
     label: above
@@ -48,6 +49,7 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
   field_event_date:
     weight: 105
     label: above
@@ -56,12 +58,14 @@ content:
       timezone_override: ''
     third_party_settings: {  }
     type: datetime_default
+    region: content
   field_event_description:
     weight: 111
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
+    region: content
   field_event_fees:
     weight: 109
     label: above
@@ -69,6 +73,7 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
   field_event_image:
     weight: 108
     label: above
@@ -77,6 +82,7 @@ content:
       image_link: ''
     third_party_settings: {  }
     type: image
+    region: content
   field_event_lede:
     weight: 103
     label: above
@@ -84,6 +90,7 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
   field_event_link_sign_up:
     weight: 114
     label: above
@@ -95,6 +102,7 @@ content:
       target: ''
     third_party_settings: {  }
     type: link
+    region: content
   field_event_links:
     weight: 113
     label: above
@@ -106,6 +114,7 @@ content:
       target: ''
     third_party_settings: {  }
     type: link
+    region: content
   field_event_logo:
     weight: 104
     label: above
@@ -114,12 +123,14 @@ content:
       image_link: ''
     third_party_settings: {  }
     type: image
+    region: content
   field_event_metatags:
     weight: 120
     label: above
     settings: {  }
     third_party_settings: {  }
     type: metatag_empty_formatter
+    region: content
   field_event_rain_date:
     weight: 122
     label: above
@@ -127,6 +138,7 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
   field_event_ref_contact:
     weight: 123
     label: above
@@ -134,6 +146,7 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
   field_event_ref_downloads:
     weight: 119
     label: above
@@ -141,6 +154,7 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
   field_event_ref_event_2:
     weight: 117
     label: above
@@ -148,6 +162,7 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
   field_event_ref_parents:
     weight: 102
     label: above
@@ -155,6 +170,7 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
   field_event_time:
     weight: 121
     label: above
@@ -162,14 +178,18 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
   field_event_you_will_need:
     weight: 112
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
+    region: content
   links:
     weight: 100
+    region: content
   workbench_moderation_control:
     weight: -20
+    region: content
 hidden: {  }

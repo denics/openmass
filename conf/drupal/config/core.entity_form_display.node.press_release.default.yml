@@ -119,6 +119,7 @@ content:
     weight: 7
     settings: {  }
     third_party_settings: {  }
+    region: content
   field_press_release_body:
     weight: 5
     settings:
@@ -126,11 +127,13 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
+    region: content
   field_press_release_date:
     weight: 3
     settings: {  }
     third_party_settings: {  }
     type: datetime_default
+    region: content
   field_press_release_lede:
     weight: 4
     settings:
@@ -138,6 +141,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
   field_press_release_links:
     weight: 5
     settings:
@@ -145,6 +149,7 @@ content:
       placeholder_title: ''
     third_party_settings: {  }
     type: link_default
+    region: content
   field_press_release_location:
     weight: 3
     settings:
@@ -152,6 +157,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
   field_press_release_media_contac:
     type: entity_reference_paragraphs
     weight: 2
@@ -163,6 +169,7 @@ content:
       form_display_mode: default
       default_paragraph_type: _none
     third_party_settings: {  }
+    region: content
   field_press_release_signees:
     type: entity_reference_paragraphs
     weight: 1
@@ -174,6 +181,7 @@ content:
       form_display_mode: default
       default_paragraph_type: _none
     third_party_settings: {  }
+    region: content
   field_press_release_summary:
     weight: 5
     settings:
@@ -181,6 +189,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
   field_press_release_video:
     type: entity_reference_paragraphs
     weight: 4
@@ -192,23 +201,27 @@ content:
       form_display_mode: default
       default_paragraph_type: _none
     third_party_settings: {  }
+    region: content
   path:
     type: path
     weight: 10
     settings: {  }
     third_party_settings: {  }
+    region: content
   promote:
     type: boolean_checkbox
     settings:
       display_label: true
     weight: 8
     third_party_settings: {  }
+    region: content
   sticky:
     type: boolean_checkbox
     settings:
       display_label: true
     weight: 9
     third_party_settings: {  }
+    region: content
   title:
     type: string_textfield
     weight: 2
@@ -216,6 +229,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+    region: content
   uid:
     type: entity_reference_autocomplete
     weight: 6
@@ -224,4 +238,5 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+    region: content
 hidden: {  }

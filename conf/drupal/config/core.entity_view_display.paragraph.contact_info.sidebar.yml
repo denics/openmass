@@ -27,6 +27,7 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: basic_string
+    region: content
   field_branch_locations:
     type: link
     weight: 6
@@ -38,6 +39,7 @@ content:
       url_only: false
       url_plain: false
     third_party_settings: {  }
+    region: content
   field_caption:
     weight: 5
     label: hidden
@@ -45,12 +47,14 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
   field_email:
     weight: 2
     label: hidden
     settings: {  }
     third_party_settings: {  }
     type: basic_string
+    region: content
   field_label:
     weight: 0
     label: hidden
@@ -58,6 +62,7 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
   field_link:
     weight: 3
     label: hidden
@@ -69,6 +74,7 @@ content:
       target: ''
     third_party_settings: {  }
     type: link
+    region: content
   field_phone:
     weight: 1
     label: hidden
@@ -76,6 +82,7 @@ content:
       title: ''
     third_party_settings: {  }
     type: telephone_link
+    region: content
 hidden:
   created: true
   field_type: true

@@ -27,14 +27,17 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
+    region: content
   field_node_icon:
     type: list_default
     weight: 0
     label: hidden
     settings: {  }
     third_party_settings: {  }
+    region: content
   workbench_moderation_control:
     weight: -20
+    region: content
 hidden:
   field_common_actions: true
   field_common_content: true

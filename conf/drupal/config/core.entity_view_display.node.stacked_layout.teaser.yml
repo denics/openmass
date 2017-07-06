@@ -37,6 +37,7 @@ content:
       rel: '0'
       target: '0'
     third_party_settings: {  }
+    region: content
 hidden:
   field_action_banner: true
   field_action_header: true
@@ -44,6 +45,7 @@ hidden:
   field_bands: true
   field_funnel_endpoint_term: true
   field_header_cta: true
+  field_image_credit: true
   field_label: true
   field_lede: true
   field_metatags: true
@@ -52,5 +54,6 @@ hidden:
   field_related_guides: true
   field_topic_parent: true
   field_type_term: true
+  field_use_alt_header: true
   links: true
   workbench_moderation_control: true

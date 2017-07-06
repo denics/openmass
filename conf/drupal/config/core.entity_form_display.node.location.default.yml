@@ -122,6 +122,7 @@ content:
     weight: 2
     settings: {  }
     third_party_settings: {  }
+    region: content
   field_accessibility:
     weight: 11
     settings:
@@ -129,6 +130,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
+    region: content
   field_bg_narrow:
     weight: 6
     settings:
@@ -136,6 +138,7 @@ content:
       preview_image_style: thumbnail
     third_party_settings: {  }
     type: image_image
+    region: content
   field_bg_wide:
     weight: 5
     settings:
@@ -143,6 +146,7 @@ content:
       preview_image_style: thumbnail
     third_party_settings: {  }
     type: image_image
+    region: content
   field_iframe:
     type: entity_reference_paragraphs
     weight: 4
@@ -154,6 +158,7 @@ content:
       form_display_mode: default
       default_paragraph_type: _none
     third_party_settings: {  }
+    region: content
   field_links:
     weight: 7
     settings:
@@ -161,6 +166,7 @@ content:
       placeholder_title: ''
     third_party_settings: {  }
     type: link_default
+    region: content
   field_location_activity_detail:
     type: entity_reference_paragraphs
     weight: 9
@@ -172,6 +178,7 @@ content:
       form_display_mode: default
       default_paragraph_type: _none
     third_party_settings: {  }
+    region: content
   field_location_facilities:
     weight: 10
     settings:
@@ -179,11 +186,13 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
+    region: content
   field_location_icons:
     weight: 3
     settings: {  }
     third_party_settings: {  }
     type: options_buttons
+    region: content
   field_location_more_information:
     weight: 8
     settings:
@@ -191,6 +200,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
+    region: content
   field_overview:
     weight: 7
     settings:
@@ -198,6 +208,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textarea
+    region: content
   field_parking:
     weight: 9
     settings:
@@ -205,6 +216,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
+    region: content
   field_ref_contact_info:
     weight: 8
     settings:
@@ -213,6 +225,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
+    region: content
   field_ref_contact_info_1:
     weight: 2
     settings:
@@ -221,6 +234,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
+    region: content
   field_related_locations:
     weight: 13
     settings:
@@ -229,6 +243,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
+    region: content
   field_restrictions:
     weight: 12
     settings:
@@ -236,6 +251,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
+    region: content
   field_services:
     weight: 7
     settings:
@@ -243,23 +259,27 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
+    region: content
   path:
     type: path
     weight: 6
     settings: {  }
     third_party_settings: {  }
+    region: content
   promote:
     type: boolean_checkbox
     settings:
       display_label: true
     weight: 4
     third_party_settings: {  }
+    region: content
   sticky:
     type: boolean_checkbox
     settings:
       display_label: true
     weight: 5
     third_party_settings: {  }
+    region: content
   title:
     type: string_textfield
     weight: 1
@@ -267,6 +287,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+    region: content
   uid:
     type: entity_reference_autocomplete
     weight: 1
@@ -275,6 +296,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+    region: content
 hidden:
   field_facilities: true
   field_hours: true

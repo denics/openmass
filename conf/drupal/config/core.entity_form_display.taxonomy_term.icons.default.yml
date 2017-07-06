@@ -18,11 +18,13 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
   field_sprite_type:
     weight: 3
     settings: {  }
     third_party_settings: {  }
     type: options_select
+    region: content
   name:
     type: string_textfield
     weight: 0
@@ -30,6 +32,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+    region: content
 hidden:
   description: true
   path: true

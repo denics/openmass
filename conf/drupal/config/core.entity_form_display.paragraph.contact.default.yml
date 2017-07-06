@@ -25,6 +25,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textarea
+    region: content
   field_email:
     weight: 3
     settings:
@@ -32,12 +33,14 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: email_default
+    region: content
   field_fax:
     weight: 2
     settings:
       placeholder: ''
     third_party_settings: {  }
     type: telephone_default
+    region: content
   field_link:
     weight: 5
     settings:
@@ -45,6 +48,7 @@ content:
       placeholder_title: ''
     third_party_settings: {  }
     type: link_default
+    region: content
   field_name:
     weight: 0
     settings:
@@ -52,12 +56,14 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
   field_phone:
     weight: 1
     settings:
       placeholder: ''
     third_party_settings: {  }
     type: telephone_default
+    region: content
 hidden:
   created: true
   status: true

@@ -114,6 +114,7 @@ content:
     weight: 1
     settings: {  }
     third_party_settings: {  }
+    region: content
   field_how_to_contacts_3:
     weight: 39
     settings:
@@ -122,6 +123,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
+    region: content
   field_how_to_files:
     weight: 46
     settings:
@@ -138,6 +140,7 @@ content:
       entity_browser_entity_form:
         entity_browser_id: media_browser
     type: inline_entity_form_complex
+    region: content
   field_how_to_lede:
     weight: -1
     settings:
@@ -145,6 +148,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
   field_how_to_link_1:
     weight: 1
     settings:
@@ -152,6 +156,7 @@ content:
       placeholder_title: ''
     third_party_settings: {  }
     type: link_default
+    region: content
   field_how_to_links_5:
     weight: 47
     settings:
@@ -159,6 +164,7 @@ content:
       placeholder_title: ''
     third_party_settings: {  }
     type: link_default
+    region: content
   field_how_to_methods_5:
     type: entity_reference_paragraphs
     weight: 38
@@ -170,6 +176,7 @@ content:
       form_display_mode: default
       default_paragraph_type: ''
     third_party_settings: {  }
+    region: content
   field_how_to_more_info:
     weight: 44
     settings:
@@ -177,6 +184,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
+    region: content
   field_how_to_next_steps:
     type: entity_reference_paragraphs
     weight: 39
@@ -188,6 +196,7 @@ content:
       form_display_mode: default
       default_paragraph_type: next_step
     third_party_settings: {  }
+    region: content
   field_how_to_ref_fees:
     weight: 37
     settings:
@@ -204,11 +213,13 @@ content:
       entity_browser_entity_form:
         entity_browser_id: _none
     type: inline_entity_form_complex
+    region: content
   field_how_to_taxo_action_type:
     weight: -4
     settings: {  }
     third_party_settings: {  }
     type: options_select
+    region: content
   field_how_to_time:
     weight: 0
     settings:
@@ -216,6 +227,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
   field_how_to_what_you_need:
     weight: 36
     settings:
@@ -223,23 +235,27 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
+    region: content
   path:
     type: path
     weight: 5
     settings: {  }
     third_party_settings: {  }
+    region: content
   promote:
     type: boolean_checkbox
     settings:
       display_label: true
     weight: 2
     third_party_settings: {  }
+    region: content
   sticky:
     type: boolean_checkbox
     settings:
       display_label: true
     weight: 3
     third_party_settings: {  }
+    region: content
   title:
     type: string_textfield
     weight: -3
@@ -247,6 +263,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+    region: content
   uid:
     type: entity_reference_autocomplete
     weight: 0
@@ -255,5 +272,6 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+    region: content
 hidden:
   field_how_to_ref_services: true
