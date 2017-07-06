@@ -1,11 +1,11 @@
 <?php
 
-use Drupal\node\Entity\Node;
-
 /**
  * @file
- *   Run updates after updatedb has completed.
+ * Run updates after updatedb has completed.
  */
+
+use Drupal\node\Entity\Node;
 
 /**
  * Populate new address field.
