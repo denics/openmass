@@ -1,4 +1,5 @@
 # Ignore Drupal files
+docroot/sites/*/settings.local.php
 docroot/sites/*/files
 
 # Ignore virtual environment and artifacts
