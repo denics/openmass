@@ -23,55 +23,11 @@ dependencies:
     - workbench_moderation
 third_party_settings:
   field_group:
-    group_paragraph_edit_form:
-      children:
-        - group_main_info
-        - group_actions_resources
-        - group_contacts
-      parent_name: ''
-      weight: 0
-      format_type: tabs
-      format_settings:
-        id: ''
-        classes: ''
-        direction: horizontal
-      label: 'Paragraph Edit Form'
-    group_main_info:
-      children:
-        - field_guide_section_name
-        - field_guide_section_time
-        - field_guide_section_body
-        - group_stat
-        - field_guide_section_alert_text
-      parent_name: group_paragraph_edit_form
-      weight: 20
-      format_type: tab
-      format_settings:
-        id: ''
-        classes: ''
-        formatter: open
-        description: ''
-        required_fields: true
-      label: 'Main Info'
-    group_actions_resources:
-      children:
-        - field_guide_section_links_4
-        - group_additional_resources
-      parent_name: group_paragraph_edit_form
-      weight: 21
-      format_type: tab
-      format_settings:
-        id: ''
-        classes: ''
-        formatter: closed
-        description: ''
-        required_fields: true
-      label: 'Actions and resources'
     group_stat:
       children:
         - field_guide_section_stat
         - field_guide_section_label
-      parent_name: group_main_info
+      parent_name: ''
       weight: 4
       format_type: fieldset
       format_settings:
@@ -80,25 +36,12 @@ third_party_settings:
         id: ''
         required_fields: true
       label: Stat
-    group_contacts:
-      children:
-        - field_guide_ref_contacts_3
-      parent_name: group_paragraph_edit_form
-      weight: 22
-      format_type: tab
-      format_settings:
-        id: ''
-        classes: ''
-        formatter: closed
-        description: ''
-        required_fields: true
-      label: Contacts
     group_additional_resources:
       children:
         - field_guide_section_link
         - field_guide_section_downloads
-      parent_name: group_actions_resources
-      weight: 8
+      parent_name: ''
+      weight: 7
       format_type: fieldset
       format_settings:
         id: ''
@@ -121,7 +64,7 @@ content:
     type: entity_reference_autocomplete
     region: content
   field_guide_section_alert_text:
-    weight: 7
+    weight: 5
     settings:
       size: 60
       placeholder: ''
@@ -170,7 +113,7 @@ content:
     type: link_default
     region: content
   field_guide_section_links_4:
-    weight: 7
+    weight: 6
     settings:
       placeholder_url: ''
       placeholder_title: ''
