@@ -26,6 +26,9 @@ dependencies:
     - echo "memory_limit=1024M" > ~/.phpenv/versions/$(phpenv global)/etc/conf.d/memory.ini
     # restart apache
     - sudo service apache2 restart
+    # identify the committer i.e. circleci deployment bot
+    - git config --global user.email "circleci@example.com"
+    - git config --global user.name "CircleCI Deployment Bot"
 
   override:
     - composer install --no-interaction
@@ -68,11 +71,6 @@ test:
     - cd docroot && drush cr
     # behat testing
     - behat --format=junit --out=$CIRCLE_TEST_REPORTS/behat --format=pretty --out=std
-
-  post:
-    # identify the committer i.e. circleci deployment bot
-    - git config --global user.email "circleci@example.com"
-    - git config --global user.name "CircleCI Deployment Bot"
 
 # after tests pass, proceed with deployment(s)
 deployment:
