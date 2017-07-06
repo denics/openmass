@@ -33,7 +33,7 @@ dependencies:
   override:
     - composer install --no-interaction
     # Prep for push to Acquia Git. Do so while we have a clean build.
-    - git add ${HOME}/${CIRCLE_PROJECT_REPONAME}
+    - git add -A ${HOME}/${CIRCLE_PROJECT_REPONAME}
     - git commit -m "Add vendor code."
     # install eslint globally
     - npm install -g eslint@v2.13.1
