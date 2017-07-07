@@ -184,6 +184,7 @@ content:
       form_display_mode: default
       default_paragraph_type: _none
     third_party_settings: {  }
+    region: content
   field_action_details:
     type: entity_reference_paragraphs
     weight: 29
@@ -195,6 +196,7 @@ content:
       form_display_mode: default
       default_paragraph_type: ''
     third_party_settings: {  }
+    region: content
   field_action_header:
     type: entity_reference_paragraphs
     weight: 3
@@ -206,6 +208,7 @@ content:
       form_display_mode: default
       default_paragraph_type: _none
     third_party_settings: {  }
+    region: content
   field_action_parent:
     weight: 4
     settings:
@@ -214,6 +217,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
+    region: content
   field_action_sidebar:
     type: entity_reference_paragraphs
     weight: 26
@@ -225,11 +229,13 @@ content:
       form_display_mode: default
       default_paragraph_type: ''
     third_party_settings: {  }
+    region: content
   field_alert_dropdown:
     weight: 26
     settings: {  }
     third_party_settings: {  }
     type: options_select
+    region: content
   field_alert_link:
     weight: 28
     settings:
@@ -237,6 +243,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
   field_alert_text:
     weight: 27
     settings:
@@ -244,6 +251,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textarea
+    region: content
   field_external_url:
     weight: 30
     settings:
@@ -251,11 +259,13 @@ content:
       placeholder_title: ''
     third_party_settings: {  }
     type: link_default
+    region: content
   field_funnel_endpoint_term:
     weight: 34
     settings: {  }
     third_party_settings: {  }
     type: options_select
+    region: content
   field_header_cta:
     type: entity_reference_paragraphs
     weight: 5
@@ -267,6 +277,7 @@ content:
       form_display_mode: default
       default_paragraph_type: ''
     third_party_settings: {  }
+    region: content
   field_image_credit:
     weight: 6
     settings:
@@ -274,6 +285,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
   field_lede:
     weight: 2
     settings:
@@ -281,11 +293,13 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textarea
+    region: content
   field_metatags:
     type: metatag_firehose
     weight: 33
     settings: {  }
     third_party_settings: {  }
+    region: content
   field_search:
     weight: 32
     settings:
@@ -293,6 +307,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
+    region: content
   field_type_term:
     weight: 35
     settings:
@@ -301,6 +316,7 @@ content:
       placeholder: 'Indicate type (E.g. “How To”)'
     third_party_settings: {  }
     type: entity_reference_autocomplete
+    region: content
   title:
     type: string_textfield
     weight: 1
@@ -308,6 +324,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+    region: content
 hidden:
   created: true
   field_action_downloads: true

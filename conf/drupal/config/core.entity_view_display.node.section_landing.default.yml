@@ -25,6 +25,7 @@ content:
       image_link: ''
     third_party_settings: {  }
     type: image
+    region: content
   field_featured_mobile_image:
     weight: 4
     label: above
@@ -33,6 +34,7 @@ content:
       image_link: ''
     third_party_settings: {  }
     type: image
+    region: content
   field_icon_term:
     weight: 3
     label: hidden
@@ -41,6 +43,7 @@ content:
       link: false
     third_party_settings: {  }
     type: entity_reference_entity_view
+    region: content
   field_image_credit:
     weight: 5
     label: hidden
@@ -48,14 +51,17 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
   links:
     weight: 1
     settings: {  }
     third_party_settings: {  }
+    region: content
   workbench_moderation_control:
     weight: 0
     settings: {  }
     third_party_settings: {  }
+    region: content
 hidden:
   field_icon: true
   field_metatags: true

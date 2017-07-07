@@ -23,12 +23,14 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: basic_string
+    region: content
   field_email:
     weight: 3
     label: hidden
     settings: {  }
     third_party_settings: {  }
     type: basic_string
+    region: content
   field_fax:
     weight: 1
     label: hidden
@@ -36,6 +38,7 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
   field_link:
     weight: 5
     label: hidden
@@ -47,6 +50,7 @@ content:
       target: '0'
     third_party_settings: {  }
     type: link
+    region: content
   field_name:
     weight: 2
     label: hidden
@@ -54,6 +58,7 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
   field_phone:
     weight: 0
     label: hidden
@@ -61,6 +66,7 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
 hidden:
   created: true
   uid: true

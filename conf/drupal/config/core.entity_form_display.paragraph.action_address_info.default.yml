@@ -22,6 +22,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
   field_address_ref:
     type: entity_reference_paragraphs
     weight: 7
@@ -32,6 +33,7 @@ content:
       add_mode: dropdown
       form_display_mode: default
     third_party_settings: {  }
+    region: content
   field_location_info_ref:
     type: entity_reference_paragraphs
     weight: 8
@@ -42,6 +44,7 @@ content:
       add_mode: dropdown
       form_display_mode: default
     third_party_settings: {  }
+    region: content
 hidden:
   created: true
   status: true

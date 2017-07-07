@@ -24,5 +24,8 @@ content:
       image_link: content
     third_party_settings: {  }
     label: hidden
+    region: content
 hidden:
+  field_last_password_reset: true
+  field_password_expiration: true
   member_for: true

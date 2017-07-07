@@ -25,6 +25,7 @@ content:
       image_style: hero800x400
       image_link: ''
     third_party_settings: {  }
+    region: content
 hidden:
   field_featured_mobile_image: true
   field_icon: true

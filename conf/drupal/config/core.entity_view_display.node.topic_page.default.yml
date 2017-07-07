@@ -29,6 +29,7 @@ content:
       image_link: ''
     third_party_settings: {  }
     type: image
+    region: content
   field_topic_bg_wide:
     weight: 103
     label: above
@@ -37,6 +38,7 @@ content:
       image_link: ''
     third_party_settings: {  }
     type: image
+    region: content
   field_topic_content_cards:
     type: entity_reference_revisions_entity_view
     weight: 108
@@ -45,6 +47,7 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
+    region: content
   field_topic_display_links:
     weight: 107
     label: above
@@ -54,6 +57,7 @@ content:
       format_custom_true: ''
     third_party_settings: {  }
     type: boolean
+    region: content
   field_topic_lede:
     weight: 101
     label: above
@@ -61,6 +65,7 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
   field_topic_ref_icon:
     weight: 102
     label: above
@@ -68,6 +73,7 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
   field_topic_ref_related_topics:
     weight: 106
     label: above
@@ -75,11 +81,14 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
   links:
     weight: 100
     settings: {  }
     third_party_settings: {  }
+    region: content
   workbench_moderation_control:
     weight: -20
+    region: content
 hidden:
   field_topic_ref_content_cards: true

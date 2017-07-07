@@ -1,0 +1,25 @@
+uuid: d4191d0a-330b-4d6f-88ec-6c66425b3595
+langcode: en
+status: true
+dependencies: {  }
+id: node__service_page
+label: 'Content: Service Page'
+tags:
+  schema_government_service_area_served: 'a:2:{s:5:"@type";s:18:"AdministrativeArea";s:4:"name";s:13:"Massachusetts";}'
+  schema_government_service_description: '[node:field_service_lede]'
+  schema_government_service_id: '[node:url]#services'
+  schema_government_service_logo: 'a:3:{s:3:"url";s:41:"[node:field_service_sub_brand:entity:url]";s:5:"width";s:0:"";s:6:"height";s:0:"";}'
+  schema_government_service_name: '[node:title]'
+  schema_government_service_potential_action: '[node:field_service_ref_actions], [node:field_service_ref_actions_2]'
+  schema_government_service_related_services: '[node:field_service_ref_services_6]'
+  schema_government_service_type: GovernmentService
+  title: '[node:title] | [site:name]'
+  og_site_name: '[site:name]'
+  og_title: '[node:title]'
+  og_type: service
+  og_url: '[node:url]'
+  twitter_cards_page_url: '[node:url]'
+  twitter_cards_site: '@massgov'
+  twitter_cards_site_id: '16264003'
+  twitter_cards_title: '[node:title]'
+  twitter_cards_type: summary

@@ -18,6 +18,7 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: map_row_formatter
+    region: content
 hidden:
   created: true
   uid: true

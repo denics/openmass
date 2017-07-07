@@ -22,6 +22,7 @@ content:
       default_country: null
     third_party_settings: {  }
     type: address_default
+    region: content
   field_label:
     weight: 0
     settings:
@@ -29,6 +30,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
 hidden:
   created: true
   field_address_text: true

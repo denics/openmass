@@ -22,11 +22,13 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
+    region: content
   field_para_icon_term:
     weight: 0
     settings: {  }
     third_party_settings: {  }
     type: options_select
+    region: content
   field_title:
     weight: 1
     settings:
@@ -34,6 +36,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
 hidden:
   created: true
   field_icon: true

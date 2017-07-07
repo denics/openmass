@@ -22,6 +22,7 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: basic_string
+    region: content
   field_person_first_name:
     weight: 101
     label: above
@@ -29,6 +30,7 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
   field_person_last_name:
     weight: 102
     label: above
@@ -36,6 +38,7 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
   field_person_phone:
     weight: 105
     label: above
@@ -43,6 +46,7 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
   field_person_role_title:
     weight: 103
     label: above
@@ -50,6 +54,8 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
   links:
     weight: 100
+    region: content
 hidden: {  }

@@ -30,6 +30,7 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: text_default
+    region: content
   field_press_release_date:
     weight: 109
     label: above
@@ -38,6 +39,7 @@ content:
       date_format: n/d/Y
     third_party_settings: {  }
     type: datetime_custom
+    region: content
   field_press_release_lede:
     weight: 101
     label: above
@@ -45,6 +47,7 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
   field_press_release_links:
     weight: 105
     label: above
@@ -56,6 +59,7 @@ content:
       target: ''
     third_party_settings: {  }
     type: link
+    region: content
   field_press_release_location:
     weight: 103
     label: above
@@ -63,6 +67,7 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
   field_press_release_media_contac:
     type: entity_reference_revisions_entity_view
     weight: 108
@@ -71,6 +76,7 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
+    region: content
   field_press_release_signees:
     type: entity_reference_revisions_entity_view
     weight: 107
@@ -79,6 +85,7 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
+    region: content
   field_press_release_summary:
     weight: 102
     label: above
@@ -86,6 +93,7 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
   field_press_release_video:
     type: entity_reference_revisions_entity_view
     weight: 106
@@ -94,12 +102,15 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
+    region: content
   links:
     weight: 100
     settings: {  }
     third_party_settings: {  }
+    region: content
   workbench_moderation_control:
     weight: -20
     settings: {  }
     third_party_settings: {  }
+    region: content
 hidden: {  }

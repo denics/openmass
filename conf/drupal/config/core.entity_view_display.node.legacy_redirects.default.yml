@@ -23,12 +23,14 @@ content:
     weight: 4
     settings: {  }
     third_party_settings: {  }
+    region: content
   field_legacy_redirect_env:
     weight: 3
     label: above
     settings: {  }
     third_party_settings: {  }
     type: list_default
+    region: content
   field_legacy_redirects_legacyurl:
     weight: 1
     label: above
@@ -36,6 +38,7 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
   field_legacy_redirects_ref_conte:
     weight: 2
     label: above
@@ -43,8 +46,10 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
   links:
     weight: 0
     settings: {  }
     third_party_settings: {  }
+    region: content
 hidden: {  }

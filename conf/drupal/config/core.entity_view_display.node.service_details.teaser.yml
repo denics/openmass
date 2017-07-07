@@ -14,8 +14,10 @@ mode: teaser
 content:
   links:
     weight: 100
+    region: content
   workbench_moderation_control:
     weight: -20
+    region: content
 hidden:
   field_info_details_lede: true
   field_info_details_sections: true
@@ -23,5 +25,6 @@ hidden:
   field_promo_content: true
   field_service_detail_lede: true
   field_service_detail_links_5: true
+  field_service_detail_overview: true
   field_service_detail_sections: true
   field_service_details_parent: true

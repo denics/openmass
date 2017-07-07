@@ -33,8 +33,10 @@ content:
     weight: 100
     settings: {  }
     third_party_settings: {  }
+    region: content
   workbench_moderation_control:
     weight: -20
+    region: content
 hidden:
   field_action_banner: true
   field_action_details: true
@@ -48,7 +50,10 @@ hidden:
   field_alert_text: true
   field_contact_group: true
   field_external_url: true
+  field_funnel_endpoint_term: true
   field_header_cta: true
+  field_image_credit: true
   field_lede: true
   field_metatags: true
   field_search: true
+  field_type_term: true

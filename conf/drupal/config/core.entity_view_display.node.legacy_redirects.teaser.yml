@@ -24,8 +24,10 @@ content:
     settings:
       trim_length: 600
     third_party_settings: {  }
+    region: content
   links:
     weight: 100
+    region: content
 hidden:
   field_legacy_redirect_env: true
   field_legacy_redirects_legacyurl: true

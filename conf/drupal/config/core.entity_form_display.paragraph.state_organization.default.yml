@@ -24,6 +24,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textarea
+    region: content
   field_state_org_name:
     weight: 2
     settings:
@@ -31,6 +32,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
   field_state_org_photo:
     weight: 5
     settings:
@@ -38,6 +40,7 @@ content:
       progress_indicator: throbber
     third_party_settings: {  }
     type: image_image
+    region: content
   field_state_org_photo_url:
     type: string_textfield
     weight: 4
@@ -45,6 +48,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+    region: content
   field_state_org_ref_org:
     weight: 0
     settings:
@@ -53,6 +57,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
+    region: content
 hidden:
   created: true
   status: true

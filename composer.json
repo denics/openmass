@@ -164,6 +164,7 @@
         "drupal/redirect": "^1",
         "drupal/restrict_by_ip": "4.x-dev",
         "drupal/restui": "^1",
+        "drupal/schema_metatag": "^1.0@RC",
         "drupal/seckit": "1.0-alpha2",
         "drupal/security_review": "1.x-dev",
         "drupal/subpathauto": "^1.0@beta",
@@ -263,6 +264,10 @@
             "drupal/better_field_descriptions": {
                 "Fix the positioning of the additional help text (https://www.drupal.org/node/2882765)": "https://www.drupal.org/files/issues/better_field_descriptions-position-help-2882765-0.patch",
                 "Prevent errors when deleting fields (https://www.drupal.org/node/2888240)": "https://www.drupal.org/files/issues/better_field_descriptions-stop-errors-when-field-deleted-2888240-1.patch"
+            },
+            "drupal/schema_metatag": {
+                "Fix fatal error": "https://www.drupal.org/files/issues/schema_metatag-2882482-fix_module_fatal_error-2.patch",
+                "Fix PHPCS errors": "https://www.drupal.org/files/issues/schema_metatag-2882492-fix_phpcs_errors_and_warnings-2.patch"
             }
         }
     }

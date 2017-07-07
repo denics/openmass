@@ -19,6 +19,7 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: basic_string
+    region: content
   field_media_contact_name:
     weight: 2
     label: above
@@ -26,6 +27,7 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
   field_media_contact_phone:
     weight: 3
     label: above
@@ -33,6 +35,7 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
   field_media_contact_ref_person:
     weight: 1
     label: above
@@ -40,4 +43,5 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
 hidden: {  }
