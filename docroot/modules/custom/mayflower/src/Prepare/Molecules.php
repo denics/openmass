@@ -544,6 +544,7 @@ class Molecules {
         $address = Helper::formatAddress($entity->$fields['value'], $options);
         $item['value'] = $address;
         $item['link'] = 'https://maps.google.com/?q=' . urlencode($address);
+        $item['info'] = t('Get directions to ') . $address;
 
         // Respect first address provided if present.
         if (!$contactInfo['address']) {
