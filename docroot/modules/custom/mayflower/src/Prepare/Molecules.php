@@ -259,6 +259,7 @@ class Molecules {
       'linkedin',
       'google',
       'instagram',
+      'medium',
       'youtube',
     ];
 
@@ -267,7 +268,7 @@ class Molecules {
 
       foreach ($services as $key => $service) {
         if (strpos($link['href'], $service) !== FALSE) {
-          $icon = $services[$key];
+          $icon = $service;
           break;
         }
       }
