@@ -78,7 +78,6 @@ third_party_settings:
     group_additional_info:
       children:
         - field_how_to_more_info
-        - field_how_to_more_info_v2
         - field_how_to_files
         - field_how_to_links_5
       parent_name: group_how_to_page_edit_form
@@ -169,12 +168,12 @@ content:
     type: entity_reference_paragraphs
     weight: 38
     settings:
-      title: Paragraph
-      title_plural: Paragraphs
+      title: Method
+      title_plural: Methods
       edit_mode: open
       add_mode: dropdown
       form_display_mode: default
-      default_paragraph_type: ''
+      default_paragraph_type: _none
     third_party_settings: {  }
     region: content
   field_how_to_more_info:
@@ -189,12 +188,12 @@ content:
     type: entity_reference_paragraphs
     weight: 39
     settings:
-      title: Paragraph
-      title_plural: Paragraphs
+      title: 'Next step'
+      title_plural: 'Next steps'
       edit_mode: preview
       add_mode: dropdown
       form_display_mode: default
-      default_paragraph_type: next_step
+      default_paragraph_type: _none
     third_party_settings: {  }
     region: content
   field_how_to_ref_fees:

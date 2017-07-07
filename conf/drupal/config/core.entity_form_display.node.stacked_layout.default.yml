@@ -130,8 +130,8 @@ content:
   field_action_banner:
     weight: 113
     settings:
-      title: Molecule
-      title_plural: Molecules
+      title: Banner
+      title_plural: Banners
       edit_mode: closed
       add_mode: button
       form_display_mode: default
@@ -142,8 +142,8 @@ content:
   field_action_header:
     weight: 112
     settings:
-      title: Molecule
-      title_plural: Molecules
+      title: 'Contact Group'
+      title_plural: 'Contact Groups'
       edit_mode: closed
       add_mode: button
       form_display_mode: default
@@ -164,12 +164,12 @@ content:
     type: entity_reference_paragraphs
     weight: 3
     settings:
-      title: Molecule
-      title_plural: Molecules
+      title: Row
+      title_plural: Rows
       edit_mode: preview
       add_mode: button
       form_display_mode: default
-      default_paragraph_type: ''
+      default_paragraph_type: _none
     third_party_settings: {  }
     region: content
   field_funnel_endpoint_term:
@@ -181,12 +181,12 @@ content:
   field_header_cta:
     weight: 114
     settings:
-      title: Molecule
-      title_plural: Molecules
+      title: 'Call to Action'
+      title_plural: 'Call to Action'
       edit_mode: closed
       add_mode: button
       form_display_mode: default
-      default_paragraph_type: ''
+      default_paragraph_type: _none
     third_party_settings: {  }
     type: entity_reference_paragraphs
     region: content
