@@ -72,12 +72,12 @@ content:
   field_action_sidebar:
     weight: 4
     settings:
-      title: Paragraph
-      title_plural: Paragraphs
+      title: 'Alert Sidebar content'
+      title_plural: 'Alert Sidebar content'
       edit_mode: preview
       add_mode: button
       form_display_mode: default
-      default_paragraph_type: ''
+      default_paragraph_type: _none
     third_party_settings: {  }
     type: entity_reference_paragraphs
     region: content
@@ -85,8 +85,8 @@ content:
     type: entity_reference_paragraphs
     weight: 3
     settings:
-      title: Paragraph
-      title_plural: Paragraphs
+      title: Alert
+      title_plural: Alerts
       edit_mode: preview
       add_mode: button
       form_display_mode: default
