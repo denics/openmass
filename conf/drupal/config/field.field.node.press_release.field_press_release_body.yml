@@ -1,0 +1,33 @@
+uuid: 7b903caf-c099-427e-841b-08c0116d932d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_press_release_body
+    - node.type.press_release
+  module:
+    - geocoder_field
+    - text
+third_party_settings:
+  geocoder_field:
+    method: none
+    field: title
+    plugins: {  }
+    dumper: wkt
+    delta_handling: default
+    failure:
+      handling: preserve
+      status_message: true
+      log: true
+id: node.press_release.field_press_release_body
+field_name: field_press_release_body
+entity_type: node
+bundle: press_release
+label: Body
+description: 'Please enter the full press release text here. A “###” will be added automatically after this area.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

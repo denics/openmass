@@ -240,16 +240,22 @@ function mass_theme_preprocess_node_how_to_page(&$variables) {
 
   // Build methods tabular data if field is populated.
   if (Helper::isFieldPopulated($node, 'field_how_to_ref_fees')) {
+    // Set up section title for heading, sticky nav.
+    $fees_title = t('Fees');
+
     // Set up options for how to ___.
     $tabularData_options = [
       'heading' => [
         'type' => 'compHeading',
-        'title' => t('Fees'),
+        'title' => $fees_title,
         'sub' => TRUE,
       ],
     ];
 
     $pageContent['tabularData'] = Organisms::prepareTabularData($node, $tabularData_options);
+
+    // Set up corresponding sticky nav entry for fees.
+    $stickyNav[] = $fees_title;
 
   }
 
@@ -555,11 +561,12 @@ function mass_theme_preprocess_node_org_page(&$variables) {
       'locationDetailsLink' => [
         'display' => TRUE,
         'nid' => $node->id(),
+        'path' => \Drupal::service('path.alias_manager')->getAliasByPath('/node/' . $node->id()),
       ],
     ];
 
     // We need a different Google map config for PL tpls.
-    $variables['#attached']['library'][] = 'mass_theme/mass-google-map-apis-location';
+    // $variables['#attached']['library'][] = 'mass_theme/mass-google-map-apis-location';.
 
     $sections[] = [
       'pageContent' => [
@@ -607,7 +614,7 @@ function mass_theme_preprocess_node_location(&$variables) {
   $node = $variables['node'];
 
   // We need a different Google map config for PL tpls.
-  $variables['#attached']['library'][] = 'mass_theme/mass-google-map-apis-location';
+  // $variables['#attached']['library'][] = 'mass_theme/mass-google-map-apis-location';.
 
   // Set static actionHeader properties to pass to prepare function.
   $pageHeader_options = [
@@ -756,6 +763,237 @@ function mass_theme_preprocess_node_topic_page(&$variables) {
 /**
  * Implements hook_preprocess_node().
  *
+ * Prepare the variables for the Event page.
+ */
+function mass_theme_preprocess_node_event(&$variables) {
+  $node = $variables['node'];
+  $sidebar = [];
+
+  // Create the map of all possible field names to use.
+  $map = [
+    'date' => ['field_event_date'],
+    'time' => ['field_event_time'],
+    'tags' => ['field_event_ref_parents'],
+    'links' => ['field_event_links'],
+    'image' => ['field_event_image'],
+    'logo' => ['field_event_logo'],
+    'downloads' => ['field_event_ref_downloads'],
+    'contact' => ['field_event_contact_general'],
+  ];
+
+  // Determines which field names to use from the map.
+  $fields = Helper::getMappedFields($node, $map);
+
+  $taxonomyTerms = [];
+  // @TODO build at Related To links.
+
+  if (!empty($node->$fields['tags'])) {
+    foreach ($node->$fields['tags'] as $tag) {
+      $taxonomyTerms[] = [
+        'href' => $tag->entity->toURL()->toString(),
+        'text' => Helper::fieldValue($tag->entity, 'title'),
+      ];
+    }
+  }
+
+  $optionalContents = [];
+
+  // Build date and time optional contents.
+  if (Helper::isFieldPopulated($node, 'field_event_date')) {
+    // Create the map of all possible field names to use.
+    $headerDate_options = [
+      'headerDate' => TRUE,
+    ];
+
+    $optionalContents[] = [
+      'path' => '@molecules/event-teaser.twig',
+      'data' => [
+        'eventTeaser' => Molecules::prepareEventTeaser($node, $fields, $headerDate_options),
+      ],
+    ];
+  }
+
+  // Build contact us optional contents.
+  if (Helper::isFieldPopulated($node, 'field_event_ref_contact')) {
+    // Prepare the option array header contact.
+    $headerContact_options = [
+      'onlyAddress' => TRUE,
+    ];
+    $optionalContents = array_merge($optionalContents, Helper::buildPageHeaderOptionalContentsContactUs($node, 'field_event_ref_contact', $headerContact_options));
+  }
+
+  // Build key action optional contents.
+  if (Helper::isFieldPopulated($node, 'field_event_link_sign_up')) {
+    $optionalContents[] = [
+      'path' => '@organisms/by-author/key-actions.twig',
+      'data' => [
+        'keyActions' => Molecules::prepareKeyActions($node, 'field_event_link_sign_up'),
+      ],
+    ];
+  }
+
+  // Prepare widgets that can be passed to the pageHeader.
+  $widgets = [];
+
+  // Prepare the option array for image widget.
+  $logo_options = [
+    'style' => 'organization_logo',
+    'height' => '',
+    'width' => 230,
+  ];
+
+  // Prepares logo to use the mayflower image component.
+  if ($image = Atoms::prepareImage($node, $logo_options, $fields['logo'])) {
+    $widgets[] = [
+      'path' => '@atoms/09-media/image.twig',
+      'data' => [
+        'image' => $image,
+      ],
+    ];
+  }
+
+  // Set static pageHeader properties to pass to prepare function.
+  $pageHeader_options = [
+    'category' => '',
+    'divider' => TRUE,
+    'headerTags' => [
+      'label' => t('Related to:'),
+      'taxonomyTerms' => $taxonomyTerms,
+    ],
+    'optionalContents' => $optionalContents,
+    'widgets' => $widgets,
+  ];
+
+  // Make pageBanner data object available in twig template.
+  $variables['pageHeader'] = Organisms::preparePageHeader($node, $pageHeader_options);
+
+  $items = [];
+
+  if (Helper::isFieldPopulated($node, 'field_event_rain_date')) {
+    $items[] = [
+      'label' => t('Rain date:'),
+      'text' => Helper::fieldValue($node, 'field_event_rain_date'),
+    ];
+  }
+
+  if (Helper::isFieldPopulated($node, 'field_event_fees')) {
+    $items[] = [
+      'label' => t('Fees:'),
+      'text' => Helper::fieldValue($node, 'field_event_fees'),
+    ];
+  }
+
+  if (Helper::isFieldPopulated($node, 'field_event_capacity')) {
+    $items[] = [
+      'label' => t('Capacity:'),
+      'text' => Helper::fieldValue($node, 'field_event_capacity'),
+    ];
+  }
+
+  $pageOverview_options = [
+    'heading' => [
+      'title' => t('Overview'),
+    ],
+    'image' => [
+      'style' => '',
+      'width' => 600,
+      'height' => '',
+    ],
+  ];
+
+  $pageOverview = Atoms::prepareCompHeading($pageOverview_options['heading']);
+  $pageOverview['image'] = Atoms::prepareImage($node, $pageOverview_options['image'], $fields['image']);
+  $pageOverview['labelledList'] = ['items' => $items];
+
+  if (Helper::isFieldPopulated($node, 'field_event_description')) {
+    // Set up rich text elements for what you need.
+    $pageOverview['richText'] = [
+      'rteElements' => [
+        Atoms::prepareRawHtml($node, ['field' => 'field_event_description']),
+      ],
+    ];
+  }
+
+  $mainContent['pageOverview'] = $pageOverview;
+
+  if (Helper::isFieldPopulated($node, 'field_event_you_will_need')) {
+    $youWillNeed_options = [
+      'heading' => [
+        'title' => t('You will need'),
+        'sub' => TRUE,
+      ],
+    ];
+    $youWillNeed = Atoms::prepareCompHeading($youWillNeed_options['heading']);
+    // Set up rich text elements for what you need.
+    $youWillNeed['rteElements'] = [
+      Atoms::prepareRawHtml($node, ['field' => 'field_event_you_will_need']),
+    ];
+
+    $mainContent['youWillNeed'] = $youWillNeed;
+  }
+
+  if (Helper::isFieldPopulated($node, $fields['downloads']) || Helper::isFieldPopulated($node, $fields['links'])) {
+    // Set up options for formDownloads prepare.
+    $downloadLinks_options = [
+      'heading' => [
+        'type' => 'compHeading',
+        'title' => t('Additional Resources'),
+        'sub' => TRUE,
+      ],
+    ];
+    $mainContent['formDownloads'] = Organisms::prepareFormDownloads($node, $downloadLinks_options);
+  }
+
+  // Build contact section, if field is populated.
+  if (Helper::isFieldPopulated($node, $fields['contact'])) {
+    // Set up options for contact list.
+    $contactList_options = [
+      'heading' => [
+        'title' => t("Contact"),
+        'sub' => TRUE,
+      ],
+      'groups' => [
+        'accordion' => TRUE,
+        'isExpanded' => FALSE,
+      ],
+    ];
+
+    $mainContent['contactList'] = Organisms::prepareContactList($node, $contactList_options);
+    // Build sidebar.contactList, which is a subset of pageContent.ContactList.
+    // Prepare the quickActions data object.
+    $sidebarContacts_options = [
+      'groups' => [
+        'accordion' => FALSE,
+        'isExpanded' => FALSE,
+      ],
+    ];
+    // Prepare the sidebarContact data object.
+    $sideContent['contactList'] = Organisms::prepareContactList($node, $sidebarContacts_options);
+    unset($sideContent['contactList']['compHeading']);
+    $sideContent['contactList']['sidebarHeading']['title'] = t('Contact');
+    $sidebar['contactList']['viewSpecific'] = TRUE;
+  }
+
+  // Build related links section, if field is populated.
+  if (Helper::isFieldPopulated($node, 'field_event_ref_event_2')) {
+    // Set up options for contact list.
+    $eventList_options = [
+      'heading' => [
+        'title' => t('Related Events'),
+        'centered' => TRUE,
+      ],
+    ];
+    $bottomContent['eventListing'] = Organisms::prepareEventListing($node, 'field_event_ref_event_2', $eventList_options);
+  }
+
+  $variables['mainContent'] = $mainContent;
+  $variables['sideContent'] = $sideContent;
+  $variables['bottomContent'] = $bottomContent;
+}
+
+/**
+ * Implements hook_preprocess_node().
+ *
  * Prepare the variables for the Services page.
  */
 function mass_theme_preprocess_node_service_page(&$variables) {
@@ -817,7 +1055,7 @@ function mass_theme_preprocess_node_service_page(&$variables) {
 
   // Make the introPageContent data structure available in twig template.
   $variables['introPageContent'] = $intro_page_content;
-  // dump($variables['introPageContent']);
+
   // Prepare the introduction sidebar.
   $intro_sidebar = [];
 
@@ -890,10 +1128,12 @@ function mass_theme_preprocess_node_service_page(&$variables) {
         'title' => t('Locations'),
         'type' => 'compHeading',
       ],
+      'locationDetailsLink' => [
+        'display' => TRUE,
+        'nid' => $node->id(),
+        'path' => \Drupal::service('path.alias_manager')->getAliasByPath('/node/' . $node->id()),
+      ],
     ];
-
-    // We need a different Google map config for PL tpls.
-    $variables['#attached']['library'][] = 'mass_theme/mass-google-map-apis-location';
     $variables['mappedLocations'] = Organisms ::prepareMappedLocations($node->field_service_ref_locations->referencedEntities(), $mappedLocations_options);
   }
 
@@ -1041,6 +1281,169 @@ function mass_theme_preprocess_node_service_details(&$variables) {
 
     $variables['sidebar']['linkList'] = Organisms::preparelinkList($node, 'field_service_detail_links_5', $linkList_options);
   }
+}
+
+/**
+ * Implements hook_preprocess_node().
+ *
+ * Prepare the variables for the Press Release page.
+ */
+function mass_theme_preprocess_node_press_release(&$variables) {
+  $node = $variables['node'];
+  $sidebar = [];
+  // Create the map of all possible field names to use.
+  $map = [
+    'body' => ['field_press_release_body'],
+    'location' => ['field_press_release_location'],
+    'video' => ['field_press_release_video'],
+    'signees' => ['field_press_release_signees'],
+    'contact' => ['field_press_release_media_contac'],
+    'links' => ['field_press_release_links'],
+  ];
+
+  // Determines which field names to use from the map.
+  $field = Helper::getMappedFields($node, $map);
+
+  $taxonomyTerms = [];
+
+  if (!empty($node->$field['signees']->entity)) {
+    $org_fields = [
+      'link' => ['field_state_org_ref_org'],
+      'title' => ['field_external_org_name'],
+      'lede' => ['field_state_org_description', 'field_external_org_description'],
+      'image' => ['field_state_org_photo', 'field_external_org_photo'],
+    ];
+
+    $taxonomyTerms = [];
+
+    $signee_ref = Helper::getReferencedEntitiesFromField($node, $field['signees']);
+
+    foreach ($signee_ref as $signee_entity) {
+      $org_data = Helper::getMappedFields($signee_entity, $org_fields);
+      if ($signee_entity != NULL) {
+        if ($signee_entity->getParagraphType()->id == 'state_organization') {
+          $taxonomyTerms[] = [
+            'href' => $signee_entity->$org_data['link']->entity->toURL()->toString(),
+            'text' => Helper::fieldValue($signee_entity->$org_data['link']->entity, 'title'),
+          ];
+
+          $promo_options = [
+            'title' => Helper::fieldValue($signee_entity->$org_data['link']->entity, 'title'),
+          ];
+        }
+        else {
+          $promo_options = [
+            'title' => Helper::fieldValue($signee_entity, $org_data['title']),
+          ];
+        }
+      }
+      $org_fields + ['link' => TRUE];
+      $pageContent['personalMessage']['imagePromos'][] = Molecules::prepareImagePromo($signee_entity, $org_data, $promo_options);
+    }
+  }
+
+  // Set static pageHeader properties to pass to prepare function.
+  $pageHeader_options = [
+    'category' => t('Press Release'),
+    'divider' => FALSE,
+    'headerTags' => [
+      'label' => t('Related to:'),
+      'taxonomyTerms' => $taxonomyTerms,
+    ],
+  ];
+
+  // Make pageBanner data object available in twig template.
+  $variables['pageHeader'] = Organisms::preparePageHeader($node, $pageHeader_options);
+
+  $pageContent['pressStatus'] = Molecules::preparePressStatus($node);
+
+  if (Helper::isFieldPopulated($node, $field['video'])) {
+    if (!empty($node->$field['video']->entity)) {
+      $videoEntity = $node->$field['video']->entity;
+      $pageContent['video'] = [
+        'src' => '//www.' . $videoEntity->field_video_source->value . '.com/embed/' . $videoEntity->field_video_id->value,
+      ];
+    }
+  }
+
+  if (Helper::isFieldPopulated($node, $field['body'])) {
+    $body = '';
+    if (Helper::isFieldPopulated($node, $field['location'])) {
+      $location = Helper::fieldValue($node, $field['location']) . ' &mdash; ';
+      $body_array = explode('<p>', Helper::fieldValue($node, $field['body']));
+      $body_array[1] = $location . $body_array[1];
+      $body = implode($body_array, '<p>');
+    }
+    else {
+      $body = Helper::fieldValue($node, $field['location']);
+    }
+
+    // Set up rich text element.
+    $pageContent['richText'] = [
+      'rteElements' => [
+        [
+          'path' => '@atoms/11-text/raw-html.twig',
+          'data' => [
+            'rawHtml' => [
+              'content' => $body,
+            ],
+          ],
+        ],
+        [
+          'path' => '@atoms/11-text/paragraph.twig',
+          'data' => [
+            'paragraph' => [
+              'text' => '###',
+            ],
+          ],
+        ]
+      ],
+    ];
+  }
+
+  // Build contact section, if field is populated.
+  if (Helper::isFieldPopulated($node, $field['contact'])) {
+    // Set up options for contact list.
+    $contactList_options = [
+      'heading' => [
+        'type' => 'sidebarHeading',
+        'title' => t("Media Contact"),
+      ],
+      'groups' => [
+        'accordion' => TRUE,
+        'isExpanded' => FALSE,
+      ],
+    ];
+
+    $pageContent['contactList'] = Organisms::prepareContactList($node, $contactList_options);
+
+    // Build sidebar.contactList, which is a subset of pageContent.ContactList.
+    $sidebar['contactList'] = Helper::getPrimaryContactPhoneOnlineContactList($pageContent['contactList']);
+    unset($sidebar['contactList']['compHeading']);
+    $sidebar['contactList']['sidebarHeading']['title'] = t('Media Contact');
+    $sidebar['contactList']['viewSpecific'] = TRUE;
+  }
+
+  // Build related links section, if field is populated.
+  if (Helper::isFieldPopulated($node, $field['links'])) {
+    // Set up options for link list.
+    $linkList_options = [
+      'heading' => [
+        'type' => 'sidebarHeading',
+        'title' => t('Related'),
+      ],
+      'stacked' => TRUE,
+      'useEyebrow' => [
+        'press_release',
+        'regulation',
+      ],
+    ];
+
+    $sidebar['linkList'] = Organisms::preparelinkList($node, $field['links'], $linkList_options);
+  }
+
+  $variables['pageContent'] = $pageContent;
+  $variables['sidebar'] = $sidebar;
 }
 
 /**
@@ -2554,21 +2957,29 @@ function mass_theme_preprocess_paragraph__related_content(&$variables) {
  *   The twig layout to be used.
  */
 function _get_layout(array $total_type_with_count, $total_count) {
-  // Tests for using bullets.
+  // If all content is "stacked_layout", we use "bullets".
   if (
-    $total_type_with_count['stacked_layout'] == $total_count) {
+    $total_type_with_count['stacked_layout'] == $total_count ||
+    $total_type_with_count['org_page'] == $total_count) {
     return 'bullets';
   }
-  // Tests for using Action Card layout.
+
+  // If all content is Right Rail, use actionCards.
+  // If content is Right Rail and Stacked Layout, use actionCards.
   if (
     $total_type_with_count['action'] == $total_count ||
-    $total_type_with_count['action'] + $total_type_with_count['stacked_layout'] == $total_count) {
+    $total_type_with_count['action'] + $total_type_with_count['stacked_layout'] == $total_count ||
+    $total_type_with_count['action'] + $total_type_with_count['how_to_page'] + $total_type_with_count['service_details'] == $total_count ||
+    $total_type_with_count['action'] + $total_type_with_count['how_to_page'] + $total_type_with_count['stacked_layout'] + $total_type_with_count['guide_page'] == $total_count) {
     return 'actionCards';
   }
+
   // Tests for using Topic Card layout.
   if (
     $total_type_with_count['topic'] + $total_type_with_count['subtopic'] == $total_count ||
-    $total_type_with_count['topic'] + $total_type_with_count['subtopic'] + $total_type_with_count['stacked_layout'] == $total_count) {
+    $total_type_with_count['topic'] + $total_type_with_count['subtopic'] + $total_type_with_count['stacked_layout'] == $total_count ||
+    $total_type_with_count['topic'] + $total_type_with_count['subtopic'] + $total_type_with_count['topic_page'] + $total_type_with_count['service_page'] == $total_count ||
+    $total_type_with_count['topic'] + $total_type_with_count['subtopic'] + $total_type_with_count['topic_page'] + $total_type_with_count['stacked_layout'] == $total_count) {
     return 'topicCards';
   }
 

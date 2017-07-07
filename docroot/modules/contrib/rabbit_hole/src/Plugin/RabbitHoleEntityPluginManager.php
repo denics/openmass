@@ -103,7 +103,7 @@ class RabbitHoleEntityPluginManager extends DefaultPluginManager {
    *   form_id => entity_type.
    */
   public function loadSupportedGlobalForms() {
-    $result = array();
+    $result = [];
     foreach ($this->getDefinitions() as $key => $def) {
       $form_id = $this->createInstance($key)->getGlobalConfigFormId();
       if (isset($form_id)) {
@@ -121,7 +121,7 @@ class RabbitHoleEntityPluginManager extends DefaultPluginManager {
    *  An array of token IDs keyed by entity ID
    */
   public function loadEntityTokenMap() {
-    $map = array();
+    $map = [];
     foreach ($this->getDefinitions() as $key => $def) {
       $map += $this->createInstance($key)->getEntityTokenMap();
     }

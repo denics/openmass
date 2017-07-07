@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains Drupal\restrict_by_ip\IPTools.
- */
-
 namespace Drupal\restrict_by_ip;
 
 use Drupal\Core\Config\ConfigFactoryInterface;

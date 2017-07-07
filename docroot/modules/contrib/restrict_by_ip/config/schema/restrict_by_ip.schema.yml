@@ -20,3 +20,6 @@ restrict_by_ip.settings:
       label: Role level IP address grant restrictions
       sequence:
         type: string
+    dependencies:
+      type: config_dependencies
+      label: Dependencies

@@ -4,7 +4,6 @@ status: true
 dependencies:
   config:
     - field.field.paragraph.address.field_address_address
-    - field.field.paragraph.address.field_address_text
     - field.field.paragraph.address.field_geofield
     - field.field.paragraph.address.field_label
     - field.field.paragraph.address.field_lat_long
@@ -23,6 +22,7 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: address_default
+    region: content
   field_geofield:
     type: geofield_default
     weight: 2
@@ -30,6 +30,7 @@ content:
     settings:
       output_format: wkt
     third_party_settings: {  }
+    region: content
   field_label:
     weight: 0
     label: above
@@ -37,6 +38,7 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
 hidden:
   created: true
   field_address_text: true

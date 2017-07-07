@@ -47,19 +47,9 @@ Special MAC instructions will be labeled as the following, `macs are awesome`.
 
 ## Setting up authentication and credentials
 
-### Acquia site aliases
-*We use [Acquia](http://acquia.com) for our hosting environment. Follow the steps below to set up your Acquia [Drush](http://www.drush.org/en/master/) integration (Drush is a command-line interface for Drupal). This allows you to run Drush commands that interact with the Acquia environments within the VM (you'll meet the VM in the next section).*
-
-1. Log in to your Acquia account at [www.acquia.com](http://www.acquia.com)
-1. Navigate to the "Credentials" tab under your profile
-1. Under the "Drush Integration" heading, click the "Download Drush aliases" link
-1. This will download acquiacloud.tar.gz
-1. Unzip this archive into a directory called `acquiacloud`
-1. Place the `acquiacloud` directory within this project's `artifacts` directory. You should now have your Acquia Cloud credentials available at `artifacts/acquiacloud` (which will have two subdirectories: .acquia and .drush)
-
 
 ### Acquia command line API
-*In addition to setting up aliases for drush to interact with Acquia, in order to perform full deployments you'll need to interact with Acquia's Cloud API. All Cloud API calls need to be authenticated in order to work. You authenticate a call using your user name (the email address with which you sign in to Acquia) and a private key that you can find on your Acquia Profile page.*
+*In order to perform deployments you'll need to interact with Acquia's Cloud API. All Cloud API calls need to be authenticated in order to work. You authenticate a call using your user name (the email address with which you sign in to Acquia) and a private key that you can find on your Acquia Profile page.*
 1. Move into the VM: `vagrant ssh`
 1. Move into the project root: `www`
 1. Authenticate with the Acquia cloud API `drush ac-api-login`. You'll be prompted for your email address and Acquia cloud API key. **You can find your cloud API key under Profile > Credentials and then the heading Cloud API**. Run the login command as follow:

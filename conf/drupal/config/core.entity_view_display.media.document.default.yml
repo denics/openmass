@@ -43,12 +43,14 @@ content:
       custom_date_format: ''
       timezone: ''
     third_party_settings: {  }
+    region: content
   field_contact_information:
     weight: 12
     label: above
     settings: {  }
     third_party_settings: {  }
     type: basic_string
+    region: content
   field_contact_name:
     weight: 9
     label: above
@@ -56,6 +58,7 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
   field_contributing_agency:
     weight: 10
     label: above
@@ -63,6 +66,7 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
   field_creator:
     weight: 17
     label: above
@@ -70,12 +74,14 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
   field_description:
     weight: 11
     label: above
     settings: {  }
     third_party_settings: {  }
     type: basic_string
+    region: content
   field_end_date:
     weight: 15
     label: above
@@ -84,6 +90,7 @@ content:
       timezone_override: ''
     third_party_settings: {  }
     type: datetime_default
+    region: content
   field_file_mime:
     weight: 6
     label: hidden
@@ -91,6 +98,7 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
   field_geographic_place:
     weight: 7
     label: above
@@ -98,6 +106,7 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
   field_link_classic_massgov:
     weight: 19
     label: above
@@ -109,6 +118,7 @@ content:
       target: ''
     third_party_settings: {  }
     type: link
+    region: content
   field_link_related_content:
     weight: 18
     label: above
@@ -120,12 +130,14 @@ content:
       target: ''
     third_party_settings: {  }
     type: link
+    region: content
   field_publishing_frequency:
     weight: 13
     label: above
     settings: {  }
     third_party_settings: {  }
     type: list_default
+    region: content
   field_size:
     weight: 4
     label: hidden
@@ -133,6 +145,7 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
   field_start_date:
     weight: 14
     label: above
@@ -141,6 +154,7 @@ content:
       timezone_override: ''
     third_party_settings: {  }
     type: datetime_default
+    region: content
   field_tags:
     weight: 16
     label: above
@@ -148,6 +162,7 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
   field_title:
     weight: 2
     label: above
@@ -155,12 +170,14 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
   field_upload_file:
     weight: 3
     label: above
     settings: {  }
     third_party_settings: {  }
     type: file_default
+    region: content
   name:
     label: hidden
     type: string
@@ -168,6 +185,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
+    region: content
   thumbnail:
     type: image
     weight: 1
@@ -176,11 +194,13 @@ content:
       image_style: thumbnail
       image_link: ''
     third_party_settings: {  }
+    region: content
   uid:
     label: hidden
     type: author
     weight: 0
     settings: {  }
     third_party_settings: {  }
+    region: content
 hidden:
   field_internal_notes: true

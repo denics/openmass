@@ -1,5 +1,8 @@
 <?php
 
+use Drupal\KernelTests\Core\Entity\EntityQueryTest;
+use Drupal\node\Entity\Node;
+
 $databases = array();
 $databases['default']['default'] = array(
   'driver' => 'mysql',

@@ -24,6 +24,10 @@ class Helper {
    *   Whether or not a field is populated.
    */
   public static function isFieldPopulated($entity, $field_name) {
+    if (!method_exists($entity, 'hasField')) {
+      return FALSE;
+    }
+
     $is_populated = FALSE;
 
     $has_field = $entity->hasField($field_name);
@@ -138,11 +142,13 @@ class Helper {
    *   Entity object that contains the link field.
    * @param string $field
    *   The name of the field.
+   * @param array $options
+   *   An array of options.
    *
    * @return array
    *   Array that contains title, url and type (external, internal).
    */
-  public static function separatedLinks($entity, $field) {
+  public static function separatedLinks($entity, $field, array $options = []) {
     $items = [];
 
     // Check if the target field is entity reference, else assume link field.
@@ -151,11 +157,20 @@ class Helper {
       $entities = Helper::getReferencedEntitiesFromField($entity, $field);
 
       foreach ($entities as $entity) {
-
+        $text = $entity->get('title')->value;
+        // Use date as title if specified.
+        if (!empty($options['useDate']) && !empty($entity->$options['useDate']['fieldDate'])) {
+          $date = \Drupal::service('date.formatter')->format(strtotime($entity->$options['useDate']['fieldDate']->value), 'custom', 'l, F d, Y');
+          $text = $date;
+          if (!empty($options['useDate']) && !empty($entity->$options['useDate']['fieldTime'])) {
+            $time = $entity->$options['useDate']['fieldTime']->value;
+            $text = $date . ', ' . $time;
+          }
+        }
         $items[] = [
           'url' => $entity->toURL()->toString(),
           'href' => $entity->toURL()->toString(),
-          'text' => $entity->get('title')->value,
+          'text' => $text,
         ];
       }
     }
@@ -163,7 +178,7 @@ class Helper {
       $links = $entity->get($field);
 
       foreach ($links as $link) {
-        $items[] = Helper::separatedLink($link);
+        $items[] = Helper::separatedLink($link, $options);
       }
     }
 
@@ -175,21 +190,38 @@ class Helper {
    *
    * @param object $link
    *   The link object.
+   * @param array $options
+   *   An array of options.
    *
    * @return array
    *   Array that contains title, url and type (external, internal).
    */
-  public static function separatedLink($link) {
+  public static function separatedLink($link, array $options = []) {
     $url = $link->getUrl();
-
     $text = $link->getValue()['title'];
+    $date = '';
 
-    // If there is no title on an internal item, load the referenced node title.
-    if (empty($text) && strpos($link->getValue()['uri'], 'entity:node') !== FALSE) {
+    // On an internal item, load the referenced node title.
+    if (strpos($link->getValue()['uri'], 'entity:node') !== FALSE) {
       $params = Url::fromUri("internal:" . $url->toString())->getRouteParameters();
       $entity_type = key($params);
       $entity = \Drupal::entityTypeManager()->getStorage($entity_type)->load($params[$entity_type]);
-      $text = $entity->getTitle();
+      $content_type = $entity->getType();
+      $content_type_name = $entity->type->entity->label();
+
+      if (Helper::isFieldPopulated($entity, 'field_press_release_date')) {
+        $date = Helper::fieldFullView($entity, 'field_press_release_date');
+      }
+
+      // On internal item, if empty, grab enity title.
+      if (empty($text)) {
+        $text = $entity->getTitle();
+      }
+    }
+
+    $eyebrow = '';
+    if (!empty($content_type) && isset($options['useEyebrow']) && in_array($content_type, $options['useEyebrow'])) {
+      $eyebrow = $content_type_name;
     }
 
     return [
@@ -199,6 +231,8 @@ class Helper {
       'href' => $url->toString(),
       'url' => $url->toString(),
       'label' => '',
+      'eyebrow' => $eyebrow,
+      'date' => !empty($date) ? $date : '',
     ];
   }
 
@@ -445,6 +479,35 @@ class Helper {
   }
 
   /**
+   * Return a subset of a contactList data structure with primary phone/online.
+   *
+   * @param array $contact_list
+   *   A contactList: see @organisms/by-author/contact-list.
+   *
+   * @return array
+   *   A contactList array with only phone and online info for primary contact.
+   */
+  public static function getPrimaryContactPhoneOnlineContactList(array $contact_list) {
+    // Build sidebar.contactList, a subset of pageContent.ContactList.
+    $sidebar_contact = [];
+    // Get the first contact point only.
+    $contact_list['contacts'] = array_slice($contact_list['contacts'], 0, 1);
+    // Make the contact render for sidebar contact list.
+    $contact_list['contacts'][0]['accordion'] = FALSE;
+    // Remove the address, fax, in person contact groups.
+    foreach ($contact_list['contacts'][0]['groups'] as $key => $item) {
+      if (in_array($item['name'], ['Address', 'Fax', 'In Person'])) {
+        unset($contact_list['contacts'][0]['groups'][$key]);
+      }
+    }
+    // If contact groups remain, they are online / phone, assign to return var.
+    if (count($contact_list['contacts'][0]['groups']) > 0) {
+      $sidebar_contact = $contact_list;
+    }
+    return $sidebar_contact;
+  }
+
+  /**
    * Remove the appended cache string from a URL.
    *
    * @param string $url
@@ -604,14 +667,16 @@ class Helper {
       $field = Helper::getMappedFields($entity, $map);
       $hours_render_array = $entity->field_hours_structured->view('full');
 
-      $rteElements[] = [
-        'path' => '@atoms/04-headings/heading-4.twig',
-        'data' => [
-          'heading4' => [
-            'text' => Helper::fieldValue($entity, $field['label']),
+      if (Helper::isFieldPopulated($entity, $field['label'])) {
+        $rteElements[] = [
+          'path' => '@atoms/04-headings/heading-4.twig',
+          'data' => [
+            'heading4' => [
+              'text' => Helper::fieldValue($entity, $field['label']),
+            ],
           ],
-        ],
-      ];
+        ];
+      }
 
       $rteElements[] = [
         'path' => '@atoms/11-text/paragraph.twig',
@@ -797,6 +862,8 @@ class Helper {
    *   The entity which contains the entity reference or link field.
    * @param object $field
    *   The field which contains or refers to the link information.
+   * @param array $options
+   *   An array of options for header contact.
    *
    * @see @molecules/contact-us.twig
    * @see @organisms/by-template/page-header.twig
@@ -810,14 +877,14 @@ class Helper {
    *       ],
    *     ], ... ]
    */
-  public static function buildPageHeaderOptionalContentsContactUs($entity, $field) {
+  public static function buildPageHeaderOptionalContentsContactUs($entity, $field, array $options = []) {
     $optionalContentsContactUs = [];
     $contactUs = [];
     $contact_items = Helper::getReferencedEntitiesFromField($entity, $field);
 
     if (!empty($contact_items)) {
       foreach ($contact_items as $contact_item) {
-        $contactUs = Molecules::prepareContactUs($contact_item, ['display_title' => FALSE]);
+        $contactUs = Molecules::prepareContactUs($contact_item, $options + ['display_title' => FALSE]);
       }
 
       $optionalContentsContactUs[] = [
@@ -860,40 +927,6 @@ class Helper {
     ];
 
     return $heading;
-  }
-
-  /**
-   * Return a subset of a contactList data structure with primary phone/online.
-   *
-   * @param array $contact_list
-   *   A contactList: see @organisms/by-author/contact-list.
-   *
-   * @return array
-   *   A contactList array with only phone and online info for primary contact.
-   */
-  public static function getPrimaryContactPhoneOnlineContactList(array $contact_list) {
-    // Build sidebar.contactList, a subset of pageContent.ContactList.
-    $sidebar_contact = [];
-
-    // Get the first contact point only.
-    $contact_list['contacts'] = array_slice($contact_list['contacts'], 0, 1);
-
-    // Make the contact render for sidebar contact list.
-    $contact_list['contacts'][0]['accordion'] = FALSE;
-
-    // Remove the address, fax, in person contact groups.
-    foreach ($contact_list['contacts'][0]['groups'] as $key => $item) {
-      if (in_array($item['name'], ['Address', 'Fax', 'In Person'])) {
-        unset($contact_list['contacts'][0]['groups'][$key]);
-      }
-    }
-
-    // If contact groups remain, they are online / phone, assign to return var.
-    if (count($contact_list['contacts'][0]['groups']) > 0) {
-      $sidebar_contact = $contact_list;
-    }
-
-    return $sidebar_contact;
   }
 
   /**

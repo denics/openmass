@@ -18,3 +18,6 @@ permissions:
   - 'access shortcuts'
   - 'search content'
   - 'view media'
+  - 'access_unpublished node legacy_redirects'
+  - 'flag watch_content'
+  - 'unflag watch_content'

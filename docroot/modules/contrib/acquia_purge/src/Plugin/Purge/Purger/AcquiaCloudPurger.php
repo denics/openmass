@@ -263,28 +263,48 @@ class AcquiaCloudPurger extends PurgerBase implements PurgerInterface {
 
     // Collect tags and set all states to PROCESSING before we kick off.
     $tags = [];
+    $hashes = [];
     foreach ($invalidations as $invalidation) {
-      $invalidation->setState(InvalidationInterface::PROCESSING);
-      $tags[] = $invalidation->getExpression();
+      $expression = $invalidation->getExpression();
+
+      // Detect tags with spaces in it. This is the only character Drupal core
+      // forbids explicitely to be used in tags, as we're using it as separator
+      // for multiple tags.
+      if (strpos($expression, ' ') !== FALSE) {
+        $invalidation->setState(InvalidationInterface::FAILED);
+        $this->logger->error(
+          "The tag '%tag' contains a space, this is forbidden.",
+          [
+            '%tag' => $expression,
+          ]
+        );
+      }
+      else {
+        $invalidation->setState(InvalidationInterface::PROCESSING);
+        $tags[] = $expression;
+      }
     }
-    $tags_string = implode('|', $tags);
+
+    // Test if we have at least one tag to purge, if not, bail.
+    if (!count($tags)) {
+      foreach ($invalidations as $invalidation) {
+        $invalidation->setState(InvalidationInterface::FAILED);
+      }
+      return;
+    }
+    foreach ($tags as $cache_tag) {
+      $hashes[] = substr(md5($cache_tag), 0, 4);
+    }
+    $tags_string = implode(' ', $hashes);
 
     // Predescribe the requests to make.
     $requests = [];
     $site_identifier = $this->hostingInfo->getSiteIdentifier();
     foreach ($this->hostingInfo->getBalancerAddresses() as $ip_address) {
-      if (count($tags) === 1) {
-        $r = Request::create("http://$ip_address/tag", 'BAN');
-        $this->disableTrustedHostsMechanism($r);
-        $r->headers->set('X-Acquia-Purge', $site_identifier);
-        $r->headers->set('X-Acquia-Purge-Tag', $tags_string);
-      }
-      else {
-        $r = Request::create("http://$ip_address/tags", 'BAN');
-        $this->disableTrustedHostsMechanism($r);
-        $r->headers->set('X-Acquia-Purge', $site_identifier);
-        $r->headers->set('X-Acquia-Purge-Tags', $tags_string);
-      }
+      $r = Request::create("http://$ip_address/tags", 'BAN');
+      $this->disableTrustedHostsMechanism($r);
+      $r->headers->set('X-Acquia-Purge', $site_identifier);
+      $r->headers->set('X-Acquia-Purge-Tags', $tags_string);
       $r->headers->remove('Accept-Language');
       $r->headers->remove('Accept-Charset');
       $r->headers->remove('Accept');
@@ -307,11 +327,13 @@ class AcquiaCloudPurger extends PurgerBase implements PurgerInterface {
 
     // Set the object states according to our overall result.
     foreach ($invalidations as $invalidation) {
-      if ($overall_success) {
-        $invalidation->setState(InvalidationInterface::SUCCEEDED);
-      }
-      else {
-        $invalidation->setState(InvalidationInterface::FAILED);
+      if ($invalidation->getState() === InvalidationInterface::PROCESSING) {
+        if ($overall_success) {
+          $invalidation->setState(InvalidationInterface::SUCCEEDED);
+        }
+        else {
+          $invalidation->setState(InvalidationInterface::FAILED);
+        }
       }
     }
 

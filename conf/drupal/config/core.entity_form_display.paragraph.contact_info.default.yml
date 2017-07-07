@@ -63,6 +63,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textarea
+    region: content
   field_branch_locations:
     weight: 6
     settings:
@@ -70,6 +71,7 @@ content:
       placeholder_title: ''
     third_party_settings: {  }
     type: link_default
+    region: content
   field_caption:
     weight: 3
     settings:
@@ -77,6 +79,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
   field_email:
     weight: 4
     settings:
@@ -84,6 +87,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: email_default
+    region: content
   field_label:
     weight: 2
     settings:
@@ -91,6 +95,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
   field_link:
     weight: 5
     settings:
@@ -98,17 +103,20 @@ content:
       placeholder_title: ''
     third_party_settings: {  }
     type: link_default
+    region: content
   field_phone:
     weight: 3
     settings:
       placeholder: ''
     third_party_settings: {  }
     type: telephone_default
+    region: content
   field_type:
     weight: 1
     settings: {  }
     third_party_settings: {  }
     type: options_select
+    region: content
 hidden:
   created: true
   status: true

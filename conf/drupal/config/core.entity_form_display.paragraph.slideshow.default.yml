@@ -26,6 +26,7 @@ content:
       view_mode: default
     third_party_settings: {  }
     type: entity_browser_file
+    region: content
 hidden:
   created: true
   status: true

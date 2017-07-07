@@ -26,6 +26,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
+    region: content
   field_next_step_downloads:
     weight: 4
     settings:
@@ -42,6 +43,7 @@ content:
       entity_browser_entity_form:
         entity_browser_id: media_browser
     type: inline_entity_form_complex
+    region: content
   field_next_step_link:
     weight: 3
     settings:
@@ -49,6 +51,7 @@ content:
       placeholder_title: ''
     third_party_settings: {  }
     type: link_default
+    region: content
   field_next_step_title:
     weight: 0
     settings:
@@ -56,6 +59,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
 hidden:
   created: true
   status: true

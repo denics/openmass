@@ -23,6 +23,12 @@ content:
     settings:
       trim_length: 600
     third_party_settings: {  }
+    region: content
   links:
     weight: 101
-hidden: {  }
+    region: content
+  workbench_moderation_control:
+    weight: -20
+    region: content
+hidden:
+  field_metatags: true

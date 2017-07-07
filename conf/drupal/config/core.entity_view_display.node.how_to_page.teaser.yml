@@ -29,10 +29,12 @@ content:
     weight: 100
     settings: {  }
     third_party_settings: {  }
+    region: content
   workbench_moderation_control:
     weight: -20
     settings: {  }
     third_party_settings: {  }
+    region: content
 hidden:
   field_how_to_contacts_3: true
   field_how_to_files: true

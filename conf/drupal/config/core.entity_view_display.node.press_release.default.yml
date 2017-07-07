@@ -1,0 +1,116 @@
+uuid: 5a606748-9f21-4afe-a805-167c39aaa8df
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.press_release.field_press_release_body
+    - field.field.node.press_release.field_press_release_date
+    - field.field.node.press_release.field_press_release_lede
+    - field.field.node.press_release.field_press_release_links
+    - field.field.node.press_release.field_press_release_location
+    - field.field.node.press_release.field_press_release_media_contac
+    - field.field.node.press_release.field_press_release_signees
+    - field.field.node.press_release.field_press_release_summary
+    - field.field.node.press_release.field_press_release_video
+    - node.type.press_release
+  module:
+    - datetime
+    - entity_reference_revisions
+    - link
+    - text
+    - user
+id: node.press_release.default
+targetEntityType: node
+bundle: press_release
+mode: default
+content:
+  field_press_release_body:
+    weight: 104
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+  field_press_release_date:
+    weight: 109
+    label: above
+    settings:
+      timezone_override: ''
+      date_format: n/d/Y
+    third_party_settings: {  }
+    type: datetime_custom
+    region: content
+  field_press_release_lede:
+    weight: 101
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_press_release_links:
+    weight: 105
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+    region: content
+  field_press_release_location:
+    weight: 103
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_press_release_media_contac:
+    type: entity_reference_revisions_entity_view
+    weight: 108
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    region: content
+  field_press_release_signees:
+    type: entity_reference_revisions_entity_view
+    weight: 107
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    region: content
+  field_press_release_summary:
+    weight: 102
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_press_release_video:
+    type: entity_reference_revisions_entity_view
+    weight: 106
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    region: content
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  workbench_moderation_control:
+    weight: -20
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden: {  }

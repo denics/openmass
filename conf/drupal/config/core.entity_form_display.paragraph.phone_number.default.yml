@@ -22,6 +22,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
   field_label:
     weight: 6
     settings:
@@ -29,12 +30,14 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
   field_phone:
     weight: 7
     settings:
       placeholder: ''
     third_party_settings: {  }
     type: telephone_default
+    region: content
 hidden:
   created: true
   status: true

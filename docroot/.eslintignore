@@ -11,3 +11,6 @@ docroot/themes/custom/mass_theme/libraries/jquery_once/*
 docroot/themes/custom/mass_theme/libraries/browserupdate/js/*
 docroot/themes/custom/mass_admin_theme/js/entity-embed-dialog-alter.js
 docroot/themes/custom/mass_theme/overrides/js/googleMap.js
+docroot/themes/custom/mass_theme/overrides/js/locationListing.js
+docroot/themes/custom/mass_theme/overrides/js/resultsHeading.js
+docroot/themes/custom/mass_theme/overrides/js/pagination.js

@@ -5,6 +5,8 @@ namespace Drupal\mass_map\Controller;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\mass_map\MapLocationFetcher;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Drupal\mayflower\Helper;
 
 /**
  * Class MapController.
@@ -17,12 +19,31 @@ class MapController extends ControllerBase {
    * Content for the map pages.
    *
    * @param int $id
-   *   Subtopic nid with a list of locations.
+   *   Nid of the node which references locations.
    *
    * @return array
    *   Render array that returns a list of locations.
    */
   public function content($id) {
+
+    // Get locations referenced from the given node.
+    $node = \Drupal::entityManager()->getStorage('node')->load($id);
+    $node_title = $node->title->value;
+    $node_path = \Drupal::service('path.alias_manager')->getAliasByPath('/node/' . $node->id());
+
+    $pageHeader = [
+      'title' => $node_title . ' Locations',
+      'divider' => FALSE,
+      'headerTags' => [
+        'label' => 'More about:',
+        'taxonomyTerms' => [
+          [
+            'href' => $node_path,
+            'text' => $node_title,
+          ],
+        ],
+      ],
+    ];
 
     $ids = $this->getMapLocationIds($id);
 
@@ -30,8 +51,14 @@ class MapController extends ControllerBase {
     // Use the ids to get location info.
     $locations = $location_fetcher->getLocations($ids);
 
+    // If there are no locations for the parent node, return a 404.
+    if (empty($locations['imagePromos']['items'])) {
+      throw new NotFoundHttpException();
+    }
+
     return [
       '#theme' => 'map_page',
+      '#pageHeader' => $pageHeader,
       '#locationListing' => $locations,
       '#attached' => [
         'library' => [
@@ -145,11 +172,23 @@ class MapController extends ControllerBase {
   private function getLocationIds($node) {
     $locationIds = [];
 
-    if (!empty($node->field_org_ref_locations)) {
-      foreach ($node->field_org_ref_locations as $entity) {
+    // Possible location fields for each bundle (org, service page)
+    $map = [
+      'mappedLocations' => [
+        'field_org_ref_locations',
+        'field_service_ref_locations'
+      ],
+    ];
+
+    // Determines which field names to use from the map.
+    $fields = Helper::getMappedFields($node, $map);
+
+    if (array_key_exists('mappedLocations', $fields) && Helper::isFieldPopulated($node, $fields['mappedLocations'])) {
+      foreach ($node->$fields['mappedLocations'] as $entity) {
         $locationIds[] = $entity->target_id;
       }
     }
+
     return $locationIds;
   }
 

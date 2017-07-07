@@ -9,7 +9,7 @@ dependencies:
 id: mass_admin_theme_login
 theme: mass_admin_theme
 region: content
-weight: -2
+weight: -1
 provider: null
 plugin: user_login_block
 settings:

@@ -10,15 +10,15 @@ If you've done this before, here's a quick refresher:
 
 1. Checkout `develop`.
 1. Email: Notify team of upcoming release.
+1. Add release notes to top of CHANGELOG.md, and then commit.
 1. Create release branch.
 1. Push release branch to GitHub.
-1. Write release notes.
 1. Deploy release branch to `Stage`.
 1. Verify release notes against `Stage`.
 1. Smoke test most important stuff in `Stage`.
-1. GitHub PR: release --> `master`.
-1. GitHub: Tag `master`.
-1. Deploy tag to `Stage` for release smoke test.
+1. Merge a GitHub PR: release --> `master`.
+1. Acquia Git: Tag `master` with name of the release. We don't tag at Github anymore.
+1. Deploy release tag to `Stage` for release smoke test.
 1. Deploy release tag to directly `Prod`. (Previously, stage db was copied to prod)
 1. Clear Drupal + Twig cache.
 1. Clear Varnish cache.
@@ -33,6 +33,7 @@ First time or need more detail? Read these:
 
 1. Check the [GitHub `develop` branch](https://github.com/massgov/mass/commits/develop) to see if there is anything new to deliver. If not, stop here.
 1. If there is new code to be delivered, notify the team at least two hours ahead of time that a release is coming. Follow the [Communicate Releases](https://wiki.state.ma.us/display/massgovredesign/Communicating+Releases) instructions for Upcoming Deployments.
+1. Add release notes to top of CHANGELOG.md, and then commit.
 1. Create a release branch (e.g.: `release-0.18.0`) from the GitHub `develop` branch. (Right now, the version is `0.<sprint number>.<number of times deployed within sprint>`. This is not a good long term versioning scheme, but it is what is currently happening today. We should change this.)
 1. Push your release branch to GitHub (CircleCI will run against your release branch and push it to Acquia Cloud Git for you. However, CircleCI will not push your branch to Acquia Cloud Git if it does not pass automated tests)
 1. Write release notes for all the code being delivered in the release branch. Follow the [Communicate Releases](https://wiki.state.ma.us/display/massgovredesign/Communicating+Releases) instructions for Release Notes. (The release notes will be helpful for the verification steps that will follow. It's suggested that you make a list of all the JIRA tickets that are being delivered; this can help link tickets to the release version via JIRA later.)
@@ -42,10 +43,7 @@ First time or need more detail? Read these:
 1. Verify the release notes against the `Stage` environment. This is a quick smoke test for each new feature/improvement/fix rather than a thorough test.
 1. Verify the most critical functionality still works, i.e. smoke test. (Note: This has yet to be defined by the Mass.gov Product Owner. After defined, document this list and include/link-to here.)
 1. Open a GitHub Pull Request to merge the release branch into the `master` branch. Have a peer do the merge unless it's an emergency and you can't find an available peer.
-1. Tag the `master` branch with the release version (e.g.: `0.18.0`) by running `git tag 0.18.0`.
-1. Push release tag to GitHub repo: `git push origin tags/0.18.0` (You may have named your remote as upstream)
-1. Push release tag to Acquia repo: `git push acquia tags/0.18.0`. Currently, we use the following naming structure: `0.<sprint number>.<number of times deployed within sprint>`.)
-1. From the [GitHub Releases area](https://github.com/massgov/mass/releases), add the release notes to the tag. ([example](https://github.com/massgov/mass/releases/tag/0.17.1)
+1. In Acquia's git, tag the `master` branch with the release version (e.g.: `0.18.0`) by running `git tag 0.18.0`.
 1. Backup the `Prod` database. This can be done from the Acquia Cloud web interface by clicking into the `Prod` environment, then clicking Backup in the Database card.
 1. Deploy the release tag to `Prod` by running `drush ma-deploy prod tags/<tag name>`.
 1. Type `y` to confirm that you are deploying to production.
