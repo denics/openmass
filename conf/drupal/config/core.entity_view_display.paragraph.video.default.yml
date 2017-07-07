@@ -21,6 +21,7 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
   field_video_id:
     weight: 1
     label: hidden
@@ -28,12 +29,14 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
   field_video_source:
     weight: 0
     label: hidden
     settings: {  }
     third_party_settings: {  }
     type: list_default
+    region: content
 hidden:
   created: true
   uid: true

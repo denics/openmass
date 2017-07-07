@@ -25,7 +25,7 @@ class BehaviorSettingsFormAlterationsTest extends WebTestBase {
    *
    * @var array
    */
-  public static $modules = array('rabbit_hole', 'rh_node', 'node');
+  public static $modules = ['rabbit_hole', 'rh_node', 'node'];
 
   private $user;
 
@@ -38,10 +38,10 @@ class BehaviorSettingsFormAlterationsTest extends WebTestBase {
     parent::setUp();
     // TODO: These tests should be expanded for users with different types of
     // permissions.
-    $this->user = $this->drupalCreateUser(array(
+    $this->user = $this->drupalCreateUser([
       'bypass node access', 'administer content types',
       'rabbit hole administer node',
-    ));
+    ]);
 
     $this->behaviorSettingsManager = $this->container
       ->get('rabbit_hole.behavior_settings_manager');
@@ -80,10 +80,10 @@ class BehaviorSettingsFormAlterationsTest extends WebTestBase {
     $override = BehaviorSettings::OVERRIDE_DISALLOW;
     $action = 'access_denied';
 
-    $this->drupalPostForm(NULL, array(
+    $this->drupalPostForm(NULL, [
       'rh_override' => $override,
       'rh_action' => $action,
-    ), t('Save content type'));
+    ], t('Save content type'));
 
     $saved_config = $this->behaviorSettingsManager->loadBehaviorSettingsAsConfig(
       'node_type', $test_content_type_id, TRUE);
@@ -102,11 +102,11 @@ class BehaviorSettingsFormAlterationsTest extends WebTestBase {
     $override = BehaviorSettings::OVERRIDE_DISALLOW;
 
     $test_content_type_id = $this->createTestContentType();
-    $this->behaviorSettingsManager->saveBehaviorSettings(array(
+    $this->behaviorSettingsManager->saveBehaviorSettings([
       'action' => $action,
       'allow_override' => $override,
       'redirect_code' => BehaviorSettings::REDIRECT_NOT_APPLICABLE,
-    ), 'node_type', $test_content_type_id
+    ], 'node_type', $test_content_type_id
     );
 
     $this->loadContentTypeFormForTestType();
@@ -126,11 +126,11 @@ class BehaviorSettingsFormAlterationsTest extends WebTestBase {
   public function testContentTypeFormSave() {
     $test_content_type_id = $this->createTestContentType();
 
-    $this->behaviorSettingsManager->saveBehaviorSettings(array(
+    $this->behaviorSettingsManager->saveBehaviorSettings([
       'action' => 'access_denied',
       'allow_override' => BehaviorSettings::OVERRIDE_DISALLOW,
       'redirect_code' => BehaviorSettings::REDIRECT_NOT_APPLICABLE,
-    ), 'node_type', $test_content_type_id
+    ], 'node_type', $test_content_type_id
     );
 
     $this->loadContentTypeFormForTestType();
@@ -138,10 +138,10 @@ class BehaviorSettingsFormAlterationsTest extends WebTestBase {
     $action = 'page_not_found';
     $override = BehaviorSettings::OVERRIDE_ALLOW;
 
-    $this->drupalPostForm(NULL, array(
+    $this->drupalPostForm(NULL, [
       'rh_override' => $override,
       'rh_action' => $action,
-    ), t('Save content type'));
+    ], t('Save content type'));
 
     $saved_config = $this->behaviorSettingsManager->loadBehaviorSettingsAsConfig(
       'node_type', $test_content_type_id, TRUE);
@@ -163,9 +163,9 @@ class BehaviorSettingsFormAlterationsTest extends WebTestBase {
     $action = 'access_denied';
 
     $this->loadNodeFormForTestNode($node_id);
-    $this->drupalPostForm(NULL, array(
+    $this->drupalPostForm(NULL, [
       'rh_action' => $action,
-    ), t('Save'));
+    ], t('Save'));
 
     $node = Node::Load($node_id);
     $this->assertEqual($node->rh_action->value, $action);
@@ -181,9 +181,9 @@ class BehaviorSettingsFormAlterationsTest extends WebTestBase {
     $action = 'access_denied';
 
     $this->loadNodeFormForTestNode($node_id);
-    $this->drupalPostForm(NULL, array(
+    $this->drupalPostForm(NULL, [
       'rh_action' => $action,
-    ), t('Save'));
+    ], t('Save'));
 
     $node = Node::Load($node_id);
     $this->assertEqual($node->rh_action->value, $action);
@@ -228,10 +228,10 @@ class BehaviorSettingsFormAlterationsTest extends WebTestBase {
    */
   private function createTestContentType() {
     $node_type = NodeType::create(
-      array(
+      [
         'type' => self::TEST_CONTENT_TYPE_ID,
         'name' => self::TEST_CONTENT_TYPE_ID,
-      )
+      ]
     );
     $node_type->save();
     return $node_type->id();
@@ -245,11 +245,11 @@ class BehaviorSettingsFormAlterationsTest extends WebTestBase {
    */
   private function createTestNode($action = '') {
     $node = Node::create(
-      array(
+      [
         'nid' => NULL,
         'type' => self::TEST_CONTENT_TYPE_ID,
         'title' => 'Test Behavior Settings Node',
-      )
+      ]
     );
     if (isset($action)) {
       $node->set('rh_action', $action);

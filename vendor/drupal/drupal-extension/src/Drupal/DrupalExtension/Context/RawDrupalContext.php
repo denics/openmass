@@ -181,7 +181,7 @@ class RawDrupalContext extends RawMinkContext implements DrupalAwareInterface {
    *
    * @beforeNodeCreate
    */
-  public function alterNodeParameters(BeforeNodeCreateScope $scope) {
+  public static function alterNodeParameters(BeforeNodeCreateScope $scope) {
     $node = $scope->getEntity();
 
     // Get the Drupal API version if available. This is not available when
@@ -390,13 +390,22 @@ class RawDrupalContext extends RawMinkContext implements DrupalAwareInterface {
         // Replace regular fields inline in the entity after parsing.
         if (!$is_multicolumn) {
           $entity->$field_name = $values;
+          // Don't specify any value if the step author has left it blank.
+          if ($field_value === '') {
+            unset($entity->$field_name);
+          }
         }
       }
     }
 
     // Add the multicolumn fields to the entity.
     foreach ($multicolumn_fields as $field_name => $columns) {
-      $entity->$field_name = $columns;
+      // Don't specify any value if the step author has left it blank.
+      if (count(array_filter($columns, function ($var) {
+        return ($var !== '');
+      })) > 0) {
+        $entity->$field_name = $columns;
+      }
     }
   }
 
@@ -499,8 +508,14 @@ class RawDrupalContext extends RawMinkContext implements DrupalAwareInterface {
    *   Returns TRUE if a user is logged in for this session.
    */
   public function loggedIn() {
-    $session = $this->getSession();
-    $page = $session->getPage();
+    // If there is no session or no page yet, this is a brand new test session
+    // and the user is not logged in.
+    if (!$session = $this->getSession()) {
+      return FALSE;
+    }
+    if (!$page = $session->getPage()) {
+      return FALSE;
+    }
 
     // Look for a css selector to determine if a user is logged in.
     // Default is the logged-in class on the body tag.

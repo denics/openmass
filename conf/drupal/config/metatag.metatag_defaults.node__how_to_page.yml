@@ -1,0 +1,7 @@
+uuid: e6e826c5-916a-4aff-bc1d-83b4ab2f7509
+langcode: en
+status: true
+dependencies: {  }
+id: node__how_to_page
+label: 'Content: How-to Page'
+tags: {  }

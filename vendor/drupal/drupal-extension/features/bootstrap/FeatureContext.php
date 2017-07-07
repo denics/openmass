@@ -3,6 +3,7 @@
 use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
+use Drupal\DrupalExtension\Hook\Scope\BeforeNodeCreateScope;
 use Drupal\DrupalExtension\Hook\Scope\EntityScope;
 use Symfony\Component\Process\PhpExecutableFinder;
 use Symfony\Component\Process\Process;
@@ -20,7 +21,8 @@ class FeatureContext implements Context {
    *
    * @beforeNodeCreate
    */
-  public function alterNodeParameters(EntityScope $scope) {
+  public static function alterNodeParameters(BeforeNodeCreateScope $scope) {
+    call_user_func('\Drupal\DrupalExtension\Context\RawDrupalContext::alterNodeParameters', $scope);
     // @see `features/api.feature`
     // Change 'published on' to the expected 'created'.
     $node = $scope->getEntity();
@@ -35,7 +37,7 @@ class FeatureContext implements Context {
    *
    * @beforeTermCreate
    */
-  public function alterTermParameters(EntityScope $scope) {
+  public static function alterTermParameters(EntityScope $scope) {
     // @see `features/api.feature`
     // Change 'Label' to expected 'name'.
     $term = $scope->getEntity();
@@ -50,7 +52,7 @@ class FeatureContext implements Context {
    *
    * @beforeUserCreate
    */
-  public function alterUserParameters(EntityScope $scope) {
+  public static function alterUserParameters(EntityScope $scope) {
     // @see `features/api.feature`
     // Concatenate 'First name' and 'Last name' to form user name.
     $user = $scope->getEntity();
@@ -70,7 +72,7 @@ class FeatureContext implements Context {
    *
    * @afterNodeCreate
    */
-  public function afterNodeCreate(EntityScope $scope) {
+  public static function afterNodeCreate(EntityScope $scope) {
     if (!$node = $scope->getEntity()) {
       throw new \Exception('Failed to find a node in @afterNodeCreate hook.');
     }
@@ -81,7 +83,7 @@ class FeatureContext implements Context {
    *
    * @afterTermCreate
    */
-  public function afterTermCreate(EntityScope $scope) {
+  public static function afterTermCreate(EntityScope $scope) {
     if (!$term = $scope->getEntity()) {
       throw new \Exception('Failed to find a term in @afterTermCreate hook.');
     }
@@ -92,7 +94,7 @@ class FeatureContext implements Context {
    *
    * @afterUserCreate
    */
-  public function afterUserCreate(EntityScope $scope) {
+  public static function afterUserCreate(EntityScope $scope) {
     if (!$user = $scope->getEntity()) {
       throw new \Exception('Failed to find a user in @afterUserCreate hook.');
     }
@@ -204,8 +206,10 @@ class FeatureContext implements Context {
      */
     public function prepareTestFolders()
     {
-        $dir = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'behat' . DIRECTORY_SEPARATOR .
-            md5(microtime() * rand(0, 10000));
+        do {
+            $random_name = md5((int) microtime(true) * rand(0, 100000));
+            $dir = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'behat' . DIRECTORY_SEPARATOR . $random_name;
+        } while (is_dir($dir));
 
         mkdir($dir . '/features/bootstrap/i18n', 0777, true);
 

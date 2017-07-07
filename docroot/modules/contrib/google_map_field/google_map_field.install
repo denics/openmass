@@ -12,7 +12,7 @@ use Drupal\Core\Entity\Sql\SqlContentEntityStorageException;
  * Implements hook_requirements().
  */
 function google_map_field_requirements($phase) {
-  $requirements = array();
+  $requirements = [];
 
   // Whether or not an API key or client id is provided.
   $key_provided = FALSE;
@@ -35,24 +35,23 @@ function google_map_field_requirements($phase) {
   }
 
   if (!$key_provided) {
-    $requirements['google_map_field'] = array(
+    $requirements['google_map_field'] = [
       'title' => t('Google map field'),
       'severity' => REQUIREMENT_WARNING,
-      'value' => t('Google Maps API key or Client ID was not found. As of 2016/06/22, keyless access is no longer supported and it may impact rendering of maps. For more information visit: <a href="@link">@link</a>', array(
+      'value' => t('Google Maps API key or Client ID was not found. As of 2016/06/22, keyless access is no longer supported and it may impact rendering of maps. For more information visit: <a href="@link">@link</a>', [
         '@link' => 'http://googlegeodevelopers.blogspot.ca/2016/06/building-for-scale-updates-to-google.html',
-      )),
-    );
+      ]),
+    ];
   }
 
   return $requirements;
 }
 
 /**
- * Adds map type column to google map field type.
+ * @param array $columns_to_add
+ *   The column names to add.
  */
-function google_map_field_update_8001() {
-
-  $columns_to_add = ['type', 'width', 'height', 'marker', 'controls'];
+function google_map_field_add_columns_to_schema(array $columns_to_add) {
   $field_type_manager = \Drupal::service('plugin.manager.field.field_type');
   $map_definition = $field_type_manager->getDefinition('google_map_field');
   $map_item_class = $map_definition['class'];
@@ -65,6 +64,8 @@ function google_map_field_update_8001() {
   // The key-value collection for tracking installed storage schema.
   $entity_storage_schema_sql = \Drupal::keyValue('entity.storage_schema.sql');
   $entity_definitions_installed = \Drupal::keyValue('entity.definitions.installed');
+
+  $processed_fields = [];
 
   foreach ($entity_field_map as $entity_type_id => $field_map) {
     $entity_storage = $entity_type_manager->getStorage($entity_type_id);
@@ -142,6 +143,24 @@ function google_map_field_update_8001() {
       }
     }
   }
+}
+
+/**
+ * Adds map type column to google map field type.
+ */
+function google_map_field_update_8001() {
+  $columns_to_add = ['type', 'width', 'height', 'marker', 'controls'];
+  $processed_fields = google_map_field_add_columns_to_schema($columns_to_add);
 
   \Drupal::state()->set('google_map_field_8101_processed', $processed_fields);
+}
+
+/**
+ * Adds map infoWindow popup.
+ */
+function google_map_field_update_8002() {
+  $columns_to_add = ['infowindow'];
+  $processed_fields = google_map_field_add_columns_to_schema($columns_to_add);
+
+  \Drupal::state()->set('google_map_field_8102_processed', $processed_fields);
 }

@@ -469,8 +469,11 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
    */
   public function assertContentTypeFields($content_type) {
     $this->minkContext->visitPath('node/add/' . $content_type);
-    // All content types have a title.
-    $this->minkContext->assertElementOnPage('#edit-title-0-value');
+    // Test title for everything but person ct
+    $no_title_ct = ['legacy_redirects', 'person'];
+    if (!in_array($content_type, $no_title_ct)) {
+      $this->minkContext->assertElementOnPage('#edit-title-0-value');
+    }
 
     $fields = [];
 
@@ -768,6 +771,143 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
           ),
           array (
             'field' => 'field-location-details-lede',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+        );
+        break;
+      case "event":
+        $fields = array (
+          array (
+            'field' => 'field_event_ref_contact',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field_event_capacity',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field_event_date',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field_event_description',
+            'tag' => 'textarea',
+            'type' => '',
+          ),
+          array (
+            'field' => 'field_event_ref_downloads',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field_event_image',
+            'tag' => 'input',
+            'type' => 'submit',
+          ),
+          array (
+            'field' => 'field_event_logo',
+            'tag' => 'input',
+            'type' => 'submit',
+          ),
+          array (
+            'field' => 'field_event_fees',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field_event_contact_general',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field_event_links',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field_event_lede',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field_event_link_sign_up',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field_event_ref_parents',
+            'tag' => 'textarea',
+            'type' => '',
+          ),
+          array (
+            'field' => 'field_event_rain_date',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field_event_ref_event_2',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field_event_time ',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field_event_you_will_need',
+            'tag' => 'textarea',
+            'type' => '',
+          ),
+        );
+        break;
+      case "person":
+        $fields = array (
+          array (
+            'field' => 'field-person-email',
+            'tag' => 'input',
+            'type' => 'email',
+          ),
+          array (
+            'field' => 'field-person-first-name',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-person-last-name',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-person-phone',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-person-role-title',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+        );
+        break;
+      case "legacy_redirects":
+        $fields = array (
+          array (
+            'field' => 'field-legacy-redirects-ref-conte',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-legacy-redirect-env',
+            'tag' => 'input',
+            'type' => 'radio',
+          ),
+          array (
+            'field' => 'field-legacy-redirects-legacyurl',
             'tag' => 'input',
             'type' => 'text',
           ),
@@ -1098,6 +1238,18 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
     $saved = $this->nodeCreate($node);
     // Set internal page on the new node.
     $this->getSession()->visit($this->locatePath('/node/' . $saved->nid . '/edit'));
+  }
+
+  /**
+   * @Then I should see text matching :string_match in field :field_css_selector
+   */
+  public function iShouldSeeTextMatchingInField($string_match, $field_css_selector)
+  {
+    $page = $this->getMink()->getSession()->getPage();
+    $match = $page->find('css', $field_css_selector)->getValue();
+    if ($match != $string_match){
+      throw new Exception(sprintf('Incorrect result'));
+    }
   }
 
 

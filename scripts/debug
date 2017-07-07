@@ -1,0 +1,21 @@
+#!/usr/bin/env sh
+if [ $# -eq 0 ]
+ then
+  echo "usage: ../scripts/debug ../vendor/bin/drush status
+
+This script should be run from inside the VM.
+
+1. In PHPStorm,
+  - Run => Start Listening for PHP Connections
+  - Run => Break at first line in PHP scripts (this can be disabled once you verify that debugging works).
+  - Preferences => Languages and Frameworks => PHP => Debug. Increase 'Max simulataneous connections' to 19.
+
+2. After running it, PHPStorm pops a window and asks you to map the drush program (if that's what you are running). Pick vendor/drush/drush/drush
+
+3. This script sets the XDEBUG_CONFIG environment variable.
+  - The remote_host is the IP address of the host machine. This tells the VM's PHP how to connect back to your PHPStorm. The value is dynamically retrieved via netstat. See https://stackoverflow.com/a/16420720/265501.
+  - It then calls 'php' with options that load xdebug extension (already present in the VM) and enables xdebug's remote debugging."
+  exit 1
+ fi
+
+XDEBUG_CONFIG="remote_host=`netstat -rn | grep "^0.0.0.0 " | tr -s ' ' | cut -d " " -f2`" php -dzend_extension=xdebug.so -d xdebug.remote_enable=1 "$@"

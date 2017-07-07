@@ -65,6 +65,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+    region: content
   field_hours_group_title:
     weight: 0
     settings:
@@ -72,6 +73,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
   field_hours_override:
     weight: 2
     settings:
@@ -79,12 +81,14 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
   field_hours_structured:
     weight: 2
     settings:
       date_element_type: datelist
     third_party_settings: {  }
     type: office_hours_list
+    region: content
 hidden:
   created: true
   field_hours: true

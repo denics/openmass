@@ -172,7 +172,7 @@ function mass_utility_update_8004(&$sandbox) {
     'ko',
     'ru',
     'vi',
-    'zh-CN'
+    'zh-CN',
   ]);
   $config->save(TRUE);
 }
@@ -246,7 +246,7 @@ function mass_utility_update_8007(&$sandbox) {
       'entity_type' => 'node',
       'bundle' => 'location',
       'field_name' => 'field_more_information',
-    ]
+    ],
   ];
 
   foreach ($properties as $property) {

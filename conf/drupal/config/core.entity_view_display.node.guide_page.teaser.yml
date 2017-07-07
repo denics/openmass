@@ -14,6 +14,10 @@ mode: teaser
 content:
   links:
     weight: 100
+    region: content
+  workbench_moderation_control:
+    weight: -20
+    region: content
 hidden:
   field_guide_page_bg_narrow: true
   field_guide_page_bg_wide: true

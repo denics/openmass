@@ -1,0 +1,55 @@
+uuid: 6c045381-0bf9-474f-9dce-44dda79b106b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.legacy_redirects.body
+    - field.field.node.legacy_redirects.field_legacy_redirect_env
+    - field.field.node.legacy_redirects.field_legacy_redirects_legacyurl
+    - field.field.node.legacy_redirects.field_legacy_redirects_ref_conte
+    - node.type.legacy_redirects
+  module:
+    - options
+    - text
+    - user
+id: node.legacy_redirects.default
+targetEntityType: node
+bundle: legacy_redirects
+mode: default
+content:
+  body:
+    label: hidden
+    type: text_default
+    weight: 4
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  field_legacy_redirect_env:
+    weight: 3
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+    region: content
+  field_legacy_redirects_legacyurl:
+    weight: 1
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_legacy_redirects_ref_conte:
+    weight: 2
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  links:
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden: {  }

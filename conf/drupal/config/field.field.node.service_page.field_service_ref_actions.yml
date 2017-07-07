@@ -20,4 +20,25 @@ default_value_callback: ''
 settings:
   link_type: 17
   title: 1
+  content_types:
+    how_to_page: how_to_page
+    service_page: 0
+    action: 0
+    contact_information: 0
+    emergency_alerts: 0
+    error_page: 0
+    fee: 0
+    guide_page: 0
+    interstitial: 0
+    location: 0
+    location_details: 0
+    org_page: 0
+    page: 0
+    section_landing: 0
+    service_details: 0
+    stacked_layout: 0
+    subtopic: 0
+    topic: 0
+    topic_page: 0
+    utility_drawer: 0
 field_type: link

@@ -162,7 +162,7 @@ class FormManglerService {
       ? $bundle_info[$bundle]['label'] : $this->t('this bundle');
 
     // Wrap everything in a fieldset.
-    $form['rabbit_hole'] = array(
+    $form['rabbit_hole'] = [
       '#type' => 'details',
       '#title' => $this->t('Rabbit Hole settings'),
       '#collapsed' => FALSE,
@@ -172,29 +172,29 @@ class FormManglerService {
       // files will work in the same way and even if they do later entities
       // might not.
       '#group' => $is_bundle_or_entity_type ? 'additional_settings' : 'advanced',
-      '#attributes' => array('class' => array('rabbit-hole-settings-form')),
-    );
+      '#attributes' => ['class' => ['rabbit-hole-settings-form']],
+    ];
 
     // Add the invoking module to the internal values.
     // TODO: This can probably be removed - check.
-    $form['rabbit_hole']['rh_is_bundle'] = array(
+    $form['rabbit_hole']['rh_is_bundle'] = [
       '#type' => 'hidden',
       '#value' => $is_bundle_or_entity_type,
-    );
+    ];
 
-    $form['rabbit_hole']['rh_entity_type'] = array(
+    $form['rabbit_hole']['rh_entity_type'] = [
       '#type' => 'hidden',
       '#value' => $entity_type->id(),
-    );
+    ];
 
     // Add override setting if we're editing a bundle.
     if ($is_bundle_or_entity_type) {
-      $form['rabbit_hole']['rh_override'] = array(
+      $form['rabbit_hole']['rh_override'] = [
         '#type' => 'checkbox',
         '#title' => t('Allow these settings to be overridden for individual entities'),
         '#default_value' => $bundle_settings->get('allow_override'),
-        '#description' => t('If this is checked, users with the %permission permission will be able to override these settings for individual entities.', array('%permission' => t('Administer Rabbit Hole settings for @entity_type', array('@entity_type' => $entity_label)))),
-      );
+        '#description' => t('If this is checked, users with the %permission permission will be able to override these settings for individual entities.', ['%permission' => t('Administer Rabbit Hole settings for @entity_type', ['@entity_type' => $entity_label])]),
+      ];
     }
 
     // Add action setting.
@@ -204,19 +204,19 @@ class FormManglerService {
       // Add an option if we are editing an entity. This will allow us to use
       // the configuration for the bundle.
       $action_bundle = $bundle_settings->get('action');
-      $action_options = array(
-        self::RABBIT_HOLE_USE_DEFAULT => t('Global @bundle behavior (@setting)', array('@bundle' => strtolower($bundle_label), '@setting' => $action_options[$action_bundle])),
-      ) + $action_options;
+      $action_options = [
+        self::RABBIT_HOLE_USE_DEFAULT => t('Global @bundle behavior (@setting)', ['@bundle' => strtolower($bundle_label), '@setting' => $action_options[$action_bundle]]),
+      ] + $action_options;
     }
 
-    $form['rabbit_hole']['rh_action'] = array(
+    $form['rabbit_hole']['rh_action'] = [
       '#type' => 'radios',
       '#title' => $this->t('Behavior'),
       '#options' => $action_options,
       '#default_value' => $action,
-      '#description' => $this->t('What should happen when someone tries to visit an entity page for @bundle?', array('@bundle' => strtolower($bundle_label))),
-      '#attributes' => array('class' => array('rabbit-hole-action-setting')),
-    );
+      '#description' => $this->t('What should happen when someone tries to visit an entity page for @bundle?', ['@bundle' => strtolower($bundle_label)]),
+      '#attributes' => ['class' => ['rabbit-hole-action-setting']],
+    ];
 
     $this->populateExtraBehaviorSections($form, $form_state, $form_id, $entity,
       $is_bundle_or_entity_type, $bundle_settings);
@@ -278,14 +278,14 @@ class FormManglerService {
         : BehaviorSettings::OVERRIDE_DISALLOW;
 
       $this->rhBehaviorSettingsManager->saveBehaviorSettings(
-        array(
+        [
           'action' => $form_state->getValue('rh_action'),
           'allow_override' => $allow_override,
           'redirect' => $form_state->getValue('rh_redirect')
           ?: '',
           'redirect_code' => $form_state->getValue('rh_redirect_response')
           ?: BehaviorSettings::REDIRECT_NOT_APPLICABLE,
-        ),
+        ],
         $form_state->getValue('rh_entity_type'),
         isset($entity) ? $entity->id() : NULL
       );
@@ -302,7 +302,7 @@ class FormManglerService {
    *   An array of behavior options
    */
   protected function loadBehaviorOptions() {
-    $action_options = array();
+    $action_options = [];
     foreach ($this->rhBehaviorPluginManager->getDefinitions() as $id => $def) {
       $action_options[$id] = $def['label'];
     }

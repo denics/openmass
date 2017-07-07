@@ -19,10 +19,10 @@ class Node extends RabbitHoleEntityPluginBase {
    * {@inheritdoc}
    */
   public function getFormSubmitHandlerAttachLocations() {
-    return array(
-      array('actions', 'submit', '#submit'),
-      array('actions', 'publish', '#submit'),
-    );
+    return [
+      ['actions', 'submit', '#submit'],
+      ['actions', 'publish', '#submit'],
+    ];
   }
 
 }

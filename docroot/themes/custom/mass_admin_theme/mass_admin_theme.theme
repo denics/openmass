@@ -31,6 +31,17 @@ function mass_admin_theme_form_entity_embed_dialog_alter(&$form, FormStateInterf
 }
 
 /**
+ * Implements hook_form_FORM_ID_alter() for the Service Details edit form.
+ */
+function mass_admin_theme_form_node_service_details_edit_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $form['service_detail_parents'] = views_embed_view('service_detail_parents');
+  $form['service_detail_parents']['#weight'] = 100;
+  $form['service_detail_parents']['#prefix'] = '<p><h3>Service Parents</h3>';
+  $form['service_detail_parents']['#sufix'] = '</p>';
+  $form['#group_children']['service_detail_parents'] = 'group_overview';
+}
+
+/**
  * Implements hook_preprocess_hook().
  *
  * Customize the help text for the field.

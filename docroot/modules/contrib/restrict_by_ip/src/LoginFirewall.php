@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains Drupal\restrict_by_ip\LoginFirewall.
- */
-
 namespace Drupal\restrict_by_ip;
 
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -48,10 +43,10 @@ class LoginFirewall implements LoginFirewallInterface {
       $user_ip = $this->ipTools->getUserIP();
 
       // Log the error with the ip address.
-      $this->logger->notice(t('Login denied from @ip for %name.', array(
+      $this->logger->notice(t('Login denied from @ip for %name.', [
         '%name' => $account->getAccountName(),
         '@ip' => $user_ip,
-      )));
+      ]));
 
       user_logout();
 
