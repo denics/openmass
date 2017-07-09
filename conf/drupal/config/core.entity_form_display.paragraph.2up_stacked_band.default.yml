@@ -17,11 +17,12 @@ content:
   field_main:
     weight: 8
     settings:
-      title: Molecule
-      title_plural: Molecules
+      title: 'Action step'
+      title_plural: 'Action steps'
       edit_mode: preview
       add_mode: dropdown
       form_display_mode: default
+      default_paragraph_type: _none
     third_party_settings: {  }
     type: entity_reference_paragraphs
     region: content
@@ -29,11 +30,12 @@ content:
     type: entity_reference_paragraphs
     weight: 7
     settings:
-      title: molecule
-      title_plural: molecules
+      title: 'Contact group'
+      title_plural: 'Contact groups'
       edit_mode: preview
       add_mode: dropdown
       form_display_mode: default
+      default_paragraph_type: _none
     third_party_settings: {  }
     region: content
 hidden:

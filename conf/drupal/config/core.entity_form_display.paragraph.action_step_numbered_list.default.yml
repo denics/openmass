@@ -7,6 +7,7 @@ dependencies:
     - paragraphs.paragraphs_type.action_step_numbered_list
   module:
     - paragraphs
+    - workbench_moderation
 id: paragraph.action_step_numbered_list.default
 targetEntityType: paragraph
 bundle: action_step_numbered_list
@@ -16,8 +17,8 @@ content:
     type: entity_reference_paragraphs
     weight: 0
     settings:
-      title: Paragraph
-      title_plural: Paragraphs
+      title: 'Numbered Item'
+      title_plural: 'Numbered Items'
       edit_mode: preview
       add_mode: dropdown
       form_display_mode: default

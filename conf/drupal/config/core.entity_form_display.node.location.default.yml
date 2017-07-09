@@ -67,7 +67,6 @@ third_party_settings:
     group_required_details:
       children:
         - field_overview
-        - field_hours
         - field_parking
       parent_name: group_primary
       weight: 4
@@ -151,8 +150,8 @@ content:
     type: entity_reference_paragraphs
     weight: 4
     settings:
-      title: Paragraph
-      title_plural: Paragraphs
+      title: Widget
+      title_plural: Widgets
       edit_mode: open
       add_mode: dropdown
       form_display_mode: default
@@ -171,8 +170,8 @@ content:
     type: entity_reference_paragraphs
     weight: 9
     settings:
-      title: Paragraph
-      title_plural: Paragraphs
+      title: 'Recommended Activity'
+      title_plural: 'Recommended Activities'
       edit_mode: open
       add_mode: dropdown
       form_display_mode: default
