@@ -129,8 +129,7 @@ Sometimes we need to apply patches from the Drupal.org issue queues. These patch
 
 
 ### Deploying work to a testing environment
-1. Outside the VM in the project root, make sure you've checked out the branch and built you want to test.
-1. (_This step will happen automatically via CircleCI if you've pushed your code to a branch in GitHub. Do this if you haven't._) Push that branch up to the Acquia git remote `git push acquia <your branch>`. Now that Acquia knows about your code, we can move it to a server and run the necessary setup.
+1. After you push to Github, your code must get built and if it passes tests, it gets pushed to Acquia's git. So, wait for a green CircleCI build before proceeding to next step.
 1. SSH into the VM `vagrant ssh`, `www`
 1. Run the deploy script and pass in the environment you want to deploy to. `drush ma-deploy <environment> <branch name>`
 1. Wait a bit, watch the output, and soon you'll have your work on a remote environment for testing.
