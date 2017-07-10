@@ -530,12 +530,29 @@ class Organisms {
     // Determines which field names to use from the map.
     $fields = Helper::getMappedFields($entity, $map);
 
+    // @TODO consider passing the image style in as an option.
+    // Use action_banner_* as default pageBanner image styles.
+    $image_style_wide = 'action_banner_large';
+    $image_style_narrow = 'action_banner_small';
+
+    // Get pageBanner size, use as flag to determine image style.
+    $pageBanner['size'] = array_key_exists('size', $options) ? $options['size'] : 'large';
+
+    // Use appropriate image style for various pageBanner sizes.
+    if ($pageBanner['size'] === 'columns') {
+      // Use original image style for hotfix to avoid config/DB changes.
+      $image_style_wide = 'original';
+      $image_style_narrow = 'original';
+      // @TODO fix the hero820 image style so that it is not blurred.
+      // $image_style_wide = 'hero820x460';
+      // $image_style_narrow = 'hero800x400';
+    }
+
     // Use helper function to get the image url of a given image style.
-    $pageBanner['bgWide'] = Helper::getFieldImageUrl($entity, 'action_banner_large', $fields['bg_wide']);
-    $pageBanner['bgNarrow'] = Helper::getFieldImageUrl($entity, 'action_banner_small', $fields['bg_narrow']);
+    $pageBanner['bgWide'] = Helper::getFieldImageUrl($entity, $image_style_wide, $fields['bg_wide']);
+    $pageBanner['bgNarrow'] = Helper::getFieldImageUrl($entity, $image_style_narrow, $fields['bg_narrow']);
 
     // @todo determine how to handle options vs field value (check existence, order of importance, etc.)
-    $pageBanner['size'] = $options['size'];
     $pageBanner['icon'] = $options['icon'];
     $pageBanner['color'] = array_key_exists('color', $options) ? $options['color'] : '';
 
