@@ -12542,12 +12542,78 @@
         },
         "type": "drupal-module",
         "extra": {
-            "branch-alias": {
-                "dev-1.x": "1.x-dev"
+            "enable-patching": true,
+            "drupal-scaffold": {
+                "excludes": [
+                    ".htaccess",
+                    "robots.txt",
+                    ".eslintrc",
+                    ".eslintignore",
+                    ".eslintrc.json"
+                ],
+                "omit-defaults": false
             },
-            "drupal": {
-                "version": "8.x-1.0-rc3",
-                "datestamp": "1496747643"
+            "installer-paths": {
+                "docroot/core": [
+                    "type:drupal-core"
+                ],
+                "docroot/libraries/{$name}": [
+                    "type:drupal-library"
+                ],
+                "docroot/modules/contrib/{$name}": [
+                    "type:drupal-module"
+                ],
+                "docroot/profiles/contrib/{$name}": [
+                    "type:drupal-profile"
+                ],
+                "docroot/themes/contrib/{$name}": [
+                    "type:drupal-theme"
+                ],
+                "drush/contrib/{$name}": [
+                    "type:drupal-drush"
+                ]
+            },
+            "patches": {
+                "drupal/core": {
+                    "Remove drupal.js error. (https://www.drupal.org/node/2661880)": "https://www.drupal.org/files/issues/quickedit-undefined-attr-2661880-14.patch",
+                    "Don't break if telephone number is less than 6 digits. (https://www.drupal.org/node/2575577#comment-11750724)": "https://www.drupal.org/files/issues/2575577-11.patch",
+                    "Fix photo disappearing from org page. Fix Contextual Links js bug.": "https://www.drupal.org/files/issues/2551373-32.patch",
+                    "Link autocomplete content type filter. (https://www.drupal.org/node/2887376#comment-12147367)": "https://www.drupal.org/files/issues/link-autocomplete-ct-filter-2887376-5-8.4.x.patch"
+                },
+                "drupal/workbench_moderation": {
+                    "Fix type errors from WorkbenchModeration edit tab labeling (https://www.drupal.org/node/2769119#comment-11624207)": "https://www.drupal.org/files/issues/workbench_moderation-edit_tab-2769119-6.patch"
+                },
+                "drupal/crazyegg": {
+                    "Configure crazyegg for specific pages. (https://www.drupal.org/node/2812783)": "https://www.drupal.org/files/issues/2812783-configure-for-specific-pages.patch"
+                },
+                "drupal/password_policy": {
+                    "Removes field updates from the install file. (https://www.drupal.org/node/2771129#comment-12108388)": "https://www.drupal.org/files/issues/password-policy-config-import-field-error-2771129-37-D8.patch"
+                },
+                "drupal/tfa": {
+                    "Drush sanitize plugin for TFA user data. (https://www.drupal.org/node/2862312)": "https://www.drupal.org/files/issues/drush_27.patch",
+                    "Security patch for two-factor vulnerability where one could bypass first factor of authentication (not public yet)": "patches/tfa-token-verify.patch"
+                },
+                "drupal/username_enumeration_prevention": {
+                    "Fix install error": "https://www.drupal.org/files/issues/username_enumeration_prevention_requirements_severity-2823440-1.patch"
+                },
+                "drupal/entity_browser": {
+                    "Fix duplicated image selection when click use selected button": "https://www.drupal.org/files/issues/prevent-duplication.patch",
+                    "Fix for 'Undefined index: max_resolution' which occured what looking for max_resolution on non-images (https://www.drupal.org/node/2871372)": "https://www.drupal.org/files/issues/entity-browser-widget-context-small-fix-2871372-2.patch"
+                },
+                "drupal/access_unpublished": {
+                    "Allow to view unpublished content moderated using Workbench Moderation": "https://www.drupal.org/files/issues/access_unpublished-integration_with_workbench_moderation_module-2848938-4.patch"
+                },
+                "drupal/field_group": {
+                    "Provide page level error messaging when publishing validation is not met": "https://www.drupal.org/files/issues/field_group-validation-2787179-9.patch"
+                },
+                "drupal/better_field_descriptions": {
+                    "Fix the positioning of the additional help text (https://www.drupal.org/node/2882765)": "https://www.drupal.org/files/issues/better_field_descriptions-position-help-2882765-0.patch",
+                    "Prevent errors when deleting fields (https://www.drupal.org/node/2888240)": "https://www.drupal.org/files/issues/better_field_descriptions-stop-errors-when-field-deleted-2888240-1.patch"
+                },
+                "drupal/schema_metatag": {
+                    "Fix fatal error": "https://www.drupal.org/files/issues/schema_metatag-2882482-fix_module_fatal_error-2.patch",
+                    "Fix PHPCS errors": "https://www.drupal.org/files/issues/schema_metatag-2882492-fix_phpcs_errors_and_warnings-2.patch"
+                }
             }
         },
         "installation-source": "dist",

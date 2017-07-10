@@ -54,7 +54,6 @@ third_party_settings:
       children:
         - field_topic_display_links
         - field_topic_content_cards
-        - field_topic_ref_content_cards
       parent_name: group_topic_page_edit_form
       weight: 21
       format_type: tab
@@ -109,8 +108,8 @@ content:
     type: entity_reference_paragraphs
     weight: 38
     settings:
-      title: Paragraph
-      title_plural: Paragraphs
+      title: 'Content card group'
+      title_plural: 'Content card groups'
       edit_mode: open
       add_mode: dropdown
       form_display_mode: default
