@@ -22,3 +22,18 @@ function mass_flagging_help($route_name, RouteMatchInterface $route_match) {
     default:
   }
 }
+
+/**
+ * Implements hook_preprocess_page().
+ */
+function mass_flagging_preprocess_page(&$variables) {
+
+  if (isset($variables['node'])) {
+    $node = $variables['node'];
+
+    $flag = \Drupal::service('flag.link_builder');
+    $flag_link = $flag->build($node->getEntityTypeId(), $node->id(), 'watch_content');
+
+  }
+  $variables['page']['flag_link'] = $flag_link;
+}
