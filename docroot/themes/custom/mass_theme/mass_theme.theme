@@ -154,6 +154,37 @@ function mass_theme_theme_suggestions_alter(array &$suggestions, array $variable
 function mass_theme_preprocess_node_how_to_page(&$variables) {
   $node = $variables['node'];
 
+  $taxonomy_terms = [];
+
+  // Get service pages associated with this service detail page from view.
+  $view_results = views_get_view_result('service_pages_associate_how_to_pages', 'associated_service_pages', $node->id());
+
+  // Roll up link field.
+  foreach ($view_results as $key => $row) {
+
+    // Get link field.
+    if (!empty($row->field_service_ref_actions_2_node_field_data_title) &&
+      !empty($row->field_service_ref_actions_2_node_field_data_nid)) {
+      $href = \Drupal::service('path.alias_manager')->getAliasByPath('/node/' . $row->field_service_ref_actions_2_node_field_data_nid);
+      $text = $row->field_service_ref_actions_2_node_field_data_title;
+      $taxonomy_terms[] = [
+        'href' => $href,
+        'text' => $text,
+      ];
+    }
+
+    // Get ref field.
+    if (!empty($row->field_service_ref_actions_node_field_data_title) &&
+      !empty($row->field_service_ref_actions_node_field_data_nid)) {
+      $href = \Drupal::service('path.alias_manager')->getAliasByPath('/node/' . $row->field_service_ref_actions_node_field_data_nid);
+      $text = $row->field_service_ref_actions_node_field_data_title;
+      $taxonomy_terms[] = [
+        'href' => $href,
+        'text' => $text,
+      ];
+    }
+  }
+
   // Set static details properties.
   $variables['details'] = [
     'contentTitle' => t('The Details'),
@@ -195,6 +226,10 @@ function mass_theme_preprocess_node_how_to_page(&$variables) {
   $pageHeader_options = [
     // @todo Consider making divider site-builder configurable vs hard-coded
     "divider" => FALSE,
+    'headerTags' => [
+      'label' => t('More about:'),
+      'taxonomyTerms' => array_unique($taxonomy_terms, SORT_REGULAR),
+    ],
     "optionalContents" => $optionalContents,
     "widgets" => $widgets,
   ];
@@ -567,7 +602,6 @@ function mass_theme_preprocess_node_org_page(&$variables) {
 
     // We need a different Google map config for PL tpls.
     // $variables['#attached']['library'][] = 'mass_theme/mass-google-map-apis-location';.
-
     $sections[] = [
       'pageContent' => [
         [
@@ -615,7 +649,6 @@ function mass_theme_preprocess_node_location(&$variables) {
 
   // We need a different Google map config for PL tpls.
   // $variables['#attached']['library'][] = 'mass_theme/mass-google-map-apis-location';.
-
   // Set static actionHeader properties to pass to prepare function.
   $pageHeader_options = [
     'divider' => FALSE,
@@ -1193,6 +1226,36 @@ function mass_theme_preprocess_node_service_page(&$variables) {
 function mass_theme_preprocess_node_service_details(&$variables) {
   $node = $variables['node'];
 
+  $taxonomy_terms = [];
+
+  // Get service pages associated with this service detail page from view.
+  $view_results = views_get_view_result('service_pages_associate_service_detail', 'associated_service_pages', $node->id());
+
+  // Roll up link field.
+  foreach ($view_results as $key => $row) {
+    // Get link field.
+    if (!empty($row->field_service_key_info_links_6_node_field_data_title) &&
+      !empty($row->field_service_key_info_links_6_node_field_data_nid)) {
+      $href = \Drupal::service('path.alias_manager')->getAliasByPath('/node/' . $row->field_service_key_info_links_6_node_field_data_nid);
+      $text = $row->field_service_key_info_links_6_node_field_data_title;
+      $taxonomy_terms[] = [
+        'href' => $href,
+        'text' => $text,
+      ];
+    }
+
+    // Get ref field.
+    if (!empty($row->field_service_eligibility_info_node_field_data_title) &&
+      !empty($row->field_service_eligibility_info_node_field_data_nid)) {
+      $href = \Drupal::service('path.alias_manager')->getAliasByPath('/node/' . $row->field_service_eligibility_info_node_field_data_nid);
+      $text = $row->field_service_eligibility_info_node_field_data_title;
+      $taxonomy_terms[] = [
+        'href' => $href,
+        'text' => $text,
+      ];
+    }
+  }
+
   // Create the map of all possible field names to use.
   $map = [
     'sections' => ['field_service_detail_sections'],
@@ -1205,6 +1268,10 @@ function mass_theme_preprocess_node_service_details(&$variables) {
   // Set static pageHeader properties to pass to prepare function.
   $pageHeader_options = [
     "divider" => FALSE,
+    'headerTags' => [
+      'label' => t('More about:'),
+      'taxonomyTerms' => array_unique($taxonomy_terms, SORT_REGULAR),
+    ],
   ];
 
   // Make pageBanner data object available in twig template.
@@ -1396,7 +1463,7 @@ function mass_theme_preprocess_node_press_release(&$variables) {
               'text' => '###',
             ],
           ],
-        ]
+        ],
       ],
     ];
   }
