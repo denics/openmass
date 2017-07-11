@@ -162,8 +162,8 @@ content:
     type: entity_reference_paragraphs
     weight: 2
     settings:
-      title: Paragraph
-      title_plural: Paragraphs
+      title: 'Media Contact'
+      title_plural: 'Media Contacts'
       edit_mode: open
       add_mode: dropdown
       form_display_mode: default
@@ -174,8 +174,8 @@ content:
     type: entity_reference_paragraphs
     weight: 1
     settings:
-      title: Paragraph
-      title_plural: Paragraphs
+      title: Signee
+      title_plural: Signees
       edit_mode: open
       add_mode: dropdown
       form_display_mode: default
@@ -194,8 +194,8 @@ content:
     type: entity_reference_paragraphs
     weight: 4
     settings:
-      title: Paragraph
-      title_plural: Paragraphs
+      title: Video
+      title_plural: Videos
       edit_mode: open
       add_mode: dropdown
       form_display_mode: default

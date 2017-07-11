@@ -100,20 +100,3 @@ function mass_dashboard_toolbar_prerender_tray(array $element) {
   $element['administration_menu'] = $menu_tree->build($tree);
   return $element;
 }
-
-/**
- * Implements hook_views_data_alter().
- *
- * Adds a better content bundle filter.
- */
-function mass_dashboard_views_data_alter(array &$data) {
-  $data['node_field_data']['node_user_permitted_type_filter'] = [
-    'title' => t('Mass.gov user permitted content type filter'),
-    'filter' => [
-      'title' => t('User permitted content type'),
-      'help' => t('Filter nodes by their type, options limited by user add/edit permissions.'),
-      'field' => 'type',
-      'id' => 'mass_dashboard_user_permitted_bundle'
-    ],
-  ];
-}

@@ -77,6 +77,7 @@ module:
   mass_types: 0
   mass_utility: 0
   mass_validation: 0
+  mass_views: 0
   mass_workbench_ui: 0
   mayflower: 0
   media_entity: 0
