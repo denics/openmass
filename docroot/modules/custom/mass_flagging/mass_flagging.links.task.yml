@@ -1,3 +1,0 @@
-mass_flagging.local_tasks:
-  deriver: 'Drupal\mass_flagging\Plugin\Derivative\DynamicLocalTasks'
-  weight: 100
