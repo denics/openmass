@@ -5,6 +5,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 ## Upcoming (add in progress changes here)
 
+## [0.22.2] - July 11, 2017
+
+### Changed (fixed)
+
+- Location pages no longer render blank location-specific page level alert by default (i.e. when there is no location alert content).
+
 ## [0.22.1] - July 10, 2017
 
 ### Changed (fixed)
