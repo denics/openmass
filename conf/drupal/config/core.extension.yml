@@ -68,6 +68,8 @@ module:
   mass_formatters: 0
   mass_map: 0
   mass_nav: 0
+  mass_schema_government_service: 0
+  mass_schema_metatag: 0
   mass_search: 0
   mass_search_suppression: 0
   mass_styles: 0
@@ -105,6 +107,7 @@ module:
   rh_node: 0
   rh_taxonomy: 0
   schema_article: 0
+  schema_article_example: 0
   schema_item_list: 0
   schema_metatag: 0
   schema_organization: 0

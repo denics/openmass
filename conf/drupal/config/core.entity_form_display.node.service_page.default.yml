@@ -157,7 +157,7 @@ third_party_settings:
       format_type: fieldset
       format_settings:
         label: 'Additional resources'
-        description: 'Add up to 6 items of additional information – informational pages, online forms, or file downloads – that may be important to this service.'
+        description: 'Optional. If there are additional resources that contain helpful information, add them here.'
         required_fields: true
         id: ''
         classes: ''

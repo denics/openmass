@@ -177,8 +177,8 @@ content:
     type: entity_reference_paragraphs
     weight: 4
     settings:
-      title: Molecule
-      title_plural: Molecules
+      title: Banner
+      title_plural: Banners
       edit_mode: open
       add_mode: button
       form_display_mode: default
@@ -189,20 +189,20 @@ content:
     type: entity_reference_paragraphs
     weight: 29
     settings:
-      title: Molecule
-      title_plural: Molecules
+      title: Content
+      title_plural: Content
       edit_mode: preview
       add_mode: button
       form_display_mode: default
-      default_paragraph_type: ''
+      default_paragraph_type: _none
     third_party_settings: {  }
     region: content
   field_action_header:
     type: entity_reference_paragraphs
     weight: 3
     settings:
-      title: Molecule
-      title_plural: Molecules
+      title: 'Contact group'
+      title_plural: 'Contact groups'
       edit_mode: preview
       add_mode: button
       form_display_mode: default
@@ -222,12 +222,12 @@ content:
     type: entity_reference_paragraphs
     weight: 26
     settings:
-      title: Paragraph
-      title_plural: Paragraphs
+      title: Content
+      title_plural: Content
       edit_mode: preview
       add_mode: button
       form_display_mode: default
-      default_paragraph_type: ''
+      default_paragraph_type: _none
     third_party_settings: {  }
     region: content
   field_alert_dropdown:
@@ -270,12 +270,12 @@ content:
     type: entity_reference_paragraphs
     weight: 5
     settings:
-      title: Molecule
-      title_plural: Molecules
+      title: 'Call to Action'
+      title_plural: 'Call to Action'
       edit_mode: preview
       add_mode: button
       form_display_mode: default
-      default_paragraph_type: ''
+      default_paragraph_type: _none
     third_party_settings: {  }
     region: content
   field_image_credit:

@@ -12,7 +12,7 @@ field_name: field_guide_section_links_4
 entity_type: paragraph
 bundle: guide_section
 label: 'Key actions'
-description: 'Select the page(s) with more information on the topic or service you described in this section.'
+description: 'Select up to 4 pages with more information on the topic or service you described in this section.'
 required: false
 translatable: false
 default_value: {  }
