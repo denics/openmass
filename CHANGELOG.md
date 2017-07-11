@@ -3,6 +3,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
+## [0.22.1] - July 10, 2017
+
+### Changed (fixed)
+
+- Mayflower module `Organisms::preparePageBanner` method now supports multiple image styles for the background image.  This fixes the rendering issues for banner images on Topic pages.
+
 ## [0.22.0] - July 05, 2017
 
 ### Added
@@ -54,4 +60,3 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 ### Removed
 - How-to pages no longer show contacts in too many places and the sidebar alignment and headings are fixed.
-
