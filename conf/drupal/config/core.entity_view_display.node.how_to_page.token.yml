@@ -1,8 +1,9 @@
-uuid: 732bc217-3b87-4b14-802d-d177c78f75fb
+uuid: bd689d76-1c77-4c37-b4e0-7de6767329b1
 langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_mode.node.token
     - field.field.node.how_to_page.field_how_to_contacts_3
     - field.field.node.how_to_page.field_how_to_files
     - field.field.node.how_to_page.field_how_to_lede
@@ -22,10 +23,10 @@ dependencies:
     - link
     - text
     - user
-id: node.how_to_page.default
+id: node.how_to_page.token
 targetEntityType: node
 bundle: how_to_page
-mode: default
+mode: token
 content:
   field_how_to_contacts_3:
     weight: 11
@@ -55,25 +56,25 @@ content:
     weight: 6
     label: above
     settings:
-      trim_length: 80
+      trim_length: null
       url_only: false
       url_plain: false
-      rel: ''
-      target: ''
+      rel: '0'
+      target: '0'
     third_party_settings: {  }
-    type: link
+    type: link_separate
     region: content
   field_how_to_links_5:
     weight: 12
     label: above
     settings:
-      trim_length: 80
+      trim_length: null
       url_only: false
       url_plain: false
-      rel: ''
-      target: ''
+      rel: '0'
+      target: '0'
     third_party_settings: {  }
-    type: link
+    type: link_separate
     region: content
   field_how_to_methods_5:
     type: entity_reference_revisions_entity_view
