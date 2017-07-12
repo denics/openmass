@@ -6,6 +6,7 @@
  */
 
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Entity\EntityInterface;
 
 /**
  * Implements hook_help().
@@ -28,12 +29,18 @@ function mass_flagging_help($route_name, RouteMatchInterface $route_match) {
  */
 function mass_flagging_preprocess_page(&$variables) {
 
-  if (isset($variables['node'])) {
+  $user = \Drupal::currentUser();
+
+  // check if user has correct permissions and page is node
+  if ($user->hasPermission('flag watch_content') &&
+    $user->hasPermission('unflag watch_content') && isset($variables['node'])) {
+
     $node = $variables['node'];
 
     $flag = \Drupal::service('flag.link_builder');
     $flag_link = $flag->build($node->getEntityTypeId(), $node->id(), 'watch_content');
 
+    $variables['page']['flag_link'] = $flag_link;
+    $variables['#attached']['library'][] =  'mass_flagging/flag-link';
   }
-  $variables['page']['flag_link'] = $flag_link;
 }
