@@ -6,8 +6,8 @@ dependencies:
     - entity_reference_revisions
     - node
     - paragraphs
-id: node.field_press_release_media_contac
-field_name: field_press_release_media_contac
+id: node.field_news_media_contac
+field_name: field_news_media_contac
 entity_type: node
 type: entity_reference_revisions
 settings:

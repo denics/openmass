@@ -1,19 +1,20 @@
-uuid: d7762dde-48a6-4e2a-ac58-e82a7b10b555
+uuid: db5460b8-302e-4e76-aeab-9dd6abdc1401
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_press_release_media_contac
-    - node.type.press_release
-    - paragraphs.paragraphs_type.media_contact
+    - field.storage.node.field_news_signees
+    - node.type.news
+    - paragraphs.paragraphs_type.external_organization
+    - paragraphs.paragraphs_type.state_organization
   module:
     - entity_reference_revisions
-id: node.press_release.field_press_release_media_contac
-field_name: field_press_release_media_contac
+id: node.news.field_news_signees
+field_name: field_news_signees
 entity_type: node
-bundle: press_release
-label: 'Media Contact'
-description: 'Select the person(s) media should use if they have questions about this event. The first contact listed will also appear in the sidebar as “Media Contact.”'
+bundle: news
+label: Signees
+description: ''
 required: true
 translatable: false
 default_value: {  }
@@ -22,7 +23,8 @@ settings:
   handler: 'default:paragraph'
   handler_settings:
     target_bundles:
-      media_contact: media_contact
+      external_organization: external_organization
+      state_organization: state_organization
     target_bundles_drag_drop:
       1up_stacked_band:
         weight: 55
@@ -96,11 +98,11 @@ settings:
       file_download:
         weight: 78
         enabled: false
+      external_organization:
+        enabled: true
+        weight: 79
       full_bleed:
         weight: 79
-        enabled: false
-      external_organization:
-        weight: 80
         enabled: false
       guide_section:
         weight: 80
@@ -150,9 +152,6 @@ settings:
       phone_number:
         weight: 95
         enabled: false
-      media_contact:
-        enabled: true
-        weight: 96
       pull_quote:
         weight: 96
         enabled: false
@@ -193,6 +192,6 @@ settings:
         weight: 108
         enabled: false
       state_organization:
-        weight: 112
-        enabled: false
+        enabled: true
+        weight: 108
 field_type: entity_reference_revisions
