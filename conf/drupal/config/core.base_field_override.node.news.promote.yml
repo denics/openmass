@@ -3,11 +3,11 @@ langcode: en
 status: true
 dependencies:
   config:
-    - node.type.press_release
-id: node.press_release.promote
+    - node.type.news
+id: node.news.promote
 field_name: promote
 entity_type: node
-bundle: press_release
+bundle: news
 label: 'Promoted to front page'
 description: ''
 required: false

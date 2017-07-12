@@ -4,15 +4,15 @@ status: true
 dependencies:
   module:
     - node
-id: press_release
-label: 'Press Release'
+id: news
+label: 'News'
 type: 'canonical_entities:node'
-pattern: '/press-release/[node:title]'
+pattern: '/news/[node:title]'
 selection_criteria:
   eb5bea40-4523-48a5-a698-13dcf1def437:
     id: node_type
     bundles:
-      press_release: press_release
+      news: news
     negate: false
     context_mapping:
       node: node

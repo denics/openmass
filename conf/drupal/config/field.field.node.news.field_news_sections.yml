@@ -1,21 +1,20 @@
-uuid: db5460b8-302e-4e76-aeab-9dd6abdc1401
+uuid: 3435897e-d3cb-4ea8-bb44-64f12fcfa711
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_press_release_signees
-    - node.type.press_release
-    - paragraphs.paragraphs_type.external_organization
-    - paragraphs.paragraphs_type.state_organization
+    - field.storage.node.field_news_sections
+    - node.type.news
+    - paragraphs.paragraphs_type.section_with_heading
   module:
     - entity_reference_revisions
-id: node.press_release.field_press_release_signees
-field_name: field_press_release_signees
+id: node.news.field_news_sections
+field_name: field_news_sections
 entity_type: node
-bundle: press_release
-label: Signees
-description: ''
-required: true
+bundle: news
+label: Sections
+description: 'Optional, for items with extended content.'
+required: false
 translatable: false
 default_value: {  }
 default_value_callback: ''
@@ -23,175 +22,180 @@ settings:
   handler: 'default:paragraph'
   handler_settings:
     target_bundles:
-      external_organization: external_organization
-      state_organization: state_organization
+      section_with_heading: section_with_heading
     target_bundles_drag_drop:
       1up_stacked_band:
-        weight: 55
-        enabled: false
-      2up_stacked_band:
-        weight: 56
-        enabled: false
-      3_up_content:
-        weight: 57
-        enabled: false
-      3_up_text:
-        weight: 58
-        enabled: false
-      action_address:
         weight: 59
         enabled: false
-      action_address_info:
+      2up_stacked_band:
         weight: 60
         enabled: false
-      action_area:
+      3_up_content:
         weight: 61
         enabled: false
-      action_set:
+      3_up_text:
         weight: 62
         enabled: false
-      action_step:
+      action_address:
         weight: 63
         enabled: false
-      action_step_numbered:
+      action_address_info:
         weight: 64
         enabled: false
-      action_step_numbered_list:
+      action_area:
         weight: 65
         enabled: false
-      activities:
+      action_set:
         weight: 66
         enabled: false
-      activity:
+      action_step:
         weight: 67
         enabled: false
-      address:
+      action_step_numbered:
         weight: 68
         enabled: false
-      callout_alert:
+      action_step_numbered_list:
         weight: 69
         enabled: false
-      callout_button:
+      activities:
         weight: 70
         enabled: false
-      callout_link:
+      activity:
         weight: 71
         enabled: false
-      completion_time:
+      address:
         weight: 72
         enabled: false
-      contact:
+      callout_alert:
         weight: 73
         enabled: false
-      contact_group:
+      callout_button:
         weight: 74
         enabled: false
-      contact_info:
+      callout_link:
         weight: 75
         enabled: false
-      emergency_alert:
+      completion_time:
         weight: 76
         enabled: false
-      fax_number:
+      contact:
         weight: 77
         enabled: false
-      file_download:
+      contact_group:
         weight: 78
         enabled: false
-      external_organization:
-        enabled: true
-        weight: 79
-      full_bleed:
+      contact_info:
         weight: 79
         enabled: false
-      guide_section:
+      emergency_alert:
         weight: 80
         enabled: false
-      guide_section_3up:
+      external_organization:
         weight: 81
         enabled: false
-      hours:
+      fax_number:
         weight: 82
         enabled: false
-      icon:
+      file_download:
         weight: 83
         enabled: false
-      icon_link:
+      full_bleed:
         weight: 84
         enabled: false
-      icon_links:
+      guide_section:
         weight: 85
         enabled: false
-      iframe:
+      guide_section_3up:
         weight: 86
         enabled: false
-      image:
+      hours:
         weight: 87
         enabled: false
-      links:
+      icon:
         weight: 88
         enabled: false
-      location_information:
+      icon_link:
         weight: 89
         enabled: false
-      map:
+      icon_links:
         weight: 90
         enabled: false
-      map_row:
+      iframe:
         weight: 91
         enabled: false
-      method:
+      image:
         weight: 92
         enabled: false
-      next_step:
+      links:
         weight: 93
         enabled: false
-      online_email:
+      location_information:
         weight: 94
         enabled: false
-      phone_number:
+      map:
         weight: 95
         enabled: false
-      pull_quote:
+      map_row:
         weight: 96
         enabled: false
-      quick_action:
+      media_contact:
         weight: 97
         enabled: false
-      recommended_activity:
+      method:
         weight: 98
         enabled: false
-      related_content:
+      next_step:
         weight: 99
         enabled: false
-      related_link:
+      online_email:
         weight: 100
         enabled: false
-      rich_text:
+      phone_number:
         weight: 101
         enabled: false
-      search_band:
+      pull_quote:
         weight: 102
         enabled: false
-      section:
+      quick_action:
         weight: 103
         enabled: false
-      section_with_heading:
+      recommended_activity:
         weight: 104
         enabled: false
-      slideshow:
+      related_content:
         weight: 105
         enabled: false
-      stat:
+      related_link:
         weight: 106
         enabled: false
-      subhead:
+      rich_text:
         weight: 107
         enabled: false
-      video:
+      search_band:
         weight: 108
         enabled: false
-      state_organization:
+      section:
+        weight: 109
+        enabled: false
+      section_with_heading:
         enabled: true
-        weight: 108
+        weight: 110
+      slideshow:
+        weight: 111
+        enabled: false
+      stacked_band:
+        weight: 112
+        enabled: false
+      stat:
+        weight: 113
+        enabled: false
+      state_organization:
+        weight: 114
+        enabled: false
+      subhead:
+        weight: 115
+        enabled: false
+      video:
+        weight: 116
+        enabled: false
 field_type: entity_reference_revisions

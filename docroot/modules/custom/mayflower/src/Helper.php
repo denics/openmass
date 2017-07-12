@@ -209,19 +209,14 @@ class Helper {
       $content_type = $entity->getType();
       $content_type_name = $entity->type->entity->label();
 
-      if (Helper::isFieldPopulated($entity, 'field_press_release_date')) {
-        $date = Helper::fieldFullView($entity, 'field_press_release_date');
+      if (Helper::isFieldPopulated($entity, 'field_news_date')) {
+        $date = Helper::fieldFullView($entity, 'field_news_date');
       }
 
       // On internal item, if empty, grab enity title.
       if (empty($text)) {
         $text = $entity->getTitle();
       }
-    }
-
-    $eyebrow = '';
-    if (!empty($content_type) && isset($options['useEyebrow']) && in_array($content_type, $options['useEyebrow'])) {
-      $eyebrow = $content_type_name;
     }
 
     return [
@@ -231,7 +226,7 @@ class Helper {
       'href' => $url->toString(),
       'url' => $url->toString(),
       'label' => '',
-      'eyebrow' => $eyebrow,
+      'eyebrow' => in_array($content_type, $options['useEyebrow']) ? $options['category'] : '',
       'date' => !empty($date) ? $date : '',
     ];
   }

@@ -1353,19 +1353,23 @@ function mass_theme_preprocess_node_service_details(&$variables) {
 /**
  * Implements hook_preprocess_node().
  *
- * Prepare the variables for the Press Release page.
+ * Prepare the variables for the News page.
  */
-function mass_theme_preprocess_node_press_release(&$variables) {
+function mass_theme_preprocess_node_news(&$variables) {
   $node = $variables['node'];
   $sidebar = [];
+  $ap_conformity = FALSE;
   // Create the map of all possible field names to use.
   $map = [
-    'body' => ['field_press_release_body'],
-    'location' => ['field_press_release_location'],
-    'video' => ['field_press_release_video'],
-    'signees' => ['field_press_release_signees'],
-    'contact' => ['field_press_release_media_contac'],
-    'links' => ['field_press_release_links'],
+    'body' => ['field_news_body'],
+    'location' => ['field_news_location'],
+    'video' => ['field_news_video'],
+    'signees' => ['field_news_signees'],
+    'contact' => ['field_news_media_contac'],
+    'links' => ['field_news_links'],
+    'sections' => ['field_news_sections'],
+    'news_type' => ['field_news_type'],
+    'featured_image' => ['field_news_image'],
   ];
 
   // Determines which field names to use from the map.
@@ -1378,7 +1382,7 @@ function mass_theme_preprocess_node_press_release(&$variables) {
       'link' => ['field_state_org_ref_org'],
       'title' => ['field_external_org_name'],
       'lede' => ['field_state_org_description', 'field_external_org_description'],
-      'image' => ['field_state_org_photo', 'field_external_org_photo'],
+      'image' => ['field_state_org_photo_url'],
     ];
 
     $taxonomyTerms = [];
@@ -1409,9 +1413,13 @@ function mass_theme_preprocess_node_press_release(&$variables) {
     }
   }
 
+  // Get select News Type Label.
+  $allowed_news_types = $node->getFieldDefinition('field_news_type')->getFieldStorageDefinition()->getSetting('allowed_values');
+  $type_value = $node->field_news_type->value;
+
   // Set static pageHeader properties to pass to prepare function.
   $pageHeader_options = [
-    'category' => t('Press Release'),
+    'category' => $allowed_news_types[$type_value],
     'divider' => FALSE,
     'headerTags' => [
       'label' => t('Related to:'),
@@ -1424,8 +1432,19 @@ function mass_theme_preprocess_node_press_release(&$variables) {
 
   $pageContent['pressStatus'] = Molecules::preparePressStatus($node);
 
+  if (Helper::isFieldPopulated($node, $field['featured_image'])) {
+    if (!empty($node->$field['featured_image']->entity)) {
+      // Set up image element.
+      $pageContent['figure']['image'] = [
+        'alt' => $node->$field['featured_image']->alt,
+        'src' => Helper::getFieldImageUrl($node, '', $field['featured_image']),
+      ];
+    }
+  }
+
   if (Helper::isFieldPopulated($node, $field['video'])) {
     if (!empty($node->$field['video']->entity)) {
+      // Set up video element.
       $videoEntity = $node->$field['video']->entity;
       $pageContent['video'] = [
         'src' => '//www.' . $videoEntity->field_video_source->value . '.com/embed/' . $videoEntity->field_video_id->value,
@@ -1443,6 +1462,10 @@ function mass_theme_preprocess_node_press_release(&$variables) {
     }
     else {
       $body = Helper::fieldValue($node, $field['location']);
+    }
+
+    if (Helper::fieldValue($node, $field['news_type']) == 'press_release') {
+      $ap_conformity = TRUE;
     }
 
     // Set up rich text element.
@@ -1466,6 +1489,77 @@ function mass_theme_preprocess_node_press_release(&$variables) {
         ],
       ],
     ];
+
+    if ($ap_conformity) {
+      // AP style conformity.
+      $pageContent['richText']['rteElements'][] = [
+        'path' => '@atoms/11-text/paragraph.twig',
+        'data' => [
+          'paragraph' => [
+            'text' => '###',
+          ],
+        ],
+      ];
+    }
+  }
+
+  // Only display Sections for News.
+  if (Helper::fieldValue($node, $field['news_type']) == 'news') {
+    foreach ($node->$field['sections'] as $index => $section) {
+      $variables['numOfSections'] = ++$index;
+      $sectionEntity = $section->entity;
+
+      // Create the map of the field names to use.
+      $section_with_heading_fields_ref = [
+        'title' => ['field_section_title'],
+        'body' => ['field_section_body'],
+        'links' => ['field_section_links'],
+        'actions' => ['field_section_key_actions'],
+        'downloads' => ['field_section_downloads'],
+      ];
+
+      // Determines which field names to use from the map.
+      $section_fields = Helper::getMappedFields($sectionEntity, $section_with_heading_fields_ref);
+
+      if (Helper::isFieldPopulated($sectionEntity, $section_fields['title'])) {
+        $compHeading_options = [
+          'title' => Helper::fieldValue($sectionEntity, $section_fields['title']),
+        ];
+        $pageContent[$index]['title'] = Atoms::prepareCompHeading($compHeading_options);
+      }
+
+      if (Helper::isFieldPopulated($sectionEntity, $section_fields['body'])) {
+        // Set up rich text elements for what you need.
+        $pageContent[$index]['richText'] = [
+          'rteElements' => [
+            Atoms::prepareRawHtml($sectionEntity, ['field' => 'field_section_body']),
+          ],
+        ];
+      }
+
+      if (Helper::isFieldPopulated($sectionEntity, $section_fields['actions'])) {
+        $keyActions_options = [
+          'heading' => [
+            'title' => t('Key Actions'),
+          ],
+        ];
+
+        // Append the keyActions data structure to introPageContent.
+        $pageContent[$index]['keyActions'] = Organisms::prepareKeyActions($sectionEntity, $section_fields['actions'], $keyActions_options);
+      }
+
+      if (Helper::isFieldPopulated($sectionEntity, $section_fields['downloads']) || Helper::isFieldPopulated($sectionEntity, $section_fields['links'])) {
+        // Set up options for formDownloads prepare.
+        $downloadLinks_options = [
+          'heading' => [
+            'type' => 'compHeading',
+            'title' => t('Additional Resources'),
+            'sub' => TRUE,
+          ],
+        ];
+        $pageContent[$index]['formDownloads'] = Organisms::prepareFormDownloads($sectionEntity, $downloadLinks_options);
+      }
+    }
   }
 
   // Build contact section, if field is populated.
@@ -1473,7 +1567,6 @@ function mass_theme_preprocess_node_press_release(&$variables) {
     // Set up options for contact list.
     $contactList_options = [
       'heading' => [
-        'type' => 'sidebarHeading',
         'title' => t("Media Contact"),
       ],
       'groups' => [
@@ -1494,19 +1587,20 @@ function mass_theme_preprocess_node_press_release(&$variables) {
   // Build related links section, if field is populated.
   if (Helper::isFieldPopulated($node, $field['links'])) {
     // Set up options for link list.
-    $linkList_options = [
+    $pressListing_options = [
       'heading' => [
         'type' => 'sidebarHeading',
         'title' => t('Related'),
       ],
       'stacked' => TRUE,
       'useEyebrow' => [
-        'press_release',
+        'news',
         'regulation',
       ],
+      'category' => $allowed_news_types[$type_value],
     ];
 
-    $sidebar['linkList'] = Organisms::preparelinkList($node, $field['links'], $linkList_options);
+    $sidebar['pressListing'] = Organisms::preparePressListing($node, $field['links'], $pressListing_options);
   }
 
   $variables['pageContent'] = $pageContent;

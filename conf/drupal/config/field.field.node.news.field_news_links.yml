@@ -3,14 +3,14 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_press_release_links
-    - node.type.press_release
+    - field.storage.node.field_news_links
+    - node.type.news
   module:
     - link
-id: node.press_release.field_press_release_links
-field_name: field_press_release_links
+id: node.news.field_news_links
+field_name: field_news_links
 entity_type: node
-bundle: press_release
+bundle: news
 label: Related
 description: 'Add links to related pages (up to 3) that people might also be looking for.'
 required: false
