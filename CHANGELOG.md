@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 ## Upcoming (add in progress changes here)
+### Added
+-Made the "Desktop Banner" image a required field within a Organization page.
 
 ## [0.22.2] - July 11, 2017
 
