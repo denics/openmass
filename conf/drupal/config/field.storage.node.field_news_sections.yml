@@ -1,4 +1,4 @@
-uuid: 43915b96-a940-468b-b0e3-f2816ba47874
+uuid: 8fdd8149-8acb-4a53-9ee1-584cddbdb2d7
 langcode: en
 status: true
 dependencies:
@@ -6,8 +6,8 @@ dependencies:
     - entity_reference_revisions
     - node
     - paragraphs
-id: node.field_press_release_signees
-field_name: field_press_release_signees
+id: node.field_news_sections
+field_name: field_news_sections
 entity_type: node
 type: entity_reference_revisions
 settings:

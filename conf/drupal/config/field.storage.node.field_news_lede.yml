@@ -1,11 +1,11 @@
-uuid: eb3de70f-92fd-4fac-8942-00bdfb9644df
+uuid: 0a07c0e0-8e39-49a0-984d-bee189f4700f
 langcode: en
 status: true
 dependencies:
   module:
     - node
-id: node.field_press_release_location
-field_name: field_press_release_location
+id: node.field_news_lede
+field_name: field_news_lede
 entity_type: node
 type: string
 settings:

@@ -3,12 +3,12 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_press_release_summary
-    - node.type.press_release
-id: node.press_release.field_press_release_summary
-field_name: field_press_release_summary
+    - field.storage.node.field_news_summary
+    - node.type.news
+id: node.news.field_news_summary
+field_name: field_news_summary
 entity_type: node
-bundle: press_release
+bundle: news
 label: 'Listing Description'
 description: 'This is a short summary of your press release that will be used in previews, listings and on social sites.'
 required: true

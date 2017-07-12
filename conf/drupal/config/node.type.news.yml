@@ -17,9 +17,9 @@ third_party_settings:
       - draft
       - needs_review
     default_moderation_state: draft
-name: 'Press Release Page'
-type: press_release
-description: 'A formal press release page.'
+name: News
+type: news
+description: 'A news item can be a news article, a press release, a speech, or a proclamation.'
 help: ''
 new_revision: true
 preview_mode: 0

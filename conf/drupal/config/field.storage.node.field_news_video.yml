@@ -6,8 +6,8 @@ dependencies:
     - entity_reference_revisions
     - node
     - paragraphs
-id: node.field_press_release_video
-field_name: field_press_release_video
+id: node.field_news_video
+field_name: field_news_video
 entity_type: node
 type: entity_reference_revisions
 settings:

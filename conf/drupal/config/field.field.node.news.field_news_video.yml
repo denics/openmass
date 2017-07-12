@@ -3,15 +3,15 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_press_release_video
-    - node.type.press_release
+    - field.storage.node.field_news_video
+    - node.type.news
     - paragraphs.paragraphs_type.video
   module:
     - entity_reference_revisions
-id: node.press_release.field_press_release_video
-field_name: field_press_release_video
+id: node.news.field_news_video
+field_name: field_news_video
 entity_type: node
-bundle: press_release
+bundle: news
 label: Video
 description: ''
 required: false
