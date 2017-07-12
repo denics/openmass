@@ -34,7 +34,7 @@ unflag_long: 'Unwatch will remove you from any email notification for future rev
 unflag_message: 'Successfully removed from watchers.'
 unflag_denied_text: ''
 flag_type: 'entity:node'
-link_type: reload
+link_type: ajax_link
 flagTypeConfig:
   show_in_links: {  }
   show_as_field: false
