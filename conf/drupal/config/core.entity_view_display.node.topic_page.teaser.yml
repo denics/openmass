@@ -19,6 +19,7 @@ content:
     weight: -20
     region: content
 hidden:
+  field_image_credit: true
   field_topic_bg_narrow: true
   field_topic_bg_wide: true
   field_topic_content_cards: true

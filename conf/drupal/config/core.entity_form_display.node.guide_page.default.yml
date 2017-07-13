@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.guide_page.field_guide_page_lede
     - field.field.node.guide_page.field_guide_page_related_guides
     - field.field.node.guide_page.field_guide_page_sections
+    - field.field.node.guide_page.field_image_credit
     - image.style.thumbnail
     - node.type.guide_page
   module:
@@ -36,6 +37,7 @@ third_party_settings:
         - title
         - field_guide_page_lede
         - field_guide_page_bg_wide
+        - field_image_credit
         - field_guide_page_bg_narrow
       parent_name: group_node_edit_form
       weight: 20
@@ -111,7 +113,7 @@ content:
     region: content
   field_guide_page_sections:
     type: entity_reference_paragraphs
-    weight: 35
+    weight: 37
     settings:
       title: Section
       title_plural: Sections
@@ -120,6 +122,14 @@ content:
       form_display_mode: default
       default_paragraph_type: _none
     third_party_settings: {  }
+    region: content
+  field_image_credit:
+    weight: -2
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
     region: content
   path:
     type: path

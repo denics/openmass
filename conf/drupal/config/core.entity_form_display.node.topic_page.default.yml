@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.topic_page.field_image_credit
     - field.field.node.topic_page.field_topic_bg_narrow
     - field.field.node.topic_page.field_topic_bg_wide
     - field.field.node.topic_page.field_topic_content_cards
@@ -40,6 +41,7 @@ third_party_settings:
         - field_topic_ref_icon
         - field_topic_bg_wide
         - field_topic_bg_narrow
+        - field_image_credit
       parent_name: group_topic_page_edit_form
       weight: 20
       format_type: tab
@@ -87,6 +89,14 @@ content:
     weight: 10
     settings: {  }
     third_party_settings: {  }
+    region: content
+  field_image_credit:
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
     region: content
   field_topic_bg_narrow:
     weight: -1

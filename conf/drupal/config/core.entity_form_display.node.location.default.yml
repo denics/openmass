@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.location.field_bg_narrow
     - field.field.node.location.field_bg_wide
     - field.field.node.location.field_iframe
+    - field.field.node.location.field_image_credit
     - field.field.node.location.field_links
     - field.field.node.location.field_location_activity_detail
     - field.field.node.location.field_location_facilities
@@ -53,6 +54,7 @@ third_party_settings:
         - field_iframe
         - field_bg_wide
         - field_bg_narrow
+        - field_image_credit
       parent_name: group_primary
       weight: 2
       format_type: tab
@@ -69,7 +71,7 @@ third_party_settings:
         - field_overview
         - field_parking
       parent_name: group_primary
-      weight: 4
+      weight: 3
       format_type: tab
       format_settings:
         id: ''
@@ -88,7 +90,7 @@ third_party_settings:
         - field_restrictions
         - field_related_locations
       parent_name: group_primary
-      weight: 5
+      weight: 4
       format_type: tab
       format_settings:
         id: ''
@@ -157,6 +159,14 @@ content:
       form_display_mode: default
       default_paragraph_type: _none
     third_party_settings: {  }
+    region: content
+  field_image_credit:
+    weight: 7
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
     region: content
   field_links:
     weight: 7

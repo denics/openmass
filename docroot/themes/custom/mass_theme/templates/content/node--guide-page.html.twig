@@ -20,6 +20,9 @@
 {% endblock %}
 
 {% block postContent %}
+  {% if content.field_image_credit is not empty %}
+    {{ content.field_image_credit }}
+  {% endif %}
   {% if node.field_guide_page_related_guides.value %}
     {% include "@organisms/by-author/suggested-pages.twig" %}
   {% endif %}
