@@ -274,7 +274,7 @@ class Organisms {
       'items' => [
         'field_ref_contact_info',
         'field_guide_ref_contacts_3',
-        'field_event_contact_general'
+        'field_event_contact_general',
       ],
     ];
 
@@ -329,6 +329,7 @@ class Organisms {
     $map = [
       'contacts' => [
         'field_how_to_contacts_3',
+        'field_news_media_contac',
         'field_press_release_media_contac',
         'field_event_contact_general',
       ],
@@ -484,6 +485,72 @@ class Organisms {
     $linkList['stacked'] = isset($options['stacked']) ? $options['stacked'] : '';
 
     return $linkList;
+  }
+
+  /**
+   * Returns the variables structure required to render press list.
+   *
+   * @param object $entity
+   *   An array of objects that contains the fields.
+   * @param string $field
+   *   The link / entity reference field name.
+   * @param array $options
+   *   An array of options for sidebar contact.
+   *
+   * @see @organisms/by-author/press-listing.twig
+   *
+   * @return array
+   *   Returns a structured array.
+   */
+  public static function preparePressListing($entity, $field, array $options = []) {
+    $linkList = [];
+
+    // Roll up the press list.
+    $links = $entity->get($field);
+
+    foreach ($links as $link) {
+      $url = $link->getUrl();
+      $text = $link->getValue()['title'];
+      $date = '';
+
+      // On an internal item, load the referenced node title.
+      if (strpos($link->getValue()['uri'], 'entity:node') !== FALSE) {
+        $params = Url::fromUri("internal:" . $url->toString())->getRouteParameters();
+        $entity_type = key($params);
+        $entity = \Drupal::entityTypeManager()->getStorage($entity_type)->load($params[$entity_type]);
+        $content_type = $entity->getType();
+
+        if (Helper::isFieldPopulated($entity, 'field_news_date')) {
+          $date = Helper::fieldFullView($entity, 'field_news_date');
+        }
+
+        // On internal item, if empty, grab enity title.
+        if (empty($text)) {
+          $text = $entity->getTitle();
+        }
+      }
+
+      $items[] = [
+        'eyebrow' => in_array($content_type, $options['useEyebrow']) ? $options['category'] : '',
+        'title' => [
+          'href' => $url->toString(),
+          'text' => $text,
+          'info' => '',
+          'property' => '',
+        ],
+        'date' => !empty($date) ? $date : '',
+        'org' => '',
+        'description' => '',
+      ];
+    }
+
+    if (!empty($items)) {
+      // Build either sidebar or comp heading based on heading type option.
+      $heading = isset($options['heading']) ? Helper::buildHeading($options['heading']) : [];
+      $pressList = array_merge($heading, ['items' => $items]);
+    }
+
+    return $pressList;
   }
 
   /**

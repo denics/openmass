@@ -13,7 +13,7 @@ entity_type: node
 bundle: org_page
 label: 'Background Image'
 description: 'The background image for the Services area will be automatically blurred for you. It needs to be a minimum of 1600x600.'
-required: false
+required: true
 translatable: false
 default_value: {  }
 default_value_callback: ''

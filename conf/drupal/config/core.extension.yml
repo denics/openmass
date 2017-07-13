@@ -65,9 +65,11 @@ module:
   mass_docs: 0
   mass_entityreference: 0
   mass_feedback_form: 0
+  mass_flagging: 0
   mass_formatters: 0
   mass_map: 0
   mass_nav: 0
+  mass_schema_apply_action: 0
   mass_schema_government_service: 0
   mass_schema_metatag: 0
   mass_search: 0

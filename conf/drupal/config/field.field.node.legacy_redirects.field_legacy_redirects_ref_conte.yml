@@ -13,7 +13,7 @@ dependencies:
     - node.type.org_page
     - node.type.page
     - node.type.person
-    - node.type.press_release
+    - node.type.news
     - node.type.section_landing
     - node.type.service_details
     - node.type.service_page
@@ -42,7 +42,7 @@ settings:
       location: location
       org_page: org_page
       person: person
-      press_release: press_release
+      news: news
       action: action
       section_landing: section_landing
       service_details: service_details

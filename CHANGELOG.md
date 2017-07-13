@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 ## Upcoming (add in progress changes here)
+### Added
+- Add Watch link to all nodes.
+
+### Changed
+- Made the "Desktop Banner" image a required field within a Organization page.
+
+### Removed
+- Remove `artifacts` folder (no longer used)
+
+## [0.22.2] - July 11, 2017
+
+### Changed (fixed)
+
+- Location pages no longer render blank location-specific page level alert by default (i.e. when there is no location alert content).
 
 ## [0.22.1] - July 10, 2017
 
