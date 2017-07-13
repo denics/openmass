@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 ## Upcoming (add in progress changes here)
 ### Added
+- Add Watch link to all nodes.
+
+### Changed
 - Made the "Desktop Banner" image a required field within a Organization page.
 
 ### Removed
