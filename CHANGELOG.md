@@ -5,8 +5,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 ## Upcoming (add in progress changes here)
 ### Added
-- Made the "Desktop Banner" image a required field within a Organization page.
 - Add Watch link to all nodes.
+
+### Changed
+- Made the "Desktop Banner" image a required field within a Organization page.
+
+### Removed
+- Remove `artifacts` folder (no longer used)
 
 ## [0.22.2] - July 11, 2017
 

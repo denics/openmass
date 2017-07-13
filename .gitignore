@@ -4,7 +4,6 @@ docroot/sites/*/files
 
 # Ignore virtual environment and artifacts
 .vagrant/
-/artifacts/*
 
 # Ignore npm dependencies
 node_modules/
