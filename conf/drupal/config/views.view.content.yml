@@ -14,6 +14,7 @@ dependencies:
     - node.type.legacy_redirects
     - node.type.location
     - node.type.location_details
+    - node.type.news
     - node.type.org_page
     - node.type.page
     - node.type.section_landing
@@ -444,6 +445,7 @@ display:
             legacy_redirects: legacy_redirects
             location_details: location_details
             location: location
+            news: news
             org_page: org_page
             action: action
             section_landing: section_landing

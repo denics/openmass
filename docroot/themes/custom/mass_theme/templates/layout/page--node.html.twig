@@ -13,5 +13,8 @@
  */
 #}
 {% extends 'page.html.twig' %}
+{% block watchFlag %}
+  {{ page.flag_link }}
+{% endblock %}
 {% block preContent %}{% endblock %}
 {% block postContent %}{% endblock %}

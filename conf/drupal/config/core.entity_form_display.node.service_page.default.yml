@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.service_page.field_image_credit
     - field.field.node.service_page.field_service_bg_narrow
     - field.field.node.service_page.field_service_bg_wide
     - field.field.node.service_page.field_service_body
@@ -52,6 +53,7 @@ third_party_settings:
         - field_service_lede
         - field_service_bg_wide
         - field_service_bg_narrow
+        - field_image_credit
       parent_name: group_service_edit_form
       weight: 20
       format_type: tab
@@ -173,6 +175,14 @@ content:
     settings: {  }
     third_party_settings: {  }
     region: content
+  field_image_credit:
+    weight: -1
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
   field_service_bg_narrow:
     weight: -2
     settings:
@@ -198,7 +208,7 @@ content:
     type: string_textarea
     region: content
   field_service_eligibility_info:
-    weight: 39
+    weight: 40
     settings:
       match_operator: CONTAINS
       size: 60
@@ -248,7 +258,7 @@ content:
     type: link_default
     region: content
   field_service_ref_actions:
-    weight: 39
+    weight: 25
     settings:
       placeholder_url: ''
       placeholder_title: ''
@@ -256,7 +266,7 @@ content:
     type: link_default
     region: content
   field_service_ref_actions_2:
-    weight: 38
+    weight: 24
     settings:
       placeholder_url: ''
       placeholder_title: ''
@@ -264,7 +274,7 @@ content:
     type: link_default
     region: content
   field_service_ref_guide_page_1:
-    weight: 38
+    weight: 39
     settings:
       match_operator: CONTAINS
       size: 60
@@ -291,7 +301,7 @@ content:
     type: entity_reference_autocomplete
     region: content
   field_service_sub_brand:
-    weight: 36
+    weight: 37
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
@@ -316,7 +326,7 @@ content:
     type: inline_entity_form_complex
     region: content
   field_services_social_links:
-    weight: 37
+    weight: 38
     settings:
       placeholder_url: ''
       placeholder_title: ''

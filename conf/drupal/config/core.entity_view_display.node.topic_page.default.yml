@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.topic_page.field_image_credit
     - field.field.node.topic_page.field_topic_bg_narrow
     - field.field.node.topic_page.field_topic_bg_wide
     - field.field.node.topic_page.field_topic_content_cards
@@ -21,6 +22,14 @@ targetEntityType: node
 bundle: topic_page
 mode: default
 content:
+  field_image_credit:
+    weight: 109
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
   field_topic_bg_narrow:
     weight: 104
     label: above

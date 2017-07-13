@@ -36,6 +36,7 @@ hidden:
   field_bg_narrow: true
   field_bg_wide: true
   field_file_attachment: true
+  field_image_credit: true
   field_link: true
   field_metatags: true
   field_org_ref_locations: true

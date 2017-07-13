@@ -42,6 +42,7 @@ hidden:
   field_bg_wide: true
   field_facilities: true
   field_iframe: true
+  field_image_credit: true
   field_links: true
   field_location_activity_detail: true
   field_location_facilities: true
