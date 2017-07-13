@@ -5,24 +5,37 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 ## Upcoming (add in progress changes here)
 ### Added
-- Image credits was added to the following content types location, organization, service, guide, and topic page.
-- Add Watch link to all nodes.
+
 
 ### Changed
-- Made the "Desktop Banner" image a required field within a Organization page.
+
 
 ### Removed
-- Remove `artifacts` folder (no longer used)
+
+## [0.22.3] - July 13, 2017
+
+### Added
+
+- On edit.mass.gov, you can manually watch and unwatch content. P.S. No watch notifications are sent yet, but you can sign up to watch something. 
+- Metadata for Service Details is published via a Schema.org mapping (good for search engines)
+- Photo credits added to images in hardened content types.
+
+### Changed 
+
+- In the edit experience, when a required piece of content hasn't been added yet, it says "No <part> added yet." For example, on a How-to page, if no next steps are added, it'll say "No next step added yet".
+- Accessibility of the directions link on Locations pages is improved.
+- An unlimited number of tasks can be added to Service pages
+- Press releases changed to news, with some new fields too!
 
 ## [0.22.2] - July 11, 2017
 
-### Changed (fixed)
+### Changed
 
 - Location pages no longer render blank location-specific page level alert by default (i.e. when there is no location alert content).
 
 ## [0.22.1] - July 10, 2017
 
-### Changed (fixed)
+### Changed
 
 - Mayflower module `Organisms::preparePageBanner` method now supports multiple image styles for the background image.  This fixes the rendering issues for banner images on Topic pages.
 
