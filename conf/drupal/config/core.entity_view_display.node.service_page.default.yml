@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.service_page.field_image_credit
     - field.field.node.service_page.field_service_bg_narrow
     - field.field.node.service_page.field_service_bg_wide
     - field.field.node.service_page.field_service_body
@@ -29,6 +30,14 @@ targetEntityType: node
 bundle: service_page
 mode: default
 content:
+  field_image_credit:
+    weight: 118
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
   field_service_bg_narrow:
     weight: 103
     label: above

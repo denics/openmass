@@ -25,6 +25,9 @@
   </div>
 {% endblock %}
 {% block postContent %}
+  {% if content.field_image_credit is not empty %}
+    {{ content.field_image_credit }}
+  {% endif %}
 {% endblock %}
 {% block schemaContent %}
   {% if schema.governmentOrganization %}

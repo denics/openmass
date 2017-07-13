@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.org_page.field_action_set__bg_wide
     - field.field.node.org_page.field_bg_narrow
     - field.field.node.org_page.field_bg_wide
+    - field.field.node.org_page.field_image_credit
     - field.field.node.org_page.field_link
     - field.field.node.org_page.field_metatags
     - field.field.node.org_page.field_org_ref_locations
@@ -53,6 +54,7 @@ third_party_settings:
         - field_ref_contact_info_1
         - field_bg_wide
         - field_bg_narrow
+        - field_image_credit
       parent_name: group_node_edit_form
       weight: 20
       format_type: tab
@@ -188,8 +190,16 @@ content:
     third_party_settings: {  }
     type: image_image
     region: content
+  field_image_credit:
+    weight: 24
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
   field_link:
-    weight: 28
+    weight: 29
     settings:
       placeholder_url: ''
       placeholder_title: ''

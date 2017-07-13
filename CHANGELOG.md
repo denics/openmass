@@ -5,6 +5,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 ## Upcoming (add in progress changes here)
 ### Added
+- Image credits was added to the following content types location, organization, service, guide, and topic page.
 - Add Watch link to all nodes.
 
 ### Changed
