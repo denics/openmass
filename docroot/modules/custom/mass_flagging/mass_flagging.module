@@ -5,8 +5,11 @@
  * Contains mass_flagging.module.
  */
 
+use Drupal\node\Entity\Node;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\mass_flagging\Plugin\QueueWorker;
+use Drupal\Core\Url;
 
 /**
  * Implements hook_help().
@@ -33,7 +36,9 @@ function mass_flagging_preprocess_page(&$variables) {
 
   // Check if user has correct permissions and page is node.
   if ($user->hasPermission('flag watch_content') &&
-    $user->hasPermission('unflag watch_content') && isset($variables['node'])) {
+    $user->hasPermission('unflag watch_content') &&
+    (isset($variables['node']) &&
+    $variables['node'] instanceof Node)) {
 
     $node = $variables['node'];
 
@@ -42,5 +47,56 @@ function mass_flagging_preprocess_page(&$variables) {
 
     $variables['page']['flag_link'] = $flag_link;
     $variables['#attached']['library'][] = 'mass_flagging/flag-link';
+  }
+}
+
+/**
+ * Implements hook_node_update().
+ */
+function mass_flagging_node_update(EntityInterface $node) {
+  $flag = \Drupal::service('flag');
+  $watch_flag = \Drupal::entityTypeManager()->getStorage('flag')->load('watch_content');
+
+  $flag_users = $flag->getFlaggingUsers($node, $watch_flag);
+
+  if ($flag_users) {
+
+    // Create Message.
+    $author_full_name = \Drupal::currentUser()->getDisplayName();
+    $params['node_title'] = $node->label();
+    $node_edit_time = \Drupal::service('date.formatter')->format($node->getCreatedTime());
+    $url = Url::fromRoute('entity.node.revision', ['node' => $node->id(), 'node_revision' => $node->vid->value]);
+    $version_url_string = $url->setAbsolute()->toString();
+    $params['message'] = t("Hello, \n\nUser @author_full_name added a new version of this page at @node_edit_time. \n\nTo see the changes, please go to @version_url_string. \n\nRegards, \nMassGov Watchers",
+      [
+        '@author_full_name' => $author_full_name,
+        '@node_edit_time' => $node_edit_time,
+        '@version_url_string' => $version_url_string
+      ]);
+
+    // Send to Queue for processing.
+    foreach ($flag_users as $flag_user) {
+      $data['params'] = $params;
+      $data['user'] = $flag_user;
+      // Create queue to process email for watchers.
+      $queue = \Drupal::queue('email_queue');
+      $queue->createQueue();
+      $queue->createItem($data);
+    }
+
+  }
+}
+
+/**
+ * Implements hook_mail().
+ */
+function mass_flagging_mail($key, &$message, $params) {
+  $options = ['langcode' => $message['langcode']];
+  switch ($key) {
+    case 'email_queue':
+      $message['from'] = \Drupal::config('system.site')->get('mail');
+      $message['subject'] = t('Watch Report: @title', ['@title' => $params['node_title']], $options);
+      $message['body'][] = $params['message'];
+      break;
   }
 }
