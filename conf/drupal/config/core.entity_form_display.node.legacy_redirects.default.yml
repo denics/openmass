@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.node.legacy_redirects.body
     - field.field.node.legacy_redirects.field_legacy_redirect_env
+    - field.field.node.legacy_redirects.field_legacy_redirect_hashed_url
     - field.field.node.legacy_redirects.field_legacy_redirects_legacyurl
     - field.field.node.legacy_redirects.field_legacy_redirects_ref_conte
     - node.type.legacy_redirects
@@ -18,7 +19,7 @@ mode: default
 content:
   body:
     type: text_textarea_with_summary
-    weight: 5
+    weight: 4
     settings:
       rows: 9
       summary_rows: 3
@@ -27,7 +28,7 @@ content:
     region: content
   created:
     type: datetime_timestamp
-    weight: 6
+    weight: 5
     settings: {  }
     third_party_settings: {  }
     region: content
@@ -64,7 +65,7 @@ content:
     region: content
   uid:
     type: entity_reference_autocomplete
-    weight: 7
+    weight: 6
     settings:
       match_operator: CONTAINS
       size: 60
@@ -72,6 +73,7 @@ content:
     third_party_settings: {  }
     region: content
 hidden:
+  field_legacy_redirect_hashed_url: true
   path: true
   promote: true
   sticky: true
