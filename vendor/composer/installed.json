@@ -11588,6 +11588,168 @@
         }
     },
     {
+        "name": "league/csv",
+        "version": "7.2.0",
+        "version_normalized": "7.2.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/thephpleague/csv.git",
+            "reference": "69bafa6ff924fbf9effe4275d6eb16be81a853ef"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/thephpleague/csv/zipball/69bafa6ff924fbf9effe4275d6eb16be81a853ef",
+            "reference": "69bafa6ff924fbf9effe4275d6eb16be81a853ef",
+            "shasum": ""
+        },
+        "require": {
+            "ext-mbstring": "*",
+            "php": ">=5.4.0"
+        },
+        "require-dev": {
+            "fabpot/php-cs-fixer": "^1.9",
+            "phpunit/phpunit": "^4.0"
+        },
+        "time": "2015-11-02T07:36:25+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "7.2-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "League\\Csv\\": "src"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Ignace Nyamagana Butera",
+                "email": "nyamsprod@gmail.com",
+                "homepage": "https://github.com/nyamsprod/",
+                "role": "Developer"
+            }
+        ],
+        "description": "Csv data manipulation made easy in PHP",
+        "homepage": "http://csv.thephpleague.com",
+        "keywords": [
+            "csv",
+            "export",
+            "filter",
+            "import",
+            "read",
+            "write"
+        ]
+    },
+    {
+        "name": "drupal/csv_serialization",
+        "version": "1.0.0",
+        "version_normalized": "1.0.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://git.drupal.org/project/csv_serialization",
+            "reference": "8.x-1.0"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://ftp.drupal.org/files/projects/csv_serialization-8.x-1.0.zip",
+            "reference": "8.x-1.0",
+            "shasum": "90023afb1a9296598c3d8ac9c8c81df4d00a2663"
+        },
+        "require": {
+            "drupal/core": "^8.0.4",
+            "league/csv": "^7.1"
+        },
+        "type": "drupal-module",
+        "extra": {
+            "branch-alias": {
+                "dev-1.x": "1.x-dev"
+            },
+            "drupal": {
+                "version": "8.x-1.0",
+                "datestamp": "1470405718"
+            }
+        },
+        "installation-source": "dist",
+        "notification-url": "https://packages.drupal.org/8/downloads",
+        "license": [
+            "GPL-2.0+"
+        ],
+        "authors": [
+            {
+                "name": "grasmash",
+                "homepage": "https://www.drupal.org/user/455714"
+            }
+        ],
+        "description": "Provides CSV as a serialization format.",
+        "homepage": "https://www.drupal.org/project/csv_serialization",
+        "support": {
+            "source": "http://cgit.drupalcode.org/csv_serialization"
+        }
+    },
+    {
+        "name": "drupal/auto_entitylabel",
+        "version": "2.0.0-beta1",
+        "version_normalized": "2.0.0.0-beta1",
+        "source": {
+            "type": "git",
+            "url": "https://git.drupal.org/project/auto_entitylabel",
+            "reference": "8.x-2.0-beta1"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://ftp.drupal.org/files/projects/auto_entitylabel-8.x-2.0-beta1.zip",
+            "reference": "8.x-2.0-beta1",
+            "shasum": "9978f4b5f2cdb3955e685a83c6b7f57f6d0b999d"
+        },
+        "require": {
+            "drupal/core": "~8.0"
+        },
+        "type": "drupal-module",
+        "extra": {
+            "branch-alias": {
+                "dev-2.x": "2.x-dev"
+            },
+            "drupal": {
+                "version": "8.x-2.0-beta1",
+                "datestamp": "1487875383"
+            }
+        },
+        "installation-source": "dist",
+        "notification-url": "https://packages.drupal.org/8/downloads",
+        "license": [
+            "GPL-2.0+"
+        ],
+        "authors": [
+            {
+                "name": "Pravin Ajaaz",
+                "homepage": "https://www.drupal.org/user/2910049"
+            },
+            {
+                "name": "RenatoG",
+                "homepage": "https://www.drupal.org/user/3326031"
+            },
+            {
+                "name": "bforchhammer",
+                "homepage": "https://www.drupal.org/user/216396"
+            },
+            {
+                "name": "purushotam.rai",
+                "homepage": "https://www.drupal.org/user/3193859"
+            }
+        ],
+        "description": "Allows hiding of entity label fields and automatic label creation.",
+        "homepage": "https://www.drupal.org/project/auto_entitylabel",
+        "support": {
+            "source": "http://cgit.drupalcode.org/auto_entitylabel"
+        }
+    },
+    {
         "name": "drupal/core",
         "version": "8.3.4",
         "version_normalized": "8.3.4.0",
@@ -12031,6 +12193,59 @@
         }
     },
     {
+        "name": "drupal/schema_metatag",
+        "version": "1.0.0-rc3",
+        "version_normalized": "1.0.0.0-RC3",
+        "source": {
+            "type": "git",
+            "url": "https://git.drupal.org/project/schema_metatag",
+            "reference": "8.x-1.0-rc3"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://ftp.drupal.org/files/projects/schema_metatag-8.x-1.0-rc3.zip",
+            "reference": null,
+            "shasum": "aabf4917bfdcd22e1d3dac421b1e248380af2fa7"
+        },
+        "require": {
+            "drupal/core": "~8.0",
+            "drupal/metatag": "*"
+        },
+        "require-dev": {
+            "drupal/schema_article": "*"
+        },
+        "type": "drupal-module",
+        "extra": {
+            "branch-alias": {
+                "dev-1.x": "1.x-dev"
+            },
+            "drupal": {
+                "version": "8.x-1.0-rc3",
+                "datestamp": "1496747643"
+            }
+        },
+        "installation-source": "dist",
+        "notification-url": "https://packages.drupal.org/8/downloads",
+        "license": [
+            "GPL-2.0+"
+        ],
+        "authors": [
+            {
+                "name": "KarenS",
+                "homepage": "https://www.drupal.org/user/45874"
+            }
+        ],
+        "description": "Metatag implementation of Schema.org structured data (JSON-LD)",
+        "homepage": "https://www.drupal.org/project/schema_metatag",
+        "keywords": [
+            "Drupal"
+        ],
+        "support": {
+            "source": "http://cgit.drupalcode.org/schema_metatag",
+            "issues": "https://www.drupal.org/project/issues/schema_metatag"
+        }
+    },
+    {
         "name": "drupal/username_enumeration_prevention",
         "version": "1.0.0-beta1",
         "version_normalized": "1.0.0.0-beta1",
@@ -12195,6 +12410,53 @@
         }
     },
     {
+        "name": "drupal/better_field_descriptions",
+        "version": "dev-1.x",
+        "version_normalized": "dev-1.x",
+        "source": {
+            "type": "git",
+            "url": "https://git.drupal.org/project/better_field_descriptions",
+            "reference": "f78d6715a2177a4b40568bff3c180383fae8cb27"
+        },
+        "require": {
+            "drupal/core": "~8.0"
+        },
+        "type": "drupal-module",
+        "extra": {
+            "branch-alias": {
+                "dev-1.x": "1.x-dev"
+            },
+            "drupal": {
+                "version": "8.x-1.1+2-dev",
+                "datestamp": "1498744743"
+            },
+            "patches_applied": {
+                "Fix the positioning of the additional help text (https://www.drupal.org/node/2882765)": "https://www.drupal.org/files/issues/better_field_descriptions-position-help-2882765-0.patch",
+                "Prevent errors when deleting fields (https://www.drupal.org/node/2888240)": "https://www.drupal.org/files/issues/better_field_descriptions-stop-errors-when-field-deleted-2888240-1.patch"
+            }
+        },
+        "installation-source": "source",
+        "notification-url": "https://packages.drupal.org/8/downloads",
+        "license": [
+            "GPL-2.0+"
+        ],
+        "authors": [
+            {
+                "name": "Yogesh Pawar",
+                "homepage": "https://www.drupal.org/user/2922907"
+            },
+            {
+                "name": "odegard",
+                "homepage": "https://www.drupal.org/user/703222"
+            }
+        ],
+        "description": "Allows users with certain roles to add themeable descriptions to fields in forms",
+        "homepage": "https://www.drupal.org/project/better_field_descriptions",
+        "support": {
+            "source": "http://cgit.drupalcode.org/better_field_descriptions"
+        }
+    },
+    {
         "name": "drupal/password_policy",
         "version": "dev-3.x",
         "version_normalized": "dev-3.x",
@@ -12307,334 +12569,6 @@
         "homepage": "https://www.drupal.org/project/tfa",
         "support": {
             "source": "http://cgit.drupalcode.org/tfa"
-        }
-    },
-    {
-        "name": "drupal/better_field_descriptions",
-        "version": "dev-1.x",
-        "version_normalized": "dev-1.x",
-        "source": {
-            "type": "git",
-            "url": "https://git.drupal.org/project/better_field_descriptions",
-            "reference": "f78d6715a2177a4b40568bff3c180383fae8cb27"
-        },
-        "require": {
-            "drupal/core": "~8.0"
-        },
-        "type": "drupal-module",
-        "extra": {
-            "branch-alias": {
-                "dev-1.x": "1.x-dev"
-            },
-            "drupal": {
-                "version": "8.x-1.1+2-dev",
-                "datestamp": "1498744743"
-            },
-            "patches_applied": {
-                "Fix the positioning of the additional help text (https://www.drupal.org/node/2882765)": "https://www.drupal.org/files/issues/better_field_descriptions-position-help-2882765-0.patch",
-                "Prevent errors when deleting fields (https://www.drupal.org/node/2888240)": "https://www.drupal.org/files/issues/better_field_descriptions-stop-errors-when-field-deleted-2888240-1.patch"
-            }
-        },
-        "installation-source": "source",
-        "notification-url": "https://packages.drupal.org/8/downloads",
-        "license": [
-            "GPL-2.0+"
-        ],
-        "authors": [
-            {
-                "name": "Yogesh Pawar",
-                "homepage": "https://www.drupal.org/user/2922907"
-            },
-            {
-                "name": "odegard",
-                "homepage": "https://www.drupal.org/user/703222"
-            }
-        ],
-        "description": "Allows users with certain roles to add themeable descriptions to fields in forms",
-        "homepage": "https://www.drupal.org/project/better_field_descriptions",
-        "support": {
-            "source": "http://cgit.drupalcode.org/better_field_descriptions"
-        }
-    },
-    {
-        "name": "league/csv",
-        "version": "7.2.0",
-        "version_normalized": "7.2.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/thephpleague/csv.git",
-            "reference": "69bafa6ff924fbf9effe4275d6eb16be81a853ef"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/thephpleague/csv/zipball/69bafa6ff924fbf9effe4275d6eb16be81a853ef",
-            "reference": "69bafa6ff924fbf9effe4275d6eb16be81a853ef",
-            "shasum": ""
-        },
-        "require": {
-            "ext-mbstring": "*",
-            "php": ">=5.4.0"
-        },
-        "require-dev": {
-            "fabpot/php-cs-fixer": "^1.9",
-            "phpunit/phpunit": "^4.0"
-        },
-        "time": "2015-11-02T07:36:25+00:00",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "7.2-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "League\\Csv\\": "src"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Ignace Nyamagana Butera",
-                "email": "nyamsprod@gmail.com",
-                "homepage": "https://github.com/nyamsprod/",
-                "role": "Developer"
-            }
-        ],
-        "description": "Csv data manipulation made easy in PHP",
-        "homepage": "http://csv.thephpleague.com",
-        "keywords": [
-            "csv",
-            "export",
-            "filter",
-            "import",
-            "read",
-            "write"
-        ]
-    },
-    {
-        "name": "drupal/csv_serialization",
-        "version": "1.0.0",
-        "version_normalized": "1.0.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://git.drupal.org/project/csv_serialization",
-            "reference": "8.x-1.0"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://ftp.drupal.org/files/projects/csv_serialization-8.x-1.0.zip",
-            "reference": "8.x-1.0",
-            "shasum": "90023afb1a9296598c3d8ac9c8c81df4d00a2663"
-        },
-        "require": {
-            "drupal/core": "^8.0.4",
-            "league/csv": "^7.1"
-        },
-        "type": "drupal-module",
-        "extra": {
-            "branch-alias": {
-                "dev-1.x": "1.x-dev"
-            },
-            "drupal": {
-                "version": "8.x-1.0",
-                "datestamp": "1470405718"
-            }
-        },
-        "installation-source": "dist",
-        "notification-url": "https://packages.drupal.org/8/downloads",
-        "license": [
-            "GPL-2.0+"
-        ],
-        "authors": [
-            {
-                "name": "grasmash",
-                "homepage": "https://www.drupal.org/user/455714"
-            }
-        ],
-        "description": "Provides CSV as a serialization format.",
-        "homepage": "https://www.drupal.org/project/csv_serialization",
-        "support": {
-            "source": "http://cgit.drupalcode.org/csv_serialization"
-        }
-    },
-    {
-        "name": "drupal/auto_entitylabel",
-        "version": "2.0.0-beta1",
-        "version_normalized": "2.0.0.0-beta1",
-        "source": {
-            "type": "git",
-            "url": "https://git.drupal.org/project/auto_entitylabel",
-            "reference": "8.x-2.0-beta1"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://ftp.drupal.org/files/projects/auto_entitylabel-8.x-2.0-beta1.zip",
-            "reference": "8.x-2.0-beta1",
-            "shasum": "9978f4b5f2cdb3955e685a83c6b7f57f6d0b999d"
-        },
-        "require": {
-            "drupal/core": "~8.0"
-        },
-        "type": "drupal-module",
-        "extra": {
-            "branch-alias": {
-                "dev-2.x": "2.x-dev"
-            },
-            "drupal": {
-                "version": "8.x-2.0-beta1",
-                "datestamp": "1487875383"
-            }
-        },
-        "installation-source": "dist",
-        "notification-url": "https://packages.drupal.org/8/downloads",
-        "license": [
-            "GPL-2.0+"
-        ],
-        "authors": [
-            {
-                "name": "Pravin Ajaaz",
-                "homepage": "https://www.drupal.org/user/2910049"
-            },
-            {
-                "name": "RenatoG",
-                "homepage": "https://www.drupal.org/user/3326031"
-            },
-            {
-                "name": "bforchhammer",
-                "homepage": "https://www.drupal.org/user/216396"
-            },
-            {
-                "name": "purushotam.rai",
-                "homepage": "https://www.drupal.org/user/3193859"
-            }
-        ],
-        "description": "Allows hiding of entity label fields and automatic label creation.",
-        "homepage": "https://www.drupal.org/project/auto_entitylabel",
-        "support": {
-            "source": "http://cgit.drupalcode.org/auto_entitylabel"
-        }
-    },
-    {
-        "name": "drupal/schema_metatag",
-        "version": "1.0.0-rc3",
-        "version_normalized": "1.0.0.0-RC3",
-        "source": {
-            "type": "git",
-            "url": "https://git.drupal.org/project/schema_metatag",
-            "reference": "8.x-1.0-rc3"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://ftp.drupal.org/files/projects/schema_metatag-8.x-1.0-rc3.zip",
-            "reference": "8.x-1.0-rc3",
-            "shasum": "aabf4917bfdcd22e1d3dac421b1e248380af2fa7"
-        },
-        "require": {
-            "drupal/core": "~8.0",
-            "drupal/metatag": "*"
-        },
-        "require-dev": {
-            "drupal/schema_article": "*"
-        },
-        "type": "drupal-module",
-        "extra": {
-            "enable-patching": true,
-            "drupal-scaffold": {
-                "excludes": [
-                    ".htaccess",
-                    "robots.txt",
-                    ".eslintrc",
-                    ".eslintignore",
-                    ".eslintrc.json"
-                ],
-                "omit-defaults": false
-            },
-            "installer-paths": {
-                "docroot/core": [
-                    "type:drupal-core"
-                ],
-                "docroot/libraries/{$name}": [
-                    "type:drupal-library"
-                ],
-                "docroot/modules/contrib/{$name}": [
-                    "type:drupal-module"
-                ],
-                "docroot/profiles/contrib/{$name}": [
-                    "type:drupal-profile"
-                ],
-                "docroot/themes/contrib/{$name}": [
-                    "type:drupal-theme"
-                ],
-                "drush/contrib/{$name}": [
-                    "type:drupal-drush"
-                ]
-            },
-            "patches": {
-                "drupal/core": {
-                    "Remove drupal.js error. (https://www.drupal.org/node/2661880)": "https://www.drupal.org/files/issues/quickedit-undefined-attr-2661880-14.patch",
-                    "Don't break if telephone number is less than 6 digits. (https://www.drupal.org/node/2575577#comment-11750724)": "https://www.drupal.org/files/issues/2575577-11.patch",
-                    "Fix photo disappearing from org page. Fix Contextual Links js bug.": "https://www.drupal.org/files/issues/2551373-32.patch",
-                    "Link autocomplete content type filter. (https://www.drupal.org/node/2887376#comment-12147367)": "https://www.drupal.org/files/issues/link-autocomplete-ct-filter-2887376-5-8.4.x.patch"
-                },
-                "drupal/workbench_moderation": {
-                    "Fix type errors from WorkbenchModeration edit tab labeling (https://www.drupal.org/node/2769119#comment-11624207)": "https://www.drupal.org/files/issues/workbench_moderation-edit_tab-2769119-6.patch"
-                },
-                "drupal/crazyegg": {
-                    "Configure crazyegg for specific pages. (https://www.drupal.org/node/2812783)": "https://www.drupal.org/files/issues/2812783-configure-for-specific-pages.patch"
-                },
-                "drupal/password_policy": {
-                    "Removes field updates from the install file. (https://www.drupal.org/node/2771129#comment-12108388)": "https://www.drupal.org/files/issues/password-policy-config-import-field-error-2771129-37-D8.patch"
-                },
-                "drupal/tfa": {
-                    "Drush sanitize plugin for TFA user data. (https://www.drupal.org/node/2862312)": "https://www.drupal.org/files/issues/drush_27.patch",
-                    "Security patch for two-factor vulnerability where one could bypass first factor of authentication (not public yet)": "patches/tfa-token-verify.patch"
-                },
-                "drupal/username_enumeration_prevention": {
-                    "Fix install error": "https://www.drupal.org/files/issues/username_enumeration_prevention_requirements_severity-2823440-1.patch"
-                },
-                "drupal/entity_browser": {
-                    "Fix duplicated image selection when click use selected button": "https://www.drupal.org/files/issues/prevent-duplication.patch",
-                    "Fix for 'Undefined index: max_resolution' which occured what looking for max_resolution on non-images (https://www.drupal.org/node/2871372)": "https://www.drupal.org/files/issues/entity-browser-widget-context-small-fix-2871372-2.patch"
-                },
-                "drupal/access_unpublished": {
-                    "Allow to view unpublished content moderated using Workbench Moderation": "https://www.drupal.org/files/issues/access_unpublished-integration_with_workbench_moderation_module-2848938-4.patch"
-                },
-                "drupal/field_group": {
-                    "Provide page level error messaging when publishing validation is not met": "https://www.drupal.org/files/issues/field_group-validation-2787179-9.patch"
-                },
-                "drupal/better_field_descriptions": {
-                    "Fix the positioning of the additional help text (https://www.drupal.org/node/2882765)": "https://www.drupal.org/files/issues/better_field_descriptions-position-help-2882765-0.patch",
-                    "Prevent errors when deleting fields (https://www.drupal.org/node/2888240)": "https://www.drupal.org/files/issues/better_field_descriptions-stop-errors-when-field-deleted-2888240-1.patch"
-                },
-                "drupal/schema_metatag": {
-                    "Fix fatal error": "https://www.drupal.org/files/issues/schema_metatag-2882482-fix_module_fatal_error-2.patch",
-                    "Fix PHPCS errors": "https://www.drupal.org/files/issues/schema_metatag-2882492-fix_phpcs_errors_and_warnings-2.patch"
-                }
-            }
-        },
-        "installation-source": "dist",
-        "notification-url": "https://packages.drupal.org/8/downloads",
-        "license": [
-            "GPL-2.0+"
-        ],
-        "authors": [
-            {
-                "name": "KarenS",
-                "homepage": "https://www.drupal.org/user/45874"
-            }
-        ],
-        "description": "Metatag implementation of Schema.org structured data (JSON-LD)",
-        "homepage": "https://www.drupal.org/project/schema_metatag",
-        "keywords": [
-            "Drupal"
-        ],
-        "support": {
-            "source": "http://cgit.drupalcode.org/schema_metatag",
-            "issues": "https://www.drupal.org/project/issues/schema_metatag"
         }
     }
 ]

@@ -129,6 +129,7 @@ content:
     weight: 2
     settings: {  }
     third_party_settings: {  }
+    region: content
   field_news_body:
     weight: 33
     settings:
@@ -136,11 +137,13 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
+    region: content
   field_news_date:
     weight: 4
     settings: {  }
     third_party_settings: {  }
     type: datetime_default
+    region: content
   field_news_image:
     weight: 29
     settings:
@@ -148,6 +151,7 @@ content:
       preview_image_style: thumbnail
     third_party_settings: {  }
     type: image_image
+    region: content
   field_news_lede:
     weight: 7
     settings:
@@ -155,6 +159,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
   field_news_links:
     weight: 5
     settings:
@@ -162,6 +167,7 @@ content:
       placeholder_title: ''
     third_party_settings: {  }
     type: link_default
+    region: content
   field_news_location:
     weight: 30
     settings:
@@ -169,6 +175,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
   field_news_media_contac:
     type: entity_reference_paragraphs
     weight: 2
@@ -180,6 +187,7 @@ content:
       form_display_mode: default
       default_paragraph_type: _none
     third_party_settings: {  }
+    region: content
   field_news_sections:
     type: entity_reference_paragraphs
     weight: 34
@@ -191,6 +199,7 @@ content:
       form_display_mode: default
       default_paragraph_type: _none
     third_party_settings: {  }
+    region: content
   field_news_signees:
     type: entity_reference_paragraphs
     weight: 1
@@ -202,6 +211,7 @@ content:
       form_display_mode: default
       default_paragraph_type: _none
     third_party_settings: {  }
+    region: content
   field_news_summary:
     weight: 8
     settings:
@@ -209,11 +219,13 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
   field_news_type:
     weight: 3
     settings: {  }
     third_party_settings: {  }
     type: options_select
+    region: content
   field_news_video:
     type: entity_reference_paragraphs
     weight: 31
@@ -225,23 +237,27 @@ content:
       form_display_mode: default
       default_paragraph_type: _none
     third_party_settings: {  }
+    region: content
   path:
     type: path
     weight: 5
     settings: {  }
     third_party_settings: {  }
+    region: content
   promote:
     type: boolean_checkbox
     settings:
       display_label: true
     weight: 3
     third_party_settings: {  }
+    region: content
   sticky:
     type: boolean_checkbox
     settings:
       display_label: true
     weight: 4
     third_party_settings: {  }
+    region: content
   title:
     type: string_textfield
     weight: 2
@@ -249,6 +265,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+    region: content
   uid:
     type: entity_reference_autocomplete
     weight: 1
@@ -257,6 +274,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+    region: content
 hidden:
   field_news_presented: true
   field_news_speaker: true

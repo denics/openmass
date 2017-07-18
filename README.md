@@ -3,7 +3,7 @@
 *The official website of the Commonwealth of Massachusetts*
 
 This is the codebase for the Drupal8 site powering (currently) pilot.mass.gov, and eventually mass.gov.
-The Drupal theme (mass_theme) integrates with our Pattern Library [Mayflower](https://github.com/massgov/mayflower).
+The Drupal theme (mass_theme) [integrates with our pattern library, Mayflower](docs/Mayflower.md).
 
 [![CircleCI](https://circleci.com/gh/massgov/mass.svg?style=svg&circle-token=591bd0354ff2fce66095cbb97087fd8eae090b5d)](https://circleci.com/gh/massgov/mass)
 

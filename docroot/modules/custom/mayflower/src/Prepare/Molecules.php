@@ -1228,12 +1228,17 @@ class Molecules {
 
     $date = !empty($entity->$fields['date']->value) ? strtotime($entity->$fields['date']->value) : '';
 
+    $dateTime = new \DateTime($entity->$fields['date']->value, new \DateTimeZone('UTC'));
+    $timezone = 'America/New_York';
+    $dateTime->setTimeZone(new \DateTimeZone($timezone));
+    $time = $dateTime->format('g:ia');
+
     if (isset($options['headerDate'])) {
       return [
         'date' => [
           'summary' => \Drupal::service('date.formatter')->format($date, 'custom', 'l, F d, Y'),
         ],
-        'time' => !empty($entity->$fields['time']->value) ? Helper::fieldValue($entity, $fields['time']) : '',
+        'time' => !empty($entity->$fields['time']->value) ? Helper::fieldValue($entity, $fields['time']) : $time,
       ];
     }
     else {
@@ -1252,7 +1257,7 @@ class Molecules {
           'endMonth' => '',
           'endDay' => '',
         ],
-        'time' => !empty($entity->$fields['time']->value) ? Helper::fieldValue($entity, $fields['time']) : '',
+        'time' => !empty($entity->$fields['time']->value) ? Helper::fieldValue($entity, $fields['time']) : $time,
         'description' => !empty($entity->$fields['lede']->value) ? Helper::fieldValue($entity, $fields['lede']) : '',
       ];
     }

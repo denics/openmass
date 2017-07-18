@@ -44,6 +44,11 @@ dependencies:
     - cd docroot && drush -yv config-import
     # Get a status
     - cd docroot && drush status
+    # config-export and error if there are differences. 
+    # this makes sure our committed config matches what is exported by Drupal.
+    - cd docroot && drush config-export -y
+    - git diff --exit-code
+    - git reset --hard
 
 test:
   override:

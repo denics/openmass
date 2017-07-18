@@ -33,6 +33,37 @@ class PasswordResetBehaviorsTest extends WebTestBase {
   protected $profile = 'standard';
 
   /**
+   * {@inheritdoc}
+   */
+  public function setUp() {
+    parent::setUp();
+    // Set up user form display.
+    $storage = \Drupal::entityTypeManager()->getStorage('entity_form_display');
+    $user_form_display = $storage->load('user.user.default');
+    if (!$user_form_display) {
+      $user_form_display = $storage->create([
+        'targetEntityType' => 'user',
+        'bundle' => 'user',
+        'mode' => 'default',
+        'status' => TRUE,
+      ]);
+    }
+    $user_form_display
+      ->setComponent('field_last_password_reset', [
+        'type' => 'datetime_default',
+        // Display before contact standard profile field.
+        'weight' => 4,
+        'settings' => [],
+      ])
+      ->setComponent('field_password_expiration', [
+        'type' => 'boolean_checkbox',
+        'weight' => 3,
+        'settings' => ['display_label' => TRUE],
+      ])
+      ->save();
+  }
+
+  /**
    * Test password reset behaviors.
    */
   public function testPasswordResetBehaviors() {

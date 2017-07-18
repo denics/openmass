@@ -10,7 +10,7 @@ Feature: Event Page Content type
       | field                       | tag        | type    | multivalue |
       | field-event-ref-contact     | input      | text    | false      |
       | field-event-capacity        | input      | text    | false      |
-      | field-event-date            | input      | date    | false      |
+      | field-event-date            | select     | text    | false      |
       | field-event-description     | textarea   | text    | false      |
       | field-event-image           | input      | submit  | false      |
       | field-event-logo            | input      | submit  | false      |
