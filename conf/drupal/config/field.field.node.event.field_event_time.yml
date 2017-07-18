@@ -22,9 +22,9 @@ id: node.event.field_event_time
 field_name: field_event_time
 entity_type: node
 bundle: event
-label: Time
-description: 'This is the start time or range of time that this event will take place on. If this is an all day event, please list the start time and note it is an all day event in the description.'
-required: true
+label: 'Complex event time'
+description: 'Enter time in this field only if event time cannot be expressed in a strictly numeric way. This will override time above if entered.'
+required: false
 translatable: false
 default_value: {  }
 default_value_callback: ''
