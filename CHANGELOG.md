@@ -11,7 +11,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 ### Removed
 
-## [0.22.3] - July 13, 2017
+## [0.23.0] - July 18, 2017
 
 ### Added
 
