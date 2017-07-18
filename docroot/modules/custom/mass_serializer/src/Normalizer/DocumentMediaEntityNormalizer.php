@@ -103,10 +103,10 @@ class DocumentMediaEntityNormalizer extends ContentEntityNormalizer {
     $attributes['modified'] = date($this->dateFormat, $attributes['changed']);
 
     // Set publisher.
-    $creator_tid = $attributes['field_creator'][0]['target_id'];
-    if (!is_null($creator_tid)) {
-      $creator = Term::load($creator_tid);
-      $attributes['publisher']['name'] = $creator->getName();
+    $agency_tid = $attributes['field_contributing_agency'][0]['target_id'];
+    if (!is_null($agency_tid)) {
+      $agency = Term::load($agency_tid);
+      $attributes['publisher']['name'] = $agency->getName();
     }
     else {
       $attributes['publisher'] = new \stdClass();
