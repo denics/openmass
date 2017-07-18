@@ -1,0 +1,37 @@
+uuid: 7157628c-1380-4ac1-9b87-745e51f8d3c4
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.executive_order.body
+    - node.type.executive_order
+  module:
+    - text
+    - user
+id: node.executive_order.teaser
+targetEntityType: node
+bundle: executive_order
+mode: teaser
+content:
+  body:
+    label: hidden
+    type: text_summary_or_trimmed
+    weight: 101
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+    region: content
+  links:
+    weight: 100
+    region: content
+hidden:
+  field_executive_order_adjustment: true
+  field_executive_order_date: true
+  field_executive_order_downloads: true
+  field_executive_order_events: true
+  field_executive_order_issuer: true
+  field_executive_order_mass_regis: true
+  field_executive_order_metatags: true
+  field_executive_order_overview: true
+  field_executive_order_related: true

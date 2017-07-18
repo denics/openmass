@@ -1,0 +1,34 @@
+uuid: 70512f96-8ead-432d-82d6-8bd3cb0285a9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.adjustment_type.field_adjustment_type
+    - field.field.paragraph.adjustment_type.field_adjustment_type_related
+    - paragraphs.paragraphs_type.adjustment_type
+  module:
+    - workbench_moderation
+id: paragraph.adjustment_type.default
+targetEntityType: paragraph
+bundle: adjustment_type
+mode: default
+content:
+  field_adjustment_type:
+    weight: 6
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_adjustment_type_related:
+    weight: 7
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
+hidden:
+  created: true
+  status: true
+  uid: true
