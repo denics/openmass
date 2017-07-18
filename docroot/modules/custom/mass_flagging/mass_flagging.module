@@ -8,6 +8,8 @@
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Entity\EntityInterface;
 
+const WATCH_FLAG = 'watch_content';
+
 /**
  * Implements hook_help().
  */
@@ -42,5 +44,41 @@ function mass_flagging_preprocess_page(&$variables) {
 
     $variables['page']['flag_link'] = $flag_link;
     $variables['#attached']['library'][] = 'mass_flagging/flag-link';
+  }
+}
+
+/**
+ * Implements hook_node_update().
+ */
+function mass_flagging_node_update(EntityInterface $node) {
+  mass_flagging_node_update_insert($node);
+}
+
+/**
+ * Implements hook_node_insert().
+ */
+function mass_flagging_node_insert(EntityInterface $node) {
+  mass_flagging_node_update_insert($node);
+}
+
+/**
+ * Add a user as a watcher for updates or inserts.
+ *
+ * @param \Drupal\Core\Entity\EntityInterface $node
+ *   The node object that is being updated or inserted.
+ */
+function mass_flagging_node_update_insert(EntityInterface $node) {
+  // Add flag for the user editing or creating the node.
+  $watch = \Drupal::entityTypeManager()->getStorage('flag')->load(WATCH_FLAG);
+  $bundles = $watch->getBundles();
+  if (!empty($bundles) && in_array($node->bundle(), $bundles)) {
+    $flag = \Drupal::service('flag');
+    $user = \Drupal::currentUser();
+    if (!$user->isAnonymous()) {
+      $flagging = $flag->getEntityFlaggings($watch, $node, $user);
+      if (empty($flagging)) {
+        $flag->flag($watch, $node);
+      }
+    }
   }
 }
