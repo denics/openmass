@@ -5,6 +5,10 @@ dependencies: {  }
 id: node__guide_page
 label: 'Content: Guide Page'
 tags:
+  schema_collection_page_description: '[node:field_guide_page_lede]'
+  schema_collection_page_name: '[node:title]'
+  schema_collection_page_related_link: '[node:field_guide_page_related_guides]'
+  schema_collection_page_type: CollectionPage
   description: '[node: field_guide_page_lede]'
   robots: 'index, follow'
   title: '[node:title] | [site:name]'
