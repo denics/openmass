@@ -26,8 +26,15 @@ dependencies:
     - echo "memory_limit=1024M" > ~/.phpenv/versions/$(phpenv global)/etc/conf.d/memory.ini
     # restart apache
     - sudo service apache2 restart
+    # identify the committer i.e. circleci deployment bot
+    - git config --global user.email "circleci@example.com"
+    - git config --global user.name "CircleCI Deployment Bot"
 
   override:
+    - composer install --no-interaction
+    # Prep for push to Acquia Git. Do so while we have a clean build.
+    - git add -A -f ${HOME}/${CIRCLE_PROJECT_REPONAME}
+    - git commit -m "Add vendor code."
     # install eslint globally
     - npm install -g eslint@v2.13.1
     # configure phpcs to recognize Drupal and DrupalPractice standards
@@ -50,6 +57,9 @@ dependencies:
     - git diff --exit-code
     - git reset --hard
 
+  cache_directories:
+      - ~/.composer/cache
+
 test:
   override:
     # check drupal coding standards with php code sniffer
@@ -66,11 +76,6 @@ test:
     - cd docroot && drush cr
     # behat testing
     - behat --format=junit --out=$CIRCLE_TEST_REPORTS/behat --format=pretty --out=std
-
-  post:
-    # identify the committer i.e. circleci deployment bot
-    - git config --global user.email "circleci@example.com"
-    - git config --global user.name "CircleCI Deployment Bot"
 
 # after tests pass, proceed with deployment(s)
 deployment:
