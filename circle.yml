@@ -51,7 +51,7 @@ dependencies:
     - cd docroot && drush -yv config-import
     # Get a status
     - cd docroot && drush status
-    # config-export and error if there are differences. 
+    # config-export and error if there are differences.
     # this makes sure our committed config matches what is exported by Drupal.
     - cd docroot && drush config-export -y
     - git diff --exit-code
@@ -97,4 +97,4 @@ deployment:
       # add a deployment identifier for cache busting at Acquia.
       - scripts/stamp-and-deploy
       # deploy `develop` branch to `cd` environment
-      - drush ma-deploy --refresh-db --skip-maint cd $CIRCLE_BRANCH
+      - cd docroot && drush ma-deploy --refresh-db --skip-maint cd $CIRCLE_BRANCH
