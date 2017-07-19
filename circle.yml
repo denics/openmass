@@ -84,32 +84,17 @@ deployment:
   # developer(s) will activate branch of interest in available acquia environment on demand
   acquia:
     # condition for which branch to act upon
-    # in this case, we have any branch by using the regex /.*/
-    branch: /.*/
+    # in this case, we have any branch but develop
+    branch: /^(?!develop$).*$/
     commands:
       # add a deployment identifier for cache busting at Acquia.
-      - echo -e "<?php\n\n\$settings['deployment_identifier'] = '$CIRCLE_SHA1';" > ${HOME}/${CIRCLE_PROJECT_REPONAME}/docroot/sites/deployment_id.php
-      - git add ${HOME}/${CIRCLE_PROJECT_REPONAME}/docroot/sites/deployment_id.php
-      - git commit -m "Update deployment identifier"
-      # add acquia repo as an additional remote
-      - git remote add acquia massgov@svn-20994.prod.hosting.acquia.com:massgov.git
-      # push the branch that meets our regex (/.*/ above)
-      # get branch name from an environment variable
-      - git push --force acquia $CIRCLE_BRANCH
+      - scripts/stamp-and-deploy
   # deploy `develop` branch to `cd` (task labeled as "continuous_delivery")
   continuous_delivery:
     # only run when branch value is `develop`
     branch: develop
     commands:
       # add a deployment identifier for cache busting at Acquia.
-      - echo -e "<?php\n\n\$settings['deployment_identifier'] = '$CIRCLE_SHA1';" > ${HOME}/${CIRCLE_PROJECT_REPONAME}/docroot/sites/deployment_id.php
-      - git add ${HOME}/${CIRCLE_PROJECT_REPONAME}/docroot/sites/deployment_id.php
-      - git commit -m "Update deployment identifier"
-      # add acquia cloud git repo as a remote for this circle ci build
-      - git remote add acquia massgov@svn-20994.prod.hosting.acquia.com:massgov.git
-      # push `develop` branch to acquia cloud git repo
-      - git push --force acquia $CIRCLE_BRANCH
-      # activate `develop` branch in `cd` environment
-      - drush ma-deploy cd $CIRCLE_BRANCH
-      # copy files from `prod` environment to `cd`
-      - drush -y rsync @massgov.prod:%files @massgov.cd:%files
+      - scripts/stamp-and-deploy
+      # deploy `develop` branch to `cd` environment
+      - drush ma-deploy --refresh-db --skip-maint cd $CIRCLE_BRANCH
