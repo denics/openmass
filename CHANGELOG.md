@@ -23,10 +23,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 ### Changed
 
-- Improvements to event times: default values provided during edit and the entry is more structured for improved ability to handle complex functionality.
 - Content cards on topic pages are strictly only able to link to other topic pages, organizations, and services. This helps keep topic pages clean and structured.
 - Legacy redirects cannot be used more than once.
-- Devs: drush @alias uli works again
 - Devs: Composer state is fixed. Composer install works again.
 
 ## [0.22.3] - July 13, 2017
