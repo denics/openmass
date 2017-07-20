@@ -6,7 +6,6 @@
  */
 
 use Drupal\Core\Render\BubbleableMetadata;
-use Drupal\Core\Url;
 
 /**
  * Implements hook_metatag_groups_alter().
@@ -66,7 +65,7 @@ function mass_schema_collection_page_tokens($type, $tokens, array $data, array $
       }
 
       $field_type = $entity->get($name)->getFieldDefinition()->getType();
-      if ($field_type != 'entity_reference_revisions' && $field_type!= 'link' && $field_type != 'entity_reference') {
+      if ($field_type != 'entity_reference_revisions' && $field_type != 'link' && $field_type != 'entity_reference') {
         continue;
       }
 
