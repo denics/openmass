@@ -1,0 +1,33 @@
+uuid: a9698aeb-448d-4b95-9ad7-b4e1fce7fc6d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_decision_section_body
+    - paragraphs.paragraphs_type.decision_section
+  module:
+    - geocoder_field
+    - text
+third_party_settings:
+  geocoder_field:
+    method: none
+    field: parent_id
+    plugins: {  }
+    dumper: wkt
+    delta_handling: default
+    failure:
+      handling: preserve
+      status_message: true
+      log: true
+id: paragraph.decision_section.field_decision_section_body
+field_name: field_decision_section_body
+entity_type: paragraph
+bundle: decision_section
+label: Body
+description: 'Enter the text of this advisory section.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

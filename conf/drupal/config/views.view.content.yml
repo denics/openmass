@@ -6,6 +6,7 @@ dependencies:
     - node.type.action
     - node.type.advisory
     - node.type.contact_information
+    - node.type.decision
     - node.type.emergency_alerts
     - node.type.error_page
     - node.type.executive_order
@@ -481,6 +482,7 @@ display:
             advisory: advisory
             page: page
             contact_information: contact_information
+            decision: decision
             emergency_alerts: emergency_alerts
             error_page: error_page
             executive_order: executive_order

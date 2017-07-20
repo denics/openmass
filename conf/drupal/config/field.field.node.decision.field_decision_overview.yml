@@ -1,0 +1,33 @@
+uuid: 48f3a322-84ee-4723-b575-add065f4bc63
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_decision_overview
+    - node.type.decision
+  module:
+    - geocoder_field
+    - text
+third_party_settings:
+  geocoder_field:
+    method: none
+    field: title
+    plugins: {  }
+    dumper: wkt
+    delta_handling: default
+    failure:
+      handling: preserve
+      status_message: true
+      log: true
+id: node.decision.field_decision_overview
+field_name: field_decision_overview
+entity_type: node
+bundle: decision
+label: Overview
+description: "Optional. A short description that precedes the text of the decision.\r\n"
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

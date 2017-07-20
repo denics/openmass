@@ -16,6 +16,7 @@ permissions:
   - 'access_unpublished node advisory'
   - 'access_unpublished node agency'
   - 'access_unpublished node contact_information'
+  - 'access_unpublished node decision'
   - 'access_unpublished node emergency_alerts'
   - 'access_unpublished node error_page'
   - 'access_unpublished node executive_order'

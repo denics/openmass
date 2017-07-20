@@ -1,0 +1,17 @@
+uuid: c902ea7d-9431-4e80-85d4-2f29ca4f6033
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+name: Decision
+type: decision
+description: 'A Decision page is used to document the decisions, rulings or opinions of a board or commission for a given case.'
+help: ''
+new_revision: true
+preview_mode: 1
+display_submitted: true
