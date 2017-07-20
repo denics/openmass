@@ -5,9 +5,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 ## Upcoming (add in progress changes here)
 
-### Addedd
+## [0.23.1] - July 20, 2017
+
+### Added
+- DP-0000 - Adds "stamp-and-deploy" script. Under "deployment" in "circle.yml", the "commands" section for branches that CircleCI acts upon, are now in a bash script "./scripts/stamp-and-deploy". (Sorry, no Jira ticket - Youssef & Moshe)
+- DP-3774 - Adds email notifications for watchers of content
+- DP-4357 - Adds preliminary configuration for Advisory content type
+- DP-4358 - Adds preliminary configuration for Decision content type
 
 ### Changed
+DP-0000 - Fine-tune branch name regex for CircleCI; i.e. act on any branch name that is not "develop". Only push to Acquia if it is not "develop". (Sorry, no Jira ticket - Youssef & Moshe)
 
 ### Removed
 
