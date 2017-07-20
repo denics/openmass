@@ -36,6 +36,11 @@ function mass_schema_collection_page_tokens($type, $tokens, array $data, array $
     /** @var \Drupal\Core\Entity\ContentEntityInterface $entity */
     $entity = $data['node'];
 
+    // The following logic is to be applied only to guide pages.
+    if ($entity->getType() !== 'guide_page') {
+      return;
+    }
+
     // Iterate through all the tokens.
     foreach ($tokens as $name => $original) {
       $property_name = $name;
@@ -60,15 +65,15 @@ function mass_schema_collection_page_tokens($type, $tokens, array $data, array $
         continue;
       }
 
-      if ($entity->get($name)->getFieldDefinition()->getType() != 'entity_reference_revisions' &&
-        $entity->get($name)->getFieldDefinition()->getType() != 'link') {
+      $field_type = $entity->get($name)->getFieldDefinition()->getType();
+      if ($field_type != 'entity_reference_revisions' && $field_type!= 'link' && $field_type != 'entity_reference') {
         continue;
       }
 
+      $data = [];
       // Check if the field is a reference revisions field. This indicates that
       // it references other entities, such as paragraphs.
-      if ($entity->get($name)->getFieldDefinition()->getType() == 'entity_reference_revisions'
-      ) {
+      if ($field_type == 'entity_reference_revisions') {
         // Get all values from the referenced entity.
         $referenced_entities = $entity->get($name)->referencedEntities();
         foreach ($referenced_entities as $referenced_entity) {
@@ -82,27 +87,14 @@ function mass_schema_collection_page_tokens($type, $tokens, array $data, array $
           );
         }
       }
-      // Otherwise, just get the value from the field.
-      else {
-        $value = $entity->get($name)->getValue();
-      }
-
-      $data = [];
-      // Get the link value. This value will be an array containing the link's
-      // attributes - such as the 'name' and 'uri'.
-      foreach ($value as $link) {
-        $name = !empty($link['title']) ? $link['title'] : '';
-        $url = '';
-        if (!empty($link['uri'])) {
-          // Compute the absolute URL given the uri.
-          $url = Url::fromUri($link['uri'], ['absolute' => TRUE])
-            ->toString();
+      // Check if the property is for the related guides. We should only get
+      // the URL to each referenced node for output.
+      elseif ($field_type == 'entity_reference' && $property_name == 'field_guide_page_related_guides') {
+        $referenced_entities = $entity->get($name)->referencedEntities();
+        foreach ($referenced_entities as $referenced_entity) {
+          $url = $referenced_entity->toUrl('canonical', ['absolute' => TRUE])->toString();
+          $data[] = $url;
         }
-        // Store everything in the array object.
-        $data[] = [
-          'name' => $name,
-          'url' => $url,
-        ];
       }
 
       // For each replacement token, JSON-encode the data. This data will be

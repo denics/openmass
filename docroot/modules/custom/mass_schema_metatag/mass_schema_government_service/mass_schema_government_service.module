@@ -60,15 +60,14 @@ function mass_schema_government_service_tokens($type, $tokens, array $data, arra
         continue;
       }
 
-      if ($entity->get($name)->getFieldDefinition()->getType() != 'entity_reference_revisions' &&
-        $entity->get($name)->getFieldDefinition()->getType() != 'link') {
+      $field_type = $entity->get($name)->getFieldDefinition()->getType();
+      if ($field_type != 'entity_reference_revisions' && $field_type != 'link') {
         continue;
       }
 
       // Check if the field is a reference revisions field. This indicates that
       // it references other entities, such as paragraphs.
-      if ($entity->get($name)->getFieldDefinition()->getType() == 'entity_reference_revisions'
-      ) {
+      if ($field_type == 'entity_reference_revisions') {
         // Get all values from the referenced entity.
         $referenced_entities = $entity->get($name)->referencedEntities();
         foreach ($referenced_entities as $referenced_entity) {

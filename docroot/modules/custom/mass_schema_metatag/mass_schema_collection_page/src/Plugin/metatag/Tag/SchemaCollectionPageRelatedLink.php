@@ -13,9 +13,9 @@ use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaNameBase;
  *
  * @MetatagTag(
  *   id = "schema_collection_page_related_link",
- *   label = @Translation("isRelatedTo"),
+ *   label = @Translation("relatedLink"),
  *   description = @Translation("A related link."),
- *   name = "isRelatedTo",
+ *   name = "relatedLink",
  *   group = "schema_collection_page",
  *   weight = 1,
  *   type = "string",
@@ -40,20 +40,14 @@ class SchemaCollectionPageRelatedLink extends SchemaNameBase {
   public function output() {
     $element = parent::output();
 
+    // Get the links.
     $links = json_decode($this->value(), TRUE);
 
+    // Assign the links array to the element for output.
     if (!empty($element) && is_array($links)) {
-      $element['#attributes']['content'] = [];
-
-      // Iterate through each link to get the url.
-      foreach ($links as $link) {
-        $element['#attributes']['content'][] = [
-          '@type' => 'Guide',
-          'name' => !empty($link['name']) ? $link['name'] : '',
-          'url' => !empty($link['url']) ? $link['url'] : '',
-        ];
-      }
+      $element['#attributes']['content'] = $links;
     }
+
     return $element;
   }
 
