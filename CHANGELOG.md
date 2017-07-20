@@ -4,23 +4,40 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 ## Upcoming (add in progress changes here)
+
+### Added
+DP-0000 - Add "stamp-and-deploy" script. Under "deployment" in "circle.yml", the "commands" section for branches that CircleCI acts upon, are now in a bash script "./scripts/stamp-and-deploy". (Sorry, no Jira ticket - Youssef & Moshe)
+
+### Changed
+DP-0000 - Fine-tune branch name regex for CircleCI; i.e. act on any branch name that is not "develop". Only push to Acquia if it is not "develop". (Sorry, no Jira ticket - Youssef & Moshe)
+
+### Removed
+
+## [0.23.0] - July 18, 2017
+
 ### Added
 
+- When editing a piece of content, you are automatically subscribed to get email notifications when that content changes in the future.
+- Executive Orders are now a content type! The Governor will have a field day.
+- Devs: The relationship between Mayflower and OpenMass is now documented.
+- Devs: Config mistmatches are checked at build time.
+- Added content fields for assigning labels such as top content, sticky content, and secretariat ownership.
 
 ### Changed
 
-
-### Removed
+- Content cards on topic pages are strictly only able to link to other topic pages, organizations, and services. This helps keep topic pages clean and structured.
+- Legacy redirects cannot be used more than once.
+- Devs: Composer state is fixed. Composer install works again.
 
 ## [0.22.3] - July 13, 2017
 
 ### Added
 
-- On edit.mass.gov, you can manually watch and unwatch content. P.S. No watch notifications are sent yet, but you can sign up to watch something. 
+- On edit.mass.gov, you can manually watch and unwatch content. P.S. No watch notifications are sent yet, but you can sign up to watch something.
 - Metadata for Service Details is published via a Schema.org mapping (good for search engines)
 - Photo credits added to images in hardened content types.
 
-### Changed 
+### Changed
 
 - In the edit experience, when a required piece of content hasn't been added yet, it says "No <part> added yet." For example, on a How-to page, if no next steps are added, it'll say "No next step added yet".
 - Accessibility of the directions link on Locations pages is improved.

@@ -26,8 +26,15 @@ dependencies:
     - echo "memory_limit=1024M" > ~/.phpenv/versions/$(phpenv global)/etc/conf.d/memory.ini
     # restart apache
     - sudo service apache2 restart
+    # identify the committer i.e. circleci deployment bot
+    - git config --global user.email "circleci@example.com"
+    - git config --global user.name "CircleCI Deployment Bot"
 
   override:
+    - composer install --no-interaction
+    # Prep for push to Acquia Git. Do so while we have a clean build.
+    - git add -A -f ${HOME}/${CIRCLE_PROJECT_REPONAME}
+    - git commit -m "Add vendor code."
     # install eslint globally
     - npm install -g eslint@v2.13.1
     # configure phpcs to recognize Drupal and DrupalPractice standards
@@ -44,11 +51,14 @@ dependencies:
     - cd docroot && drush -yv config-import
     # Get a status
     - cd docroot && drush status
-    # config-export and error if there are differences. 
+    # config-export and error if there are differences.
     # this makes sure our committed config matches what is exported by Drupal.
     - cd docroot && drush config-export -y
     - git diff --exit-code
     - git reset --hard
+
+  cache_directories:
+      - ~/.composer/cache
 
 test:
   override:
@@ -67,11 +77,6 @@ test:
     # behat testing
     - behat --format=junit --out=$CIRCLE_TEST_REPORTS/behat --format=pretty --out=std
 
-  post:
-    # identify the committer i.e. circleci deployment bot
-    - git config --global user.email "circleci@example.com"
-    - git config --global user.name "CircleCI Deployment Bot"
-
 # after tests pass, proceed with deployment(s)
 deployment:
   # deploy current circleci's branch to acquia repo (task labeled as "acquia")
@@ -79,32 +84,17 @@ deployment:
   # developer(s) will activate branch of interest in available acquia environment on demand
   acquia:
     # condition for which branch to act upon
-    # in this case, we have any branch by using the regex /.*/
-    branch: /.*/
+    # in this case, we have any branch but develop
+    branch: /^(?!develop$).*$/
     commands:
       # add a deployment identifier for cache busting at Acquia.
-      - echo -e "<?php\n\n\$settings['deployment_identifier'] = '$CIRCLE_SHA1';" > ${HOME}/${CIRCLE_PROJECT_REPONAME}/docroot/sites/deployment_id.php
-      - git add ${HOME}/${CIRCLE_PROJECT_REPONAME}/docroot/sites/deployment_id.php
-      - git commit -m "Update deployment identifier"
-      # add acquia repo as an additional remote
-      - git remote add acquia massgov@svn-20994.prod.hosting.acquia.com:massgov.git
-      # push the branch that meets our regex (/.*/ above)
-      # get branch name from an environment variable
-      - git push --force acquia $CIRCLE_BRANCH
+      - scripts/stamp-and-deploy
   # deploy `develop` branch to `cd` (task labeled as "continuous_delivery")
   continuous_delivery:
     # only run when branch value is `develop`
     branch: develop
     commands:
       # add a deployment identifier for cache busting at Acquia.
-      - echo -e "<?php\n\n\$settings['deployment_identifier'] = '$CIRCLE_SHA1';" > ${HOME}/${CIRCLE_PROJECT_REPONAME}/docroot/sites/deployment_id.php
-      - git add ${HOME}/${CIRCLE_PROJECT_REPONAME}/docroot/sites/deployment_id.php
-      - git commit -m "Update deployment identifier"
-      # add acquia cloud git repo as a remote for this circle ci build
-      - git remote add acquia massgov@svn-20994.prod.hosting.acquia.com:massgov.git
-      # push `develop` branch to acquia cloud git repo
-      - git push --force acquia $CIRCLE_BRANCH
-      # activate `develop` branch in `cd` environment
-      - drush ma-deploy cd $CIRCLE_BRANCH
-      # copy files from `prod` environment to `cd`
-      - drush -y rsync @massgov.prod:%files @massgov.cd:%files
+      - scripts/stamp-and-deploy
+      # deploy `develop` branch to `cd` environment
+      - cd docroot && drush ma-deploy --refresh-db --skip-maint cd $CIRCLE_BRANCH
