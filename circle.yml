@@ -6,7 +6,6 @@ machine:
   node:
     version: 0.12.17
   environment:
-    PALANTIR_ENVIRONMENT: circle
     PATH: ${HOME}/${CIRCLE_PROJECT_REPONAME}/vendor/bin:$PATH
     DB_DB: circle_test
     DB_USER: ubuntu
@@ -42,18 +41,18 @@ dependencies:
 
   post:
     # Copy database from @massgov.prod to @self (Transfers the database dump via rsync)
-    - cd docroot && drush -yv --sanitize sql-sync @massgov.prod @self
+    - drush -yv --sanitize sql-sync @massgov.prod @self
     # Rsync Drupal files from @massgov.prod to @self
-    - cd docroot && drush -y rsync @massgov.prod:%files @self:%files
+    - drush -y rsync @massgov.prod:%files @self:%files
     # Apply any database updates required (as with running update.php)
-    - cd docroot && drush -yv updatedb --entity-updates
+    - drush -yv updatedb --entity-updates
     # Import config
-    - cd docroot && drush -yv config-import
+    - drush -yv config-import
     # Get a status
-    - cd docroot && drush status
+    - drush status
     # config-export and error if there are differences.
     # this makes sure our committed config matches what is exported by Drupal.
-    - cd docroot && drush config-export -y
+    - drush config-export -y
     - git diff --exit-code
     - git reset --hard
 
@@ -73,7 +72,7 @@ test:
     # lint javascript
     - eslint --debug --ignore-path '/home/ubuntu/mass/docroot/.eslintignore' '/home/ubuntu/mass/docroot/modules/custom/**/*.js' '/home/ubuntu/mass/docroot/themes/custom/**/*.js' '/home/ubuntu/mass/docroot/profiles/custom/**/*.js' 2>&1
     # Rebuild drupal cache
-    - cd docroot && drush cr
+    - drush cr
     # behat testing
     - behat --format=junit --out=$CIRCLE_TEST_REPORTS/behat --format=pretty --out=std
 
@@ -85,7 +84,7 @@ deployment:
   acquia:
     # condition for which branch to act upon
     # in this case, we have any branch but develop
-    branch: /^(?!develop$).*$/
+    branch: /^(?!develop).*$/
     commands:
       # add a deployment identifier for cache busting at Acquia.
       - scripts/stamp-and-deploy
@@ -97,4 +96,4 @@ deployment:
       # add a deployment identifier for cache busting at Acquia.
       - scripts/stamp-and-deploy
       # deploy `develop` branch to `cd` environment
-      - cd docroot && drush ma-deploy --refresh-db --skip-maint cd $CIRCLE_BRANCH
+      - drush ma-deploy --skip-maint --email=${AC_API_USER} --key=${AC_API_KEY} cd $CIRCLE_BRANCH
