@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - node.type.action
+    - node.type.advisory
     - node.type.contact_information
     - node.type.emergency_alerts
     - node.type.error_page
@@ -477,6 +478,7 @@ display:
           admin_label: ''
           operator: in
           value:
+            advisory: advisory
             page: page
             contact_information: contact_information
             emergency_alerts: emergency_alerts

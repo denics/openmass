@@ -13,6 +13,7 @@ permissions:
   - 'access content'
   - 'access site-wide contact form'
   - 'access_unpublished node action'
+  - 'access_unpublished node advisory'
   - 'access_unpublished node agency'
   - 'access_unpublished node contact_information'
   - 'access_unpublished node emergency_alerts'

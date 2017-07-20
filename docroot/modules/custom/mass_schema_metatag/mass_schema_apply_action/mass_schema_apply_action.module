@@ -42,7 +42,7 @@ function mass_schema_apply_action_tokens($type, $tokens, array $data, array $opt
 
       // Check if the field is a reference revisions field - this indicates that
       // it references other entities, such as paragaphs.
-      if ($node->get($name)->getFieldDefinition()->getType() == 'entity_reference') {
+      if ($node->get($name)->getFieldDefinition()->getType() == 'entity_reference' && $node->get($name)->getFieldDefinition()->getItemDefinition()->getSetting('target_type') == 'node') {
         $referenced_entities = $node->get($name)->referencedEntities();
         $addresses = [];
         foreach ($referenced_entities as $referenced_entity) {

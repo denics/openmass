@@ -1,0 +1,33 @@
+uuid: a3832447-efb5-49f8-8788-8efbf7a750ae
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_advisory_overview
+    - node.type.advisory
+  module:
+    - geocoder_field
+    - text
+third_party_settings:
+  geocoder_field:
+    method: none
+    field: title
+    plugins: {  }
+    dumper: wkt
+    delta_handling: default
+    failure:
+      handling: preserve
+      status_message: true
+      log: true
+id: node.advisory.field_advisory_overview
+field_name: field_advisory_overview
+entity_type: node
+bundle: advisory
+label: Overview
+description: 'An optional short description that precedes the text of the advisory.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long
