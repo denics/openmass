@@ -7,15 +7,21 @@ label: 'Watch Content'
 bundles:
   - action
   - contact_information
+  - emergency_alerts
+  - error_page
   - event
+  - executive_order
   - fee
   - guide_page
   - how_to_page
+  - interstitial
+  - legacy_redirects
   - location
   - location_details
+  - news
   - org_page
+  - page
   - person
-  - press_release
   - section_landing
   - service_details
   - service_page
@@ -23,6 +29,7 @@ bundles:
   - subtopic
   - topic
   - topic_page
+  - utility_drawer
 entity_type: node
 global: false
 weight: 0

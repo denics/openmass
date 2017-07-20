@@ -8,5 +8,14 @@ id: flagging.watch_content.default
 targetEntityType: flagging
 bundle: watch_content
 mode: default
-content: {  }
+content:
+  field_node_id:
+    weight: 0
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
 hidden: {  }
