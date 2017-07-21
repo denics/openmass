@@ -5739,44 +5739,6 @@
             }
         },
         {
-            "name": "drupal/workbench_moderation_actions",
-            "version": "dev-1.x",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupal.org/project/workbench_moderation_actions",
-                "reference": "ed4601373edfdb5ea1306af74f0e825a0c64f5a1"
-            },
-            "require": {
-                "drupal/core": "~8.0",
-                "drupal/workbench_moderation": "*"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "branch-alias": {
-                    "dev-1.x": "1.x-dev"
-                },
-                "drupal": {
-                    "version": "8.x-1.x-dev",
-                    "datestamp": "1499681042"
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0+"
-            ],
-            "authors": [
-                {
-                    "name": "nicrodgers",
-                    "homepage": "https://www.drupal.org/user/194371"
-                }
-            ],
-            "homepage": "https://www.drupal.org/project/workbench_moderation_actions",
-            "support": {
-                "source": "http://cgit.drupalcode.org/workbench_moderation_actions"
-            },
-            "time": "2017-07-10 10:48:54"
-        },
-        {
             "name": "drupal/xmlsitemap",
             "version": "dev-1.x",
             "source": {
@@ -12494,7 +12456,6 @@
         "drupal/schema_metatag": 5,
         "drupal/security_review": 20,
         "drupal/subpathauto": 10,
-        "drupal/workbench_moderation_actions": 20,
         "drupal/xmlsitemap": 20,
         "mikeyp/google_tag": 20,
         "palantirnet/the-vagrant": 20,
