@@ -1,8 +1,9 @@
-uuid: 3dad235c-ab6f-47a4-9edb-98340fafbc4d
+uuid: 8f634fa4-e46e-4d99-9a2c-cb0f94499ddd
 langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_mode.node.token
     - field.field.node.guide_page.field_guide_page_bg_narrow
     - field.field.node.guide_page.field_guide_page_bg_wide
     - field.field.node.guide_page.field_guide_page_lede
@@ -14,10 +15,10 @@ dependencies:
     - entity_reference_revisions
     - image
     - user
-id: node.guide_page.default
+id: node.guide_page.token
 targetEntityType: node
 bundle: guide_page
-mode: default
+mode: token
 content:
   field_guide_page_bg_wide:
     weight: 102
@@ -38,10 +39,9 @@ content:
   field_guide_page_related_guides:
     weight: 104
     label: above
-    settings:
-      link: true
+    settings: {  }
     third_party_settings: {  }
-    type: entity_reference_label
+    type: entity_reference_entity_id
     region: content
   field_guide_page_sections:
     type: entity_reference_revisions_entity_view
