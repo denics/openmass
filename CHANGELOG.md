@@ -5,6 +5,15 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 ## Upcoming (add in progress changes here)
 
+### Added
+DP-4142 Implement (schema.org) structured data "fee page"
+
+### Changed
+
+
+### Removed
+
+
 ## [0.23.1] - July 20, 2017
 
 ### Added

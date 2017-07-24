@@ -1,10 +1,12 @@
-uuid: d4191d0a-330b-4d6f-88ec-6c66425b3595
+uuid: cd304a21-162f-4b60-8cb3-7b68cdff6656
 langcode: en
 status: true
 dependencies: {  }
 id: node__service_page
 label: 'Content: Service Page'
 tags:
+  schema_unit_price_specification_name: '[node:field_fee]'
+  schema_unit_price_specification_type: UnitPriceSpecification
   schema_government_service_area_served: 'a:2:{s:5:"@type";s:18:"AdministrativeArea";s:4:"name";s:13:"Massachusetts";}'
   schema_government_service_description: '[node:field_service_lede]'
   schema_government_service_id: '[node:url]#services'
