@@ -447,132 +447,6 @@ function mass_theme_preprocess_node_how_to_page(&$variables) {
 /**
  * Implements hook_preprocess_node().
  *
- * Prepare the variables for the Form page.
- */
-function mass_theme_preprocess_node_form_page(&$variables) {
-  $node = $variables['node'];
-
-  $sidebar = [];
-
-  // Create the map of all possible field names to use.
-  $map = [
-    'contact' => ['field_form_ref_contacts_3'],
-    'payment' => ['field_form_payment_options'],
-    'lede' => ['field_form_lede'],
-    'needs' => ['field_form_you_will'],
-    'icons' => ['field_form_payment_options'],
-  ];
-
-  // Determines which field names to use from the map.
-  $fields = Helper::getMappedFields($node, $map);
-
-  // Set static pageHeader properties to pass to prepare function.
-  $pageHeader_options = [
-    'category' => '',
-    'divider' => FALSE,
-    'headerTags' => '',
-    'optionalContents' => '',
-    'widgets' => '',
-    'subTitle' => Helper::fieldValue($node, $fields['lede']),
-  ];
-
-  // Make pageBanner data object available in twig template.
-  $variables['pageHeader'] = Organisms::preparePageHeader($node, $pageHeader_options);
-
-  if (Helper::isFieldPopulated($node, 'field_form_you_will')) {
-    $formRequirements = [
-      'rteTitle' => [
-        'text' => t('You will need:')
-      ],
-    ];
-    // Set up rich text elements for what you need.
-    $youWillNeed['rteElements'] = [
-      Atoms::prepareRawHtml($node, ['field' => 'field_form_you_will']),
-    ];
-    $formRequirements['richText'] = $youWillNeed;
-
-    if (Helper::isFieldPopulated($node, $fields['icons'])) {
-      $payment = [
-        'title' => [
-          'text' => t('Payment accepted:'),
-        ],
-        'locationIcons' => [
-          'icons' => Molecules::prepareLocationIcons($node),
-        ],
-      ];
-      $formRequirements['payment'] = $payment;
-    }
-  }
-
-  if (Helper::isFieldPopulated($node, $fields['downloads']) || Helper::isFieldPopulated($node, $fields['links'])) {
-    // Set up options for formDownloads prepare.
-    $downloadLinks_options = [
-      'heading' => [
-        'type' => 'compHeading',
-        'title' => t('Additional Resources'),
-        'sub' => TRUE,
-      ],
-    ];
-    $mainContent['formDownloads'] = Organisms::prepareFormDownloads($node, $downloadLinks_options);
-  }
-
-  // Build contact section, if field is populated.
-  if (Helper::isFieldPopulated($node, $fields['contact'])) {
-    // Set up options for contact list.
-    $contactList_options = [
-      'heading' => [
-        'title' => t("Contact"),
-        'sub' => TRUE,
-      ],
-      'groups' => [
-        'accordion' => TRUE,
-        'isExpanded' => FALSE,
-      ],
-    ];
-
-    $mainContent['contactList'] = Organisms::prepareContactList($node, $contactList_options);
-    // Build sidebar.contactList, which is a subset of pageContent.ContactList.
-    // Prepare the quickActions data object.
-    $sidebarContacts_options = [
-      'groups' => [
-        'accordion' => FALSE,
-        'isExpanded' => FALSE,
-      ],
-    ];
-    // Prepare the sidebarContact data object.
-    $sideContent['contactList'] = Organisms::prepareContactList($node, $sidebarContacts_options);
-    unset($sideContent['contactList']['compHeading']);
-    $sideContent['contactList']['sidebarHeading']['title'] = t('Contact');
-    $sidebar['contactList']['viewSpecific'] = FALSE;
-  }
-
-  $variables['formRequirements'] = $formRequirements;
-  $variables['mainContent'] = $mainContent;
-  $variables['sideContent'] = $sideContent;
-
-  if (!empty($node->field_form_embed->value)) {
-    $dom = new DOMDocument();
-    @$dom->loadHTML($node->field_form_embed->value);
-    $xpath = new DOMXPath($dom);
-
-    // Validate we have a formstack url.
-    $variables['form_url'] = $xpath->evaluate('string(//script/@src)');
-    $variables['form_url_noscript'] = $xpath->evaluate('string(//noscript/a/@href)');
-
-    // Validate we have a formstack ID.
-    $id_url = $xpath->evaluate('string(//div/a/@href)');
-    if ($id_url) {
-      parse_str($id_url, $id_url_arr);
-      if (array_key_exists('fa', $id_url_arr)) {
-        $variables['form_id'] = preg_replace('~\D~', '', $id_url_arr['fa']);
-      }
-    }
-  }
-}
-
-/**
- * Implements hook_preprocess_node().
- *
  * Prepare the variables for the Org page.
  */
 function mass_theme_preprocess_node_org_page(&$variables) {
@@ -2107,46 +1981,6 @@ function mass_theme_preprocess_menu(&$variables) {
 }
 
 /**
- * Implements mass_theme_add_regions_to_node().
- *
- * Add regions to node templates.
- */
-function mass_theme_add_regions_to_node($allowed_regions, &$variables) {
-  // Retrieve active theme.
-  $theme = \Drupal::theme()->getActiveTheme()->getName();
-
-  // Retrieve theme regions.
-  $available_regions = system_region_list($theme, 'REGIONS_ALL');
-
-  // Validate allowed regions with available regions.
-  $regions = array_intersect(array_keys($available_regions), $allowed_regions);
-
-  // For each region.
-  foreach ($regions as $key => $region) {
-
-    // Load region blocks.
-    $blocks = \Drupal::entityTypeManager()
-      ->getStorage('block')
-      ->loadByProperties(['theme' => $theme, 'region' => $region]);
-
-    // Capture viewable blocks and their settings to $build.
-    $build = [];
-    foreach ($blocks as $key => $block) {
-      if ($block->access('view')) {
-        $block = Block::load($key);
-        $block_content = \Drupal::entityTypeManager()
-          ->getViewBuilder('block')
-          ->view($block);
-        $build[$key] = $block_content;
-      }
-    }
-
-    // Add build to region.
-    $variables[$region] = $build;
-  }
-}
-
-/**
  * Implements hook_preprocess_node().
  */
 function mass_theme_preprocess_node(&$variables) {
@@ -2703,8 +2537,10 @@ function mass_theme_preprocess_page(&$variables) {
       }
 
       // If we're using search band, lets tell page twig about it.
-      if ($node->hasField('field_bands') && $node->get('field_bands')->count() > 0) {
-        foreach ($node->get('field_bands')->referencedEntities() as $paragraph) {
+      if ($node->hasField('field_bands') && $node->get('field_bands')->count() > 0
+      ) {
+        foreach ($node->get('field_bands')
+          ->referencedEntities() as $paragraph) {
           if ($paragraph->getType() == 'search_band') {
             $variables['hideHeaderSearch'] = TRUE;
           }
@@ -2897,12 +2733,12 @@ function mass_theme_preprocess_field(&$variables, $hook) {
         $order[$delta] = $element[$delta]['#paragraph']->get('field_type')->value;
         // Wrap up all our phone numbers.
         $phone_details[] = [
-          'label' => $element[$delta]['#paragraph']->get('field_label')->value,
-          'value' => $element[$delta]['#paragraph']->get('field_phone')->value,
-          'rawVal' => $element[$delta]['#paragraph']->get('field_phone')->value,
-          'link' => str_replace(['+', '-'], '', filter_var($element[$delta]['#paragraph']->get('field_phone')->value, FILTER_SANITIZE_NUMBER_INT)),
+          'label'   => $element[$delta]['#paragraph']->get('field_label')->value,
+          'value'   => $element[$delta]['#paragraph']->get('field_phone')->value,
+          'rawVal'  => $element[$delta]['#paragraph']->get('field_phone')->value,
+          'link'    => str_replace(['+', '-'], '', filter_var($element[$delta]['#paragraph']->get('field_phone')->value, FILTER_SANITIZE_NUMBER_INT)),
           'details' => $element[$delta]['#paragraph']->get('field_caption')->value,
-          'type' => $element[$delta]['#paragraph']->get('field_type')->value,
+          'type'    => $element[$delta]['#paragraph']->get('field_type')->value,
         ];
         $delta++;
         continue;
@@ -2912,12 +2748,12 @@ function mass_theme_preprocess_field(&$variables, $hook) {
         $order[$delta] = $element[$delta]['#paragraph']->get('field_type')->value;
         // Wrap up all our fax numbers.
         $fax_details[] = [
-          'label' => $element[$delta]['#paragraph']->get('field_label')->value,
-          'value' => $element[$delta]['#paragraph']->get('field_phone')->value,
-          'rawVal' => $element[$delta]['#paragraph']->get('field_phone')->value,
-          'link' => $element[$delta]['#paragraph']->get('field_phone')->value,
+          'label'   => $element[$delta]['#paragraph']->get('field_label')->value,
+          'value'   => $element[$delta]['#paragraph']->get('field_phone')->value,
+          'rawVal'  => $element[$delta]['#paragraph']->get('field_phone')->value,
+          'link'    => $element[$delta]['#paragraph']->get('field_phone')->value,
           'details' => $element[$delta]['#paragraph']->get('field_caption')->value,
-          'type' => $element[$delta]['#paragraph']->get('field_type')->value,
+          'type'    => $element[$delta]['#paragraph']->get('field_type')->value,
         ];
         $delta++;
         continue;
@@ -2933,12 +2769,12 @@ function mass_theme_preprocess_field(&$variables, $hook) {
         }
 
         $online_details[] = [
-          'label' => $element[$delta]['#paragraph']->get('field_label')->value,
-          'value' => $value,
-          'rawVal' => '',
-          'link' => $link,
+          'label'   => $element[$delta]['#paragraph']->get('field_label')->value,
+          'value'   => $value,
+          'rawVal'  => '',
+          'link'    => $link,
           'details' => $element[$delta]['#paragraph']->get('field_caption')->value,
-          'type' => $element[$delta]['#paragraph']->get('field_type')->value,
+          'type'    => $element[$delta]['#paragraph']->get('field_type')->value,
         ];
         $delta++;
         continue;
@@ -2954,12 +2790,12 @@ function mass_theme_preprocess_field(&$variables, $hook) {
         }
 
         $branch_location_details[] = [
-          'label' => $element[$delta]['#paragraph']->get('field_label')->value,
-          'value' => $value,
-          'rawVal' => '',
-          'link' => $link,
+          'label'   => $element[$delta]['#paragraph']->get('field_label')->value,
+          'value'   => $value,
+          'rawVal'  => '',
+          'link'    => $link,
           'details' => $element[$delta]['#paragraph']->get('field_caption')->value,
-          'type' => 'online',
+          'type'    => 'online',
         ];
         $delta++;
         continue;
@@ -2969,12 +2805,12 @@ function mass_theme_preprocess_field(&$variables, $hook) {
         $order[$delta] = $element[$delta]['#paragraph']->get('field_type')->value;
         // Wrap up all our emails.
         $email_details[] = [
-          'label' => $element[$delta]['#paragraph']->get('field_label')->value,
-          'value' => $element[$delta]['#paragraph']->get('field_email')->value,
-          'rawVal' => $element[$delta]['#paragraph']->get('field_email')->value,
-          'link' => $element[$delta]['#paragraph']->get('field_email')->value,
+          'label'   => $element[$delta]['#paragraph']->get('field_label')->value,
+          'value'   => $element[$delta]['#paragraph']->get('field_email')->value,
+          'rawVal'  => $element[$delta]['#paragraph']->get('field_email')->value,
+          'link'    => $element[$delta]['#paragraph']->get('field_email')->value,
           'details' => $element[$delta]['#paragraph']->get('field_caption')->value,
-          'type' => $element[$delta]['#paragraph']->get('field_type')->value,
+          'type'    => $element[$delta]['#paragraph']->get('field_type')->value,
         ];
         $delta++;
         continue;
@@ -2985,12 +2821,12 @@ function mass_theme_preprocess_field(&$variables, $hook) {
 
         // Wrap up all our addresses.
         $address_details[] = [
-          'label' => $element[$delta]['#paragraph']->get('field_label')->value,
-          'value' => $element[$delta]['#paragraph']->get('field_address')->value,
-          'rawVal' => '',
-          'link' => 'https://maps.google.com/?q=' . urlencode($element[$delta]['#paragraph']->get('field_address')->value),
+          'label'   => $element[$delta]['#paragraph']->get('field_label')->value,
+          'value'   => $element[$delta]['#paragraph']->get('field_address')->value,
+          'rawVal'  => '',
+          'link'    => 'https://maps.google.com/?q=' . urlencode($element[$delta]['#paragraph']->get('field_address')->value),
           'details' => $element[$delta]['#paragraph']->get('field_caption')->value,
-          'type' => 'address',
+          'type'    => 'address',
         ];
         $delta++;
         continue;
@@ -3007,17 +2843,17 @@ function mass_theme_preprocess_field(&$variables, $hook) {
           $link = $element[$delta]['#paragraph']->get('field_link')->first()->getValue()['uri'];
         }
         $other_details[] = [
-          'label' => $element[$delta]['#paragraph']->get('field_label')->value,
-          'value' => $element[$delta]['#paragraph']->get('field_phone')->value .
+          'label'   => $element[$delta]['#paragraph']->get('field_label')->value,
+          'value'   => $element[$delta]['#paragraph']->get('field_phone')->value .
           $value .
           $element[$delta]['#paragraph']->get('field_email')->value .
           $element[$delta]['#paragraph']->get('field_address')->value,
-          'rawVal' => '',
-          'link' => $element[$delta]['#paragraph']->get('field_phone')->value .
+          'rawVal'  => '',
+          'link'    => $element[$delta]['#paragraph']->get('field_phone')->value .
           $link .
           $element[$delta]['#paragraph']->get('field_email')->value,
           'details' => $element[$delta]['#paragraph']->get('field_caption')->value,
-          'type' => $element[$delta]['#paragraph']->get('field_type')->value,
+          'type'    => $element[$delta]['#paragraph']->get('field_type')->value,
         ];
         $delta++;
         continue;
@@ -3034,57 +2870,57 @@ function mass_theme_preprocess_field(&$variables, $hook) {
       // Do we have phone numbers? If so, display them under one icon.
       if (!empty($phone_details) && $value == 'phone') {
         $groups[] = [
-          'icon' => '@atoms/05-icons/svg-phone.twig',
-          'name' => 'Phone',
-          'items' => $phone_details,
+          'icon'    => '@atoms/05-icons/svg-phone.twig',
+          'name'    => 'Phone',
+          'items'   => $phone_details,
         ];
       }
       // Do we have fax numbers? If so, display them under one icon.
       if (!empty($fax_details) && $value == 'fax') {
         $groups[] = [
-          'icon' => '@atoms/05-icons/svg-fax-icon.twig',
-          'name' => 'Fax',
-          'items' => $fax_details,
+          'icon'    => '@atoms/05-icons/svg-fax-icon.twig',
+          'name'    => 'Fax',
+          'items'   => $fax_details,
         ];
       }
       // Do we have emails? If so, display them under one icon.
       if (!empty($email_details) && $value == 'email') {
         $groups[] = [
-          'icon' => '@atoms/05-icons/svg-laptop.twig',
-          'name' => 'Online',
-          'items' => $email_details,
+          'icon'    => '@atoms/05-icons/svg-laptop.twig',
+          'name'    => 'Online',
+          'items'   => $email_details,
         ];
       }
       // Do we have online links? If so, display them under one icon.
       if (!empty($online_details) && $value == 'online') {
         $groups[] = [
-          'icon' => '@atoms/05-icons/svg-laptop.twig',
-          'name' => 'Online',
-          'items' => $online_details,
+          'icon'    => '@atoms/05-icons/svg-laptop.twig',
+          'name'    => 'Online',
+          'items'   => $online_details,
         ];
       }
       // Do we have branch location links? If so, display them under one icon.
       if (!empty($branch_location_details) && $value == 'branch_location') {
         $groups[] = [
-          'icon' => '@atoms/05-icons/svg-profile.twig',
-          'name' => 'Branch Location',
-          'items' => $branch_location_details,
+          'icon'    => '@atoms/05-icons/svg-profile.twig',
+          'name'    => 'Branch Location',
+          'items'   => $branch_location_details,
         ];
       }
       // Do we have address? If so, display them under one icon.
       if (!empty($address_details) && $value == 'mail') {
         $groups[] = [
-          'icon' => '@atoms/05-icons/svg-mail.twig',
-          'name' => 'Address',
-          'items' => $address_details,
+          'icon'    => '@atoms/05-icons/svg-mail.twig',
+          'name'    => 'Address',
+          'items'   => $address_details,
         ];
       }
       // Do we have other details? If so, display them under one icon.
       if (!empty($other_details) && $value == 'other') {
         $groups[] = [
-          'icon' => '@atoms/05-icons/svg-marker.twig',
-          'name' => 'Other',
-          'items' => $other_details,
+          'icon'    => '@atoms/05-icons/svg-marker.twig',
+          'name'    => 'Other',
+          'items'   => $other_details,
         ];
       }
     }
@@ -3285,8 +3121,7 @@ function _get_layout(array $total_type_with_count, $total_count) {
   // If all content is "stacked_layout", we use "bullets".
   if (
     $total_type_with_count['stacked_layout'] == $total_count ||
-    $total_type_with_count['org_page'] == $total_count
-  ) {
+    $total_type_with_count['org_page'] == $total_count) {
     return 'bullets';
   }
 
@@ -3296,8 +3131,7 @@ function _get_layout(array $total_type_with_count, $total_count) {
     $total_type_with_count['action'] == $total_count ||
     $total_type_with_count['action'] + $total_type_with_count['stacked_layout'] == $total_count ||
     $total_type_with_count['action'] + $total_type_with_count['how_to_page'] + $total_type_with_count['service_details'] == $total_count ||
-    $total_type_with_count['action'] + $total_type_with_count['how_to_page'] + $total_type_with_count['stacked_layout'] + $total_type_with_count['guide_page'] == $total_count
-  ) {
+    $total_type_with_count['action'] + $total_type_with_count['how_to_page'] + $total_type_with_count['stacked_layout'] + $total_type_with_count['guide_page'] == $total_count) {
     return 'actionCards';
   }
 
@@ -3306,8 +3140,7 @@ function _get_layout(array $total_type_with_count, $total_count) {
     $total_type_with_count['topic'] + $total_type_with_count['subtopic'] == $total_count ||
     $total_type_with_count['topic'] + $total_type_with_count['subtopic'] + $total_type_with_count['stacked_layout'] == $total_count ||
     $total_type_with_count['topic'] + $total_type_with_count['subtopic'] + $total_type_with_count['topic_page'] + $total_type_with_count['service_page'] == $total_count ||
-    $total_type_with_count['topic'] + $total_type_with_count['subtopic'] + $total_type_with_count['topic_page'] + $total_type_with_count['stacked_layout'] == $total_count
-  ) {
+    $total_type_with_count['topic'] + $total_type_with_count['subtopic'] + $total_type_with_count['topic_page'] + $total_type_with_count['stacked_layout'] == $total_count) {
     return 'topicCards';
   }
 
@@ -3377,9 +3210,9 @@ function mass_theme_preprocess_paragraph__action_set(&$variables) {
 
       $featured_links[] = [
         'image' => $item->hasField('field_photo') ? Helper::getFieldImageUrl($item, 'thumbnail_130x160', 'field_photo') : '',
-        'text' => $item->getTitle(),
-        'type' => $external_url ? 'external' : 'internal',
-        'href' => $external_url ? $external_url : $item->toURL()->toString(),
+        'text'  => $item->getTitle(),
+        'type'  => $external_url ? 'external' : 'internal',
+        'href'  => $external_url ? $external_url : $item->toURL()->toString(),
       ];
     }
 
@@ -3406,9 +3239,9 @@ function mass_theme_preprocess_paragraph__action_set(&$variables) {
 
       $links[] = [
         'image' => $item->hasField('field_photo') ? Helper::getFieldImageUrl($item, 'thumbnail_130x160', 'field_photo') : '',
-        'text' => $item->getTitle(),
-        'type' => $external_url ? 'external' : 'internal',
-        'href' => $external_url ? $external_url : $item->toURL()->toString(),
+        'text'  => $item->getTitle(),
+        'type'  => $external_url ? 'external' : 'internal',
+        'href'  => $external_url ? $external_url : $item->toURL()->toString(),
       ];
     }
 
@@ -3416,9 +3249,9 @@ function mass_theme_preprocess_paragraph__action_set(&$variables) {
 
     if (!empty($paragraph->get('field_link_single')->uri)) {
       $seeAll = [
-        'type' => UrlHelper::isExternal($paragraph->get('field_link_single')->uri) ? 'external' : 'internal',
-        'href' => Url::fromUri($paragraph->get('field_link_single')->uri),
-        'text' => $paragraph->get('field_link_single')->title,
+        'type'  => UrlHelper::isExternal($paragraph->get('field_link_single')->uri) ? 'external' : 'internal',
+        'href'  => Url::fromUri($paragraph->get('field_link_single')->uri),
+        'text'  => $paragraph->get('field_link_single')->title,
         'info' => '',
       ];
       $variables['seeAll'] = $seeAll;
@@ -3744,6 +3577,46 @@ function mass_theme_get_field_image_url($node, $style_name = NULL, $field = NULL
   }
 
   return $url;
+}
+
+/**
+ * Implements mass_theme_add_regions_to_node().
+ *
+ * Add regions to node templates.
+ */
+function mass_theme_add_regions_to_node($allowed_regions, &$variables) {
+  // Retrieve active theme.
+  $theme = \Drupal::theme()->getActiveTheme()->getName();
+
+  // Retrieve theme regions.
+  $available_regions = system_region_list($theme, 'REGIONS_ALL');
+
+  // Validate allowed regions with available regions.
+  $regions = array_intersect(array_keys($available_regions), $allowed_regions);
+
+  // For each region.
+  foreach ($regions as $key => $region) {
+
+    // Load region blocks.
+    $blocks = \Drupal::entityTypeManager()
+      ->getStorage('block')
+      ->loadByProperties(['theme' => $theme, 'region' => $region]);
+
+    // Capture viewable blocks and their settings to $build.
+    $build = [];
+    foreach ($blocks as $key => $block) {
+      if ($block->access('view')) {
+        $block = Block::load($key);
+        $block_content = \Drupal::entityTypeManager()
+          ->getViewBuilder('block')
+          ->view($block);
+        $build[$key] = $block_content;
+      }
+    }
+
+    // Add build to region.
+    $variables[$region] = $build;
+  }
 }
 
 /**
@@ -4089,140 +3962,140 @@ function mass_theme_preprocess_paragraph__icon_links(&$variables) {
  */
 function mass_theme_googletranslate_options_languages() {
   $language_codes = [
-    'aa' => 'Afar',
-    'ab' => 'Abkhazian',
-    'af' => 'Afrikaans',
-    'am' => 'Amharic',
-    'ar' => 'Arabic',
-    'as' => 'Assamese',
-    'ay' => 'Aymara',
-    'az' => 'Azerbaijani',
-    'ba' => 'Bashkir',
-    'be' => 'Byelorussian',
-    'bg' => 'Bulgarian',
-    'bh' => 'Bihari',
-    'bi' => 'Bislama',
-    'bn' => 'Bengali/Bangla',
-    'bo' => 'Tibetan',
-    'br' => 'Breton',
-    'ca' => 'Catalan',
-    'co' => 'Corsican',
-    'cs' => 'Czech',
-    'cy' => 'Welsh',
-    'da' => 'Danish',
-    'de' => 'German',
-    'dz' => 'Bhutani',
-    'el' => 'Greek',
-    'eo' => 'Esperanto',
-    'es' => 'Spanish',
-    'et' => 'Estonian',
-    'eu' => 'Basque',
-    'fa' => 'Persian',
-    'fi' => 'Finnish',
-    'fj' => 'Fiji',
-    'fo' => 'Faeroese',
-    'fr' => 'French',
-    'fy' => 'Frisian',
-    'ga' => 'Irish',
-    'gd' => 'Scots/Gaelic',
-    'gl' => 'Galician',
-    'gn' => 'Guarani',
-    'gu' => 'Gujarati',
-    'ha' => 'Hausa',
-    'hi' => 'Hindi',
-    'hr' => 'Croatian',
-    'hu' => 'Hungarian',
-    'hy' => 'Armenian',
-    'ia' => 'Interlingua',
-    'ie' => 'Interlingue',
-    'ik' => 'Inupiak',
-    'in' => 'Indonesian',
-    'is' => 'Icelandic',
-    'it' => 'Italian',
-    'iw' => 'Hebrew',
-    'ja' => 'Japanese',
-    'ji' => 'Yiddish',
-    'jw' => 'Javanese',
-    'ka' => 'Georgian',
-    'kk' => 'Kazakh',
-    'kl' => 'Greenlandic',
-    'km' => 'Cambodian',
-    'kn' => 'Kannada',
-    'ko' => 'Korean',
-    'ks' => 'Kashmiri',
-    'ku' => 'Kurdish',
-    'ky' => 'Kirghiz',
-    'la' => 'Latin',
-    'ln' => 'Lingala',
-    'lo' => 'Laothian',
-    'lt' => 'Lithuanian',
-    'lv' => 'Latvian/Lettish',
-    'mg' => 'Malagasy',
-    'mi' => 'Maori',
-    'mk' => 'Macedonian',
-    'ml' => 'Malayalam',
-    'mn' => 'Mongolian',
-    'mo' => 'Moldavian',
-    'mr' => 'Marathi',
-    'ms' => 'Malay',
-    'mt' => 'Maltese',
-    'my' => 'Burmese',
-    'na' => 'Nauru',
-    'ne' => 'Nepali',
-    'nl' => 'Dutch',
-    'no' => 'Norwegian',
-    'oc' => 'Occitan',
-    'om' => '(Afan)/Oromoor/Oriya',
-    'pa' => 'Punjabi',
-    'pl' => 'Polish',
-    'ps' => 'Pashto/Pushto',
-    'pt' => 'Portuguese',
-    'qu' => 'Quechua',
-    'rm' => 'Rhaeto-Romance',
-    'rn' => 'Kirundi',
-    'ro' => 'Romanian',
-    'ru' => 'Russian',
-    'rw' => 'Kinyarwanda',
-    'sa' => 'Sanskrit',
-    'sd' => 'Sindhi',
-    'sg' => 'Sangro',
-    'sh' => 'Serbo-Croatian',
-    'si' => 'Singhalese',
-    'sk' => 'Slovak',
-    'sl' => 'Slovenian',
-    'sm' => 'Samoan',
-    'sn' => 'Shona',
-    'so' => 'Somali',
-    'sq' => 'Albanian',
-    'sr' => 'Serbian',
-    'ss' => 'Siswati',
-    'st' => 'Sesotho',
-    'su' => 'Sundanese',
-    'sv' => 'Swedish',
-    'sw' => 'Swahili',
-    'ta' => 'Tamil',
-    'te' => 'Tegulu',
-    'tg' => 'Tajik',
-    'th' => 'Thai',
-    'ti' => 'Tigrinya',
-    'tk' => 'Turkmen',
-    'tl' => 'Tagalog',
-    'tn' => 'Setswana',
-    'to' => 'Tonga',
-    'tr' => 'Turkish',
-    'ts' => 'Tsonga',
-    'tt' => 'Tatar',
-    'tw' => 'Twi',
-    'uk' => 'Ukrainian',
-    'ur' => 'Urdu',
-    'uz' => 'Uzbek',
-    'vi' => 'Vietnamese',
-    'vo' => 'Volapuk',
-    'wo' => 'Wolof',
-    'xh' => 'Xhosa',
-    'yo' => 'Yoruba',
-    'zh-CN' => 'Chinese',
-    'zu' => 'Zulu',
+    'aa' => 'Afar' ,
+    'ab' => 'Abkhazian' ,
+    'af' => 'Afrikaans' ,
+    'am' => 'Amharic' ,
+    'ar' => 'Arabic' ,
+    'as' => 'Assamese' ,
+    'ay' => 'Aymara' ,
+    'az' => 'Azerbaijani' ,
+    'ba' => 'Bashkir' ,
+    'be' => 'Byelorussian' ,
+    'bg' => 'Bulgarian' ,
+    'bh' => 'Bihari' ,
+    'bi' => 'Bislama' ,
+    'bn' => 'Bengali/Bangla' ,
+    'bo' => 'Tibetan' ,
+    'br' => 'Breton' ,
+    'ca' => 'Catalan' ,
+    'co' => 'Corsican' ,
+    'cs' => 'Czech' ,
+    'cy' => 'Welsh' ,
+    'da' => 'Danish' ,
+    'de' => 'German' ,
+    'dz' => 'Bhutani' ,
+    'el' => 'Greek' ,
+    'eo' => 'Esperanto' ,
+    'es' => 'Spanish' ,
+    'et' => 'Estonian' ,
+    'eu' => 'Basque' ,
+    'fa' => 'Persian' ,
+    'fi' => 'Finnish' ,
+    'fj' => 'Fiji' ,
+    'fo' => 'Faeroese' ,
+    'fr' => 'French' ,
+    'fy' => 'Frisian' ,
+    'ga' => 'Irish' ,
+    'gd' => 'Scots/Gaelic' ,
+    'gl' => 'Galician' ,
+    'gn' => 'Guarani' ,
+    'gu' => 'Gujarati' ,
+    'ha' => 'Hausa' ,
+    'hi' => 'Hindi' ,
+    'hr' => 'Croatian' ,
+    'hu' => 'Hungarian' ,
+    'hy' => 'Armenian' ,
+    'ia' => 'Interlingua' ,
+    'ie' => 'Interlingue' ,
+    'ik' => 'Inupiak' ,
+    'in' => 'Indonesian' ,
+    'is' => 'Icelandic' ,
+    'it' => 'Italian' ,
+    'iw' => 'Hebrew' ,
+    'ja' => 'Japanese' ,
+    'ji' => 'Yiddish' ,
+    'jw' => 'Javanese' ,
+    'ka' => 'Georgian' ,
+    'kk' => 'Kazakh' ,
+    'kl' => 'Greenlandic' ,
+    'km' => 'Cambodian' ,
+    'kn' => 'Kannada' ,
+    'ko' => 'Korean' ,
+    'ks' => 'Kashmiri' ,
+    'ku' => 'Kurdish' ,
+    'ky' => 'Kirghiz' ,
+    'la' => 'Latin' ,
+    'ln' => 'Lingala' ,
+    'lo' => 'Laothian' ,
+    'lt' => 'Lithuanian' ,
+    'lv' => 'Latvian/Lettish' ,
+    'mg' => 'Malagasy' ,
+    'mi' => 'Maori' ,
+    'mk' => 'Macedonian' ,
+    'ml' => 'Malayalam' ,
+    'mn' => 'Mongolian' ,
+    'mo' => 'Moldavian' ,
+    'mr' => 'Marathi' ,
+    'ms' => 'Malay' ,
+    'mt' => 'Maltese' ,
+    'my' => 'Burmese' ,
+    'na' => 'Nauru' ,
+    'ne' => 'Nepali' ,
+    'nl' => 'Dutch' ,
+    'no' => 'Norwegian' ,
+    'oc' => 'Occitan' ,
+    'om' => '(Afan)/Oromoor/Oriya' ,
+    'pa' => 'Punjabi' ,
+    'pl' => 'Polish' ,
+    'ps' => 'Pashto/Pushto' ,
+    'pt' => 'Portuguese' ,
+    'qu' => 'Quechua' ,
+    'rm' => 'Rhaeto-Romance' ,
+    'rn' => 'Kirundi' ,
+    'ro' => 'Romanian' ,
+    'ru' => 'Russian' ,
+    'rw' => 'Kinyarwanda' ,
+    'sa' => 'Sanskrit' ,
+    'sd' => 'Sindhi' ,
+    'sg' => 'Sangro' ,
+    'sh' => 'Serbo-Croatian' ,
+    'si' => 'Singhalese' ,
+    'sk' => 'Slovak' ,
+    'sl' => 'Slovenian' ,
+    'sm' => 'Samoan' ,
+    'sn' => 'Shona' ,
+    'so' => 'Somali' ,
+    'sq' => 'Albanian' ,
+    'sr' => 'Serbian' ,
+    'ss' => 'Siswati' ,
+    'st' => 'Sesotho' ,
+    'su' => 'Sundanese' ,
+    'sv' => 'Swedish' ,
+    'sw' => 'Swahili' ,
+    'ta' => 'Tamil' ,
+    'te' => 'Tegulu' ,
+    'tg' => 'Tajik' ,
+    'th' => 'Thai' ,
+    'ti' => 'Tigrinya' ,
+    'tk' => 'Turkmen' ,
+    'tl' => 'Tagalog' ,
+    'tn' => 'Setswana' ,
+    'to' => 'Tonga' ,
+    'tr' => 'Turkish' ,
+    'ts' => 'Tsonga' ,
+    'tt' => 'Tatar' ,
+    'tw' => 'Twi' ,
+    'uk' => 'Ukrainian' ,
+    'ur' => 'Urdu' ,
+    'uz' => 'Uzbek' ,
+    'vi' => 'Vietnamese' ,
+    'vo' => 'Volapuk' ,
+    'wo' => 'Wolof' ,
+    'xh' => 'Xhosa' ,
+    'yo' => 'Yoruba' ,
+    'zh-CN' => 'Chinese' ,
+    'zu' => 'Zulu' ,
   ];
   return $language_codes;
 }
@@ -4234,15 +4107,15 @@ function mass_theme_form_system_theme_settings_alter(&$form, $form_state) {
   $languages = mass_theme_googletranslate_options_languages();
 
   $form['mass_theme_settings'] = [
-    '#type' => 'details',
+    '#type'  => 'details',
     '#title' => t('Languages'),
-    '#open' => TRUE,
+    '#open'  => TRUE,
   ];
 
   $form['mass_theme_settings']['languages'] = [
-    '#type' => 'checkboxes',
-    '#options' => $languages,
-    '#title' => t('Choose google translate languages?'),
+    '#type'          => 'checkboxes',
+    '#options'       => $languages,
+    '#title'         => t('Choose google translate languages?'),
     '#default_value' => theme_get_setting('languages', 'mass_theme'),
   ];
 }

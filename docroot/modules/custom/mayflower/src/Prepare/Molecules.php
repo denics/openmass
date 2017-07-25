@@ -1079,7 +1079,7 @@ class Molecules {
   public static function prepareLocationIcons($entity) {
     $icons = [];
     $map = [
-      'icons' => ['field_location_icons', 'field_form_payment_options'],
+      'icons' => ['field_location_icons'],
     ];
 
     // Determines which fieldnames to use from the map.

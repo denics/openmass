@@ -894,30 +894,6 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
           ),
         );
         break;
-      case "form_page":
-        $fields = array (
-          array (
-            'field' => 'field-form-ref-contacts-3',
-            'tag' => 'input',
-            'type' => 'text',
-          ),
-          array (
-            'field' => 'field-form-embed',
-            'tag' => 'textarea',
-            'type' => '',
-          ),
-          array (
-            'field' => 'field-form-lede',
-            'tag' => 'input',
-            'type' => 'text',
-          ),
-          array (
-            'field' => 'field-form-you-will',
-            'tag' => 'textarea',
-            'type' => '',
-          ),
-        );
-        break;
       case "legacy_redirects":
         $fields = array (
           array (
