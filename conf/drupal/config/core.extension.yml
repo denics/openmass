@@ -75,6 +75,7 @@ module:
   mass_schema_collection_page: 0
   mass_schema_government_service: 0
   mass_schema_metatag: 0
+  mass_schema_place: 0
   mass_search: 0
   mass_search_suppression: 0
   mass_styles: 0

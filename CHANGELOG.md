@@ -6,8 +6,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 ## Upcoming (add in progress changes here)
 
 ### Added
-DP-4142 Implement (schema.org) structured data "fee page"
-DP-2849 Implement (schema.org) structured data for "Guide Page"
+- DP-4142 Implement (schema.org) structured data "fee page"
+- DP-2849 Implement (schema.org) structured data for "Guide Page"
+- DP-2410 Implement (schema.org) structured data for "Location" content type. This allows the 'location' nodes to be mapped with Schema.org properties.
 
 ### Changed
 

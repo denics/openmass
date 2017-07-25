@@ -5,6 +5,14 @@ dependencies: {  }
 id: node__location
 label: 'Content: Location'
 tags:
+  schema_place_address: '[node:field_ref_contact_info_1]'
+  schema_place_amenity_feature: '[node:field_services]'
+  schema_place_description: '[node:field_overview]'
+  schema_place_disambiguating_description: '[node:field_location_more_information]'
+  schema_place_id: '[node:url]#location'
+  schema_place_name: '[node:title]'
+  schema_place_photo: 'a:3:{s:3:"url";s:20:"[node:field_bg_wide]";s:5:"width";s:0:"";s:6:"height";s:0:"";}'
+  schema_place_type: Place
   description: '[node:field_lede]'
   geo_placename: '[node:title]'
   geo_region: US-MA
