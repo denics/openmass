@@ -1,0 +1,23 @@
+uuid: 80dc99f6-b292-4d96-b5b8-a129645635ed
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_audience
+    - node.type.service_page
+  module:
+    - options
+id: node.service_page.field_audience
+field_name: field_audience
+entity_type: node
+bundle: service_page
+label: 'Primary audience'
+description: 'The primary audience for this content. This is used for filtering content on the Search page.'
+required: true
+translatable: false
+default_value:
+  -
+    value: constituents
+default_value_callback: ''
+settings: {  }
+field_type: list_string

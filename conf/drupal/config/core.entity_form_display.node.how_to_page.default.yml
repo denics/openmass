@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.how_to_page.field_audience
     - field.field.node.how_to_page.field_how_to_contacts_3
     - field.field.node.how_to_page.field_how_to_files
     - field.field.node.how_to_page.field_how_to_lede
@@ -49,6 +50,7 @@ third_party_settings:
         - field_how_to_lede
         - field_how_to_time
         - field_how_to_link_1
+        - field_audience
       parent_name: group_how_to_page_edit_form
       weight: 20
       format_type: tab
@@ -113,6 +115,12 @@ content:
     weight: 1
     settings: {  }
     third_party_settings: {  }
+    region: content
+  field_audience:
+    weight: 2
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
     region: content
   field_how_to_contacts_3:
     weight: 39

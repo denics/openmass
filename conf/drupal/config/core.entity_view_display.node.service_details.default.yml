@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.service_details.field_audience
     - field.field.node.service_details.field_service_detail_lede
     - field.field.node.service_details.field_service_detail_links_5
     - field.field.node.service_details.field_service_detail_overview
@@ -11,6 +12,7 @@ dependencies:
   module:
     - entity_reference_revisions
     - link
+    - options
     - text
     - user
 id: node.service_details.default
@@ -18,6 +20,13 @@ targetEntityType: node
 bundle: service_details
 mode: default
 content:
+  field_audience:
+    weight: 9
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+    region: content
   field_service_detail_lede:
     weight: 5
     label: above

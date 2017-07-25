@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.service_page.field_audience
     - field.field.node.service_page.field_image_credit
     - field.field.node.service_page.field_service_bg_narrow
     - field.field.node.service_page.field_service_bg_wide
@@ -24,12 +25,20 @@ dependencies:
   module:
     - image
     - link
+    - options
     - user
 id: node.service_page.default
 targetEntityType: node
 bundle: service_page
 mode: default
 content:
+  field_audience:
+    weight: 119
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+    region: content
   field_image_credit:
     weight: 118
     label: above

@@ -13,10 +13,10 @@ tags:
   schema_apply_action_logo: 'a:3:{s:3:"url";s:41:"[node:field_service_sub_brand:entity:url]";s:5:"width";s:0:"";s:6:"height";s:0:"";}'
   schema_apply_action_name: '[node:title]'
   schema_apply_action_potential_action: '[node:title]'
-  schema_apply_action_related_link: '[node:field_how_to_links_5]'
   schema_apply_action_target: '[node:field_how_to_link_1]'
   schema_apply_action_type: ApplyAction
   title: '[node:title] | [site:name]'
+  audience: '[node:field_audience:value]'
   og_site_name: '[site:name]'
   og_title: '[node:title]'
   og_type: howto
