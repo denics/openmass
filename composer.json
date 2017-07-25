@@ -141,6 +141,7 @@
         "drupal/migrate_source_csv": "^2",
         "drupal/migrate_tools": "^3",
         "drupal/node_edit_protection": "1.x-dev",
+        "drupal/node_title_help_text": "1.x-dev",
         "drupal/office_hours": "^1.0@alpha",
         "drupal/paragraphs": "1.x-dev",
         "drupal/password_policy": "3.x-dev#435efce3dccfe4adbbe172048e15d28f861025a6",
@@ -162,7 +163,7 @@
         "drupal/xmlsitemap": "1.x-dev",
         "enyo/dropzone": "4.3.0",
         "mikeyp/google_tag": "dev-8.x-1.x#3caa4f0b7f008576936ab7501d483bfcf58a4764",
-        "palantirnet/mayflower-artifacts": "5.3.0",
+        "palantirnet/mayflower-artifacts": "5.5.0",
         "palantirnet/the-vagrant": "dev-master",
         "palantirnet/workbench_tabs": "dev-8.x-1.x"
     },

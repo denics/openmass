@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 ## Upcoming (add in progress changes here)
 
 ### Added
+DP-3757 Adds form_page content type
+DP-4138 Adds custom field type for form embed
 DP-4142 Implement (schema.org) structured data "fee page"
 DP-2849 Implement (schema.org) structured data for "Guide Page"
 

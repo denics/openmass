@@ -67,6 +67,7 @@ module:
   mass_entityreference: 0
   mass_feedback_form: 0
   mass_flagging: 0
+  mass_fields: 0
   mass_formatters: 0
   mass_map: 0
   mass_nav: 0
@@ -96,6 +97,7 @@ module:
   migrate_tools: 0
   node: 0
   node_edit_protection: 0
+  node_title_help_text: 0
   office_hours: 0
   options: 0
   paragraphs: 0
