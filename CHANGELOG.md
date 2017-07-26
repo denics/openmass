@@ -9,9 +9,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 ### Changed
 
-
 ### Removed
-
 
 
 ## [0.24.0] - July 25, 2017
@@ -23,7 +21,6 @@ None.
 
 ### Removed
 None.
-
 
 
 ## [0.23.1] - July 20, 2017
