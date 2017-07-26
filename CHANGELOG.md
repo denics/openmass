@@ -5,16 +5,37 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 ## Upcoming (add in progress changes here)
 
+### Added
+
+### Changed
+
+
+### Removed
+
+
+
+## [0.24.0] - July 25, 2017
+### Added
+- Implemented structured data (schema.org) for the following three content types: Fee, Guide and Location. When you visit these page types, they now render JSON-LD (viewable in source page source code).
+
+### Changed
+None.
+
+### Removed
+None.
+
+
+
 ## [0.23.1] - July 20, 2017
 
 ### Added
-- DP-0000 - Adds "stamp-and-deploy" script. Under "deployment" in "circle.yml", the "commands" section for branches that CircleCI acts upon, are now in a bash script "./scripts/stamp-and-deploy". (Sorry, no Jira ticket - Youssef & Moshe)
-- DP-3774 - Adds email notifications for watchers of content
-- DP-4357 - Adds preliminary configuration for Advisory content type
-- DP-4358 - Adds preliminary configuration for Decision content type
+- Adds "stamp-and-deploy" script. Under "deployment" in "circle.yml", the "commands" section for branches that CircleCI acts upon, are now in a bash script "./scripts/stamp-and-deploy".
+- Adds email notifications for watchers of content
+- Adds preliminary configuration for Advisory content type
+- Adds preliminary configuration for Decision content type
 
 ### Changed
-DP-0000 - Fine-tune branch name regex for CircleCI; i.e. act on any branch name that is not "develop". Only push to Acquia if it is not "develop". (Sorry, no Jira ticket - Youssef & Moshe)
+Fine-tune branch name regex for CircleCI; i.e. act on any branch name that is not "develop". Only push to Acquia if it is not "develop".
 
 ### Removed
 

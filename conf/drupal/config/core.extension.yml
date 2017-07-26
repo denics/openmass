@@ -14,6 +14,7 @@ module:
   components: 0
   config: 0
   config_log: 0
+  contact: 0
   contextual: 0
   crazyegg: 0
   csv_serialization: 0
@@ -69,9 +70,12 @@ module:
   mass_formatters: 0
   mass_map: 0
   mass_nav: 0
+  mass_schema_unit_price_specification: 0
   mass_schema_apply_action: 0
+  mass_schema_collection_page: 0
   mass_schema_government_service: 0
   mass_schema_metatag: 0
+  mass_schema_place: 0
   mass_search: 0
   mass_search_suppression: 0
   mass_styles: 0
@@ -100,6 +104,7 @@ module:
   password_policy_characters: 0
   password_policy_length: 0
   path: 0
+  prepopulate: 0
   rabbit_hole: 0
   rdf: 0
   redirect: 0

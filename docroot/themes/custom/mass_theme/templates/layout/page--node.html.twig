@@ -13,8 +13,11 @@
  */
 #}
 {% extends 'page.html.twig' %}
-{% block watchFlag %}
-  {{ page.flag_link }}
+{% block massFlaggingLinkContainer %}
+  <div class="mass-flagging-link-container">
+    {{ page.watch_content_link }}
+    {{ page.flag_content_link }}
+  </div>
 {% endblock %}
 {% block preContent %}{% endblock %}
 {% block postContent %}{% endblock %}
