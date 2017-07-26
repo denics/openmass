@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - DP-4142 Implement (schema.org) structured data "fee page"
 - DP-2849 Implement (schema.org) structured data for "Guide Page"
 - DP-2410 Implement (schema.org) structured data for "Location" content type. This allows the 'location' nodes to be mapped with Schema.org properties.
+- Adds a "category" metatag when viewing most nodes. The category is dynamically determined based on the content type and will allow future filtered searches using Google CSE.
 
 ### Changed
 
