@@ -3,6 +3,7 @@
 namespace Drupal\mayflower\Prepare;
 
 use Drupal\mayflower\Helper;
+use Drupal\Core\Url;
 
 /**
  * Provides variable structure for mayflower atoms using prepare functions.
@@ -317,12 +318,13 @@ class Atoms {
         'height' => $options['height'],
         'width' => $options['width'],
         'position' => $options['position'],
+        'link' => NULL,
       ];
 
       if (Helper::isFieldPopulated($entity, 'field_video_transcript')) {
         $info = ' for ' . $name;
         $video['link'] = [
-          'href' => $entity->field_video_transcript->uri,
+          'href' => Url::fromUri($entity->field_video_transcript->uri),
           'text' => 'View transcript',
           'info' => $info,
         ];

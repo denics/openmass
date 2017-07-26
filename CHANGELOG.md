@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 ### Changed
 - Fixed url encoding for the 'target' property value on 'How-To Page' content type.
+- DP-4675 - Update mayflower to 5.5.0
 
 ### Removed
 

@@ -163,7 +163,7 @@
         "drupal/xmlsitemap": "1.x-dev",
         "enyo/dropzone": "4.3.0",
         "mikeyp/google_tag": "dev-8.x-1.x#3caa4f0b7f008576936ab7501d483bfcf58a4764",
-        "palantirnet/mayflower-artifacts": "5.3.0",
+        "palantirnet/mayflower-artifacts": "5.5.0",
         "palantirnet/the-vagrant": "dev-master",
         "palantirnet/workbench_tabs": "dev-8.x-1.x"
     },
