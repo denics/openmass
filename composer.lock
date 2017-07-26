@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "7ff807666f9641833f781bb5fb5f4d7c",
+    "content-hash": "3426e0225d79132747e286831663d21a",
     "packages": [
         {
             "name": "acquia/acquia-sdk-php",
@@ -197,8 +197,7 @@
                 "url": "https://github.com/blakestein/drupal-datalayer-d8.git",
                 "reference": "3b2ffa7"
             },
-            "type": "drupal-module",
-            "time": "2017-01-05T00:00:58+00:00"
+            "type": "drupal-module"
         },
         {
             "name": "caxy/php-htmldiff",
@@ -1492,8 +1491,7 @@
             "homepage": "https://www.drupal.org/project/access_unpublished",
             "support": {
                 "source": "http://cgit.drupalcode.org/access_unpublished"
-            },
-            "time": "2017-01-26T16:59:48+00:00"
+            }
         },
         {
             "name": "drupal/acquia_connector",
@@ -1610,7 +1608,7 @@
                 },
                 "drupal": {
                     "version": "8.x-1.0-alpha3",
-                    "datestamp": "1495469283"
+                    "datestamp": "1499338442"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -1659,7 +1657,7 @@
                 },
                 "drupal": {
                     "version": "8.x-1.0",
-                    "datestamp": "1495109886"
+                    "datestamp": "1499893143"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -1758,8 +1756,8 @@
                     "dev-1.x": "1.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-1.1+2-dev",
-                    "datestamp": "1498744743"
+                    "version": "8.x-1.1+4-dev",
+                    "datestamp": "1499338442"
                 },
                 "patches_applied": {
                     "Fix the positioning of the additional help text (https://www.drupal.org/node/2882765)": "https://www.drupal.org/files/issues/better_field_descriptions-position-help-2882765-0.patch",
@@ -1886,6 +1884,57 @@
             "homepage": "https://www.drupal.org/project/components",
             "support": {
                 "source": "http://cgit.drupalcode.org/components"
+            }
+        },
+        {
+            "name": "drupal/conditional_fields",
+            "version": "1.0.0-alpha2",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupal.org/project/conditional_fields",
+                "reference": "8.x-1.0-alpha2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/conditional_fields-8.x-1.0-alpha2.zip",
+                "reference": null,
+                "shasum": "5e349a644e87a36d48987b0e4ee41110a43263bc"
+            },
+            "require": {
+                "drupal/core": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.0-alpha2",
+                    "datestamp": "1497015242"
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Adyax",
+                    "homepage": "https://www.adyax.com/"
+                },
+                {
+                    "name": "itsekhmistro",
+                    "homepage": "https://www.drupal.org/user/928152"
+                },
+                {
+                    "name": "peterpoe",
+                    "homepage": "https://www.drupal.org/user/55674"
+                }
+            ],
+            "description": "Conditional fields",
+            "homepage": "https://www.drupal.org/project/conditional_fields",
+            "support": {
+                "source": "http://cgit.drupalcode.org/conditional_fields"
             }
         },
         {
@@ -2688,8 +2737,7 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/diff",
                 "issues": "https://www.drupal.org/project/issues/diff"
-            },
-            "time": "2017-01-09T10:31:38+00:00"
+            }
         },
         {
             "name": "drupal/draggableviews",
@@ -2747,7 +2795,7 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/draggableviews"
             },
-            "time": "2016-10-21T18:47:50+00:00"
+            "time": "2016-10-21 18:47:50"
         },
         {
             "name": "drupal/dropzonejs",
@@ -2969,8 +3017,8 @@
                     "dev-3.x": "3.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-3.0-alpha2+3-dev",
-                    "datestamp": "1493932085"
+                    "version": "8.x-3.0-alpha2+7-dev",
+                    "datestamp": "1499719142"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -3003,8 +3051,7 @@
             "homepage": "https://www.drupal.org/project/encrypt",
             "support": {
                 "source": "http://cgit.drupalcode.org/encrypt"
-            },
-            "time": "2016-08-05T15:43:56+00:00"
+            }
         },
         {
             "name": "drupal/entity",
@@ -3417,7 +3464,7 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/file_browser"
             },
-            "time": "2017-05-12T21:51:02+00:00"
+            "time": "2017-05-12 21:51:02"
         },
         {
             "name": "drupal/flag",
@@ -3589,8 +3636,7 @@
             "homepage": "https://www.drupal.org/project/ga_login",
             "support": {
                 "source": "http://cgit.drupalcode.org/ga_login"
-            },
-            "time": "2016-08-19T19:20:09+00:00"
+            }
         },
         {
             "name": "drupal/geocoder",
@@ -3924,8 +3970,7 @@
             "homepage": "https://www.drupal.org/project/inline_entity_form",
             "support": {
                 "source": "http://cgit.drupalcode.org/inline_entity_form"
-            },
-            "time": "2016-11-14T20:32:26+00:00"
+            }
         },
         {
             "name": "drupal/key",
@@ -4035,8 +4080,7 @@
                 "source": "http://cgit.drupalcode.org/libraries",
                 "issues": "http://drupal.org/project/issues/libraries",
                 "irc": "irc://irc.freenode.org/drupal-contribute"
-            },
-            "time": "2017-03-15T17:04:08+00:00"
+            }
         },
         {
             "name": "drupal/media_entity",
@@ -4390,6 +4434,10 @@
                 {
                     "name": "mikeryan",
                     "homepage": "https://www.drupal.org/user/4420"
+                },
+                {
+                    "name": "moshe weitzman",
+                    "homepage": "https://www.drupal.org/user/23"
                 }
             ],
             "description": "Tools to assist in developing and running migrations.",
@@ -4445,8 +4493,7 @@
             "homepage": "https://www.drupal.org/project/node_edit_protection",
             "support": {
                 "source": "http://cgit.drupalcode.org/node_edit_protection"
-            },
-            "time": "2016-07-21T12:38:12+00:00"
+            }
         },
         {
             "name": "drupal/office_hours",
@@ -4567,7 +4614,7 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/paragraphs"
             },
-            "time": "2017-06-21T12:21:41+00:00"
+            "time": "2017-06-21 12:21:41"
         },
         {
             "name": "drupal/password_policy",
@@ -4758,7 +4805,7 @@
                 },
                 "drupal": {
                     "version": "8.x-3.0-beta6",
-                    "datestamp": "1477484639"
+                    "datestamp": "1500909542"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -4799,7 +4846,7 @@
                 },
                 "drupal": {
                     "version": "8.x-3.0-beta6",
-                    "datestamp": "1477484639"
+                    "datestamp": "1500909542"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -4840,7 +4887,7 @@
                 },
                 "drupal": {
                     "version": "8.x-3.0-beta6",
-                    "datestamp": "1477484639"
+                    "datestamp": "1500909542"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -4881,7 +4928,7 @@
                 },
                 "drupal": {
                     "version": "8.x-3.0-beta6",
-                    "datestamp": "1477484639"
+                    "datestamp": "1500909542"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -4922,7 +4969,7 @@
                 },
                 "drupal": {
                     "version": "8.x-3.0-beta6",
-                    "datestamp": "1477484639"
+                    "datestamp": "1500909542"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -5311,8 +5358,7 @@
             "homepage": "https://www.drupal.org/project/security_review",
             "support": {
                 "source": "http://cgit.drupalcode.org/security_review"
-            },
-            "time": "2016-10-20T15:43:48+00:00"
+            }
         },
         {
             "name": "drupal/subpathauto",
@@ -5851,8 +5897,7 @@
             "homepage": "https://www.drupal.org/project/xmlsitemap",
             "support": {
                 "source": "http://cgit.drupalcode.org/xmlsitemap"
-            },
-            "time": "2016-12-07T10:00:27+00:00"
+            }
         },
         {
             "name": "easyrdf/easyrdf",
@@ -11354,7 +11399,7 @@
                 {
                     "name": "Anthon Pang",
                     "email": "apang@softwaredevelopment.ca",
-                    "role": "Fork maintainer"
+                    "role": "Fork Maintainer"
                 }
             ],
             "description": "PHP WebDriver for Selenium 2",

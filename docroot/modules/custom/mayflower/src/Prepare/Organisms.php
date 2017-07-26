@@ -608,16 +608,28 @@ class Organisms {
     // Use appropriate image style for various pageBanner sizes.
     if ($pageBanner['size'] === 'columns') {
       // Use original image style for hotfix to avoid config/DB changes.
-      $image_style_wide = 'original';
-      $image_style_narrow = 'original';
+      $image_style_wide = 'Hero820x460_no_blur';
+      $image_style_narrow = 'Hero800x400_no_blur';
       // @TODO fix the hero820 image style so that it is not blurred.
       // $image_style_wide = 'hero820x460';
       // $image_style_narrow = 'hero800x400';
+    }
+    elseif ($pageBanner['size'] === 'hero1600x400') {
+      $image_style_wide = 'Hero1600x400';
+      $image_style_narrow = 'Hero800x400_no_blur';
     }
 
     // Use helper function to get the image url of a given image style.
     $pageBanner['bgWide'] = Helper::getFieldImageUrl($entity, $image_style_wide, $fields['bg_wide']);
     $pageBanner['bgNarrow'] = Helper::getFieldImageUrl($entity, $image_style_narrow, $fields['bg_narrow']);
+
+    if ($options['type'] == 'section landing') {
+      // Manually specified since we have potentially 4 image fields on topic_page.
+      $pageBanner['bgWide'] = Helper::getFieldImageUrl($entity, $image_style_wide, 'field_topic_section_bg_wide');
+      if (Helper::isFieldPopulated($entity, 'field_topic_section_bg_narrow')) {
+        $pageBanner['bgNarrow'] = Helper::getFieldImageUrl($entity, $image_style_narrow, 'field_topic_section_bg_narrow');
+      }
+    }
 
     // @todo determine how to handle options vs field value (check existence, order of importance, etc.)
     $pageBanner['icon'] = $options['icon'];
@@ -639,7 +651,10 @@ class Organisms {
         $description = $entity->$fields['description']->value;
       }
     }
-    $pageBanner['description'] = $description;
+
+    if ($options['type'] != 'section landing') {
+      $pageBanner['description'] = $description;
+    }
 
     return $pageBanner;
   }

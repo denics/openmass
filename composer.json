@@ -111,6 +111,7 @@
         "drupal/better_field_descriptions": "1.x-dev#f78d6715a2177a4b40568bff3c180383fae8cb27",
         "drupal/clamav": "^1.0",
         "drupal/components": "^1",
+        "drupal/conditional_fields": "^1.0.0-alpha2",
         "drupal/config_installer": "^1",
         "drupal/config_log": "^1",
         "drupal/console": "~1.0",
