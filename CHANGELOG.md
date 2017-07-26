@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - DP-4142 Implement (schema.org) structured data "fee page"
 - DP-2849 Implement (schema.org) structured data for "Guide Page"
 - DP-2410 Implement (schema.org) structured data for "Location" content type. This allows the 'location' nodes to be mapped with Schema.org properties.
+- Adds a "Primary audience" field to Guide Page, How-to Page, Service Page, and Service Detail Page content types. The value of this field is used to populate an "audience" metatag for those pages, allowing Google CSE to filter by audience.
 
 ### Changed
 
