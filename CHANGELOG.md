@@ -4,23 +4,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 ### Added
-- DP-4142 Implement (schema.org) structured data "fee page"
-- DP-2849 Implement (schema.org) structured data for "Guide Page"
-- DP-4424 Removes "publish" and "unpublish" actions from admin/content, and adds proper Workbench Moderation states instead.
-- DP-3757 Adds form_page content type
-- DP-4138 Adds custom field type for form embed
-- DP-4222 - Modifies topic page to allow it to display as a section landing. Requires post update of ```drush mass-topic-page-type-update```.
-
 
 ### Changed
+
+### Removed
+
+
+## [0.24.1] - July 27, 2017
+### Added
+- Adds form_page content type
+- Adds custom field type for form embed
+- Modifies topic page to allow it to display as a section landing. Requires post update of ```drush mass-topic-page-type-update```.
+
+### Changed
+- Removes "publish" and "unpublish" actions from admin/content and adds proper Workbench Moderation states instead.
 - Add logic around link fields to resolve error where node is deleted but link still exists.
 - Fixed url encoding for the 'target' property value on 'How-To Page' content type.
 - Refactors check for bundles that use email link fields in \Drupal\mayflower\Prepare\Molecules::prepareContactGroup, in order to prevent incorrect rendering of web links as email links in contact_information nodes.
-- DP-4675 - Update mayflower to 5.5.0
-- Updated mass_flagging_node_update_insert_send_notifications() function to fetch the revising user's account via Node::getRevisionUser, instead of Node::getOwner.
-
+- Update mayflower to 5.5.0
+- Watch notification emails include revision author
 
 ### Removed
+None
 
 
 ## [0.24.0] - July 25, 2017
