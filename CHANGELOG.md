@@ -34,7 +34,7 @@ None
 - Introduced "Content Flagging" capability. As a mass.gov internal user, I can flag a piece of content that appears inappropriate or incorrect.
 
 ### Changed
-- 
+None.
 
 ### Removed
 None.
