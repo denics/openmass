@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - DP-4222 - Modifies topic page to allow it to display as a section landing. Requires post update of ```drush mass-topic-page-type-update```.
 
 ### Changed
+- Add logic around link fields to resolve error where node is deleted but link still exists.
 - Fixed url encoding for the 'target' property value on 'How-To Page' content type.
 - DP-4675 - Update mayflower to 5.5.0
 
@@ -21,7 +22,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - Introduced "Content Flagging" capability. As a mass.gov internal user, I can flag a piece of content that appears inappropriate or incorrect.
 
 ### Changed
-None.
+- 
 
 ### Removed
 None.

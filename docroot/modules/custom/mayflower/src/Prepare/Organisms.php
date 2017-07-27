@@ -517,18 +517,22 @@ class Organisms {
 
       // On an internal item, load the referenced node title.
       if (strpos($link->getValue()['uri'], 'entity:node') !== FALSE) {
-        $params = Url::fromUri("internal:" . $url->toString())->getRouteParameters();
-        $entity_type = key($params);
-        $entity = \Drupal::entityTypeManager()->getStorage($entity_type)->load($params[$entity_type]);
-        $content_type = $entity->getType();
+        if (method_exists($url, 'getRouteParameters') && $url->isRouted() == TRUE) {
+          $params = $url->getRouteParameters();
+          $entity_type = key($params);
+          $entity = \Drupal::entityTypeManager()->getStorage($entity_type)->load($params[$entity_type]);
+          if (!empty($entity) && method_exists($entity, getType)) {
+            $content_type = $entity->getType();
 
-        if (Helper::isFieldPopulated($entity, 'field_news_date')) {
-          $date = Helper::fieldFullView($entity, 'field_news_date');
-        }
+            if (Helper::isFieldPopulated($entity, 'field_news_date')) {
+              $date = Helper::fieldFullView($entity, 'field_news_date');
+            }
 
-        // On internal item, if empty, grab enity title.
-        if (empty($text)) {
-          $text = $entity->getTitle();
+            // On internal item, if empty, grab enity title.
+            if (empty($text)) {
+              $text = $entity->getTitle();
+            }
+          }
         }
       }
 
@@ -689,13 +693,15 @@ class Organisms {
       foreach ($entities->$fields['topic_cards'] as $card) {
         $url = $card->getUrl();
         $desc = '';
-
+        $seeAll = '';
         // Load up our entity if internal.
-        if ($url->isExternal() == FALSE) {
-          $params = Url::fromUri("internal:" . $url->toString())->getRouteParameters();
+        if ($url->isExternal() == FALSE && method_exists($url, 'getRouteParameters')) {
+          $params = $url->getRouteParameters();
           $entity_type = key($params);
           $entity = \Drupal::entityTypeManager()->getStorage($entity_type)->load($params[$entity_type]);
-          $cards[] = Molecules::prepareSectionLink($entity, $options);
+          if (!empty($entity)) {
+            $cards[] = Molecules::prepareSectionLink($entity, $options);
+          }
         }
         else {
           $cards[] = [
