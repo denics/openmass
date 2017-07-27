@@ -1,0 +1,33 @@
+uuid: 14d6d654-0be7-4ad2-b6be-37391a4c6c53
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_form_you_will
+    - node.type.form_page
+  module:
+    - geocoder_field
+    - text
+third_party_settings:
+  geocoder_field:
+    method: none
+    field: title
+    plugins: {  }
+    dumper: wkt
+    delta_handling: default
+    failure:
+      handling: preserve
+      status_message: true
+      log: true
+id: node.form_page.field_form_you_will
+field_name: field_form_you_will
+entity_type: node
+bundle: form_page
+label: 'You Will Need'
+description: 'Explain anything that someone should have or know before they start this form. Use bullets if the list is long. '
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

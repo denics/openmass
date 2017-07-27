@@ -3,10 +3,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
-## Upcoming (add in progress changes here)
-- DP-4222 - Modifies topic page to allow it to display as a section landing. Requires post update of ```drush mass-topic-page-type-update```.
-
 ### Added
+- DP-3757 Adds form_page content type
+- DP-4138 Adds custom field type for form embed
+- DP-4222 - Modifies topic page to allow it to display as a section landing. Requires post update of ```drush mass-topic-page-type-update```.
 
 ### Changed
 - Fixed url encoding for the 'target' property value on 'How-To Page' content type.
