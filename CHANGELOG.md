@@ -11,7 +11,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 ### Changed
 - Add logic around link fields to resolve error where node is deleted but link still exists.
 - Fixed url encoding for the 'target' property value on 'How-To Page' content type.
+- Refactors check for bundles that use email link fields in \Drupal\mayflower\Prepare\Molecules::prepareContactGroup, in order to prevent incorrect rendering of web links as email links in contact_information nodes.
 - DP-4675 - Update mayflower to 5.5.0
+
 
 ### Removed
 
