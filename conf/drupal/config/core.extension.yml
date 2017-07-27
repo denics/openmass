@@ -146,6 +146,7 @@ module:
   video_embed_media: 0
   views_ui: 0
   workbench_moderation: 0
+  workbench_moderation_actions: 0
   workbench_tabs: 0
   menu_link_content: 1
   pathauto: 1
