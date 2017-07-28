@@ -760,6 +760,64 @@ function mass_theme_preprocess_node_org_page(&$variables) {
     ];
   }
 
+  // Get events associated with this org page from view.
+  $view_results = views_get_view_result('event_listing', 'event_listing_block', $node->id());
+
+  if (!empty($view_results)) {
+    $events = [];
+    // Roll up link field.
+    foreach ($view_results as $key => $row) {
+      $eventEntity = $row->_relationship_entities['reverse__node__field_event_ref_parents'];
+
+      // Create the map of all possible field names to use.
+      $event_map = [
+        'date' => ['field_event_date'],
+        'time' => ['field_event_time'],
+        'lede' => ['field_event_lede'],
+        'tags' => ['field_event_ref_parents'],
+        'links' => ['field_event_links'],
+        'image' => ['field_event_image'],
+        'logo' => ['field_event_logo'],
+        'downloads' => ['field_event_ref_downloads'],
+        'contact' => ['field_event_contact_general'],
+      ];
+
+      // Determines which field names to use from the map.
+      $event_fields = Helper::getMappedFields($eventEntity, $event_map);
+      $headerDate_options = [];
+      $events[] = Molecules::prepareEventTeaser($eventEntity, $event_fields, $headerDate_options);
+    }
+
+    $sections[] = [
+      'pageContent' => [
+        [
+          'path' => '@organisms/by-author/event-listing.twig',
+          'data' => [
+            'eventListing' => [
+              'grid' => TRUE,
+              'compHeading' => [
+                'title' => t('Upcoming Events'),
+              ],
+              'events' => $events,
+            ],
+          ],
+        ],
+      ],
+    ];
+  }
+
+  // Build related links section, if field is populated.
+  if (Helper::isFieldPopulated($node, 'field_event_ref_event_2')) {
+    // Set up options for contact list.
+    $eventList_options = [
+      'heading' => [
+        'title' => t('Related Events'),
+        'centered' => TRUE,
+      ],
+    ];
+    $bottomContent['eventListing'] = Organisms::prepareEventListing($node, 'field_event_ref_event_2', $eventList_options);
+  }
+
   $variables['stackedRowSections'] = $sections;
   // Prepare the schema.governmentOrganization data object.
   $variables['schema'] = Schemas::prepareGovernmentOrganization($variables);
@@ -1310,6 +1368,40 @@ function mass_theme_preprocess_node_service_page(&$variables) {
     $variables['mappedLocations'] = Organisms ::prepareMappedLocations($node->field_service_ref_locations->referencedEntities(), $mappedLocations_options);
   }
 
+  // Get events associated with this service page from view.
+  $view_results = views_get_view_result('event_listing', 'event_listing_block', $node->id());
+
+  if (!empty($view_results)) {
+    $events = [];
+    // Roll up link field.
+    foreach ($view_results as $key => $row) {
+      $eventEntity = $row->_relationship_entities['reverse__node__field_event_ref_parents'];
+
+      // Create the map of all possible field names to use.
+      $event_map = [
+        'date' => ['field_event_date'],
+        'time' => ['field_event_time'],
+        'lede' => ['field_event_lede'],
+        'tags' => ['field_event_ref_parents'],
+        'links' => ['field_event_links'],
+        'image' => ['field_event_image'],
+        'logo' => ['field_event_logo'],
+        'downloads' => ['field_event_ref_downloads'],
+        'contact' => ['field_event_contact_general'],
+      ];
+
+      // Determines which field names to use from the map.
+      $event_fields = Helper::getMappedFields($eventEntity, $event_map);
+      $headerDate_options = [
+        'title' => t('Upcoming Events'),
+      ];
+      $events[] = Molecules::prepareEventTeaser($eventEntity, $event_fields, $headerDate_options);
+    }
+    $variables['eventListing'] = Atoms::prepareCompHeading($headerDate_options);
+    $variables['eventListing']['grid'] = 'true';
+    $variables['eventListing']['events'] = $events;
+  }
+
   // Prepare the split columns data structure (send only if there is content).
   $split_columns = [];
 
@@ -1355,7 +1447,6 @@ function mass_theme_preprocess_node_service_page(&$variables) {
 
   // Make the mappedLocations data structure available in twig template.
   $variables['splitColumns'] = $split_columns;
-
 }
 
 /**
