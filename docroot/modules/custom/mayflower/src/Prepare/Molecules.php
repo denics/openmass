@@ -574,7 +574,13 @@ class Molecules {
         }
       }
       elseif ($type == 'online') {
-        if ($entity->getType() == 'online_email' || get_class($entity->$fields['link']) == 'Drupal\Core\Field\FieldItemList') {
+        // Checks for email link fields.
+        $bundle = $entity->getType();
+        $bundles_using_email_fields = [
+          'online_email',
+          'media_contact',
+        ];
+        if (in_array($bundle, $bundles_using_email_fields)) {
           $link = Helper::separatedEmailLink($entity, $fields['link']);
           $item['link'] = $link['href'];
           $item['value'] = $link['text'];
@@ -1079,7 +1085,7 @@ class Molecules {
   public static function prepareLocationIcons($entity) {
     $icons = [];
     $map = [
-      'icons' => ['field_location_icons'],
+      'icons' => ['field_location_icons', 'field_form_payment_options'],
     ];
 
     // Determines which fieldnames to use from the map.

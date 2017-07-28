@@ -12,6 +12,7 @@ module:
   clamav: 0
   color: 0
   components: 0
+  conditional_fields: 0
   config: 0
   config_log: 0
   contact: 0
@@ -67,6 +68,7 @@ module:
   mass_entityreference: 0
   mass_feedback_form: 0
   mass_flagging: 0
+  mass_fields: 0
   mass_formatters: 0
   mass_map: 0
   mass_nav: 0
@@ -97,6 +99,7 @@ module:
   migrate_tools: 0
   node: 0
   node_edit_protection: 0
+  node_title_help_text: 0
   office_hours: 0
   options: 0
   paragraphs: 0
@@ -143,6 +146,7 @@ module:
   video_embed_media: 0
   views_ui: 0
   workbench_moderation: 0
+  workbench_moderation_actions: 0
   workbench_tabs: 0
   menu_link_content: 1
   pathauto: 1

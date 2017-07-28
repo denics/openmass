@@ -3,8 +3,6 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
-## Upcoming (add in progress changes here)
-
 ### Added
 
 ### Changed
@@ -12,9 +10,28 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 ### Removed
 
 
+## [0.24.1] - July 27, 2017
+### Added
+- Adds form_page content type.
+- Adds custom field type for form embed.
+- Modifies topic page to allow it to display as a section landing. Requires post update of.
+
+### Changed
+- Removes "publish" and "unpublish" actions from admin/content and adds proper Workbench Moderation states instead.
+- Add logic around link fields to resolve error where node is deleted but link still exists.
+- Fixed url encoding for the 'target' property value on 'How-To Page' content type.
+- Refactor contact links for contact_information pages
+- Update mayflower to 5.5.0
+- Watch notification emails include revision author
+
+### Removed
+None
+
+
 ## [0.24.0] - July 25, 2017
 ### Added
 - Implemented structured data (schema.org) for the following three content types: Fee, Guide and Location. When you visit these page types, they now render JSON-LD (viewable in source page source code).
+- Introduced "Content Flagging" capability. As a mass.gov internal user, I can flag a piece of content that appears inappropriate or incorrect.
 
 ### Changed
 None.
