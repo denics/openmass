@@ -3,10 +3,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
+## Upcoming (add in progress changes here)
+
 ### Added
 - DP-3636 Add event listing to organization pages
 - DP-3637 Add event listing to service pages
-- DP-4710 - Added tester role to be used for select users to try new features.  
+- DP-4710 - Added tester role to be used for select users to try new features.
+- DP-1836 Data team: New oauth-secured content metadata API at `/api/v1/content-metadata`
 
 ### Changed
 
