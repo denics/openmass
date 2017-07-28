@@ -1,0 +1,9 @@
+uuid: 364a0d49-7871-4a29-a358-1f9d17c68ac8
+langcode: en
+status: true
+dependencies: {  }
+id: issuer
+label: Issuer
+icon_uuid: null
+description: 'The Governor who issued the executive order.  Multiple issuers are supported if needed.'
+behavior_plugins: {  }

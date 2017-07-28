@@ -40,6 +40,7 @@ class MapLocationFetcher {
           'required' => FALSE,
           'id' => 'filter-by-location',
           'name' => 'filter-by-location',
+          'type' => 'text',
           'placeholder' => 'City, town, or ZIP code',
         ],
       ],
@@ -50,6 +51,7 @@ class MapLocationFetcher {
           'id' => 'wheelchair',
           'label' => 'Wheelchair accessible',
           'checked' => 'false',
+          'type' => 'checkbox',
           'icon' => '@atoms/05-icons/svg-wheelchair.twig',
         ]
       ],
@@ -68,6 +70,7 @@ class MapLocationFetcher {
                 'required'    => 'false',
                 'id'          => 'filter-by-location',
                 'name'        => 'filter-by-location',
+                'type'        => 'submit',
                 'placeholder' => '',
               ],
               'buttonSearch' => [

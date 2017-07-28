@@ -11,7 +11,12 @@ $command_specific['sql-sync'] = [
   'structure-tables-key' => 'common',
 ];
 
-# @todo - 'root' can't be set in a drushrc. for now run drush comamnds from docroot.
-# this is fixed in drush9.
-// $options['root'] = __DIR__ . "/docroot";
+$command_specific['core-rsync'] = [
+  'exclude-paths' => 'css:js:styles:config*:php',
+];
+
+# @todo Typically, 'root' can't be set in a drushrc. This file gets included via --config by a Drush launcher script in the VM.
+# @todo Replace that launcher script with drush-shim - https://github.com/webflo/drush-shim
+$options['root'] = dirname(__DIR__) . "/docroot";
+
 $options['uri'] = "http://mass.local";

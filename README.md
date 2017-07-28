@@ -3,7 +3,7 @@
 *The official website of the Commonwealth of Massachusetts*
 
 This is the codebase for the Drupal8 site powering (currently) pilot.mass.gov, and eventually mass.gov.
-The Drupal theme (mass_theme) integrates with our Pattern Library [Mayflower](https://github.com/massgov/mayflower).
+The Drupal theme (mass_theme) [integrates with our pattern library, Mayflower](docs/Mayflower.md).
 
 [![CircleCI](https://circleci.com/gh/massgov/mass.svg?style=svg&circle-token=591bd0354ff2fce66095cbb97087fd8eae090b5d)](https://circleci.com/gh/massgov/mass)
 
@@ -76,6 +76,7 @@ $ < you are brought back to command prompt >
 
 1. SSH into the VM: `vagrant ssh`
 1. Move into the project root within the VM: `www`
+1. Run `composer install` to build the codebase.
 1. Run this script from inside the VM & follow prompts to get a local database set up: `ma-refresh-local`
 1. You've got your very own mass.gov! Visit [mass.local](http://mass.local) in your browser of choice.
 
@@ -109,7 +110,6 @@ remember not to commit a core.extension.yml which enables these projects, and re
 
 
 ### Adding a new module to composer
-*We manage dependencies with composer, and also track all dependencies with git. If you run `composer install`, you should see a 'Nothing to install or update' message, since git already has all the dependencies. Changes to dependencies still go through composer.*
 Note: As of [#47bfef3f](https://github.com/massgov/mass/commit/47bfef3f2220ba1b5a44f82e4b6677d7c71722d4), the VM has the latest composer version running.  To run composer in the VM, prepend any composer command with `php -d memory_limit=-1 /usr/local/bin/`.  E.g, to require Drupal module bad_judgement, run `php -d memory_limit=-1 /usr/local/bin/composer require --no-update drupal/bad_judgement:^2.0`. Once we update the memory_limit of the VM we won't need this command.  This will be fixed in [DP-3839](https://jira.state.ma.us/browse/DP-3839).
 
 1. Add the module as a project dependency with composer *(without downloading it, or updating any other package)*: ex. `composer require --no-update drupal/bad_judgement:^2.0` *(If you checked `git status` you should see that only `composer.json` was updated)*
@@ -117,7 +117,7 @@ Note: As of [#47bfef3f](https://github.com/massgov/mass/commit/47bfef3f2220ba1b5
 1. Enable the module: `drush en bad_judgement`
 1. Export the config with the module enabled: `drush config-export`
 1. Sometimes composer will pull in a git directory instead of distribution files for a dependency. Please double check that there is no `.git` directory within the module code, and if so, please remove it. You can test with this command: `find . | grep ".git$"` and should ONLY see the output of: `./.git` (which is this projects git directory - don't delete that!).
-1. Commit the changes to `composer.json`, `composer.lock`, `conf/drupal/config/core.extension.yml`, and the module code itself.
+1. Commit the changes to `composer.json`, `composer.lock`, `conf/drupal/config/core.extension.yml`, but not the module code itself.
 
 
 ### Patching a module
@@ -129,9 +129,8 @@ Sometimes we need to apply patches from the Drupal.org issue queues. These patch
 
 
 ### Deploying work to a testing environment
-1. Outside the VM in the project root, make sure you've checked out the branch you want to test.
-1. (_This step will happen automatically via CircleCI if you've pushed your code to a branch in GitHub. Do this if you haven't._) Push that branch up to the Acquia git remote `git push acquia <your branch>`. Now that acquia knows about your code, we can move it to a server and run the necessary setup.
-1. SSH into the VM `vagrant ssh`, `cd /var/www/mass.local`
+1. After you push to Github, your code must get built and if it passes tests, it gets pushed to Acquia's git. So, wait for a green CircleCI build before proceeding to next step.
+1. SSH into the VM `vagrant ssh`, `www`
 1. Run the deploy script and pass in the environment you want to deploy to. `drush ma-deploy <environment> <branch name>`
 1. Wait a bit, watch the output, and soon you'll have your work on a remote environment for testing.
 

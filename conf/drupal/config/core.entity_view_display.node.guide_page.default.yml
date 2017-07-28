@@ -3,10 +3,12 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.guide_page.field_guide_page_bg_narrow
     - field.field.node.guide_page.field_guide_page_bg_wide
     - field.field.node.guide_page.field_guide_page_lede
     - field.field.node.guide_page.field_guide_page_related_guides
     - field.field.node.guide_page.field_guide_page_sections
+    - field.field.node.guide_page.field_image_credit
     - node.type.guide_page
   module:
     - entity_reference_revisions
@@ -50,11 +52,23 @@ content:
       link: ''
     third_party_settings: {  }
     region: content
+  field_image_credit:
+    weight: 106
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
   links:
     weight: 100
     region: content
+    settings: {  }
+    third_party_settings: {  }
   workbench_moderation_control:
     weight: -20
     region: content
+    settings: {  }
+    third_party_settings: {  }
 hidden:
   field_guide_page_bg_narrow: true

@@ -4,16 +4,21 @@ status: true
 dependencies:
   config:
     - node.type.action
+    - node.type.advisory
     - node.type.contact_information
+    - node.type.decision
     - node.type.emergency_alerts
     - node.type.error_page
+    - node.type.executive_order
     - node.type.fee
+    - node.type.form_page
     - node.type.guide_page
     - node.type.how_to_page
     - node.type.interstitial
     - node.type.legacy_redirects
     - node.type.location
     - node.type.location_details
+    - node.type.news
     - node.type.org_page
     - node.type.page
     - node.type.section_landing
@@ -167,16 +172,58 @@ display:
           id: node_bulk_form
           table: node
           field: node_bulk_form
+          relationship: none
+          group_type: group
+          admin_label: ''
           label: ''
           exclude: false
           alter:
             alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
           element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
           element_default_classes: true
           empty: ''
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
+          action_title: Action
+          include_exclude: exclude
+          selected_actions:
+            - node_make_sticky_action
+            - node_make_unsticky_action
+            - node_promote_action
+            - node_unpromote_action
+            - pathauto_update_alias_node
           plugin_id: node_bulk_form
           entity_type: node
         title:
@@ -433,17 +480,22 @@ display:
           admin_label: ''
           operator: in
           value:
+            advisory: advisory
             page: page
             contact_information: contact_information
+            decision: decision
             emergency_alerts: emergency_alerts
             error_page: error_page
+            executive_order: executive_order
             fee: fee
+            form_page: form_page
             guide_page: guide_page
             how_to_page: how_to_page
             interstitial: interstitial
             legacy_redirects: legacy_redirects
             location_details: location_details
             location: location
+            news: news
             org_page: org_page
             action: action
             section_landing: section_landing
@@ -472,10 +524,11 @@ display:
               author: '0'
               editor: '0'
               emergency_alert_publisher: '0'
+              executive_orders: '0'
+              redirect_creators: '0'
               content_team: '0'
               developer: '0'
               administrator: '0'
-              redirect_creators: '0'
             reduce: true
           is_grouped: false
           group_info:

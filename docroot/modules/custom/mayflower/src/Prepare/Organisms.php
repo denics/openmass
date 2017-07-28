@@ -176,6 +176,7 @@ class Organisms {
         'field_how_to_lede',
         'field_service_detail_lede',
         'field_location_details_lede',
+        'field_form_lede',
       ],
     ];
 
@@ -274,7 +275,7 @@ class Organisms {
       'items' => [
         'field_ref_contact_info',
         'field_guide_ref_contacts_3',
-        'field_event_contact_general'
+        'field_event_contact_general',
       ],
     ];
 
@@ -329,8 +330,10 @@ class Organisms {
     $map = [
       'contacts' => [
         'field_how_to_contacts_3',
+        'field_news_media_contac',
         'field_press_release_media_contac',
         'field_event_contact_general',
+        'field_form_ref_contacts_3',
       ],
     ];
 
@@ -487,6 +490,76 @@ class Organisms {
   }
 
   /**
+   * Returns the variables structure required to render press list.
+   *
+   * @param object $entity
+   *   An array of objects that contains the fields.
+   * @param string $field
+   *   The link / entity reference field name.
+   * @param array $options
+   *   An array of options for sidebar contact.
+   *
+   * @see @organisms/by-author/press-listing.twig
+   *
+   * @return array
+   *   Returns a structured array.
+   */
+  public static function preparePressListing($entity, $field, array $options = []) {
+    $linkList = [];
+
+    // Roll up the press list.
+    $links = $entity->get($field);
+
+    foreach ($links as $link) {
+      $url = $link->getUrl();
+      $text = $link->getValue()['title'];
+      $date = '';
+
+      // On an internal item, load the referenced node title.
+      if (strpos($link->getValue()['uri'], 'entity:node') !== FALSE) {
+        if (method_exists($url, 'getRouteParameters') && $url->isRouted() == TRUE) {
+          $params = $url->getRouteParameters();
+          $entity_type = key($params);
+          $entity = \Drupal::entityTypeManager()->getStorage($entity_type)->load($params[$entity_type]);
+          if (!empty($entity) && method_exists($entity, getType)) {
+            $content_type = $entity->getType();
+
+            if (Helper::isFieldPopulated($entity, 'field_news_date')) {
+              $date = Helper::fieldFullView($entity, 'field_news_date');
+            }
+
+            // On internal item, if empty, grab enity title.
+            if (empty($text)) {
+              $text = $entity->getTitle();
+            }
+          }
+        }
+      }
+
+      $items[] = [
+        'eyebrow' => in_array($content_type, $options['useEyebrow']) ? $options['category'] : '',
+        'title' => [
+          'href' => $url->toString(),
+          'text' => $text,
+          'info' => '',
+          'property' => '',
+        ],
+        'date' => !empty($date) ? $date : '',
+        'org' => '',
+        'description' => '',
+      ];
+    }
+
+    if (!empty($items)) {
+      // Build either sidebar or comp heading based on heading type option.
+      $heading = isset($options['heading']) ? Helper::buildHeading($options['heading']) : [];
+      $pressList = array_merge($heading, ['items' => $items]);
+    }
+
+    return $pressList;
+  }
+
+  /**
    * Returns the variables structure required to render a page banner.
    *
    * @param object $entity
@@ -530,12 +603,41 @@ class Organisms {
     // Determines which field names to use from the map.
     $fields = Helper::getMappedFields($entity, $map);
 
+    // @TODO consider passing the image style in as an option.
+    // Use action_banner_* as default pageBanner image styles.
+    $image_style_wide = 'action_banner_large';
+    $image_style_narrow = 'action_banner_small';
+
+    // Get pageBanner size, use as flag to determine image style.
+    $pageBanner['size'] = array_key_exists('size', $options) ? $options['size'] : 'large';
+
+    // Use appropriate image style for various pageBanner sizes.
+    if ($pageBanner['size'] === 'columns') {
+      // Use original image style for hotfix to avoid config/DB changes.
+      $image_style_wide = 'Hero820x460_no_blur';
+      $image_style_narrow = 'Hero800x400_no_blur';
+      // @TODO fix the hero820 image style so that it is not blurred.
+      // $image_style_wide = 'hero820x460';
+      // $image_style_narrow = 'hero800x400';
+    }
+    elseif ($pageBanner['size'] === 'hero1600x400') {
+      $image_style_wide = 'Hero1600x400';
+      $image_style_narrow = 'Hero800x400_no_blur';
+    }
+
     // Use helper function to get the image url of a given image style.
-    $pageBanner['bgWide'] = Helper::getFieldImageUrl($entity, 'action_banner_large', $fields['bg_wide']);
-    $pageBanner['bgNarrow'] = Helper::getFieldImageUrl($entity, 'action_banner_small', $fields['bg_narrow']);
+    $pageBanner['bgWide'] = Helper::getFieldImageUrl($entity, $image_style_wide, $fields['bg_wide']);
+    $pageBanner['bgNarrow'] = Helper::getFieldImageUrl($entity, $image_style_narrow, $fields['bg_narrow']);
+
+    if ($options['type'] == 'section landing') {
+      // Manually specified since we have potentially 4 image fields on topic_page.
+      $pageBanner['bgWide'] = Helper::getFieldImageUrl($entity, $image_style_wide, 'field_topic_section_bg_wide');
+      if (Helper::isFieldPopulated($entity, 'field_topic_section_bg_narrow')) {
+        $pageBanner['bgNarrow'] = Helper::getFieldImageUrl($entity, $image_style_narrow, 'field_topic_section_bg_narrow');
+      }
+    }
 
     // @todo determine how to handle options vs field value (check existence, order of importance, etc.)
-    $pageBanner['size'] = $options['size'];
     $pageBanner['icon'] = $options['icon'];
     $pageBanner['color'] = array_key_exists('color', $options) ? $options['color'] : '';
 
@@ -555,7 +657,10 @@ class Organisms {
         $description = $entity->$fields['description']->value;
       }
     }
-    $pageBanner['description'] = $description;
+
+    if ($options['type'] != 'section landing') {
+      $pageBanner['description'] = $description;
+    }
 
     return $pageBanner;
   }
@@ -588,13 +693,15 @@ class Organisms {
       foreach ($entities->$fields['topic_cards'] as $card) {
         $url = $card->getUrl();
         $desc = '';
-
+        $seeAll = '';
         // Load up our entity if internal.
-        if ($url->isExternal() == FALSE) {
-          $params = Url::fromUri("internal:" . $url->toString())->getRouteParameters();
+        if ($url->isExternal() == FALSE && method_exists($url, 'getRouteParameters')) {
+          $params = $url->getRouteParameters();
           $entity_type = key($params);
           $entity = \Drupal::entityTypeManager()->getStorage($entity_type)->load($params[$entity_type]);
-          $cards[] = Molecules::prepareSectionLink($entity, $options);
+          if (!empty($entity)) {
+            $cards[] = Molecules::prepareSectionLink($entity, $options);
+          }
         }
         else {
           $cards[] = [

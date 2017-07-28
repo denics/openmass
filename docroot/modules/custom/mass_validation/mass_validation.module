@@ -52,6 +52,7 @@ function mass_validation_entity_bundle_field_info_alter(&$fields, EntityTypeInte
         'instagram.com',
         'linkedin.com',
         'youtube.com',
+        'medium.com',
         'blog.mass.gov',
       ],
     ]);
@@ -159,6 +160,25 @@ function _mass_validation_form_node_service_page_form_validate(array &$form, For
     if (($num_links + $num_docs) > 6) {
       $form_state->setErrorByName('field_service_links', t('You can only have max 6 values between the Links and Downloads fields.'));
       $form_state->setErrorByName('field_service_file', t('You can only have max 6 values between the Links and Downloads fields.'));
+    }
+  }
+
+  $num_links = 0;
+  // Validate that All tasks fields.
+  // have no more than 12 values between them.
+  if ($form_state->hasValue('field_service_ref_actions')) {
+    // Count the links.
+    $links = $form_state->getValue('field_service_ref_actions');
+    foreach ($links as $link) {
+      if (is_array($link)) {
+        if (!empty($link['uri'])) {
+          $num_links += 1;
+        }
+      }
+    }
+    // Throw an error is there are more than 12.
+    if (($num_links) > 12) {
+      $form_state->setErrorByName('field_service_ref_actions', t('You can only have max 12 tasks related to this service.'));
     }
   }
 }
@@ -379,11 +399,11 @@ function mass_validation_form_node_legacy_redirects_form_alter(&$form, FormState
  */
 function _mass_validation_form_node_legacy_redirects_form_validate(array &$form, FormStateInterface $form_state) {
   if ($form_state->hasValue('field_legacy_redirects_legacyurl')) {
-    // Verify Legacy URL is a mass.gov link and does not link to the portal.
     $legacy_urls = $form_state->getValue('field_legacy_redirects_legacyurl');
     foreach ($legacy_urls as $key => $legacy_url) {
       if (is_array($legacy_url)) {
         if ($legacy_url['value'] != "") {
+          // Verify Legacy URL is a mass.gov link and does not link to the portal.
           $illegal_urls = [
             'http://www.mass.gov/portal/',
             'http://www.mass.gov/portal',
@@ -391,11 +411,26 @@ function _mass_validation_form_node_legacy_redirects_form_validate(array &$form,
             'http://www.mass.gov/'
           ];
           if ((strpos($legacy_url['value'], "http://www.mass.gov") !== 0) && (strpos($legacy_url['value'], "https://www.mass.gov") !== 0)) {
-            $form_state->setErrorByName('field_legacy_redirects_legacyurl][' . $key, t('Legacy URL must start with "https://mass.gov" or "http://www.mass.gov".'));
+            $form_state->setErrorByName('field_legacy_redirects_legacyurl][' . $key, t('Legacy URL must start with "https://www.mass.gov" or "http://www.mass.gov".'));
           }
           elseif (in_array($legacy_url['value'], $illegal_urls)) {
             $form_state->setErrorByName('field_legacy_redirects_legacyurl][' . $key, t('Legacy URL cannot be "http://www.mass.gov/portal" or "http://www.mass.gov".'));
           }
+          // Verify Legacy Urls are unique.
+          $hash_value = md5($legacy_url['value']);
+          $query = \Drupal::entityQuery('node')
+            ->condition('type', 'legacy_redirects')
+            ->condition('field_legacy_redirect_hashed_url', $hash_value);
+          // If the node has been saved exclude current node.
+          if ($curr_id = $form_state->getFormObject()->getEntity()->id()) {
+            $query->condition('nid', $curr_id, '<>');
+          }
+          $duplicates = $query->execute();
+          if (!empty($duplicates)) {
+            $nid = reset($duplicates);
+            $form_state->setErrorByName('field_legacy_redirects_legacyurl][' . $key, t('The Legacy URL must be unique, this url is already being used at <a href=/node/@nid/edit >@nid</a>', ['@nid' => $nid]));
+          }
+
         }
       }
     }
@@ -512,4 +547,18 @@ function mass_validation_get_title_from_uri($uri) {
     }
   }
   return NULL;
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_presave().
+ */
+function mass_validation_node_presave($node) {
+  if ($node->bundle() == 'legacy_redirects') {
+    $urls = $node->field_legacy_redirects_legacyurl;
+    $hash_values = $node->field_legacy_redirect_hashed_url;
+    foreach ($urls as $key => $url) {
+      $hash = md5($url->value);
+      $hash_values->set($key, $hash);
+    }
+  }
 }

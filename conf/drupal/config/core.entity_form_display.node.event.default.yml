@@ -151,9 +151,12 @@ content:
     region: content
   field_event_date:
     weight: 0
-    settings: {  }
+    settings:
+      date_order: YMD
+      time_type: '12'
+      increment: 5
     third_party_settings: {  }
-    type: datetime_default
+    type: datetime_datelist
     region: content
   field_event_description:
     weight: 42

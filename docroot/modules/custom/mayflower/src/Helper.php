@@ -200,28 +200,27 @@ class Helper {
     $url = $link->getUrl();
     $text = $link->getValue()['title'];
     $date = '';
+    $content_type = '';
 
     // On an internal item, load the referenced node title.
     if (strpos($link->getValue()['uri'], 'entity:node') !== FALSE) {
-      $params = Url::fromUri("internal:" . $url->toString())->getRouteParameters();
-      $entity_type = key($params);
-      $entity = \Drupal::entityTypeManager()->getStorage($entity_type)->load($params[$entity_type]);
-      $content_type = $entity->getType();
-      $content_type_name = $entity->type->entity->label();
+      if (method_exists($url, 'getRouteParameters') && $url->isRouted() == TRUE) {
+        $params = $url->getRouteParameters();
+        $entity_type = key($params);
+        $entity = \Drupal::entityTypeManager()->getStorage($entity_type)->load($params[$entity_type]);
+        if (!empty($entity) && method_exists($entity, getType)) {
+          $content_type = $entity->getType();
 
-      if (Helper::isFieldPopulated($entity, 'field_press_release_date')) {
-        $date = Helper::fieldFullView($entity, 'field_press_release_date');
+          if (Helper::isFieldPopulated($entity, 'field_news_date')) {
+            $date = Helper::fieldFullView($entity, 'field_news_date');
+          }
+
+          // On internal item, if empty, grab entity title.
+          if (empty($text)) {
+            $text = $entity->getTitle();
+          }
+        }
       }
-
-      // On internal item, if empty, grab enity title.
-      if (empty($text)) {
-        $text = $entity->getTitle();
-      }
-    }
-
-    $eyebrow = '';
-    if (!empty($content_type) && isset($options['useEyebrow']) && in_array($content_type, $options['useEyebrow'])) {
-      $eyebrow = $content_type_name;
     }
 
     return [
@@ -231,7 +230,7 @@ class Helper {
       'href' => $url->toString(),
       'url' => $url->toString(),
       'label' => '',
-      'eyebrow' => $eyebrow,
+      'eyebrow' => in_array($content_type, $options['useEyebrow']) ? $options['category'] : '',
       'date' => !empty($date) ? $date : '',
     ];
   }

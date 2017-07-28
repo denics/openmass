@@ -140,11 +140,22 @@ class Molecules {
 
     if (array_key_exists('image', $fields)) {
       if (Helper::isFieldPopulated($entity, $fields['image'])) {
+        $src = '';
+
+        if (Helper::fieldValue($entity, $fields['image'])) {
+          $src = Helper::fieldValue($entity, $fields['image']);
+          $src = file_create_url($src);
+        }
+        else {
+          $src = Helper::getFieldImageUrl($entity, 'activities_image', $fields['image']);
+        }
+
         $imagePromo['image'] = [
-          'src' => Helper::getFieldImageUrl($entity, 'activities_image', $fields['image']),
+          'src' => $src,
           'alt' => $entity->$fields['image']->alt,
           'href' => $href,
         ];
+
       }
     }
 
@@ -259,6 +270,7 @@ class Molecules {
       'linkedin',
       'google',
       'instagram',
+      'medium',
       'youtube',
     ];
 
@@ -267,7 +279,7 @@ class Molecules {
 
       foreach ($services as $key => $service) {
         if (strpos($link['href'], $service) !== FALSE) {
-          $icon = $services[$key];
+          $icon = $service;
           break;
         }
       }
@@ -544,6 +556,7 @@ class Molecules {
         $address = Helper::formatAddress($entity->$fields['value'], $options);
         $item['value'] = $address;
         $item['link'] = 'https://maps.google.com/?q=' . urlencode($address);
+        $item['info'] = t('Get directions to ') . $address;
 
         // Respect first address provided if present.
         if (!$contactInfo['address']) {
@@ -561,7 +574,13 @@ class Molecules {
         }
       }
       elseif ($type == 'online') {
-        if ($entity->getType() == 'online_email' || get_class($entity->$fields['link']) == 'Drupal\Core\Field\FieldItemList') {
+        // Checks for email link fields.
+        $bundle = $entity->getType();
+        $bundles_using_email_fields = [
+          'online_email',
+          'media_contact',
+        ];
+        if (in_array($bundle, $bundles_using_email_fields)) {
           $link = Helper::separatedEmailLink($entity, $fields['link']);
           $item['link'] = $link['href'];
           $item['value'] = $link['text'];
@@ -1066,7 +1085,7 @@ class Molecules {
   public static function prepareLocationIcons($entity) {
     $icons = [];
     $map = [
-      'icons' => ['field_location_icons'],
+      'icons' => ['field_location_icons', 'field_form_payment_options'],
     ];
 
     // Determines which fieldnames to use from the map.
@@ -1215,12 +1234,17 @@ class Molecules {
 
     $date = !empty($entity->$fields['date']->value) ? strtotime($entity->$fields['date']->value) : '';
 
+    $dateTime = new \DateTime($entity->$fields['date']->value, new \DateTimeZone('UTC'));
+    $timezone = 'America/New_York';
+    $dateTime->setTimeZone(new \DateTimeZone($timezone));
+    $time = $dateTime->format('g:ia');
+
     if (isset($options['headerDate'])) {
       return [
         'date' => [
           'summary' => \Drupal::service('date.formatter')->format($date, 'custom', 'l, F d, Y'),
         ],
-        'time' => !empty($entity->$fields['time']->value) ? Helper::fieldValue($entity, $fields['time']) : '',
+        'time' => !empty($entity->$fields['time']->value) ? Helper::fieldValue($entity, $fields['time']) : $time,
       ];
     }
     else {
@@ -1239,7 +1263,7 @@ class Molecules {
           'endMonth' => '',
           'endDay' => '',
         ],
-        'time' => !empty($entity->$fields['time']->value) ? Helper::fieldValue($entity, $fields['time']) : '',
+        'time' => !empty($entity->$fields['time']->value) ? Helper::fieldValue($entity, $fields['time']) : $time,
         'description' => !empty($entity->$fields['lede']->value) ? Helper::fieldValue($entity, $fields['lede']) : '',
       ];
     }
@@ -1258,14 +1282,22 @@ class Molecules {
    */
   public static function preparePressStatus($entity) {
     $names = [];
+    $immediateRelease = FALSE;
 
     $map = [
-      'date' => ['field_press_release_date'],
-      'signees' => ['field_press_release_signees'],
+      'date' => ['field_news_date'],
+      'signees' => ['field_news_signees'],
+      'news_type' => ['field_news_type'],
+      'speaker' => ['field_news_speaker'],
+      'presented_to' => ['field_news_presented'],
     ];
 
     // Determines which field names to use from the map.
     $field = Helper::getMappedFields($entity, $map);
+
+    if (Helper::fieldValue($entity, $field['news_type']) == 'press_release') {
+      $immediateRelease = TRUE;
+    }
 
     if (!empty($entity->$field['signees']->entity)) {
       foreach ($entity->$field['signees'] as $paragraph) {
@@ -1277,26 +1309,37 @@ class Molecules {
           'image' => ['field_state_org_photo', 'field_external_org_photo'],
         ];
 
-        $org_data = Helper::getMappedFields($par_entity, $org_fields);
+        // Determines which field names to use from the map.
+        $ref_field = Helper::getMappedFields($par_entity, $org_fields);
+
+        if (Helper::fieldValue($entity, $field['news_type']) == 'speech') {
+          if (Helper::isFieldPopulated($entity, $field['speaker'])) {
+            $names[]['text'] = Helper::fieldValue($entity, $field['speaker']);
+          }
+          if (Helper::isFieldPopulated($entity, $field['presented_to'])) {
+            $names[]['text'] = Helper::fieldValue($entity, $field['presented_to']);
+          }
+        }
 
         if ($par_entity->getParagraphType()->id == 'state_organization') {
-          if (Helper::isFieldPopulated($par_entity, $org_data['title'])) {
-            $names[]['text'] = Helper::fieldValue($par_entity, $org_data['title']);
+          if (Helper::isFieldPopulated($par_entity, $ref_field['title'])) {
+            $names[]['text'] = Helper::fieldValue($par_entity, $ref_field['title']);
           }
           else {
             $names[]['text'] = $par_entity->field_state_org_ref_org->entity->getTitle();
           }
         }
-        elseif ($par_entity->getParagraphType()->id == 'external_organization') {
-          if (Helper::isFieldPopulated($par_entity, $org_data['title'])) {
-            $names[]['text'] = Helper::fieldValue($par_entity, $org_data['title']);
+
+        if ($par_entity->getParagraphType()->id == 'external_organization') {
+          if (Helper::isFieldPopulated($par_entity, $ref_field['title'])) {
+            $names[]['text'] = Helper::fieldValue($par_entity, $ref_field['title']);
           }
         }
       }
     }
 
     return [
-      'title' => t("For immediate release:"),
+      'title' => ($immediateRelease) ? t("For immediate release:") : '',
       'date' => Helper::fieldFullView($entity, $field['date']),
       'names' => $names,
     ];

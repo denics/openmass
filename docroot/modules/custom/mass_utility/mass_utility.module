@@ -147,12 +147,15 @@ function mass_utility_field_widget_form_alter(&$element, FormStateInterface $for
 /**
  * Implements hook_form_alter().
  */
-function mass_utility_form_node_press_release_edit_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-  $element = $form['field_press_release_signees']['widget'][0]['subform']['field_state_org_photo_url']['widget'][0]['value'];
-  $original_path = $element['#default_value'];
-  $image_path = file_create_url($original_path);
-
-  $form['field_press_release_signees']['widget'][0]['subform']['field_state_org_photo_url']['widget'][0]['#prefix'] = '<p><div class="photo-preview"><img src=' . $image_path . '/></div></p>';
+function mass_utility_form_node_news_edit_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  foreach ($form['field_news_signees']['widget'] as $delta => $widget) {
+    if (is_numeric($delta)) {
+      $element = $form['field_news_signees']['widget'][$delta]['subform']['field_state_org_photo_url']['widget'][0]['value'];
+      $original_path = $element['#default_value'];
+      $image_path = file_create_url($original_path);
+      $form['field_news_signees']['widget'][$delta]['subform']['field_state_org_photo_url']['widget'][0]['#prefix'] = '<p><div class="photo-preview"><img src=' . $image_path . '/></div></p>';
+    }
+  }
 }
 
 /**
@@ -185,13 +188,19 @@ function mass_utility_get_signee_ajax_callback(array &$form, FormStateInterface 
     $delta = $element['#field_parents'][1];
   }
 
+  if (isset($element['#parents'][1])) {
+    $delta = $element['#parents'][1];
+  }
+
   // Create AJAX Response object.
   $response = new AjaxResponse();
 
+  $upload_button_class = 'field_news_signees_' . $delta . '_subform_field_state_org_photo_0_upload_button';
+
   // If an image was uploaded, update our preview.
-  if ($element['#name'] == 'field_press_release_signees_0_subform_field_state_org_photo_0_upload_button') {
+  if ($element['#name'] == $upload_button_class) {
     $fid = $form_state->getValue([
-      'field_press_release_signees',
+      'field_news_signees',
       $delta,
       'subform',
       'field_state_org_photo',
@@ -202,14 +211,14 @@ function mass_utility_get_signee_ajax_callback(array &$form, FormStateInterface 
     $file = File::load($fid);
     $image_path = $file->getFileUri();
     $image = '<img src="' . file_create_url($image_path) . '"/>';
-    $response->addCommand(new InvokeCommand('input[name="field_press_release_signees[' . $delta . '][subform][field_state_org_photo_url][0][value]"', 'val', [$image_path]));
-    $response->addCommand(new HtmlCommand('.photo-preview', $image));
+    $response->addCommand(new InvokeCommand('input[name="field_news_signees[' . $delta . '][subform][field_state_org_photo_url][0][value]"', 'val', [$image_path]));
+    $response->addCommand(new HtmlCommand('#edit-field-news-signees-' . $delta . '-subform-field-state-org-photo-url-wrapper .photo-preview', $image));
     return $response;
   }
 
   // Get the referenced node id.
   $nid = $form_state->getValue([
-    'field_press_release_signees',
+    'field_news_signees',
     $delta,
     'subform',
     'field_state_org_ref_org',
@@ -219,16 +228,16 @@ function mass_utility_get_signee_ajax_callback(array &$form, FormStateInterface 
 
   if ($nid) {
     $storage = \Drupal::entityTypeManager()->getStorage('node');
-    $node = $storage->load($nid);
-    $name = $node->getTitle();
-    $description = $node->field_sub_title->value;
-    $image_path = $node->field_bg_wide->entity->uri->value;
-    $image = '<img src="' . file_create_url($image_path) . '"/>';
-
-    $response->addCommand(new InvokeCommand('input[name="field_press_release_signees[' . $delta . '][subform][field_state_org_name][0][value]"', 'val', [$name]));
-    $response->addCommand(new InvokeCommand('textarea[name="field_press_release_signees[' . $delta . '][subform][field_state_org_description][0][value]"', 'val', [$description]));
-    $response->addCommand(new InvokeCommand('input[name="field_press_release_signees[' . $delta . '][subform][field_state_org_photo_url][0][value]"', 'val', [$image_path]));
-    $response->addCommand(new HtmlCommand('.photo-preview', $image));
+    if ($node = $storage->load($nid)) {
+      $name = $node->getTitle();
+      $description = $node->field_sub_title->value;
+      $image_path = $node->field_bg_wide->entity->uri->value;
+      $image = '<img src="' . file_create_url($image_path) . '"/>';
+      $response->addCommand(new InvokeCommand('input[name="field_news_signees[' . $delta . '][subform][field_state_org_name][0][value]"', 'val', [$name]));
+      $response->addCommand(new InvokeCommand('textarea[name="field_news_signees[' . $delta . '][subform][field_state_org_description][0][value]"', 'val', [$description]));
+      $response->addCommand(new InvokeCommand('input[name="field_news_signees[' . $delta . '][subform][field_state_org_photo_url][0][value]"', 'val', [$image_path]));
+      $response->addCommand(new HtmlCommand('#edit-field-news-signees-' . $delta . '-subform-field-state-org-photo-url-wrapper .photo-preview', $image));
+    }
     return $response;
   }
 
@@ -252,7 +261,7 @@ function mass_utility_get_media_contact_ajax_callback(array &$form, FormStateInt
 
   // Get the referenced node id.
   $nid = $form_state->getValue([
-    'field_press_release_media_contac',
+    'field_news_media_contac',
     $delta,
     'subform',
     'field_media_contact_ref_person',
@@ -267,9 +276,9 @@ function mass_utility_get_media_contact_ajax_callback(array &$form, FormStateInt
     $email = $node->field_person_email->value;
     $phone = $node->field_person_phone->value;
 
-    $response->addCommand(new InvokeCommand('input[name="field_press_release_media_contac[' . $delta . '][subform][field_media_contact_name][0][value]"', 'val', [$name]));
-    $response->addCommand(new InvokeCommand('input[name="field_press_release_media_contac[' . $delta . '][subform][field_media_contact_email][0][value]"', 'val', [$email]));
-    $response->addCommand(new InvokeCommand('input[name="field_press_release_media_contac[' . $delta . '][subform][field_media_contact_phone][0][value]"', 'val', [$phone]));
+    $response->addCommand(new InvokeCommand('input[name="field_news_media_contac[' . $delta . '][subform][field_media_contact_name][0][value]"', 'val', [$name]));
+    $response->addCommand(new InvokeCommand('input[name="field_news_media_contac[' . $delta . '][subform][field_media_contact_email][0][value]"', 'val', [$email]));
+    $response->addCommand(new InvokeCommand('input[name="field_news_media_contac[' . $delta . '][subform][field_media_contact_phone][0][value]"', 'val', [$phone]));
     return $response;
   }
 

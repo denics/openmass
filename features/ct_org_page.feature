@@ -36,11 +36,11 @@ Feature: Organization Landing Page Content type
       | title                    | Some Nice Org Page 2   |
       | field-action-set-bg-wide | A header image         |
       | field-sub-title          | Some lede text.        |
-      | field-ref-actions-3      | Some Featured Service   |
+      | field-ref-actions-3      | Some Featured Service  |
     And I follow "Edit draft"
     And I fill in "edit-field-ref-actions-3-0-target-id" with "Some Featured Service"
     And I press "Save and Create New Draft"
-    Then I should see the text "field must not be empty"
+    Then I should see the text "field is required"
 
   Scenario: Verify validation for social links.
     Given I am logged in as a user with the "administrator" role

@@ -1,7 +1,28 @@
-uuid: e6e826c5-916a-4aff-bc1d-83b4ab2f7509
+uuid: 4d580c16-3822-4839-8e47-49ef26dd4183
 langcode: en
 status: true
 dependencies: {  }
 id: node__how_to_page
 label: 'Content: How-to Page'
-tags: {  }
+tags:
+  schema_apply_action_description: '[node:field_how_to_more_info]'
+  schema_apply_action_disambiguating_description: '[node:field_how_to_lede]'
+  schema_apply_action_id: '[node:url]#how-to'
+  schema_apply_action_instrument: '[node:field_how_to_methods_5]'
+  schema_apply_action_location: '[node:field_how_to_contacts_3]'
+  schema_apply_action_logo: 'a:3:{s:3:"url";s:41:"[node:field_service_sub_brand:entity:url]";s:5:"width";s:0:"";s:6:"height";s:0:"";}'
+  schema_apply_action_name: '[node:title]'
+  schema_apply_action_potential_action: '[node:title]'
+  schema_apply_action_related_link: '[node:field_how_to_links_5]'
+  schema_apply_action_target: '[node:field_how_to_link_1]'
+  schema_apply_action_type: ApplyAction
+  title: '[node:title] | [site:name]'
+  og_site_name: '[site:name]'
+  og_title: '[node:title]'
+  og_type: howto
+  og_url: '[node:url]'
+  twitter_cards_page_url: '[node:url]'
+  twitter_cards_site: '@massgov'
+  twitter_cards_site_id: '16264003'
+  twitter_cards_title: '[node:title]'
+  twitter_cards_type: summary

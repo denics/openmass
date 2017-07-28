@@ -14,6 +14,8 @@ function massgov_drush_command() {
     'options' => array(
       'refresh-db' => 'Copy the DB from Prod to replace target environment\'s DB.',
       'skip-maint' => 'Skip maintenance mode enable/disable.',
+      'email' => 'Optional, for Acquia Cloud API authentication',
+      'key' => 'Optional, for Acquia Cloud API authentication',
     ),
     'drush dependencies' => array('acapi'),
     'bootstrap' => DRUSH_BOOTSTRAP_NONE,

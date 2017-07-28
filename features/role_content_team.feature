@@ -12,7 +12,7 @@ Feature: Content Management
     And I should not see the link "Appearance" in the admin_menu
     And I should not see the link "Extend" in the admin_menu
     And I should not see the link "Configuration" in the admin_menu
-    And I should not see the link "People" in the admin_menu
+    And I should see the link "People" in the admin_menu
     And I should not see the link "Reports" in the admin_menu
     And I should not see the link "Help" in the admin_menu
 
@@ -23,7 +23,7 @@ Feature: Content Management
 
   Scenario: Verify that content team user does not have permission to change site code or administer users
     Given I am logged in as a user with the "content_team" role
-    Then I should not have the "administer modules, administer software updates, administer themes, administer users" permissions
+    Then I should not have the "administer modules, administer software updates, administer themes" permissions
 
   Scenario: Verify that content team user can see 'Add content' button
     Given I am logged in as a user with the "content_team" role
@@ -33,7 +33,7 @@ Feature: Content Management
   Scenario: Verify content team user cannot create / edit / delete users
     Given I am logged in as a user with the "content_team" role
     When I go to "admin/people"
-    Then the response status code should be 403
+    Then the response status code should be 200
 
   #http response 200 is a successful response
   Scenario: Verify content team user can create action content

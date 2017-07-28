@@ -1,0 +1,33 @@
+uuid: fc057d84-21dc-4b9e-b8b2-b32d6663488d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_executive_order_overview
+    - node.type.executive_order
+  module:
+    - geocoder_field
+    - text
+third_party_settings:
+  geocoder_field:
+    method: none
+    field: title
+    plugins: {  }
+    dumper: wkt
+    delta_handling: default
+    failure:
+      handling: preserve
+      status_message: true
+      log: true
+id: node.executive_order.field_executive_order_overview
+field_name: field_executive_order_overview
+entity_type: node
+bundle: executive_order
+label: Overview
+description: 'An optional short description that precedes the text of the executive order.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

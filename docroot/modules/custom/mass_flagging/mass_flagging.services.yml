@@ -1,0 +1,10 @@
+parameters:
+  # Default values to be used in MassFlaggingFlagContentLinkBuilder::build().
+  mass_flagging.flag_content.default_link_title: Flag
+  mass_flagging.flag_content.default_form_id: flag_content
+  mass_flagging.flag_content.default_field_id: field_content_flagged
+
+services:
+  mass_flagging.flag_content.link_builder:
+    class: Drupal\mass_flagging\Service\MassFlaggingFlagContentLinkBuilder
+    arguments: ['%mass_flagging.flag_content.default_link_title%', '%mass_flagging.flag_content.default_form_id%', '%mass_flagging.flag_content.default_field_id%']

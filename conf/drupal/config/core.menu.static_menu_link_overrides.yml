@@ -5,5 +5,23 @@ definitions:
     parent: ''
     weight: 0
     expanded: false
+  mass_dashboard__my_work:
+    weight: -50
+    menu_name: mass-dashboard
+    parent: ''
+    enabled: true
+    expanded: false
+  mass_dashboard__needs_review:
+    weight: -49
+    menu_name: mass-dashboard
+    parent: ''
+    expanded: false
+    enabled: true
+  mass_dashboard__all_content:
+    weight: -48
+    menu_name: mass-dashboard
+    parent: ''
+    expanded: false
+    enabled: true
 _core:
   default_config_hash: jdY7AU0tU-QsjmiOw3W8vwpYMb-By--_MSFgbqKUTYM

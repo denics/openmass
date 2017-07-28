@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.topic_page.field_image_credit
     - field.field.node.topic_page.field_topic_bg_narrow
     - field.field.node.topic_page.field_topic_bg_wide
     - field.field.node.topic_page.field_topic_content_cards
@@ -10,9 +11,13 @@ dependencies:
     - field.field.node.topic_page.field_topic_lede
     - field.field.node.topic_page.field_topic_ref_icon
     - field.field.node.topic_page.field_topic_ref_related_topics
+    - field.field.node.topic_page.field_topic_section_bg_narrow
+    - field.field.node.topic_page.field_topic_section_bg_wide
+    - field.field.node.topic_page.field_topic_type
     - image.style.thumbnail
     - node.type.topic_page
   module:
+    - conditional_fields
     - field_group
     - image
     - paragraphs
@@ -36,10 +41,14 @@ third_party_settings:
     group_overview:
       children:
         - title
+        - field_topic_type
         - field_topic_lede
         - field_topic_ref_icon
         - field_topic_bg_wide
         - field_topic_bg_narrow
+        - field_topic_section_bg_wide
+        - field_topic_section_bg_narrow
+        - field_image_credit
       parent_name: group_topic_page_edit_form
       weight: 20
       format_type: tab
@@ -88,20 +97,64 @@ content:
     settings: {  }
     third_party_settings: {  }
     region: content
+  field_image_credit:
+    weight: 3
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
   field_topic_bg_narrow:
+    weight: 0
+    settings:
+      preview_image_style: thumbnail
+      progress_indicator: throbber
+    third_party_settings:
+      conditional_fields:
+        613aa4c0-b2bd-4a70-86a2-a70b23f9b8fa:
+          dependee: field_topic_type
+          settings:
+            state: visible
+            condition: value
+            grouping: AND
+            values_set: 1
+            value: ''
+            values: {  }
+            value_form:
+              -
+                value: topic
+            effect: show
+            effect_options: {  }
+            selector: ''
+          entity_type: node
+          bundle: topic_page
+    type: image_image
+    region: content
+  field_topic_bg_wide:
     weight: -1
     settings:
       preview_image_style: thumbnail
       progress_indicator: throbber
-    third_party_settings: {  }
-    type: image_image
-    region: content
-  field_topic_bg_wide:
-    weight: -2
-    settings:
-      preview_image_style: thumbnail
-      progress_indicator: throbber
-    third_party_settings: {  }
+    third_party_settings:
+      conditional_fields:
+        b50ee6a9-15bd-4f50-8f89-4702d6daa7b9:
+          dependee: field_topic_type
+          settings:
+            state: visible
+            condition: value
+            grouping: AND
+            values_set: 1
+            value: ''
+            values: {  }
+            value_form:
+              -
+                value: topic
+            effect: show
+            effect_options: {  }
+            selector: ''
+          entity_type: node
+          bundle: topic_page
     type: image_image
     region: content
   field_topic_content_cards:
@@ -124,15 +177,33 @@ content:
     type: boolean_checkbox
     region: content
   field_topic_lede:
-    weight: -4
+    weight: -3
     settings:
       size: 60
       placeholder: ''
-    third_party_settings: {  }
+    third_party_settings:
+      conditional_fields:
+        3dfe54ab-dcf1-4571-8864-0265aabc39fd:
+          dependee: field_topic_type
+          settings:
+            state: visible
+            condition: value
+            grouping: AND
+            values_set: 1
+            value: ''
+            values: {  }
+            value_form:
+              -
+                value: topic
+            effect: show
+            effect_options: {  }
+            selector: ''
+          entity_type: node
+          bundle: topic_page
     type: string_textfield
     region: content
   field_topic_ref_icon:
-    weight: -3
+    weight: -2
     settings: {  }
     third_party_settings: {  }
     type: options_select
@@ -145,6 +216,64 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
+    region: content
+  field_topic_section_bg_narrow:
+    weight: 2
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings:
+      conditional_fields:
+        8a493627-bf2b-4406-bf53-41b7288d6316:
+          dependee: field_topic_type
+          settings:
+            state: visible
+            condition: value
+            grouping: AND
+            values_set: 1
+            value: ''
+            values: {  }
+            value_form:
+              -
+                value: 'section landing'
+            effect: show
+            effect_options: {  }
+            selector: ''
+          entity_type: node
+          bundle: topic_page
+    type: image_image
+    region: content
+  field_topic_section_bg_wide:
+    weight: 1
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings:
+      conditional_fields:
+        db3199b3-3041-4394-a5d8-7d0c9b7cbd82:
+          dependee: field_topic_type
+          settings:
+            state: visible
+            condition: value
+            grouping: AND
+            values_set: 1
+            value: ''
+            values: {  }
+            value_form:
+              -
+                value: 'section landing'
+            effect: show
+            effect_options: {  }
+            selector: ''
+          entity_type: node
+          bundle: topic_page
+    type: image_image
+    region: content
+  field_topic_type:
+    weight: -4
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
     region: content
   path:
     type: path
