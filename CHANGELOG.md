@@ -6,6 +6,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 ## Upcoming (add in progress changes here)
 
 ### Added
+- DP-3535 - Adds dashboard admin/ma-dash/service-content to see content related to a service.
 - DP-3636 Add event listing to organization pages
 - DP-3637 Add event listing to service pages
 - DP-4710 - Added tester role to be used for select users to try new features.
