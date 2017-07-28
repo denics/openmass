@@ -12,9 +12,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 ## [0.24.1] - July 27, 2017
 ### Added
-- Adds form_page content type
-- Adds custom field type for form embed
-- Modifies topic page to allow it to display as a section landing. Requires post update of ```drush mass-topic-page-type-update```.
+- Adds form_page content type.
+- Adds custom field type for form embed.
+- Modifies topic page to allow it to display as a section landing. Requires post update of.
 
 ### Changed
 - Removes "publish" and "unpublish" actions from admin/content and adds proper Workbench Moderation states instead.
