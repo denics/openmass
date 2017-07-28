@@ -23,6 +23,6 @@ settings:
       document_agencies: document_agencies
     sort:
       field: _none
-    auto_create: true
+    auto_create: false
     auto_create_bundle: document_agencies
 field_type: entity_reference
