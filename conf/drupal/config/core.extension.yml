@@ -63,6 +63,7 @@ module:
   libraries: 0
   link: 0
   mass_content: 0
+  mass_content_api: 0
   mass_dashboard: 0
   mass_docs: 0
   mass_entityreference: 0
@@ -129,6 +130,8 @@ module:
   security_review: 0
   serialization: 0
   shortcut: 0
+  simple_oauth: 0
+  simple_oauth_extras: 0
   subpathauto: 0
   syslog: 0
   system: 0

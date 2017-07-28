@@ -38,3 +38,13 @@ a.toolbar-icon-mass-dashboard-tab.is-active::before,
 .toolbar-icon-mass-dashboard-all-content.is-active::before {
   background-image: url("../images/icons/000000/all-content.svg");
 }
+
+/**
+ * Tray item: Service Content
+ */
+.toolbar-icon-mass-dashboard-service-content::before {
+  background-image: url("../images/icons/787878/service-content.svg");
+}
+.toolbar-icon-mass-dashboard-service-content.is-active::before {
+  background-image: url("../images/icons/000000/service-content.svg");
+}
