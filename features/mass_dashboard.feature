@@ -35,6 +35,12 @@ Feature: Mass Dashboard
     Then the response status code should be 200
     And I should see the link "All Content" in the mass_dashboard_menu
 
+  Scenario: Verify author access to the Content by Service page
+    Given I am logged in as a user with the "author" role
+    When I go to "/admin/ma-dash/service-content"
+    Then the response status code should be 200
+    And I should see the link "Content by Service" in the mass_dashboard_menu
+
   Scenario: Verify that anonymous users cannot access the dashboard
     Given I am an anonymous user
     When I go to "/admin/ma-dash/my-work"
