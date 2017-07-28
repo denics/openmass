@@ -1,0 +1,11 @@
+uuid: 63c7d4e7-2367-42ff-ac83-cf6ba6acabef
+langcode: en
+status: true
+dependencies:
+  module:
+    - workbench_moderation_actions
+id: state_change__block_content__published
+label: 'Set Custom block as Published'
+type: block_content
+plugin: 'state_change:block_content__published'
+configuration: {  }

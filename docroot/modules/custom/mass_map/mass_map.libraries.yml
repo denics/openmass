@@ -1,0 +1,12 @@
+mass-map-page-renderer:
+  js:
+    js/mass_map.page.js: {preprocess: false}
+  dependencies:
+    - core/jquery
+    - core/drupal
+mass-map-field-renderer:
+  js:
+    js/mass_map.field.js: {preprocess: false}
+  dependencies:
+    - core/jquery
+    - core/drupal

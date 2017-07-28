@@ -1,0 +1,30 @@
+{#
+/**
+ * @file
+ * Theme override to display the full view mode of the Topic page content type.
+ *
+ * @copyright Copyright (c) 2017 Palantir.net
+ */
+ #}
+{% extends 'node.html.twig' %}
+
+{% block preContent %}
+  {% include "@organisms/by-template/breadcrumbs.twig" %}
+  {% include "@organisms/by-template/page-banner.twig" %}
+{% endblock %}
+{% block pageContent %}
+  {% for i in range(1, numOfSections) %}
+    {% if pageContent[i]['sectionThreeUp'] %}
+      {% set sectionThreeUp = pageContent[i]['sectionThreeUp'] %}
+      {% include "@organisms/by-author/sections-three-up.twig" %}
+    {% endif %}
+  {% endfor %}
+
+  {% include "@organisms/by-author/link-list.twig" %}
+{% endblock %}
+{% block postContent %}
+  {% if content.field_image_credit is not empty %}
+    {{ content.field_image_credit }}
+  {% endif %}
+  {% include "@organisms/by-template/breadcrumbs.twig" %}
+{% endblock %}

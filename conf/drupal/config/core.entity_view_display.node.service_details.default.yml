@@ -1,0 +1,67 @@
+uuid: 95f548f0-4891-49f2-afab-95b99e5185f9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.service_details.field_service_detail_lede
+    - field.field.node.service_details.field_service_detail_links_5
+    - field.field.node.service_details.field_service_detail_overview
+    - field.field.node.service_details.field_service_detail_sections
+    - node.type.service_details
+  module:
+    - entity_reference_revisions
+    - link
+    - text
+    - user
+id: node.service_details.default
+targetEntityType: node
+bundle: service_details
+mode: default
+content:
+  field_service_detail_lede:
+    weight: 5
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_service_detail_links_5:
+    weight: 7
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+    region: content
+  field_service_detail_overview:
+    weight: 8
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+  field_service_detail_sections:
+    type: entity_reference_revisions_entity_view
+    weight: 6
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    region: content
+  links:
+    weight: 4
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  workbench_moderation_control:
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden: {  }

@@ -1,7 +1,0 @@
-mass_map.map_page:
-  path: '/map/{id}'
-  defaults:
-    _controller: '\Drupal\mass_map\Controller\MapController::content'
-    _title: 'Map'
-  requirements:
-    _permission: 'access content'

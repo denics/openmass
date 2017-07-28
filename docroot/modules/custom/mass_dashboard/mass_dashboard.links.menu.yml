@@ -1,0 +1,15 @@
+mass_dashboard.my_work:
+  route_name: mass_dashboard.my_work
+  title: 'My Work'
+  menu_name: mass-dashboard
+  weight: 0
+mass_dashboard.needs_review:
+  title: 'Needs Review'
+  route_name: mass_dashboard.needs_review
+  menu_name: mass-dashboard
+  weight: 5
+mass_dashboard.all_content:
+  route_name: mass_dashboard.all_content
+  title: 'All Content'
+  menu_name: mass-dashboard
+  weight: 10

@@ -1,0 +1,41 @@
+{#
+/**
+ * @file
+ * Theme override to display the full view mode of the location content type.
+ */
+ #}
+{% extends 'node.html.twig' %}
+
+{% block preContent %}
+  {% for headerAlert in headerAlerts %}
+    {% include "@organisms/by-template/header-alert.twig" %}
+  {% endfor %}
+  {% include "@organisms/by-template/breadcrumbs.twig" %}
+  {% include "@organisms/by-template/page-header.twig" %}
+  {% include "@organisms/by-author/location-banner.twig" %}
+{% endblock %}
+
+{% block pageContent %}
+  {% include "@organisms/by-author/quick-actions.twig" %}
+  {% include "@organisms/by-author/action-details.twig" %}
+{% endblock %}
+
+{% block sidebar %}
+  {% if quickActions %}
+    {% include "@organisms/by-author/quick-actions.twig" %}
+  {% endif %}
+  {% if sidebarContact %}
+    {% include "@organisms/by-author/sidebar-contact.twig" %}
+  {% endif %}
+  {# include "@organisms/by-author/sidebar-widget.twig" #}
+{% endblock %}
+
+{% block postContent %}
+  {% if content.field_image_credit is not empty %}
+     {{ content.field_image_credit }}
+  {% endif %}
+  {% if suggestedPages %}
+    {% include "@organisms/by-author/suggested-pages.twig" %}
+  {% endif %}
+  {% include "@organisms/by-template/breadcrumbs.twig" %}
+{% endblock %}

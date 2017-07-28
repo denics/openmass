@@ -1,0 +1,29 @@
+uuid: 5717234f-bbd5-478c-93d0-be9bf7df715d
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - node.type.topic_page
+  module:
+    - user
+id: node.topic_page.teaser
+targetEntityType: node
+bundle: topic_page
+mode: teaser
+content:
+  links:
+    weight: 100
+    region: content
+  workbench_moderation_control:
+    weight: -20
+    region: content
+hidden:
+  field_image_credit: true
+  field_topic_bg_narrow: true
+  field_topic_bg_wide: true
+  field_topic_content_cards: true
+  field_topic_display_links: true
+  field_topic_lede: true
+  field_topic_ref_icon: true
+  field_topic_ref_related_topics: true

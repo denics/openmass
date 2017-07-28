@@ -1,0 +1,480 @@
+better_field_descriptions:
+  template: better-field-descriptions-text
+  default_label: ''
+  advisory:
+    field_advisory_overview:
+      description: ''
+      label: ''
+      position: '2'
+  contact_information:
+    field_display_title:
+      description: ''
+      label: ''
+      position: '1'
+    field_ref_address:
+      description: ''
+      label: ''
+      position: '1'
+    field_ref_fax_number:
+      description: ''
+      label: ''
+      position: '1'
+    field_ref_hours:
+      description: ''
+      label: ''
+      position: '1'
+    field_ref_links:
+      description: ''
+      label: ''
+      position: '1'
+    field_ref_phone_number:
+      description: ''
+      label: ''
+      position: '1'
+  guide_page:
+    field_guide_page_bg_narrow:
+      description: ''
+      label: ''
+      position: '1'
+    field_guide_page_bg_wide:
+      description: ''
+      label: ''
+      position: '1'
+    field_guide_page_lede:
+      description: ''
+      label: ''
+      position: '1'
+    field_guide_page_related_guides:
+      description: ''
+      label: ''
+      position: '1'
+    field_guide_page_sections:
+      description: ''
+      label: ''
+      position: '1'
+  how_to_page:
+    field_how_to_files:
+      description: ''
+      label: ''
+      position: '1'
+    field_how_to_contacts_3:
+      description: ''
+      label: ''
+      position: '1'
+    field_how_to_lede:
+      description: ''
+      label: ''
+      position: '1'
+    field_how_to_link_1:
+      description: ''
+      label: ''
+      position: '1'
+    field_how_to_links_5:
+      description: ''
+      label: ''
+      position: '1'
+    field_how_to_methods_5:
+      description: ''
+      label: ''
+      position: '1'
+    field_how_to_more_info:
+      description: ''
+      label: ''
+      position: '1'
+    field_how_to_next_steps:
+      description: ''
+      label: ''
+      position: '1'
+    field_how_to_ref_fees:
+      description: ''
+      label: ''
+      position: '1'
+    field_how_to_ref_services:
+      description: ''
+      label: ''
+      position: '1'
+    field_how_to_taxo_action_type:
+      description: ''
+      label: ''
+      position: '1'
+    field_how_to_time:
+      description: ''
+      label: ''
+      position: '1'
+    field_how_to_what_you_need:
+      description: ''
+      label: ''
+      position: '1'
+  location:
+    field_accessibility:
+      description: ''
+      label: ''
+      position: '1'
+    field_bg_narrow:
+      description: ''
+      label: ''
+      position: '1'
+    field_bg_wide:
+      description: ''
+      label: ''
+      position: '1'
+    field_iframe:
+      description: ''
+      label: ''
+      position: '1'
+    field_links:
+      description: ''
+      label: ''
+      position: '1'
+    field_location_activity_detail:
+      description: ''
+      label: ''
+      position: '1'
+    field_location_facilities:
+      description: ''
+      label: ''
+      position: '1'
+    field_location_icons:
+      description: ''
+      label: ''
+      position: '1'
+    field_location_more_information:
+      description: ''
+      label: ''
+      position: '1'
+    field_overview:
+      description: ''
+      label: ''
+      position: '1'
+    field_parking:
+      description: ''
+      label: ''
+      position: '1'
+    field_ref_contact_info:
+      description: ''
+      label: ''
+      position: '1'
+    field_ref_contact_info_1:
+      description: ''
+      label: ''
+      position: '1'
+    field_related_locations:
+      description: ''
+      label: ''
+      position: '1'
+    field_restrictions:
+      description: ''
+      label: ''
+      position: '1'
+    field_services:
+      description: ''
+      label: ''
+      position: '1'
+  org_page:
+    body:
+      description: ''
+      label: ''
+      position: '1'
+    field_action_set__bg_narrow:
+      description: ''
+      label: ''
+      position: '1'
+    field_action_set__bg_wide:
+      description: ''
+      label: ''
+      position: '1'
+    field_bg_narrow:
+      description: ''
+      label: ''
+      position: '1'
+    field_bg_wide:
+      description: ''
+      label: ''
+      position: '1'
+    field_link:
+      description: ''
+      label: ''
+      position: '1'
+    field_metatags:
+      description: ''
+      label: ''
+      position: '1'
+    field_org_ref_locations:
+      description: ''
+      label: ''
+      position: '1'
+    field_ref_actions_3:
+      description: ''
+      label: ''
+      position: '1'
+    field_ref_actions_6:
+      description: ''
+      label: ''
+      position: '1'
+    field_ref_card_view_6:
+      description: ''
+      label: ''
+      position: '1'
+    field_ref_contact_info:
+      description: ''
+      label: ''
+      position: '1'
+    field_ref_contact_info_1:
+      description: ''
+      label: ''
+      position: '1'
+    field_ref_orgs:
+      description: ''
+      label: ''
+      position: '1'
+    field_social_links:
+      description: ''
+      label: ''
+      position: '1'
+    field_sub_brand:
+      description: ''
+      label: ''
+      position: '1'
+    field_sub_title:
+      description: ''
+      label: ''
+      position: '1'
+    field_title_sub_text:
+      description: ''
+      label: ''
+      position: '1'
+  service_details:
+    field_service_detail_lede:
+      description: ''
+      label: ''
+      position: '1'
+    field_service_detail_links_5:
+      description: ''
+      label: ''
+      position: '1'
+    field_service_detail_overview:
+      description: ''
+      label: ''
+      position: '1'
+    field_service_detail_sections:
+      description: ''
+      label: ''
+      position: '1'
+  service_page:
+    field_service_bg_narrow:
+      description: ''
+      label: ''
+      position: '1'
+    field_service_bg_wide:
+      description: ''
+      label: ''
+      position: '1'
+    field_service_body:
+      description: ''
+      label: ''
+      position: '1'
+    field_service_eligibility_info:
+      description: ''
+      label: ''
+      position: '1'
+    field_service_file:
+      description: ''
+      label: ''
+      position: '1'
+    field_service_key_info_links_6:
+      description: ''
+      label: ''
+      position: '2'
+    field_service_lede:
+      description: ''
+      label: ''
+      position: '1'
+    field_service_links:
+      description: ''
+      label: ''
+      position: '1'
+    field_service_ref_actions:
+      description: ''
+      label: ''
+      position: '2'
+    field_service_ref_actions_2:
+      description: ''
+      label: ''
+      position: '2'
+    field_service_ref_guide_page_1:
+      description: ''
+      label: ''
+      position: '1'
+    field_service_ref_locations:
+      description: ''
+      label: ''
+      position: '1'
+    field_service_ref_services_6:
+      description: ''
+      label: ''
+      position: '1'
+    field_service_sub_brand:
+      description: ''
+      label: ''
+      position: '1'
+    field_service_video:
+      description: ''
+      label: ''
+      position: '1'
+    field_services_social_links:
+      description: ''
+      label: ''
+      position: '1'
+  topic_page:
+    field_topic_bg_narrow:
+      description: ''
+      label: ''
+      position: '1'
+    field_topic_bg_wide:
+      description: ''
+      label: ''
+      position: '1'
+    field_topic_content_cards:
+      description: ''
+      label: ''
+      position: '1'
+    field_topic_display_links:
+      description: ''
+      label: ''
+      position: '1'
+    field_topic_lede:
+      description: ''
+      label: ''
+      position: '1'
+    field_topic_ref_icon:
+      description: ''
+      label: ''
+      position: '1'
+    field_topic_ref_related_topics:
+      description: ''
+      label: ''
+      position: '1'
+  template_uri: modules/contrib/better_field_descriptions/templates/better-field-descriptions-text.html.twig
+better_field_descriptions_settings:
+  advisory:
+    field_advisory_date: field_advisory_date
+    field_advisory_download: field_advisory_download
+    field_advisory_metatags: field_advisory_metatags
+    field_advisory_overview: field_advisory_overview
+    field_advisory_publish_state_tax: field_advisory_publish_state_tax
+    field_advisory_ref_contact: field_advisory_ref_contact
+    field_advisory_ref_events: field_advisory_ref_events
+    field_advisory_ref_organization: field_advisory_ref_organization
+    field_advisory_ref_sources: field_advisory_ref_sources
+    field_advisory_related_ref: field_advisory_related_ref
+    field_advisory_section: field_advisory_section
+    field_advisory_type_tax: field_advisory_type_tax
+  contact_information:
+    field_display_title: field_display_title
+    field_ref_address: field_ref_address
+    field_ref_fax_number: field_ref_fax_number
+    field_ref_hours: field_ref_hours
+    field_ref_links: field_ref_links
+    field_ref_phone_number: field_ref_phone_number
+  decision:
+    field_decision_contact: field_decision_contact
+    field_decision_date: field_decision_date
+    field_decision_docket_number: field_decision_docket_number
+    field_decision_download: field_decision_download
+    field_decision_location: field_decision_location
+    field_decision_organization: field_decision_organization
+    field_decision_overview: field_decision_overview
+    field_decision_participants: field_decision_participants
+    field_decision_ref_sources: field_decision_ref_sources
+    field_decision_related: field_decision_related
+    field_decision_section: field_decision_section
+    field_decision_type: field_decision_type
+    field_decision_upcoming_events: field_decision_upcoming_events
+  guide_page:
+    field_guide_page_bg_narrow: field_guide_page_bg_narrow
+    field_guide_page_bg_wide: field_guide_page_bg_wide
+    field_guide_page_lede: field_guide_page_lede
+    field_guide_page_related_guides: field_guide_page_related_guides
+    field_guide_page_sections: field_guide_page_sections
+  how_to_page:
+    field_how_to_contacts_3: field_how_to_contacts_3
+    field_how_to_files: field_how_to_files
+    field_how_to_lede: field_how_to_lede
+    field_how_to_link_1: field_how_to_link_1
+    field_how_to_links_5: field_how_to_links_5
+    field_how_to_methods_5: field_how_to_methods_5
+    field_how_to_more_info: field_how_to_more_info
+    field_how_to_next_steps: field_how_to_next_steps
+    field_how_to_ref_fees: field_how_to_ref_fees
+    field_how_to_ref_services: field_how_to_ref_services
+    field_how_to_taxo_action_type: field_how_to_taxo_action_type
+    field_how_to_time: field_how_to_time
+    field_how_to_what_you_need: field_how_to_what_you_need
+  location:
+    field_accessibility: field_accessibility
+    field_bg_narrow: field_bg_narrow
+    field_bg_wide: field_bg_wide
+    field_iframe: field_iframe
+    field_links: field_links
+    field_location_activity_detail: field_location_activity_detail
+    field_location_facilities: field_location_facilities
+    field_location_icons: field_location_icons
+    field_location_more_information: field_location_more_information
+    field_overview: field_overview
+    field_parking: field_parking
+    field_ref_contact_info: field_ref_contact_info
+    field_ref_contact_info_1: field_ref_contact_info_1
+    field_related_locations: field_related_locations
+    field_restrictions: field_restrictions
+    field_services: field_services
+  org_page:
+    body: body
+    field_action_set__bg_narrow: field_action_set__bg_narrow
+    field_action_set__bg_wide: field_action_set__bg_wide
+    field_bg_narrow: field_bg_narrow
+    field_bg_wide: field_bg_wide
+    field_link: field_link
+    field_metatags: field_metatags
+    field_org_ref_locations: field_org_ref_locations
+    field_ref_actions_3: field_ref_actions_3
+    field_ref_actions_6: field_ref_actions_6
+    field_ref_card_view_6: field_ref_card_view_6
+    field_ref_contact_info: field_ref_contact_info
+    field_ref_contact_info_1: field_ref_contact_info_1
+    field_ref_orgs: field_ref_orgs
+    field_social_links: field_social_links
+    field_sub_brand: field_sub_brand
+    field_sub_title: field_sub_title
+    field_title_sub_text: field_title_sub_text
+  service_details:
+    field_service_detail_lede: field_service_detail_lede
+    field_service_detail_links_5: field_service_detail_links_5
+    field_service_detail_overview: field_service_detail_overview
+    field_service_detail_sections: field_service_detail_sections
+  service_page:
+    field_service_bg_narrow: field_service_bg_narrow
+    field_service_bg_wide: field_service_bg_wide
+    field_service_body: field_service_body
+    field_service_eligibility_info: field_service_eligibility_info
+    field_service_file: field_service_file
+    field_service_key_info_links_6: field_service_key_info_links_6
+    field_service_lede: field_service_lede
+    field_service_links: field_service_links
+    field_service_ref_actions: field_service_ref_actions
+    field_service_ref_actions_2: field_service_ref_actions_2
+    field_service_ref_guide_page_1: field_service_ref_guide_page_1
+    field_service_ref_locations: field_service_ref_locations
+    field_service_ref_services_6: field_service_ref_services_6
+    field_service_sub_brand: field_service_sub_brand
+    field_service_video: field_service_video
+    field_services_social_links: field_services_social_links
+  topic_page:
+    field_topic_bg_narrow: field_topic_bg_narrow
+    field_topic_bg_wide: field_topic_bg_wide
+    field_topic_content_cards: field_topic_content_cards
+    field_topic_display_links: field_topic_display_links
+    field_topic_lede: field_topic_lede
+    field_topic_ref_icon: field_topic_ref_icon
+    field_topic_ref_related_topics: field_topic_ref_related_topics
+_core:
+  default_config_hash: TOIlYzdlzFXxp8rDBhTd-2U8MjEt7a-RRXSQNA8AqhA

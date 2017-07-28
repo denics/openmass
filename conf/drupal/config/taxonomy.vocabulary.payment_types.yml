@@ -1,0 +1,9 @@
+uuid: 5424b755-565e-4ba9-be7c-98a880819dcb
+langcode: en
+status: true
+dependencies: {  }
+name: 'Payment Types'
+vid: payment_types
+description: ''
+hierarchy: 0
+weight: 0

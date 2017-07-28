@@ -1,0 +1,564 @@
+<?php
+
+/**
+ * @file
+ * Contains mass_validation.module.
+ */
+
+use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\node\Entity\Node;
+
+/**
+ * Implements hook_help().
+ */
+function mass_validation_help($route_name, RouteMatchInterface $route_match) {
+  $output = '';
+  switch ($route_name) {
+    case 'help.page.mass_validation':
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('This module allows validation to be applied to custom content types and fields.') . '</p>';
+      break;
+
+    default:
+  }
+  return $output;
+}
+
+/**
+ * Implements hook_entity_type_alter().
+ */
+function mass_validation_entity_type_alter(array &$entity_types) {
+  /** @var Drupal\Core\Entity\ContentEntityType $node */
+  $node = $entity_types['node'];
+  if (!empty($node)) {
+    $node->addConstraint('PreventEmptyImage', []);
+  }
+}
+
+/**
+ * Implements hook_entity_bundle_field_info_alter().
+ */
+function mass_validation_entity_bundle_field_info_alter(&$fields, EntityTypeInterface $entity_type, $bundle) {
+  /** @var Drupal\field\Entity\FieldConfig $field_social_links */
+  if ($entity_type->id() == 'node' && array_key_exists('field_social_links', $fields) && !empty($fields['field_social_links'])) {
+    $field_social_links = &$fields['field_social_links'];
+    $field_social_links->addConstraint('SocialLink', [
+      'allowedValues' => [
+        'twitter.com',
+        'flickr.com',
+        'facebook.com',
+        'instagram.com',
+        'linkedin.com',
+        'youtube.com',
+        'medium.com',
+        'blog.mass.gov',
+      ],
+    ]);
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for the FORM_ID() form.
+ */
+function mass_validation_form_node_guide_page_edit_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $form['#validate'][] = '_mass_validation_form_node_guide_page_form_validate';
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for the FORM_ID() form.
+ */
+function mass_validation_form_node_guide_page_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $form['#validate'][] = '_mass_validation_form_node_guide_page_form_validate';
+}
+
+/**
+ * Validates submission values in the FORM_ID() form.
+ */
+function _mass_validation_form_node_guide_page_form_validate(array &$form, FormStateInterface $form_state) {
+
+  // Verify links have titles.
+  _mass_link_validate_paragraph($form_state, 'field_guide_page_sections', ['field_guide_section_links_4', 'field_guide_section_link']);
+
+  // Validate that the Links and Downloads fields
+  // have no more than 6 values between them.
+  if ($form_state->hasValue('field_guide_page_sections')) {
+    // Look at each section.
+    $sections = $form_state->getValue('field_guide_page_sections');
+    unset($sections['add_more']);
+    foreach ($sections as $key => $section) {
+      if (in_array('subform', $section)) {
+        $num_links = 0;
+        // Count the links.
+        foreach ($section['subform']['field_guide_section_link'] as $link) {
+          if (is_array($link)) {
+            if (!empty($link['uri'])) {
+              $num_links += 1;
+            }
+          }
+        }
+      }
+      $num_docs = 0;
+      // Count the documents.
+      if (!empty($section['subform']['field_guide_section_downloads']['entities'])) {
+        $num_docs = count($section['subform']['field_guide_section_downloads']['entities']);
+      }
+      // Throw an error is there are more than 6.
+      if (($num_links + $num_docs) > 6) {
+        $form_state->setErrorByName('field_guide_page_sections][' . $key . '][subform][field_guide_section_link', t('You can only have max 6 values between the Links and Downloads fields in a section.'));
+        $form_state->setErrorByName('field_guide_page_sections][' . $key . '][subform][field_guide_section_downloads', t('You can only have max 6 values between the Links and Downloads fields in a section.'));
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for the FORM_ID() form.
+ */
+function mass_validation_form_node_service_page_edit_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $form['#validate'][] = '_mass_validation_form_node_service_page_form_validate';
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for the FORM_ID() form.
+ */
+function mass_validation_form_node_service_page_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $form['#validate'][] = '_mass_validation_form_node_service_page_form_validate';
+}
+
+/**
+ * Validates submission values in the FORM_ID() form.
+ */
+function _mass_validation_form_node_service_page_form_validate(array &$form, FormStateInterface $form_state) {
+
+  _mass_link_validate($form_state, 'field_service_ref_actions_2');
+  _mass_link_validate($form_state, 'field_service_ref_actions');
+  _mass_link_validate($form_state, 'field_service_links');
+  _mass_link_validate($form_state, 'field_service_key_info_links_6');
+
+  $num_links = 0;
+  // Validate that the Links and Downloads fields
+  // have no more than 6 values between them.
+  if ($form_state->hasValue('field_service_links') || $form_state->hasValue('field_service_file')) {
+    // Count the links.
+    $links = $form_state->getValue('field_service_links');
+    foreach ($links as $link) {
+      if (is_array($link)) {
+        if (!empty($link['uri'])) {
+          $num_links += 1;
+        }
+      }
+    }
+    // Count the documents.
+    $docs = $form_state->getValue('field_service_file');
+    $num_docs = 0;
+    if (!empty($docs['entities'])) {
+      $num_docs = count($docs['entities']);
+    }
+    // Throw an error is there are more than 6.
+    if (($num_links + $num_docs) > 6) {
+      $form_state->setErrorByName('field_service_links', t('You can only have max 6 values between the Links and Downloads fields.'));
+      $form_state->setErrorByName('field_service_file', t('You can only have max 6 values between the Links and Downloads fields.'));
+    }
+  }
+
+  $num_links = 0;
+  // Validate that All tasks fields.
+  // have no more than 12 values between them.
+  if ($form_state->hasValue('field_service_ref_actions')) {
+    // Count the links.
+    $links = $form_state->getValue('field_service_ref_actions');
+    foreach ($links as $link) {
+      if (is_array($link)) {
+        if (!empty($link['uri'])) {
+          $num_links += 1;
+        }
+      }
+    }
+    // Throw an error is there are more than 12.
+    if (($num_links) > 12) {
+      $form_state->setErrorByName('field_service_ref_actions', t('You can only have max 12 tasks related to this service.'));
+    }
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for the FORM_ID() form.
+ */
+function mass_validation_form_node_how_to_page_edit_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $form['#validate'][] = '_mass_validation_form_node_how_to_page_form_validate';
+}
+
+/**
+ * Validates submission values in the FORM_ID() form.
+ */
+function _mass_validation_form_node_how_to_page_form_validate(array &$form, FormStateInterface $form_state) {
+  _mass_link_validate($form_state, 'field_how_to_links_5');
+  _mass_link_validate($form_state, 'field_how_to_link_1');
+  _mass_link_validate_paragraph($form_state, 'field_how_to_next_steps', ['field_next_step_link']);
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for the Service Details form.
+ */
+function mass_validation_form_node_service_details_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $form['#validate'][] = '_mass_validation_form_node_service_details_form_validate';
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for the Service Details edit form.
+ */
+function mass_validation_form_node_service_details_edit_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $form['#validate'][] = '_mass_validation_form_node_service_details_form_validate';
+}
+
+/**
+ * Validates submission values in the FORM_ID() form.
+ */
+function _mass_validation_form_node_service_details_form_validate(array &$form, FormStateInterface $form_state) {
+  // Verify links have titles.
+  _mass_link_validate_paragraph($form_state, 'field_service_detail_sections', ['field_section_links', 'field_section_key_actions']);
+  _mass_link_validate($form_state, 'field_service_detail_links_5');
+
+  // Validate that the Links and Downloads fields
+  // have no more than 6 values between them.
+  if ($form_state->hasValue('field_service_detail_sections')) {
+    // Look at each section.
+    $sections = $form_state->getValue('field_service_detail_sections');
+    unset($sections['add_more']);
+    foreach ($sections as $key => $section) {
+      if (in_array('subform', $section)) {
+        $num_links = 0;
+        // Count the links.
+        foreach ($section['subform']['field_section_links'] as $link) {
+          if (is_array($link)) {
+            if (!empty($link['uri'])) {
+              $num_links += 1;
+            }
+          }
+        }
+      }
+      $num_docs = 0;
+      // Count the documents.
+      if (!empty($section['subform']['field_section_downloads']['entities'])) {
+        $num_docs = count($section['subform']['field_section_downloads']['entities']);
+      }
+      // Throw an error is there are more than 6.
+      if (($num_links + $num_docs) > 6) {
+        $form_state->setErrorByName('field_service_detail_sections][' . $key . '][subform][field_section_links', t('You can only have max 6 values between the Links and Downloads fields in a section.'));
+        $form_state->setErrorByName('field_service_detail_sections][' . $key . '][subform][field_section_downloads', t('You can only have max 6 values between the Links and Downloads fields in a section.'));
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for the FORM_ID() form.
+ */
+function mass_validation_form_node_location_details_edit_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $form['#validate'][] = '_mass_validation_form_node_location_details_form_validate';
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for the FORM_ID() form.
+ */
+function mass_validation_form_node_location_details_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $form['#validate'][] = '_mass_validation_form_node_location_details_form_validate';
+}
+
+/**
+ * Validates submission values in the FORM_ID() form.
+ */
+function _mass_validation_form_node_location_details_form_validate(array &$form, FormStateInterface $form_state) {
+
+  // Verify links have titles.
+  _mass_link_validate_paragraph($form_state, 'field_location_details_sections', ['field_section_links']);
+  _mass_link_validate($form_state, 'field_location_details_links_5');
+
+  // Validate that the Links and Downloads fields
+  // have no more than 6 values between them.
+  if ($form_state->hasValue('field_location_details_sections')) {
+    // Look at each section.
+    $sections = $form_state->getValue('field_location_details_sections');
+    unset($sections['add_more']);
+    foreach ($sections as $key => $section) {
+      if (array_key_exists('subform', $section)) {
+        $num_links = 0;
+        // Count the links.
+        foreach ($section['subform']['field_section_links'] as $link) {
+          if (is_array($link)) {
+            if (!empty($link['uri'])) {
+              $num_links += 1;
+            }
+          }
+        }
+        $num_docs = 0;
+        // Count the documents.
+        if (!empty($section['subform']['field_section_downloads']['entities'])) {
+          $num_docs = count($section['subform']['field_section_downloads']['entities']);
+        }
+      }
+      // Throw an error is there are more than 6.
+      if (($num_links + $num_docs) > 6) {
+        $form_state->setErrorByName('field_location_details_sections][' . $key . '][subform][field_section_links', t('You can only have max 6 values between the Links and Downloads fields in a section.'));
+        $form_state->setErrorByName('field_location_details_sections][' . $key . '][subform][field_section_downloads', t('You can only have max 6 values between the Links and Downloads fields in a section.'));
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for the FORM_ID() form.
+ */
+function mass_validation_form_node_event_edit_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $form['#validate'][] = '_mass_validation_form_node_event_form_validate';
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for the FORM_ID() form.
+ */
+function mass_validation_form_node_event_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $form['#validate'][] = '_mass_validation_form_node_event_form_validate';
+}
+
+/**
+ * Validates submission values in the FORM_ID() form.
+ */
+function _mass_validation_form_node_event_form_validate(array &$form, FormStateInterface $form_state) {
+
+  _mass_link_validate($form_state, 'field_event_links');
+  _mass_link_validate($form_state, 'field_event_link_sign_up');
+
+  $num_links = 0;
+  // Validate that the Links and Downloads fields
+  // have no more than 6 values between them.
+  if ($form_state->hasValue('field_event_links') || $form_state->hasValue('field_event_ref_downloads')) {
+    // Count the links.
+    $links = $form_state->getValue('field_event_links');
+    foreach ($links as $link) {
+      if (is_array($link)) {
+        if (!empty($link['uri'])) {
+          $num_links += 1;
+        }
+      }
+    }
+    // Count the documents.
+    $docs = $form_state->getValue('field_event_ref_downloads');
+    $num_docs = 0;
+    if (!empty($docs['entities'])) {
+      $num_docs = count($docs['entities']);
+    }
+    // Throw an error is there are more than 6.
+    if (($num_links + $num_docs) > 6) {
+      $form_state->setErrorByName('field_event_links', t('You can only have max 6 values between the Links and Downloads fields.'));
+      $form_state->setErrorByName('field_event_ref_downloads', t('You can only have max 6 values between the Links and Downloads fields.'));
+    }
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for the FORM_ID() form.
+ */
+function mass_validation_form_node_topic_page_edit_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $form['#validate'][] = '_mass_validation_form_node_topic_page_form_validate';
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for the FORM_ID() form.
+ */
+function mass_validation_form_node_topic_page_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $form['#validate'][] = '_mass_validation_form_node_topic_page_form_validate';
+}
+
+/**
+ * Validates submission values in the FORM_ID() form.
+ */
+function _mass_validation_form_node_topic_page_form_validate(array &$form, FormStateInterface $form_state) {
+
+  // Verify links have titles.
+  _mass_link_validate_paragraph($form_state, 'field_topic_content_cards', ['field_content_card_link_cards']);
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for the FORM_ID() form.
+ */
+function mass_validation_form_node_legacy_redirects_edit_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $form['#validate'][] = '_mass_validation_form_node_legacy_redirects_form_validate';
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for the FORM_ID() form.
+ */
+function mass_validation_form_node_legacy_redirects_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $form['#validate'][] = '_mass_validation_form_node_legacy_redirects_form_validate';
+}
+
+/**
+ * Validates submission values in the FORM_ID() form.
+ */
+function _mass_validation_form_node_legacy_redirects_form_validate(array &$form, FormStateInterface $form_state) {
+  if ($form_state->hasValue('field_legacy_redirects_legacyurl')) {
+    $legacy_urls = $form_state->getValue('field_legacy_redirects_legacyurl');
+    foreach ($legacy_urls as $key => $legacy_url) {
+      if (is_array($legacy_url)) {
+        if ($legacy_url['value'] != "") {
+          // Verify Legacy URL is a mass.gov link and does not link to the portal.
+          $illegal_urls = [
+            'http://www.mass.gov/portal/',
+            'http://www.mass.gov/portal',
+            'http://www.mass.gov',
+            'http://www.mass.gov/'
+          ];
+          if ((strpos($legacy_url['value'], "http://www.mass.gov") !== 0) && (strpos($legacy_url['value'], "https://www.mass.gov") !== 0)) {
+            $form_state->setErrorByName('field_legacy_redirects_legacyurl][' . $key, t('Legacy URL must start with "https://www.mass.gov" or "http://www.mass.gov".'));
+          }
+          elseif (in_array($legacy_url['value'], $illegal_urls)) {
+            $form_state->setErrorByName('field_legacy_redirects_legacyurl][' . $key, t('Legacy URL cannot be "http://www.mass.gov/portal" or "http://www.mass.gov".'));
+          }
+          // Verify Legacy Urls are unique.
+          $hash_value = md5($legacy_url['value']);
+          $query = \Drupal::entityQuery('node')
+            ->condition('type', 'legacy_redirects')
+            ->condition('field_legacy_redirect_hashed_url', $hash_value);
+          // If the node has been saved exclude current node.
+          if ($curr_id = $form_state->getFormObject()->getEntity()->id()) {
+            $query->condition('nid', $curr_id, '<>');
+          }
+          $duplicates = $query->execute();
+          if (!empty($duplicates)) {
+            $nid = reset($duplicates);
+            $form_state->setErrorByName('field_legacy_redirects_legacyurl][' . $key, t('The Legacy URL must be unique, this url is already being used at <a href=/node/@nid/edit >@nid</a>', ['@nid' => $nid]));
+          }
+
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Validate link fields in a paragraph have titles for each uri.
+ *
+ * @param Drupal\Core\Form\FormStateInterface $form_state
+ *   The form we are validating.
+ * @param string $field_name
+ *   The name of the link field to validate.
+ */
+function _mass_link_validate(FormStateInterface &$form_state, $field_name) {
+  // Fetch the field values.
+  if ($form_state->hasValue($field_name)) {
+    $featured_tasks = $form_state->getValue($field_name);
+    $is_updated = FALSE;
+
+    // Look at each field value.
+    foreach ($featured_tasks as $key => $task) {
+      if (is_array($task)) {
+        // If we have a uri but no title, fix or show an error.
+        if (!empty($task['uri']) && empty($task['title'])) {
+          $title = mass_validation_get_title_from_uri($task['uri']);
+          if ($title) {
+            // Update field array with new title.
+            $featured_tasks[$key]['title'] = $title;
+            $is_updated = TRUE;
+          }
+          else {
+            $form_state->setErrorByName($field_name . '][' . $key, t('External links require a title.'));
+          }
+
+        }
+      }
+    }
+    if ($is_updated) {
+      $form_state->setValueForElement(['#parents' => [$field_name]], $featured_tasks);
+    }
+  }
+}
+
+/**
+ * Validate link fields in a paragraph have titles for each uri.
+ *
+ * @param Drupal\Core\Form\FormStateInterface $form_state
+ *   The form state object we are updating.
+ * @param string $paragraph_field_name
+ *   The name of the paragraph field we are checking.
+ * @param array $field_names
+ *   An array of link field titles in the paragraph to check.
+ */
+function _mass_link_validate_paragraph(FormStateInterface &$form_state, $paragraph_field_name, array $field_names) {
+  // Get the paragraphs field that contain the link fields.
+  if ($form_state->hasValue($paragraph_field_name)) {
+    $paragraphs = $form_state->getValue($paragraph_field_name);
+    $is_updated = FALSE;
+    // Validate each paragraph.
+    foreach ($paragraphs as $key => $paragraph) {
+      // Verify this is a paragraph with fields.
+      if (array_key_exists('subform', $paragraph)) {
+        // Look at each link field in the paragraph.
+        foreach ($field_names as $field_name) {
+          foreach ($paragraph['subform'][$field_name] as $field_key => $field) {
+            if (is_array($field)) {
+              // If the field has a uri but no title, get one if possible.
+              if (!empty($field['uri']) && empty($field['title'])) {
+                $title = mass_validation_get_title_from_uri($field['uri']);
+                if ($title) {
+                  $paragraphs[$key]['subform'][$field_name][$field_key]['title'] = $title;
+                  $is_updated = TRUE;
+                }
+                else {
+                  // If the link has no title and is external throw an error.
+                  $form_state->setErrorByName($paragraph_field_name . '][' . $key . '][subform][' . $field_name . '][' . $field_key, t('External links require a title.'));
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    if ($is_updated) {
+      // Update the paragraph with new values.
+      $form_state->setValueForElement(['#parents' => [$paragraph_field_name]], $paragraphs);
+    }
+  }
+}
+
+/**
+ * Retrieves title given an internal uri.
+ *
+ * Only works for nodes at present.
+ *
+ * @param string $uri
+ *   A uri created by the link widget.
+ *
+ * @return null|string
+ *   Returns NULL if title not found.
+ */
+function mass_validation_get_title_from_uri($uri) {
+  // If a link is to a node, get the node title.
+  if (stripos($uri, 'entity:node') === 0) {
+    // Get the node from the uri.
+    $uri_parts = explode('/', $uri);
+    $nid = count($uri_parts) > 1 ? intval($uri_parts[1]) : NULL;
+    if ($nid) {
+      $node = Node::load($nid);
+      if (!is_null($node)) {
+        return $node->getTitle();
+      }
+    }
+  }
+  return NULL;
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_presave().
+ */
+function mass_validation_node_presave($node) {
+  if ($node->bundle() == 'legacy_redirects') {
+    $urls = $node->field_legacy_redirects_legacyurl;
+    $hash_values = $node->field_legacy_redirect_hashed_url;
+    foreach ($urls as $key => $url) {
+      $hash = md5($url->value);
+      $hash_values->set($key, $hash);
+    }
+  }
+}
