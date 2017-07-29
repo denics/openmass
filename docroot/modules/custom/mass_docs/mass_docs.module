@@ -7,8 +7,10 @@
  * Copyright 2017 Palantir.net, Inc.
  */
 
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\taxonomy\Entity\Term;
 
 /**
  * Implements hook_help().
@@ -111,4 +113,163 @@ function mass_docs_inline_entity_form_table_fields_alter(&$fields, $context) {
     // Apply image style to thumbnail.
     $fields['thumbnail']['display_options']['settings']['image_style'] = 'thumbnail_40_x_40';
   }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function mass_docs_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  if ($form_id == 'user_form' || $form_id == 'user_register_form') {
+    $data = NULL;
+
+    // Load previously saved values if not in registration.
+    if ($form_id == 'user_form') {
+      // The user entity is in "$form_state->getFormObject()->getEntity()".
+      /** @var \Drupal\Core\Form\FormState $form_state */
+      $data = _mass_docs_get_user_config_data($form_state->getFormObject()->getEntity()->id());
+    }
+
+    $form['massdocs_values'] = [
+      '#type' => 'details',
+      '#title' => t('MassDocs Default Values'),
+      '#weight' => 8,
+      '#open' => TRUE,
+    ];
+
+    $form['massdocs_values']['organization'] = [
+      '#type' => 'entity_autocomplete',
+      '#title' => t('Uploading organization or department'),
+      '#description' => t('The organization or department that is uploading the file to Mass.gov.'),
+      '#target_type' => 'taxonomy_term',
+      '#selection_settings' => ['target_bundles' => ['document_agencies']],
+      '#tags' => FALSE,
+      '#default_value' => (empty($data) || empty($data['organization'])) ? NULL : Term::load($data['organization']),
+    ];
+
+    $form['massdocs_values']['authors'] = [
+      '#type' => 'entity_autocomplete',
+      '#title' => t('Author(s)'),
+      '#description' => t('The name(s) of the organization or person primarily responsible for authoring the content. To enter more than one author, separate each author with a comma.'),
+      '#target_type' => 'taxonomy_term',
+      '#selection_settings' => ['target_bundles' => ['document_creators']],
+      '#autocreate' => ['bundle' => 'document_creators'],
+      '#tags' => TRUE,
+      '#default_value' => (empty($data) || empty($data['authors'])) ? NULL : Term::loadMultiple($data['authors']),
+    ];
+
+    $form['massdocs_values']['contact_name'] = [
+      '#type' => 'entity_autocomplete',
+      '#title' => t('Contact Name'),
+      '#description' => t('The name of the organization and/or person responsible for answering questions about the file.'),
+      '#target_type' => 'taxonomy_term',
+      '#selection_settings' => ['target_bundles' => ['document_contacts']],
+      '#autocreate' => ['bundle' => 'document_contacts'],
+      '#tags' => FALSE,
+      '#default_value' => (empty($data) || empty($data['contact_name'])) ? NULL : Term::load($data['contact_name']),
+    ];
+
+    $form['massdocs_values']['contact_info'] = [
+      '#type' => 'textarea',
+      '#rows' => 1,
+      '#resizable' => 'vertical',
+      '#title' => t('Contact Information'),
+      '#description' => t('The email, address, fax, phone number, or online form of the organization or person responsible for answering questions about the file.'),
+      '#default_value' => empty($data) || empty($data['contact_info']) ? NULL : $data['contact_info'],
+    ];
+
+    // Set submit handler to store new user profile values.
+    $form['actions']['submit']['#submit'][] = 'mass_docs_user_profile_submit';
+  }
+}
+
+/**
+ * Custom submit function for the user_profile_form page.
+ *
+ * @param array $form
+ *   Form being submitted.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   Form state variable.
+ */
+function mass_docs_user_profile_submit(array $form, FormStateInterface &$form_state) {
+  /** @var \Drupal\Core\Config\Config $config */
+  $config = \Drupal::service('config.factory')->getEditable('mass_docs.settings');
+
+  /** @var \Drupal\Core\Form\FormState $form_state */
+  /** @var \Drupal\user\Entity\User $user */
+  $user = $form_state->getFormObject()->getEntity();
+
+  $stored_values = ['organization', 'authors', 'contact_name', 'contact_info'];
+
+  foreach ($stored_values as $value_name) {
+    $values = $form_state->getValue($value_name);
+
+    if (empty($values)) {
+      // Clear previous value from config.
+      $config->clear('user.' . $user->id() . $value_name)->save();
+      continue;
+    }
+
+    // Since we have auto-create in Authors and Contact Name fields we need
+    // to save those new entities to get the id.
+    if ($value_name == 'authors' && is_array($values)) {
+      // We receive several values here since #tags attribute is set to TRUE.
+      for ($i = 0; $i < count($values); $i++) {
+        if (isset($values[$i]['entity']) && is_object($values[$i]['entity'])) {
+          $values[$i]['entity']->save();
+          // Replace object by tid in values.
+          $values[$i]['target_id'] = $values[$i]['entity']->id();
+          unset($values[$i]['entity']);
+        }
+      }
+    }
+
+    if ($value_name == 'contact_name' && is_array($values) && isset($values['entity']) && is_object($values['entity'])) {
+      // We receive only one value here since #tags attribute is set to FALSE.
+      $values['entity']->save();
+      // Replace object by tid in values.
+      $values = $values['entity']->id();
+    }
+
+    $config->set('user.' . $user->id() . $value_name, $values)->save();
+  }
+}
+
+/**
+ * Returns the configuration data relative to the current user.
+ *
+ * @param int $uid
+ *   The user id.
+ *
+ * @return array
+ *   The configuration data.
+ */
+function _mass_docs_get_user_config_data($uid) {
+  $config_data = [];
+  $config = \Drupal::config('mass_docs.settings');
+
+  $config_data['organization'] = $config->get('user.' . $uid . 'organization');
+  $config_data['contact_name'] = $config->get('user.' . $uid . 'contact_name');
+  $config_data['contact_info'] = $config->get('user.' . $uid . 'contact_info');
+
+  // Since authors is multiple it is stored as array. But we need an array
+  // with only the ids in the array to load the terms later, so we use the
+  // array_map function to change that.
+  $authors = $config->get('user.' . $uid . 'authors');
+  $config_data['authors'] = array_map(function ($author) {
+    return $author['target_id'];
+  }, $authors);
+
+  return $config_data;
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function mass_docs_form_media_document_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // Auto-populate fields from user profile.
+  $data = _mass_docs_get_user_config_data(\Drupal::currentUser()->id());
+  $form['field_contributing_agency']['widget'][0]['target_id']['#default_value'] = (empty($data) || empty($data['organization'])) ? NULL : Term::load($data['organization']);
+  $form['field_creator']['widget']['target_id']['#default_value'] = (empty($data) || empty($data['authors'])) ? NULL : Term::loadMultiple($data['authors']);
+  $form['field_contact_name']['widget'][0]['target_id']['#default_value'] = (empty($data) || empty($data['contact_name'])) ? NULL : Term::load($data['contact_name']);
+  $form['field_contact_information']['widget'][0]['value']['#default_value'] = empty($data) || empty($data['contact_info']) ? NULL : $data['contact_info'];
 }
