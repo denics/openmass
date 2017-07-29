@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "62de5711a7384489875aeefe4101b605",
+    "content-hash": "4491b85c8f1ef82037b359d18dd268a6",
     "packages": [
         {
             "name": "acquia/acquia-sdk-php",
@@ -1845,8 +1845,7 @@
             "homepage": "https://www.drupal.org/project/better_field_descriptions",
             "support": {
                 "source": "http://cgit.drupalcode.org/better_field_descriptions"
-            },
-            "time": "2017-04-17T10:36:09+00:00"
+            }
         },
         {
             "name": "drupal/clamav",
@@ -2522,7 +2521,8 @@
                     "Remove drupal.js error. (https://www.drupal.org/node/2661880)": "https://www.drupal.org/files/issues/quickedit-undefined-attr-2661880-14.patch",
                     "Don't break if telephone number is less than 6 digits. (https://www.drupal.org/node/2575577#comment-11750724)": "https://www.drupal.org/files/issues/2575577-11.patch",
                     "Fix photo disappearing from org page. Fix Contextual Links js bug.": "https://www.drupal.org/files/issues/2551373-32.patch",
-                    "Link autocomplete content type filter. (https://www.drupal.org/node/2887376#comment-12147367)": "https://www.drupal.org/files/issues/link-autocomplete-ct-filter-2887376-5-8.4.x.patch"
+                    "Link autocomplete content type filter. (https://www.drupal.org/node/2887376#comment-12147367)": "https://www.drupal.org/files/issues/link-autocomplete-ct-filter-2887376-5-8.4.x.patch",
+                    "Fix regression in the link widget where help text does not show. (https://www.drupal.org/node/2421001)": "https://www.drupal.org/files/issues/2421001-87.patch"
                 }
             },
             "autoload": {
@@ -4783,8 +4783,7 @@
             "homepage": "https://www.drupal.org/project/password_policy",
             "support": {
                 "source": "http://cgit.drupalcode.org/password_policy"
-            },
-            "time": "2017-05-22T16:11:07+00:00"
+            }
         },
         {
             "name": "drupal/pathauto",
@@ -5165,8 +5164,7 @@
             "support": {
                 "source": "https://cgit.drupalcode.org/rabbit_hole",
                 "issues": "https://www.drupal.org/project/issues/rabbit_hole"
-            },
-            "time": "2017-06-10T21:38:28+00:00"
+            }
         },
         {
             "name": "drupal/redirect",
@@ -5266,8 +5264,7 @@
             "homepage": "https://www.drupal.org/project/restrict_by_ip",
             "support": {
                 "source": "http://cgit.drupalcode.org/restrict_by_ip"
-            },
-            "time": "2017-04-28T19:48:30+00:00"
+            }
         },
         {
             "name": "drupal/restui",
@@ -5517,7 +5514,7 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/simple_oauth"
             },
-            "time": "2017-07-03T13:42:42+00:00"
+            "time": "2017-07-03 13:42:42"
         },
         {
             "name": "drupal/subpathauto",
@@ -5618,8 +5615,7 @@
             "homepage": "https://www.drupal.org/project/tfa",
             "support": {
                 "source": "http://cgit.drupalcode.org/tfa"
-            },
-            "time": "2016-08-23T20:32:20+00:00"
+            }
         },
         {
             "name": "drupal/token",
@@ -6031,7 +6027,7 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/workbench_moderation_actions"
             },
-            "time": "2017-07-10 10:48:54"
+            "time": "2017-07-10T10:48:54+00:00"
         },
         {
             "name": "drupal/xmlsitemap",
