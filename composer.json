@@ -155,6 +155,7 @@
         "drupal/schema_metatag": "^1.0@RC",
         "drupal/seckit": "1.0-alpha2",
         "drupal/security_review": "1.x-dev",
+        "drupal/simple_oauth": "2.x-dev",
         "drupal/subpathauto": "^1.0@beta",
         "drupal/twig_field_value": "^1",
         "drupal/twig_tweak": "^1",
@@ -182,7 +183,8 @@
         "drush/drush": "dev-master",
         "palantirnet/palantir-behat-extension": "dev-drupal8",
         "squizlabs/php_codesniffer": "2.*",
-        "drupal/coder": "^8.2.12"
+        "drupal/coder": "^8.2.12",
+        "imbo/behat-api-extension": "^2.0"
     },
     "suggest": {
     },
