@@ -7,6 +7,7 @@
  * Copyright 2017 Palantir.net, Inc.
  */
 
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
@@ -272,4 +273,18 @@ function mass_docs_form_media_document_form_alter(&$form, FormStateInterface $fo
   $form['field_creator']['widget']['target_id']['#default_value'] = (empty($data) || empty($data['authors'])) ? NULL : Term::loadMultiple($data['authors']);
   $form['field_contact_name']['widget'][0]['target_id']['#default_value'] = (empty($data) || empty($data['contact_name'])) ? NULL : Term::load($data['contact_name']);
   $form['field_contact_information']['widget'][0]['value']['#default_value'] = empty($data) || empty($data['contact_info']) ? NULL : $data['contact_info'];
+}
+
+/**
+ * Implements hook_entity_type_update().
+ */
+function mass_docs_media_update(EntityInterface $entity) {
+  drupal_set_message('Your changes have been successfully made.', $type = 'status', TRUE);
+}
+
+/**
+ * Implements hook_entity_type_insert().
+ */
+function mass_docs_media_insert(EntityInterface $entity) {
+  drupal_set_message('Your changes have been successfully made.', $type = 'status', TRUE);
 }
