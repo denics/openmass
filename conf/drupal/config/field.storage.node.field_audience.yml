@@ -15,8 +15,8 @@ settings:
       value: constituents
       label: Constituents
     -
-      value: government
-      label: Government
+      value: government_employees
+      label: 'Government Employees'
   allowed_values_function: ''
 module: options
 locked: false
