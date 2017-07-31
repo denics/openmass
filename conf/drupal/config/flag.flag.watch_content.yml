@@ -1,0 +1,52 @@
+uuid: de71a7c4-40ca-4ef4-b2f2-db47304a338a
+langcode: en
+status: true
+dependencies: {  }
+id: watch_content
+label: 'Watch Content'
+bundles:
+  - action
+  - contact_information
+  - emergency_alerts
+  - error_page
+  - event
+  - executive_order
+  - fee
+  - guide_page
+  - how_to_page
+  - interstitial
+  - legacy_redirects
+  - location
+  - location_details
+  - news
+  - org_page
+  - page
+  - person
+  - section_landing
+  - service_details
+  - service_page
+  - stacked_layout
+  - subtopic
+  - topic
+  - topic_page
+  - utility_drawer
+entity_type: node
+global: false
+weight: 0
+flag_short: Watch
+flag_long: 'Watching content will give you email notifications when future revisions have been published.'
+flag_message: 'Congratulations, you have joined the watchers.'
+unflag_short: Unwatch
+unflag_long: 'Unwatch will remove you from any email notification for future revisions.'
+unflag_message: 'Successfully removed from watchers.'
+unflag_denied_text: ''
+flag_type: 'entity:node'
+link_type: ajax_link
+flagTypeConfig:
+  show_in_links: {  }
+  show_as_field: false
+  show_on_form: false
+  show_contextual_link: false
+  extra_permissions:
+    owner: '0'
+linkTypeConfig: {  }

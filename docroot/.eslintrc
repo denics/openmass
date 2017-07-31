@@ -1,0 +1,16 @@
+{
+  "extends": "./core/.eslintrc.json",
+  "globals": {
+    "google": true
+  },
+  "rules": {
+    // Override this rule from core, make warning instead of error
+    "no-unused-vars": [
+      1,
+      {
+	"vars": "all",
+	"args": "none"
+      }
+    ]
+  }
+}

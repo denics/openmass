@@ -1,0 +1,326 @@
+<?php
+
+/**
+ * @file
+ * Contains mass_utility.module.
+ */
+
+use Drupal\Core\Cache\Cache;
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\views\Plugin\views\query\QueryPluginBase;
+use Drupal\views\ViewExecutable;
+use Drupal\Core\Ajax\AjaxResponse;
+use Drupal\Core\Ajax\InvokeCommand;
+use Drupal\Core\Ajax\HtmlCommand;
+use Drupal\file\Entity\File;
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter().
+ */
+function mass_utility_form_views_form_subtopics_subtopic_reorder_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // Add custom submit handler to invalidate cache tags for
+  // "node/%nid%/reorder-callout-cards".
+  // With hook_form_BASE_FORM_ID_alter() this code has to be used for doing so.
+  // For a similar code example (observe at the end of function):
+  // @see https://api.drupal.org/api/drupal/core!modules!menu_ui!menu_ui.module/function/menu_ui_form_node_form_alter/8.0.x
+  foreach (array_keys($form['actions']) as $action) {
+    if ($action != 'preview' && isset($form['actions'][$action]['#type']) && $form['actions'][$action]['#type'] === 'submit') {
+      $form['actions'][$action]['#submit'][] = 'mass_utility_invalidate_tags_submit';
+    }
+  }
+}
+
+/**
+ * Form submission handler to invalidate cache tags.
+ */
+function mass_utility_invalidate_tags_submit($form, FormStateInterface $form_state) {
+  // When saving order of callout links the the cache tags for the node are
+  // invalidated to allow the user see the changes without having to clear
+  // the cache.
+  $form_id_parts = explode('_', $form_state->getValue('form_id'));
+  $nid = end($form_id_parts);
+  if (ctype_digit($nid)) {
+    Cache::invalidateTags(['node:' . $nid]);
+  }
+}
+
+/**
+ * Implements hook_views_query_alter().
+ */
+function mass_utility_views_query_alter(ViewExecutable $view, QueryPluginBase $query) {
+  // Assures that the featured content listed in front-end belongs to
+  // node (Subtopic) being viewed.
+  if ($view->id() == 'subtopics_all_actions' && $view->current_display == 'attachment_1') {
+    $query->addWhereExpression(2, "field_featured_content_node_field_data.nid = node__field_action_parent.field_action_parent_target_id");
+  }
+
+  // Assures the node listed in Action Guides is not a featured node of the
+  // node being viewed.
+  if ($view->id() == 'subtopics_all_actions' && $view->current_display == 'block_1') {
+    $query->addWhereExpression(1, "(node__field_featured_content.field_featured_content_target_id IS NULL) OR (field_featured_content_node_field_data.nid <> node__field_action_parent.field_action_parent_target_id)");
+  }
+}
+
+/**
+ * Implements hook_views_post_execute().
+ */
+function mass_utility_views_post_execute(ViewExecutable $view) {
+  // If a node is a featured one, then should not be listed in Action Guides
+  // of the same node.
+  if ($view->id() == 'subtopics_all_actions' && $view->current_display == 'block_1') {
+    if (!current($view->attachment_before)['#view']->executed) {
+      // Get the featured nodes.
+      current($view->attachment_before)['#view']->execute();
+    }
+    $featured_content = current($view->attachment_before)['#view']->result;
+    $featured_nids = [];
+    foreach ($featured_content as $row) {
+      $featured_nids[] = $row->nid;
+    }
+
+    // Show only nodes that are not Featured and reindex values.
+    $view->result = array_values(
+      array_filter(
+              $view->result, function ($item) use ($featured_nids) {
+                return !in_array($item->nid, $featured_nids) != 0;
+              }
+      )
+    );
+  }
+}
+
+/**
+ * Implements hook_field_widget_form_alter().
+ */
+function mass_utility_field_widget_form_alter(&$element, FormStateInterface $form_state, $context) {
+  // Hide the map name field on the address google map field.
+  $field_definition = $context['items']->getFieldDefinition();
+  if ($field_definition->getType() == 'google_map_field' && $field_definition->getName() == 'field_lat_long') {
+    $element['name']['#type'] = 'hidden';
+  }
+
+  // Override description of link module in quick actions for location page
+  // and additional resources for service page.
+  $field_definition = $context['items']->getFieldDefinition();
+  if ($field_definition->getType() == 'link' && $field_definition->getName() == 'field_links' or 'field_service_links') {
+    $element['uri']['#description'] = t('Start typing to choose an existing page on Mass.gov, or enter a complete URL to another site.',
+      [
+        '%front' => '<front>',
+        '%add-node' => '/node/add',
+        '%url' => 'http://example.com',
+      ]
+    );
+  }
+
+  // Override description of link module in quick actions for location page
+  // and additional resources for service page.
+  $field_definition = $context['items']->getFieldDefinition();
+  if ($field_definition->getType() == 'entity_reference' && $field_definition->getName() == 'field_state_org_ref_org') {
+    $element['target_id']['#description'] = t('Start typing to choose an existing org page on Mass.gov.'
+    );
+
+    // Set ajax callback on the press release signees entity reference field(s).
+    $element['target_id']['#ajax'] = [
+      'event' => 'autocompleteclose',
+      'callback' => 'mass_utility_get_signee_ajax_callback',
+    ];
+  }
+
+  if ($field_definition->getType() == 'entity_reference' && $field_definition->getName() == 'field_media_contact_ref_person') {
+    $element['target_id']['#description'] = t('Start typing to choose an existing Media Contact.'
+    );
+
+    // Set ajax callback on media contact entity reference field(s).
+    $element['target_id']['#ajax'] = [
+      'event' => 'autocompleteclose',
+      'callback' => 'mass_utility_get_media_contact_ajax_callback',
+    ];
+  }
+
+  if ($field_definition->getType() == 'image' && $field_definition->getName() == 'field_state_org_photo') {
+    $element['#process'][] = 'mass_upload_widget_process';
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function mass_utility_form_node_news_edit_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  foreach ($form['field_news_signees']['widget'] as $delta => $widget) {
+    if (is_numeric($delta)) {
+      $element = $form['field_news_signees']['widget'][$delta]['subform']['field_state_org_photo_url']['widget'][0]['value'];
+      $original_path = $element['#default_value'];
+      $image_path = file_create_url($original_path);
+      $form['field_news_signees']['widget'][$delta]['subform']['field_state_org_photo_url']['widget'][0]['#prefix'] = '<p><div class="photo-preview"><img src=' . $image_path . '/></div></p>';
+    }
+  }
+}
+
+/**
+ * An element #process callback for the image.
+ *
+ * @param array $element
+ *   Element array.
+ *
+ * @return array
+ *   Returns back the element array.
+ */
+function mass_upload_widget_process(array $element) {
+  // Adds in another #submit callback.
+  if (isset($element['upload_button'])) {
+    $element['upload_button']['#ajax']['callback'] = 'mass_utility_get_signee_ajax_callback';
+  }
+  return $element;
+}
+
+/**
+ * AJAX handler for dynamic updates to static content.
+ */
+function mass_utility_get_signee_ajax_callback(array &$form, FormStateInterface $form_state) {
+  // Get the current delta.
+  $element = $form_state->getTriggeringElement();
+  $delta = 0;
+  $image = '';
+
+  if (isset($element['#field_parents'][1])) {
+    $delta = $element['#field_parents'][1];
+  }
+
+  if (isset($element['#parents'][1])) {
+    $delta = $element['#parents'][1];
+  }
+
+  // Create AJAX Response object.
+  $response = new AjaxResponse();
+
+  $upload_button_class = 'field_news_signees_' . $delta . '_subform_field_state_org_photo_0_upload_button';
+
+  // If an image was uploaded, update our preview.
+  if ($element['#name'] == $upload_button_class) {
+    $fid = $form_state->getValue([
+      'field_news_signees',
+      $delta,
+      'subform',
+      'field_state_org_photo',
+      0,
+      'fids',
+      0,
+    ]);
+    $file = File::load($fid);
+    $image_path = $file->getFileUri();
+    $image = '<img src="' . file_create_url($image_path) . '"/>';
+    $response->addCommand(new InvokeCommand('input[name="field_news_signees[' . $delta . '][subform][field_state_org_photo_url][0][value]"', 'val', [$image_path]));
+    $response->addCommand(new HtmlCommand('#edit-field-news-signees-' . $delta . '-subform-field-state-org-photo-url-wrapper .photo-preview', $image));
+    return $response;
+  }
+
+  // Get the referenced node id.
+  $nid = $form_state->getValue([
+    'field_news_signees',
+    $delta,
+    'subform',
+    'field_state_org_ref_org',
+    0,
+    'target_id',
+  ]);
+
+  if ($nid) {
+    $storage = \Drupal::entityTypeManager()->getStorage('node');
+    if ($node = $storage->load($nid)) {
+      $name = $node->getTitle();
+      $description = $node->field_sub_title->value;
+      $image_path = $node->field_bg_wide->entity->uri->value;
+      $image = '<img src="' . file_create_url($image_path) . '"/>';
+      $response->addCommand(new InvokeCommand('input[name="field_news_signees[' . $delta . '][subform][field_state_org_name][0][value]"', 'val', [$name]));
+      $response->addCommand(new InvokeCommand('textarea[name="field_news_signees[' . $delta . '][subform][field_state_org_description][0][value]"', 'val', [$description]));
+      $response->addCommand(new InvokeCommand('input[name="field_news_signees[' . $delta . '][subform][field_state_org_photo_url][0][value]"', 'val', [$image_path]));
+      $response->addCommand(new HtmlCommand('#edit-field-news-signees-' . $delta . '-subform-field-state-org-photo-url-wrapper .photo-preview', $image));
+    }
+    return $response;
+  }
+
+  return FALSE;
+}
+
+/**
+ * AJAX handler for dynamic updates to static content.
+ */
+function mass_utility_get_media_contact_ajax_callback(array &$form, FormStateInterface $form_state) {
+  // Get the current delta.
+  $element = $form_state->getTriggeringElement();
+  $delta = 0;
+
+  if (isset($element['#field_parents'][1])) {
+    $delta = $element['#field_parents'][1];
+  }
+
+  // Create AJAX Response object.
+  $response = new AjaxResponse();
+
+  // Get the referenced node id.
+  $nid = $form_state->getValue([
+    'field_news_media_contac',
+    $delta,
+    'subform',
+    'field_media_contact_ref_person',
+    0,
+    'target_id',
+  ]);
+
+  if ($nid) {
+    $storage = \Drupal::entityTypeManager()->getStorage('node');
+    $node = $storage->load($nid);
+    $name = $node->getTitle();
+    $email = $node->field_person_email->value;
+    $phone = $node->field_person_phone->value;
+
+    $response->addCommand(new InvokeCommand('input[name="field_news_media_contac[' . $delta . '][subform][field_media_contact_name][0][value]"', 'val', [$name]));
+    $response->addCommand(new InvokeCommand('input[name="field_news_media_contac[' . $delta . '][subform][field_media_contact_email][0][value]"', 'val', [$email]));
+    $response->addCommand(new InvokeCommand('input[name="field_news_media_contac[' . $delta . '][subform][field_media_contact_phone][0][value]"', 'val', [$phone]));
+    return $response;
+  }
+
+  return FALSE;
+}
+
+/**
+ * Implements hook_module_implements_alter().
+ */
+function mass_utility_module_implements_alter(&$implementations, $hook) {
+  if (in_array($hook, ['page_attachments_alter', 'entity_view'])) {
+    $mass_utility = $implementations['mass_utility'];
+    unset($implementations['mass_utility']);
+    $implementations['mass_utility'] = $mass_utility;
+  }
+}
+
+/**
+ * Implements hook_html_head_alter().
+ *
+ * Remove the shortlink from pages not tied to entities.
+ */
+function mass_utility_page_attachments_alter(array &$attachments) {
+  foreach ($attachments['#attached']['html_head'] as $key => $attachment) {
+    if ($attachment[1] == 'shortlink') {
+      unset($attachments['#attached']['html_head'][$key]);
+    }
+  }
+}
+
+/**
+ * Implements hook_entity_view().
+ *
+ * Remove the shortlink from pages tied to entities.
+ */
+function mass_utility_entity_view(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display, $view_mode) {
+  if (isset($build['#attached']['html_head_link'])) {
+    $links = &$build['#attached']['html_head_link'];
+    foreach ($links as $key => $link) {
+      if ($link[0]['rel'] == 'shortlink') {
+        unset($links[$key]);
+      }
+    }
+  }
+}

@@ -469,8 +469,14 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
    */
   public function assertContentTypeFields($content_type) {
     $this->minkContext->visitPath('node/add/' . $content_type);
-    // All content types have a title.
-    $this->minkContext->assertElementOnPage('#edit-title-0-value');
+    // Test title for everything but person ct
+    $no_title_ct = ['legacy_redirects', 'person'];
+    if (!in_array($content_type, $no_title_ct)) {
+      $this->minkContext->assertElementOnPage('#edit-title-0-value');
+    }
+
+    $fields = [];
+
     // Fields for each content type.
     switch ($content_type) {
       case "contact_information":
@@ -500,6 +506,435 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
             'tag' => 'paragraphs',
             'type' => 'phone-number',
           ),
+          array (
+            'field' => 'field-ref-hours',
+            'tag' => 'paragraphs',
+            'type' => 'hours',
+          ),
+        );
+        break;
+      case "guide_page":
+        $fields = array (
+          array (
+            'field' => 'field-guide-page-lede',
+            'tag' => 'textarea',
+            'type' => '',
+          ),
+          array (
+            'field' => 'field-guide-page-bg-wide',
+            'tag' => 'input',
+            'type' => 'submit',
+          ),
+          array (
+            'field' => 'field-guide-page-related-guides',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-guide-page-sections',
+            'tag' => 'paragraphs',
+            'type' => 'guide-section-3up',
+          ),
+          array (
+            'field' => 'field-guide-page-sections',
+            'tag' => 'paragraphs',
+            'type' => 'guide-section',
+          ),
+        );
+        break;
+      case "service_page":
+        $fields = array (
+          array (
+            'field' => 'field-service-lede',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-service-bg-wide',
+            'tag' => 'input',
+            'type' => 'submit',
+          ),
+          array (
+            'field' => 'field-service-bg-narrow',
+            'tag' => 'input',
+            'type' => 'submit',
+          ),
+          array (
+            'field' => 'field-service-ref-actions',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-service-file',
+            'tag' => 'input',
+            'type' => 'submit',
+          ),
+          array (
+            'field' => 'field-service-ref-actions-2',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-service-ref-guide-page-1',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-service-key-info-links-6',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-service-links',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-service-ref-locations',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-service-body',
+            'tag' => 'textarea',
+            'type' => '',
+          ),
+          array (
+            'field' => 'field-service-ref-services-6',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-service-sub-brand',
+            'tag' => 'input',
+            'type' => 'submit',
+          ),
+          array (
+            'field' => 'field-services-social-links',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-service-video',
+            'tag' => 'input',
+            'type' => 'submit',
+          ),
+          array (
+            'field' => 'field-service-eligibility-info',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+        );
+        break;
+      case "topic_page":
+        $fields = array (
+          array (
+            'field' => 'field-topic-content-cards',
+            'tag' => 'paragraphs',
+            'type' => 'content-card-group',
+          ),
+          array (
+            'field' => 'field-topic-bg-wide',
+            'tag' => 'input',
+            'type' => 'submit',
+          ),
+          array (
+            'field' => 'field-topic-bg-narrow',
+            'tag' => 'input',
+            'type' => 'submit',
+          ),
+          array (
+            'field' => 'field-topic-ref-icon',
+            'tag' => 'select',
+            'type' => '',
+          ),
+          array (
+            'field' => 'field-topic-ref-related-topics',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-topic-lede',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+        );
+        break;
+      case "how_to_page":
+        $fields = array (
+          array (
+            'field' => 'field-how-to-taxo-action-type',
+            'tag' => 'select',
+            'type' => '',
+          ),
+          array (
+            'field' => 'field-how-to-contacts-3',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-how-to-files',
+            'tag' => 'input',
+            'type' => 'submit',
+          ),
+          array (
+            'field' => 'field-how-to-methods-5',
+            'tag' => 'paragraphs',
+            'type' => 'method',
+          ),
+          array (
+            'field' => 'field-how-to-more-info',
+            'tag' => 'textarea',
+            'type' => '',
+          ),
+          array (
+            'field' => 'field-how-to-next-steps',
+            'tag' => 'paragraphs',
+            'type' => 'next-step',
+          ),
+          array (
+            'field' => 'field-how-to-link-1',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-how-to-links-5',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-how-to-lede',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-how-to-time',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-how-to-what-you-need',
+            'tag' => 'textarea',
+            'type' => '',
+          ),
+        );
+        break;
+      case "service_details":
+        $fields = array (
+          array (
+            'field' => 'field-service-detail-links-5',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-service-detail-sections',
+            'tag' => 'input',
+            'type' => 'submit',
+          ),
+          array (
+            'field' => 'field-service-detail-lede',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+        );
+        break;
+      case "fee":
+        $fields = array (
+          array (
+            'field' => 'field-fee-fee',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-fee-name',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-fee-unit',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+        );
+        break;
+      case "location_details":
+        $fields = array (
+          array (
+            'field' => 'field-location-details-links-5',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-location-details-sections',
+            'tag' => 'input',
+            'type' => 'submit',
+          ),
+          array (
+            'field' => 'field-location-details-lede',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+        );
+        break;
+      case "event":
+        $fields = array (
+          array (
+            'field' => 'field_event_ref_contact',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field_event_capacity',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field_event_date',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field_event_description',
+            'tag' => 'textarea',
+            'type' => '',
+          ),
+          array (
+            'field' => 'field_event_ref_downloads',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field_event_image',
+            'tag' => 'input',
+            'type' => 'submit',
+          ),
+          array (
+            'field' => 'field_event_logo',
+            'tag' => 'input',
+            'type' => 'submit',
+          ),
+          array (
+            'field' => 'field_event_fees',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field_event_contact_general',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field_event_links',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field_event_lede',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field_event_link_sign_up',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field_event_ref_parents',
+            'tag' => 'textarea',
+            'type' => '',
+          ),
+          array (
+            'field' => 'field_event_rain_date',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field_event_ref_event_2',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field_event_time ',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field_event_you_will_need',
+            'tag' => 'textarea',
+            'type' => '',
+          ),
+        );
+        break;
+      case "person":
+        $fields = array (
+          array (
+            'field' => 'field-person-email',
+            'tag' => 'input',
+            'type' => 'email',
+          ),
+          array (
+            'field' => 'field-person-first-name',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-person-last-name',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-person-phone',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-person-role-title',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+        );
+        break;
+      case "form_page":
+        $fields = array (
+          array (
+            'field' => 'field-form-ref-contacts-3',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-form-embed',
+            'tag' => 'textarea',
+            'type' => '',
+          ),
+          array (
+            'field' => 'field-form-lede',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-form-you-will',
+            'tag' => 'textarea',
+            'type' => '',
+          ),
+        );
+        break;
+      case "legacy_redirects":
+        $fields = array (
+          array (
+            'field' => 'field-legacy-redirects-ref-conte',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-legacy-redirect-env',
+            'tag' => 'input',
+            'type' => 'radio',
+          ),
+          array (
+            'field' => 'field-legacy-redirects-legacyurl',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
         );
         break;
     }
@@ -518,21 +953,20 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
    */
   public function assertParagraphTypeFields($paragraph_type) {
     $this->minkContext->visitPath('admin/structure/paragraphs_type/' . $paragraph_type . '/form-display');
+
+    $fields = [];
+
     // Fields for each content type.
     switch ($paragraph_type) {
       case "address":
         $fields = array (
           array (
-            'field' => 'field-address-text',
-            'widget' => 'Text area (multiple rows)',
+            'field' => 'field-address-address',
+            'widget' => 'Address',
           ),
           array (
             'field' => 'field-label',
             'widget' => 'Textfield',
-          ),
-          array (
-            'field' => 'field-lat-long',
-            'widget' => 'Google Map Field default',
           ),
         );
         break;
@@ -580,6 +1014,206 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
           ),
         );
         break;
+      case "hours":
+        $fields = array (
+          array (
+            'field' => 'field-hours-group-title',
+            'widget' => 'Textfield',
+          ),
+          array (
+            'field' => 'field-hours-description',
+            'widget' => 'Textfield',
+          ),
+          array (
+            'field' => 'field-hours-structured',
+            'widget' => 'Office hours (list)',
+          ),
+        );
+        break;
+      case "guide_section_3up":
+        $fields = array (
+          array (
+            'field' => 'field-guide-section-alert-text',
+            'widget' => 'Textfield',
+          ),
+          array (
+            'field' => 'field-guide-section-heading-1',
+            'widget' => 'Textfield',
+          ),
+          array (
+            'field' => 'field-guide-section-body-first',
+            'widget' => 'Text area (multiple rows)',
+          ),
+          array (
+            'field' => 'field-guide-section-heading-2',
+            'widget' => 'Textfield',
+          ),
+          array (
+            'field' => 'field-guide-section-body-second',
+            'widget' => 'Text area (multiple rows)',
+          ),
+          array (
+            'field' => 'field-guide-section-heading-3',
+            'widget' => 'Textfield',
+          ),
+          array (
+            'field' => 'field-guide-section-body-third',
+            'widget' => 'Text area (multiple rows)',
+          ),
+          array (
+            'field' => 'field-guide-section-downloads',
+            'widget' => 'Inline entity form - Complex',
+          ),
+          array (
+            'field' => 'field-guide-section-links-4',
+            'widget' => 'Link',
+          ),
+          array (
+            'field' => 'field-guide-section-link',
+            'widget' => 'Link',
+          ),
+          array (
+            'field' => 'field-guide-section-time',
+            'widget' => 'Textfield',
+          ),
+          array (
+            'field' => 'field-guide-section-name',
+            'widget' => 'Textfield',
+          ),
+        );
+        break;
+      case "guide_section":
+        $fields = array (
+          array (
+            'field' => 'field-guide-section-alert-text',
+            'widget' => 'Textfield',
+          ),
+          array (
+            'field' => 'field-guide-section-downloads',
+            'widget' => 'Inline entity form - Complex',
+          ),
+          array (
+            'field' => 'field-guide-section-links-4',
+            'widget' => 'Link',
+          ),
+          array (
+            'field' => 'field-guide-section-link',
+            'widget' => 'Link',
+          ),
+          array (
+            'field' => 'field-guide-section-stat',
+            'widget' => 'Textfield',
+          ),
+          array (
+            'field' => 'field-guide-section-label',
+            'widget' => 'Textfield',
+          ),
+          array (
+            'field' => 'field-guide-section-time',
+            'widget' => 'Textfield',
+          ),
+          array (
+            'field' => 'field-guide-section-name',
+            'widget' => 'Textfield',
+          ),
+          array (
+            'field' => 'field-guide-section-body',
+            'widget' => 'Text area (multiple rows)',
+          ),
+          array (
+            'field' => 'field-guide-ref-contacts-3',
+            'widget' => 'Autocomplete',
+          ),
+        );
+        break;
+      case "section_with_heading":
+        $fields = array (
+          array (
+            'field' => 'field-section-downloads',
+            'widget' => 'Inline entity form - Complex',
+          ),
+          array (
+            'field' => 'field-section-key-actions',
+            'widget' => 'Link',
+          ),
+          array (
+            'field' => 'field-section-links',
+            'widget' => 'Link',
+          ),
+          array (
+            'field' => 'field-section-body',
+            'widget' => 'Text area (multiple rows)',
+          ),
+          array (
+            'field' => 'field-section-title',
+            'widget' => 'Textfield',
+          ),
+        );
+        break;
+      case "method":
+        $fields = array (
+          array (
+            'field' => 'field-method-type',
+            'widget' => 'Select List',
+          ),
+          array (
+            'field' => 'field-method-details',
+            'widget' => 'Text area (multiple rows)',
+          ),
+        );
+        break;
+      case "next_step":
+        $fields = array (
+          array (
+            'field' => 'field-next-step-link',
+            'widget' => 'Link',
+          ),
+          array (
+            'field' => 'field-next-step-details',
+            'widget' => 'Text area (multiple rows)',
+          ),
+          array (
+            'field' => 'field-next-step-downloads',
+            'widget' => 'Inline entity form - Complex',
+          ),
+          array (
+            'field' => 'field-next-step-title',
+            'widget' => 'Textfield',
+          ),
+        );
+        break;
+      case "section":
+        $fields = array (
+          array (
+            'field' => 'field-section-downloads',
+            'widget' => 'Inline entity form - Complex',
+          ),
+          array (
+            'field' => 'field-section-links',
+            'widget' => 'Link',
+          ),
+          array (
+            'field' => 'field-section-body',
+            'widget' => 'Text area (multiple rows)',
+          ),
+          array (
+            'field' => 'field-section-title',
+            'widget' => 'Textfield',
+          ),
+        );
+        break;
+      case "content_card_group":
+        $fields = array (
+          array (
+            'field' => 'field-content-card-link-cards',
+            'widget' => 'Link',
+          ),
+          array (
+            'field' => 'field-content-card-category',
+            'widget' => 'Textfield',
+          ),
+        );
+        break;
     }
     foreach ($fields as $row) {
       $id = 'edit-fields-' . $row['field'] . '-type';
@@ -592,4 +1226,55 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
       }
     }
   }
+
+
+  /**
+   * Creates unpublished content of the given type.
+   * Except for status, is same as createNode().
+   *
+   * @Given I am viewing an unpublished :type (content )with the title :title
+   * @Given an unpublished :type (content )with the title :title
+   */
+  public function createUnpublishedNode($type, $title) {
+    $node = (object) [
+      'title' => $title,
+      'type' => $type,
+      'body' => $this->getRandom()->name(255),
+      'status' => 0,
+    ];
+    $saved = $this->nodeCreate($node);
+    // Set internal page on the new node.
+    $this->getSession()->visit($this->locatePath('/node/' . $saved->nid));
+  }
+
+  /**
+   * Creates unpublished content of the given type and brings up the edit form.
+   *
+   * @Given I am editing an unpublished :type (content )with the title :title
+   */
+  public function editUnpublishedNode($type, $title) {
+    $node = (object) [
+      'title' => $title,
+      'type' => $type,
+      'body' => $this->getRandom()->name(255),
+      'status' => 0,
+    ];
+    $saved = $this->nodeCreate($node);
+    // Set internal page on the new node.
+    $this->getSession()->visit($this->locatePath('/node/' . $saved->nid . '/edit'));
+  }
+
+  /**
+   * @Then I should see text matching :string_match in field :field_css_selector
+   */
+  public function iShouldSeeTextMatchingInField($string_match, $field_css_selector)
+  {
+    $page = $this->getMink()->getSession()->getPage();
+    $match = $page->find('css', $field_css_selector)->getValue();
+    if ($match != $string_match){
+      throw new Exception(sprintf('Incorrect result'));
+    }
+  }
+
+
 }

@@ -1,0 +1,58 @@
+name: mass_theme
+type: theme
+description: Custom theme for Mass.gov
+package: Custom
+core: 8.x
+libraries:
+  - mass_theme/global-styling
+  - mass_theme/js-header
+  - mass_theme/js-vendor
+  - mass_theme/mass-google-map-apis-location
+
+engine: simpler_twig
+base theme: false
+
+regions:
+  emergency_alert: Emergency Alert
+  header: Header
+  pre_content: Pre Content
+  content: Content
+  post_content: Post Content
+  section_topics: Section topics
+  footer: Footer
+  footer_navigation: Footer Navigation
+  footer_social: Footer Social
+libraries-override:
+  core/jquery: mass_theme/js-vendor
+
+component-libraries:
+  custom_includes:
+    paths:
+      - templates/includes
+  custom_templates:
+    paths:
+      - templates
+  base:
+    paths:
+      - patterns/base
+  atoms:
+    paths:
+      - patterns/atoms
+  molecules:
+    paths:
+      - patterns/molecules
+  organisms:
+    paths:
+      - patterns/organisms
+  templates:
+    paths:
+      - patterns/templates
+  pages:
+    paths:
+      - patterns/pages
+  pilot:
+    paths:
+      - patterns/pilot
+  meta:
+    paths:
+      - patterns/meta

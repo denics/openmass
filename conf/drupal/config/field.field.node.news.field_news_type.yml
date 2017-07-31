@@ -1,0 +1,21 @@
+uuid: 190bdeb8-de30-4576-8d26-bac9d699858e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_news_type
+    - node.type.news
+  module:
+    - options
+id: node.news.field_news_type
+field_name: field_news_type
+entity_type: node
+bundle: news
+label: 'Announcement Type'
+description: 'Choose what this item is: news article, press release, press statement, or speech.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

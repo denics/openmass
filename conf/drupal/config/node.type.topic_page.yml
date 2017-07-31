@@ -1,0 +1,26 @@
+uuid: 3f6fafe3-4a7e-4153-a743-0eb0e25691c7
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+    - workbench_moderation
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+  workbench_moderation:
+    enabled: true
+    allowed_moderation_states:
+      - published
+      - archived
+      - draft
+      - needs_review
+    default_moderation_state: draft
+name: 'Topic page'
+type: topic_page
+description: 'A topic page shows a collection of other topics and services that helps users find their way to the final page they need.'
+help: ''
+new_revision: true
+preview_mode: 1
+display_submitted: false

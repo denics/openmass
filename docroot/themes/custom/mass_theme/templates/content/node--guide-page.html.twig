@@ -1,0 +1,29 @@
+{#
+/**
+ * @file
+ * Theme override to display the full view mode of the Guide page content type.
+ *
+ * @copyright Copyright (c) 2017 Palantir.net
+ */
+ #}
+{% extends 'node.html.twig' %}
+
+{% block preContent %}
+  {% include "@organisms/by-template/illustrated-header.twig" %}
+{% endblock %}
+
+{% block main %}
+  {% include "@organisms/by-template/jump-links.twig" %}
+  {% for stackedRowSection in stackedRowSections %}
+    {% include "@organisms/by-author/stacked-row-section.twig" %}
+  {% endfor %}
+{% endblock %}
+
+{% block postContent %}
+  {% if content.field_image_credit is not empty %}
+    {{ content.field_image_credit }}
+  {% endif %}
+  {% if node.field_guide_page_related_guides.value %}
+    {% include "@organisms/by-author/suggested-pages.twig" %}
+  {% endif %}
+{% endblock %}

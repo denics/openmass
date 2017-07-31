@@ -1,0 +1,161 @@
+uuid: b39807d5-c5a5-4119-ba6b-b5077579a19c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.service_details.field_service_detail_lede
+    - field.field.node.service_details.field_service_detail_links_5
+    - field.field.node.service_details.field_service_detail_overview
+    - field.field.node.service_details.field_service_detail_sections
+    - node.type.service_details
+  module:
+    - field_group
+    - link
+    - paragraphs
+    - path
+    - text
+    - workbench_moderation
+third_party_settings:
+  field_group:
+    group_node_edit_form:
+      children:
+        - group_overview
+        - group_sections
+        - group_cross_promotional_content
+      parent_name: ''
+      weight: 0
+      format_type: tabs
+      format_settings:
+        id: ''
+        classes: ''
+        direction: horizontal
+      label: 'Node Edit Form'
+    group_overview:
+      children:
+        - title
+        - field_service_detail_lede
+        - field_service_detail_overview
+      parent_name: group_node_edit_form
+      weight: 20
+      format_type: tab
+      format_settings:
+        label: Overview
+        formatter: open
+        description: "Use a Service Detail page to add more details than can be provided on the parent Service page.  A Service Detail page <strong>must</strong> be connected to a Service page when it is created.  Please make sure that you have a Service page in mind before you start.\n\nThe title should describe the subject of the page. Keep it as short as possible and use plain language."
+        required_fields: true
+        id: ''
+        classes: ''
+      label: Overview
+    group_sections:
+      children:
+        - field_service_detail_sections
+      parent_name: group_node_edit_form
+      weight: 21
+      format_type: tab
+      format_settings:
+        label: Sections
+        formatter: closed
+        description: 'A Service Detail page is made up of one or more sections. Sections can contain text (with a header and, optionally, additional resources for that section), or a section can be a video. We recommend limiting a Service Detail page to no more than 8 sections.'
+        id: ''
+        classes: ''
+        required_fields: false
+      label: Sections
+    group_cross_promotional_content:
+      children:
+        - field_service_detail_links_5
+      parent_name: group_node_edit_form
+      weight: 22
+      format_type: tab
+      format_settings:
+        label: Related
+        formatter: closed
+        description: 'Use this area to add related content.'
+        id: ''
+        classes: ''
+        required_fields: false
+      label: Related
+id: node.service_details.default
+targetEntityType: node
+bundle: service_details
+mode: default
+content:
+  created:
+    type: datetime_timestamp
+    weight: 7
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  field_service_detail_lede:
+    weight: 23
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_service_detail_links_5:
+    weight: 28
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+    region: content
+  field_service_detail_overview:
+    weight: 24
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
+  field_service_detail_sections:
+    type: entity_reference_paragraphs
+    weight: 30
+    settings:
+      title: Section
+      title_plural: Sections
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: _none
+    third_party_settings: {  }
+    region: content
+  path:
+    type: path
+    weight: 10
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  promote:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 8
+    third_party_settings: {  }
+    region: content
+  sticky:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 9
+    third_party_settings: {  }
+    region: content
+  title:
+    type: string_textfield
+    weight: 22
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    region: content
+  uid:
+    type: entity_reference_autocomplete
+    weight: 6
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    region: content
+hidden: {  }

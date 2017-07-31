@@ -10,24 +10,23 @@ Feature: Location Landing Page Content type
       | name                    | field_sprite_name |
       | Behat: Transit Friendly | transit           |
     Then the content type "location" has the fields:
-      | field                          | tag        | type      | multivalue |
-      | field-accessibility            | textarea   |           | false      |
-      | field-ref-contact-info         | input      | text      | false      |
-      | field-facilities               | textarea   |           | false      |
-      | field-bg-wide                  | input      | submit    | false      |
-      | field-bg-narrow                | input      | submit    | false      |
-      | field-hours                    | paragraphs |           | false      |
-      | field-iframe                   | paragraphs | iframe    | false      |
-      | field-location-icons           | input      | checkbox  | false      |
-      | field-more-information         | textarea   |           | false      |
-      | field-overview                 | textarea   |           | false      |
-      | field-parking                  | textarea   |           | false      |
-      | field-ref-contact-info-1       | input      | text      | false      |
-      | field-links                    | input      | text      | false      |
-      | field-location-activity-detail | input      | submit    | false      |
-      | field-related-locations        | input      | text      | true       |
-      | field-restrictions             | textarea   |           | false      |
-      | field-services                 | textarea   |           | false      |
+      | field                           | tag        | type      | multivalue |
+      | field-accessibility             | textarea   |           | false      |
+      | field-ref-contact-info          | input      | text      | false      |
+      | field-location-facilities       | textarea   |           | false      |
+      | field-bg-wide                   | input      | submit    | false      |
+      | field-bg-narrow                 | input      | submit    | false      |
+      | field-iframe                    | paragraphs | iframe    | false      |
+      | field-location-icons            | input      | checkbox  | false      |
+      | field-location-more-information | textarea   |           | false      |
+      | field-overview                  | textarea   |           | false      |
+      | field-parking                   | textarea   |           | false      |
+      | field-ref-contact-info-1        | input      | text      | false      |
+      | field-links                     | input      | text      | false      |
+      | field-location-activity-detail  | input      | submit    | false      |
+      | field-related-locations         | input      | text      | true       |
+      | field-restrictions              | textarea   |           | false      |
+      | field-services                  | textarea   |           | false      |
 
   Scenario: Verify that pathauto patterns are applied to location nodes.
     Given I am viewing an "location" content with the title "Run the Test Suite"
@@ -43,17 +42,17 @@ Feature: Location Landing Page Content type
       | name                    | field_sprite_name |
       | Behat: Transit Friendly | transit           |
     When I am viewing an "location" content:
-      | title                  | Behat: Mt Greylock State Park  |
-      | field_location_icons   | Behat: Transit Friendly        |
-      | field_accessibility    | Accessibility text             |
-      | field_facilities       | Facilities text                |
-      | field_more_information | More info text                 |
-      | field_overview         | Overview text                  |
-      | field_parking          | Parking text                   |
-      | field_restrictions     | Restrictions text              |
-      | field_services         | Services text                  |
-      | field_links            | Reserve a Campsite - http://www.google.com, Download a Park Map - http://www.google.com, Download a Trail Map  - http://www.google.com |
-    Then I should see the text "Behat: Mt Greylock State Park" in the "action_header" region
+      | title                           | Behat: Mt Greylock State Park  |
+      | field_location_icons            | Behat: Transit Friendly        |
+      | field_accessibility             | Accessibility text             |
+      | field_location_facilities       | Facilities text                |
+      | field_location_more_information | More info text                 |
+      | field_overview                  | Overview text                  |
+      | field_parking                   | Parking text                   |
+      | field_restrictions              | Restrictions text              |
+      | field_services                  | Services text                  |
+      | field_links                     | Reserve a Campsite - http://www.google.com, Download a Park Map - http://www.google.com, Download a Trail Map  - http://www.google.com |
+    Then I should see the text "Behat: Mt Greylock State Park" in the "page_header" region
     And I should see the text "Accessibility text" in the "action_details" region
     And I should see the text "Facilities text" in the "action_details" region
     And I should see the text "More info text" in the "action_details" region

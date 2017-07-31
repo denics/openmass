@@ -1,0 +1,33 @@
+uuid: c2a9ba60-1e56-4550-aa8b-e7c51968dcdf
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_event_you_will_need
+    - node.type.event
+  module:
+    - geocoder_field
+    - text
+third_party_settings:
+  geocoder_field:
+    method: none
+    field: title
+    plugins: {  }
+    dumper: wkt
+    delta_handling: default
+    failure:
+      handling: preserve
+      status_message: true
+      log: true
+id: node.event.field_event_you_will_need
+field_name: field_event_you_will_need
+entity_type: node
+bundle: event
+label: 'You will need (optional)'
+description: 'Explain anything that someone bring to this event.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

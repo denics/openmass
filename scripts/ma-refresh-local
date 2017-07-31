@@ -1,0 +1,109 @@
+#!/usr/bin/env bash
+#
+# Usage:
+# ma-refresh-local [-e (prod|test|dev|feature1|feature2|feature3|cd)] [-s]
+#   -e Environment to pull database and files from
+#   -s Skip pulling files (i.e. skip file rsync)
+#
+# Description:
+# This is a convenience script for refreshing database, config and files from a remote Acquia environment.
+
+# Default arguments
+desiredEnv='prod'
+pullFiles=true
+
+# Get arguments
+while getopts e:s option
+do
+  case "${option}"
+    in
+      e) desiredEnv=${OPTARG};;
+      s) pullFiles=false;;
+    esac
+done
+
+# available environments to pull from
+# @TODO pull available environments via api
+remoteEnvironments=("prod" "test" "dev" "feature1" "feature2" "feature3" "feature4" "feature5" "cd")
+
+# cd into document root so drush can see aliases
+cd /var/www/mass.local/docroot
+
+# Runs a command w/ success/fail handling
+function run {
+  # parameters
+  local theCommand=$1
+  local theCommandTitle=$2
+  local emoji=$3
+
+  echo -e "\nRunning $theCommandTitle... $emoji  $emoji  $emoji \n\n$theCommand\n"
+  $theCommand
+  # capture return code
+  RC=$?
+  # test return code
+  if test "$RC" = "0"; then
+    echo -e "\n\x1B[01;92m"$theCommandTitle" completed.\x1B[0m 👍 \n"
+  else
+    echo -e "\n🔥  🔥  🔥  \x1B[01;91m"$theCommandTitle" failed. \x1B[0m 🔥  🔥  🔥\n"
+    exit
+  fi
+}
+
+# Checks to see if an array contains an element
+# Taken from: https://stackoverflow.com/questions/3685970/check-if-an-array-contains-a-value
+function containsElement () {
+  local e
+  for e in "${@:2}"; do [[ "$e" == "$1" ]] && return 0; done
+  return 1
+}
+
+# run function
+containsElement $desiredEnv "${remoteEnvironments[@]}"
+# check return code first
+if [ $? == 0 ]; then
+  # print confirmation
+  echo -e "\n"
+  echo -e "ℹ️  \033[1;36m Source environment: @massgov.$desiredEnv \x1B[0m"
+  echo -e "ℹ️  \033[1;36m To use a different source (e.g. dev), use: \x1B[0m ma-refresh-local -e dev"
+  echo -e "ℹ️  \033[1;36m Skip files rsync with '-s', e.g.: \x1B[0m ma-refresh-local -e dev -s"
+
+  # bring db to local environment
+  echo -e "\n"
+  echo "sync db"
+  echo -e "------------------------------------------------------------------------"
+  run "drush -y --sanitize --create-db sql-sync @massgov.$desiredEnv @self" "drush sql-sync" "🚚"
+
+  # Optionally pull files
+  if $pullFiles; then
+    # rsync files
+    echo -e "\n"
+    echo "rsync files"
+    echo -e "------------------------------------------------------------------------"
+    run "drush -y rsync @massgov.$desiredEnv:%files @self:%files" "drush rsync" "🚛"
+  else
+    echo "rsync files"
+    echo -e "------------------------------------------------------------------------"
+    echo -e "ℹ️  \033[1;36m '-s' argument found"
+    echo -e "ℹ️  \033[1;36m skipping 'files' rsync \x1B[0m"
+  fi
+
+  # run db updates if any
+  echo -e "\n"
+  echo "db update"
+  echo -e "------------------------------------------------------------------------"
+  run "drush -y updatedb --entity-updates" "drush updatedb" "🆙"
+
+  # config import
+  echo -e "\n"
+  echo "config import"
+  echo -e "------------------------------------------------------------------------"
+  run "drush -y config-import" "drush config-import" "📦"
+
+  # rebuild drupal cache
+  echo -e "\n"
+  echo "rebuild cache"
+  echo -e "------------------------------------------------------------------------"
+  run "drush cr" "drush cr" "🚜"
+else
+  echo -e "\n Hm, that's not a valid environment.  😬\n"
+fi

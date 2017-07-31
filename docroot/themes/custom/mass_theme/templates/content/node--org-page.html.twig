@@ -1,0 +1,37 @@
+{#
+/**
+ * @file
+ * Theme override to display the full view mode of the Org page content type.
+ */
+ #}
+{% extends 'node.html.twig' %}
+
+{% block preContent %}
+  {% if breadcrumbs %}
+    {% include "@organisms/by-template/breadcrumbs.twig" %}
+  {% endif %}
+  {% if pageBanner %}
+    {% include "@organisms/by-template/page-banner.twig" %}
+  {% endif %}
+  {% if pageHeader %}
+    {% include "@organisms/by-template/page-header.twig" %}
+  {% endif %}
+{% endblock %}
+{% block main %}
+  <div class="stacked-row-content">
+    {% for stackedRowSection in stackedRowSections %}
+      {% include "@organisms/by-author/stacked-row-section.twig" %}
+    {% endfor %}
+  </div>
+{% endblock %}
+{% block postContent %}
+  {% if content.field_image_credit is not empty %}
+    {{ content.field_image_credit }}
+  {% endif %}
+{% endblock %}
+{% block schemaContent %}
+  {% if schema.governmentOrganization %}
+    {% set governmentOrganization = schema.governmentOrganization %}
+    {% include "@meta/schema/government-organization.twig" %}
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,213 @@
+<?php
+
+/**
+ * @file
+ * Contains mass_flagging.module.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\node\Entity\Node;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Url;
+
+const WATCH_FLAG = 'watch_content';
+
+/**
+ * Implements hook_help().
+ */
+function mass_flagging_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the mass_flagging module.
+    case 'help.page.mass_flagging':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Handles multiple flagging scenarios like watching and flagging.') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_preprocess_page().
+ */
+function mass_flagging_preprocess_page(&$variables) {
+
+  $user = \Drupal::currentUser();
+
+  // Check if page is node.
+  if (isset($variables['node']) && $variables['node'] instanceof Node) {
+    $node = $variables['node'];
+
+    // Check if user has correct 'watching' permissions.
+    if ($user->hasPermission('flag watch_content') &&
+      $user->hasPermission('unflag watch_content')) {
+
+      $flag = \Drupal::service('flag.link_builder');
+      $watch_content_link = $flag->build($node->getEntityTypeId(), $node->id(), 'watch_content');
+
+      $variables['page']['watch_content_link'] = $watch_content_link;
+    }
+
+    // Check if user has correct 'flagging' permissions.
+    if ($user->hasPermission('mass_flagging flag content')) {
+      $flag_content_link_builder = \Drupal::service('mass_flagging.flag_content.link_builder');
+      $flag_content_link = $flag_content_link_builder->build($node->id());
+
+      $variables['page']['flag_content_link'] = $flag_content_link;
+    }
+
+    $variables['#attached']['library'][] = 'mass_flagging/flag-link';
+  }
+}
+
+/**
+ * Implements hook_node_update().
+ */
+function mass_flagging_node_update(EntityInterface $node) {
+  mass_flagging_node_update_insert_send_notifications($node);
+  mass_flagging_node_update_insert_add_watcher($node);
+}
+
+/**
+ * Implements hook_node_insert().
+ */
+function mass_flagging_node_insert(EntityInterface $node) {
+  mass_flagging_node_update_insert_add_watcher($node);
+}
+
+/**
+ * Send notifications to users who are watchers.
+ *
+ * @param \Drupal\Core\Entity\EntityInterface $node
+ *   The node object that is being updated or inserted.
+ */
+function mass_flagging_node_update_insert_send_notifications(EntityInterface $node) {
+  // Only send notifications after a node has been published.
+  $canonical_node = Drupal::entityTypeManager()->getStorage('node')->load($node->id());
+  if ($canonical_node->isPublished()) {
+    $flag = \Drupal::service('flag');
+    $watch_flag = \Drupal::entityTypeManager()
+      ->getStorage('flag')
+      ->load(WATCH_FLAG);
+
+    $flag_users = $flag->getFlaggingUsers($node, $watch_flag);
+
+    if ($flag_users) {
+
+      // Create Message.
+      $author_full_name = $node->getRevisionUser()->getDisplayName();
+      $params['node_title'] = $node->label();
+      $node_edit_time = \Drupal::service('date.formatter')
+        ->format($node->getCreatedTime());
+      $url = Url::fromRoute('entity.node.revision', [
+        'node' => $node->id(),
+        'node_revision' => $node->vid->value,
+      ]);
+      $version_url_string = $url->setAbsolute()->toString();
+      $params['message'] = t("Hello, \n\nUser @author_full_name added a new version of the page '@node_title' at @node_edit_time. \n\nTo see the changes, please go to @version_url_string. \n\nRegards, \nMassGov Watchers",
+        [
+          '@author_full_name' => $author_full_name,
+          '@node_title' => $params['node_title'],
+          '@node_edit_time' => $node_edit_time,
+          '@version_url_string' => $version_url_string,
+        ]);
+
+      // Create queue to process email for watchers.
+      $queue = \Drupal::queue('mass_flagging_email_queue');
+      $queue->createQueue();
+
+      $do_not_send_list = [
+        $node->getOwnerId(),
+      ];
+
+      foreach ($flag_users as $flag_user) {
+        if (!in_array($flag_user->id(), $do_not_send_list)) {
+          $data['params'] = $params;
+          $data['user'] = $flag_user;
+          $queue->createItem($data);
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Add a user as a watcher for updates or inserts.
+ *
+ * @param \Drupal\Core\Entity\EntityInterface $node
+ *   The node object that is being updated or inserted.
+ */
+function mass_flagging_node_update_insert_add_watcher(EntityInterface $node) {
+  // Add flag for the user editing or creating the node.
+  $watch = \Drupal::entityTypeManager()->getStorage('flag')->load(WATCH_FLAG);
+  $bundles = $watch->getBundles();
+  if (!empty($bundles) && in_array($node->bundle(), $bundles)) {
+    $flag = \Drupal::service('flag');
+    $user = \Drupal::currentUser();
+    if (!$user->isAnonymous()) {
+      $flagging = $flag->getEntityFlaggings($watch, $node, $user);
+      if (empty($flagging)) {
+        $flag->flag($watch, $node);
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_mail().
+ */
+function mass_flagging_mail($key, &$message, $params) {
+  $options = ['langcode' => $message['langcode']];
+  switch ($key) {
+    case 'email_queue':
+      $message['from'] = \Drupal::config('system.site')->get('mail');
+      $message['subject'] = t('Watch Report: @title', ['@title' => $params['node_title']], $options);
+      $message['body'][] = $params['message'];
+      break;
+  }
+}
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter().
+ */
+function mass_flagging_form_contact_message_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // Alters `flag_content` form used by mass_flagging module.
+  if ($form_id == 'contact_message_flag_content_form') {
+    $form['field_content_flagged']['#disabled'] = TRUE;
+    $form['actions']['preview']['#access'] = FALSE;
+  }
+}
+
+/**
+ * Implements hook_mail_alter().
+ */
+function mass_flagging_mail_alter(&$message) {
+  // Alters emails sent by `flag_content` form used by mass_flagging module.
+  if (!empty($message['id']) && $message['id'] == 'contact_page_mail' && $message['params']['contact_form']->id() == 'flag_content') {
+    // Gets entities for accessing submitted field values from contact form.
+    $contact_message = $message['params']['contact_message'];
+    $sender = $message['params']['sender'];
+    $content_flagged = $contact_message->field_content_flagged->entity;
+
+    // Sets email subject line.
+    $message['subject'] .= t('"@node_title"', ['@node_title' => $content_flagged->label()]);
+
+    // Resets email body.
+    $message['body'] = [];
+
+    // Sets new email body.
+    $body = t("Flagger Name: @name\r\nFlagger Email: @email\r\nNode URL: @url\r\nFlagger Feedback:\r\n@feedback", [
+      '@name' => $sender->getAccountName(),
+      '@email' => $sender->getEmail(),
+      '@url' => Url::fromRoute(
+        'entity.node.canonical',
+        ['node' => $content_flagged->id()],
+        ['absolute' => TRUE]
+      )->toString(),
+      '@feedback' => $contact_message->field_reason_flagged->value,
+    ]);
+    $message['body'][] = $body;
+  }
+}

@@ -1,0 +1,46 @@
+uuid: a0384fbe-8629-4d95-96b4-236cf9617a9e
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.decision.field_decision_date
+    - field.field.node.decision.field_decision_docket_number
+    - field.field.node.decision.field_decision_location
+    - field.field.node.decision.field_decision_metatags
+    - field.field.node.decision.field_decision_overview
+    - field.field.node.decision.field_decision_participants
+    - field.field.node.decision.field_decision_ref_contact
+    - field.field.node.decision.field_decision_ref_organization
+    - field.field.node.decision.field_decision_ref_type
+    - field.field.node.decision.field_decision_related
+    - field.field.node.decision.field_decision_section
+    - field.field.node.decision.field_decision_sources
+    - field.field.node.decision.field_decision_upcoming_events
+    - node.type.decision
+  module:
+    - user
+id: node.decision.teaser
+targetEntityType: node
+bundle: decision
+mode: teaser
+content:
+  links:
+    weight: 100
+    region: content
+hidden:
+  field_decision_date: true
+  field_decision_docket_number: true
+  field_decision_download: true
+  field_decision_location: true
+  field_decision_metatags: true
+  field_decision_overview: true
+  field_decision_participants: true
+  field_decision_ref_contact: true
+  field_decision_ref_organization: true
+  field_decision_ref_sources: true
+  field_decision_ref_type: true
+  field_decision_related: true
+  field_decision_section: true
+  field_decision_sources: true
+  field_decision_upcoming_events: true

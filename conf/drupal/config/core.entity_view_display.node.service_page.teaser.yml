@@ -1,0 +1,39 @@
+uuid: 93386024-8db8-4e13-9e2b-d476fcb9340c
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - node.type.service_page
+  module:
+    - user
+id: node.service_page.teaser
+targetEntityType: node
+bundle: service_page
+mode: teaser
+content:
+  links:
+    weight: 100
+    region: content
+  workbench_moderation_control:
+    weight: -20
+    region: content
+hidden:
+  field_image_credit: true
+  field_service_bg_narrow: true
+  field_service_bg_wide: true
+  field_service_body: true
+  field_service_eligibility_info: true
+  field_service_file: true
+  field_service_key_info_links_6: true
+  field_service_lede: true
+  field_service_links: true
+  field_service_ref_actions: true
+  field_service_ref_actions_2: true
+  field_service_ref_details_6: true
+  field_service_ref_guide_page_1: true
+  field_service_ref_locations: true
+  field_service_ref_services_6: true
+  field_service_sub_brand: true
+  field_service_video: true
+  field_services_social_links: true

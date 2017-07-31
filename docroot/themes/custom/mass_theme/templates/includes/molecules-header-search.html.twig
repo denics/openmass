@@ -1,0 +1,15 @@
+{#
+/**
+ * @file
+ * Partial for google custom search form. Requires searchFormId to be passed.
+ */
+#}
+  {#{{ kint(searchFormId) }}#}
+{% block content %}
+  {# mobile nav google custom search form container, id selector used in API .draw() method at last line of api embed js in mass_search module #}
+  <div role="search" class="ma__search-banner__form {{ searchFormId }}">
+  <gcse:searchbox-only resultsUrl="{{ url('<front>') }}/search" autoSearchOnLoad="true" enableAutoComplete="true" autoCompleteMaxCompletions="3"></gcse:searchbox-only>
+</div>
+
+
+{% endblock %}

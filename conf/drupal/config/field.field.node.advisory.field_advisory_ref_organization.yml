@@ -1,0 +1,29 @@
+uuid: 118061fd-8298-4a6c-ab1c-698bcafc4814
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_advisory_ref_organization
+    - node.type.advisory
+    - node.type.org_page
+id: node.advisory.field_advisory_ref_organization
+field_name: field_advisory_ref_organization
+entity_type: node
+bundle: advisory
+label: Organization
+description: 'The organization that issued the advisory.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      org_page: org_page
+    sort:
+      field: title
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

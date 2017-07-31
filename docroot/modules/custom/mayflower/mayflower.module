@@ -1,0 +1,118 @@
+<?php
+
+/**
+ * @file
+ * Contains mayflower.module.
+ */
+
+use Drupal\mayflower\Prepare\Molecules;
+
+/**
+ * Implements hook_theme().
+ */
+function mayflower_theme($existing, $type, $theme, $path) {
+
+  $patterns = mayflower_patternlibrary_paths();
+
+  return [
+    'action_seq_list' => [
+      'variables' => ['actionSeqLists' => NULL],
+      'template' => 'action-seq-list',
+      'path' => $patterns['molecules'],
+    ],
+    'steps_ordered' => [
+      'variables' => ['stepsOrdered' => NULL],
+      'template' => 'steps-ordered',
+      'path' => $patterns['organisms'] . '/by-author',
+    ],
+    'image_promos' => [
+      'variables' => ['imagePromos' => NULL],
+      'template' => 'image-promos',
+      'path' => $patterns['organisms'] . '/by-author',
+    ],
+    'callout_links' => [
+      'variables' => ['calloutLinks' => NULL],
+      'template' => 'callout-links',
+      'path' => $patterns['organisms'] . '/by-author',
+    ],
+    'contact_us' => [
+      'variables' => ['contactUs' => NULL],
+      'template' => 'contact-us',
+      'path' => $patterns['molecules'],
+    ],
+  ];
+}
+
+/**
+ * Returns the common patternlibrary paths.
+ *
+ * @return array
+ *   Returns array that contains the paths to the patterlab directories.
+ */
+function mayflower_patternlibrary_paths() {
+  $theme_path = \Drupal::theme()->getActiveTheme()->getPath();
+  return [
+    'atoms' => $theme_path . '/patterns/atoms',
+    'molecules' => $theme_path . '/patterns/molecules',
+    'organisms' => $theme_path . '/patterns/organisms',
+    'pages' => $theme_path . '/patterns/pages',
+  ];
+}
+
+/**
+ * Prepares variables for image template.
+ *
+ * Default template: atoms/09-media/image.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - item: An ImageItem object.
+ *   - item_attributes: An optional associative array of html attributes to be
+ *     placed in the img tag.
+ *   - image_style: An optional image style.
+ *   - url: An optional \Drupal\Core\Url object.
+ */
+function mayflower_preprocess_image(array &$variables) {
+  $variables['image']['src'] = $variables['uri'];
+  $variables['image']['alt'] = $variables['alt'];
+  $variables['image']['height'] = $variables['height'];
+  $variables['image']['width'] = $variables['width'];
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ *
+ * @see patterns/molecules/contact-us.twig
+ */
+function mayflower_preprocess_contact_us(&$variables) {
+  $node = $variables['elements']['#node'];
+
+  // Sets the variable structure required for action-seq-list.twig.
+  $variables = [
+    'theme_hook_original' => $variables['theme_hook_original'],
+    'contactUs' => Molecules::prepareContactUs($node, ['display_title' => TRUE]),
+  ];
+}
+
+/**
+ * Returns the variables structure required for Topic Card.
+ *
+ * @param object $entity
+ *   The object that contains the fields.
+ *
+ * @return array
+ *   Return structured sections.
+ */
+function mayflower_prepare_subtopic_links($entity) {
+  $links = [];
+  // Get our Subtopics for each Topic.
+  $view_results = views_get_view_result('subtopics', 'section_links', $entity->id());
+  foreach ($view_results as $link) {
+    $links[] = [
+      'href' => $link->_entity->toURL()->toString(),
+      'text' => $link->_entity->get('title')->value,
+    ];
+  }
+
+  return $links;
+}

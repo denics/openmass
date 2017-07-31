@@ -1,0 +1,23 @@
+{#
+/**
+ * @file
+ * Partial for link list.
+ */
+#}
+{% set links = {} %}
+
+{# Use our array to wrap up our links #}
+{% for item in items %}
+  {% set links = links|merge({ (loop.index0) : {'href': item.content['#url'].getUri(), 'text': item.content['#title']} }) %}
+{% endfor %}
+
+{%
+set linkList = {
+  'compHeading': {
+    'title': label,
+  },
+  'links': links
+}
+%}
+
+{% include '@organisms/by-author/link-list.twig'%}
