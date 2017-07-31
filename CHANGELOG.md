@@ -6,11 +6,34 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 ## Upcoming (add in progress changes here)
 
 ### Added
+- DP-3535 - Adds dashboard admin/ma-dash/service-content to see content related to a service.
+- DP-3636 Add event listing to organization pages
+- DP-3637 Add event listing to service pages
+- DP-4710 - Added tester role to be used for select users to try new features.
+- DP-1836 Data team: New oauth-secured content metadata API at `/api/v1/content-metadata`
 - Adds a "Primary audience" field to Guide Page, How-to Page, Service Page, and Service Detail Page content types. The value of this field is used to populate an "audience" metatag for those pages, allowing Google CSE to filter by audience.
 
 ### Changed
 
 ### Removed
+
+
+## [0.24.1] - July 27, 2017
+### Added
+- Adds form_page content type.
+- Adds custom field type for form embed.
+- Modifies topic page to allow it to display as a section landing. Requires post update of.
+
+### Changed
+- Removes "publish" and "unpublish" actions from admin/content and adds proper Workbench Moderation states instead.
+- Add logic around link fields to resolve error where node is deleted but link still exists.
+- Fixed url encoding for the 'target' property value on 'How-To Page' content type.
+- Refactor contact links for contact_information pages
+- Update mayflower to 5.5.0
+- Watch notification emails include revision author
+
+### Removed
+None
 
 
 ## [0.24.0] - July 25, 2017

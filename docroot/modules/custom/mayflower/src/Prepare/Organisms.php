@@ -176,6 +176,7 @@ class Organisms {
         'field_how_to_lede',
         'field_service_detail_lede',
         'field_location_details_lede',
+        'field_form_lede',
       ],
     ];
 
@@ -332,6 +333,7 @@ class Organisms {
         'field_news_media_contac',
         'field_press_release_media_contac',
         'field_event_contact_general',
+        'field_form_ref_contacts_3',
       ],
     ];
 
@@ -515,18 +517,22 @@ class Organisms {
 
       // On an internal item, load the referenced node title.
       if (strpos($link->getValue()['uri'], 'entity:node') !== FALSE) {
-        $params = Url::fromUri("internal:" . $url->toString())->getRouteParameters();
-        $entity_type = key($params);
-        $entity = \Drupal::entityTypeManager()->getStorage($entity_type)->load($params[$entity_type]);
-        $content_type = $entity->getType();
+        if (method_exists($url, 'getRouteParameters') && $url->isRouted() == TRUE) {
+          $params = $url->getRouteParameters();
+          $entity_type = key($params);
+          $entity = \Drupal::entityTypeManager()->getStorage($entity_type)->load($params[$entity_type]);
+          if (!empty($entity) && method_exists($entity, getType)) {
+            $content_type = $entity->getType();
 
-        if (Helper::isFieldPopulated($entity, 'field_news_date')) {
-          $date = Helper::fieldFullView($entity, 'field_news_date');
-        }
+            if (Helper::isFieldPopulated($entity, 'field_news_date')) {
+              $date = Helper::fieldFullView($entity, 'field_news_date');
+            }
 
-        // On internal item, if empty, grab enity title.
-        if (empty($text)) {
-          $text = $entity->getTitle();
+            // On internal item, if empty, grab enity title.
+            if (empty($text)) {
+              $text = $entity->getTitle();
+            }
+          }
         }
       }
 
@@ -608,16 +614,28 @@ class Organisms {
     // Use appropriate image style for various pageBanner sizes.
     if ($pageBanner['size'] === 'columns') {
       // Use original image style for hotfix to avoid config/DB changes.
-      $image_style_wide = 'original';
-      $image_style_narrow = 'original';
+      $image_style_wide = 'Hero820x460_no_blur';
+      $image_style_narrow = 'Hero800x400_no_blur';
       // @TODO fix the hero820 image style so that it is not blurred.
       // $image_style_wide = 'hero820x460';
       // $image_style_narrow = 'hero800x400';
+    }
+    elseif ($pageBanner['size'] === 'hero1600x400') {
+      $image_style_wide = 'Hero1600x400';
+      $image_style_narrow = 'Hero800x400_no_blur';
     }
 
     // Use helper function to get the image url of a given image style.
     $pageBanner['bgWide'] = Helper::getFieldImageUrl($entity, $image_style_wide, $fields['bg_wide']);
     $pageBanner['bgNarrow'] = Helper::getFieldImageUrl($entity, $image_style_narrow, $fields['bg_narrow']);
+
+    if ($options['type'] == 'section landing') {
+      // Manually specified since we have potentially 4 image fields on topic_page.
+      $pageBanner['bgWide'] = Helper::getFieldImageUrl($entity, $image_style_wide, 'field_topic_section_bg_wide');
+      if (Helper::isFieldPopulated($entity, 'field_topic_section_bg_narrow')) {
+        $pageBanner['bgNarrow'] = Helper::getFieldImageUrl($entity, $image_style_narrow, 'field_topic_section_bg_narrow');
+      }
+    }
 
     // @todo determine how to handle options vs field value (check existence, order of importance, etc.)
     $pageBanner['icon'] = $options['icon'];
@@ -639,7 +657,10 @@ class Organisms {
         $description = $entity->$fields['description']->value;
       }
     }
-    $pageBanner['description'] = $description;
+
+    if ($options['type'] != 'section landing') {
+      $pageBanner['description'] = $description;
+    }
 
     return $pageBanner;
   }
@@ -672,13 +693,15 @@ class Organisms {
       foreach ($entities->$fields['topic_cards'] as $card) {
         $url = $card->getUrl();
         $desc = '';
-
+        $seeAll = '';
         // Load up our entity if internal.
-        if ($url->isExternal() == FALSE) {
-          $params = Url::fromUri("internal:" . $url->toString())->getRouteParameters();
+        if ($url->isExternal() == FALSE && method_exists($url, 'getRouteParameters')) {
+          $params = $url->getRouteParameters();
           $entity_type = key($params);
           $entity = \Drupal::entityTypeManager()->getStorage($entity_type)->load($params[$entity_type]);
-          $cards[] = Molecules::prepareSectionLink($entity, $options);
+          if (!empty($entity)) {
+            $cards[] = Molecules::prepareSectionLink($entity, $options);
+          }
         }
         else {
           $cards[] = [

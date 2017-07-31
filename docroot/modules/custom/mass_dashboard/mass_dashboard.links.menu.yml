@@ -13,3 +13,8 @@ mass_dashboard.all_content:
   title: 'All Content'
   menu_name: mass-dashboard
   weight: 10
+mass_dashboard.service_content:
+  route_name: mass_dashboard.service_content
+  title: 'Content by Service'
+  menu_name: mass-dashboard
+  weight: 15

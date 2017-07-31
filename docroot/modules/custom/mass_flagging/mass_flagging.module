@@ -97,7 +97,7 @@ function mass_flagging_node_update_insert_send_notifications(EntityInterface $no
     if ($flag_users) {
 
       // Create Message.
-      $author_full_name = $node->getOwner()->getDisplayName();
+      $author_full_name = $node->getRevisionUser()->getDisplayName();
       $params['node_title'] = $node->label();
       $node_edit_time = \Drupal::service('date.formatter')
         ->format($node->getCreatedTime());

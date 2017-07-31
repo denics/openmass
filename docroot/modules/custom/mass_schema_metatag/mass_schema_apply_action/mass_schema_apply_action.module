@@ -33,6 +33,11 @@ function mass_schema_apply_action_tokens($type, $tokens, array $data, array $opt
     /** @var \Drupal\node\NodeInterface $node */
     $node = $data['node'];
 
+    // The following logic is to be applied only to guide pages.
+    if ($node->getType() !== 'how_to_page') {
+      return;
+    }
+
     // Iterate through all the tokens.
     foreach ($tokens as $name => $original) {
       // If node does not have the field, continue.
@@ -82,6 +87,11 @@ function mass_schema_apply_action_tokens($type, $tokens, array $data, array $opt
             // Compute the absolute URL given the uri.
             $url = Url::fromUri($link['uri'], ['absolute' => TRUE])->toString();
           }
+
+          if (empty($name) && empty($url)) {
+            continue;
+          }
+
           // Store everything in the array object.
           $data[] = [
             'name' => $name,

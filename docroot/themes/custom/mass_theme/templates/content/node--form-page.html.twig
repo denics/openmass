@@ -1,0 +1,52 @@
+{#
+/**
+ * @file
+ * Theme override to display the full view mode of the Form content type.
+ */
+ #}
+{% extends 'node.html.twig' %}
+
+{% block preContent %}
+  {#{% include "@organisms/by-template/breadcrumbs.twig" %}#}
+  {% include "@organisms/by-template/page-header.twig" %}
+{% endblock %}
+
+{% block main %}
+  <div class="main-content main-content--two">
+    <div class="page-content">
+    {% block pageContent %}
+      {% if formRequirements %}
+        {% include "@organisms/by-author/form-requirements.twig" %}
+      {% endif %}
+      <div aria-live="polite" aria-relevant="all" class="form_embed feedback">
+        <script type="text/javascript" src="{{ form_url }}?no_style_strict=1&jsonp"></script>
+        <noscript><a href="{{ form_url_noscript }}" title="{{ node.title.value }}">Online Form - {{ node.title.value }}</a></noscript>
+        <div style="text-align:right; font-size:x-small;">
+          <a href="http://www.formstack.com?utm_source=jsembed&amp;utm_medium=product&amp;utm_campaign=product+branding&amp;fa=h,{{ form_id }}" title="Web Form Builder">Web Form Builder</a>
+        </div>
+      </div>
+      <script>
+        (function() {
+          var root = document.querySelector('.form_embed.feedback');
+          root.addEventListener('click', function(event) {
+            //find target element, if submit button, scroll to top of form.
+            if(event.target.tagName === 'INPUT' && event.target.type === 'submit') {
+              root.scrollIntoView();
+            }
+          });
+        })();
+      </script>
+    {% endblock %}
+    </div>
+    <aside class="sidebar">
+      {% if sideContent.contactList %}
+        {% set contactList = sideContent.contactList %}
+        {% include "@organisms/by-author/contact-list.twig" %}
+      {% endif %}
+      {% if sideContent.mediaContact %}
+        {% set contactList = sideContent.mediaContact %}
+        {% include "@organisms/by-author/contact-list.twig" %}
+      {% endif %}
+    </aside>
+  </div>
+{% endblock %}
