@@ -1,9 +1,0 @@
-uuid: e321c1b5-1786-4311-8680-d592cbb6d5eb
-langcode: en
-status: true
-dependencies: {  }
-id: node_type_fee
-action: page_not_found
-allow_override: 1
-redirect: ''
-redirect_code: 301
