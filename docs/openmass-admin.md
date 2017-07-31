@@ -19,7 +19,7 @@ Merging new code from Mass project
 -------------
 - Merge PR from develop to openmass_master branches. Use --no-commit.
   - Resolve any conflicts
-  - Revert unwanted changes: `git reset --hard composer.json README.MD`  
+  - Revert unwanted changes: `git reset --hard composer.json README.MD credentials`  
   - Make sure tests pass
 - Push openmass_master branch to openmass repo
 
