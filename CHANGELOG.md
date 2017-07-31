@@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - DP-4710 - Added tester role to be used for select users to try new features.  
 
 ### Changed
+- Fix bug where pages with no table data (i.e. How-To's with no fees) were not loading.
 
 ### Removed
 
