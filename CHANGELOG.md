@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - DP-1836 Data team: New oauth-secured content metadata API at `/api/v1/content-metadata`
 
 ### Changed
+- Fix bug where pages with no table data (i.e. How-To's with no fees) were not loading.
 
 ### Removed
 

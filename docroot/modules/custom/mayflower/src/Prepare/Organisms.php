@@ -1318,17 +1318,19 @@ class Organisms {
   /**
    * Returns the variables structure required to render tabularData.
    *
-   * @param object $entities
-   *   An EntityReferenceRevisionsFieldItemList that contains the entities.
+   * @param object $entity
+   *   The object that contains the fields.
    * @param array $options
-   *   This is an array of field names.
+   *   This is an array of field names and other static options.
    *
-   * @see @organisms/by-author/tubular-data.twig
+   * @see @organisms/by-author/tabular-data.twig
    *
    * @return array
    *   Returns a structured array.
    */
-  public static function prepareTabularData($entities, array $options) {
+  public static function prepareTabularData($entity, array $options) {
+    $tabularData = [];
+
     $items = [];
 
     // Creates a map of fields on the parent entity.
@@ -1344,7 +1346,7 @@ class Organisms {
     ];
 
     // Determines which fieldnames to use from the map.
-    $fields = Helper::getMappedFields($entities, $map);
+    $fields = Helper::getMappedFields($entity, $map);
 
     foreach ($map_ref as $indexFieldName => $fieldName) {
       $head['rows'][$index]['cells'][] = [
@@ -1353,8 +1355,7 @@ class Organisms {
       ];
     }
 
-    foreach ($entities->$fields['fees'] as $index => $entity) {
-      $feeEntity = $entity->entity;
+    foreach ($entity->get($fields['fees'])->referencedEntities() as $index => $feeEntity) {
 
       // Determines which fieldnames to use from the map.
       $field = Helper::getMappedFields($feeEntity, $map_ref);
@@ -1369,8 +1370,13 @@ class Organisms {
       }
     }
 
-    $heading = Helper::buildHeading($options['heading']);
-    return array_merge($heading, ['table' => ['head' => $head, 'bodies' => $items]]);
+    // Only render heading and table column headings when there is table data.
+    if (!empty($items)) {
+      $heading = Helper::buildHeading($options['heading']);
+      $tabularData = array_merge($heading, ['table' => ['head' => $head, 'bodies' => $items]]);
+    }
+
+    return $tabularData;
   }
 
   /**
