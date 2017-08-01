@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "62de5711a7384489875aeefe4101b605",
+    "content-hash": "33b64fb56497b740d733c0916b9bc01b",
     "packages": [
         {
             "name": "acquia/acquia-sdk-php",
@@ -6031,7 +6031,7 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/workbench_moderation_actions"
             },
-            "time": "2017-07-10 10:48:54"
+            "time": "2017-07-10T10:48:54+00:00"
         },
         {
             "name": "drupal/xmlsitemap",
