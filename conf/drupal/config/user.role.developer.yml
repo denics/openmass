@@ -242,6 +242,7 @@ permissions:
   - 'rabbit hole bypass node'
   - 'rabbit hole bypass taxonomy_term'
   - 'require tfa'
+  - 'restful get content_metadata_resource'
   - 'revert action revisions'
   - 'revert advisory revisions'
   - 'revert agency revisions'

@@ -1242,7 +1242,7 @@ class Molecules {
     if (isset($options['headerDate'])) {
       return [
         'date' => [
-          'summary' => \Drupal::service('date.formatter')->format($date, 'custom', 'l, F d, Y'),
+          'summary' => $dateTime->format('l, F d, Y'),
         ],
         'time' => !empty($entity->$fields['time']->value) ? Helper::fieldValue($entity, $fields['time']) : $time,
       ];
@@ -1257,9 +1257,9 @@ class Molecules {
         ],
         'location' => $location,
         'date' => [
-          'summary' => \Drupal::service('date.formatter')->format($date, 'custom', 'F d, Y'),
-          'startMonth' => \Drupal::service('date.formatter')->format($date, 'custom', 'M'),
-          'startDay' => \Drupal::service('date.formatter')->format($date, 'custom', 'd'),
+          'summary' => $dateTime->format('F d, Y'),
+          'startMonth' => $dateTime->format('M'),
+          'startDay' => $dateTime->format('d'),
           'endMonth' => '',
           'endDay' => '',
         ],
