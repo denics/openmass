@@ -1,9 +1,15 @@
 # Changelog
 All notable changes to this project will be documented in this file.
-
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 ## Upcoming (add in progress changes here)
+### Added
+DP-4565 - "Topic Page" - schema.org implementation. When you view the source code of a Topic page, you will now see the JSON-LD object that maps to this page type.
+
+### Changed
+
+### Removed
+
 
 ### Added
 - DP-3535 - Adds dashboard admin/ma-dash/service-content to see content related to a service.
@@ -11,11 +17,29 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - DP-3637 Add event listing to service pages
 - DP-4710 - Added tester role to be used for select users to try new features.
 - DP-1836 Data team: New oauth-secured content metadata API at `/api/v1/content-metadata`
+- DP-4809 Changed permissions to allow authors and editors to use new content type location details.
 - Adds a "Primary audience" field to Guide Page, How-to Page, Service Page, and Service Detail Page content types. The value of this field is used to populate an "audience" metatag for those pages, allowing Google CSE to filter by audience.
 
+
 ### Changed
+- Fix bug where pages with no table data (i.e. How-To's with no fees) were not loading.
 
 ### Removed
+
+
+## [0.25.0] - Aug 1, 2017
+
+### Added
+- Added dashboard admin/ma-dash/service-content to see content related to a service.
+- "Organization Pages" and "Service Pages" now have event listing.
+- New "Tester" role for select users to try new features.
+- New oauth-secured content metadata API at `/api/v1/content-metadata`
+
+### Changed
+- Fix bug where pages with no table data (i.e. How-To's with no fees) were not loading.
+
+### Removed
+None
 
 
 ## [0.24.1] - July 27, 2017
