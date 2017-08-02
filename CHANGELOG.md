@@ -1,6 +1,5 @@
 # Changelog
 All notable changes to this project will be documented in this file.
-
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 ## Upcoming (add in progress changes here)
@@ -16,6 +15,21 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - Fix bug where pages with no table data (i.e. How-To's with no fees) were not loading.
 
 ### Removed
+
+
+## [0.25.0] - Aug 1, 2017
+
+### Added
+- Added dashboard admin/ma-dash/service-content to see content related to a service.
+- "Organization Pages" and "Service Pages" now have event listing.
+- New "Tester" role for select users to try new features.
+- New oauth-secured content metadata API at `/api/v1/content-metadata`
+
+### Changed
+- Fix bug where pages with no table data (i.e. How-To's with no fees) were not loading.
+
+### Removed
+None
 
 
 ## [0.24.1] - July 27, 2017
