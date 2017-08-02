@@ -3,6 +3,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 ## Upcoming (add in progress changes here)
+### Added
+
+### Changed
+
+### Removed
+
 
 ### Added
 - DP-3535 - Adds dashboard admin/ma-dash/service-content to see content related to a service.
