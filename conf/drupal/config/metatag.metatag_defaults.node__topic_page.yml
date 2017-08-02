@@ -1,0 +1,14 @@
+uuid: ce6f99af-ba2b-460f-be39-da9fe542ce76
+langcode: en
+status: true
+dependencies: {  }
+id: node__topic_page
+label: 'Content: Topic page'
+tags:
+  schema_collection_page_description: '[node:field_topic_lede]'
+  schema_collection_page_id: '[node:url]#topic_page'
+  schema_collection_page_main_entity: '[node:field_topic_content_cards:entity:field_content_card_link_cards]'
+  schema_collection_page_name: '[node:title]'
+  schema_collection_page_primary_image_of_page: 'a:3:{s:3:"url";s:78:"[node:field_topic_bg_wide:entity:url], [node:field_topic_bg_narrow:entity:url]";s:5:"width";s:0:"";s:6:"height";s:0:"";}'
+  schema_collection_page_related_link: '[node:field_topic_ref_related_topics]'
+  schema_collection_page_type: CollectionPage
