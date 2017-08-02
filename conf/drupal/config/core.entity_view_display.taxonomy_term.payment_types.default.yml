@@ -1,0 +1,30 @@
+uuid: 16d55767-cba6-4d55-aea5-ca87261319c3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.payment_types.field_sprite_name
+    - taxonomy.vocabulary.payment_types
+  module:
+    - text
+id: taxonomy_term.payment_types.default
+targetEntityType: taxonomy_term
+bundle: payment_types
+mode: default
+content:
+  description:
+    label: hidden
+    type: text_default
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_sprite_name:
+    weight: 1
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+hidden: {  }

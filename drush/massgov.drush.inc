@@ -62,7 +62,7 @@ function drush_massgov_ma_deploy($target, $git_ref) {
   if (drush_get_option('skip-maint', FALSE) == FALSE) {
     // Turn on Maint mode
     $args = array('system.maintenance_mode', 1);
-    $options = array('format' => 'integer');
+    $options = array('input-format' => 'integer');
     $return = drush_invoke_process($alias_target, 'state-set', $args, $options);
     massgov_check_drush_error($return);
     drush_log(dt("Maintenance mode enabled in $target."), 'success');
@@ -116,7 +116,7 @@ function drush_massgov_ma_deploy($target, $git_ref) {
   if (drush_get_option('skip-maint', FALSE)  == FALSE) {
     // Disable Maintenance mode.
     $args = array('system.maintenance_mode', 0);
-    $options = array('format' => 'integer');
+    $options = array('input-format' => 'integer');
     $return = drush_invoke_process($alias_target, 'state-set', $args, $options);
     massgov_check_drush_error($return);
     drush_log(dt("Maintenance mode disabled in $target."), 'success');

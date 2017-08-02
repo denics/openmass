@@ -9,9 +9,13 @@ default:
         - Drupal\DrupalExtension\Context\MinkContext
         - Drupal\DrupalExtension\Context\MessageContext
         - Drupal\DrupalExtension\Context\DrushContext
+        - Imbo\BehatApiExtension\Context\ApiContext
       filters:
         tags: "~@skipci"
   extensions:
+    Imbo\BehatApiExtension:
+      apiClient:
+        base_uri: "http://mass.local"
     Behat\MinkExtension:
       goutte: ~
       selenium2:

@@ -7,10 +7,6 @@ use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaNameBase;
 /**
  * Provides a plugin for the 'schema_apply_action_target' meta tag.
  *
- * - 'id' should be a globally unique id.
- * - 'name' should match the Schema.org element name.
- * - 'group' should match the id of the group that defines the Schema.org type.
- *
  * @MetatagTag(
  *   id = "schema_apply_action_target",
  *   label = @Translation("target"),
@@ -32,6 +28,28 @@ class SchemaApplyActionTarget extends SchemaNameBase {
     $form = parent::form($element);
     $form['#attributes']['placeholder'] = '[node:field_how_to_link_1]';
     return $form;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function output() {
+    $element = parent::output();
+    $targets = json_decode($this->value(), TRUE);
+
+    $element['#attributes']['content'] = [];
+
+    // Iterate through each target and get the name and url for the objects.
+    foreach ($targets as $target) {
+      $name = !empty($target['name']) ? $target['name'] : '';
+      $url = !empty($target['url']) ? $target['url'] : '';
+      $element['#attributes']['content'][] = [
+        '@type' => 'EntryPoint',
+        'name' => $name,
+        'url' => $url,
+      ];
+    }
+    return $element;
   }
 
 }
