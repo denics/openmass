@@ -15,9 +15,7 @@ label: 'Primary audience'
 description: 'The primary audience for this content. This is used for filtering content on the Search page.'
 required: true
 translatable: false
-default_value:
-  -
-    value: constituents
+default_value: {  }
 default_value_callback: ''
 settings: {  }
 field_type: list_string
