@@ -4351,3 +4351,14 @@ function mass_theme_form_system_theme_settings_alter(&$form, $form_state) {
     '#default_value' => theme_get_setting('languages', 'mass_theme'),
   ];
 }
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function mass_theme_theme_suggestions_textarea_alter(array &$suggestions, array $variables) {
+  // Uses custom template for Flag Content contact form <textarea> input field.
+  // Contact form is used for 'Flagging' functionality in mass_flagging module.
+  if ($variables['element']['#name'] == 'field_reason_flagged[0][value]') {
+    $suggestions[] = 'textarea__mass_flagging';
+  }
+}

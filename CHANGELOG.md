@@ -10,7 +10,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - DP-3882 - `composer.json` and `composer.lock` are now validated on CircleCI under the "test" section of the `circle.yml` file (See "Troubleshooting" in README.md).
 
 ### Changed
-- DP-3882 - Halt `composer install` operation on CircleCI when a referenced patch fails to install (See "Troubleshooting" in README.md).
+- DP-4589 - Added custom template suggestion for Flag Content contact form to ensure proper textarea rendering
 
 ### Removed
 
