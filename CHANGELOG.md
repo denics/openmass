@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 ### Removed
 
+
 [0.26.0] - August 3, 2017
 ### Added
 - DP-4565 - Implement structured data (schema.org) for "Topic Page". When you view the source code of a Topic page, you will now see the JSON-LD object that maps to this page type.
@@ -17,7 +18,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - DP-3882 - (For devs) `composer.json` and `composer.lock` are now validated on CircleCI under the "test" section of the `circle.yml` file (See "Troubleshooting" in README.md).
 
 ### Changed
+- DP-3882 - (For devs) Halt `composer install` operation on CircleCI when a referenced patch fails to install (See "Troubleshooting" in README.md).
 - DP-4589 - Added custom template suggestion for Flag Content contact form to ensure proper textarea rendering
+
+### Removed
+None
+
 
 ## [0.25.0] - Aug 1, 2017
 
