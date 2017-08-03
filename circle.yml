@@ -61,6 +61,8 @@ dependencies:
 
 test:
   override:
+    # validate .json and check if it is in sync with the .lock file
+    - composer validate
     # check drupal coding standards with php code sniffer
     - phpcs -v --warning-severity=0 --standard=Drupal docroot/modules/custom docroot/themes/custom docroot/profiles/custom
     # check drupal best practices with php code sniffer

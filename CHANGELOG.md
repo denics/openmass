@@ -7,8 +7,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - DP-4565 - "Topic Page" - schema.org implementation. When you view the source code of a Topic page, you will now see the JSON-LD object that maps to this page type.
 - DP-4521 - Added documentation on how to map content types to schema.org.
 - DP-4809 - Changed permissions to allow authors and editors to use new content type location details.
+- DP-3882 - `composer.json` and `composer.lock` are now validated on CircleCI under the "test" section of the `circle.yml` file (See "Troubleshooting" in README.md).
 
 ### Changed
+- DP-3882 - Halt `composer install` operation on CircleCI when a referenced patch fails to install (See "Troubleshooting" in README.md).
 
 ### Removed
 
