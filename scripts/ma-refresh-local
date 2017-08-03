@@ -26,9 +26,6 @@ done
 # @TODO pull available environments via api
 remoteEnvironments=("prod" "test" "dev" "feature1" "feature2" "feature3" "feature4" "feature5" "cd")
 
-# cd into document root so drush can see aliases
-cd /var/www/mass.local/docroot
-
 # Runs a command w/ success/fail handling
 function run {
   # parameters
