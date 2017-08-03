@@ -3,13 +3,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 ## Upcoming (add in progress changes here)
-
 ### Added
 
 ### Changed
-- Fix bug where pages with no table data (i.e. How-To's with no fees) were not loading.
 
 ### Removed
+
+
+[0.26.0] - August 3, 2017
+### Added
+- DP-4565 - Implement structured data (schema.org) for "Topic Page". When you view the source code of a Topic page, you will now see the JSON-LD object that maps to this page type.
+- DP-4521 - Added documentation on how to map content types to schema.org.
+- DP-4809 - Changed permissions to allow authors and editors to use location details content type.
+- DP-3882 - (For devs) `composer.json` and `composer.lock` are now validated on CircleCI under the "test" section of the `circle.yml` file (See "Troubleshooting" in README.md).
+
+### Changed
+- DP-3882 - (For devs) Halt `composer install` operation on CircleCI when a referenced patch fails to install (See "Troubleshooting" in README.md).
+- DP-4589 - Added custom template suggestion for Flag Content contact form to ensure proper textarea rendering
+
+### Removed
+None
 
 
 ## [0.25.0] - Aug 1, 2017

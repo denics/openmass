@@ -70,6 +70,11 @@ function drush_massgov_ma_deploy($target, $git_ref) {
 
   // Copy files and database, but only for non-prod deploys and when refresh-db is set
   if(!$is_prod && drush_get_option('refresh-db', FALSE)) {
+    // Drop existing tables.
+    $return = drush_invoke_process($alias_target, 'sql-drop', [], ['yes' => TRUE]);
+    massgov_check_drush_error($return);
+    drush_log(dt("All tables dropped  in $target."), 'success');
+
     // Copy Prod database to target
     $database = $cloudapi->copyDatabase($site, $db_name, 'prod', $target);
     drush_log(dt("Copied database from Prod"), 'success');
