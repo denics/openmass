@@ -96,4 +96,4 @@ deployment:
       # add a deployment identifier for cache busting at Acquia.
       - scripts/stamp-and-deploy
       # deploy `develop` branch to `cd` environment
-      - drush ma-deploy --skip-maint --email=${AC_API_USER} --key=${AC_API_KEY} cd $CIRCLE_BRANCH
+      - drush ma-deploy --refresh-db --skip-maint --email=${AC_API_USER} --key=${AC_API_KEY} cd $CIRCLE_BRANCH
