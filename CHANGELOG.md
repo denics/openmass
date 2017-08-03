@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 ## Upcoming (add in progress changes here)
 ### Added
 DP-4565 - "Topic Page" - schema.org implementation. When you view the source code of a Topic page, you will now see the JSON-LD object that maps to this page type.
+DP-4521 - Added documentation on how to map content types to schema.org.
+DP-4809 - Changed permissions to allow authors and editors to use new content type location details.
 
 ### Changed
 
@@ -17,7 +19,7 @@ DP-4565 - "Topic Page" - schema.org implementation. When you view the source cod
 - DP-3637 Add event listing to service pages
 - DP-4710 - Added tester role to be used for select users to try new features.
 - DP-1836 Data team: New oauth-secured content metadata API at `/api/v1/content-metadata`
-- DP-4809 Changed permissions to allow authors and editors to use new content type location details.
+
 
 ### Changed
 - Fix bug where pages with no table data (i.e. How-To's with no fees) were not loading.
