@@ -869,10 +869,12 @@ class Organisms {
    *   Returns structured array.
    */
   public static function prepareActionDetails($entity, $options = NULL) {
+    $title_context = "";
     $sections = [];
 
     // Create the map of all possible field names to use.
     $map = [
+      'title' => ['title'],
       'overview' => ['field_overview'],
       'primary_location' => ['field_ref_contact_info_1'],
       'contacts' => ['field_ref_contact_info'],
@@ -888,6 +890,10 @@ class Organisms {
 
     // Determines which field names to use from the map.
     $fields = Helper::getMappedFields($entity, $map);
+
+    if (Helper::isFieldPopulated($entity, $fields['title'])) {
+      $title_context = $entity->$fields['title']->value;
+    }
 
     // Overview section.
     if (Helper::isFieldPopulated($entity, $fields['overview'])) {
@@ -961,6 +967,7 @@ class Organisms {
     }
 
     return [
+      'title_context' => $title_context,
       'sections' => $sections,
     ];
   }

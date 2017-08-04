@@ -5,6 +5,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 ## Upcoming (add in progress changes here)
 ### Added
 - Added notification message for users automatically added as content watchers.
+- DP-4211 - Add iframe paragraph to service details and location details.
 
 ### Changed
 

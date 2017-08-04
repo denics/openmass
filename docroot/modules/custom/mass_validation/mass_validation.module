@@ -228,6 +228,10 @@ function _mass_validation_form_node_service_details_form_validate(array &$form, 
     $sections = $form_state->getValue('field_service_detail_sections');
     unset($sections['add_more']);
     foreach ($sections as $key => $section) {
+      if (array_key_exists('subform', $section)) {
+        // Verify iFrame url is valid.
+        _mass_iframe_domain_validate_paragraph($form_state, $section, $key, 'field_service_detail_sections');
+      }
       if (in_array('subform', $section)) {
         $num_links = 0;
         // Count the links.
@@ -276,14 +280,17 @@ function _mass_validation_form_node_location_details_form_validate(array &$form,
   _mass_link_validate_paragraph($form_state, 'field_location_details_sections', ['field_section_links']);
   _mass_link_validate($form_state, 'field_location_details_links_5');
 
-  // Validate that the Links and Downloads fields
-  // have no more than 6 values between them.
+  // Validate section paragraphs.
   if ($form_state->hasValue('field_location_details_sections')) {
     // Look at each section.
     $sections = $form_state->getValue('field_location_details_sections');
     unset($sections['add_more']);
     foreach ($sections as $key => $section) {
       if (array_key_exists('subform', $section)) {
+        // Verify iFrame url is valid.
+        _mass_iframe_domain_validate_paragraph($form_state, $section, $key, 'field_location_details_sections');
+        // Validate that the Links and Downloads fields
+        // have no more than 6 values between them.
         $num_links = 0;
         // Count the links.
         foreach ($section['subform']['field_section_links'] as $link) {
@@ -547,6 +554,28 @@ function mass_validation_get_title_from_uri($uri) {
     }
   }
   return NULL;
+}
+
+/**
+ * Validate url fields in iframe paragraphs have valid domain.
+ *
+ * @param Drupal\Core\Form\FormStateInterface $form_state
+ *   The form state object we are updating.
+ * @param array $section
+ *   An array of field in the paragraph to check.
+ * @param string $section_name
+ *   The name of the paragraph field we are checking.
+ */
+function _mass_iframe_domain_validate_paragraph(FormStateInterface &$form_state, array $section, $key, $section_name) {
+  foreach ($section['subform']['field_iframe_url'] as $url) {
+    if (is_array($url)) {
+      if (!empty($url['uri'])) {
+        if (strpos($url['uri'], "https://massgov.github.io") !== 0) {
+          $form_state->setErrorByName($section_name . '][' . $key . '][subform][field_iframe_url', t('URL must start with "https://massgov.github.io".'));
+        }
+      }
+    }
+  }
 }
 
 /**
