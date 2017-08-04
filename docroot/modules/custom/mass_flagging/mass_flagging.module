@@ -141,15 +141,32 @@ function mass_flagging_node_update_insert_send_notifications(EntityInterface $no
  */
 function mass_flagging_node_update_insert_add_watcher(EntityInterface $node) {
   // Add flag for the user editing or creating the node.
-  $watch = \Drupal::entityTypeManager()->getStorage('flag')->load(WATCH_FLAG);
-  $bundles = $watch->getBundles();
+  $watch_flag = \Drupal::entityTypeManager()->getStorage('flag')->load(WATCH_FLAG);
+  $bundles = $watch_flag->getBundles();
   if (!empty($bundles) && in_array($node->bundle(), $bundles)) {
-    $flag = \Drupal::service('flag');
+    $flag_service = \Drupal::service('flag');
     $user = \Drupal::currentUser();
     if (!$user->isAnonymous()) {
-      $flagging = $flag->getEntityFlaggings($watch, $node, $user);
+      $flagging = $flag_service->getEntityFlaggings($watch_flag, $node, $user);
       if (empty($flagging)) {
-        $flag->flag($watch, $node);
+        // Adds the flag.
+        $flag_service->flag($watch_flag, $node);
+
+        // Gets flag link for unwatching content.
+        $flag_link_type_plugin = $watch_flag->getLinkTypePlugin();
+        $flag_url = $flag_link_type_plugin->getAsLink($watch_flag, $node)->getUrl();
+        $flag_url->setOption('query', ['destination' => $node->toUrl()->toString()]);
+        $flag_url = $flag_url->toString();
+        $flag_title = $watch_flag->getShortText('unflag');
+
+        // Notifies user that they are now automatically watching the node.
+        drupal_set_message(t('You are now watching @node_type %node_title. You will be notified of any future changes made to this content. <a href=":help_url" title="Mass Flagging help page">Learn more about this functionality</a>, or <a href=":flag_url" title="@flag_title">stop watching this content</a>.', [
+          '@node_type' => node_get_type_label($node),
+          '%node_title' => $node->label(),
+          ':help_url' => Url::fromRoute('help.page', ['name' => 'mass_flagging'])->toString(),
+          ':flag_url' => $flag_url,
+          '@flag_title' => $flag_title,
+        ]));
       }
     }
   }
