@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - DP-4211 - Add iframe paragraph to service details and location details.
 
 ### Changed
+- DP-4416 - Changed label on "Related Parks" to "Related Locations"
 
 ### Removed
 

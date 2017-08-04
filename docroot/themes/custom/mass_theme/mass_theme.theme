@@ -887,7 +887,7 @@ function mass_theme_preprocess_node_location(&$variables) {
 
   // Prepare the suggestedPages data object.
   $suggested_options = [
-    'title' => t('Related Parks'),
+    'title' => t('Related Locations'),
     'style' => 'activities_image',
   ];
   $variables['suggestedPages'] = Organisms::prepareSuggestedPages($node, $suggested_options);
