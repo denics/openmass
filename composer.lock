@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "33b64fb56497b740d733c0916b9bc01b",
+    "content-hash": "e17d30a5adb710feb89bc3ed34bb7e04",
     "packages": [
         {
             "name": "acquia/acquia-sdk-php",
@@ -5517,7 +5517,7 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/simple_oauth"
             },
-            "time": "2017-07-03T13:42:42+00:00"
+            "time": "2017-07-03 13:42:42"
         },
         {
             "name": "drupal/subpathauto",
