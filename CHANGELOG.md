@@ -4,6 +4,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 ## Upcoming (add in progress changes here)
 ### Added
+- Added notification message for users automatically added as content watchers.
 
 ### Changed
 
@@ -17,7 +18,6 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - DP-3882 - (For devs) `composer.json` and `composer.lock` are now validated on CircleCI under the "test" section of the `circle.yml` file (See "Troubleshooting" in README.md).
 - DP-4809 - Changed permissions to allow authors and editors to use new content type location details.
 - DP-3882 - `composer.json` and `composer.lock` are now validated on CircleCI under the "test" section of the `circle.yml` file (See "Troubleshooting" in README.md).
-- Added notification message for users automatically added as content watchers.
 
 ### Changed
 - DP-3882 - (For devs) Halt `composer install` operation on CircleCI when a referenced patch fails to install (See "Troubleshooting" in README.md).
