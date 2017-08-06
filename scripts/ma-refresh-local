@@ -68,7 +68,13 @@ if [ $? == 0 ]; then
   echo -e "\n"
   echo "sync db"
   echo -e "------------------------------------------------------------------------"
-  run "drush -y --sanitize --create-db sql-sync @massgov.$desiredEnv @self" "drush sql-sync" "🚚"
+  run "drush -y --create-db sql-sync @massgov.$desiredEnv @self" "drush sql-sync" "🚚"
+
+  # sanitize local DB
+  echo -e "\n"
+  echo "sanitize db"
+  echo -e "------------------------------------------------------------------------"
+  run "drush -y sql-sanitize" "drush sql-sanitize" "🚚"
 
   # Optionally pull files
   if $pullFiles; then
