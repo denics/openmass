@@ -11,7 +11,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - Added notification message for users automatically added as content watchers.
 
 ### Changed
-- DP-4589 - Added custom template suggestion for Flag Content contact form to ensure proper textarea rendering
+- DP-4589 - Added custom template suggestion for Flag Content contact form to ensure proper textarea rendering.
+- DP-4721 - Update Mass Watching module help page so users understand how the module works.
 
 ### Removed
 
