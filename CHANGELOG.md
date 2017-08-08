@@ -25,6 +25,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - Change merge driver to union for changelog so we don't always have conflicts.
 
 ### Changed
+- DP-4589 - Added custom template suggestion for Flag Content contact form to ensure proper textarea rendering.
+- DP-4721 - Update Mass Watching module help page so users understand how the module works.
 - DP-3882 - (For devs) Halt `composer install` operation on CircleCI when a referenced patch fails to install (See "Troubleshooting" in README.md).
 - DP-4589 - Added custom template suggestion for Flag Content contact form to ensure proper textarea rendering.
 - DP-4773 - Hides flagging link container if user is not authenticated.
