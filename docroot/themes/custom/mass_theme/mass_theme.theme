@@ -12,6 +12,7 @@ use Drupal\Core\Url;
 use Drupal\block\Entity\Block;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\node\Entity\Node;
+use Drupal\taxonomy\Entity\Term;
 use Drupal\Component\Utility\UrlHelper;
 use Drupal\Component\Utility\Unicode;
 use Drupal\Core\Menu\MenuTreeParameters;
@@ -21,6 +22,8 @@ use Drupal\mayflower\Prepare\Molecules;
 use Drupal\mayflower\Prepare\Organisms;
 use Drupal\mayflower\Prepare\Schemas;
 use Drupal\Core\Site\Settings;
+use Drupal\Core\Link;
+use Drupal\Core\Entity\ContentEntityInterface;
 
 /**
  * Implements hook_theme_suggestions_alter().
@@ -482,7 +485,7 @@ function mass_theme_preprocess_node_form_page(&$variables) {
   if (Helper::isFieldPopulated($node, 'field_form_you_will')) {
     $formRequirements = [
       'rteTitle' => [
-        'text' => t('You will need:')
+        'text' => t('You will need:'),
       ],
     ];
     // Set up rich text elements for what you need.
@@ -939,7 +942,7 @@ function mass_theme_preprocess_node_topic_page(&$variables) {
   // Set static pageBanner properties to pass to prepare function.
   $pageBanner_options = [
     'icon' => $icon,
-    'color' => ''
+    'color' => '',
   ];
 
   if (Helper::isFieldPopulated($node, 'field_topic_type')) {
@@ -989,6 +992,789 @@ function mass_theme_preprocess_node_topic_page(&$variables) {
   ];
 
   $variables['linkList'] = Organisms::prepareLinkList($node, 'field_topic_ref_related_topics', $linkList_options);
+}
+
+/**
+ * Implements hook_preprocess_node().
+ *
+ * Prepare the variables for the Executive Order page.
+ */
+function mass_theme_preprocess_node_executive_order(&$variables) {
+  $node = $variables['node'];
+  $sidebar = [];
+
+  // Create the map of all possible field names to use.
+  $map = [
+    'type' => ['field_executive_order_adjustment'],
+    'body' => ['body'],
+    'contact' => ['field_executive_order_contact'],
+    'date' => ['field_executive_order_date'],
+    'downloads' => ['field_executive_order_downloads'],
+    'issuer' => ['field_executive_order_issuer'],
+    'number' => ['field_executive_order_mass_regis'],
+    'meta_tags' => ['field_executive_order_metatags'],
+    'overview' => ['field_executive_order_overview'],
+    'links' => ['field_executive_order_related'],
+    'events' => ['field_executive_order_ev'],
+    'organization' => ['field_executive_order_ref_org'],
+  ];
+
+  // Determines which field names to use from the map.
+  $fields = Helper::getMappedFields($node, $map);
+
+  $taxonomyTerms = [];
+
+  if (!empty($node->$fields['organization'])) {
+    foreach ($node->$fields['organization'] as $tag) {
+      $taxonomyTerms[] = [
+        'href' => $tag->entity->toURL()->toString(),
+        'text' => Helper::fieldValue($tag->entity, 'title'),
+      ];
+    }
+  }
+
+  // Set static pageHeader properties to pass to prepare function.
+  $pageHeader_options = [
+    'category' => 'Executive Order',
+    'headerTags' => [
+      'label' => t('Related to:'),
+      'taxonomyTerms' => $taxonomyTerms,
+    ],
+  ];
+
+  // Make pageBanner data object available in twig template.
+  $variables['pageHeader'] = Organisms::preparePageHeader($node, $pageHeader_options);
+
+  if (Helper::isFieldPopulated($node, $fields['overview'])) {
+    $mainContent['personalMessage']['imagePromos'][] = Molecules::prepareImagePromo($node, ['lede' => $fields['overview']], []);
+  }
+
+  if (Helper::isFieldPopulated($node, 'body')) {
+    // Set up rich text elements for what you need.
+    $richText = [
+      'rteElements' => [
+        Atoms::prepareRawHtml($node, ['field' => 'body']),
+      ],
+    ];
+  }
+
+  $mainContent['richText'] = $richText;
+
+  if (Helper::isFieldPopulated($node, $fields['date'])) {
+    // Set up rich text elements for what you need.
+    $listingTable['rows'][] = [
+      'label' => t("Date@colon", ['@colon' => ':']),
+      'text' => \Drupal::service('date.formatter')->format(strtotime($node->$fields['date']->value), 'custom', 'm/d/Y'),
+    ];
+  }
+
+  if (Helper::isFieldPopulated($node, 'field_executive_order_issuer')) {
+    $map_issuer = [
+      'display_name' => ['field_issuer_display_name'],
+      'title' => ['field_issuer_title'],
+    ];
+
+    $issuers = Helper::issuerListingTable($node, ['issuer' => $fields['issuer']], $map_issuer);
+
+    $listingTable['rows'][] = [
+      'label' => t("Issuer@colon", ['@colon' => ':']),
+      'text' => nl2br(implode("\n", $issuers)),
+    ];
+  }
+
+  if (Helper::isFieldPopulated($node, $fields['number'])) {
+    // Set up rich text elements for what you need.
+    $listingTable['rows'][] = [
+      'label' => t("Mass Register@colon", ['@colon' => ':']),
+      'text' => t("No. @number", ['@number' => Helper::fieldValue($node, $fields['number'])]),
+    ];
+  }
+
+  if (Helper::isFieldPopulated($node, 'field_executive_order_adjustment')) {
+    foreach ($node->$fields['type'] as $adjustment) {
+      $adjustmentEntity = $adjustment->entity;
+      if ($adjustmentEntity instanceof  ContentEntityInterface) {
+        $adjustmentLink = Helper::dataFromLinkField($adjustmentEntity, ['link' => 'field_adjustment_type_link']);
+        if (!empty($adjustmentLink) && Helper::isFieldPopulated($adjustmentEntity, 'field_adjustment_type')) {
+          $listingTable['rows'][] = [
+            'label' => Helper::fieldValue($adjustmentEntity, 'field_adjustment_type') . ':',
+            'text' => Link::fromTextAndUrl($adjustmentLink[0]['title'], $adjustmentLink[0]['url'])->toString(),
+          ];
+        }
+      }
+    }
+  }
+
+  $mainContent['listingTable'] = $listingTable;
+
+  if (Helper::isFieldPopulated($node, $fields['downloads'])) {
+    // Set up options for formDownloads prepare.
+    $downloadLinks_options = [
+      'heading' => [
+        'type' => 'compHeading',
+        'title' => t('Downloads'),
+        'sub' => TRUE,
+      ],
+    ];
+    $mainContent['formDownloads'] = Organisms::prepareFormDownloads($node, $downloadLinks_options);
+  }
+
+  // Build contact section, if field is populated.
+  if (Helper::isFieldPopulated($node, $fields['contact'])) {
+    // Set up options for contact list.
+    $contactList_options = [
+      'heading' => [
+        'title' => t("Contact"),
+        'sub' => TRUE,
+      ],
+      'groups' => [
+        'accordion' => TRUE,
+        'isExpanded' => FALSE,
+        'onlyPhoneAndOnline' => TRUE,
+      ],
+    ];
+
+    $mainContent['contactList'] = Organisms::prepareContactList($node, $contactList_options);
+    // Build sidebar.contactList, which is a subset of pageContent.ContactList.
+    // Prepare the quickActions data object.
+    $sidebarContacts_options = [
+      'groups' => [
+        'accordion' => FALSE,
+        'isExpanded' => FALSE,
+        'onlyPhoneAndOnline' => TRUE,
+      ],
+    ];
+    // Prepare the sidebarContact data object.
+    $sideContent['contactList'] = Organisms::prepareContactList($node, $sidebarContacts_options);
+    unset($sideContent['contactList']['compHeading']);
+    $sideContent['contactList']['sidebarHeading']['title'] = t('Contact');
+    $sideContent['contactList']['viewSpecific'] = TRUE;
+  }
+
+  // Build related links section, if field is populated.
+  if (Helper::isFieldPopulated($node, $fields['links'])) {
+    // Set up options for link list.
+    $pressListing_options = [
+      'heading' => [
+        'type' => 'sidebarHeading',
+        'title' => t('Related'),
+      ],
+      'stacked' => TRUE,
+    ];
+
+    $sideContent['pressListing'] = Organisms::preparePressListing($node, $fields['links'], $pressListing_options);
+  }
+
+  // Build related links section, if field is populated.
+  if (Helper::isFieldPopulated($node, $fields['events'])) {
+    // Set up options for contact list.
+    $eventList_options = [
+      'heading' => [
+        'type' => 'sidebarHeading',
+        'title' => t('Upcoming Events'),
+      ],
+      'sidebarDate' => TRUE,
+    ];
+    $sideContent['eventListing'] = Organisms::prepareEventListing($node, $fields['events'], $eventList_options);
+  }
+
+  $variables['mainContent'] = $mainContent;
+  $variables['sideContent'] = $sideContent;
+}
+
+/**
+ * Implements hook_preprocess_node().
+ *
+ * Prepare the variables for the Event page.
+ */
+function mass_theme_preprocess_node_decision(&$variables) {
+  $node = $variables['node'];
+  $sidebar = [];
+  $category = '';
+
+  // Create the map of all possible field names to use.
+  $map = [
+    'contact' => ['field_decision_ref_contact'],
+    'date' => ['field_decision_date'],
+    'number' => ['field_decision_docket_number'],
+    'downloads' => ['field_decision_download'],
+    'location' => ['field_decision_location'],
+    'meta_tags' => ['field_decision_metatags'],
+    'organization' => ['field_decision_ref_organization'],
+    'overview' => ['field_decision_overview'],
+    'participants' => ['field_decision_participants'],
+    'sources' => ['field_decision_sources'],
+    'links' => ['field_decision_related'],
+    'sections' => ['field_decision_section'],
+    'category' => ['field_decision_ref_type'],
+    'events' => ['field_decision_upcoming_ev'],
+    'footnotes' => ['field_decision_footnotes'],
+  ];
+
+  // Determines which field names to use from the map.
+  $fields = Helper::getMappedFields($node, $map);
+
+  if (Helper::isFieldPopulated($node, $fields['date'])) {
+    // Set up rich text elements for what you need.
+    $listingTable['rows'][] = [
+      'label' => t("Date@colon", ['@colon' => ':']),
+      'text' => \Drupal::service('date.formatter')->format(strtotime($node->$fields['date']->value), 'custom', 'm/d/Y'),
+    ];
+  }
+
+  if (Helper::isFieldPopulated($node, $fields['organization'])) {
+    foreach ($node->$fields['organization'] as $index => $org) {
+      $orgEntity = $org->entity;
+      $listingTable['rows'][] = [
+        'label' => t("Organization@colon", ['@colon' => ':']),
+        'text' => $orgEntity->getTitle(),
+      ];
+    }
+  }
+
+  if (Helper::isFieldPopulated($node, $fields['number'])) {
+    // Set up rich text elements for what you need.
+    $listingTable['rows'][] = [
+      'label' => t("Docket Number@colon", ['@colon' => ':']),
+      'text' => Helper::fieldValue($node, $fields['number']),
+    ];
+  }
+
+  if (Helper::isFieldPopulated($node, 'field_decision_location')) {
+    // Set up rich text elements for what you need.
+    $listingTable['rows'][] = [
+      'label' => t("Location@colon", ['@colon' => ':']),
+      'text' => Helper::fieldValue($node, 'field_decision_location'),
+    ];
+  }
+
+  if (Helper::isFieldPopulated($node, $fields['sources'])) {
+    $listingTable['rows'][] = Helper::sourceListingTable($node, ['sources' => $fields['sources']]);
+  }
+
+  $optionalContents[] = [
+    'path' => '@molecules/listing-table.twig',
+    'data' => [
+      'listingTable' => $listingTable,
+    ],
+  ];
+
+  if (Helper::isFieldPopulated($node, 'field_decision_participants')) {
+    $rows = [];
+    // Create rows.
+    foreach ($node->$fields['participants'] as $participant) {
+      $participantEntity = $participant->entity;
+      $participantType = $participantEntity->field_ref_participant_type->entity;
+      $participantName = Helper::fieldValue($participantEntity, 'field_decision_participant_name');
+
+      if (!empty($participantType) && !empty($participantName)) {
+        $rows[] = [
+          'label' => $participantType->name->value . ':',
+          'text' => $participantName,
+        ];
+      }
+    }
+
+    // Group results.
+    foreach ($rows as $data) {
+      $id = $data['label'];
+      if (isset($result[$id])) {
+        $result[$id][] = $data['text'];
+      }
+      else {
+        $result[$id] = [$data['text']];
+      }
+    }
+
+    // Structure for template.
+    foreach ($result as $category => $people) {
+      foreach ($people as $person) {
+        $persons[$category][] = $person;
+      }
+      $labelledList['items'][] = [
+        'label' => $category,
+        'text' => implode(', ', $persons[$category]),
+      ];
+    }
+
+    if (!empty($result)) {
+      $optionalContents[] = [
+        'path' => '@molecules/labelled-list.twig',
+        'data' => [
+          'labelledList' => $labelledList,
+        ],
+      ];
+    }
+  }
+
+  if (Helper::isFieldPopulated($node, $fields['overview'])) {
+    $headerRichText = [
+      'rteElements' => [
+        Atoms::prepareRawHtml($node, ['field' => $fields['overview']]),
+      ],
+    ];
+
+    $optionalContents[] = [
+      'path' => '@organisms/by-author/rich-text.twig',
+      'data' => [
+        'richText' => $headerRichText,
+      ],
+    ];
+  }
+
+  $taxonomyTerms = [];
+
+  if (!empty($node->$fields['organization'])) {
+    foreach ($node->$fields['organization'] as $tag) {
+      $taxonomyTerms[] = [
+        'href' => $tag->entity->toURL()->toString(),
+        'text' => Helper::fieldValue($tag->entity, 'title'),
+      ];
+    }
+  }
+
+  if (Helper::isFieldPopulated($node, $fields['category'])) {
+    $category = Term::load($node->field_decision_ref_type->target_id)->getName();
+  }
+
+  // Set static pageHeader properties to pass to prepare function.
+  $pageHeader_options = [
+    'category' => $category,
+    'headerTags' => [
+      'label' => t('Related to:'),
+      'taxonomyTerms' => $taxonomyTerms,
+    ],
+    'optionalContents' => $optionalContents,
+  ];
+
+  // Make pageBanner data object available in twig template.
+  $variables['pageHeader'] = Organisms::preparePageHeader($node, $pageHeader_options);
+
+  foreach ($node->$fields['sections'] as $index => $section) {
+    $variables['numOfSections'] = ++$index;
+    $sectionEntity = $section->entity;
+
+    // Create the map of the field names to use.
+    $map_ref = [
+      'title' => ['field_decision_section_title'],
+      'body' => ['field_decision_section_body'],
+    ];
+
+    // Determines which field names to use from the map.
+    $field = Helper::getMappedFields($sectionEntity, $map_ref);
+
+    if (Helper::isFieldPopulated($sectionEntity, $field['title'])) {
+      $compHeading_options = [
+        'title' => Helper::fieldValue($sectionEntity, $field['title']),
+      ];
+      $sections[$index]['title'] = Atoms::prepareCompHeading($compHeading_options);
+      $sections[$index]['id'] = Helper::createIdTitle(Helper::fieldValue($sectionEntity, $field['title']));
+    }
+
+    if (Helper::isFieldPopulated($sectionEntity, $field['body'])) {
+      // Set up rich text elements for what you need.
+      $sections[$index]['richText'] = [
+        'rteElements' => [
+          Atoms::prepareRawHtml($sectionEntity, ['field' => $field['body']]),
+        ],
+      ];
+    }
+  }
+
+  if (Helper::isFieldPopulated($node, $fields['downloads'])) {
+    // Set up options for formDownloads prepare.
+    $downloadLinks_options = [
+      'heading' => [
+        'type' => 'compHeading',
+        'title' => t('Downloads'),
+        'sub' => TRUE,
+        'id' => 'downloads',
+      ],
+    ];
+    $mainContent['formDownloads'] = Organisms::prepareFormDownloads($node, $downloadLinks_options);
+
+    $sections[] = [
+      'title' => $downloadLinks_options['heading']['title'],
+      'id' => $downloadLinks_options['heading']['id'],
+    ];
+  }
+
+  // Build contact section, if field is populated.
+  if (Helper::isFieldPopulated($node, $fields['contact'])) {
+    // Set up options for contact list.
+    $contactList_options = [
+      'heading' => [
+        'title' => t("Contact"),
+        'sub' => TRUE,
+        'id' => 'contact',
+      ],
+      'groups' => [
+        'accordion' => TRUE,
+        'isExpanded' => FALSE,
+        'onlyPhoneAndOnline' => TRUE,
+      ],
+    ];
+
+    $mainContent['contactList'] = Organisms::prepareContactList($node, $contactList_options);
+    // Build sidebar.contactList, which is a subset of pageContent.ContactList.
+    // Prepare the quickActions data object.
+    $sidebarContacts_options = [
+      'groups' => [
+        'accordion' => FALSE,
+        'isExpanded' => FALSE,
+        'onlyPhoneAndOnline' => TRUE,
+      ],
+    ];
+    // Prepare the sidebarContact data object.
+    $sideContent['contactList'] = Organisms::prepareContactList($node, $sidebarContacts_options);
+    unset($sideContent['contactList']['compHeading']);
+    $sideContent['contactList']['sidebarHeading']['title'] = t('Contact');
+    $sideContent['contactList']['viewSpecific'] = TRUE;
+
+    $sections[] = [
+      'title' => $contactList_options['heading']['title'],
+      'id' => $contactList_options['heading']['id'],
+    ];
+  }
+
+  if (Helper::isFieldPopulated($node, $fields['sections'])) {
+    // Jump link options.
+    $jumplink_options = [
+      'title' => t('In this section'),
+    ];
+    $sections['jumpLinks'] = Organisms::prepareJumpLinks($sections, $jumplink_options);
+  }
+
+  if (Helper::isFieldPopulated($node, $fields['footnotes'])) {
+    $footnoteList['items'][]['richText'] = [
+      'rteElements' => [
+        Atoms::prepareRawHtml($node, ['field' => $fields['footnotes']]),
+      ],
+    ];
+
+    $mainContent['footnoteList'] = $footnoteList;
+  }
+
+  if (Helper::isFieldPopulated($node, $fields['sources'])) {
+    $taxonomyTerms = [];
+    $source_links = Helper::dataFromLinkField($node, ['link' => $fields['sources']]);
+    foreach ($source_links as $source_link) {
+      $taxonomyTerms[] = [
+        'href' => $source_link['url'],
+        'text' => $source_link['title'],
+      ];
+    }
+    $references = [
+      'label' => t("Referenced Legislation@colon", ['@colon' => ':']),
+      'taxonomyTerms' => $taxonomyTerms,
+    ];
+
+    $mainContent['references'] = $references;
+  }
+
+  // Build related links section, if field is populated.
+  if (Helper::isFieldPopulated($node, $fields['links'])) {
+    // Set up options for link list.
+    $pressListing_options = [
+      'heading' => [
+        'type' => 'sidebarHeading',
+        'title' => t('Related'),
+      ],
+      'stacked' => TRUE,
+    ];
+
+    $sideContent['pressListing'] = Organisms::preparePressListing($node, $fields['links'], $pressListing_options);
+  }
+
+  // Build related links section, if field is populated.
+  if (Helper::isFieldPopulated($node, $fields['events'])) {
+    // Set up options for contact list.
+    $eventList_options = [
+      'heading' => [
+        'type' => 'sidebarHeading',
+        'title' => t('Upcoming Events'),
+      ],
+      'sidebarDate' => TRUE,
+    ];
+    $sideContent['eventListing'] = Organisms::prepareEventListing($node, $fields['events'], $eventList_options);
+  }
+
+  $variables['sections'] = $sections;
+  $variables['mainContent'] = $mainContent;
+  $variables['sideContent'] = $sideContent;
+}
+
+/**
+ * Implements hook_preprocess_node().
+ *
+ * Prepare the variables for the Event page.
+ */
+function mass_theme_preprocess_node_advisory(&$variables) {
+  $node = $variables['node'];
+  $category = '';
+  $publish_state = NULL;
+  $sidebar = [];
+  $listingTable = [];
+
+  // Create the map of all possible field names to use.
+  $map = [
+    'contact' => ['field_advisory_ref_contact'],
+    'date' => ['field_advisory_date'],
+    'issuer' => ['field_advisory_issuer'],
+    'downloads' => ['field_advisory_download'],
+    'meta_tags' => ['field_advisory_metatags'],
+    'organization' => ['field_advisory_ref_organization'],
+    'overview' => ['field_advisory_overview'],
+    'publish_state' => ['field_advisory_publish_state_tax'],
+    'sources' => ['field_advisory_ref_sources'],
+    'links' => ['field_advisory_links'],
+    'sections' => ['field_advisory_section'],
+    'category' => ['field_advisory_type_tax'],
+    'events' => ['field_advisory_ref_events'],
+    'footnotes' => ['field_advisory_footnotes'],
+  ];
+
+  // Determines which field names to use from the map.
+  $fields = Helper::getMappedFields($node, $map);
+
+  if (Helper::isFieldPopulated($node, $fields['date'])) {
+    // Set up rich text elements for what you need.
+    $listingTable['rows'][] = [
+      'label' => t("Date@colon", ['@colon' => ':']),
+      'text' => \Drupal::service('date.formatter')->format(strtotime($node->$fields['date']->value), 'custom', 'm/d/Y'),
+    ];
+  }
+
+  if (Helper::isFieldPopulated($node, $fields['issuer'])) {
+    $map_issuer = [
+      'display_name' => ['field_issuer_display_name'],
+      'title' => ['field_issuer_title'],
+    ];
+
+    $issuers = Helper::issuerListingTable($node, ['issuer' => $fields['issuer']], $map_issuer);
+
+    $listingTable['rows'][] = [
+      'label' => t("Organization@colon", ['@colon' => ':']),
+      'text' => nl2br(implode("\n", $issuers)),
+    ];
+  }
+
+  if (Helper::isFieldPopulated($node, $fields['sources'])) {
+    $listingTable['rows'][] = Helper::sourceListingTable($node, ['sources' => $fields['sources']]);
+  }
+
+  $optionalContents[] = [
+    'path' => '@molecules/listing-table.twig',
+    'data' => [
+      'listingTable' => $listingTable,
+    ],
+  ];
+
+  if (Helper::isFieldPopulated($node, $fields['overview'])) {
+    $headerRichText = [
+      'rteElements' => [
+        Atoms::prepareRawHtml($node, ['field' => $fields['overview']]),
+      ],
+    ];
+
+    $optionalContents[] = [
+      'path' => '@organisms/by-author/rich-text.twig',
+      'data' => [
+        'richText' => $headerRichText,
+      ],
+    ];
+  }
+
+  $taxonomyTerms = [];
+
+  if (!empty($node->$fields['organization'])) {
+    foreach ($node->$fields['organization'] as $tag) {
+      $taxonomyTerms[] = [
+        'href' => $tag->entity->toURL()->toString(),
+        'text' => Helper::fieldValue($tag->entity, 'title'),
+      ];
+    }
+  }
+
+  if (Helper::isFieldPopulated($node, $fields['category'])) {
+    $category = Term::load($node->field_advisory_type_tax->target_id)->getName();
+  }
+
+  // Set static pageHeader properties to pass to prepare function.
+  $pageHeader_options = [
+    'category' => $category,
+    'headerTags' => [
+      'label' => t('Related to:'),
+      'taxonomyTerms' => $taxonomyTerms,
+    ],
+    'optionalContents' => $optionalContents,
+  ];
+
+  if (Helper::isFieldPopulated($node, $fields['publish_state'])) {
+    $publish_state = [
+      'publishState' => [
+        'text' => Term::load($node->field_advisory_publish_state_tax->target_id)->getName(),
+      ],
+    ];
+
+    $pageHeader_options = array_merge($pageHeader_options, $publish_state);
+  }
+
+  // Make pageBanner data object available in twig template.
+  $variables['pageHeader'] = Organisms::preparePageHeader($node, $pageHeader_options);
+
+  foreach ($node->$fields['sections'] as $index => $section) {
+    $variables['numOfSections'] = ++$index;
+    $sectionEntity = $section->entity;
+
+    // Create the map of the field names to use.
+    $map_ref = [
+      'title' => ['field_advisory_section_title'],
+      'body' => ['field_advisory_section_body'],
+    ];
+
+    // Determines which field names to use from the map.
+    $field = Helper::getMappedFields($sectionEntity, $map_ref);
+
+    if (Helper::isFieldPopulated($sectionEntity, $field['title'])) {
+      $compHeading_options = [
+        'title' => Helper::fieldValue($sectionEntity, $field['title']),
+      ];
+      $sections[$index]['title'] = Atoms::prepareCompHeading($compHeading_options);
+      $sections[$index]['id'] = Helper::createIdTitle(Helper::fieldValue($sectionEntity, $field['title']));
+    }
+
+    if (Helper::isFieldPopulated($sectionEntity, $field['body'])) {
+      // Set up rich text elements for what you need.
+      $sections[$index]['richText'] = [
+        'rteElements' => [
+          Atoms::prepareRawHtml($sectionEntity, ['field' => $field['body']]),
+        ],
+      ];
+    }
+  }
+
+  if (Helper::isFieldPopulated($node, $fields['downloads'])) {
+    // Set up options for formDownloads prepare.
+    $downloadLinks_options = [
+      'heading' => [
+        'type' => 'compHeading',
+        'title' => t('Downloads'),
+        'sub' => TRUE,
+        'id' => 'downloads',
+      ],
+    ];
+    $mainContent['formDownloads'] = Organisms::prepareFormDownloads($node, $downloadLinks_options);
+
+    $sections[] = [
+      'title' => $downloadLinks_options['heading']['title'],
+      'id' => $downloadLinks_options['heading']['id'],
+    ];
+  }
+
+  // Build contact section, if field is populated.
+  if (Helper::isFieldPopulated($node, $fields['contact'])) {
+    // Set up options for contact list.
+    $contactList_options = [
+      'heading' => [
+        'title' => t("Contact"),
+        'sub' => TRUE,
+        'id' => 'contact',
+      ],
+      'groups' => [
+        'accordion' => TRUE,
+        'isExpanded' => FALSE,
+        'onlyPhoneAndOnline' => TRUE,
+      ],
+    ];
+
+    $mainContent['contactList'] = Organisms::prepareContactList($node, $contactList_options);
+    // Build sidebar.contactList, which is a subset of pageContent.ContactList.
+    // Prepare the quickActions data object.
+    $sidebarContacts_options = [
+      'groups' => [
+        'accordion' => FALSE,
+        'isExpanded' => FALSE,
+        'onlyPhoneAndOnline' => TRUE,
+      ],
+    ];
+    // Prepare the sidebarContact data object.
+    $sideContent['contactList'] = Organisms::prepareContactList($node, $sidebarContacts_options);
+    unset($sideContent['contactList']['compHeading']);
+    $sideContent['contactList']['sidebarHeading']['title'] = t('Contact');
+    $sideContent['contactList']['viewSpecific'] = TRUE;
+
+    $sections[] = [
+      'title' => $contactList_options['heading']['title'],
+      'id' => $contactList_options['heading']['id'],
+    ];
+  }
+
+  if (Helper::isFieldPopulated($node, $fields['sections'])) {
+    // Jump link options.
+    $jumplink_options = [
+      'title' => t('In this section'),
+    ];
+    $sections['jumpLinks'] = Organisms::prepareJumpLinks($sections, $jumplink_options);
+  }
+
+  if (Helper::isFieldPopulated($node, $fields['footnotes'])) {
+    $footnoteList['items'][]['richText'] = [
+      'rteElements' => [
+        Atoms::prepareRawHtml($node, ['field' => $fields['footnotes']]),
+      ],
+    ];
+
+    $mainContent['footnoteList'] = $footnoteList;
+  }
+
+  if (Helper::isFieldPopulated($node, $fields['sources'])) {
+    $taxonomyTerms = [];
+    $source_links = Helper::dataFromLinkField($node, ['link' => $fields['sources']]);
+    foreach ($source_links as $source_link) {
+      $taxonomyTerms[] = [
+        'href' => $source_link['url'],
+        'text' => $source_link['title'],
+      ];
+    }
+    $references = [
+      'label' => t("Referenced Legislation@colon", ['@colon' => ':']),
+      'taxonomyTerms' => $taxonomyTerms,
+    ];
+
+    $mainContent['references'] = $references;
+  }
+
+  // Build related links section, if field is populated.
+  if (Helper::isFieldPopulated($node, $fields['links'])) {
+    // Set up options for link list.
+    $pressListing_options = [
+      'heading' => [
+        'type' => 'sidebarHeading',
+        'title' => t('Related'),
+      ],
+      'stacked' => TRUE,
+    ];
+
+    $sideContent['pressListing'] = Organisms::preparePressListing($node, $fields['links'], $pressListing_options);
+  }
+
+  // Build related links section, if field is populated.
+  if (Helper::isFieldPopulated($node, $fields['events'])) {
+    // Set up options for contact list.
+    $eventList_options = [
+      'heading' => [
+        'type' => 'sidebarHeading',
+        'title' => t('Upcoming Events'),
+      ],
+      'sidebarDate' => TRUE,
+    ];
+    $sideContent['eventListing'] = Organisms::prepareEventListing($node, $fields['events'], $eventList_options);
+  }
+
+  $variables['sections'] = $sections;
+  $variables['mainContent'] = $mainContent;
+  $variables['sideContent'] = $sideContent;
 }
 
 /**
@@ -1835,10 +2621,6 @@ function mass_theme_preprocess_node_news(&$variables) {
         'title' => t('Related'),
       ],
       'stacked' => TRUE,
-      'useEyebrow' => [
-        'news',
-        'regulation',
-      ],
       'category' => $allowed_news_types[$type_value],
     ];
 

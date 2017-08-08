@@ -318,6 +318,158 @@ function _mass_validation_form_node_location_details_form_validate(array &$form,
 /**
  * Implements hook_form_FORM_ID_alter() for the FORM_ID() form.
  */
+function mass_validation_form_node_executive_order_edit_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $form['#validate'][] = '_mass_validation_form_node_executive_order_form_validate';
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for the FORM_ID() form.
+ */
+function mass_validation_form_node_executive_order_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $form['#validate'][] = '_mass_validation_form_node_executive_order_form_validate';
+}
+
+/**
+ * Validates submission values in the FORM_ID() form.
+ */
+function _mass_validation_form_node_executive_order_form_validate(array &$form, FormStateInterface $form_state) {
+  _mass_link_validate($form_state, 'field_executive_order_related');
+  _mass_link_validate($form_state, 'field_executive_order_events');
+
+  // Get the paragraphs field that contain the link fields.
+  if ($form_state->hasValue('field_executive_order_adjustment')) {
+    $paragraphs = $form_state->getValue('field_executive_order_adjustment');
+    $is_updated = FALSE;
+    // Validate each paragraph.
+    foreach ($paragraphs as $key => $paragraph) {
+      // Verify this is a paragraph with fields.
+      if (array_key_exists('subform', $paragraph)) {
+        // Look at each link field in the paragraph.
+        foreach ($paragraph['subform']['field_adjustment_type_link'] as $field_key => $field) {
+          if (is_array($field)) {
+            // If the field has a uri but no title, get one if possible.
+            if (!empty($field['uri']) && empty($field['title'])) {
+              $uri = $field['uri'];
+              $title = t('');
+              // If a link is to a node, get the node title.
+              if (stripos($uri, 'entity:node') === 0) {
+                // Get the node from the uri.
+                $uri_parts = explode('/', $uri);
+                $nid = count($uri_parts) > 1 ? intval($uri_parts[1]) : NULL;
+                if ($nid) {
+                  $node = Node::load($nid);
+                  if (!is_null($node)) {
+                    if ($node->field_executive_order_number->value) {
+                      $title = t('Executive Order No. ') . $node->field_executive_order_number->value;
+                    }
+                    else {
+                      $title = $node->getTitle();
+                    }
+                  }
+                }
+              }
+              if ($title) {
+                $paragraphs[$key]['subform']['field_adjustment_type_link'][$field_key]['title'] = $title;
+                $is_updated = TRUE;
+              }
+              else {
+                // If the link has no title and is external throw an error.
+                $form_state->setErrorByName('field_executive_order_adjustment' . '][' . $key . '][subform][' . 'field_adjustment_type_link' . '][' . $field_key, t('External links require a title.'));
+              }
+            }
+          }
+        }
+      }
+    }
+    if ($is_updated) {
+      // Update the paragraph with new values.
+      $form_state->setValueForElement(['#parents' => ['field_executive_order_adjustment']], $paragraphs);
+    }
+  }
+
+  if ($form_state->hasValue('body') || $form_state->hasValue('field_executive_order_downloads')) {
+    $body = $form_state->getValue('body');
+    $downloads = $form_state->getValue('field_executive_order_downloads');
+
+    // If both fields are empty, throw error.
+    if (empty($body[0]['value']) && empty($downloads['entities'])) {
+      $form_state->setErrorByName('body', t('Either the body field or downloads must be filled out.'));
+      $form_state->setErrorByName('field_executive_order_downloads', t('Either the body field or downloads must be filled out.'));
+    }
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for the FORM_ID() form.
+ */
+function mass_validation_form_node_decision_edit_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $form['#validate'][] = '_mass_validation_form_node_decision_form_validate';
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for the FORM_ID() form.
+ */
+function mass_validation_form_node_decision_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $form['#validate'][] = '_mass_validation_form_node_decision_form_validate';
+}
+
+/**
+ * Validates submission values in the FORM_ID() form.
+ */
+function _mass_validation_form_node_decision_form_validate(array &$form, FormStateInterface $form_state) {
+
+  // Link fields.
+  _mass_link_validate($form_state, 'field_decision_related');
+  _mass_link_validate($form_state, 'field_decision_upcoming_events');
+  _mass_link_validate($form_state, 'field_decision_sources');
+
+  $section = $form_state->getValue('field_decision_section');
+  $downloads = $form_state->getValue('field_decision_download');
+
+  // If both fields are empty, throw error.
+  if (!is_int(key($section)) && empty($downloads['entities'])) {
+    $form_state->setErrorByName('field_decision_section', t('Either the section field or downloads must be filled out.'));
+    $form_state->setErrorByName('field_decision_downloads', t('Either the section field or downloads must be filled out.'));
+  }
+
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for the FORM_ID() form.
+ */
+function mass_validation_form_node_advisory_edit_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $form['#validate'][] = '_mass_validation_form_node_advisory_form_validate';
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for the FORM_ID() form.
+ */
+function mass_validation_form_node_advisory_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $form['#validate'][] = '_mass_validation_form_node_advisory_form_validate';
+}
+
+/**
+ * Validates submission values in the FORM_ID() form.
+ */
+function _mass_validation_form_node_advisory_form_validate(array &$form, FormStateInterface $form_state) {
+  // Link fields.
+  _mass_link_validate($form_state, 'field_advisory_links');
+  _mass_link_validate($form_state, 'field_advisory_ref_sources');
+
+  $section = $form_state->getValue('field_advisory_section');
+  $downloads = $form_state->getValue('field_advisory_download');
+
+  // If both fields are empty, throw error.
+  if (!is_int(key($section)) && empty($downloads['entities'])) {
+    $form_state->setErrorByName('field_advisory_section', t('Either the section field or downloads must be filled out.'));
+    $form_state->setErrorByName('field_advisory_downloads', t('Either the section field or downloads must be filled out.'));
+  }
+
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for the FORM_ID() form.
+ */
 function mass_validation_form_node_event_edit_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   $form['#validate'][] = '_mass_validation_form_node_event_form_validate';
 }
@@ -415,7 +567,7 @@ function _mass_validation_form_node_legacy_redirects_form_validate(array &$form,
             'http://www.mass.gov/portal/',
             'http://www.mass.gov/portal',
             'http://www.mass.gov',
-            'http://www.mass.gov/'
+            'http://www.mass.gov/',
           ];
           if ((strpos($legacy_url['value'], "http://www.mass.gov") !== 0) && (strpos($legacy_url['value'], "https://www.mass.gov") !== 0)) {
             $form_state->setErrorByName('field_legacy_redirects_legacyurl][' . $key, t('Legacy URL must start with "https://www.mass.gov" or "http://www.mass.gov".'));

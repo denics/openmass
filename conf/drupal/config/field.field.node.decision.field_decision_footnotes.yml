@@ -1,0 +1,33 @@
+uuid: 10c542db-1833-44b0-a7a3-9f7bb761ce80
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_decision_footnotes
+    - node.type.decision
+  module:
+    - geocoder_field
+    - text
+third_party_settings:
+  geocoder_field:
+    method: none
+    field: title
+    plugins: {  }
+    dumper: wkt
+    delta_handling: default
+    failure:
+      handling: preserve
+      status_message: true
+      log: true
+id: node.decision.field_decision_footnotes
+field_name: field_decision_footnotes
+entity_type: node
+bundle: decision
+label: Footnotes
+description: 'Enter footnotes as a numbered list.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

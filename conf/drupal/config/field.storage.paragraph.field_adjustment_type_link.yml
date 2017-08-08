@@ -1,18 +1,18 @@
-uuid: e44f999e-ecca-4675-b268-df415e95b902
+uuid: ea7f363f-0c7d-4a35-872f-3ce530df722e
 langcode: en
 status: true
 dependencies:
   module:
     - link
-    - node
-id: node.field_decision_upcoming_events
-field_name: field_decision_upcoming_events
-entity_type: node
+    - paragraphs
+id: paragraph.field_adjustment_type_link
+field_name: field_adjustment_type_link
+entity_type: paragraph
 type: link
 settings: {  }
 module: link
 locked: false
-cardinality: -1
+cardinality: 1
 translatable: true
 indexes: {  }
 persist_with_no_fields: false

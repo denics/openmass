@@ -1,18 +1,18 @@
-uuid: 27210969-c1a0-4cb7-87ae-01e44f110bf1
+uuid: cef80339-e1e8-4df7-aa38-15c5c664827d
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_executive_order_events
-    - node.type.executive_order
+    - field.storage.paragraph.field_adjustment_type_link
+    - paragraphs.paragraphs_type.adjustment_type
   module:
     - link
-id: node.executive_order.field_executive_order_events
-field_name: field_executive_order_events
-entity_type: node
-bundle: executive_order
-label: 'Upcoming events'
-description: 'Any upcoming events that may be related to the executive order.'
+id: paragraph.adjustment_type.field_adjustment_type_link
+field_name: field_adjustment_type_link
+entity_type: paragraph
+bundle: adjustment_type
+label: 'Related Order'
+description: ''
 required: false
 translatable: false
 default_value: {  }
@@ -21,13 +21,16 @@ settings:
   link_type: 17
   title: 1
   content_types:
-    event: event
-    executive_order: 0
+    executive_order: executive_order
     action: 0
+    advisory: 0
     contact_information: 0
+    decision: 0
     emergency_alerts: 0
     error_page: 0
+    event: 0
     fee: 0
+    form_page: 0
     guide_page: 0
     how_to_page: 0
     interstitial: 0

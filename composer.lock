@@ -197,7 +197,8 @@
                 "url": "https://github.com/blakestein/drupal-datalayer-d8.git",
                 "reference": "3b2ffa7"
             },
-            "type": "drupal-module"
+            "type": "drupal-module",
+            "time": "2017-01-05T00:00:58+00:00"
         },
         {
             "name": "caxy/php-htmldiff",
@@ -1554,7 +1555,8 @@
             "homepage": "https://www.drupal.org/project/access_unpublished",
             "support": {
                 "source": "http://cgit.drupalcode.org/access_unpublished"
-            }
+            },
+            "time": "2017-01-26T16:59:48+00:00"
         },
         {
             "name": "drupal/acquia_connector",
@@ -1671,7 +1673,7 @@
                 },
                 "drupal": {
                     "version": "8.x-1.0-alpha3",
-                    "datestamp": "1499338442"
+                    "datestamp": "1495469283"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -1720,7 +1722,7 @@
                 },
                 "drupal": {
                     "version": "8.x-1.0",
-                    "datestamp": "1499893143"
+                    "datestamp": "1495109886"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -1749,17 +1751,11 @@
         },
         {
             "name": "drupal/auto_entitylabel",
-            "version": "2.0.0-beta1",
+            "version": "dev-2.x",
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/auto_entitylabel",
-                "reference": "8.x-2.0-beta1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/auto_entitylabel-8.x-2.0-beta1.zip",
-                "reference": "8.x-2.0-beta1",
-                "shasum": "9978f4b5f2cdb3955e685a83c6b7f57f6d0b999d"
+                "reference": "49e148c976facb384d1ddcda1b7b2a5d26856c70"
             },
             "require": {
                 "drupal/core": "~8.0"
@@ -1770,8 +1766,8 @@
                     "dev-2.x": "2.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-2.0-beta1",
-                    "datestamp": "1487875383"
+                    "version": "8.x-2.0-beta1+17-dev",
+                    "datestamp": "1499776442"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -1799,7 +1795,8 @@
             "description": "Allows hiding of entity label fields and automatic label creation.",
             "homepage": "https://www.drupal.org/project/auto_entitylabel",
             "support": {
-                "source": "http://cgit.drupalcode.org/auto_entitylabel"
+                "source": "http://cgit.drupalcode.org/auto_entitylabel",
+                "issues": "https://www.drupal.org/project/issues/auto_entitylabel"
             }
         },
         {
@@ -1819,8 +1816,8 @@
                     "dev-1.x": "1.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-1.1+4-dev",
-                    "datestamp": "1499338442"
+                    "version": "8.x-1.1+2-dev",
+                    "datestamp": "1498744743"
                 },
                 "patches_applied": {
                     "Fix the positioning of the additional help text (https://www.drupal.org/node/2882765)": "https://www.drupal.org/files/issues/better_field_descriptions-position-help-2882765-0.patch",
@@ -2522,7 +2519,8 @@
                     "Remove drupal.js error. (https://www.drupal.org/node/2661880)": "https://www.drupal.org/files/issues/quickedit-undefined-attr-2661880-14.patch",
                     "Don't break if telephone number is less than 6 digits. (https://www.drupal.org/node/2575577#comment-11750724)": "https://www.drupal.org/files/issues/2575577-11.patch",
                     "Fix photo disappearing from org page. Fix Contextual Links js bug.": "https://www.drupal.org/files/issues/2551373-32.patch",
-                    "Link autocomplete content type filter. (https://www.drupal.org/node/2887376#comment-12147367)": "https://www.drupal.org/files/issues/link-autocomplete-ct-filter-2887376-5-8.4.x.patch"
+                    "Link autocomplete content type filter. (https://www.drupal.org/node/2887376#comment-12147367)": "https://www.drupal.org/files/issues/link-autocomplete-ct-filter-2887376-5-8.4.x.patch",
+                    "Number widget validation can break AJAX actions. (https://www.drupal.org/node/2614250)": "https://www.drupal.org/files/issues/2614250-40.patch"
                 }
             },
             "autoload": {
@@ -2801,7 +2799,8 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/diff",
                 "issues": "https://www.drupal.org/project/issues/diff"
-            }
+            },
+            "time": "2017-01-09T10:31:38+00:00"
         },
         {
             "name": "drupal/draggableviews",
@@ -3081,8 +3080,8 @@
                     "dev-3.x": "3.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-3.0-alpha2+7-dev",
-                    "datestamp": "1499719142"
+                    "version": "8.x-3.0-alpha2+3-dev",
+                    "datestamp": "1493932085"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -3115,7 +3114,8 @@
             "homepage": "https://www.drupal.org/project/encrypt",
             "support": {
                 "source": "http://cgit.drupalcode.org/encrypt"
-            }
+            },
+            "time": "2016-08-05T15:43:56+00:00"
         },
         {
             "name": "drupal/entity",
@@ -3700,7 +3700,8 @@
             "homepage": "https://www.drupal.org/project/ga_login",
             "support": {
                 "source": "http://cgit.drupalcode.org/ga_login"
-            }
+            },
+            "time": "2016-08-19T19:20:09+00:00"
         },
         {
             "name": "drupal/geocoder",
@@ -4034,7 +4035,8 @@
             "homepage": "https://www.drupal.org/project/inline_entity_form",
             "support": {
                 "source": "http://cgit.drupalcode.org/inline_entity_form"
-            }
+            },
+            "time": "2016-11-14T20:32:26+00:00"
         },
         {
             "name": "drupal/key",
@@ -4144,7 +4146,8 @@
                 "source": "http://cgit.drupalcode.org/libraries",
                 "issues": "http://drupal.org/project/issues/libraries",
                 "irc": "irc://irc.freenode.org/drupal-contribute"
-            }
+            },
+            "time": "2017-03-15T17:04:08+00:00"
         },
         {
             "name": "drupal/media_entity",
@@ -4498,10 +4501,6 @@
                 {
                     "name": "mikeryan",
                     "homepage": "https://www.drupal.org/user/4420"
-                },
-                {
-                    "name": "moshe weitzman",
-                    "homepage": "https://www.drupal.org/user/23"
                 }
             ],
             "description": "Tools to assist in developing and running migrations.",
@@ -4557,7 +4556,8 @@
             "homepage": "https://www.drupal.org/project/node_edit_protection",
             "support": {
                 "source": "http://cgit.drupalcode.org/node_edit_protection"
-            }
+            },
+            "time": "2016-07-21T12:38:12+00:00"
         },
         {
             "name": "drupal/node_title_help_text",
@@ -4918,7 +4918,7 @@
                 },
                 "drupal": {
                     "version": "8.x-3.0-beta6",
-                    "datestamp": "1500909542"
+                    "datestamp": "1477484639"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -4959,7 +4959,7 @@
                 },
                 "drupal": {
                     "version": "8.x-3.0-beta6",
-                    "datestamp": "1500909542"
+                    "datestamp": "1477484639"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -5000,7 +5000,7 @@
                 },
                 "drupal": {
                     "version": "8.x-3.0-beta6",
-                    "datestamp": "1500909542"
+                    "datestamp": "1477484639"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -5041,7 +5041,7 @@
                 },
                 "drupal": {
                     "version": "8.x-3.0-beta6",
-                    "datestamp": "1500909542"
+                    "datestamp": "1477484639"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -5082,7 +5082,7 @@
                 },
                 "drupal": {
                     "version": "8.x-3.0-beta6",
-                    "datestamp": "1500909542"
+                    "datestamp": "1477484639"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -5473,7 +5473,8 @@
             "homepage": "https://www.drupal.org/project/security_review",
             "support": {
                 "source": "http://cgit.drupalcode.org/security_review"
-            }
+            },
+            "time": "2016-10-20T15:43:48+00:00"
         },
         {
             "name": "drupal/simple_oauth",
@@ -6095,7 +6096,8 @@
             "homepage": "https://www.drupal.org/project/xmlsitemap",
             "support": {
                 "source": "http://cgit.drupalcode.org/xmlsitemap"
-            }
+            },
+            "time": "2016-12-07T10:00:27+00:00"
         },
         {
             "name": "easyrdf/easyrdf",
@@ -7586,16 +7588,16 @@
         },
         {
             "name": "palantirnet/mayflower-artifacts",
-            "version": "5.5.0",
+            "version": "5.5.1-alpha",
             "source": {
                 "type": "git",
                 "url": "https://github.com/massgov/mayflower-artifacts.git",
-                "reference": "bed8df6395ab551467d8a637ec99eeabda3b7b2b"
+                "reference": "b32f36549e99a2e1b6d7bb2b78a1041c32ffd0d5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/massgov/mayflower-artifacts/zipball/bed8df6395ab551467d8a637ec99eeabda3b7b2b",
-                "reference": "bed8df6395ab551467d8a637ec99eeabda3b7b2b",
+                "url": "https://api.github.com/repos/massgov/mayflower-artifacts/zipball/b32f36549e99a2e1b6d7bb2b78a1041c32ffd0d5",
+                "reference": "b32f36549e99a2e1b6d7bb2b78a1041c32ffd0d5",
                 "shasum": ""
             },
             "type": "library",
@@ -7610,10 +7612,10 @@
             ],
             "description": "This repository is the product of the built artifact from massgov/mayflower",
             "support": {
-                "source": "https://github.com/massgov/mayflower-artifacts/tree/5.5.0",
+                "source": "https://github.com/massgov/mayflower-artifacts/tree/5.5.1-alpha",
                 "issues": "https://github.com/massgov/mayflower-artifacts/issues"
             },
-            "time": "2017-07-21T18:27:34+00:00"
+            "time": "2017-07-31T17:01:35+00:00"
         },
         {
             "name": "palantirnet/the-vagrant",
@@ -12006,7 +12008,7 @@
                 {
                     "name": "Anthon Pang",
                     "email": "apang@softwaredevelopment.ca",
-                    "role": "Fork Maintainer"
+                    "role": "Fork maintainer"
                 }
             ],
             "description": "PHP WebDriver for Selenium 2",
@@ -14103,7 +14105,7 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "drupal/access_unpublished": 20,
-        "drupal/auto_entitylabel": 10,
+        "drupal/auto_entitylabel": 20,
         "drupal/better_field_descriptions": 20,
         "drupal/diff": 20,
         "drupal/draggableviews": 20,
