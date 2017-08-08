@@ -101,19 +101,34 @@ function mass_flagging_node_insert(EntityInterface $node) {
  */
 function mass_flagging_node_update_insert_send_notifications(EntityInterface $node) {
   // Only send notifications after a node has been published.
+  // Load canonical node to check if it has ever been published.
+  // This is necessary as drafts will have a current state of unpublished while
+  // a node is fact published.
   $canonical_node = Drupal::entityTypeManager()->getStorage('node')->load($node->id());
   if ($canonical_node->isPublished()) {
-    $flag = \Drupal::service('flag');
+    $flag_service = \Drupal::service('flag');
     $watch_flag = \Drupal::entityTypeManager()
       ->getStorage('flag')
       ->load(WATCH_FLAG);
 
-    $flag_users = $flag->getFlaggingUsers($node, $watch_flag);
+    $node_watcher_users = $flag_service->getFlaggingUsers($node, $watch_flag);
 
-    if ($flag_users) {
+    if ($node_watcher_users) {
+
+      // Create diff url, @see \modules\contrib\diff\diff.routing.yml.
+      $route_parameters = [
+        'node' => $node->id(),
+        // Compare previous revision (left) to current revision (right).
+        'left_revision' => $node->getLoadedRevisionId(),
+        'right_revision' => $node->getRevisionId(),
+        'filter' => 'split_fields',
+      ];
+
+      $diff_url = Url::fromRoute('diff.revisions_diff', $route_parameters)
+        ->setAbsolute()->toString();
 
       // Create Message.
-      $author_full_name = $node->getRevisionUser()->getDisplayName();
+      $author_username = $node->getRevisionUser()->getDisplayName();
       $params['node_title'] = $node->label();
       $node_edit_time = \Drupal::service('date.formatter')
         ->format($node->getCreatedTime());
@@ -122,26 +137,29 @@ function mass_flagging_node_update_insert_send_notifications(EntityInterface $no
         'node_revision' => $node->vid->value,
       ]);
       $version_url_string = $url->setAbsolute()->toString();
-      $params['message'] = t("Hello, \n\nUser @author_full_name added a new version of the page '@node_title' at @node_edit_time. \n\nTo see the changes, please go to @version_url_string. \n\nRegards, \nMassGov Watchers",
+      $params['message'] = t("Hello,\r\nUser @author_username added a new version of the @node_type '@node_title' at @node_edit_time.\r\n\r\nTo see what changed between the prior draft and this revision, go to:\r\n:version_url_string\r\n\r\nTo see what changed between the previous and new versions, go to:\r\n:diff_url\r\n\r\nRegards,\r\nMassGov Watchers",
         [
-          '@author_full_name' => $author_full_name,
+          '@author_username' => $author_username,
+          '@node_type' => node_get_type_label($node),
           '@node_title' => $params['node_title'],
           '@node_edit_time' => $node_edit_time,
-          '@version_url_string' => $version_url_string,
+          ':version_url_string' => $version_url_string,
+          ':diff_url' => $diff_url,
         ]);
 
       // Create queue to process email for watchers.
       $queue = \Drupal::queue('mass_flagging_email_queue');
       $queue->createQueue();
 
+      // Do not notify the user who creates draft or publishes node.
       $do_not_send_list = [
-        $node->getOwnerId(),
+        \Drupal::currentUser()->id(),
       ];
 
-      foreach ($flag_users as $flag_user) {
-        if (!in_array($flag_user->id(), $do_not_send_list)) {
+      foreach ($node_watcher_users as $watcher) {
+        if (!in_array($watcher->id(), $do_not_send_list)) {
           $data['params'] = $params;
-          $data['user'] = $flag_user;
+          $data['user'] = $watcher;
           $queue->createItem($data);
         }
       }

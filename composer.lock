@@ -1795,8 +1795,7 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/auto_entitylabel",
                 "issues": "https://www.drupal.org/project/issues/auto_entitylabel"
-            },
-            "time": "2017-08-02 16:08:09"
+            }
         },
         {
             "name": "drupal/better_field_descriptions",
