@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "e17d30a5adb710feb89bc3ed34bb7e04",
+    "content-hash": "ef9408153f180188b105d0cfb9f86976",
     "packages": [
         {
             "name": "acquia/acquia-sdk-php",
@@ -197,8 +197,7 @@
                 "url": "https://github.com/blakestein/drupal-datalayer-d8.git",
                 "reference": "3b2ffa7"
             },
-            "type": "drupal-module",
-            "time": "2017-01-05T00:00:58+00:00"
+            "type": "drupal-module"
         },
         {
             "name": "caxy/php-htmldiff",
@@ -1555,8 +1554,7 @@
             "homepage": "https://www.drupal.org/project/access_unpublished",
             "support": {
                 "source": "http://cgit.drupalcode.org/access_unpublished"
-            },
-            "time": "2017-01-26T16:59:48+00:00"
+            }
         },
         {
             "name": "drupal/acquia_connector",
@@ -1673,7 +1671,7 @@
                 },
                 "drupal": {
                     "version": "8.x-1.0-alpha3",
-                    "datestamp": "1495469283"
+                    "datestamp": "1499338442"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -1722,7 +1720,7 @@
                 },
                 "drupal": {
                     "version": "8.x-1.0",
-                    "datestamp": "1495109886"
+                    "datestamp": "1499893143"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -1755,7 +1753,7 @@
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/auto_entitylabel",
-                "reference": "49e148c976facb384d1ddcda1b7b2a5d26856c70"
+                "reference": "d23ef92f94de46b593ca66e78862197343aec66c"
             },
             "require": {
                 "drupal/core": "~8.0"
@@ -1766,8 +1764,8 @@
                     "dev-2.x": "2.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-2.0-beta1+17-dev",
-                    "datestamp": "1499776442"
+                    "version": "8.x-2.0-beta1+19-dev",
+                    "datestamp": "1501681744"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -1797,7 +1795,8 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/auto_entitylabel",
                 "issues": "https://www.drupal.org/project/issues/auto_entitylabel"
-            }
+            },
+            "time": "2017-08-02 16:08:09"
         },
         {
             "name": "drupal/better_field_descriptions",
@@ -1816,8 +1815,8 @@
                     "dev-1.x": "1.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-1.1+2-dev",
-                    "datestamp": "1498744743"
+                    "version": "8.x-1.1+4-dev",
+                    "datestamp": "1499338442"
                 },
                 "patches_applied": {
                     "Fix the positioning of the additional help text (https://www.drupal.org/node/2882765)": "https://www.drupal.org/files/issues/better_field_descriptions-position-help-2882765-0.patch",
@@ -2799,8 +2798,7 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/diff",
                 "issues": "https://www.drupal.org/project/issues/diff"
-            },
-            "time": "2017-01-09T10:31:38+00:00"
+            }
         },
         {
             "name": "drupal/draggableviews",
@@ -3080,8 +3078,8 @@
                     "dev-3.x": "3.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-3.0-alpha2+3-dev",
-                    "datestamp": "1493932085"
+                    "version": "8.x-3.0-alpha2+7-dev",
+                    "datestamp": "1499719142"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -3114,8 +3112,7 @@
             "homepage": "https://www.drupal.org/project/encrypt",
             "support": {
                 "source": "http://cgit.drupalcode.org/encrypt"
-            },
-            "time": "2016-08-05T15:43:56+00:00"
+            }
         },
         {
             "name": "drupal/entity",
@@ -3700,8 +3697,7 @@
             "homepage": "https://www.drupal.org/project/ga_login",
             "support": {
                 "source": "http://cgit.drupalcode.org/ga_login"
-            },
-            "time": "2016-08-19T19:20:09+00:00"
+            }
         },
         {
             "name": "drupal/geocoder",
@@ -4035,8 +4031,7 @@
             "homepage": "https://www.drupal.org/project/inline_entity_form",
             "support": {
                 "source": "http://cgit.drupalcode.org/inline_entity_form"
-            },
-            "time": "2016-11-14T20:32:26+00:00"
+            }
         },
         {
             "name": "drupal/key",
@@ -4146,8 +4141,7 @@
                 "source": "http://cgit.drupalcode.org/libraries",
                 "issues": "http://drupal.org/project/issues/libraries",
                 "irc": "irc://irc.freenode.org/drupal-contribute"
-            },
-            "time": "2017-03-15T17:04:08+00:00"
+            }
         },
         {
             "name": "drupal/media_entity",
@@ -4501,6 +4495,10 @@
                 {
                     "name": "mikeryan",
                     "homepage": "https://www.drupal.org/user/4420"
+                },
+                {
+                    "name": "moshe weitzman",
+                    "homepage": "https://www.drupal.org/user/23"
                 }
             ],
             "description": "Tools to assist in developing and running migrations.",
@@ -4556,8 +4554,7 @@
             "homepage": "https://www.drupal.org/project/node_edit_protection",
             "support": {
                 "source": "http://cgit.drupalcode.org/node_edit_protection"
-            },
-            "time": "2016-07-21T12:38:12+00:00"
+            }
         },
         {
             "name": "drupal/node_title_help_text",
@@ -4918,7 +4915,7 @@
                 },
                 "drupal": {
                     "version": "8.x-3.0-beta6",
-                    "datestamp": "1477484639"
+                    "datestamp": "1500909542"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -4959,7 +4956,7 @@
                 },
                 "drupal": {
                     "version": "8.x-3.0-beta6",
-                    "datestamp": "1477484639"
+                    "datestamp": "1500909542"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -5000,7 +4997,7 @@
                 },
                 "drupal": {
                     "version": "8.x-3.0-beta6",
-                    "datestamp": "1477484639"
+                    "datestamp": "1500909542"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -5041,7 +5038,7 @@
                 },
                 "drupal": {
                     "version": "8.x-3.0-beta6",
-                    "datestamp": "1477484639"
+                    "datestamp": "1500909542"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -5082,7 +5079,7 @@
                 },
                 "drupal": {
                     "version": "8.x-3.0-beta6",
-                    "datestamp": "1477484639"
+                    "datestamp": "1500909542"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -5473,8 +5470,7 @@
             "homepage": "https://www.drupal.org/project/security_review",
             "support": {
                 "source": "http://cgit.drupalcode.org/security_review"
-            },
-            "time": "2016-10-20T15:43:48+00:00"
+            }
         },
         {
             "name": "drupal/simple_oauth",
@@ -5518,7 +5514,7 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/simple_oauth"
             },
-            "time": "2017-07-03 13:42:42"
+            "time": "2017-07-03T13:42:42+00:00"
         },
         {
             "name": "drupal/subpathauto",
@@ -6096,8 +6092,7 @@
             "homepage": "https://www.drupal.org/project/xmlsitemap",
             "support": {
                 "source": "http://cgit.drupalcode.org/xmlsitemap"
-            },
-            "time": "2016-12-07T10:00:27+00:00"
+            }
         },
         {
             "name": "easyrdf/easyrdf",
@@ -12008,7 +12003,7 @@
                 {
                     "name": "Anthon Pang",
                     "email": "apang@softwaredevelopment.ca",
-                    "role": "Fork maintainer"
+                    "role": "Fork Maintainer"
                 }
             ],
             "description": "PHP WebDriver for Selenium 2",
