@@ -10,6 +10,26 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 ### Removed
 
 
+## [0.27.0] - August 8, 2017
+### Added
+- Added notification message for users automatically added as content watchers.
+- Added iframe paragraph to service details and location details.
+- Added basic documentation for "Watching" for users
+- Added Theming / Validation for Decisions
+- Added Theming / Validation for Policy Advisory
+- Added Theming / Validation for Executive Orders
+
+### Changed
+- Changed label on "Related Parks" to "Related Locations"
+- Removed a bar showing on pilot.mass.gov header 
+- Fixed Location pages show page level alert even with no alert content
+- Fixed Pilot.mass.gov design is changing when choosing a different language
+- Fixed Topic page title in the cards are not wrapping with IE11
+
+### Removed
+None.
+
+
 [0.26.0] - August 3, 2017
 ### Added
 - DP-4565 - Implement structured data (schema.org) for "Topic Page". When you view the source code of a Topic page, you will now see the JSON-LD object that maps to this page type.
@@ -18,10 +38,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - DP-4809 - Changed permissions to allow authors and editors to use new content type location details.
 - DP-3882 - `composer.json` and `composer.lock` are now validated on CircleCI under the "test" section of the `circle.yml` file (See "Troubleshooting" in README.md).
 - Added notification message for users automatically added as content watchers.
+- Change merge driver to union for changelog so we don't always have conflicts.
 
 ### Changed
+- DP-4589 - Added custom template suggestion for Flag Content contact form to ensure proper textarea rendering.
+- DP-4721 - Update Mass Watching module help page so users understand how the module works.
 - DP-3882 - (For devs) Halt `composer install` operation on CircleCI when a referenced patch fails to install (See "Troubleshooting" in README.md).
 - DP-4589 - Added custom template suggestion for Flag Content contact form to ensure proper textarea rendering.
+- DP-4773 - Hides flagging link container if user is not authenticated.
 
 ### Removed
 None.

@@ -4,9 +4,10 @@ status: true
 dependencies:
   config:
     - field.field.paragraph.adjustment_type.field_adjustment_type
-    - field.field.paragraph.adjustment_type.field_adjustment_type_related
+    - field.field.paragraph.adjustment_type.field_adjustment_type_link
     - paragraphs.paragraphs_type.adjustment_type
   module:
+    - link
     - workbench_moderation
 id: paragraph.adjustment_type.default
 targetEntityType: paragraph
@@ -19,14 +20,13 @@ content:
     third_party_settings: {  }
     type: options_select
     region: content
-  field_adjustment_type_related:
-    weight: 7
+  field_adjustment_type_link:
+    weight: 8
     settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
+      placeholder_url: ''
+      placeholder_title: ''
     third_party_settings: {  }
-    type: entity_reference_autocomplete
+    type: link_default
     region: content
 hidden:
   created: true

@@ -8,12 +8,15 @@ dependencies:
     - field.field.node.executive_order.field_executive_order_contact
     - field.field.node.executive_order.field_executive_order_date
     - field.field.node.executive_order.field_executive_order_downloads
-    - field.field.node.executive_order.field_executive_order_events
+    - field.field.node.executive_order.field_executive_order_ev
     - field.field.node.executive_order.field_executive_order_issuer
     - field.field.node.executive_order.field_executive_order_mass_regis
     - field.field.node.executive_order.field_executive_order_metatags
+    - field.field.node.executive_order.field_executive_order_number
     - field.field.node.executive_order.field_executive_order_overview
+    - field.field.node.executive_order.field_executive_order_ref_org
     - field.field.node.executive_order.field_executive_order_related
+    - field.field.node.executive_order.field_executive_title
     - node.type.executive_order
   module:
     - datetime
@@ -43,12 +46,12 @@ third_party_settings:
       label: 'Node Edit Form'
     group_overview:
       children:
-        - title
+        - field_executive_title
+        - field_executive_order_number
+        - field_executive_order_ref_org
         - field_executive_order_date
-        - group_date
         - field_executive_order_issuer
         - field_executive_order_mass_regis
-        - group_mass_register_number
         - field_executive_order_adjustment
       parent_name: group_node_edit_form
       weight: 5
@@ -78,9 +81,8 @@ third_party_settings:
     group_related:
       children:
         - field_executive_order_contact
-        - group_contact
         - field_executive_order_related
-        - field_executive_order_events
+        - field_executive_order_ev
       parent_name: group_node_edit_form
       weight: 7
       format_type: tab
@@ -107,13 +109,13 @@ content:
     region: content
   created:
     type: datetime_timestamp
-    weight: 3
+    weight: 2
     region: content
     settings: {  }
     third_party_settings: {  }
   field_executive_order_adjustment:
     type: entity_reference_paragraphs
-    weight: 7
+    weight: 9
     settings:
       title: 'Adjustment Type'
       title_plural: 'Adjustment Types'
@@ -133,7 +135,7 @@ content:
     type: entity_reference_autocomplete
     region: content
   field_executive_order_date:
-    weight: 2
+    weight: 6
     settings: {  }
     third_party_settings: {  }
     type: datetime_default
@@ -155,17 +157,18 @@ content:
         entity_browser_id: media_browser
     type: inline_entity_form_complex
     region: content
-  field_executive_order_events:
-    weight: 24
+  field_executive_order_ev:
+    weight: 23
     settings:
-      placeholder_url: ''
-      placeholder_title: ''
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
-    type: link_default
+    type: entity_reference_autocomplete
     region: content
   field_executive_order_issuer:
     type: entity_reference_paragraphs
-    weight: 4
+    weight: 7
     settings:
       title: Issuer
       title_plural: Issuers
@@ -176,17 +179,24 @@ content:
     third_party_settings: {  }
     region: content
   field_executive_order_mass_regis:
-    weight: 5
+    weight: 8
     settings:
       placeholder: ''
     third_party_settings: {  }
     type: number
     region: content
   field_executive_order_metatags:
-    weight: 26
+    weight: 4
     settings: {  }
     third_party_settings: {  }
     type: metatag_firehose
+    region: content
+  field_executive_order_number:
+    weight: 4
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
     region: content
   field_executive_order_overview:
     weight: 12
@@ -196,31 +206,40 @@ content:
     third_party_settings: {  }
     type: text_textarea
     region: content
+  field_executive_order_ref_org:
+    weight: 5
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
   field_executive_order_related:
-    weight: 23
+    weight: 22
     settings:
       placeholder_url: ''
       placeholder_title: ''
     third_party_settings: {  }
     type: link_default
     region: content
-  path:
-    type: path
-    weight: 4
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  title:
-    type: string_textfield
-    weight: 1
-    region: content
+  field_executive_title:
+    weight: 3
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+    type: string_textfield
+    region: content
+  path:
+    type: path
+    weight: 3
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 2
+    weight: 1
     settings:
       match_operator: CONTAINS
       size: 60
@@ -230,3 +249,4 @@ content:
 hidden:
   promote: true
   sticky: true
+  title: true

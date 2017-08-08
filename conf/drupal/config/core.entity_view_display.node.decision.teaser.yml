@@ -16,7 +16,8 @@ dependencies:
     - field.field.node.decision.field_decision_related
     - field.field.node.decision.field_decision_section
     - field.field.node.decision.field_decision_sources
-    - field.field.node.decision.field_decision_upcoming_events
+    - field.field.node.decision.field_decision_upcoming_ev
+    - field.field.node.decision.field_decision_footnotes
     - node.type.decision
   module:
     - user
@@ -32,6 +33,7 @@ hidden:
   field_decision_date: true
   field_decision_docket_number: true
   field_decision_download: true
+  field_decision_footnotes: true
   field_decision_location: true
   field_decision_metatags: true
   field_decision_overview: true
@@ -43,4 +45,4 @@ hidden:
   field_decision_related: true
   field_decision_section: true
   field_decision_sources: true
-  field_decision_upcoming_events: true
+  field_decision_upcoming_ev: true

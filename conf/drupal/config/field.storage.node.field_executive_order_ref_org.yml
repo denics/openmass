@@ -1,13 +1,12 @@
-uuid: 0832aab9-f74e-4210-8a8f-fa7ebd02a05c
+uuid: 5ce47e39-3c92-4e61-b8fe-2f2ca73d0d81
 langcode: en
 status: true
 dependencies:
   module:
     - node
-    - paragraphs
-id: paragraph.field_adjustment_type_related
-field_name: field_adjustment_type_related
-entity_type: paragraph
+id: node.field_executive_order_ref_org
+field_name: field_executive_order_ref_org
+entity_type: node
 type: entity_reference
 settings:
   target_type: node
