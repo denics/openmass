@@ -20,9 +20,9 @@ Feature: Guide Page Content type
     And "guide_section_3up" paragraph has the correct fields
 
   Scenario: Verify that the category metatag exists and has the correct value.
-    Given I am logged in as a user with the "administrator" role
-    And I create a "guide_page" content:
-      | title | Test guide page |
+    Given I create a "guide_page" content:
+      | title            | Test guide page |
+      | moderation_state | published       |
     And I add a "guide_section" paragraph in the "field_guide_page_sections" field with values:
       | field_guide_section_name | Test title   |
       | field_guide_section_body | Test content |
