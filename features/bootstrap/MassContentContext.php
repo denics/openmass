@@ -38,11 +38,6 @@ class MassContentContext extends RawDrupalContext {
   private $section_landing = [];
 
   /**
-   * @var Object Most recently created node.
-   */
-  private $latest_node;
-
-  /**
    * @BeforeScenario
    */
   public function gatherContexts(BeforeScenarioScope $scope)
