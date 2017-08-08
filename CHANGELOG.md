@@ -4,30 +4,36 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 ## Upcoming (add in progress changes here)
 ### Added
-DP-4565 - "Topic Page" - schema.org implementation. When you view the source code of a Topic page, you will now see the JSON-LD object that maps to this page type.
-
-### Changed
-
-### Removed
-
-
-### Added
-- DP-3535 - Adds dashboard admin/ma-dash/service-content to see content related to a service.
-- DP-3636 Add event listing to organization pages
-- DP-3637 Add event listing to service pages
-- DP-4710 - Added tester role to be used for select users to try new features.
-- DP-1836 Data team: New oauth-secured content metadata API at `/api/v1/content-metadata`
-- DP-4809 Changed permissions to allow authors and editors to use new content type location details.
+- Added notification message for users automatically added as content watchers.
+- DP-4211 - Add iframe paragraph to service details and location details.
 - Adds a "category" metatag when viewing most nodes. The category is dynamically determined based on the content type and will allow future filtered searches using Google CSE.
 
 ### Changed
-- Fix bug where pages with no table data (i.e. How-To's with no fees) were not loading.
+- DP-4416 - Changed label on "Related Parks" to "Related Locations"
 
 ### Removed
 
 
-## [0.25.0] - Aug 1, 2017
+[0.26.0] - August 3, 2017
+### Added
+- DP-4565 - Implement structured data (schema.org) for "Topic Page". When you view the source code of a Topic page, you will now see the JSON-LD object that maps to this page type.
+- DP-4521 - Added documentation on how to map content types to schema.org.
+- DP-3882 - (For devs) `composer.json` and `composer.lock` are now validated on CircleCI under the "test" section of the `circle.yml` file (See "Troubleshooting" in README.md).
+- DP-4809 - Changed permissions to allow authors and editors to use new content type location details.
+- DP-3882 - `composer.json` and `composer.lock` are now validated on CircleCI under the "test" section of the `circle.yml` file (See "Troubleshooting" in README.md).
+- Added notification message for users automatically added as content watchers.
+- Change merge driver to union for changelog so we don't always have conflicts.
 
+### Changed
+- DP-3882 - (For devs) Halt `composer install` operation on CircleCI when a referenced patch fails to install (See "Troubleshooting" in README.md).
+- DP-4589 - Added custom template suggestion for Flag Content contact form to ensure proper textarea rendering.
+- DP-4773 - Hides flagging link container if user is not authenticated.
+
+### Removed
+None.
+
+
+## [0.25.0] - Aug 1, 2017
 ### Added
 - Added dashboard admin/ma-dash/service-content to see content related to a service.
 - "Organization Pages" and "Service Pages" now have event listing.

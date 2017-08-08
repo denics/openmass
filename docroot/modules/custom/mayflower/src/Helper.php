@@ -6,6 +6,8 @@ use Drupal\Core\Url;
 use Drupal\Component\Utility\UrlHelper;
 use Drupal\image\Entity\ImageStyle;
 use Drupal\mayflower\Prepare\Molecules;
+use Drupal\Core\Link;
+use Drupal\Core\Entity\ContentEntityInterface;
 
 /**
  * Provides mayflower prepare functions with helper functions.
@@ -202,6 +204,10 @@ class Helper {
     $date = '';
     $content_type = '';
 
+    if (is_null($options['useEyebrow'])) {
+      $options['useEyebrow'] = [];
+    }
+
     // On an internal item, load the referenced node title.
     if (strpos($link->getValue()['uri'], 'entity:node') !== FALSE) {
       if (method_exists($url, 'getRouteParameters') && $url->isRouted() == TRUE) {
@@ -253,6 +259,22 @@ class Helper {
       'text' => $link->value,
       'href' => $link->value,
     ];
+  }
+
+  /**
+   * Helper function to provide entity from URI.
+   *
+   * @param string $uri
+   *   String that contains the uri.
+   *
+   * @return entity
+   *   Entity that contains fields.
+   */
+  public static function entityFromUri($uri) {
+    $params = Url::fromUri($uri)->getRouteParameters();
+    $entity_type = key($params);
+    $entity = \Drupal::entityTypeManager()->getStorage($entity_type)->load($params[$entity_type]);
+    return $entity;
   }
 
   /**
@@ -933,6 +955,57 @@ class Helper {
    *
    * @param object $entity
    *   The object that has the field which we are checking.
+   * @param array $fields
+   *   Array of parent field map.
+   *   [
+   *     'issuer' => '[field_name'],
+   *   ].
+   * @param array $ref_map
+   *   Array of referenced field map.
+   *   [
+   *     'display_name' => '[field_name'],
+   *     'title' => '[field_name'],
+   *   ].
+   *
+   * @return array
+   *   The data structure for a row in a source listing table.
+   */
+  public static function issuerListingTable($entity, array $fields, array $ref_map) {
+    $issuers = [];
+    if (empty($fields) || !array_key_exists('issuer', $fields) || !$entity instanceof ContentEntityInterface) {
+      return $issuers;
+    }
+    if (empty($ref_map) || !array_key_exists('display_name', $ref_map) || !array_key_exists('title', $ref_map)) {
+      return $issuers;
+    }
+    $issuers_entities = Helper::getReferencedEntitiesFromField($entity, $fields['issuer']);
+    foreach ($issuers_entities as $issuer_entity) {
+      if ($issuer_entity instanceof ContentEntityInterface) {
+        $issuer_name = '';
+        $issuer_title = '';
+
+        $issuer_fields = Helper::getMappedFields($issuer_entity, $ref_map);
+
+        if (Helper::isFieldPopulated($issuer_entity, $issuer_fields['display_name'])) {
+          $issuer_name = Helper::fieldValue($issuer_entity, $issuer_fields['display_name']);
+        }
+
+        if (Helper::isFieldPopulated($issuer_entity, $issuer_fields['title'])) {
+          $issuer_title = Helper::fieldValue($issuer_entity, $issuer_fields['title']);
+        }
+
+        $issuers[] = t("@display_name@title", ['@display_name' => $issuer_name, '@title' => ', ' . $issuer_title]);
+      }
+    }
+
+    return $issuers;
+  }
+
+  /**
+   * Returns whether or not the entity's field is an entity reference field.
+   *
+   * @param object $entity
+   *   The object that has the field which we are checking.
    * @param string $field
    *   The name of the field which we are checking.
    *
@@ -941,6 +1014,21 @@ class Helper {
    */
   public static function isEntityReferenceField($entity, $field) {
     return $entity->getFieldDefinition($field)->getType() === 'entity_reference';
+  }
+
+  /**
+   * Returns the field type of a given field.
+   *
+   * @param object $entity
+   *   The object that has the field which we are checking.
+   * @param string $field
+   *   The name of the field which we are checking.
+   *
+   * @return string
+   *   Return the type of field.
+   */
+  public static function fieldType($entity, $field) {
+    return $entity->getFieldDefinition($field)->getType();
   }
 
   /**
@@ -975,6 +1063,90 @@ class Helper {
     }
 
     return $address;
+  }
+
+  /**
+   * Return structure necessary for sources in listing table row.
+   *
+   * @param object $entity
+   *   Entity object.
+   * @param array $fields
+   *   Array of field map.
+   *   [
+   *     'sources' => '[field_name'],
+   *   ].
+   *
+   * @return array
+   *   The data structure for a row in a source listing table.
+   */
+  public static function sourceListingTable($entity, array $fields) {
+    $row = [];
+    if (empty($fields) || !array_key_exists('sources', $fields)) {
+      return $row;
+    }
+    if (!empty($entity) && $entity instanceof ContentEntityInterface) {
+      $links = Helper::dataFromLinkField($entity, ['link' => $fields['sources']]);
+
+      foreach ($links as $link) {
+        $sources[] = Link::fromTextAndUrl($link['title'], $link['url'])->toString();
+      }
+
+      $row = [
+        'label' => t("Referenced Sources@colon", ['@colon' => ':']),
+        'text' => nl2br(implode("\n", $sources)),
+      ];
+    }
+    return $row;
+  }
+
+  /**
+   * Return structure necessary for sources in listing table row.
+   *
+   * @param object $entity
+   *   Entity object.
+   * @param array $field
+   *   Array of field map.
+   *   [
+   *     'link' => '[field_name'],
+   *   ].
+   *
+   * @return array
+   *   An array of links with url, title and location.
+   */
+  public static function dataFromLinkField($entity, array $field) {
+    $links = [];
+    if (empty($field) || !array_key_exists('link', $field) || !$entity instanceof ContentEntityInterface) {
+      return $links;
+    }
+
+    if (Helper::isFieldPopulated($entity, $field['link'])) {
+      foreach ($entity->$field['link'] as $id => $link) {
+        if ($link->isExternal() == FALSE) {
+          $entity_ref = Helper::entityFromUri($link->uri);
+          if (!empty($entity_ref) && $entity_ref instanceof ContentEntityInterface) {
+            $title = $link->getValue()['title'];
+
+            if (empty($title)) {
+              $title = $entity_ref->getTitle();
+            }
+
+            $links[] = [
+              'url' => $entity_ref->toURL(),
+              'title' => $title,
+              'location' => 'internal',
+            ];
+          }
+        }
+        else {
+          $links[] = [
+            'url' => $link->getUrl(),
+            'title' => $link->getValue()['title'],
+            'location' => 'external',
+          ];
+        }
+      }
+    }
+    return $links;
   }
 
 }

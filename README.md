@@ -121,7 +121,7 @@ Note: As of [#47bfef3f](https://github.com/massgov/mass/commit/47bfef3f2220ba1b5
 
 
 ### Patching a module
-Sometimes we need to apply patches from the Drupal.org issue queues. These patches should be applied using composer using the [Composer Patches](https://github.com/cweagans/composer-patches) composer plugin.
+Sometimes we need to apply patches from the Drupal.org issue queues. These patches should be applied using composer using the [Composer Patches](https://github.com/cweagans/composer-patches) composer plugin. Note that both composer operations: `update` and `install` will halt in the event that a patch failed to install due the setting "composer-exit-on-patch-failure" in `composer.json`
 
 
 ## Deployment
@@ -139,6 +139,11 @@ Sometimes we need to apply patches from the Drupal.org issue queues. These patch
 There's a series of steps that the team follows, including process actions and discrete technical steps. See [docs/Release to Prod.md](docs/Release.md) for instructions.
 
 ## Troubleshooting
+### Composer
+- On occasions, `composer.json` and `composer.lock` files can get out of sync. In order to prevent this from happening, we enabled CircleCI to run `composer validate`. This validation process ensures that both `.json` and `.lock` are in sync and no `json` syntax errors exist. If you get an error that these two files are out of sync, run `composer update --lock` on your local branch and commit the output of this operation.
+- Failing patches: By default, `composer install` or `composer update owner/pkg` will skip patches that fails to install, which could be attributed to a failed hunk, different line endings, etc. In order to catch these failures in early stages of development, composer is now forced to exit (1 return code) with the line `"composer-exit-on-patch-failure": true` in `composer.json`. In some cases, code brought in by a patch may no longer be relevant if that fix is now in the core of that composer package; therefore, upgrading the package in question seems to be a viable solution.
+- Ensure you are running a recent version of composer. Run `vagrant up --provision` which will upgrade composer in the vm amongst other tasks. This helps if you are running composer from within the vm. If you run composer outside the vm, i.e. you host machine, run `composer self-update`
+
 
 ### Woah. Everything got weird in my local Drupal. What do I do.
 If you want to reset everything to a working environment:

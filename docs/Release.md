@@ -4,34 +4,6 @@ Here are the steps that release managers performs to deploy code to production (
 
 _Note: This assumes that your mass Vagrant VM is already setup and functioning as expected locally. If this is not true, follow the [README](../README.md) to setup your stuff._
 
-## Short Version
-
-If you've done this before, here's a quick refresher:
-
-1. Checkout `develop`.
-1. Email: Notify team of upcoming release.
-1. Add release notes to top of CHANGELOG.md, and then commit.
-1. Create release branch.
-1. Push release branch to GitHub.
-1. Deploy release branch to `Stage`.
-1. Verify release notes against `Stage`.
-1. Smoke test most important stuff in `Stage`.
-1. Merge a GitHub PR: release --> `master`.
-1. Wait for CircleCi to rebuild master and show green - https://circleci.com/gh/massgov/mass/tree/master. This ensures that Acquia's git has the latest build.
-1. In Acquia's git, tag the `master` branch with the release version (e.g.: `0.18.0`).
-1. Deploy release tag to `Stage` for release smoke test.
-1. Deploy release tag to directly `Prod`. (Previously, stage db was copied to prod)
-1. Clear Drupal + Twig cache.
-1. Clear Varnish cache.
-1. Smoke test `Prod`.
-1. GitHub PR: `master` --> `develop`.
-1. Set JIRA Fix Version for delivered tickets.
-1. Email: Release notes.
-
-## Long Version
-
-First time or need more detail? Read these:
-
 1. Check the [GitHub `develop` branch](https://github.com/massgov/mass/commits/develop) to see if there is anything new to deliver. If not, stop here.
 1. If there is new code to be delivered, notify the team at least two hours ahead of time that a release is coming. Follow the [Communicate Releases](https://wiki.state.ma.us/display/massgovredesign/Communicating+Releases) instructions for Upcoming Deployments.
 1. Add release notes to top of CHANGELOG.md, and then commit.
@@ -75,7 +47,7 @@ First time or need more detail? Read these:
 
 ## Rollback
 
-1. Login to the Acquia Cloud web interface within the [`massgov (ACE)`](https://cloud. acquia.com/app/develop/applications/ff8ed1de-b8bc-48a4-b316-cd91bfa192c4) application.
+1. Login to the Acquia Cloud web interface within the [`massgov (ACE)`](https://cloud.acquia.com/app/develop/applications/ff8ed1de-b8bc-48a4-b316-cd91bfa192c4) application.
 1. Navigate into `Prod`
 1. From the Code card, revert to the previously used code tag/branch
 1. From the Database card, revert to the backup database created during the release process

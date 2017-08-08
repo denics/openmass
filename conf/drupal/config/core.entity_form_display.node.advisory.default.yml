@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.node.advisory.field_advisory_date
     - field.field.node.advisory.field_advisory_download
+    - field.field.node.advisory.field_advisory_footnotes
     - field.field.node.advisory.field_advisory_issuer
     - field.field.node.advisory.field_advisory_links
     - field.field.node.advisory.field_advisory_metatags
@@ -67,6 +68,7 @@ third_party_settings:
     group_advisory_sections:
       children:
         - field_advisory_section
+        - field_advisory_footnotes
       parent_name: group_advisory_page_edit_form
       weight: 13
       format_type: tab
@@ -138,6 +140,14 @@ content:
       entity_browser_entity_form:
         entity_browser_id: media_browser
     type: inline_entity_form_complex
+    region: content
+  field_advisory_footnotes:
+    weight: 13
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
     region: content
   field_advisory_issuer:
     type: entity_reference_paragraphs
