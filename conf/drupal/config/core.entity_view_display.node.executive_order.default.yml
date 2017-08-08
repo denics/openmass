@@ -8,12 +8,15 @@ dependencies:
     - field.field.node.executive_order.field_executive_order_contact
     - field.field.node.executive_order.field_executive_order_date
     - field.field.node.executive_order.field_executive_order_downloads
-    - field.field.node.executive_order.field_executive_order_events
+    - field.field.node.executive_order.field_executive_order_ev
     - field.field.node.executive_order.field_executive_order_issuer
     - field.field.node.executive_order.field_executive_order_mass_regis
     - field.field.node.executive_order.field_executive_order_metatags
+    - field.field.node.executive_order.field_executive_order_number
     - field.field.node.executive_order.field_executive_order_overview
+    - field.field.node.executive_order.field_executive_order_ref_org
     - field.field.node.executive_order.field_executive_order_related
+    - field.field.node.executive_order.field_executive_title
     - node.type.executive_order
   module:
     - datetime
@@ -68,17 +71,13 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
     region: content
-  field_executive_order_events:
-    weight: 107
+  field_executive_order_ev:
+    weight: 115
     label: above
     settings:
-      trim_length: 80
-      url_only: false
-      url_plain: false
-      rel: ''
-      target: ''
+      link: true
     third_party_settings: {  }
-    type: link
+    type: entity_reference_label
     region: content
   field_executive_order_issuer:
     type: entity_reference_revisions_entity_view
@@ -105,12 +104,29 @@ content:
     third_party_settings: {  }
     type: metatag_empty_formatter
     region: content
+  field_executive_order_number:
+    weight: 116
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_integer
+    region: content
   field_executive_order_overview:
     weight: 104
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
+    region: content
+  field_executive_order_ref_org:
+    weight: 114
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
     region: content
   field_executive_order_related:
     weight: 106
@@ -123,6 +139,14 @@ content:
       target: ''
     third_party_settings: {  }
     type: link
+    region: content
+  field_executive_title:
+    weight: 113
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
     region: content
   links:
     weight: 100

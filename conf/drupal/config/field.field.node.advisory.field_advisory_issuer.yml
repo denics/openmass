@@ -5,7 +5,7 @@ dependencies:
   config:
     - field.storage.node.field_advisory_issuer
     - node.type.advisory
-    - paragraphs.paragraphs_type.advisory_issuer
+    - paragraphs.paragraphs_type.issuer
   module:
     - entity_reference_revisions
 id: node.advisory.field_advisory_issuer
@@ -23,7 +23,7 @@ settings:
   handler_settings:
     negate: 0
     target_bundles:
-      advisory_issuer: advisory_issuer
+      issuer: issuer
     target_bundles_drag_drop:
       1up_stacked_band:
         weight: 62
@@ -68,8 +68,8 @@ settings:
         weight: 75
         enabled: false
       advisory_issuer:
-        enabled: true
         weight: 76
+        enabled: false
       advisory_section:
         weight: 77
         enabled: false
@@ -80,6 +80,9 @@ settings:
         weight: 79
         enabled: false
       callout_link:
+        weight: 80
+        enabled: false
+      adjustment_type:
         weight: 80
         enabled: false
       completion_time:
@@ -115,7 +118,13 @@ settings:
       guide_section:
         weight: 91
         enabled: false
+      decision_participants:
+        weight: 91
+        enabled: false
       guide_section_3up:
+        weight: 92
+        enabled: false
+      decision_section:
         weight: 92
         enabled: false
       hours:
@@ -157,6 +166,9 @@ settings:
       next_step:
         weight: 105
         enabled: false
+      issuer:
+        enabled: true
+        weight: 106
       online_email:
         weight: 106
         enabled: false

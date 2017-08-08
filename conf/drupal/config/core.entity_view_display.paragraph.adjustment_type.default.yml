@@ -4,9 +4,10 @@ status: true
 dependencies:
   config:
     - field.field.paragraph.adjustment_type.field_adjustment_type
-    - field.field.paragraph.adjustment_type.field_adjustment_type_related
+    - field.field.paragraph.adjustment_type.field_adjustment_type_link
     - paragraphs.paragraphs_type.adjustment_type
   module:
+    - link
     - options
 id: paragraph.adjustment_type.default
 targetEntityType: paragraph
@@ -20,12 +21,16 @@ content:
     third_party_settings: {  }
     type: list_default
     region: content
-  field_adjustment_type_related:
-    weight: 1
+  field_adjustment_type_link:
+    weight: 2
     label: above
     settings:
-      link: true
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
     third_party_settings: {  }
-    type: entity_reference_label
+    type: link
     region: content
 hidden: {  }

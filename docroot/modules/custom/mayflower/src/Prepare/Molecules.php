@@ -580,6 +580,7 @@ class Molecules {
           'online_email',
           'media_contact',
         ];
+
         if (in_array($bundle, $bundles_using_email_fields)) {
           $link = Helper::separatedEmailLink($entity, $fields['link']);
           $item['link'] = $link['href'];
@@ -680,6 +681,7 @@ class Molecules {
 
     $display_title = $options['display_title'];
     $only_address = $options['onlyAddress'];
+    $only_phone_and_online = $options['onlyPhoneAndOnline'];
     $link_title = isset($options['link_title']) ? $options['link_title'] : TRUE;
 
     if (isset($fields['title']) && Helper::isFieldPopulated($entity, $fields['title']) && $display_title != FALSE) {
@@ -714,6 +716,17 @@ class Molecules {
     // If set, only display address.
     if ($only_address != FALSE && isset($groups[0])) {
       $groups = array_slice($groups, 0, 1);
+    }
+
+    // If set, only display phone and online.
+    if ($only_phone_and_online != FALSE) {
+      foreach ($groups as $index => $group) {
+        foreach ($group['items'] as $item) {
+          if ($item['type'] != 'phone' && $item['type'] != 'online' && $item['type'] != 'email') {
+            unset($groups[$index]);
+          }
+        }
+      }
     }
 
     return [
@@ -1245,6 +1258,22 @@ class Molecules {
           'summary' => $dateTime->format('l, F d, Y'),
         ],
         'time' => !empty($entity->$fields['time']->value) ? Helper::fieldValue($entity, $fields['time']) : $time,
+      ];
+    }
+    elseif (isset($options['sidebarDate'])) {
+      return [
+        'title' => [
+          'href' => $entity->toURL()->toString(),
+          'text' => Helper::fieldValue($entity, 'title'),
+          'info' => '',
+          'property' => '',
+        ],
+        'location' => $location,
+        'date' => [
+          'summary' => \Drupal::service('date.formatter')->format($date, 'custom', 'F d, Y'),
+        ],
+        'time' => !empty($entity->$fields['time']->value) ? Helper::fieldValue($entity, $fields['time']) : '',
+        'description' => !empty($entity->$fields['lede']->value) ? Helper::fieldValue($entity, $fields['lede']) : '',
       ];
     }
     else {

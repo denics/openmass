@@ -106,7 +106,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   public function assertFields($content_type, TableNode $fieldsTable) {
     $this->minkContext->visitPath('node/add/' . $content_type);
     // All content types have a title.
-    $this->minkContext->assertElementOnPage('#edit-title-0-value');
+    // $this->minkContext->assertElementOnPage('#edit-title-0-value');
     $this->checkFields($fieldsTable);
   }
 
@@ -470,7 +470,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   public function assertContentTypeFields($content_type) {
     $this->minkContext->visitPath('node/add/' . $content_type);
     // Test title for everything but person ct
-    $no_title_ct = ['legacy_redirects', 'person'];
+    $no_title_ct = ['legacy_redirects', 'person', 'executive_order'];
     if (!in_array($content_type, $no_title_ct)) {
       $this->minkContext->assertElementOnPage('#edit-title-0-value');
     }
@@ -479,6 +479,75 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
 
     // Fields for each content type.
     switch ($content_type) {
+      case "advisory":
+        $fields = array (
+          array (
+            'field' => 'field-advisory-ref-contact',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-advisory-date',
+            'tag' => 'input',
+            'type' => 'date',
+          ),
+          array (
+            'field' => 'field-advisory-download',
+            'tag' => 'input',
+            'type' => 'submit',
+          ),
+          array (
+            'field' => 'field-advisory-footnotes',
+            'tag' => 'textarea',
+            'type' => '',
+          ),
+          array (
+            'field' => 'field-advisory-issuer',
+            'tag' => 'paragraphs',
+            'type' => 'issuer',
+          ),
+          array (
+            'field' => 'field-advisory-ref-organization',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-advisory-overview',
+            'tag' => 'textarea',
+            'type' => '',
+          ),
+          array (
+            'field' => 'field-advisory-publish-state-tax',
+            'tag' => 'select',
+            'type' => '',
+          ),
+          array (
+            'field' => 'field-advisory-ref-sources',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-advisory-links',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-advisory-section',
+            'tag' => 'paragraphs',
+            'type' => 'advisory-section',
+          ),
+          array (
+            'field' => 'field-advisory-type-tax',
+            'tag' => 'select',
+            'type' => '',
+          ),
+          array (
+            'field' => 'field-advisory-ref-events',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+        );
+        break;
       case "contact_information":
         $fields = array (
           array (
@@ -510,6 +579,75 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
             'field' => 'field-ref-hours',
             'tag' => 'paragraphs',
             'type' => 'hours',
+          ),
+        );
+        break;
+      case "decision":
+        $fields = array (
+          array (
+            'field' => 'field-decision-ref-contact',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-decision-date	',
+            'tag' => 'input',
+            'type' => 'date',
+          ),
+          array (
+            'field' => 'field-decision-docket-number',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-decision-download',
+            'tag' => 'input',
+            'type' => 'submit',
+          ),
+          array (
+            'field' => 'field-decision-location',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-decision-ref-organization',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-decision-overview',
+            'tag' => 'textarea',
+            'type' => '',
+          ),
+          array (
+            'field' => 'field-decision-participants',
+            'tag' => 'paragraphs',
+            'type' => 'decision-participants',
+          ),
+          array (
+            'field' => 'field-decision-sources',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-decision-related',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-decision-section',
+            'tag' => 'paragraphs',
+            'type' => 'decision-section',
+          ),
+          array (
+            'field' => 'field-decision-ref-type',
+            'tag' => 'select',
+            'type' => '',
+          ),
+          array (
+            'field' => 'field-decision-upcoming-ev',
+            'tag' => 'input',
+            'type' => 'text',
           ),
         );
         break;
@@ -889,6 +1027,70 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
           ),
           array (
             'field' => 'field-person-role-title',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+        );
+        break;
+      case 'executive_order':
+        $fields = array (
+          array (
+            'field' => 'field-executive-title',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-executive-order-number',
+            'tag' => 'input',
+            'type' => 'number',
+          ),
+          array (
+            'field' => 'field-executive-order-mass-regis',
+            'tag' => 'input',
+            'type' => 'number',
+          ),
+          array (
+            'field' => 'field-executive-order-adjustment',
+            'tag' => 'paragraphs',
+            'type' => '',
+          ),
+          array (
+            'field' => 'body',
+            'tag' => 'textarea',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-executive-order-contact',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-executive-order-date',
+            'tag' => 'input',
+            'type' => 'date',
+          ),
+          array (
+            'field' => 'field-executive-order-downloads',
+            'tag' => 'input',
+            'type' => 'submit',
+          ),
+          array (
+            'field' => 'field-executive-order-issuer',
+            'tag' => 'input',
+            'type' => 'submit',
+          ),
+          array (
+            'field' => 'field-executive-order-overview',
+            'tag' => 'textarea',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-executive-order-related',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-executive-order-ev',
             'tag' => 'input',
             'type' => 'text',
           ),

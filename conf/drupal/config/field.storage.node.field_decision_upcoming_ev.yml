@@ -1,16 +1,16 @@
-uuid: e44f999e-ecca-4675-b268-df415e95b902
+uuid: c7208a21-d0ee-4bd4-b02c-c78769a2d6bc
 langcode: en
 status: true
 dependencies:
   module:
-    - link
     - node
-id: node.field_decision_upcoming_events
-field_name: field_decision_upcoming_events
+id: node.field_decision_upcoming_ev
+field_name: field_decision_upcoming_ev
 entity_type: node
-type: link
-settings: {  }
-module: link
+type: entity_reference
+settings:
+  target_type: node
+module: core
 locked: false
 cardinality: -1
 translatable: true
