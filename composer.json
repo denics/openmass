@@ -180,6 +180,7 @@
         "dflydev/embedded-composer-core": "@dev",
         "drupal/devel": "1.x-dev",
         "drupal/drupal-extension": "^3.1",
+        "drupal/route_iframes": "1.x-dev",
         "drush/drush": "dev-master",
         "palantirnet/palantir-behat-extension": "dev-drupal8",
         "squizlabs/php_codesniffer": "2.*",

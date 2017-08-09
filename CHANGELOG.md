@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 ## Upcoming (add in progress changes here)
 
 ### Added
+- Added the route_iframes module to support dashboards as a tab / local task on nodes / pages.
+- DP-4211 - Add iframe paragraph to service details and location details.
 - Adds a "category" metatag when viewing most nodes. The category is dynamically determined based on the content type and will allow future filtered searches using Google CSE.
 - Adds a "Primary audience" field to Guide Page, How-to Page, Service Page, and Service Detail Page content types. The value of this field is used to populate an "audience" metatag for those pages, allowing Google CSE to filter by audience.
 

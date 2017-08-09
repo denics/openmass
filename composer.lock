@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "ef9408153f180188b105d0cfb9f86976",
+    "content-hash": "9490e55809aa329604909484a81d364c",
     "packages": [
         {
             "name": "acquia/acquia-sdk-php",
@@ -197,7 +197,8 @@
                 "url": "https://github.com/blakestein/drupal-datalayer-d8.git",
                 "reference": "3b2ffa7"
             },
-            "type": "drupal-module"
+            "type": "drupal-module",
+            "time": "2017-01-05T00:00:58+00:00"
         },
         {
             "name": "caxy/php-htmldiff",
@@ -1554,7 +1555,8 @@
             "homepage": "https://www.drupal.org/project/access_unpublished",
             "support": {
                 "source": "http://cgit.drupalcode.org/access_unpublished"
-            }
+            },
+            "time": "2017-01-26T16:59:48+00:00"
         },
         {
             "name": "drupal/acquia_connector",
@@ -1814,8 +1816,8 @@
                     "dev-1.x": "1.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-1.1+4-dev",
-                    "datestamp": "1499338442"
+                    "version": "8.x-1.1+2-dev",
+                    "datestamp": "1498744743"
                 },
                 "patches_applied": {
                     "Fix the positioning of the additional help text (https://www.drupal.org/node/2882765)": "https://www.drupal.org/files/issues/better_field_descriptions-position-help-2882765-0.patch",
@@ -1840,8 +1842,7 @@
             "homepage": "https://www.drupal.org/project/better_field_descriptions",
             "support": {
                 "source": "http://cgit.drupalcode.org/better_field_descriptions"
-            },
-            "time": "2017-04-17T10:36:09+00:00"
+            }
         },
         {
             "name": "drupal/clamav",
@@ -2797,7 +2798,8 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/diff",
                 "issues": "https://www.drupal.org/project/issues/diff"
-            }
+            },
+            "time": "2017-01-09T10:31:38+00:00"
         },
         {
             "name": "drupal/draggableviews",
@@ -3077,8 +3079,8 @@
                     "dev-3.x": "3.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-3.0-alpha2+7-dev",
-                    "datestamp": "1499719142"
+                    "version": "8.x-3.0-alpha2+3-dev",
+                    "datestamp": "1493932085"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -3111,7 +3113,8 @@
             "homepage": "https://www.drupal.org/project/encrypt",
             "support": {
                 "source": "http://cgit.drupalcode.org/encrypt"
-            }
+            },
+            "time": "2016-08-05T15:43:56+00:00"
         },
         {
             "name": "drupal/entity",
@@ -3696,7 +3699,8 @@
             "homepage": "https://www.drupal.org/project/ga_login",
             "support": {
                 "source": "http://cgit.drupalcode.org/ga_login"
-            }
+            },
+            "time": "2016-08-19T19:20:09+00:00"
         },
         {
             "name": "drupal/geocoder",
@@ -4030,7 +4034,8 @@
             "homepage": "https://www.drupal.org/project/inline_entity_form",
             "support": {
                 "source": "http://cgit.drupalcode.org/inline_entity_form"
-            }
+            },
+            "time": "2016-11-14T20:32:26+00:00"
         },
         {
             "name": "drupal/key",
@@ -4140,7 +4145,8 @@
                 "source": "http://cgit.drupalcode.org/libraries",
                 "issues": "http://drupal.org/project/issues/libraries",
                 "irc": "irc://irc.freenode.org/drupal-contribute"
-            }
+            },
+            "time": "2017-03-15T17:04:08+00:00"
         },
         {
             "name": "drupal/media_entity",
@@ -4494,10 +4500,6 @@
                 {
                     "name": "mikeryan",
                     "homepage": "https://www.drupal.org/user/4420"
-                },
-                {
-                    "name": "moshe weitzman",
-                    "homepage": "https://www.drupal.org/user/23"
                 }
             ],
             "description": "Tools to assist in developing and running migrations.",
@@ -4553,7 +4555,8 @@
             "homepage": "https://www.drupal.org/project/node_edit_protection",
             "support": {
                 "source": "http://cgit.drupalcode.org/node_edit_protection"
-            }
+            },
+            "time": "2016-07-21T12:38:12+00:00"
         },
         {
             "name": "drupal/node_title_help_text",
@@ -4779,8 +4782,7 @@
             "homepage": "https://www.drupal.org/project/password_policy",
             "support": {
                 "source": "http://cgit.drupalcode.org/password_policy"
-            },
-            "time": "2017-05-22T16:11:07+00:00"
+            }
         },
         {
             "name": "drupal/pathauto",
@@ -5161,8 +5163,7 @@
             "support": {
                 "source": "https://cgit.drupalcode.org/rabbit_hole",
                 "issues": "https://www.drupal.org/project/issues/rabbit_hole"
-            },
-            "time": "2017-06-10T21:38:28+00:00"
+            }
         },
         {
             "name": "drupal/redirect",
@@ -5262,8 +5263,7 @@
             "homepage": "https://www.drupal.org/project/restrict_by_ip",
             "support": {
                 "source": "http://cgit.drupalcode.org/restrict_by_ip"
-            },
-            "time": "2017-04-28T19:48:30+00:00"
+            }
         },
         {
             "name": "drupal/restui",
@@ -5469,7 +5469,8 @@
             "homepage": "https://www.drupal.org/project/security_review",
             "support": {
                 "source": "http://cgit.drupalcode.org/security_review"
-            }
+            },
+            "time": "2016-10-20T15:43:48+00:00"
         },
         {
             "name": "drupal/simple_oauth",
@@ -5614,8 +5615,7 @@
             "homepage": "https://www.drupal.org/project/tfa",
             "support": {
                 "source": "http://cgit.drupalcode.org/tfa"
-            },
-            "time": "2016-08-23T20:32:20+00:00"
+            }
         },
         {
             "name": "drupal/token",
@@ -6091,7 +6091,8 @@
             "homepage": "https://www.drupal.org/project/xmlsitemap",
             "support": {
                 "source": "http://cgit.drupalcode.org/xmlsitemap"
-            }
+            },
+            "time": "2016-12-07T10:00:27+00:00"
         },
         {
             "name": "easyrdf/easyrdf",
@@ -11704,6 +11705,51 @@
             "time": "2017-06-15T13:59:40+00:00"
         },
         {
+            "name": "drupal/route_iframes",
+            "version": "dev-1.x",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupal.org/project/route_iframes",
+                "reference": "9cdadf27c204b3aa3b511fb77acf99c41446549e"
+            },
+            "require": {
+                "drupal/core": "~8.0"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.x-dev",
+                    "datestamp": "1501877043"
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "tnathanjames",
+                    "homepage": "https://www.drupal.org/user/2710431"
+                },
+                {
+                    "name": "youssefr",
+                    "homepage": "https://www.drupal.org/user/210487"
+                }
+            ],
+            "description": "Allow iframes to be associated to routes. For local tasks of entities, allow settings for different scopes.",
+            "homepage": "https://www.drupal.org/project/route_iframes",
+            "keywords": [
+                "Drupal"
+            ],
+            "support": {
+                "source": "http://cgit.drupalcode.org/route_iframes",
+                "issues": "https://www.drupal.org/project/issues/route_iframes"
+            }
+        },
+        {
             "name": "drush/drush",
             "version": "dev-master",
             "source": {
@@ -14132,6 +14178,7 @@
         "dflydev/embedded-composer-console": 20,
         "dflydev/embedded-composer-core": 20,
         "drupal/devel": 20,
+        "drupal/route_iframes": 20,
         "drush/drush": 20,
         "palantirnet/palantir-behat-extension": 20
     },
