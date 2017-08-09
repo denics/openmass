@@ -13,6 +13,7 @@ tags:
   description: '[node: field_guide_page_lede]'
   robots: 'index, follow'
   title: '[node:title] | [site:name]'
+  audience: '[node:field_audience:value]'
   og_description: '[node: field_guide_page_lede]'
   og_image: '[node: field_guide_page_bg_wide:action_banner_large:url]'
   og_site_name: '[site:name]'

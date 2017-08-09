@@ -12,3 +12,4 @@ tags:
   schema_government_service_potential_action: 'a:2:{s:5:"@type";s:6:"Action";s:15:"potentialAction";s:63:"[node:field_service_detail_sections:entity:field_section_links]";}'
   schema_government_service_related_link: '[node:field_service_detail_links_5]'
   schema_government_service_type: GovernmentService
+  audience: '[node:field_audience:value]'

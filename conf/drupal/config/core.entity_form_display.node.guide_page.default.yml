@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.guide_page.field_audience
     - field.field.node.guide_page.field_guide_page_bg_narrow
     - field.field.node.guide_page.field_guide_page_bg_wide
     - field.field.node.guide_page.field_guide_page_lede
@@ -38,6 +39,7 @@ third_party_settings:
         - field_guide_page_lede
         - field_guide_page_bg_wide
         - field_image_credit
+        - field_audience
         - field_guide_page_bg_narrow
       parent_name: group_node_edit_form
       weight: 20
@@ -85,6 +87,12 @@ content:
     weight: 2
     settings: {  }
     third_party_settings: {  }
+    region: content
+  field_audience:
+    weight: -1
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
     region: content
   field_guide_page_bg_wide:
     weight: -3
