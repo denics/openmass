@@ -17,6 +17,10 @@ Link autocomplete content type filter. (https://www.drupal.org/node/2887376#comm
 Source: https://www.drupal.org/files/issues/link-autocomplete-ct-filter-2887376-5-8.4.x.patch
 
 
+Number widget validation can break AJAX actions. (https://www.drupal.org/node/2614250)
+Source: https://www.drupal.org/files/issues/2614250-40.patch
+
+
 Fix regression in the link widget where help text does not show. (https://www.drupal.org/node/2421001)
 Source: https://www.drupal.org/files/issues/2421001-87.patch
 

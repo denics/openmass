@@ -97,3 +97,7 @@ Feature: Organization Landing Page Content type
     And I should see the link "Twitter" in the "stacked_sections" region
     And I should see the link "Run the Test Suite" in the "sections_3up"
     And I should see the link "Related organization" in the "link_list"
+
+  Scenario: Verify that the category metatag exists and has the correct value.
+    Given I am viewing an "org_page" with the title "test org page"
+    Then I should see a "category" meta tag of "state-organizations"

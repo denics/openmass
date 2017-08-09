@@ -14,10 +14,12 @@
 #}
 {% extends 'page.html.twig' %}
 {% block massFlaggingLinkContainer %}
-  <div class="mass-flagging-link-container">
-    {{ page.watch_content_link }}
-    {{ page.flag_content_link }}
-  </div>
+  {% if logged_in %}
+    <div class="mass-flagging-link-container">
+      {{ page.watch_content_link }}
+      {{ page.flag_content_link }}
+    </div>
+  {% endif %}
 {% endblock %}
 {% block preContent %}{% endblock %}
 {% block postContent %}{% endblock %}

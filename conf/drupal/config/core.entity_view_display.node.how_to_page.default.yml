@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.how_to_page.field_audience
     - field.field.node.how_to_page.field_how_to_contacts_3
     - field.field.node.how_to_page.field_how_to_files
     - field.field.node.how_to_page.field_how_to_lede
@@ -20,6 +21,7 @@ dependencies:
   module:
     - entity_reference_revisions
     - link
+    - options
     - text
     - user
 id: node.how_to_page.default
@@ -27,6 +29,13 @@ targetEntityType: node
 bundle: how_to_page
 mode: default
 content:
+  field_audience:
+    weight: 16
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+    region: content
   field_how_to_contacts_3:
     weight: 11
     label: above

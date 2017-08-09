@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.service_page.field_audience
     - field.field.node.service_page.field_image_credit
     - field.field.node.service_page.field_service_bg_narrow
     - field.field.node.service_page.field_service_bg_wide
@@ -72,6 +73,7 @@ third_party_settings:
         - field_services_social_links
         - field_service_ref_guide_page_1
         - field_service_eligibility_info
+        - field_audience
       parent_name: group_service_edit_form
       weight: 21
       format_type: tab
@@ -174,6 +176,12 @@ content:
     weight: 10
     settings: {  }
     third_party_settings: {  }
+    region: content
+  field_audience:
+    weight: 41
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
     region: content
   field_image_credit:
     weight: -1

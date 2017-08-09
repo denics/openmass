@@ -91,11 +91,17 @@ class Atoms {
     $paragraphs = [];
 
     foreach ($entity as $paragraph) {
+      if (!empty($paragraph->value)) {
+        $text = $paragraph->value;
+      }
+      else {
+        $text = $paragraph->view();
+      }
       $paragraphs[] = [
         'path' => '@atoms/11-text/raw-html.twig',
         'data' => [
           'rawHtml' => [
-            'content' => $paragraph->view(),
+            'content' => $text,
           ],
         ],
       ];

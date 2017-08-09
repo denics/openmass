@@ -1,0 +1,12 @@
+uuid: aec24b23-495e-48a7-9516-c7606ee88791
+langcode: en
+status: true
+dependencies: {  }
+id: default
+name: Default
+tab: page
+scope_type: default
+weight: null
+scope: ''
+config: '/superset/dashboard/node_information/?preselect_filters={%0A “130”%3A {%0A “node_id”%3A [%0A [node:nid]%0A ]%0A }%0A}'
+iframe_height: '3500'

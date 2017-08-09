@@ -62,7 +62,7 @@ function drush_massgov_ma_deploy($target, $git_ref) {
   if (drush_get_option('skip-maint', FALSE) == FALSE) {
     // Turn on Maint mode
     $args = array('system.maintenance_mode', 1);
-    $options = array('format' => 'integer');
+    $options = array('input-format' => 'integer');
     $return = drush_invoke_process($alias_target, 'state-set', $args, $options);
     massgov_check_drush_error($return);
     drush_log(dt("Maintenance mode enabled in $target."), 'success');
@@ -70,6 +70,11 @@ function drush_massgov_ma_deploy($target, $git_ref) {
 
   // Copy files and database, but only for non-prod deploys and when refresh-db is set
   if(!$is_prod && drush_get_option('refresh-db', FALSE)) {
+    // Drop existing tables.
+    $return = drush_invoke_process($alias_target, 'sql-drop', [], ['yes' => TRUE]);
+    massgov_check_drush_error($return);
+    drush_log(dt("All tables dropped  in $target."), 'success');
+
     // Copy Prod database to target
     $database = $cloudapi->copyDatabase($site, $db_name, 'prod', $target);
     drush_log(dt("Copied database from Prod"), 'success');
@@ -116,7 +121,7 @@ function drush_massgov_ma_deploy($target, $git_ref) {
   if (drush_get_option('skip-maint', FALSE)  == FALSE) {
     // Disable Maintenance mode.
     $args = array('system.maintenance_mode', 0);
-    $options = array('format' => 'integer');
+    $options = array('input-format' => 'integer');
     $return = drush_invoke_process($alias_target, 'state-set', $args, $options);
     massgov_check_drush_error($return);
     drush_log(dt("Maintenance mode disabled in $target."), 'success');

@@ -35,8 +35,9 @@ function mass_schema_collection_page_tokens($type, $tokens, array $data, array $
     /** @var \Drupal\Core\Entity\ContentEntityInterface $entity */
     $entity = $data['node'];
 
+    $entity_type = $entity->getType();
     // The following logic is to be applied only to guide pages.
-    if ($entity->getType() !== 'guide_page') {
+    if ($entity_type !== 'guide_page' && $entity_type !== 'topic_page') {
       return;
     }
 
@@ -88,7 +89,7 @@ function mass_schema_collection_page_tokens($type, $tokens, array $data, array $
       }
       // Check if the property is for the related guides. We should only get
       // the URL to each referenced node for output.
-      elseif ($field_type == 'entity_reference' && $property_name == 'field_guide_page_related_guides') {
+      elseif ($field_type == 'entity_reference' && ($property_name == 'field_guide_page_related_guides' || $property_name == 'field_topic_ref_related_topics')) {
         $referenced_entities = $entity->get($name)->referencedEntities();
         foreach ($referenced_entities as $referenced_entity) {
           $url = $referenced_entity->toUrl('canonical', ['absolute' => TRUE])->toString();

@@ -1,16 +1,16 @@
-uuid: a89331e4-b923-4895-894e-7e3de40ff729
+uuid: f59837c3-31f0-4231-aa45-5d6a06fbd3e5
 langcode: en
 status: true
 dependencies:
   module:
-    - link
     - node
-id: node.field_executive_order_events
-field_name: field_executive_order_events
+id: node.field_executive_order_ev
+field_name: field_executive_order_ev
 entity_type: node
-type: link
-settings: {  }
-module: link
+type: entity_reference
+settings:
+  target_type: node
+module: core
 locked: false
 cardinality: -1
 translatable: true

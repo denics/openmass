@@ -104,14 +104,35 @@ function mass_utility_field_widget_form_alter(&$element, FormStateInterface $for
   // Override description of link module in quick actions for location page
   // and additional resources for service page.
   $field_definition = $context['items']->getFieldDefinition();
-  if ($field_definition->getType() == 'link' && in_array($field_definition->getName(), ['field_links', 'field_service_links'])) {
-    $element['uri']['#description'] = t('Start typing to choose an existing page on Mass.gov, or enter a complete URL to another site.',
-      [
-        '%front' => '<front>',
-        '%add-node' => '/node/add',
-        '%url' => 'http://example.com',
-      ]
-    );
+  if ($field_definition->getType() == 'link') {
+    if ($field_definition->getName() == 'field_iframe_url') {
+      $element['uri']['#description'] = t('Enter the complete URL to an iFrame on https://massgov.github.io.'
+      );
+    }
+    else {
+      $element['uri']['#description'] = t('Start typing to choose an existing page on Mass.gov, or enter a complete URL to another site.',
+        [
+          '%front' => '<front>',
+          '%add-node' => '/node/add',
+          '%url' => 'http://example.com',
+        ]
+      );
+    }
+  }
+
+  if ($field_definition->getType() == 'entity_reference' && $field_definition->getName() == 'field_issuer_issuers') {
+    if ($element['target_id']['#field_parents'][0] == 'field_advisory_issuer') {
+      $element['target_id']['#ajax'] = [
+        'event' => 'autocompleteclose',
+        'callback' => 'mass_utility_get_issuer_advisory_ajax_callback',
+      ];
+    }
+    elseif ($element['target_id']['#field_parents'][0] == 'field_executive_order_issuer') {
+      $element['target_id']['#ajax'] = [
+        'event' => 'autocompleteclose',
+        'callback' => 'mass_utility_get_issuer_executive_ajax_callback',
+      ];
+    }
   }
 
   // Override description of link module in quick actions for location page
@@ -173,6 +194,84 @@ function mass_upload_widget_process(array $element) {
     $element['upload_button']['#ajax']['callback'] = 'mass_utility_get_signee_ajax_callback';
   }
   return $element;
+}
+
+/**
+ * AJAX handler for dynamic updates to static content.
+ */
+function mass_utility_get_issuer_advisory_ajax_callback(array &$form, FormStateInterface $form_state) {
+  // Get the current delta.
+  $element = $form_state->getTriggeringElement();
+  $delta = 0;
+
+  if (isset($element['#field_parents'][1])) {
+    $delta = $element['#field_parents'][1];
+  }
+
+  // Create AJAX Response object.
+  $response = new AjaxResponse();
+
+  // Get the referenced node id.
+  $nid = $form_state->getValue([
+    'field_advisory_issuer',
+    $delta,
+    'subform',
+    'field_issuer_issuers',
+    0,
+    'target_id',
+  ]);
+
+  if ($nid) {
+    $storage = \Drupal::entityTypeManager()->getStorage('node');
+    $node = $storage->load($nid);
+    $name_and_title = $node->getTitle();
+    $name_and_title = explode(',', $name_and_title);
+
+    $response->addCommand(new InvokeCommand('input[name="field_advisory_issuer[' . $delta . '][subform][field_issuer_display_name][0][value]"', 'val', [trim($name_and_title[0])]));
+    $response->addCommand(new InvokeCommand('input[name="field_advisory_issuer[' . $delta . '][subform][field_issuer_title][0][value]"', 'val', [trim($name_and_title[1])]));
+    return $response;
+  }
+
+  return FALSE;
+}
+
+/**
+ * AJAX handler for dynamic updates to static content.
+ */
+function mass_utility_get_issuer_executive_ajax_callback(array &$form, FormStateInterface $form_state) {
+  // Get the current delta.
+  $element = $form_state->getTriggeringElement();
+  $delta = 0;
+
+  if (isset($element['#field_parents'][1])) {
+    $delta = $element['#field_parents'][1];
+  }
+
+  // Create AJAX Response object.
+  $response = new AjaxResponse();
+
+  // Get the referenced node id.
+  $nid = $form_state->getValue([
+    'field_executive_order_issuer',
+    $delta,
+    'subform',
+    'field_issuer_issuers',
+    0,
+    'target_id',
+  ]);
+
+  if ($nid) {
+    $storage = \Drupal::entityTypeManager()->getStorage('node');
+    $node = $storage->load($nid);
+    $name_and_title = $node->getTitle();
+    $name_and_title = explode(',', $name_and_title);
+
+    $response->addCommand(new InvokeCommand('input[name="field_executive_order_issuer[' . $delta . '][subform][field_issuer_display_name][0][value]"', 'val', [trim($name_and_title[0])]));
+    $response->addCommand(new InvokeCommand('input[name="field_executive_order_issuer[' . $delta . '][subform][field_issuer_title][0][value]"', 'val', [trim($name_and_title[1])]));
+    return $response;
+  }
+
+  return FALSE;
 }
 
 /**

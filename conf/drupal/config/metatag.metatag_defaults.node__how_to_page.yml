@@ -17,6 +17,7 @@ tags:
   schema_apply_action_target: '[node:field_how_to_link_1]'
   schema_apply_action_type: ApplyAction
   title: '[node:title] | [site:name]'
+  audience: '[node:field_audience:value]'
   og_site_name: '[site:name]'
   og_title: '[node:title]'
   og_type: howto

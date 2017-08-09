@@ -54,3 +54,6 @@
 *.exe     -text diff
 *.svgz    -text diff
 *.ttf     -text diff
+
+# Handle changelog.md changes as union merge per http://bit.ly/2u7Q5fQ
+CHANGELOG.md merge=union
