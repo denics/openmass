@@ -11,3 +11,7 @@ Feature: Executive Order Page Content type
   Scenario: Verify that pathauto patterns are applied to Executive order+nodes.
     Given I am viewing an "executive_order" content with the title "Test Executive Order"
     Then I am on "executive-orders/test-executive-order"
+
+  Scenario: Verify that the category metatag exists and has the correct value.
+    Given I am viewing an "executive_order" with the title "test executive order"
+    Then I should see a "category" meta tag of "laws-regulations"

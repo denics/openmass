@@ -6,6 +6,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 ### Added
 - Added notification message for users automatically added as content watchers.
 - DP-4211 - Add iframe paragraph to service details and location details.
+- Adds a "category" metatag when viewing most nodes. The category is dynamically determined based on the content type and will allow future filtered searches using Google CSE.
 
 ### Changed
 - DP-4416 - Changed label on "Related Parks" to "Related Locations"

@@ -8,3 +8,7 @@ Feature: Service Details Page Content type
     Given I am logged in as a user with the "administrator" role
     Then "service_details" content has the correct fields
     And "section_with_heading" paragraph has the correct fields
+
+  Scenario: Verify that the category metatag exists and has the correct value.
+    Given I am viewing a "service_details" content with the title "test service details"
+    Then I should see a "category" meta tag of "services"
