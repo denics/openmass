@@ -1,0 +1,28 @@
+uuid: 2339b2b1-bb71-49fb-8376-d9814a2ad9ed
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_executive_order_ref_org
+    - node.type.executive_order
+    - node.type.org_page
+id: node.executive_order.field_executive_order_ref_org
+field_name: field_executive_order_ref_org
+entity_type: node
+bundle: executive_order
+label: Organization
+description: 'Choose the organization. This will typically be the Office of the Governor.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      org_page: org_page
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

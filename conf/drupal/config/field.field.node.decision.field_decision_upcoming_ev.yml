@@ -1,0 +1,28 @@
+uuid: 125171f3-9d6b-42bd-a4fc-6ba7fd1df742
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_decision_upcoming_ev
+    - node.type.decision
+    - node.type.event
+id: node.decision.field_decision_upcoming_ev
+field_name: field_decision_upcoming_ev
+entity_type: node
+bundle: decision
+label: 'Upcoming Events'
+description: 'Any upcoming events that may be related to the decision.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      event: event
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.node.advisory.field_advisory_date
     - field.field.node.advisory.field_advisory_download
+    - field.field.node.advisory.field_advisory_footnotes
     - field.field.node.advisory.field_advisory_issuer
     - field.field.node.advisory.field_advisory_links
     - field.field.node.advisory.field_advisory_metatags
@@ -45,6 +46,13 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
+  field_advisory_footnotes:
+    weight: 126
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
     region: content
   field_advisory_issuer:
     type: entity_reference_revisions_entity_view

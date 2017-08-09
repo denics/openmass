@@ -6,6 +6,7 @@ dependencies:
     - field.field.node.decision.field_decision_date
     - field.field.node.decision.field_decision_docket_number
     - field.field.node.decision.field_decision_download
+    - field.field.node.decision.field_decision_footnotes
     - field.field.node.decision.field_decision_location
     - field.field.node.decision.field_decision_metatags
     - field.field.node.decision.field_decision_overview
@@ -16,7 +17,7 @@ dependencies:
     - field.field.node.decision.field_decision_related
     - field.field.node.decision.field_decision_section
     - field.field.node.decision.field_decision_sources
-    - field.field.node.decision.field_decision_upcoming_events
+    - field.field.node.decision.field_decision_upcoming_ev
     - node.type.decision
   module:
     - datetime
@@ -54,6 +55,13 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
+  field_decision_footnotes:
+    weight: 124
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
     region: content
   field_decision_location:
     weight: 109
@@ -143,17 +151,13 @@ content:
     third_party_settings: {  }
     type: link
     region: content
-  field_decision_upcoming_events:
-    weight: 117
+  field_decision_upcoming_ev:
+    weight: 125
     label: above
     settings:
-      trim_length: 80
-      url_only: false
-      url_plain: false
-      rel: ''
-      target: ''
+      link: true
     third_party_settings: {  }
-    type: link
+    type: entity_reference_label
     region: content
   links:
     weight: 100

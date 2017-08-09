@@ -26,9 +26,6 @@ done
 # @TODO pull available environments via api
 remoteEnvironments=("prod" "test" "dev" "feature1" "feature2" "feature3" "feature4" "feature5" "cd")
 
-# cd into document root so drush can see aliases
-cd /var/www/mass.local/docroot
-
 # Runs a command w/ success/fail handling
 function run {
   # parameters
@@ -71,7 +68,13 @@ if [ $? == 0 ]; then
   echo -e "\n"
   echo "sync db"
   echo -e "------------------------------------------------------------------------"
-  run "drush -y --sanitize --create-db sql-sync @massgov.$desiredEnv @self" "drush sql-sync" "🚚"
+  run "drush -y --create-db sql-sync @massgov.$desiredEnv @self" "drush sql-sync" "🚚"
+
+  # sanitize local DB
+  echo -e "\n"
+  echo "sanitize db"
+  echo -e "------------------------------------------------------------------------"
+  run "drush -y sql-sanitize" "drush sql-sanitize" "🚚"
 
   # Optionally pull files
   if $pullFiles; then

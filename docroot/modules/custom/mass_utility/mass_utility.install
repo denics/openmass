@@ -356,3 +356,19 @@ function mass_utility_update_8011(&$sandbox) {
   $content_type = \Drupal::entityManager()->getStorage('node_type')->load('press_release');
   $content_type->delete();
 }
+
+/**
+ * Remove field_adjustment_type_related field.
+ */
+function mass_utility_update_8012(&$sandbox) {
+  // Delete the field_adjustment_type_related field.
+  $properties = [
+    'entity_type' => 'paragraph',
+    'bundle' => 'adjustment_type',
+    'field_name' => 'field_adjustment_type_related',
+  ];
+  $fields = \Drupal::entityManager()->getStorage('field_config')->loadByProperties($properties);
+  foreach ($fields as $field) {
+    $field->delete();
+  }
+}

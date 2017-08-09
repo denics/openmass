@@ -83,7 +83,7 @@
     owner: vagrant
     group: vagrant
     mode: 0400
-    
+
 - name: Upgrade composer
   become: True
   command: composer self-update

@@ -5,6 +5,8 @@ namespace Drupal\mayflower\Prepare;
 use Drupal\mayflower\Helper;
 use Drupal\Component\Utility\UrlHelper;
 use Drupal\Core\Url;
+use Drupal\taxonomy\Entity\Term;
+use Drupal\Core\Entity\ContentEntityInterface;
 
 /**
  * Provides variable structure for mayflower organisms using prepare functions.
@@ -193,6 +195,7 @@ class Organisms {
       'widgets' => array_key_exists('widgets', $options) ? $options['widgets'] : NULL,
       'category' => array_key_exists('category', $options) ? $options['category'] : NULL,
       'headerTags' => array_key_exists('headerTags', $options) ? $options['headerTags'] : NULL,
+      'publishState' => array_key_exists('publishState', $options) ? $options['publishState'] : NULL,
     ];
 
     return $pageHeader;
@@ -333,6 +336,9 @@ class Organisms {
         'field_news_media_contac',
         'field_press_release_media_contac',
         'field_event_contact_general',
+        'field_executive_order_contact',
+        'field_decision_ref_contact',
+        'field_advisory_ref_contact',
         'field_form_ref_contacts_3',
       ],
     ];
@@ -424,9 +430,19 @@ class Organisms {
 
     foreach ($entity->$ref_field['entity_ref'] as $event) {
       $eventEntity = $event->entity;
-      // Determines which field names to use from event fields.
-      $fields = Helper::getMappedFields($eventEntity, $eventFields);
-      $events[] = Molecules::prepareEventTeaser($eventEntity, $fields);
+      if (!empty($eventEntity)) {
+        // Determines which field names to use from event fields.
+        $fields = Helper::getMappedFields($eventEntity, $eventFields);
+        $events[] = Molecules::prepareEventTeaser($eventEntity, $fields, $options);
+      }
+      else {
+        // Load event from Link field.
+        if (!empty($event->uri)) {
+          $entity = Helper::entityFromUri($event->uri);
+          $fields = Helper::getMappedFields($entity, $eventFields);
+          $events[] = Molecules::prepareEventTeaser($entity, $fields, $options);
+        }
+      }
     }
 
     $heading = isset($options['heading']) ? Helper::buildHeading($options['heading']) : [];
@@ -506,6 +522,7 @@ class Organisms {
    */
   public static function preparePressListing($entity, $field, array $options = []) {
     $linkList = [];
+    $pressList = [];
 
     // Roll up the press list.
     $links = $entity->get($field);
@@ -514,6 +531,7 @@ class Organisms {
       $url = $link->getUrl();
       $text = $link->getValue()['title'];
       $date = '';
+      $eyebrow = '';
 
       // On an internal item, load the referenced node title.
       if (strpos($link->getValue()['uri'], 'entity:node') !== FALSE) {
@@ -521,11 +539,50 @@ class Organisms {
           $params = $url->getRouteParameters();
           $entity_type = key($params);
           $entity = \Drupal::entityTypeManager()->getStorage($entity_type)->load($params[$entity_type]);
-          if (!empty($entity) && method_exists($entity, getType)) {
-            $content_type = $entity->getType();
+          if (!empty($entity) && $entity instanceof ContentEntityInterface) {
+            $map = [
+              'date' => [
+                'field_news_date',
+                'field_event_date',
+                'field_decision_date',
+                'field_advisory_date',
+                'field_executive_order_date',
+              ],
+              'eyebrow' => [
+                'field_decision_ref_type',
+                'field_advisory_type_tax',
+                'field_news_type',
+              ],
+            ];
 
-            if (Helper::isFieldPopulated($entity, 'field_news_date')) {
-              $date = Helper::fieldFullView($entity, 'field_news_date');
+            // Determines which field names to use from the map.
+            $fields = Helper::getMappedFields($entity, $map);
+
+            if ($fields['date']) {
+              $date = !empty($entity->$fields['date']->value) ? strtotime($entity->$fields['date']->value) : '';
+              $date = \Drupal::service('date.formatter')->format($date, 'custom', 'n/d/Y');
+            }
+
+            if ($fields['eyebrow']) {
+              if (Helper::isEntityReferenceField($entity, $fields['eyebrow']) == TRUE) {
+                $type_items = Helper::getReferencedEntitiesFromField($entity, $fields['eyebrow']);
+
+                if ($type_items[0] instanceof Term) {
+                  $eyebrow = $type_items[0]->getName();
+                }
+              }
+              elseif (Helper::fieldType($entity, $fields['eyebrow']) == 'list_string') {
+                if (Helper::isFieldPopulated($entity, $fields['eyebrow'])) {
+                  $eyebrow = $entity->$fields['eyebrow']->first()->view();
+                }
+              }
+            }
+            else {
+              $eyebrow_content_types = ['executive_order'];
+              $content_type = $entity->getType();
+              if (in_array($content_type, $eyebrow_content_types)) {
+                $eyebrow = $entity->type->entity->label();
+              }
             }
 
             // On internal item, if empty, grab enity title.
@@ -537,7 +594,7 @@ class Organisms {
       }
 
       $items[] = [
-        'eyebrow' => in_array($content_type, $options['useEyebrow']) ? $options['category'] : '',
+        'eyebrow' => $eyebrow,
         'title' => [
           'href' => $url->toString(),
           'text' => $text,
@@ -843,8 +900,15 @@ class Organisms {
   public static function prepareJumpLinks(array $sections, array $options) {
     // Create the links data structure.
     foreach ($sections as $section) {
+      if (!is_object($section['title']) && !empty($section['title']['compHeading']['title'])) {
+        $title = $section['title']['compHeading']['title'];
+      }
+      else {
+        $title = $section['title'];
+      }
+
       $links[] = [
-        'text' => $section['title'],
+        'text' => $title,
         'href' => $section['id'],
       ];
     }
@@ -869,10 +933,12 @@ class Organisms {
    *   Returns structured array.
    */
   public static function prepareActionDetails($entity, $options = NULL) {
+    $title_context = "";
     $sections = [];
 
     // Create the map of all possible field names to use.
     $map = [
+      'title' => ['title'],
       'overview' => ['field_overview'],
       'primary_location' => ['field_ref_contact_info_1'],
       'contacts' => ['field_ref_contact_info'],
@@ -888,6 +954,10 @@ class Organisms {
 
     // Determines which field names to use from the map.
     $fields = Helper::getMappedFields($entity, $map);
+
+    if (Helper::isFieldPopulated($entity, $fields['title'])) {
+      $title_context = $entity->$fields['title']->value;
+    }
 
     // Overview section.
     if (Helper::isFieldPopulated($entity, $fields['overview'])) {
@@ -961,6 +1031,7 @@ class Organisms {
     }
 
     return [
+      'title_context' => $title_context,
       'sections' => $sections,
     ];
   }
@@ -1238,6 +1309,9 @@ class Organisms {
         'field_how_to_files',
         'field_section_downloads',
         'field_event_ref_downloads',
+        'field_executive_order_downloads',
+        'field_decision_download',
+        'field_advisory_download',
       ],
       'link' => [
         'field_guide_section_link',

@@ -13,3 +13,7 @@ Feature: How To Page Content type
   Scenario: Verify that pathauto patterns are applied to How-To Page nodes.
     Given I am viewing a "how_to_page" content with the title "test how to page"
     Then I am on "how-to/test-how-page"
+
+  Scenario: Verify that the category metatag exists and has the correct value.
+    Given I am viewing a "how_to_page" with the title "test how to page"
+    Then I should see a "category" meta tag of "services"
