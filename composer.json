@@ -134,6 +134,7 @@
         "drupal/google_map_field": "^1",
         "drupal/imagick": "^1",
         "drupal/inline_entity_form": "1.x-dev",
+        "drupal/key_value_field": "1.x-dev",
         "drupal/libraries": "^3",
         "drupal/media_entity": "^1",
         "drupal/media_entity_document": "^1",

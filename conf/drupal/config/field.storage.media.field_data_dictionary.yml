@@ -1,0 +1,20 @@
+uuid: 9434e47a-86cc-4bcf-b7d3-d1af1fd58c98
+langcode: en
+status: true
+dependencies:
+  module:
+    - media_entity
+    - text
+id: media.field_data_dictionary
+field_name: field_data_dictionary
+entity_type: media
+type: text
+settings:
+  max_length: 255
+module: text
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

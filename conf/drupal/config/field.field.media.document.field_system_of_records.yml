@@ -1,24 +1,24 @@
-uuid: 7de2f016-e852-4bca-b5e6-10c665e2bd0c
+uuid: f718f384-76ba-4618-abb5-03de54a1f905
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.media.field_link_related_content
+    - field.storage.media.field_system_of_records
     - media_entity.bundle.document
   module:
     - link
-id: media.document.field_link_related_content
-field_name: field_link_related_content
+id: media.document.field_system_of_records
+field_name: field_system_of_records
 entity_type: media
 bundle: document
-label: 'Related Content URL'
-description: 'Link web content related to your file. Example: "https://pilot.mass.gov/topics/early-childhood-education".'
+label: 'System of Records'
+description: ''
 required: false
 translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
-  link_type: 16
+  link_type: 17
   title: 1
   content_types:
     action: 0
