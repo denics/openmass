@@ -2,20 +2,40 @@
 All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
+
 ## Upcoming (add in progress changes here)
+
 ### Added
-- Added notification message for users automatically added as content watchers.
-- DP-4211 - Add iframe paragraph to service details and location details.
 - Adds a "category" metatag when viewing most nodes. The category is dynamically determined based on the content type and will allow future filtered searches using Google CSE.
 - Adds a "Primary audience" field to Guide Page, How-to Page, Service Page, and Service Detail Page content types. The value of this field is used to populate an "audience" metatag for those pages, allowing Google CSE to filter by audience.
 
 ### Changed
-- DP-4416 - Changed label on "Related Parks" to "Related Locations"
 
 ### Removed
-None
 
-[0.26.0] - August 3, 2017
+
+
+## [0.27.0] - August 8, 2017
+
+### Added
+- Added notification message for users automatically added as content watchers.
+- Added iframe paragraph to service details and location details.
+- Added basic documentation for "Watching" for users
+- Added Theming / Validation for Decisions
+- Added Theming / Validation for Policy Advisory
+- Added Theming / Validation for Executive Orders
+
+### Changed
+- Changed label on "Related Parks" to "Related Locations"
+- Removed a bar showing on pilot.mass.gov header
+- Fixed Location pages show page level alert even with no alert content
+- Fixed Pilot.mass.gov design is changing when choosing a different language
+- Fixed Topic page title in the cards are not wrapping with IE11
+
+
+
+## [0.26.0] - August 3, 2017
+
 ### Added
 - DP-4565 - Implement structured data (schema.org) for "Topic Page". When you view the source code of a Topic page, you will now see the JSON-LD object that maps to this page type.
 - DP-4521 - Added documentation on how to map content types to schema.org.
@@ -32,11 +52,10 @@ None
 - DP-4589 - Added custom template suggestion for Flag Content contact form to ensure proper textarea rendering.
 - DP-4773 - Hides flagging link container if user is not authenticated.
 
-### Removed
-None.
 
 
 ## [0.25.0] - Aug 1, 2017
+
 ### Added
 - Added dashboard admin/ma-dash/service-content to see content related to a service.
 - "Organization Pages" and "Service Pages" now have event listing.
@@ -46,11 +65,10 @@ None.
 ### Changed
 - Fix bug where pages with no table data (i.e. How-To's with no fees) were not loading.
 
-### Removed
-None
 
 
 ## [0.24.1] - July 27, 2017
+
 ### Added
 - Adds form_page content type.
 - Adds custom field type for form embed.
@@ -64,20 +82,14 @@ None
 - Update mayflower to 5.5.0
 - Watch notification emails include revision author
 
-### Removed
-None
 
 
 ## [0.24.0] - July 25, 2017
+
 ### Added
 - Implemented structured data (schema.org) for the following three content types: Fee, Guide and Location. When you visit these page types, they now render JSON-LD (viewable in source page source code).
 - Introduced "Content Flagging" capability. As a mass.gov internal user, I can flag a piece of content that appears inappropriate or incorrect.
 
-### Changed
-None.
-
-### Removed
-None.
 
 
 ## [0.23.1] - July 20, 2017
@@ -91,7 +103,7 @@ None.
 ### Changed
 Fine-tune branch name regex for CircleCI; i.e. act on any branch name that is not "develop". Only push to Acquia if it is not "develop".
 
-### Removed
+
 
 ## [0.23.0] - July 18, 2017
 
@@ -104,15 +116,15 @@ Fine-tune branch name regex for CircleCI; i.e. act on any branch name that is no
 - Added content fields for assigning labels such as top content, sticky content, and secretariat ownership.
 
 ### Changed
-
 - Content cards on topic pages are strictly only able to link to other topic pages, organizations, and services. This helps keep topic pages clean and structured.
 - Legacy redirects cannot be used more than once.
 - Devs: Composer state is fixed. Composer install works again.
 
+
+
 ## [0.22.3] - July 13, 2017
 
 ### Added
-
 - On edit.mass.gov, you can manually watch and unwatch content. P.S. No watch notifications are sent yet, but you can sign up to watch something.
 - Metadata for Service Details is published via a Schema.org mapping (good for search engines)
 - Photo credits added to images in hardened content types.
@@ -124,17 +136,24 @@ Fine-tune branch name regex for CircleCI; i.e. act on any branch name that is no
 - An unlimited number of tasks can be added to Service pages
 - Press releases changed to news, with some new fields too!
 
+
+
+
 ## [0.22.2] - July 11, 2017
 
 ### Changed
-
 - Location pages no longer render blank location-specific page level alert by default (i.e. when there is no location alert content).
+
+
+
 
 ## [0.22.1] - July 10, 2017
 
 ### Changed
-
 - Mayflower module `Organisms::preparePageBanner` method now supports multiple image styles for the background image.  This fixes the rendering issues for banner images on Topic pages.
+
+
+
 
 ## [0.22.0] - July 05, 2017
 
@@ -176,10 +195,10 @@ Fine-tune branch name regex for CircleCI; i.e. act on any branch name that is no
 - Devs only: Make configuration changes easier to export / import.
 - Remove extra decorative line when contact group does not have a title
 
-## [0.21.2] - June 20, 2017
 
-### Added
-- None
+
+
+## [0.21.2] - June 20, 2017
 
 ### Changed
 - Users can only make edits to mass.gov from approved networks, which should make it less likely for intruders to modify the site.
