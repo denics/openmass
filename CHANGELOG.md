@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 ### Added
 - Added the route_iframes module to support dashboards as a tab / local task on nodes / pages.
 - DP-4211 - Add iframe paragraph to service details and location details.
+- DP-4179 - (for devs) Add docs for updating dependency packages to repo readme + mayflower docs
 - Adds a "category" metatag when viewing most nodes. The category is dynamically determined based on the content type and will allow future filtered searches using Google CSE.
 - Adds a "Primary audience" field to Guide Page, How-to Page, Service Page, and Service Detail Page content types. The value of this field is used to populate an "audience" metatag for those pages, allowing Google CSE to filter by audience.
 
@@ -97,6 +98,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 ## [0.23.1] - July 20, 2017
 
 ### Added
+- DP-0000 - Add "stamp-and-deploy" script. Under "deployment" in "circle.yml", the "commands" section for branches that CircleCI acts upon, are now in a bash script "./scripts/stamp-and-deploy". (Sorry, no Jira ticket - Youssef & Moshe)
+- DP-4179 For devs: update project documentation with steps to update a dependency, including some Mayflower-specific docs.
+
+### Changed
+- DP-0000 - Fine-tune branch name regex for CircleCI; i.e. act on any branch name that is not "develop". Only push to Acquia if it is not "develop". (Sorry, no Jira ticket - Youssef & Moshe)
 - Adds "stamp-and-deploy" script. Under "deployment" in "circle.yml", the "commands" section for branches that CircleCI acts upon, are now in a bash script "./scripts/stamp-and-deploy".
 - Adds email notifications for watchers of content
 - Adds preliminary configuration for Advisory content type
