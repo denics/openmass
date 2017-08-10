@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.guide_page.field_audience
     - field.field.node.guide_page.field_guide_page_bg_narrow
     - field.field.node.guide_page.field_guide_page_bg_wide
     - field.field.node.guide_page.field_guide_page_lede
@@ -13,12 +14,20 @@ dependencies:
   module:
     - entity_reference_revisions
     - image
+    - options
     - user
 id: node.guide_page.default
 targetEntityType: node
 bundle: guide_page
 mode: default
 content:
+  field_audience:
+    weight: 107
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+    region: content
   field_guide_page_bg_wide:
     weight: 102
     label: above

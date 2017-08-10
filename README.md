@@ -119,6 +119,21 @@ Note: As of [#47bfef3f](https://github.com/massgov/mass/commit/47bfef3f2220ba1b5
 1. Sometimes composer will pull in a git directory instead of distribution files for a dependency. Please double check that there is no `.git` directory within the module code, and if so, please remove it. You can test with this command: `find . | grep ".git$"` and should ONLY see the output of: `./.git` (which is this projects git directory - don't delete that!).
 1. Commit the changes to `composer.json`, `composer.lock`, `conf/drupal/config/core.extension.yml`, but not the module code itself.
 
+### Updating a dependency
+Follow these steps in order to keep Mass.gov up to date with desired dependency updates.
+
+1. When there is a new dependency update available, it's a good idea to read the release notes for that update to get an idea of what has changed. Also, make sure you are familiar with the implications of each kind of release (i.e. major, minor, patch) for that package.
+1. Create a JIRA ticket to track the work required to implement the new version.
+1. Create a branch off of `develop`.  If there are multiple devs involved in this work, they should coordinate the necessary git workflow.  This branch might serve as an integration branch for any new work and / or existing tickets to make changes for the new release that are in progress. *This might require coordination across project teams.*
+1. The exact composer workflow will depend on the whether or not the new version falls within the [version constraints](https://getcomposer.org/doc/01-basic-usage.md#package-version-constraints) used when requiring the package.  These constraints can be found in the `composer.json` entry for the given package.
+    1. If the new version of your package is included in the version constraint in `composer.json`, then you can update your package by running `composer update <package owner>/<package> -- with dependencies`.  For example, `composer update drupal/bad_judgement --with-dependencies`.  *(If the update was successful, then `git status` should show changes to `composer.lock` to reflect the new package version.)*
+    1. If the new version of your package is *not* included in the version constraint in `composer.json`, then you need to first update the version constraint and then update the package by running `composer require <package owner>/<package name>:<version constraint> --update-with-dependencies`.  For example, `composer require drupal/bad_judgement:^3.0 --update-with-dependencies`.  *(If the update was successful, then `git status` should show changes to both `composer.json` and `composer.lock` to reflect the new package version constraint and installed version, respectively.)* 
+1. Test Mass.gov with the new release (remember to `drush cr`!): 
+    1. Smoke test the [Mass.gov featureset](https://wiki.state.ma.us/display/massgovredesign/Massgov+Integration+testing+feature+set+V1) to ensure existing functionality has not been broken - especially the functionality that the dependency adds.
+    1. Functional test: Does this release introduce new functionality?  Verify that this functionality works in Mass.gov.
+1. If any issues are identified during testing steps, make the necessary code fixes in Mass.gov to accommodate.
+1. Follow the established project git and JIRA workflows for completing the ticket.
+
 
 ### Patching a module
 Sometimes we need to apply patches from the Drupal.org issue queues. These patches should be applied using composer using the [Composer Patches](https://github.com/cweagans/composer-patches) composer plugin. Note that both composer operations: `update` and `install` will halt in the event that a patch failed to install due the setting "composer-exit-on-patch-failure" in `composer.json`

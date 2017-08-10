@@ -6,7 +6,6 @@ dependencies:
     - core.entity_view_mode.node.teaser
     - field.field.node.event.field_event_capacity
     - field.field.node.event.field_event_contact_general
-    - field.field.node.event.field_event_date
     - field.field.node.event.field_event_description
     - field.field.node.event.field_event_fees
     - field.field.node.event.field_event_image
@@ -16,6 +15,7 @@ dependencies:
     - field.field.node.event.field_event_logo
     - field.field.node.event.field_event_metatags
     - field.field.node.event.field_event_rain_date
+    - field.field.node.event.field_event_ref_contact
     - field.field.node.event.field_event_ref_downloads
     - field.field.node.event.field_event_ref_event_2
     - field.field.node.event.field_event_ref_parents

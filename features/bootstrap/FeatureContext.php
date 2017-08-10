@@ -1478,5 +1478,26 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
     }
   }
 
+  /**
+   * @Then I should see a/an :tag_name meta tag (with the value )of :tag_value
+   */
+  public function iShouldSeeAMetaTagWithTheValue($tag_name, $tag_value)
+  {
+    $page = $this->getMink()->getSession()->getPage();
+    $meta_tag = $page->find('css', 'meta[name="'. $tag_name  . '"]');
+    if (!$meta_tag) {
+      throw new \Exception(sprintf(
+        'No "%s" meta tag found on the page.',
+        $tag_name
+      ));
+    }
+    $meta_content = $meta_tag->getAttribute('content');
+    if ($tag_value != $meta_content) {
+      throw new \Exception(sprintf(
+        'Meta tag content of "%s" does not match',
+        $meta_content
+      ));
+    }
+  }
 
 }

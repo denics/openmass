@@ -22,6 +22,7 @@ module:
   ctools: 0
   datalayer: 0
   datetime: 0
+  datetime_range: 0
   diff: 0
   draggableviews: 0
   dropzonejs: 0
@@ -68,17 +69,17 @@ module:
   mass_docs: 0
   mass_entityreference: 0
   mass_feedback_form: 0
-  mass_flagging: 0
   mass_fields: 0
+  mass_flagging: 0
   mass_formatters: 0
   mass_map: 0
   mass_nav: 0
-  mass_schema_unit_price_specification: 0
   mass_schema_apply_action: 0
   mass_schema_collection_page: 0
   mass_schema_government_service: 0
   mass_schema_metatag: 0
   mass_schema_place: 0
+  mass_schema_unit_price_specification: 0
   mass_search: 0
   mass_search_suppression: 0
   mass_styles: 0
@@ -92,6 +93,7 @@ module:
   media_entity_document: 0
   menu_ui: 0
   metatag: 0
+  metatag_google_cse: 0
   metatag_open_graph: 0
   metatag_twitter_cards: 0
   migrate: 0
@@ -118,6 +120,7 @@ module:
   restui: 0
   rh_node: 0
   rh_taxonomy: 0
+  route_iframes: 0
   schema_article: 0
   schema_article_example: 0
   schema_item_list: 0

@@ -8,7 +8,9 @@ use Drupal\DrupalExtension\Context\RawDrupalContext;
 use Drupal\DrupalExtension\Context\MinkContext;
 use Drupal\DrupalExtension\Context\DrupalContext;
 use Behat\Behat\Hook\Scope\BeforeScenarioScope;
+use Behat\Gherkin\Node\TableNode;
 use Drupal\node\Entity\Node;
+use Drupal\paragraphs\Entity\Paragraph;
 
 /**
  * Defines content features specific to Mass.gov.
@@ -355,6 +357,63 @@ class MassContentContext extends RawDrupalContext {
     }
 
     return $node;
+  }
+
+  /**
+   * Creates a paragraph of the given type, identified by the given key.
+   *
+   * @Given I add a :type paragraph in the :key field with values:
+   */
+  public function iAddAParagraph($type, $key, TableNode $fields) {
+    $paragraph_values = ['type' => $type];
+    foreach ($fields->getRowsHash() as $field => $value) {
+      $paragraph_values[$field] = $value;
+    }
+    $paragraph = Paragraph::create($paragraph_values);
+    $paragraph->save();
+
+    if (empty($this->nodes)) {
+      throw new \Exception('No pages have been created.');
+    }
+    $latest_node = end($this->nodes);
+
+    $node = Node::load($latest_node->nid);
+    $node->set($key, [
+      [
+        'target_id' => $paragraph->id(),
+        'target_revision_id' => $paragraph->getRevisionId(),
+      ]
+    ]);
+    $node->save();
+  }
+
+  /**
+   * Creates a node of the given type.
+   *
+   * @Given I create a :type content:
+   */
+  public function iCreateAContent($type, TableNode $fields) {
+    $node = (object) array(
+      'type' => $type,
+    );
+    foreach ($fields->getRowsHash() as $field => $value) {
+      $node->{$field} = $value;
+    }
+
+    $this->nodeCreate($node);
+  }
+
+  /**
+   * Visits the most recently-created node.
+   *
+   * @When I visit the newest page
+   */
+  public function iVisitTheNewestPage() {
+    if (empty($this->nodes)) {
+      throw new \Exception('No pages have been created.');
+    }
+    $latest_node = end($this->nodes);
+    $this->minkContext->visitPath('/node/' . $latest_node->nid);
   }
 
   /**

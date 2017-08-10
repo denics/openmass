@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "ef9408153f180188b105d0cfb9f86976",
+    "content-hash": "019d4007c599ad3dd99d558de7797a57",
     "packages": [
         {
             "name": "acquia/acquia-sdk-php",
@@ -1795,8 +1795,7 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/auto_entitylabel",
                 "issues": "https://www.drupal.org/project/issues/auto_entitylabel"
-            },
-            "time": "2017-08-02 16:08:09"
+            }
         },
         {
             "name": "drupal/better_field_descriptions",
@@ -1841,8 +1840,7 @@
             "homepage": "https://www.drupal.org/project/better_field_descriptions",
             "support": {
                 "source": "http://cgit.drupalcode.org/better_field_descriptions"
-            },
-            "time": "2017-04-17T10:36:09+00:00"
+            }
         },
         {
             "name": "drupal/clamav",
@@ -2519,6 +2517,7 @@
                     "Don't break if telephone number is less than 6 digits. (https://www.drupal.org/node/2575577#comment-11750724)": "https://www.drupal.org/files/issues/2575577-11.patch",
                     "Fix photo disappearing from org page. Fix Contextual Links js bug.": "https://www.drupal.org/files/issues/2551373-32.patch",
                     "Link autocomplete content type filter. (https://www.drupal.org/node/2887376#comment-12147367)": "https://www.drupal.org/files/issues/link-autocomplete-ct-filter-2887376-5-8.4.x.patch",
+                    "Improve the Views integration for DateRange fields. (https://www.drupal.org/node/2786577#comment-12164509)": "https://www.drupal.org/files/issues/improve_the_views-2786577-165.patch",
                     "Number widget validation can break AJAX actions. (https://www.drupal.org/node/2614250)": "https://www.drupal.org/files/issues/2614250-40.patch"
                 }
             },
@@ -4780,8 +4779,7 @@
             "homepage": "https://www.drupal.org/project/password_policy",
             "support": {
                 "source": "http://cgit.drupalcode.org/password_policy"
-            },
-            "time": "2017-05-22T16:11:07+00:00"
+            }
         },
         {
             "name": "drupal/pathauto",
@@ -5162,8 +5160,7 @@
             "support": {
                 "source": "https://cgit.drupalcode.org/rabbit_hole",
                 "issues": "https://www.drupal.org/project/issues/rabbit_hole"
-            },
-            "time": "2017-06-10T21:38:28+00:00"
+            }
         },
         {
             "name": "drupal/redirect",
@@ -5263,8 +5260,7 @@
             "homepage": "https://www.drupal.org/project/restrict_by_ip",
             "support": {
                 "source": "http://cgit.drupalcode.org/restrict_by_ip"
-            },
-            "time": "2017-04-28T19:48:30+00:00"
+            }
         },
         {
             "name": "drupal/restui",
@@ -5615,8 +5611,7 @@
             "homepage": "https://www.drupal.org/project/tfa",
             "support": {
                 "source": "http://cgit.drupalcode.org/tfa"
-            },
-            "time": "2016-08-23T20:32:20+00:00"
+            }
         },
         {
             "name": "drupal/token",
@@ -11705,6 +11700,51 @@
             "time": "2017-06-15T13:59:40+00:00"
         },
         {
+            "name": "drupal/route_iframes",
+            "version": "dev-1.x",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupal.org/project/route_iframes",
+                "reference": "9cdadf27c204b3aa3b511fb77acf99c41446549e"
+            },
+            "require": {
+                "drupal/core": "~8.0"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.x-dev",
+                    "datestamp": "1501877043"
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "tnathanjames",
+                    "homepage": "https://www.drupal.org/user/2710431"
+                },
+                {
+                    "name": "youssefr",
+                    "homepage": "https://www.drupal.org/user/210487"
+                }
+            ],
+            "description": "Allow iframes to be associated to routes. For local tasks of entities, allow settings for different scopes.",
+            "homepage": "https://www.drupal.org/project/route_iframes",
+            "keywords": [
+                "Drupal"
+            ],
+            "support": {
+                "source": "http://cgit.drupalcode.org/route_iframes",
+                "issues": "https://www.drupal.org/project/issues/route_iframes"
+            }
+        },
+        {
             "name": "drush/drush",
             "version": "dev-master",
             "source": {
@@ -14133,6 +14173,7 @@
         "dflydev/embedded-composer-console": 20,
         "dflydev/embedded-composer-core": 20,
         "drupal/devel": 20,
+        "drupal/route_iframes": 20,
         "drush/drush": 20,
         "palantirnet/palantir-behat-extension": 20
     },

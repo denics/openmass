@@ -17,6 +17,10 @@ Link autocomplete content type filter. (https://www.drupal.org/node/2887376#comm
 Source: https://www.drupal.org/files/issues/link-autocomplete-ct-filter-2887376-5-8.4.x.patch
 
 
+Improve the Views integration for DateRange fields. (https://www.drupal.org/node/2786577#comment-12164509)
+Source: https://www.drupal.org/files/issues/improve_the_views-2786577-165.patch
+
+
 Number widget validation can break AJAX actions. (https://www.drupal.org/node/2614250)
 Source: https://www.drupal.org/files/issues/2614250-40.patch
 
