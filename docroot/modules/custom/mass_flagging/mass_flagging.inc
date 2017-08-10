@@ -1,11 +1,17 @@
 <?php
 
 /**
- * String output of module's help text
- *
- * return string
+ * @file
+ * Functions to be shared for mass_flagging module.
  */
-function get_mass_flagging_help_text(){
+
+/**
+ * String output of module's help text.
+ *
+ * @return string
+ *   String to be used in a render array.
+ */
+function get_mass_flagging_help_text() {
   $output = '';
   $output .= '<h2>' . t('About') . '</h2>';
   $output .= '<p>' . t('Handles multiple flagging scenarios like watching and flagging.') . '</p>';
