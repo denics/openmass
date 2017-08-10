@@ -287,45 +287,6 @@ display:
       defaults:
         style: false
         row: false
-      row:
-        type: data_field
-        options:
-          field_options:
-            title:
-              alias: ''
-              raw_output: false
-      pager:
-        type: some
-        options:
-          items_per_page: 0
-          offset: 0
-      display_description: ''
-    cache_metadata:
-      max-age: -1
-      contexts:
-        - 'languages:language_content'
-        - 'languages:language_interface'
-        - request_format
-        - 'user.node_grants:view'
-        - user.permissions
-      tags:
-        - 'config:field.storage.node.field_legacy_redirects_legacyurl'
-  rest_export_2:
-    display_plugin: rest_export
-    id: rest_export_2
-    display_title: 'Staging Only'
-    position: 2
-    display_options:
-      display_extenders: {  }
-      path: redirects-staged.txt
-      style:
-        type: serializer
-        options:
-          formats:
-            csv: csv
-      defaults:
-        style: false
-        row: false
         filters: false
         filter_groups: false
       row:
@@ -362,7 +323,7 @@ display:
           admin_label: ''
           operator: or
           value:
-            1: '1'
+            - '0'
           group: 1
           exposed: false
           expose:
@@ -392,6 +353,63 @@ display:
             group_items: {  }
           reduce_duplicates: false
           plugin_id: list_field
+      filter_groups:
+        operator: AND
+        groups:
+          1: AND
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - request_format
+        - 'user.node_grants:view'
+        - user.permissions
+      tags:
+        - 'config:field.storage.node.field_legacy_redirects_legacyurl'
+  rest_export_2:
+    display_plugin: rest_export
+    id: rest_export_2
+    display_title: Staging
+    position: 2
+    display_options:
+      display_extenders: {  }
+      path: redirects-staged.txt
+      style:
+        type: serializer
+        options:
+          formats:
+            csv: csv
+      defaults:
+        style: false
+        row: false
+        filters: false
+        filter_groups: false
+      row:
+        type: data_field
+        options:
+          field_options:
+            title:
+              alias: ''
+              raw_output: false
+      pager:
+        type: some
+        options:
+          items_per_page: 0
+          offset: 0
+      display_description: 'Includes redirects that are staged and also that are staged and production'
+      filters:
+        status:
+          value: '1'
+          table: node_field_data
+          field: status
+          plugin_id: boolean
+          entity_type: node
+          entity_field: status
+          id: status
+          expose:
+            operator: ''
+          group: 1
       filter_groups:
         operator: AND
         groups:
