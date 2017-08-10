@@ -1,0 +1,15 @@
+uuid: f1baf046-b7b9-44c7-95c9-5fd972f9ecd6
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - mass_migration
+_core:
+  default_config_hash: '-_l6cQo72Kf7SJs9ZmVAnygS2EhoexOpHgae4lInteQ'
+id: massdocs_content
+label: 'MassDocs Content Imports'
+description: 'MassDocs data migrations for groups, records and items.'
+source_type: 'CSV files'
+module: null
+shared_configuration: null

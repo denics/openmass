@@ -12,7 +12,7 @@ field_name: field_system_of_records
 entity_type: media
 bundle: document
 label: 'System of Records'
-description: ''
+description: 'This field should be a URL to the System of Records Notice (SORN) that relates to the dataset.'
 required: false
 translatable: false
 default_value: {  }
@@ -30,6 +30,7 @@ settings:
     event: 0
     executive_order: 0
     fee: 0
+    form_page: 0
     guide_page: 0
     how_to_page: 0
     interstitial: 0

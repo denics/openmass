@@ -1,4 +1,4 @@
-uuid: fbb92b27-55ca-489f-916c-ebd5c725eb7b
+uuid: c6e8cfc3-233b-4430-b496-19a8e7305651
 langcode: en
 status: true
 dependencies:
@@ -24,10 +24,10 @@ field_name: field_data_dictionary
 entity_type: media
 bundle: document
 label: 'Data Dictionary'
-description: ''
+description: 'Provides some sort of description that helps understanding the data. This can be a URL to such a resource. See Project Open Data <a href="http://project-open-data.github.io/schema/#common-core-required-if-applicable-fields">data dictionary</a> for more info.'
 required: false
 translatable: false
 default_value: {  }
 default_value_callback: ''
 settings: {  }
-field_type: text
+field_type: text_long

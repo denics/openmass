@@ -23,7 +23,7 @@ field_name: field_rights
 entity_type: media
 bundle: document
 label: Rights
-description: ''
+description: 'If you set your dataset to a public access level other than "public", provide an explanation for why this dataset cannot be made fully public.'
 required: false
 translatable: false
 default_value: {  }

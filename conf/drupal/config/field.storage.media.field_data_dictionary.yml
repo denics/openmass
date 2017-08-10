@@ -1,4 +1,4 @@
-uuid: 9434e47a-86cc-4bcf-b7d3-d1af1fd58c98
+uuid: 442fa340-2bd6-4067-a6e6-78285845d202
 langcode: en
 status: true
 dependencies:
@@ -8,9 +8,8 @@ dependencies:
 id: media.field_data_dictionary
 field_name: field_data_dictionary
 entity_type: media
-type: text
-settings:
-  max_length: 255
+type: text_long
+settings: {  }
 module: text
 locked: false
 cardinality: 1

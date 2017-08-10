@@ -12,7 +12,7 @@ field_name: field_conform
 entity_type: media
 bundle: document
 label: 'Conforms To'
-description: ''
+description: 'This is used to identify a standardized specification the dataset conforms to.'
 required: false
 translatable: false
 default_value: {  }
@@ -30,6 +30,7 @@ settings:
     event: 0
     executive_order: 0
     fee: 0
+    form_page: 0
     guide_page: 0
     how_to_page: 0
     interstitial: 0

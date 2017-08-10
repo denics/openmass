@@ -1799,7 +1799,8 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/auto_entitylabel",
                 "issues": "https://www.drupal.org/project/issues/auto_entitylabel"
-            }
+            },
+            "time": "2017-08-02 16:08:09"
         },
         {
             "name": "drupal/better_field_descriptions",
@@ -4130,8 +4131,7 @@
             "homepage": "https://www.drupal.org/project/key_value_field",
             "support": {
                 "source": "http://cgit.drupalcode.org/key_value_field"
-            },
-            "time": "2017-06-19 09:59:57"
+            }
         },
         {
             "name": "drupal/libraries",

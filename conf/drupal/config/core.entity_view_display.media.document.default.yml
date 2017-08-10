@@ -11,6 +11,7 @@ dependencies:
     - field.field.media.document.field_contact_name
     - field.field.media.document.field_content_type
     - field.field.media.document.field_contributing_agency
+    - field.field.media.document.field_contributing_organization
     - field.field.media.document.field_creator
     - field.field.media.document.field_data_dictionary
     - field.field.media.document.field_data_quality
@@ -130,6 +131,14 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
     region: content
+  field_contributing_organization:
+    weight: 37
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
   field_creator:
     weight: 17
     label: above
@@ -139,7 +148,7 @@ content:
     type: entity_reference_label
     region: content
   field_data_dictionary:
-    weight: 29
+    weight: 38
     label: above
     settings: {  }
     third_party_settings: {  }

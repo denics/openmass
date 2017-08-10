@@ -11,6 +11,7 @@ dependencies:
     - field.field.media.document.field_contact_name
     - field.field.media.document.field_content_type
     - field.field.media.document.field_contributing_agency
+    - field.field.media.document.field_contributing_organization
     - field.field.media.document.field_creator
     - field.field.media.document.field_data_dictionary
     - field.field.media.document.field_data_quality
@@ -73,7 +74,7 @@ third_party_settings:
       format_settings:
         id: ''
         classes: ''
-        direction: vertical
+        direction: horizontal
       label: Form
     group_advanced:
       children:
@@ -85,10 +86,9 @@ third_party_settings:
         - field_additional_info
         - field_link_related_content
         - field_part_of
-        - field_public_access_level
         - field_license
+        - field_public_access_level
         - field_rights
-        - field_data_dictionary
         - field_conform
         - field_data_quality
         - field_system_of_records
@@ -97,6 +97,7 @@ third_party_settings:
         - field_link_classic_massgov
         - field_checksum
         - field_contributing_agency
+        - field_data_dictionary
       parent_name: group_form
       weight: 13
       format_type: tab
@@ -112,12 +113,14 @@ third_party_settings:
         - field_title
         - field_description
         - field_upload_file
+        - field_contributing_organization
         - field_creator
         - field_publishing_frequency
         - field_geographic_place
         - field_contact_name
         - field_contact_information
         - group_timeframe
+        - field_tags
         - field_internal_notes
       parent_name: group_form
       weight: 12
@@ -155,7 +158,7 @@ content:
     type: string_textfield
     region: content
   field_checksum:
-    weight: 34
+    weight: 33
     settings:
       size: 60
       placeholder: ''
@@ -163,7 +166,7 @@ content:
     type: string_textfield
     region: content
   field_conform:
-    weight: 28
+    weight: 27
     settings:
       placeholder_url: ''
       placeholder_title: ''
@@ -197,7 +200,16 @@ content:
     type: entity_reference_autocomplete
     region: content
   field_contributing_agency:
-    weight: 35
+    weight: 34
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
+  field_contributing_organization:
+    weight: 5
     settings:
       match_operator: CONTAINS
       size: 60
@@ -215,15 +227,15 @@ content:
     type: entity_reference_autocomplete_tags
     region: content
   field_data_dictionary:
-    weight: 27
+    weight: 35
     settings:
-      size: 60
+      rows: 5
       placeholder: ''
     third_party_settings: {  }
-    type: text_textfield
+    type: text_textarea
     region: content
   field_data_quality:
-    weight: 29
+    weight: 28
     settings:
       display_label: true
     third_party_settings: {  }
@@ -244,7 +256,7 @@ content:
     type: datetime_default
     region: content
   field_file_migration_id:
-    weight: 32
+    weight: 31
     settings:
       size: 60
       placeholder: ''
@@ -281,16 +293,13 @@ content:
     type: options_select
     region: content
   field_license:
-    weight: 25
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
+    weight: 24
+    settings: {  }
     third_party_settings: {  }
-    type: entity_reference_autocomplete
+    type: options_select
     region: content
   field_link_classic_massgov:
-    weight: 33
+    weight: 32
     settings:
       placeholder_url: ''
       placeholder_title: ''
@@ -306,7 +315,7 @@ content:
     type: link_default
     region: content
   field_oclc_number:
-    weight: 31
+    weight: 30
     settings:
       size: 60
       placeholder: ''
@@ -323,7 +332,7 @@ content:
     type: entity_reference_autocomplete
     region: content
   field_public_access_level:
-    weight: 24
+    weight: 25
     settings: {  }
     third_party_settings: {  }
     type: options_select
@@ -358,7 +367,7 @@ content:
     type: entity_reference_autocomplete
     region: content
   field_system_of_records:
-    weight: 30
+    weight: 29
     settings:
       placeholder_url: ''
       placeholder_title: ''
@@ -366,7 +375,7 @@ content:
     type: link_default
     region: content
   field_tags:
-    weight: 2
+    weight: 10
     settings:
       match_operator: CONTAINS
       size: 60

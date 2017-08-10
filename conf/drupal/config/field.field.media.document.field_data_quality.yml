@@ -9,7 +9,7 @@ id: media.document.field_data_quality
 field_name: field_data_quality
 entity_type: media
 bundle: document
-label: 'Data Quality'
+label: 'Data Quality meets agency’s Information Quality Guidelines'
 description: ''
 required: false
 translatable: false
