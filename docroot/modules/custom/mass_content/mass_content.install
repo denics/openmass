@@ -782,16 +782,16 @@ function mass_content_update_8009() {
     'zu' => 'Zulu',
   ];
 
-  foreach($languages as $code => $language) {
-    $term = Term::create(array(
-      'parent' => array(),
+  foreach ($languages as $code => $language) {
+    $term = Term::create([
+      'parent' => [],
       'name' => $language,
       'description' => [
         'value' => $code,
         'format' => 'full_html',
       ],
       'vid' => 'language',
-    ))->save();
+    ])->save();
   }
 
   // Content Type Terms.
@@ -817,16 +817,16 @@ function mass_content_update_8009() {
     '71O' => 'ther',
   ];
 
-  foreach($content_types as $code => $content_type) {
-    $term = Term::create(array(
-      'parent' => array(),
+  foreach ($content_types as $code => $content_type) {
+    $term = Term::create([
+      'parent' => [],
       'name' => $content_type,
       'description' => [
         'value' => $code,
         'format' => 'full_html',
       ],
       'vid' => 'content_type',
-    ))->save();
+    ])->save();
   }
 
   // License Terms.
@@ -850,15 +850,15 @@ function mass_content_update_8009() {
     'notspecified' => 'License Not Specified',
   ];
 
-  foreach($licenses as $code => $license) {
-    $term = Term::create(array(
-      'parent' => array(),
+  foreach ($licenses as $code => $license) {
+    $term = Term::create([
+      'parent' => [],
       'name' => $license,
       'description' => [
         'value' => $code,
         'format' => 'full_html',
       ],
       'vid' => 'license',
-    ))->save();
+    ])->save();
   }
 }
