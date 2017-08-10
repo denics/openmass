@@ -23,7 +23,7 @@ dependencies:
     - field.field.node.event.field_event_you_will_need
     - node.type.event
   module:
-    - datetime
+    - datetime_range
     - image
     - link
     - metatag
@@ -51,13 +51,14 @@ content:
     type: entity_reference_label
     region: content
   field_event_date:
-    weight: 105
+    weight: 124
     label: above
     settings:
+      separator: '-'
       format_type: medium
       timezone_override: ''
     third_party_settings: {  }
-    type: datetime_default
+    type: daterange_default
     region: content
   field_event_description:
     weight: 111

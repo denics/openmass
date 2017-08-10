@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "9490e55809aa329604909484a81d364c",
+    "content-hash": "019d4007c599ad3dd99d558de7797a57",
     "packages": [
         {
             "name": "acquia/acquia-sdk-php",
@@ -197,8 +197,7 @@
                 "url": "https://github.com/blakestein/drupal-datalayer-d8.git",
                 "reference": "3b2ffa7"
             },
-            "type": "drupal-module",
-            "time": "2017-01-05T00:00:58+00:00"
+            "type": "drupal-module"
         },
         {
             "name": "caxy/php-htmldiff",
@@ -1555,8 +1554,7 @@
             "homepage": "https://www.drupal.org/project/access_unpublished",
             "support": {
                 "source": "http://cgit.drupalcode.org/access_unpublished"
-            },
-            "time": "2017-01-26T16:59:48+00:00"
+            }
         },
         {
             "name": "drupal/acquia_connector",
@@ -1816,8 +1814,8 @@
                     "dev-1.x": "1.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-1.1+2-dev",
-                    "datestamp": "1498744743"
+                    "version": "8.x-1.1+4-dev",
+                    "datestamp": "1499338442"
                 },
                 "patches_applied": {
                     "Fix the positioning of the additional help text (https://www.drupal.org/node/2882765)": "https://www.drupal.org/files/issues/better_field_descriptions-position-help-2882765-0.patch",
@@ -2519,6 +2517,7 @@
                     "Don't break if telephone number is less than 6 digits. (https://www.drupal.org/node/2575577#comment-11750724)": "https://www.drupal.org/files/issues/2575577-11.patch",
                     "Fix photo disappearing from org page. Fix Contextual Links js bug.": "https://www.drupal.org/files/issues/2551373-32.patch",
                     "Link autocomplete content type filter. (https://www.drupal.org/node/2887376#comment-12147367)": "https://www.drupal.org/files/issues/link-autocomplete-ct-filter-2887376-5-8.4.x.patch",
+                    "Improve the Views integration for DateRange fields. (https://www.drupal.org/node/2786577#comment-12164509)": "https://www.drupal.org/files/issues/improve_the_views-2786577-165.patch",
                     "Number widget validation can break AJAX actions. (https://www.drupal.org/node/2614250)": "https://www.drupal.org/files/issues/2614250-40.patch"
                 }
             },
@@ -2798,8 +2797,7 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/diff",
                 "issues": "https://www.drupal.org/project/issues/diff"
-            },
-            "time": "2017-01-09T10:31:38+00:00"
+            }
         },
         {
             "name": "drupal/draggableviews",
@@ -3079,8 +3077,8 @@
                     "dev-3.x": "3.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-3.0-alpha2+3-dev",
-                    "datestamp": "1493932085"
+                    "version": "8.x-3.0-alpha2+7-dev",
+                    "datestamp": "1499719142"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -3113,8 +3111,7 @@
             "homepage": "https://www.drupal.org/project/encrypt",
             "support": {
                 "source": "http://cgit.drupalcode.org/encrypt"
-            },
-            "time": "2016-08-05T15:43:56+00:00"
+            }
         },
         {
             "name": "drupal/entity",
@@ -3699,8 +3696,7 @@
             "homepage": "https://www.drupal.org/project/ga_login",
             "support": {
                 "source": "http://cgit.drupalcode.org/ga_login"
-            },
-            "time": "2016-08-19T19:20:09+00:00"
+            }
         },
         {
             "name": "drupal/geocoder",
@@ -4034,8 +4030,7 @@
             "homepage": "https://www.drupal.org/project/inline_entity_form",
             "support": {
                 "source": "http://cgit.drupalcode.org/inline_entity_form"
-            },
-            "time": "2016-11-14T20:32:26+00:00"
+            }
         },
         {
             "name": "drupal/key",
@@ -4145,8 +4140,7 @@
                 "source": "http://cgit.drupalcode.org/libraries",
                 "issues": "http://drupal.org/project/issues/libraries",
                 "irc": "irc://irc.freenode.org/drupal-contribute"
-            },
-            "time": "2017-03-15T17:04:08+00:00"
+            }
         },
         {
             "name": "drupal/media_entity",
@@ -4500,6 +4494,10 @@
                 {
                     "name": "mikeryan",
                     "homepage": "https://www.drupal.org/user/4420"
+                },
+                {
+                    "name": "moshe weitzman",
+                    "homepage": "https://www.drupal.org/user/23"
                 }
             ],
             "description": "Tools to assist in developing and running migrations.",
@@ -4555,8 +4553,7 @@
             "homepage": "https://www.drupal.org/project/node_edit_protection",
             "support": {
                 "source": "http://cgit.drupalcode.org/node_edit_protection"
-            },
-            "time": "2016-07-21T12:38:12+00:00"
+            }
         },
         {
             "name": "drupal/node_title_help_text",
@@ -5469,8 +5466,7 @@
             "homepage": "https://www.drupal.org/project/security_review",
             "support": {
                 "source": "http://cgit.drupalcode.org/security_review"
-            },
-            "time": "2016-10-20T15:43:48+00:00"
+            }
         },
         {
             "name": "drupal/simple_oauth",
@@ -6091,8 +6087,7 @@
             "homepage": "https://www.drupal.org/project/xmlsitemap",
             "support": {
                 "source": "http://cgit.drupalcode.org/xmlsitemap"
-            },
-            "time": "2016-12-07T10:00:27+00:00"
+            }
         },
         {
             "name": "easyrdf/easyrdf",

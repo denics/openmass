@@ -24,7 +24,7 @@ dependencies:
     - image.style.thumbnail
     - node.type.event
   module:
-    - datetime
+    - datetime_range
     - entity_browser_entity_form
     - field_group
     - image
@@ -76,8 +76,8 @@ third_party_settings:
         - field_event_ref_parents
         - field_event_lede
         - field_event_logo
-        - field_event_date
         - field_event_time
+        - field_event_date
       parent_name: group_event_edit_form
       weight: 20
       format_type: tab
@@ -150,13 +150,13 @@ content:
     type: entity_reference_autocomplete
     region: content
   field_event_date:
-    weight: 0
+    weight: 45
     settings:
       date_order: YMD
       time_type: '12'
       increment: 5
     third_party_settings: {  }
-    type: datetime_datelist
+    type: daterange_datelist
     region: content
   field_event_description:
     weight: 42
