@@ -255,6 +255,9 @@
             "drupal/better_field_descriptions": {
                 "Fix the positioning of the additional help text (https://www.drupal.org/node/2882765)": "https://www.drupal.org/files/issues/better_field_descriptions-position-help-2882765-0.patch",
                 "Prevent errors when deleting fields (https://www.drupal.org/node/2888240)": "https://www.drupal.org/files/issues/better_field_descriptions-stop-errors-when-field-deleted-2888240-1.patch"
+            },
+            "drupal/media_entity_document": {
+                "Checking for empty file before calling any method (https://www.drupal.org/node/2901361)": "https://www.drupal.org/files/issues/2901361-2-Check-file-null.patch"
             }
         },
         "composer-exit-on-patch-failure": true

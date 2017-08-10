@@ -18,6 +18,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - MPRR-456, MPRR-482, MPRR-367 - Added fields to Media Document for MassDocs compatibility
 - MPRR-456 - Added default taxonomy terms update hook for Media
 - MPRR-466 - Added Migrate class to import files from Percussion via CSV source
+- MPRR-466 - Added Patch for media_entity_document module to avoid errors during migration
 - Added notification message for users automatically added as content watchers.
 
 ### Changed

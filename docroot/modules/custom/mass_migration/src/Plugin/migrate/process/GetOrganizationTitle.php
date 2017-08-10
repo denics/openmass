@@ -193,7 +193,7 @@ class GetOrganizationTitle extends ProcessPluginBase {
       "411" => "Massachusetts Sheriffs' Association",
     ];
 
-    return empty($organizations[$org_number]) ? FALSE : $organizations[$org_number];
+    return empty($organizations[$org_number]) ? 'STUB '. intval($org_number) : $organizations[$org_number];
   }
 
 }
