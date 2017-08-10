@@ -193,8 +193,11 @@
         "drupal/drupal": "*"
     },
     "scripts": {
+        "post-install-cmd": "@remove-submodules",
+        "post-update-cmd": "@remove-submodules",
         "drupal-scaffold": "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
         "post-create-project-cmd": "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
+        "remove-submodules": "( find docroot -type d -name \".git\" && find docroot -name \".gitmodules\" ) | xargs rm -rf"
     },
     "extra": {
         "enable-patching": true,
