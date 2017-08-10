@@ -4,9 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.paragraph.iframe.field_height
-    - field.field.paragraph.iframe.field_iframe_accessibility_title
-    - field.field.paragraph.iframe.field_iframe_admin_title
-    - field.field.paragraph.iframe.field_iframe_url
+    - field.field.paragraph.iframe.field_url
     - paragraphs.paragraphs_type.iframe
   module:
     - link
@@ -22,31 +20,15 @@ content:
     third_party_settings: {  }
     type: number_unformatted
     region: content
-  field_iframe_accessibility_title:
-    weight: 3
+  field_url:
+    weight: 0
     label: hidden
     settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    type: string
-    region: content
-  field_iframe_admin_title:
-    weight: 2
-    label: hidden
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    type: string
-    region: content
-  field_iframe_url:
-    weight: 4
-    label: hidden
-    settings:
-      trim_length: 80
-      url_only: false
-      url_plain: false
-      rel: ''
-      target: ''
+      trim_length: null
+      url_only: true
+      url_plain: true
+      rel: '0'
+      target: '0'
     third_party_settings: {  }
     type: link
     region: content
