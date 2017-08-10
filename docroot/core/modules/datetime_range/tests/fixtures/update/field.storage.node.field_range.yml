@@ -1,12 +1,12 @@
-uuid: 0aff082c-d943-470e-a206-82ff59eb6c32
+uuid: 2190ad8c-39dd-4eb1-b189-1bfc0c244a40
 langcode: en
 status: true
 dependencies:
   module:
     - datetime_range
     - node
-id: node.field_event_date
-field_name: field_event_date
+id: node.field_range
+field_name: field_range
 entity_type: node
 type: daterange
 settings:
