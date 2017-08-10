@@ -1,12 +1,12 @@
-uuid: 07da7d7a-c125-4074-bdbd-fd3c1e3cd358
+uuid: 4af248e4-8d0f-47be-8bcf-12cf79a98f3f
 langcode: en
 status: true
 dependencies:
   module:
     - link
     - paragraphs
-id: paragraph.field_iframe_url
-field_name: field_iframe_url
+id: paragraph.field_url
+field_name: field_url
 entity_type: paragraph
 type: link
 settings: {  }

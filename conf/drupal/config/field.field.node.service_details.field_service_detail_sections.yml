@@ -5,7 +5,6 @@ dependencies:
   config:
     - field.storage.node.field_service_detail_sections
     - node.type.service_details
-    - paragraphs.paragraphs_type.iframe
     - paragraphs.paragraphs_type.section
     - paragraphs.paragraphs_type.video
   module:
@@ -23,9 +22,7 @@ default_value_callback: ''
 settings:
   handler: 'default:paragraph'
   handler_settings:
-    negate: 0
     target_bundles:
-      iframe: iframe
       section: section
       video: video
     target_bundles_drag_drop:
@@ -119,18 +116,12 @@ settings:
       icon_link:
         weight: 82
         enabled: false
-      content_card_group:
-        weight: 82
-        enabled: false
       icon_links:
         weight: 83
         enabled: false
-      external_organization:
+      iframe:
         weight: 84
         enabled: false
-      iframe:
-        enabled: true
-        weight: 84
       image:
         weight: 85
         enabled: false
@@ -176,9 +167,6 @@ settings:
       rich_text:
         weight: 99
         enabled: false
-      media_contact:
-        weight: 99
-        enabled: false
       search_band:
         weight: 100
         enabled: false
@@ -203,7 +191,4 @@ settings:
       video:
         enabled: true
         weight: 107
-      state_organization:
-        weight: 116
-        enabled: false
 field_type: entity_reference_revisions
