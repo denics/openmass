@@ -5,5 +5,6 @@ mass_flagging.help:
     _title: 'Mass Flagging Feature'
   requirements:
     _permission: 'access content'
+    _role: 'authenticated'
   options:
     _admin_route: TRUE
