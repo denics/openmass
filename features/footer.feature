@@ -6,5 +6,5 @@ Feature: Site Footer
 
   Scenario: Verify the footer markup is correct
     Given I am an anonymous user
-    And I am on "get-parking-pass-state-parks"
+    And I am on "privacypolicy"
     Then I should see the correct markup for the footer
