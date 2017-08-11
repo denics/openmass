@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "a148cbc5f90f136b97c4130e6d58e8af",
+    "content-hash": "dbb7bf171c0ac6736662d8d2adf61ef0",
     "packages": [
         {
             "name": "acquia/acquia-sdk-php",
@@ -4306,6 +4306,9 @@
                 "drupal": {
                     "version": "8.x-1.1",
                     "datestamp": "1470211995"
+                },
+                "patches_applied": {
+                    "Checking for empty file before calling any method (https://www.drupal.org/node/2901361)": "https://www.drupal.org/files/issues/2901361-2-Check-file-null.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
