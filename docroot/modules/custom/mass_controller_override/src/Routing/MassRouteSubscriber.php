@@ -22,10 +22,10 @@ class MassRouteSubscriber extends RouteSubscriberBase {
     // Change controller class for "node/add".
     $route = $collection->get('node.add_page');
     if (!empty($route)) {
-      $route->setDefaults(array(
+      $route->setDefaults([
         '_title' => 'Add content',
         '_controller' => '\Drupal\mass_controller_override\Controller\MassControllerOverrideNodeController::addPage',
-      ));
+      ]);
     }
   }
 

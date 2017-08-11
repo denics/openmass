@@ -12,13 +12,15 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - Adds a "category" metatag when viewing most nodes. The category is dynamically determined based on the content type and will allow future filtered searches using Google CSE.
 - Adds a "Primary audience" field to Guide Page, How-to Page, Service Page, and Service Detail Page content types. The value of this field is used to populate an "audience" metatag for those pages, allowing Google CSE to filter by audience.
 - MPRR-224, MPRR-445 - Added data.json formatting for document endpoint
+- MPRR-366 - Added confirmation message on Media Document insert and update
 - MPRR-367 - Added Patch for Core - Link Module help text
 - MPRR-409 - Added Auto-populate Media Document Form Fields from User profile
-- MPRR-366 - Added confirmation message on Media Document insert and update
 - MPRR-456, MPRR-482, MPRR-367 - Added fields to Media Document for MassDocs compatibility
 - MPRR-456 - Added default taxonomy terms update hook for Media
 - MPRR-466 - Added Migrate class to import files from Percussion via CSV source
 - MPRR-466 - Added Patch for media_entity_document module to avoid errors during migration
+- MPRR-471 - Added Documents admin screen at admin/ma-dash/documents
+- MPRR-475 - Added link to create Document to node/add screen
 - Added notification message for users automatically added as content watchers.
 
 ### Changed

@@ -194,7 +194,7 @@ class GetOrganizationTitle extends ProcessPluginBase {
       "800" => "Division of Local Services",
     ];
 
-    return empty($organizations[$org_number]) ? 'STUB '. intval($org_number) : $organizations[$org_number];
+    return empty($organizations[$org_number]) ? 'STUB ' . intval($org_number) : $organizations[$org_number];
   }
 
 }
