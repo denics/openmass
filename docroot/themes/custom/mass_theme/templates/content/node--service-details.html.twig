@@ -16,10 +16,6 @@
       {% set video = pageContent[i]['video'] %}
       {% include "@atoms/09-media/video.twig" %}
     {% endif %}
-    {% if pageContent[i]['iframe'] %}
-      {% set iframe = pageContent[i]['iframe'] %}
-      {% include "@atoms/09-media/iframe.twig" %}
-    {% endif %}
     {% if pageContent[i]['title'] %}
       {% set richText = pageContent[i]['title'] %}
       {% include "@organisms/by-author/rich-text.twig" %}

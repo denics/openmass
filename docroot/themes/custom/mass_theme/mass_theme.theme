@@ -2309,9 +2309,6 @@ function mass_theme_preprocess_node_service_details(&$variables) {
       'downloads' => ['field_section_downloads'],
       'video_id' => ['field_video_id'],
       'video_source' => ['field_video_source'],
-      'iframe_url' => ['field_iframe_url'],
-      'iframe_title' => ['field_iframe_accessibility_title'],
-      'iframe_height' => ['field_height'],
     ];
 
     // Determines which field names to use from the map.
@@ -2320,14 +2317,6 @@ function mass_theme_preprocess_node_service_details(&$variables) {
     if (Helper::isFieldPopulated($sectionEntity, $field['video_id']) && Helper::isFieldPopulated($sectionEntity, $field['video_source'])) {
       $pageContent[$index]['video'] = [
         'src' => '//www.' . $sectionEntity->$field['video_source']->value . '.com/embed/' . $sectionEntity->$field['video_id']->value,
-      ];
-    }
-
-    if (Helper::isFieldPopulated($sectionEntity, $field['iframe_url'])) {
-      $pageContent[$index]['iframe'] = [
-        'src' => $sectionEntity->$field['iframe_url']->uri,
-        'height' => Helper::fieldValue($sectionEntity, $field['iframe_height']),
-        'title' => Helper::fieldValue($sectionEntity, $field['iframe_title']),
       ];
     }
 
@@ -2836,9 +2825,6 @@ function mass_theme_preprocess_node_location_details(&$variables) {
       'links' => ['field_section_links'],
       'video_id' => ['field_video_id'],
       'video_source' => ['field_video_source'],
-      'iframe_url' => ['field_iframe_url'],
-      'iframe_title' => ['field_iframe_accessibility_title'],
-      'iframe_height' => ['field_height'],
       'address' => ['field_address_text'],
       'map' => ['field_lat_long'],
     ];
@@ -2849,14 +2835,6 @@ function mass_theme_preprocess_node_location_details(&$variables) {
     if (Helper::isFieldPopulated($sectionEntity, $field['video_id']) && Helper::isFieldPopulated($sectionEntity, $field['video_source'])) {
       $pageContent[$index]['video'] = [
         'src' => '//www.' . $sectionEntity->$field['video_source']->value . '.com/embed/' . $sectionEntity->$field['video_id']->value,
-      ];
-    }
-
-    if (Helper::isFieldPopulated($sectionEntity, $field['iframe_url'])) {
-      $pageContent[$index]['iframe'] = [
-        'src' => $sectionEntity->$field['iframe_url']->uri,
-        'height' => Helper::fieldValue($sectionEntity, $field['iframe_height']),
-        'title' => Helper::fieldValue($sectionEntity, $field['iframe_title']),
       ];
     }
 
