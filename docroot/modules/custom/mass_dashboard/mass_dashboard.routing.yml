@@ -14,3 +14,7 @@ mass_dashboard.service_content:
   path: '/admin/ma-dash/service-content'
   requirements:
     _permission: 'use mass dashboard'
+mass_dashboard.all_documents:
+  path: '/admin/ma-dash/documents'
+  requirements:
+    _permission: 'use mass dashboard'
