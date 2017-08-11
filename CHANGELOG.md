@@ -18,6 +18,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 ### Changed
 - Revert to legacy iFrame solution to fix home + other pages.
 - Fix with redeployment of DP-4285: Adds end date to field_event_date on events. Front end does not render end date yet.
+- Makes the Audience field optional. Limits the 'Primary Audience' field to administrator users only.
 
 ### Post Deploy
 Follow post deploy steps listed in the PR (https://github.com/massgov/mass/pull/1089) to re-add the "announcing pilot.mass.gov" youtube video to the home page.
