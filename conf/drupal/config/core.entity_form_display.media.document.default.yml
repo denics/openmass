@@ -78,6 +78,7 @@ third_party_settings:
       label: Form
     group_advanced:
       children:
+        - field_contributing_agency
         - field_alternative_title
         - field_geographic_area
         - field_language
@@ -96,7 +97,6 @@ third_party_settings:
         - field_file_migration_id
         - field_link_classic_massgov
         - field_checksum
-        - field_contributing_agency
         - field_data_dictionary
       parent_name: group_form
       weight: 13
@@ -138,7 +138,7 @@ bundle: document
 mode: default
 content:
   field_additional_info:
-    weight: 21
+    weight: 40
     settings:
       key_size: 60
       key_placeholder: ''
@@ -150,7 +150,7 @@ content:
     type: key_value_textfield
     region: content
   field_alternative_title:
-    weight: 16
+    weight: 35
     settings:
       size: 60
       placeholder: ''
@@ -158,7 +158,7 @@ content:
     type: string_textfield
     region: content
   field_checksum:
-    weight: 33
+    weight: 52
     settings:
       size: 60
       placeholder: ''
@@ -166,7 +166,7 @@ content:
     type: string_textfield
     region: content
   field_conform:
-    weight: 27
+    weight: 46
     settings:
       placeholder_url: ''
       placeholder_title: ''
@@ -191,7 +191,7 @@ content:
     type: entity_reference_autocomplete
     region: content
   field_content_type:
-    weight: 19
+    weight: 38
     settings:
       match_operator: CONTAINS
       size: 60
@@ -227,7 +227,7 @@ content:
     type: entity_reference_autocomplete_tags
     region: content
   field_data_dictionary:
-    weight: 35
+    weight: 53
     settings:
       rows: 5
       placeholder: ''
@@ -235,7 +235,7 @@ content:
     type: text_textarea
     region: content
   field_data_quality:
-    weight: 28
+    weight: 47
     settings:
       display_label: true
     third_party_settings: {  }
@@ -256,7 +256,7 @@ content:
     type: datetime_default
     region: content
   field_file_migration_id:
-    weight: 31
+    weight: 50
     settings:
       size: 60
       placeholder: ''
@@ -264,7 +264,7 @@ content:
     type: string_textfield
     region: content
   field_geographic_area:
-    weight: 17
+    weight: 36
     settings:
       html5_geolocation: false
     third_party_settings: {  }
@@ -287,19 +287,19 @@ content:
     type: string_textarea
     region: content
   field_language:
-    weight: 18
+    weight: 37
     settings: {  }
     third_party_settings: {  }
     type: options_select
     region: content
   field_license:
-    weight: 24
+    weight: 43
     settings: {  }
     third_party_settings: {  }
     type: options_select
     region: content
   field_link_classic_massgov:
-    weight: 32
+    weight: 51
     settings:
       placeholder_url: ''
       placeholder_title: ''
@@ -307,7 +307,7 @@ content:
     type: link_default
     region: content
   field_link_related_content:
-    weight: 22
+    weight: 41
     settings:
       placeholder_url: ''
       placeholder_title: ''
@@ -315,7 +315,7 @@ content:
     type: link_default
     region: content
   field_oclc_number:
-    weight: 30
+    weight: 49
     settings:
       size: 60
       placeholder: ''
@@ -323,7 +323,7 @@ content:
     type: string_textfield
     region: content
   field_part_of:
-    weight: 23
+    weight: 42
     settings:
       match_operator: CONTAINS
       size: 60
@@ -332,7 +332,7 @@ content:
     type: entity_reference_autocomplete
     region: content
   field_public_access_level:
-    weight: 25
+    weight: 44
     settings: {  }
     third_party_settings: {  }
     type: options_select
@@ -344,7 +344,7 @@ content:
     type: options_select
     region: content
   field_rights:
-    weight: 26
+    weight: 45
     settings:
       size: 60
       placeholder: ''
@@ -358,7 +358,7 @@ content:
     type: datetime_default
     region: content
   field_subjects:
-    weight: 20
+    weight: 39
     settings:
       match_operator: CONTAINS
       size: 60
@@ -367,7 +367,7 @@ content:
     type: entity_reference_autocomplete
     region: content
   field_system_of_records:
-    weight: 29
+    weight: 48
     settings:
       placeholder_url: ''
       placeholder_title: ''

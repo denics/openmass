@@ -10,8 +10,8 @@ id: media.document.field_contributing_agency
 field_name: field_contributing_agency
 entity_type: media
 bundle: document
-label: 'Uploading organization or department'
-description: 'The organization or department that is uploading the file to Mass.gov'
+label: 'Uploading organization or department (no longer used)'
+description: 'Please copy any relevant information into the "Contributing Organization" field on the "Basic" tab.'
 required: false
 translatable: false
 default_value: {  }

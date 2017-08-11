@@ -6,19 +6,15 @@ dependencies:
     - field.storage.media.field_license
     - media_entity.bundle.document
     - taxonomy.vocabulary.license
-  content:
-    - 'taxonomy_term:license:f4647b95-8bee-47ff-888b-61bb85149531'
 id: media.document.field_license
 field_name: field_license
 entity_type: media
 bundle: document
 label: License
 description: ''
-required: true
+required: false
 translatable: false
-default_value:
-  -
-    target_uuid: f4647b95-8bee-47ff-888b-61bb85149531
+default_value: {  }
 default_value_callback: ''
 settings:
   handler: 'default:taxonomy_term'
