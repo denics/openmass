@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 ### Added
 
 ### Changed
+Revert to legacy iFrame solution to fix home + other pages.
 
 ### Removed
 
