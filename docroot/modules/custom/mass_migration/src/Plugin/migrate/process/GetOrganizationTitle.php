@@ -191,6 +191,7 @@ class GetOrganizationTitle extends ProcessPluginBase {
       "416" => "Essex County Sheriff's Department",
       "421" => "* EEA - Office of Energy and Environmental Affairs",
       "411" => "Massachusetts Sheriffs' Association",
+      "800" => "Division of Local Services",
     ];
 
     return empty($organizations[$org_number]) ? 'STUB '. intval($org_number) : $organizations[$org_number];
