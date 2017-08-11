@@ -16,7 +16,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 ## [0.28.1] - August 11, 2017
 
 ### Changed
-Revert to legacy iFrame solution to fix home + other pages.
+- Revert to legacy iFrame solution to fix home + other pages.
+- Fix with redeployment of DP-4285: Adds end date to field_event_date on events. Front end does not render end date yet.
 
 ### Post Deploy
 Follow post deploy steps listed in the PR (https://github.com/massgov/mass/pull/1089) to re-add the "announcing pilot.mass.gov" youtube video to the home page.
@@ -49,7 +50,7 @@ Follow post deploy steps listed in the PR (https://github.com/massgov/mass/pull/
 
 ### Changed
 - Changed label on "Related Parks" to "Related Locations"
-- Removed a bar showing on pilot.mass.gov header 
+- Removed a bar showing on pilot.mass.gov header
 - Removed a bar showing on pilot.mass.gov header
 - Fixed Location pages show page level alert even with no alert content
 - Fixed Pilot.mass.gov design is changing when choosing a different language
