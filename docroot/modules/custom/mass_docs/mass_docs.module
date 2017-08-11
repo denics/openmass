@@ -11,6 +11,7 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\user\Entity\User;
 use Drupal\taxonomy\Entity\Term;
 
 /**
@@ -137,16 +138,6 @@ function mass_docs_form_alter(&$form, FormStateInterface $form_state, $form_id) 
       '#open' => TRUE,
     ];
 
-    $form['massdocs_values']['organization'] = [
-      '#type' => 'entity_autocomplete',
-      '#title' => t('Uploading organization or department'),
-      '#description' => t('The organization or department that is uploading the file to Mass.gov.'),
-      '#target_type' => 'taxonomy_term',
-      '#selection_settings' => ['target_bundles' => ['document_agencies']],
-      '#tags' => FALSE,
-      '#default_value' => (empty($data) || empty($data['organization'])) ? NULL : Term::load($data['organization']),
-    ];
-
     $form['massdocs_values']['authors'] = [
       '#type' => 'entity_autocomplete',
       '#title' => t('Author(s)'),
@@ -199,7 +190,7 @@ function mass_docs_user_profile_submit(array $form, FormStateInterface &$form_st
   /** @var \Drupal\user\Entity\User $user */
   $user = $form_state->getFormObject()->getEntity();
 
-  $stored_values = ['organization', 'authors', 'contact_name', 'contact_info'];
+  $stored_values = ['authors', 'contact_name', 'contact_info'];
 
   foreach ($stored_values as $value_name) {
     $values = $form_state->getValue($value_name);
@@ -248,7 +239,6 @@ function _mass_docs_get_user_config_data($uid) {
   $config_data = [];
   $config = \Drupal::config('mass_docs.settings');
 
-  $config_data['organization'] = $config->get('user.' . $uid . 'organization');
   $config_data['contact_name'] = $config->get('user.' . $uid . 'contact_name');
   $config_data['contact_info'] = $config->get('user.' . $uid . 'contact_info');
 
@@ -269,7 +259,14 @@ function _mass_docs_get_user_config_data($uid) {
 function mass_docs_form_media_document_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   // Auto-populate fields from user profile.
   $data = _mass_docs_get_user_config_data(\Drupal::currentUser()->id());
-  $form['field_contributing_agency']['widget'][0]['target_id']['#default_value'] = (empty($data) || empty($data['organization'])) ? NULL : Term::load($data['organization']);
+
+  // Load organization value from user field.
+  $user = User::load(Drupal::currentUser()->id());
+  /** @var \Drupal\Core\Field\EntityReferenceFieldItemList $org_entity */
+  $org_entity = $user->get('field_user_org');
+  $organization_id = empty($org_entity->referencedEntities()) ? NULL : current($org_entity->referencedEntities())->id();
+
+  $form['field_contributing_organization']['widget'][0]['target_id']['#default_value'] = empty($organization_id) ? NULL : Term::load($organization_id);
   $form['field_creator']['widget']['target_id']['#default_value'] = (empty($data) || empty($data['authors'])) ? NULL : Term::loadMultiple($data['authors']);
   $form['field_contact_name']['widget'][0]['target_id']['#default_value'] = (empty($data) || empty($data['contact_name'])) ? NULL : Term::load($data['contact_name']);
   $form['field_contact_information']['widget'][0]['value']['#default_value'] = empty($data) || empty($data['contact_info']) ? NULL : $data['contact_info'];
