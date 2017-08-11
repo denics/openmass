@@ -6,7 +6,6 @@ dependencies:
     - field.storage.node.field_location_details_sections
     - node.type.location_details
     - paragraphs.paragraphs_type.address
-    - paragraphs.paragraphs_type.iframe
     - paragraphs.paragraphs_type.section
     - paragraphs.paragraphs_type.video
   module:
@@ -24,12 +23,10 @@ default_value_callback: ''
 settings:
   handler: 'default:paragraph'
   handler_settings:
-    negate: 0
     target_bundles:
       section: section
       video: video
       address: address
-      iframe: iframe
     target_bundles_drag_drop:
       section:
         enabled: true
@@ -88,16 +85,10 @@ settings:
       callout_link:
         weight: 81
         enabled: false
-      content_card_group:
-        weight: 81
-        enabled: false
       completion_time:
         weight: 82
         enabled: false
       contact:
-        weight: 83
-        enabled: false
-      external_organization:
         weight: 83
         enabled: false
       contact_group:
@@ -137,16 +128,13 @@ settings:
         weight: 95
         enabled: false
       iframe:
-        enabled: true
         weight: 96
+        enabled: false
       image:
         weight: 97
         enabled: false
       links:
         weight: 98
-        enabled: false
-      media_contact:
-        weight: 99
         enabled: false
       location_information:
         weight: 99
@@ -198,9 +186,6 @@ settings:
         enabled: false
       stacked_band:
         weight: 115
-        enabled: false
-      state_organization:
-        weight: 116
         enabled: false
       stat:
         weight: 116

@@ -88,9 +88,9 @@ Feature: Paragraph type definitions
   Scenario: Verify that the iframe paragraph type has the correct field configuration
     Given I am logged in as a user with the "administrator" role
     Then the "iframe" paragraph has the fields:
-      | field            | widget       |
-      | field-iframe-url | Link  |
-      | field-height     | Number field |
+      | field        | widget       |
+      | field-url    | Link         |
+      | field-height | Number field |
 
   Scenario: Verify that the quick_action paragraph type has the correct field configuration
     Given I am logged in as a user with the "administrator" role
