@@ -1,0 +1,7 @@
+name: Mass.gov - Mass Controller Override
+type: module
+description: Custom controller.
+package: Custom
+core: 8.x
+dependencies:
+  - redirect

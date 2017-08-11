@@ -66,6 +66,7 @@ module:
   link: 0
   mass_content: 0
   mass_content_api: 0
+  mass_controller_override: 0
   mass_dashboard: 0
   mass_docs: 0
   mass_entityreference: 0
