@@ -25,3 +25,15 @@ Feature: Topic Content type
     Then I should see the text "File Migration ID"
     Then I should see the text "Legacy URL"
     And I should see the text "Checksum"
+
+  Scenario: Documents Admin Sreen
+    Given I am logged in as a user with the "administrator" role
+    When I visit "admin/ma-dash/documents"
+    Then I should see "Title"
+    Then I should see "Content Type"
+    Then I should see "Published"
+    Then I should see "Organization"
+    Then I should see "Internal Notes"
+    Then I should see "Last Revision By"
+    Then I should see "Status of Last Revision"
+    Then I should see "Revision Date"
