@@ -92,6 +92,17 @@ function mass_utility_views_post_execute(ViewExecutable $view) {
 }
 
 /**
+ * Implements hook_form_BASE_FORM_ID_alter().
+ */
+function mass_utility_form_node_form_alter(&$form, $form_state, $form_id) {
+  // Only expose the 'Primary audience' field to administrators.
+  if (isset($form['field_audience'])) {
+    $roles = \Drupal::currentUser()->getRoles();
+    $form['field_audience']['#access'] = in_array('administrator', $roles);
+  }
+}
+
+/**
  * Implements hook_field_widget_form_alter().
  */
 function mass_utility_field_widget_form_alter(&$element, FormStateInterface $form_state, $context) {
@@ -112,6 +123,21 @@ function mass_utility_field_widget_form_alter(&$element, FormStateInterface $for
         '%url' => 'http://example.com',
       ]
     );
+  }
+
+  if ($field_definition->getType() == 'entity_reference' && $field_definition->getName() == 'field_issuer_issuers') {
+    if ($element['target_id']['#field_parents'][0] == 'field_advisory_issuer') {
+      $element['target_id']['#ajax'] = [
+        'event' => 'autocompleteclose',
+        'callback' => 'mass_utility_get_issuer_advisory_ajax_callback',
+      ];
+    }
+    elseif ($element['target_id']['#field_parents'][0] == 'field_executive_order_issuer') {
+      $element['target_id']['#ajax'] = [
+        'event' => 'autocompleteclose',
+        'callback' => 'mass_utility_get_issuer_executive_ajax_callback',
+      ];
+    }
   }
 
   if ($field_definition->getType() == 'entity_reference' && $field_definition->getName() == 'field_issuer_issuers') {
