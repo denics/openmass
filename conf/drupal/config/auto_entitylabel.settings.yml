@@ -10,7 +10,7 @@ node_type_legacy_redirects_status: '1'
 node_type_legacy_redirects_pattern: 'Redirect for [node:field_legacy_redirects_ref_conte:entity:title]'
 node_type_legacy_redirects_php: 0
 node_type_regulation_status: '1'
-node_type_regulation_pattern: '[node:field_regulation_agency_cmr_num] CMR [node:field_regulation_cmr_chapter_num].00: [node:field_regulation_reg_title]'
+node_type_regulation_pattern: '[node:field_regulation_agency_cmr_num] CMR [node:field_regulation_cmr_chapter_num].00: [node:field_regulation_title]'
 node_type_regulation_php: 0
 node_type_executive_order_status: '1'
 node_type_executive_order_pattern: '[node:field_executive_order_number]: [node:field_executive_title]'

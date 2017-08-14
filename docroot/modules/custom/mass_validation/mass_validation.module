@@ -457,7 +457,39 @@ function _mass_validation_form_node_advisory_form_validate(array &$form, FormSta
     $form_state->setErrorByName('field_advisory_section', t('Either the section field or downloads must be filled out.'));
     $form_state->setErrorByName('field_advisory_downloads', t('Either the section field or downloads must be filled out.'));
   }
+}
 
+/**
+ * Implements hook_form_FORM_ID_alter() for the FORM_ID() form.
+ */
+function mass_validation_form_node_regulation_edit_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $form['#validate'][] = '_mass_validation_form_node_regulation_form_validate';
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for the FORM_ID() form.
+ */
+function mass_validation_form_node_regulation_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $form['#validate'][] = '_mass_validation_form_node_regulation_form_validate';
+}
+
+/**
+ * Validates submission values in the FORM_ID() form.
+ */
+function _mass_validation_form_node_regulation_form_validate(array &$form, FormStateInterface $form_state) {
+  // Link fields.
+  _mass_link_validate($form_state, 'field_regulation_reg_authority');
+  _mass_link_validate($form_state, 'field_regluation_official_ver');
+  _mass_link_validate($form_state, 'field_regulation_related');
+
+  $section = $form_state->getValue('field_regulation_section');
+  $downloads = $form_state->getValue('field_regulation_download');
+
+  // If both fields are empty, throw error.
+  if (!is_int(key($section)) && empty($downloads['entities'])) {
+    $form_state->setErrorByName('field_regulation_section', t('Either the section field or downloads must be filled out.'));
+    $form_state->setErrorByName('field_regulation_download', t('Either the section field or downloads must be filled out.'));
+  }
 }
 
 /**

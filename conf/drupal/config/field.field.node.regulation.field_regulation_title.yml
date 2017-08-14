@@ -24,7 +24,7 @@ entity_type: node
 bundle: regulation
 label: 'Regulation title'
 description: 'The title of the regulation. The numbers prior to the title and the text “CMR” will be added automatically.'
-required: false
+required: true
 translatable: false
 default_value: {  }
 default_value_callback: ''
