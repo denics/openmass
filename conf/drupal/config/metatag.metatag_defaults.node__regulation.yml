@@ -1,0 +1,11 @@
+uuid: 1e95a61d-c3df-4569-a55a-ba308eef4293
+langcode: en
+status: true
+dependencies: {  }
+id: node__regulation
+label: 'Content: Regulation Page'
+tags:
+  description: '[node:field_regulation_short_descr]'
+  title: '[current-page:title]'
+  og_description: '[node:field_regulation_short_descr]'
+  twitter_cards_description: '[node:field_regulation_short_descr]'

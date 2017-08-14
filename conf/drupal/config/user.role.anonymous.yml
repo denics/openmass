@@ -29,6 +29,7 @@ permissions:
   - 'access_unpublished node org_page'
   - 'access_unpublished node page'
   - 'access_unpublished node person'
+  - 'access_unpublished node regulation'
   - 'access_unpublished node section_landing'
   - 'access_unpublished node service_details'
   - 'access_unpublished node service_page'

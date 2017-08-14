@@ -1,0 +1,23 @@
+uuid: a7d5053f-d1b6-479e-9115-546ce145321b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_regulation_agency_cmr_num
+    - node.type.regulation
+id: node.regulation.field_regulation_agency_cmr_num
+field_name: field_regulation_agency_cmr_num
+entity_type: node
+bundle: regulation
+label: 'Agency CMR number'
+description: 'A three digit number to the left of "CMR" in the number of the regulation.  This represents the organization issuing the regulation.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: 0
+  max: 10000
+  prefix: ''
+  suffix: ''
+field_type: integer

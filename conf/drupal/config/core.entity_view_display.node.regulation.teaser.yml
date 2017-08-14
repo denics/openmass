@@ -1,0 +1,32 @@
+uuid: 4490048f-f9af-4fc3-8279-f3dfc5cd3030
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - node.type.regulation
+  module:
+    - user
+id: node.regulation.teaser
+targetEntityType: node
+bundle: regulation
+mode: teaser
+content:
+  links:
+    weight: 100
+    region: content
+hidden:
+  field_regluation_official_ver: true
+  field_regulation_agency_cmr_num: true
+  field_regulation_cmr_chapter_num: true
+  field_regulation_download: true
+  field_regulation_last_updated: true
+  field_regulation_metatags: true
+  field_regulation_reg_authority: true
+  field_regulation_reg_title: true
+  field_regulation_related: true
+  field_regulation_section: true
+  field_regulation_short_descr: true
+  field_regulation_title: true
+  field_regulation_upcoming_events: true
+  field_regulations_metatags: true

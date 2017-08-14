@@ -1,0 +1,238 @@
+uuid: 862a475b-f4eb-47c1-91e9-413133996f8a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.regulation.field_regluation_official_ver
+    - field.field.node.regulation.field_regulation_agency_cmr_num
+    - field.field.node.regulation.field_regulation_cmr_chapter_num
+    - field.field.node.regulation.field_regulation_contact
+    - field.field.node.regulation.field_regulation_download
+    - field.field.node.regulation.field_regulation_last_updated
+    - field.field.node.regulation.field_regulation_metatags
+    - field.field.node.regulation.field_regulation_ref_org
+    - field.field.node.regulation.field_regulation_reg_authority
+    - field.field.node.regulation.field_regulation_related
+    - field.field.node.regulation.field_regulation_section
+    - field.field.node.regulation.field_regulation_short_descr
+    - field.field.node.regulation.field_regulation_title
+    - node.type.regulation
+  module:
+    - datetime
+    - entity_browser_entity_form
+    - field_group
+    - inline_entity_form
+    - link
+    - metatag
+    - paragraphs
+    - path
+    - text
+    - workbench_moderation
+third_party_settings:
+  field_group:
+    group_overview:
+      children:
+        - field_regulation_agency_cmr_num
+        - field_regulation_cmr_chapter_num
+        - field_regulation_title
+        - field_regulation_last_updated
+        - field_regulation_ref_org
+        - field_regulation_reg_authority
+        - field_regluation_official_ver
+        - field_regulation_short_descr
+      parent_name: group_regulation_page_edit_form
+      weight: 7
+      format_type: tab
+      format_settings:
+        id: ''
+        classes: ''
+        formatter: open
+        description: ''
+        required_fields: true
+      label: Overview
+    group_regulation_page_edit_form:
+      children:
+        - group_overview
+        - group_sections
+        - group_related
+      parent_name: ''
+      weight: 0
+      format_type: tabs
+      format_settings:
+        id: ''
+        classes: ''
+        direction: horizontal
+      label: 'Regulation Page Edit Form'
+    group_related:
+      children:
+        - field_regulation_contact
+        - field_regulation_related
+        - field_regulation_upcoming_events
+      parent_name: group_regulation_page_edit_form
+      weight: 10
+      format_type: tab
+      format_settings:
+        id: ''
+        classes: ''
+        formatter: closed
+        description: ''
+        required_fields: true
+      label: Related
+    group_sections:
+      children:
+        - field_regulation_section
+        - field_regulation_download
+      parent_name: group_regulation_page_edit_form
+      weight: 8
+      format_type: tab
+      format_settings:
+        label: Content
+        formatter: closed
+        description: ''
+        required_fields: true
+        id: ''
+        classes: ''
+      label: Content
+id: node.regulation.default
+targetEntityType: node
+bundle: regulation
+mode: default
+content:
+  created:
+    type: datetime_timestamp
+    weight: 2
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_regluation_official_ver:
+    weight: 11
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+    region: content
+  field_regulation_agency_cmr_num:
+    weight: 5
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_regulation_cmr_chapter_num:
+    weight: 6
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_regulation_contact:
+    weight: 35
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
+  field_regulation_download:
+    weight: 36
+    settings:
+      form_mode: default
+      label_singular: ''
+      label_plural: ''
+      allow_new: true
+      allow_existing: true
+      match_operator: CONTAINS
+      override_labels: false
+      collapsible: false
+      collapsed: false
+    third_party_settings:
+      entity_browser_entity_form:
+        entity_browser_id: media_browser
+    type: inline_entity_form_complex
+    region: content
+  field_regulation_last_updated:
+    weight: 8
+    settings: {  }
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
+  field_regulation_metatags:
+    weight: 38
+    settings: {  }
+    third_party_settings: {  }
+    type: metatag_firehose
+    region: content
+  field_regulation_ref_org:
+    weight: 9
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
+  field_regulation_reg_authority:
+    weight: 10
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+    region: content
+  field_regulation_related:
+    weight: 36
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+    region: content
+  field_regulation_section:
+    type: entity_reference_paragraphs
+    weight: 35
+    settings:
+      title: Section
+      title_plural: Sections
+      edit_mode: closed
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: _none
+    third_party_settings: {  }
+    region: content
+  field_regulation_short_descr:
+    weight: 12
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
+  field_regulation_title:
+    weight: 7
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  path:
+    type: path
+    weight: 3
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 1
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    region: content
+    third_party_settings: {  }
+hidden:
+  promote: true
+  sticky: true
+  title: true
