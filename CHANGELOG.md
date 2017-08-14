@@ -6,8 +6,27 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 ## Upcoming (add in progress changes here)
 
 ### Added
+
+### Changed
+
+### Removed
+
+### Post Deploy
+
+## [0.28.1] - August 11, 2017
+
+### Changed
+- Revert to legacy iFrame solution to fix home + other pages.
+- Fix with redeployment of DP-4285: Adds end date to field_event_date on events. Front end does not render end date yet.
+- Makes the Audience field optional. Limits the 'Primary Audience' field to administrator users only.
+
+### Post Deploy
+Follow post deploy steps listed in the PR (https://github.com/massgov/mass/pull/1089) to re-add the "announcing pilot.mass.gov" youtube video to the home page.
+
+## [0.28.0] - August 10, 2017
+
+### Added
 - Added the route_iframes module to support dashboards as a tab / local task on nodes / pages.
-- DP-4211 - Add iframe paragraph to service details and location details.
 - DP-4179 - (for devs) Add docs for updating dependency packages to repo readme + mayflower docs
 - Adds a "category" metatag when viewing most nodes. The category is dynamically determined based on the content type and will allow future filtered searches using Google CSE.
 - Adds a "Primary audience" field to Guide Page, How-to Page, Service Page, and Service Detail Page content types. The value of this field is used to populate an "audience" metatag for those pages, allowing Google CSE to filter by audience.
@@ -27,10 +46,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - Fix bug where pages with no table data (i.e. How-To's with no fees) were not loading.
 - Fixed email headers being used to send out Watch notifications from mass_flagging module
 - DP-4285 - Adds end date to field_event_date on events. Front end does not render end date yet.
+- DP-5075 Allow authors to see help text for Watching feature.
 
 ### Removed
-
-
+- DP-4211 - Add iframe paragraph to service details and location details.
 
 ## [0.27.0] - August 8, 2017
 
@@ -45,10 +64,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 ### Changed
 - Changed label on "Related Parks" to "Related Locations"
 - Removed a bar showing on pilot.mass.gov header
+- Removed a bar showing on pilot.mass.gov header
 - Fixed Location pages show page level alert even with no alert content
 - Fixed Pilot.mass.gov design is changing when choosing a different language
 - Fixed Topic page title in the cards are not wrapping with IE11
 
+### Removed
+None.
+
+
+[0.26.0] - August 3, 2017
 
 
 ## [0.26.0] - August 3, 2017
@@ -69,10 +94,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - DP-4589 - Added custom template suggestion for Flag Content contact form to ensure proper textarea rendering.
 - DP-4773 - Hides flagging link container if user is not authenticated.
 
+### Removed
+None.
 
 
 ## [0.25.0] - Aug 1, 2017
-
 ### Added
 - Added dashboard admin/ma-dash/service-content to see content related to a service.
 - "Organization Pages" and "Service Pages" now have event listing.
