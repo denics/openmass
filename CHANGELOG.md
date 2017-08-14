@@ -27,6 +27,8 @@ Follow post deploy steps listed in the PR (https://github.com/massgov/mass/pull/
 
 ### Added
 - Added the route_iframes module to support dashboards as a tab / local task on nodes / pages.
+- DP-4211 - Add iframe paragraph to service details and location details.
+- DP-4960 - Allow users with the role Tester to use the content type "Form page"
 - DP-4179 - (for devs) Add docs for updating dependency packages to repo readme + mayflower docs
 - Adds a "category" metatag when viewing most nodes. The category is dynamically determined based on the content type and will allow future filtered searches using Google CSE.
 - Adds a "Primary audience" field to Guide Page, How-to Page, Service Page, and Service Detail Page content types. The value of this field is used to populate an "audience" metatag for those pages, allowing Google CSE to filter by audience.
