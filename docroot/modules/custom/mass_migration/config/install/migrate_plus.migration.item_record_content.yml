@@ -60,12 +60,18 @@ destination:
   plugin: 'entity:media'
   default_bundle: document
 process:
-  name: rec_title
+  name:
+    plugin: mass_sanitize
+    source: rec_title
+  field_title:
+    plugin: mass_sanitize
+    source: rec_title
   uid:
     plugin: default_value
     default_value: 1
-  field_title: rec_title
-  field_alternative_title: rec_title_variant
+  field_alternative_title:
+    plugin: mass_sanitize
+    source: rec_title_variant
   field_creator:
     -
       plugin: mass_migration_get_organization_title
