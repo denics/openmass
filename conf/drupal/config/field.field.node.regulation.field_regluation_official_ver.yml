@@ -1,0 +1,58 @@
+uuid: 55b5e34d-b734-481a-bc28-a5666b32c9f7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_regluation_official_ver
+    - node.type.regulation
+  module:
+    - link
+id: node.regulation.field_regluation_official_ver
+field_name: field_regluation_official_ver
+entity_type: node
+bundle: regulation
+label: 'Official version'
+description: 'A link to where the official version of the regulation may be found.'
+required: true
+translatable: false
+default_value:
+  -
+    attributes: {  }
+    uri: 'https://www.sec.state.ma.us/spr/massreg.htm'
+    title: 'Published by the Massachusetts Register'
+    options: {  }
+default_value_callback: ''
+settings:
+  link_type: 17
+  title: 1
+  content_types:
+    regulation: regulation
+    action: 0
+    advisory: 0
+    contact_information: 0
+    decision: 0
+    emergency_alerts: 0
+    error_page: 0
+    event: 0
+    executive_order: 0
+    fee: 0
+    form_page: 0
+    guide_page: 0
+    how_to_page: 0
+    interstitial: 0
+    legacy_redirects: 0
+    location: 0
+    location_details: 0
+    news: 0
+    org_page: 0
+    page: 0
+    person: 0
+    section_landing: 0
+    service_details: 0
+    service_page: 0
+    stacked_layout: 0
+    subtopic: 0
+    topic: 0
+    topic_page: 0
+    utility_drawer: 0
+field_type: link

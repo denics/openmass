@@ -1,0 +1,20 @@
+uuid: 671dc16c-17da-4f0f-90f0-6679f26267fc
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.field_regulation_cmr_chapter_num
+field_name: field_regulation_cmr_chapter_num
+entity_type: node
+type: integer
+settings:
+  unsigned: false
+  size: normal
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

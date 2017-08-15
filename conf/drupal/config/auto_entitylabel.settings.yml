@@ -2,13 +2,16 @@ node_type_person_status: '1'
 node_type_person_pattern: '[node:field_person_first_name] [node:field_person_last_name], [node:field_person_role_title]'
 node_type_person_php: 0
 submit: 'Save configuration'
-form_build_id: form-ucU6H9nlDC7VMScDZVMeRklOP82XXTSQkO2VliY0oUM
-form_token: MWVtWf9HMEud-JDKwUrN2OQQ0xeJ5mujt_nDcOu3JXE
+form_build_id: form-VcfJyImI7-FmJiJuKyARinCOZVqFsehvTe41HinkN20
+form_token: iS3WT8doxwVAvxdBYCmBadPEBMMryZTQhtP0dXpu3-4
 form_id: auto_entitylabel_settings_form
 op: 'Save configuration'
 node_type_legacy_redirects_status: '1'
 node_type_legacy_redirects_pattern: 'Redirect for [node:field_legacy_redirects_ref_conte:entity:title]'
 node_type_legacy_redirects_php: 0
+node_type_regulation_status: '1'
+node_type_regulation_pattern: '[node:field_regulation_agency_cmr_num] CMR [node:field_regulation_cmr_chapter_num].00: [node:field_regulation_title]'
+node_type_regulation_php: 0
 node_type_executive_order_status: '1'
 node_type_executive_order_pattern: '[node:field_executive_order_number]: [node:field_executive_title]'
 node_type_executive_order_php: 0

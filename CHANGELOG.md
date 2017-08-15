@@ -27,6 +27,8 @@ Follow post deploy steps listed in the PR (https://github.com/massgov/mass/pull/
 
 ### Added
 - Added the route_iframes module to support dashboards as a tab / local task on nodes / pages.
+- DP-4211 - Add iframe paragraph to service details and location details.
+- DP-4960 - Allow users with the role Tester to use the content type "Form page"
 - DP-4179 - (for devs) Add docs for updating dependency packages to repo readme + mayflower docs
 - Adds a "category" metatag when viewing most nodes. The category is dynamically determined based on the content type and will allow future filtered searches using Google CSE.
 - Adds a "Primary audience" field to Guide Page, How-to Page, Service Page, and Service Detail Page content types. The value of this field is used to populate an "audience" metatag for those pages, allowing Google CSE to filter by audience.
@@ -40,12 +42,14 @@ Follow post deploy steps listed in the PR (https://github.com/massgov/mass/pull/
 - MPRR-466 - Added Patch for media_entity_document module to avoid errors during migration
 - MPRR-471 - Added Documents admin screen at admin/ma-dash/documents
 - MPRR-475 - Added link to create Document to node/add screen
+- DP-2373 - Adds regulation content type and theming.
 - Added notification message for users automatically added as content watchers.
 
 ### Changed
 - Fix bug where pages with no table data (i.e. How-To's with no fees) were not loading.
 - Fixed email headers being used to send out Watch notifications from mass_flagging module
 - DP-4285 - Adds end date to field_event_date on events. Front end does not render end date yet.
+- Updated mass_flagging module to send Watch emails on local or Prod environments only.
 - DP-5075 Allow authors to see help text for Watching feature.
 
 ### Removed

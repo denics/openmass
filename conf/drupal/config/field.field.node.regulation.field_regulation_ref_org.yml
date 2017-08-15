@@ -1,0 +1,28 @@
+uuid: 5eb1c168-d3ee-41ca-822b-ec58a2e17fa9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_regulation_ref_org
+    - node.type.org_page
+    - node.type.regulation
+id: node.regulation.field_regulation_ref_org
+field_name: field_regulation_ref_org
+entity_type: node
+bundle: regulation
+label: Organization
+description: 'Select the Organization page for the organization that issued the regulation.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      org_page: org_page
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

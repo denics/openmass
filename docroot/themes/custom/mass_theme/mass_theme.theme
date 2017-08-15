@@ -682,9 +682,9 @@ function mass_theme_preprocess_node_org_page(&$variables) {
 
   if (Helper::isFieldPopulated($node, $fields['featuredActions']) || Helper::isFieldPopulated($node, $fields['allActions'])) {
     $action_finder_options = [
-      'title' => t('What Would You Like to Do?'),
-      'featuredHeading' => t('Featured:'),
-      'generalHeading' => t('How-Tos & Guides:'),
+      'title' => t('What do you need help with?'),
+      'featuredHeading' => t('Featured services'),
+      'generalHeading' => t('More services'),
     ];
 
     $sections[] = [
@@ -746,7 +746,7 @@ function mass_theme_preprocess_node_org_page(&$variables) {
   if (Helper::isFieldPopulated($node, $fields['relatedLinks'])) {
     $linkList_options = [
       'heading' => [
-        'title' => t('Related Organizations'),
+        'title' => t('Related organizations'),
         'type' => 'compHeading',
       ],
     ];
@@ -1249,7 +1249,7 @@ function mass_theme_preprocess_node_decision(&$variables) {
   }
 
   if (Helper::isFieldPopulated($node, $fields['sources'])) {
-    $listingTable['rows'][] = Helper::sourceListingTable($node, ['sources' => $fields['sources']]);
+    $listingTable['rows'][] = Helper::rowListingTable($node, ['sources' => $fields['sources']], ['label' => t('Referenced Sources')]);
   }
 
   $optionalContents[] = [
@@ -1509,6 +1509,227 @@ function mass_theme_preprocess_node_decision(&$variables) {
  *
  * Prepare the variables for the Event page.
  */
+function mass_theme_preprocess_node_regulation(&$variables) {
+  $node = $variables['node'];
+  $category = '';
+  $headerTags = '';
+  $publish_state = NULL;
+  $sidebar = [];
+  $listingTable = [];
+
+  // Create the map of all possible field names to use.
+  $map = [
+    'contact' => ['field_regulation_contact'],
+    'date' => ['field_regulation_last_updated'],
+    'downloads' => ['field_regulation_download'],
+    'meta_tags' => ['field_regulation_metatags'],
+    'overview' => ['field_regulation_short_descr'],
+    'official' => ['field_regluation_official_ver'],
+    'organization' => ['field_regulation_ref_org'],
+    'authority' => ['field_regulation_reg_authority'],
+    'links' => ['field_regulation_related'],
+    'sections' => ['field_regulation_section'],
+  ];
+
+  // Determines which field names to use from the map.
+  $fields = Helper::getMappedFields($node, $map);
+
+  if (Helper::isFieldPopulated($node, $fields['date'])) {
+    // Set up rich text elements for what you need.
+    $listingTable['rows'][] = [
+      'label' => t("Date@colon", ['@colon' => ':']),
+      'text' => \Drupal::service('date.formatter')->format(strtotime($node->$fields['date']->value), 'custom', 'm/d/Y'),
+    ];
+  }
+
+  if (Helper::isFieldPopulated($node, $fields['organization'])) {
+    $listingTable['rows'][] = [
+      'label' => t("Organization@colon", ['@colon' => ':']),
+      'text' => $node->$fields['organization']->entity->getTitle(),
+    ];
+  }
+
+  if (Helper::isFieldPopulated($node, $fields['authority'])) {
+    $authority_options = [
+      'label' => t('Regulatory Authority'),
+    ];
+    $listingTable['rows'][] = Helper::rowListingTable($node, ['sources' => $fields['authority']], $authority_options);
+  }
+
+  if (Helper::isFieldPopulated($node, $fields['official'])) {
+    $official_options = [
+      'label' => t('Official Version'),
+    ];
+    $listingTable['rows'][] = Helper::rowListingTable($node, ['sources' => $fields['official']], $official_options);
+  }
+
+  $optionalContents[] = [
+    'path' => '@molecules/listing-table.twig',
+    'data' => [
+      'listingTable' => $listingTable,
+    ],
+  ];
+
+  if (Helper::isFieldPopulated($node, $fields['overview'])) {
+    $headerRichText = [
+      'rteElements' => [
+        Atoms::prepareRawHtml($node, ['field' => $fields['overview']]),
+      ],
+    ];
+
+    $optionalContents[] = [
+      'path' => '@organisms/by-author/rich-text.twig',
+      'data' => [
+        'richText' => $headerRichText,
+      ],
+    ];
+  }
+
+  $taxonomyTerms = [];
+
+  if (!empty($node->$fields['organization'])) {
+    foreach ($node->$fields['organization'] as $tag) {
+      $taxonomyTerms[] = [
+        'href' => $tag->entity->toURL()->toString(),
+        'text' => Helper::fieldValue($tag->entity, 'title'),
+      ];
+    }
+
+    $headerTags = [
+      'label' => t('Related to:'),
+      'taxonomyTerms' => $taxonomyTerms,
+    ];
+  }
+
+  // Set static pageHeader properties to pass to prepare function.
+  $pageHeader_options = [
+    'category' => $category,
+    'headerTags' => $headerTags,
+    'optionalContents' => $optionalContents,
+  ];
+
+  // Make pageBanner data object available in twig template.
+  $variables['pageHeader'] = Organisms::preparePageHeader($node, $pageHeader_options);
+
+  foreach ($node->$fields['sections'] as $index => $section) {
+    $variables['numOfSections'] = ++$index;
+    $sectionEntity = $section->entity;
+
+    // Create the map of the field names to use.
+    $map_ref = [
+      'title' => ['field_regulation_section_title'],
+      'body' => ['field_regulation_section_body'],
+    ];
+
+    // Determines which field names to use from the map.
+    $field = Helper::getMappedFields($sectionEntity, $map_ref);
+
+    if (Helper::isFieldPopulated($sectionEntity, $field['title'])) {
+      $compHeading_options = [
+        'title' => Helper::fieldValue($sectionEntity, $field['title']),
+      ];
+      $sections[$index]['title'] = Atoms::prepareCompHeading($compHeading_options);
+      $sections[$index]['id'] = Helper::createIdTitle(Helper::fieldValue($sectionEntity, $field['title']));
+    }
+
+    if (Helper::isFieldPopulated($sectionEntity, $field['body'])) {
+      // Set up rich text elements for what you need.
+      $sections[$index]['richText'] = [
+        'rteElements' => [
+          Atoms::prepareRawHtml($sectionEntity, ['field' => $field['body']]),
+        ],
+      ];
+    }
+  }
+
+  if (Helper::isFieldPopulated($node, $fields['downloads'])) {
+    // Set up options for formDownloads prepare.
+    $downloadLinks_options = [
+      'heading' => [
+        'type' => 'compHeading',
+        'title' => t('Downloads'),
+        'sub' => TRUE,
+        'id' => 'downloads',
+      ],
+    ];
+    $mainContent['formDownloads'] = Organisms::prepareFormDownloads($node, $downloadLinks_options);
+
+    $sections[] = [
+      'title' => $downloadLinks_options['heading']['title'],
+      'id' => $downloadLinks_options['heading']['id'],
+    ];
+  }
+
+  // Build contact section, if field is populated.
+  if (Helper::isFieldPopulated($node, $fields['contact'])) {
+    // Set up options for contact list.
+    $contactList_options = [
+      'heading' => [
+        'title' => t("Contact"),
+        'sub' => TRUE,
+        'id' => 'contact',
+      ],
+      'groups' => [
+        'accordion' => TRUE,
+        'isExpanded' => FALSE,
+        'onlyPhoneAndOnline' => TRUE,
+      ],
+    ];
+
+    $mainContent['contactList'] = Organisms::prepareContactList($node, $contactList_options);
+    // Build sidebar.contactList, which is a subset of pageContent.ContactList.
+    // Prepare the quickActions data object.
+    $sidebarContacts_options = [
+      'groups' => [
+        'accordion' => FALSE,
+        'isExpanded' => FALSE,
+        'onlyPhoneAndOnline' => TRUE,
+      ],
+    ];
+    // Prepare the sidebarContact data object.
+    $sideContent['contactList'] = Organisms::prepareContactList($node, $sidebarContacts_options);
+    unset($sideContent['contactList']['compHeading']);
+    $sideContent['contactList']['sidebarHeading']['title'] = t('Contact');
+    $sideContent['contactList']['viewSpecific'] = TRUE;
+
+    $sections[] = [
+      'title' => $contactList_options['heading']['title'],
+      'id' => $contactList_options['heading']['id'],
+    ];
+  }
+
+  if (Helper::isFieldPopulated($node, $fields['sections'])) {
+    // Jump link options.
+    $jumplink_options = [
+      'title' => t('In this section'),
+    ];
+    $sections['jumpLinks'] = Organisms::prepareJumpLinks($sections, $jumplink_options);
+  }
+
+  // Build related links section, if field is populated.
+  if (Helper::isFieldPopulated($node, $fields['links'])) {
+    // Set up options for link list.
+    $pressListing_options = [
+      'heading' => [
+        'type' => 'sidebarHeading',
+        'title' => t('Related'),
+      ],
+      'stacked' => TRUE,
+    ];
+
+    $sideContent['pressListing'] = Organisms::preparePressListing($node, $fields['links'], $pressListing_options);
+  }
+
+  $variables['sections'] = $sections;
+  $variables['mainContent'] = $mainContent;
+  $variables['sideContent'] = $sideContent;
+}
+
+/**
+ * Implements hook_preprocess_node().
+ *
+ * Prepare the variables for the Event page.
+ */
 function mass_theme_preprocess_node_advisory(&$variables) {
   $node = $variables['node'];
   $category = '';
@@ -1560,7 +1781,7 @@ function mass_theme_preprocess_node_advisory(&$variables) {
   }
 
   if (Helper::isFieldPopulated($node, $fields['sources'])) {
-    $listingTable['rows'][] = Helper::sourceListingTable($node, ['sources' => $fields['sources']]);
+    $listingTable['rows'][] = Helper::rowListingTable($node, ['sources' => $fields['sources']], ['label' => t('Referenced Sources')]);
   }
 
   $optionalContents[] = [

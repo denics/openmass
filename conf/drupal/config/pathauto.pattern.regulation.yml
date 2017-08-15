@@ -1,0 +1,22 @@
+uuid: 021eae4c-7412-49f1-890e-d41c47057294
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: regulation
+label: Regulation
+type: 'canonical_entities:node'
+pattern: '/regulations/[node:field_regulation_agency_cmr_num]-CMR-[node:field_regulation_cmr_chapter_num]-[node:field_regulation_reg_title]'
+selection_criteria:
+  87321464-7667-40f0-b8e2-01bc01d2dc54:
+    id: node_type
+    bundles:
+      regulation: regulation
+    negate: false
+    context_mapping:
+      node: node
+    uuid: 87321464-7667-40f0-b8e2-01bc01d2dc54
+selection_logic: and
+weight: -5
+relationships: {  }

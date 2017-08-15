@@ -470,7 +470,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   public function assertContentTypeFields($content_type) {
     $this->minkContext->visitPath('node/add/' . $content_type);
     // Test title for everything but person ct
-    $no_title_ct = ['legacy_redirects', 'person', 'executive_order'];
+    $no_title_ct = ['legacy_redirects', 'person', 'executive_order', 'regulation'];
     if (!in_array($content_type, $no_title_ct)) {
       $this->minkContext->assertElementOnPage('#edit-title-0-value');
     }
@@ -545,6 +545,65 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
             'field' => 'field-advisory-ref-events',
             'tag' => 'input',
             'type' => 'text',
+          ),
+        );
+        break;
+      case "regulation":
+        $fields = array (
+          array (
+            'field' => 'field-regulation-contact',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-regulation-last-updated',
+            'tag' => 'input',
+            'type' => 'date',
+          ),
+          array (
+            'field' => 'field-regulation-download',
+            'tag' => 'input',
+            'type' => 'submit',
+          ),
+          array (
+            'field' => 'field-regulation-ref-org',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-regulation-title',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-regulation-agency-cmr-num',
+            'tag' => 'input',
+            'type' => 'number',
+          ),
+          array (
+            'field' => 'field-regulation-cmr-chapter-num',
+            'tag' => 'input',
+            'type' => 'number',
+          ),
+          array (
+            'field' => 'field-regulation-reg-authority',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-regulation-related',
+            'tag' => 'input',
+            'type' => 'text',
+          ),
+          array (
+            'field' => 'field-regulation-section',
+            'tag' => 'paragraphs',
+            'type' => 'regulation-section',
+          ),
+          array (
+            'field' => 'field-regulation-short-descr',
+            'tag' => 'textarea',
+            'type' => '',
           ),
         );
         break;

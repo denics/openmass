@@ -1,0 +1,23 @@
+uuid: 608fd809-1933-45dd-a37d-a2ca234626e7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_regulation_cmr_chapter_num
+    - node.type.regulation
+id: node.regulation.field_regulation_cmr_chapter_num
+field_name: field_regulation_cmr_chapter_num
+entity_type: node
+bundle: regulation
+label: 'CMR chapter number'
+description: 'A number to the right of “CMR” in the number of the regulation.  This represents the chapter of the regulation. Do not include “.00” at the end.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: 1
+  max: 10000
+  prefix: ''
+  suffix: ''
+field_type: integer

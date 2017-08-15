@@ -11,7 +11,6 @@ dependencies:
     - node.type.error_page
     - node.type.executive_order
     - node.type.fee
-    - node.type.form_page
     - node.type.guide_page
     - node.type.how_to_page
     - node.type.interstitial
@@ -21,6 +20,7 @@ dependencies:
     - node.type.news
     - node.type.org_page
     - node.type.page
+    - node.type.regulation
     - node.type.section_landing
     - node.type.service_details
     - node.type.service_page
@@ -488,7 +488,6 @@ display:
             error_page: error_page
             executive_order: executive_order
             fee: fee
-            form_page: form_page
             guide_page: guide_page
             how_to_page: how_to_page
             interstitial: interstitial
@@ -497,6 +496,7 @@ display:
             location: location
             news: news
             org_page: org_page
+            regulation: regulation
             action: action
             section_landing: section_landing
             service_details: service_details

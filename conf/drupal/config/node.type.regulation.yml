@@ -1,0 +1,17 @@
+uuid: cf6af33e-ddf0-4d89-afc6-b3edf9fcbc43
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+name: 'Regulation Page'
+type: regulation
+description: 'A page for a Commonwealth of Massachusetts regulation. '
+help: ''
+new_revision: true
+preview_mode: 1
+display_submitted: false
