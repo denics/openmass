@@ -65,7 +65,7 @@ class Schemas {
     $schema['governmentOrganization']['alternateName'] = array_key_exists('titleSubText', $variables['pageBanner']) ? $variables['pageBanner']['titleSubText'] : '';
 
     // Use first line of optional "who we serve" as disambiguating description.
-    if (isset($variables['stackedRowSections'][0]) && array_key_exists('title', $variables['stackedRowSections'][0]) && $variables['stackedRowSections'][0]['title'] === "Who We Serve") {
+    if (isset($variables['stackedRowSections'][0]) && array_key_exists('title', $variables['stackedRowSections'][0]) && $variables['stackedRowSections'][0]['title'] === "Who we serve") {
       $schema['governmentOrganization']['disambiguatingDescription'] = array_key_exists('rawHtml', $variables['stackedRowSections'][0]['pageContent'][0]['data']['richText']['rteElements'][0]['data']) ? Helper::getFirstParagraph($variables['stackedRowSections'][0]['pageContent'][0]['data']['richText']['rteElements'][0]['data']['rawHtml']['content']['#text']) : '';
     }
 

@@ -682,9 +682,9 @@ function mass_theme_preprocess_node_org_page(&$variables) {
 
   if (Helper::isFieldPopulated($node, $fields['featuredActions']) || Helper::isFieldPopulated($node, $fields['allActions'])) {
     $action_finder_options = [
-      'title' => t('What Would You Like to Do?'),
-      'featuredHeading' => t('Featured:'),
-      'generalHeading' => t('How-Tos & Guides:'),
+      'title' => t('What do you need help with?'),
+      'featuredHeading' => t('Featured services'),
+      'generalHeading' => t('More services'),
     ];
 
     $sections[] = [
@@ -746,7 +746,7 @@ function mass_theme_preprocess_node_org_page(&$variables) {
   if (Helper::isFieldPopulated($node, $fields['relatedLinks'])) {
     $linkList_options = [
       'heading' => [
-        'title' => t('Related Organizations'),
+        'title' => t('Related organizations'),
         'type' => 'compHeading',
       ],
     ];

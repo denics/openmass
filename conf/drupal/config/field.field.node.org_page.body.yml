@@ -11,7 +11,7 @@ id: node.org_page.body
 field_name: body
 entity_type: node
 bundle: org_page
-label: 'Who We Serve'
+label: 'Who we serve'
 description: 'Describe the people or groups that your organization serves and describe how they are affected. Include key highlights of services provided but no comprehensive lists.'
 required: false
 translatable: true
