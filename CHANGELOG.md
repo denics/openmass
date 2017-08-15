@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 ## Upcoming (add in progress changes here)
 
 ### Added
+
+### Changed
+
+### Removed
+
+## [0.29.0] - August 16, 2017
+
+### Added
 - MPRR-224, MPRR-445 - Added data.json formatting for document endpoint, which exposes a feed of d\Documents as an API.
 - MPRR-366 - Added confirmation message on Media Document insert and update.
 - MPRR-367 - Added Patch for Core - Link Module help text, which improves authoring experience of link fields.
@@ -22,8 +30,6 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 ### Changed
 - Updates timestamp used within the body of Watch emails.
-
-### Removed
 
 ### Post Deploy
 Follow post deploy step listed in the PR (https://github.com/massgov/mass/pull/925) to add the migration source data to the files directory.
