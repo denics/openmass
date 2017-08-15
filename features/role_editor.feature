@@ -75,3 +75,7 @@ Feature: editor Role
     Then I should see the button "Save and Create New Draft" in the edit_actions
     And I should see the button "Save and Request Review" in the edit_actions
     And I should see the button "Save and Publish" in the edit_actions
+
+  Scenario: Verify that editor can add new or existing Documents to content and edit any Documents
+    Given I am logged in as a user with the "editor" role
+    Then I should have the "create media, update media, access media overview, update any media" permissions

@@ -1,0 +1,55 @@
+uuid: 390219ae-1775-439c-a050-ffacf6d6e084
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - mass_migration
+      - file
+_core:
+  default_config_hash: Q3I3mgWmLJkxBomCEs6UlZltb5xymrljjfvgHGwJt3E
+id: item_file_content
+migration_tags:
+  - CSV
+migration_group: massdocs_content
+label: 'Items Files Migration.'
+source:
+  constants:
+    destination_directory: 'public://documents'
+  plugin: csv
+  path: 'public://migration/percussion_metadata_05_25_2017.csv'
+  header_row_count: 1
+  keys:
+    - item_file_name
+  fields:
+    item_file_name: 'Unique file name for the item.'
+    item_massgov_url: 'Mass.gov url.'
+process:
+  uid:
+    plugin: default_value
+    default_value: 1
+  langcode:
+    plugin: default_value
+    default_value: langcode
+  status:
+    plugin: default_value
+    default_value: 1
+  filename: item_file_name
+  source_path: item_massgov_url
+  destination_path:
+    -
+      plugin: concat
+      delimiter: /
+      source:
+        - constants/destination_directory
+        - item_file_name
+    -
+      plugin: urlencode
+  uri:
+    plugin: file_copy
+    source:
+      - '@source_path'
+      - '@destination_path'
+destination:
+  plugin: 'entity:file'
+migration_dependencies: null

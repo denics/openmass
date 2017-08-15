@@ -12,10 +12,13 @@ field_name: field_start_date
 entity_type: media
 bundle: document
 label: 'Start Date'
-description: 'The start date when the contents in the file are relevant'
+description: ''
 required: true
 translatable: false
-default_value: {  }
+default_value:
+  -
+    default_date_type: now
+    default_date: now
 default_value_callback: ''
 settings: {  }
 field_type: datetime

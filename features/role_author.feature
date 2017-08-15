@@ -76,4 +76,9 @@ Feature: Author Role
     And I should see the button "Save and Request Review" in the edit_actions
     And I should not see the text "Save and Publish" in the edit_actions
 
+  Scenario: Verify that author can add new or existing Documents to content, but not edit any Documents
+    Given I am logged in as a user with the "author" role
+    Then I should have the "create media, update media, access media overview" permissions
+    And I should not have the "update any media" permissions
+
 

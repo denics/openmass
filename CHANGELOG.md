@@ -6,6 +6,19 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 ## Upcoming (add in progress changes here)
 
 ### Added
+- MPRR-224, MPRR-445 - Added data.json formatting for document endpoint, which exposes a feed of d\Documents as an API.
+- MPRR-366 - Added confirmation message on Media Document insert and update.
+- MPRR-367 - Added Patch for Core - Link Module help text, which improves authoring experience of link fields.
+- MPRR-409 - Added Auto-populate Media Document Form Fields from User profile, which allows authors to fill in a default value for 4 Document fields from their user profile.
+- MPRR-456, MPRR-482, MPRR-367 - Added fields to Media Document for MassDocs compatibility. All new fields are in an "Advanced" tab. Documents now uses user_organization taxonomy for compatibility with existing user profiles.
+- MPRR-456 - Added default taxonomy terms update hook for Media, which adds select lists for Language, License and Document "Content Type".
+- MPRR-466, MPRR-486 - Added Migrate class to import files from Percussion via CSV source. 155,000 Documents will be ported from Percussion, and future updates and additions can be imported with this migration.
+- MPRR-466 - Added Patch for media_entity_document module to avoid errors during migration. Document entities can be migrated even if a Percussion file that returns a 404.
+- MPRR-471 - Added "All Documents" admin screen at admin/ma-dash/documents - Authors and Editors can now view and filter Documents from a central location.
+- MPRR-475 - Added link to create Document to node/add screen, so that Authors and Editors can more easily create standalone Documents.
+- MPRR-484 - robots.txt - hide Media entities (Documents, Video) from search engines, as they currently have no Mayflower styling.
+- MPRR-487 - Updated "Add Existing File" Media Browser - old browser showed only Title. New browser shows, Organization, Updated Date, and User, and can be filtered and sorted accordingly.
+- MPRR-487 - Authors and Editors have permissions "create media, update media, access media overview" and editor has "edit any media", to bring Document workflow inline with content.
 
 ### Changed
 - Updates timestamp used within the body of Watch emails.
@@ -13,6 +26,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 ### Removed
 
 ### Post Deploy
+Follow post deploy step listed in the PR (https://github.com/massgov/mass/pull/925) to add the migration source data to the files directory.
 
 ## [0.28.1] - August 11, 2017
 

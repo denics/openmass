@@ -140,6 +140,7 @@ permissions:
   - 'delete any subtopic content'
   - 'delete any topic content'
   - 'delete any topic_page content'
+  - 'delete conditional fields'
   - 'delete contact_information revisions'
   - 'delete conditional fields'
   - 'delete decision revisions'

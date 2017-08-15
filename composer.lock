@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "019d4007c599ad3dd99d558de7797a57",
+    "content-hash": "dbb7bf171c0ac6736662d8d2adf61ef0",
     "packages": [
         {
             "name": "acquia/acquia-sdk-php",
@@ -1764,8 +1764,12 @@
                     "dev-2.x": "2.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-2.0-beta1+19-dev",
-                    "datestamp": "1501681744"
+                    "version": "8.x-2.0-beta1+20-dev",
+                    "datestamp": "1501690143",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Dev releases are not covered by Drupal security advisories."
+                    }
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -2518,7 +2522,8 @@
                     "Fix photo disappearing from org page. Fix Contextual Links js bug.": "https://www.drupal.org/files/issues/2551373-32.patch",
                     "Link autocomplete content type filter. (https://www.drupal.org/node/2887376#comment-12147367)": "https://www.drupal.org/files/issues/link-autocomplete-ct-filter-2887376-5-8.4.x.patch",
                     "Improve the Views integration for DateRange fields. (https://www.drupal.org/node/2786577#comment-12164509)": "https://www.drupal.org/files/issues/improve_the_views-2786577-165.patch",
-                    "Number widget validation can break AJAX actions. (https://www.drupal.org/node/2614250)": "https://www.drupal.org/files/issues/2614250-40.patch"
+                    "Number widget validation can break AJAX actions. (https://www.drupal.org/node/2614250)": "https://www.drupal.org/files/issues/2614250-40.patch",
+                    "Fix regression in the link widget where help text does not show. (https://www.drupal.org/node/2421001)": "https://www.drupal.org/files/issues/2421001-87.patch"
                 }
             },
             "autoload": {
@@ -4092,6 +4097,43 @@
             }
         },
         {
+            "name": "drupal/key_value_field",
+            "version": "dev-1.x",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupal.org/project/key_value_field",
+                "reference": "69cf1bf7cb8ed62c3a51f30ff47dad8d013792ff"
+            },
+            "require": {
+                "drupal/core": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.0-beta1+5-dev",
+                    "datestamp": "1491326283"
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "dawehner",
+                    "homepage": "https://www.drupal.org/user/99340"
+                }
+            ],
+            "description": "Provides a field with a key, value pair along with a description.",
+            "homepage": "https://www.drupal.org/project/key_value_field",
+            "support": {
+                "source": "http://cgit.drupalcode.org/key_value_field"
+            }
+        },
+        {
             "name": "drupal/libraries",
             "version": "dev-3.x",
             "source": {
@@ -4264,6 +4306,9 @@
                 "drupal": {
                     "version": "8.x-1.1",
                     "datestamp": "1470211995"
+                },
+                "patches_applied": {
+                    "Checking for empty file before calling any method (https://www.drupal.org/node/2901361)": "https://www.drupal.org/files/issues/2901361-2-Check-file-null.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -5509,8 +5554,7 @@
             "homepage": "https://www.drupal.org/project/simple_oauth",
             "support": {
                 "source": "http://cgit.drupalcode.org/simple_oauth"
-            },
-            "time": "2017-07-03 13:42:42"
+            }
         },
         {
             "name": "drupal/subpathauto",
@@ -14152,6 +14196,7 @@
         "drupal/geocoder": 15,
         "drupal/geofield": 15,
         "drupal/inline_entity_form": 20,
+        "drupal/key_value_field": 20,
         "drupal/node_edit_protection": 20,
         "drupal/node_title_help_text": 20,
         "drupal/office_hours": 15,

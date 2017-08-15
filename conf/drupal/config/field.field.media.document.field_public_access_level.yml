@@ -1,0 +1,23 @@
+uuid: af3710f4-4d24-4ea5-987f-a9da4680ea5c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.media.field_public_access_level
+    - media_entity.bundle.document
+  module:
+    - options
+id: media.document.field_public_access_level
+field_name: field_public_access_level
+entity_type: media
+bundle: document
+label: 'Public Access Level'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: Public
+default_value_callback: ''
+settings: {  }
+field_type: list_string
