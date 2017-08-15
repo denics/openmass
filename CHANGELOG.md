@@ -39,6 +39,7 @@ Follow post deploy steps listed in the PR (https://github.com/massgov/mass/pull/
 - Fix bug where pages with no table data (i.e. How-To's with no fees) were not loading.
 - Fixed email headers being used to send out Watch notifications from mass_flagging module
 - DP-4285 - Adds end date to field_event_date on events. Front end does not render end date yet.
+- Updated mass_flagging module to send Watch emails on local or Prod environments only.
 - DP-5075 Allow authors to see help text for Watching feature.
 
 ### Removed

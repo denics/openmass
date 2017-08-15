@@ -64,7 +64,10 @@ function mass_flagging_preprocess_page(&$variables) {
  * Implements hook_node_update().
  */
 function mass_flagging_node_update(EntityInterface $node) {
-  mass_flagging_node_update_insert_send_notifications($node);
+  // Sends Watch notifications on local and Prod environments only.
+  if (!isset($_ENV['AH_SITE_ENVIRONMENT']) || $_ENV['AH_SITE_ENVIRONMENT'] == 'prod') {
+    mass_flagging_node_update_insert_send_notifications($node);
+  }
   mass_flagging_node_update_insert_add_watcher($node);
 }
 
