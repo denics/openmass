@@ -3,6 +3,12 @@ Feature: Topic Content type
   As a MassGov content editor,
   I want to be able to add metadata content.
 
+  Scenario: Verify Document link is on node/add screen
+    Given I am logged in as a user with the "author" role
+    When I visit "/node/add"
+    Then I should see the text "Document"
+    And I should not see the text "MassDocs"
+
   Scenario: Verify metadata fields exist
     Given I am logged in as a user with the "administrator" role
     When I visit "/media/add/document"
@@ -24,7 +30,8 @@ Feature: Topic Content type
     Then I should see the text "OCLC Number"
     Then I should see the text "File Migration ID"
     Then I should see the text "Legacy URL"
-    And I should see the text "Checksum"
+    Then I should see the text "Checksum"
+    And I should not see the text "MassDocs"
 
   Scenario: Documents Admin Sreen
     Given I am logged in as a user with the "administrator" role
@@ -37,3 +44,4 @@ Feature: Topic Content type
     Then I should see "Changed"
     Then I should see "Internal Notes"
     Then I should see "Migration"
+    Then I should see "Add document"
