@@ -257,6 +257,17 @@ function _mass_docs_get_user_config_data($uid) {
  * Implements hook_form_FORM_ID_alter().
  */
 function mass_docs_form_media_document_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // Auto-populate fields in media document with user defined values.
+  _mass_docs_auto_populate_user_fields($form);
+}
+
+/**
+ * Auto-populate fields in media document with user defined values.
+ *
+ * @param array $form
+ *   The form to populate.
+ */
+function _mass_docs_auto_populate_user_fields(array &$form) {
   // Auto-populate fields from user profile.
   $data = _mass_docs_get_user_config_data(\Drupal::currentUser()->id());
 
@@ -284,4 +295,14 @@ function mass_docs_media_update(EntityInterface $entity) {
  */
 function mass_docs_media_insert(EntityInterface $entity) {
   drupal_set_message('Your changes have been successfully made.', $type = 'status', TRUE);
+}
+
+/**
+ * Implements hook_inline_entity_form_entity_form_alter().
+ */
+function mass_docs_inline_entity_form_entity_form_alter(&$entity_form, &$form_state) {
+  if ($entity_form['#entity_type'] == 'media' && $entity_form['#bundle'] == 'document') {
+    // Auto-populate fields in media document with user defined values.
+    _mass_docs_auto_populate_user_fields($entity_form);
+  }
 }
