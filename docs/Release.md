@@ -5,6 +5,7 @@ Here are the steps that release managers performs to deploy code to production (
 _Note: This assumes that your mass Vagrant VM is already setup and functioning as expected locally. If this is not true, follow the [README](../README.md) to setup your stuff._
 
 1. Check the [GitHub `develop` branch](https://github.com/massgov/mass/commits/develop) to see if there is anything new to deliver. If not, stop here.
+1. Check open pull requests.  If any have the label "Config Backport", contact the creator or reviewer and ask them to get it merged right away.  Such PRs represent configuration changes that were made urgently directly in production and if you release without this PR, you will undo the manual configuration change.   Don't proceed until with the release that PR is merged or until the creator works out an alternate understanding with you.
 1. If there is new code to be delivered, notify the team at least two hours ahead of time that a release is coming. Follow the [Communicate Releases](https://wiki.state.ma.us/display/massgovredesign/Communicating+Releases) instructions for Upcoming Deployments.
 1. Add release notes to top of CHANGELOG.md, and then commit.
 1. Create a release branch (e.g.: `release-0.18.0`) from the GitHub `develop` branch. (Right now, the version is `0.<sprint number>.<number of times deployed within sprint>`. This is not a good long term versioning scheme, but it is what is currently happening today. We should change this.)
