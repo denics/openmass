@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 ### Added
 
 ### Changed
+- Updates timestamp used within the body of Watch emails.
 
 ### Removed
 
@@ -36,6 +37,7 @@ Follow post deploy steps listed in the PR (https://github.com/massgov/mass/pull/
 - Added notification message for users automatically added as content watchers.
 
 ### Changed
+- DP-4416 - Changed label on "Related Parks" to "Related Locations"
 - Fix bug where pages with no table data (i.e. How-To's with no fees) were not loading.
 - Fixed email headers being used to send out Watch notifications from mass_flagging module
 - DP-4285 - Adds end date to field_event_date on events. Front end does not render end date yet.
