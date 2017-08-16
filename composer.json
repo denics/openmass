@@ -134,6 +134,7 @@
         "drupal/google_map_field": "^1",
         "drupal/imagick": "^1",
         "drupal/inline_entity_form": "1.x-dev",
+        "drupal/key_value_field": "1.x-dev",
         "drupal/libraries": "^3",
         "drupal/media_entity": "^1",
         "drupal/media_entity_document": "^1",
@@ -223,7 +224,8 @@
                 "Fix photo disappearing from org page. Fix Contextual Links js bug.": "https://www.drupal.org/files/issues/2551373-32.patch",
                 "Link autocomplete content type filter. (https://www.drupal.org/node/2887376#comment-12147367)": "https://www.drupal.org/files/issues/link-autocomplete-ct-filter-2887376-5-8.4.x.patch",
                 "Improve the Views integration for DateRange fields. (https://www.drupal.org/node/2786577#comment-12164509)": "https://www.drupal.org/files/issues/improve_the_views-2786577-165.patch",
-                "Number widget validation can break AJAX actions. (https://www.drupal.org/node/2614250)" : "https://www.drupal.org/files/issues/2614250-40.patch"
+                "Number widget validation can break AJAX actions. (https://www.drupal.org/node/2614250)" : "https://www.drupal.org/files/issues/2614250-40.patch",
+                "Fix regression in the link widget where help text does not show. (https://www.drupal.org/node/2421001)": "https://www.drupal.org/files/issues/2421001-87.patch"
             },
             "drupal/workbench_moderation": {
                 "Fix type errors from WorkbenchModeration edit tab labeling (https://www.drupal.org/node/2769119#comment-11624207)": "https://www.drupal.org/files/issues/workbench_moderation-edit_tab-2769119-6.patch"            },
@@ -253,6 +255,9 @@
             "drupal/better_field_descriptions": {
                 "Fix the positioning of the additional help text (https://www.drupal.org/node/2882765)": "https://www.drupal.org/files/issues/better_field_descriptions-position-help-2882765-0.patch",
                 "Prevent errors when deleting fields (https://www.drupal.org/node/2888240)": "https://www.drupal.org/files/issues/better_field_descriptions-stop-errors-when-field-deleted-2888240-1.patch"
+            },
+            "drupal/media_entity_document": {
+                "Checking for empty file before calling any method (https://www.drupal.org/node/2901361)": "https://www.drupal.org/files/issues/2901361-2-Check-file-null.patch"
             }
         },
         "composer-exit-on-patch-failure": true

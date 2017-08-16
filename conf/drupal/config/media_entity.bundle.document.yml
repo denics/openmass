@@ -6,7 +6,7 @@ dependencies:
     - media_entity_document
 id: document
 label: Document
-description: 'Document media bundle to be used by Media Entity.'
+description: 'This is how you upload documents that may not be attached to other page types, such as for public records and other constituent facing reporting requirements.'
 type: document
 queue_thumbnail_downloads: false
 new_revision: true

@@ -11,7 +11,33 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 ### Removed
 
+## [0.29.0] - August 16, 2017
+
+### Added
+- MPRR-224, MPRR-445 - Added data.json formatting for document endpoint, which exposes a feed of d\Documents as an API.
+- MPRR-366 - Added confirmation message on Media Document insert and update.
+- MPRR-367 - Added Patch for Core - Link Module help text, which improves authoring experience of link fields.
+- MPRR-409 - Added Auto-populate Media Document Form Fields from User profile, which allows authors to fill in a default value for 4 Document fields from their user profile.
+- MPRR-456, MPRR-482, MPRR-367 - Added fields to Media Document for MassDocs compatibility. All new fields are in an "Advanced" tab. Documents now uses user_organization taxonomy for compatibility with existing user profiles.
+- MPRR-456 - Added default taxonomy terms update hook for Media, which adds select lists for Language, License and Document "Content Type".
+- MPRR-466, MPRR-486 - Added Migrate class to import files from Percussion via CSV source. 155,000 Documents will be ported from Percussion, and future updates and additions can be imported with this migration.
+- MPRR-466 - Added Patch for media_entity_document module to avoid errors during migration. Document entities can be migrated even if a Percussion file that returns a 404.
+- MPRR-471 - Added "All Documents" admin screen at admin/ma-dash/documents - Authors and Editors can now view and filter Documents from a central location.
+- MPRR-475 - Added link to create Document to node/add screen, so that Authors and Editors can more easily create standalone Documents.
+- MPRR-484 - robots.txt - hide Media entities (Documents, Video) from search engines, as they currently have no Mayflower styling.
+- MPRR-487 - Updated "Add Existing File" Media Browser - old browser showed only Title. New browser shows, Organization, Updated Date, and User, and can be filtered and sorted accordingly.
+- MPRR-487 - Authors and Editors have permissions "create media, update media, access media overview" and editor has "edit any media", to bring Document workflow inline with content.
+- DP-2373 - Adds regulation content type and theming.
+- DP-4960 - Allow users with the role Tester to use the content type "Form page"
+
+### Changed
+- DP-5080 - Disable Watch notifications in lower environments.
+- DP-4967 - Updates timestamp used within the body of Watch emails to correctly reflect when the action occurred.
+- DP-4571 - Fixes the authoring dashboard views under My Content (My Work, Needs Review, All Content) all now work correctly, have minor usability tweaks, and include a functioning Content Type filter.
+- DP-4303 - Updates text of headers and subheaders on Organizational Landing Pages.
+
 ### Post Deploy
+Follow post deploy step listed in the PR (https://github.com/massgov/mass/pull/925) to add the migration source data to the files directory.
 
 ## [0.28.1] - August 11, 2017
 
@@ -27,13 +53,18 @@ Follow post deploy steps listed in the PR (https://github.com/massgov/mass/pull/
 
 ### Added
 - Added the route_iframes module to support dashboards as a tab / local task on nodes / pages.
+- DP-4211 - Add iframe paragraph to service details and location details.
 - DP-4179 - (for devs) Add docs for updating dependency packages to repo readme + mayflower docs
 - Adds a "category" metatag when viewing most nodes. The category is dynamically determined based on the content type and will allow future filtered searches using Google CSE.
 - Adds a "Primary audience" field to Guide Page, How-to Page, Service Page, and Service Detail Page content types. The value of this field is used to populate an "audience" metatag for those pages, allowing Google CSE to filter by audience.
 - Added notification message for users automatically added as content watchers.
 
 ### Changed
+- DP-4416 - Changed label on "Related Parks" to "Related Locations"
+- Fix bug where pages with no table data (i.e. How-To's with no fees) were not loading.
+- Fixed email headers being used to send out Watch notifications from mass_flagging module
 - DP-4285 - Adds end date to field_event_date on events. Front end does not render end date yet.
+- Updated mass_flagging module to send Watch emails on local or Prod environments only.
 - DP-5075 Allow authors to see help text for Watching feature.
 
 ### Removed

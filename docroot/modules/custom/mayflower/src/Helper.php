@@ -1075,11 +1075,22 @@ class Helper {
    *   [
    *     'sources' => '[field_name'],
    *   ].
+   * @param array $options
+   *   Array of options to pass to function.
+   *   [
+   *     'label' => '[label'],
+   *   ].
    *
    * @return array
    *   The data structure for a row in a source listing table.
    */
-  public static function sourceListingTable($entity, array $fields) {
+  public static function rowListingTable($entity, array $fields, array $options) {
+    $label = '';
+
+    if (array_key_exists('label', $options)) {
+      $label = $options['label'];
+    }
+
     $row = [];
     if (empty($fields) || !array_key_exists('sources', $fields)) {
       return $row;
@@ -1087,14 +1098,16 @@ class Helper {
     if (!empty($entity) && $entity instanceof ContentEntityInterface) {
       $links = Helper::dataFromLinkField($entity, ['link' => $fields['sources']]);
 
-      foreach ($links as $link) {
-        $sources[] = Link::fromTextAndUrl($link['title'], $link['url'])->toString();
-      }
+      if (!empty($links)) {
+        foreach ($links as $link) {
+          $sources[] = Link::fromTextAndUrl($link['title'], $link['url'])->toString();
+        }
 
-      $row = [
-        'label' => t("Referenced Sources@colon", ['@colon' => ':']),
-        'text' => nl2br(implode("\n", $sources)),
-      ];
+        $row = [
+          'label' => t("@label@colon", ['@label' => $label, '@colon' => ':']),
+          'text' => nl2br(implode("\n", $sources)),
+        ];
+      }
     }
     return $row;
   }

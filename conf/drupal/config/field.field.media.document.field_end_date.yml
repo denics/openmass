@@ -12,7 +12,7 @@ field_name: field_end_date
 entity_type: media
 bundle: document
 label: 'End Date'
-description: 'The end date when the contents in the file are relevant'
+description: ''
 required: false
 translatable: false
 default_value: {  }

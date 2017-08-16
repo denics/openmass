@@ -64,7 +64,10 @@ function mass_flagging_preprocess_page(&$variables) {
  * Implements hook_node_update().
  */
 function mass_flagging_node_update(EntityInterface $node) {
-  mass_flagging_node_update_insert_send_notifications($node);
+  // Sends Watch notifications on local and Prod environments only.
+  if (!isset($_ENV['AH_SITE_ENVIRONMENT']) || $_ENV['AH_SITE_ENVIRONMENT'] == 'prod') {
+    mass_flagging_node_update_insert_send_notifications($node);
+  }
   mass_flagging_node_update_insert_add_watcher($node);
 }
 
@@ -113,7 +116,7 @@ function mass_flagging_node_update_insert_send_notifications(EntityInterface $no
       $author_username = $node->getRevisionUser()->getDisplayName();
       $params['node_title'] = $node->label();
       $node_edit_time = \Drupal::service('date.formatter')
-        ->format($node->getCreatedTime());
+        ->format(\Drupal::time()->getRequestTime());
       $url = Url::fromRoute('entity.node.revision', [
         'node' => $node->id(),
         'node_revision' => $node->vid->value,
@@ -195,7 +198,9 @@ function mass_flagging_mail($key, &$message, $params) {
   $options = ['langcode' => $message['langcode']];
   switch ($key) {
     case 'email_queue':
-      $message['from'] = \Drupal::config('system.site')->get('mail');
+      $system_site_mail = \Drupal::config('system.site')->get('mail');
+      // Ensures email headers match the From field.
+      $message['from'] = $message['headers']['From'] = $message['headers']['Sender'] = $message['headers']['Reply-to'] = $message['headers']['Return-Path'] = $system_site_mail;
       $message['subject'] = t('Watch Report: @title', ['@title' => $params['node_title']], $options);
       $message['body'][] = $params['message'];
       break;

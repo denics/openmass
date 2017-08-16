@@ -340,6 +340,7 @@ class Organisms {
         'field_decision_ref_contact',
         'field_advisory_ref_contact',
         'field_form_ref_contacts_3',
+        'field_regulation_contact',
       ],
     ];
 
@@ -547,6 +548,7 @@ class Organisms {
                 'field_decision_date',
                 'field_advisory_date',
                 'field_executive_order_date',
+                'field_regulation_last_updated',
               ],
               'eyebrow' => [
                 'field_decision_ref_type',
@@ -578,7 +580,7 @@ class Organisms {
               }
             }
             else {
-              $eyebrow_content_types = ['executive_order'];
+              $eyebrow_content_types = ['executive_order', 'regulation'];
               $content_type = $entity->getType();
               if (in_array($content_type, $eyebrow_content_types)) {
                 $eyebrow = $entity->type->entity->label();
@@ -1305,6 +1307,7 @@ class Organisms {
         'field_executive_order_downloads',
         'field_decision_download',
         'field_advisory_download',
+        'field_regulation_download',
       ],
       'link' => [
         'field_guide_section_link',

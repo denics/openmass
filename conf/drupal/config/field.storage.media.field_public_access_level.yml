@@ -1,0 +1,30 @@
+uuid: c360e272-9a97-42d8-a0bd-76780864825c
+langcode: en
+status: true
+dependencies:
+  module:
+    - media_entity
+    - options
+id: media.field_public_access_level
+field_name: field_public_access_level
+entity_type: media
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: Public
+      label: Public
+    -
+      value: Restricted
+      label: Restricted
+    -
+      value: Private
+      label: Private
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

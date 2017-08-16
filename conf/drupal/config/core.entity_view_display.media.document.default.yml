@@ -3,20 +3,38 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.media.document.field_additional_info
+    - field.field.media.document.field_alternative_title
+    - field.field.media.document.field_checksum
+    - field.field.media.document.field_conform
     - field.field.media.document.field_contact_information
     - field.field.media.document.field_contact_name
+    - field.field.media.document.field_content_type
     - field.field.media.document.field_contributing_agency
+    - field.field.media.document.field_contributing_organization
     - field.field.media.document.field_creator
+    - field.field.media.document.field_data_dictionary
+    - field.field.media.document.field_data_quality
     - field.field.media.document.field_description
     - field.field.media.document.field_end_date
+    - field.field.media.document.field_file_migration_id
     - field.field.media.document.field_file_mime
+    - field.field.media.document.field_geographic_area
     - field.field.media.document.field_geographic_place
     - field.field.media.document.field_internal_notes
+    - field.field.media.document.field_language
+    - field.field.media.document.field_license
     - field.field.media.document.field_link_classic_massgov
     - field.field.media.document.field_link_related_content
+    - field.field.media.document.field_oclc_number
+    - field.field.media.document.field_part_of
+    - field.field.media.document.field_public_access_level
     - field.field.media.document.field_publishing_frequency
+    - field.field.media.document.field_rights
     - field.field.media.document.field_size
     - field.field.media.document.field_start_date
+    - field.field.media.document.field_subjects
+    - field.field.media.document.field_system_of_records
     - field.field.media.document.field_tags
     - field.field.media.document.field_title
     - field.field.media.document.field_upload_file
@@ -25,9 +43,12 @@ dependencies:
   module:
     - datetime
     - file
+    - geofield
     - image
+    - key_value_field
     - link
     - options
+    - text
     - user
 id: media.document.default
 targetEntityType: media
@@ -44,6 +65,41 @@ content:
       timezone: ''
     third_party_settings: {  }
     region: content
+  field_additional_info:
+    weight: 36
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: key_value
+    region: content
+  field_alternative_title:
+    weight: 20
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_checksum:
+    weight: 35
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_conform:
+    weight: 30
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+    region: content
   field_contact_information:
     weight: 12
     label: above
@@ -59,8 +115,24 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
     region: content
+  field_content_type:
+    weight: 23
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
   field_contributing_agency:
     weight: 10
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_contributing_organization:
+    weight: 37
     label: above
     settings:
       link: true
@@ -74,6 +146,23 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
+  field_data_dictionary:
+    weight: 38
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+  field_data_quality:
+    weight: 31
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
     region: content
   field_description:
     weight: 11
@@ -91,6 +180,14 @@ content:
     third_party_settings: {  }
     type: datetime_default
     region: content
+  field_file_migration_id:
+    weight: 34
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
   field_file_mime:
     weight: 6
     label: hidden
@@ -99,6 +196,14 @@ content:
     third_party_settings: {  }
     type: string
     region: content
+  field_geographic_area:
+    weight: 21
+    label: above
+    settings:
+      output_format: wkt
+    third_party_settings: {  }
+    type: geofield_default
+    region: content
   field_geographic_place:
     weight: 7
     label: above
@@ -106,6 +211,22 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
+  field_language:
+    weight: 22
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_license:
+    weight: 27
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
     region: content
   field_link_classic_massgov:
     weight: 19
@@ -131,12 +252,43 @@ content:
     third_party_settings: {  }
     type: link
     region: content
+  field_oclc_number:
+    weight: 33
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_part_of:
+    weight: 25
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_public_access_level:
+    weight: 26
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+    region: content
   field_publishing_frequency:
     weight: 13
     label: above
     settings: {  }
     third_party_settings: {  }
     type: list_default
+    region: content
+  field_rights:
+    weight: 28
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
     region: content
   field_size:
     weight: 4
@@ -154,6 +306,26 @@ content:
       timezone_override: ''
     third_party_settings: {  }
     type: datetime_default
+    region: content
+  field_subjects:
+    weight: 24
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_system_of_records:
+    weight: 32
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
     region: content
   field_tags:
     weight: 16
