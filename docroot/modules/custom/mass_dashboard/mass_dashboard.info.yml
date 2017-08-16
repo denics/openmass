@@ -4,4 +4,5 @@ description: Dashboard and misc improvements to the authoring experience.
 core: 8.x
 package: Custom
 dependencies:
-  workbench_moderation
+  - mass_views:mass_views
+  - workbench_moderation:workbench_moderation
