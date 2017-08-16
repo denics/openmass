@@ -323,7 +323,7 @@ function mass_theme_preprocess_node_how_to_page(&$variables) {
   // Build next steps order list if field is populated.
   if (Helper::isFieldPopulated($node, 'field_how_to_next_steps')) {
     // Set up title for section and sticky nav.
-    $next_steps_title = t('Next Steps');
+    $next_steps_title = t('Next steps');
 
     // Set up options for next steps.
     $orderedSteps_options = [
@@ -353,7 +353,7 @@ function mass_theme_preprocess_node_how_to_page(&$variables) {
     ];
 
     // Set up title for more info section and sticky nav.
-    $more_info_title = t('More Info');
+    $more_info_title = t('More info');
 
     // Set up heading for More Info.
     $compHeading_options = [
