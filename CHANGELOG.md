@@ -6,6 +6,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 ## Upcoming (add in progress changes here)
 
 ### Added
+- DP-4561, DP-4342 - Adds all activities field and add conditional fields to Location page.
 - MPRR-224, MPRR-445 - Added data.json formatting for document endpoint, which exposes a feed of d\Documents as an API.
 - MPRR-366 - Added confirmation message on Media Document insert and update.
 - MPRR-367 - Added Patch for Core - Link Module help text, which improves authoring experience of link fields.

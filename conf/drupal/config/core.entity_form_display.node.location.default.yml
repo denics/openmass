@@ -10,9 +10,11 @@ dependencies:
     - field.field.node.location.field_image_credit
     - field.field.node.location.field_links
     - field.field.node.location.field_location_activity_detail
+    - field.field.node.location.field_location_all_activities
     - field.field.node.location.field_location_facilities
     - field.field.node.location.field_location_icons
     - field.field.node.location.field_location_more_information
+    - field.field.node.location.field_location_type
     - field.field.node.location.field_overview
     - field.field.node.location.field_parking
     - field.field.node.location.field_ref_contact_info
@@ -23,6 +25,7 @@ dependencies:
     - image.style.thumbnail
     - node.type.location
   module:
+    - conditional_fields
     - field_group
     - image
     - link
@@ -49,6 +52,7 @@ third_party_settings:
     group_header:
       children:
         - title
+        - field_location_type
         - field_ref_contact_info_1
         - field_location_icons
         - field_iframe
@@ -85,6 +89,7 @@ third_party_settings:
         - field_services
         - field_location_more_information
         - field_location_activity_detail
+        - field_location_all_activities
         - field_location_facilities
         - field_accessibility
         - field_restrictions
@@ -125,7 +130,7 @@ content:
     third_party_settings: {  }
     region: content
   field_accessibility:
-    weight: 11
+    weight: 12
     settings:
       rows: 5
       placeholder: ''
@@ -133,7 +138,7 @@ content:
     type: text_textarea
     region: content
   field_bg_narrow:
-    weight: 6
+    weight: 7
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
@@ -141,7 +146,7 @@ content:
     type: image_image
     region: content
   field_bg_wide:
-    weight: 5
+    weight: 6
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
@@ -150,7 +155,7 @@ content:
     region: content
   field_iframe:
     type: entity_reference_paragraphs
-    weight: 4
+    weight: 5
     settings:
       title: Widget
       title_plural: Widgets
@@ -161,7 +166,7 @@ content:
     third_party_settings: {  }
     region: content
   field_image_credit:
-    weight: 7
+    weight: 8
     settings:
       size: 60
       placeholder: ''
@@ -186,10 +191,55 @@ content:
       add_mode: dropdown
       form_display_mode: default
       default_paragraph_type: _none
-    third_party_settings: {  }
+    third_party_settings:
+      conditional_fields:
+        152d42c6-174d-4cf0-86d1-6dfe822c760b:
+          dependee: field_location_type
+          settings:
+            state: visible
+            condition: value
+            grouping: AND
+            values_set: 1
+            value: ''
+            values: {  }
+            value_form:
+              -
+                value: park
+            effect: show
+            effect_options: {  }
+            selector: ''
+          entity_type: node
+          bundle: location
+    region: content
+  field_location_all_activities:
+    weight: 10
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings:
+      conditional_fields:
+        96974ea5-45d4-4377-965e-57d874ba2646:
+          dependee: field_location_type
+          settings:
+            state: visible
+            condition: value
+            grouping: AND
+            values_set: 1
+            value: ''
+            values: {  }
+            value_form:
+              -
+                value: park
+            effect: show
+            effect_options: {  }
+            selector: ''
+          entity_type: node
+          bundle: location
+    type: entity_reference_autocomplete
     region: content
   field_location_facilities:
-    weight: 10
+    weight: 11
     settings:
       rows: 5
       placeholder: ''
@@ -197,9 +247,27 @@ content:
     type: text_textarea
     region: content
   field_location_icons:
-    weight: 3
+    weight: 4
     settings: {  }
-    third_party_settings: {  }
+    third_party_settings:
+      conditional_fields:
+        dc2e9653-c515-4334-902a-a025d2d45065:
+          dependee: field_location_type
+          settings:
+            state: visible
+            condition: value
+            grouping: AND
+            values_set: 1
+            value: ''
+            values: {  }
+            value_form:
+              -
+                value: park
+            effect: show
+            effect_options: {  }
+            selector: ''
+          entity_type: node
+          bundle: location
     type: options_buttons
     region: content
   field_location_more_information:
@@ -209,6 +277,12 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
+    region: content
+  field_location_type:
+    weight: 2
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
     region: content
   field_overview:
     weight: 7
@@ -236,7 +310,7 @@ content:
     type: entity_reference_autocomplete
     region: content
   field_ref_contact_info_1:
-    weight: 2
+    weight: 3
     settings:
       match_operator: CONTAINS
       size: 60
@@ -245,7 +319,7 @@ content:
     type: entity_reference_autocomplete
     region: content
   field_related_locations:
-    weight: 13
+    weight: 14
     settings:
       match_operator: CONTAINS
       size: 60
@@ -254,7 +328,7 @@ content:
     type: entity_reference_autocomplete
     region: content
   field_restrictions:
-    weight: 12
+    weight: 13
     settings:
       rows: 5
       placeholder: ''
@@ -266,7 +340,25 @@ content:
     settings:
       rows: 5
       placeholder: ''
-    third_party_settings: {  }
+    third_party_settings:
+      conditional_fields:
+        7ad1e2ab-c858-433b-93cb-4fd8373fcbd2:
+          dependee: field_location_type
+          settings:
+            state: visible
+            condition: value
+            grouping: AND
+            values_set: 1
+            value: ''
+            values: {  }
+            value_form:
+              -
+                value: general
+            effect: show
+            effect_options: {  }
+            selector: ''
+          entity_type: node
+          bundle: location
     type: text_textarea
     region: content
   path:

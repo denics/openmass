@@ -8,11 +8,14 @@ dependencies:
     - field.field.node.location.field_bg_narrow
     - field.field.node.location.field_bg_wide
     - field.field.node.location.field_iframe
+    - field.field.node.location.field_image_credit
     - field.field.node.location.field_links
     - field.field.node.location.field_location_activity_detail
+    - field.field.node.location.field_location_all_activities
     - field.field.node.location.field_location_facilities
     - field.field.node.location.field_location_icons
     - field.field.node.location.field_location_more_information
+    - field.field.node.location.field_location_type
     - field.field.node.location.field_overview
     - field.field.node.location.field_parking
     - field.field.node.location.field_ref_contact_info
@@ -30,12 +33,14 @@ mode: teaser
 content:
   links:
     weight: 100
+    region: content
     settings: {  }
     third_party_settings: {  }
-    region: content
   workbench_moderation_control:
     weight: -20
     region: content
+    settings: {  }
+    third_party_settings: {  }
 hidden:
   field_accessibility: true
   field_bg_narrow: true
@@ -45,9 +50,11 @@ hidden:
   field_image_credit: true
   field_links: true
   field_location_activity_detail: true
+  field_location_all_activities: true
   field_location_facilities: true
   field_location_icons: true
   field_location_more_information: true
+  field_location_type: true
   field_maps: true
   field_more_information: true
   field_overview: true
