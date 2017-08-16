@@ -29,7 +29,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - MPRR-487 - Authors and Editors have permissions "create media, update media, access media overview" and editor has "edit any media", to bring Document workflow inline with content.
 
 ### Changed
-- Updates timestamp used within the body of Watch emails.
+- DP-5080 - Disable Watch notifications in lower environments.
+- DP-4967 - Updates timestamp used within the body of Watch emails to correctly reflect when the action occurred.
 
 ### Post Deploy
 Follow post deploy step listed in the PR (https://github.com/massgov/mass/pull/925) to add the migration source data to the files directory.
