@@ -715,7 +715,13 @@ class Molecules {
 
     // If set, only display address.
     if ($only_address != FALSE && isset($groups[0])) {
-      $groups = array_slice($groups, 0, 1);
+      foreach ($groups[0]['items'] as $item) {
+        if ($item['type'] == 'address') {
+          $groups = array_slice($groups, 0, 1);
+          break;
+        }
+        $groups = '';
+      }
     }
 
     // If set, only display phone and online.
@@ -1242,7 +1248,9 @@ class Molecules {
     $location = '';
     if (isset($fields['contact']) && !empty($entity->$fields['contact']->entity)) {
       $contentUsEntity = $entity->$fields['contact']->entity;
-      $location = Helper::fieldValue($contentUsEntity->field_ref_address->entity, 'field_address_text');
+      if ($address = $contentUsEntity->field_ref_address->entity) {
+        $location = Helper::fieldValue($address, 'field_address_text');
+      }
     }
 
     $date = !empty($entity->$fields['date']->value) ? strtotime($entity->$fields['date']->value) : '';

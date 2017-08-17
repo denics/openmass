@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 ### Added
 
 ### Changed
+- DP-4533 - Resolves error on event pages, when referenced contact information node in address field does not have an address.
 
 ### Removed
 
@@ -31,6 +32,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - DP-4960 - Allow users with the role Tester to use the content type "Form page"
 
 ### Changed
+- Updates timestamp used within the body of Watch emails.
+
+### Removed
 - DP-5080 - Disable Watch notifications in lower environments.
 - DP-4967 - Updates timestamp used within the body of Watch emails to correctly reflect when the action occurred.
 - DP-4571 - Fixes the authoring dashboard views under My Content (My Work, Needs Review, All Content) all now work correctly, have minor usability tweaks, and include a functioning Content Type filter.
