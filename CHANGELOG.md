@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 ### Added
 
 ### Changed
+- Content authors and editors can no longer see "Regulation Page" content type as an option to create new content.
 - DP-4533 - Resolves error on event pages, when referenced contact information node in address field does not have an address.
 
 ### Removed
