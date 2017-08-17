@@ -4,7 +4,6 @@ namespace Drupal\mayflower\Prepare;
 
 use Drupal\mayflower\Helper;
 use Drupal\Component\Utility\UrlHelper;
-use Drupal\Core\Url;
 use Drupal\taxonomy\Entity\Term;
 use Drupal\Core\Entity\ContentEntityInterface;
 
@@ -936,6 +935,11 @@ class Organisms {
    */
   public static function prepareActionDetails($entity, $options = NULL) {
     $sections = [];
+    $locationType = '';
+
+    if (!empty($options['locationType'])) {
+      $locationType = $options['locationType'];
+    }
 
     // Create the map of all possible field names to use.
     $map = [
@@ -950,6 +954,7 @@ class Organisms {
       'restrictions' => ['field_restrictions'],
       'services' => ['field_services'],
       'information' => ['field_location_more_information'],
+      'all_activities' => ['field_location_all_activities'],
     ];
 
     // Determines which field names to use from the map.
@@ -987,7 +992,7 @@ class Organisms {
     }
 
     // Activities section.
-    if (Helper::isFieldPopulated($entity, $fields['activities'])) {
+    if (Helper::isFieldPopulated($entity, $fields['activities']) && $locationType == 'park') {
       $title = t('Activities');
 
       $sections[] = [
@@ -1001,13 +1006,44 @@ class Organisms {
       ];
     }
 
+    if (Helper::isFieldPopulated($entity, $fields['all_activities']) && $locationType == 'park') {
+      // Roll up taxo terms into unordered list.
+      $activities = '<ul>';
+      foreach ($entity->$fields['all_activities'] as $activity) {
+        $activities .= '<li>' . Helper::fieldValue($activity->entity, 'name') . '</li>';
+      }
+      $activities .= '</ul>';
+
+      $sections[] = [
+        'title' => t('All Activities'),
+        'into' => "",
+        'id' => t('All Activities'),
+        'path' => '@organisms/by-author/rich-text.twig',
+        'data' => [
+          'richText' => [
+            'property' => 'description',
+            'rteElements' => [
+              [
+                'path' => '@atoms/11-text/paragraph.twig',
+                'data' => [
+                  'paragraph' => [
+                    'text' => $activities,
+                  ],
+                ],
+              ],
+            ],
+          ],
+        ],
+      ];
+    }
+
     // Facilities section.
     if (Helper::isFieldPopulated($entity, $fields['facilities'])) {
       $sections[] = Organisms::prepareRichText($entity, ['field' => 'field_location_facilities']);
     }
 
     // Services section.
-    if (Helper::isFieldPopulated($entity, $fields['services'])) {
+    if (Helper::isFieldPopulated($entity, $fields['services']) && $locationType == 'general') {
       $sections[] = Organisms::prepareRichText($entity, ['field' => 'field_services']);
     }
 

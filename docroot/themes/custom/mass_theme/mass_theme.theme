@@ -323,7 +323,7 @@ function mass_theme_preprocess_node_how_to_page(&$variables) {
   // Build next steps order list if field is populated.
   if (Helper::isFieldPopulated($node, 'field_how_to_next_steps')) {
     // Set up title for section and sticky nav.
-    $next_steps_title = t('Next Steps');
+    $next_steps_title = t('Next steps');
 
     // Set up options for next steps.
     $orderedSteps_options = [
@@ -353,7 +353,7 @@ function mass_theme_preprocess_node_how_to_page(&$variables) {
     ];
 
     // Set up title for more info section and sticky nav.
-    $more_info_title = t('More Info');
+    $more_info_title = t('More info');
 
     // Set up heading for More Info.
     $compHeading_options = [
@@ -834,6 +834,13 @@ function mass_theme_preprocess_node_org_page(&$variables) {
 function mass_theme_preprocess_node_location(&$variables) {
   $node = $variables['node'];
 
+  if (Helper::isFieldPopulated($node, 'field_location_type')) {
+    $locationType = $node->field_location_type->value;
+  }
+  else {
+    $locationType = 'general';
+  }
+
   // We need a different Google map config for PL tpls.
   // $variables['#attached']['library'][] = 'mass_theme/mass-google-map-apis-location';.
   // Set static actionHeader properties to pass to prepare function.
@@ -854,7 +861,7 @@ function mass_theme_preprocess_node_location(&$variables) {
 
   // Prepare widgets that can be passed to the pageHeader.
   $widgets = [];
-  if ($node->field_location_icons->entity) {
+  if ($node->field_location_icons->entity && $locationType == 'park') {
     $widgets[] = [
       'path' => '@molecules/location-icons.twig',
       'data' => [
@@ -886,11 +893,14 @@ function mass_theme_preprocess_node_location(&$variables) {
   $variables['locationBanner'] = Organisms::prepareLocationBanner($node);
 
   // Prepare the actionDetails data object.
-  $variables['actionDetails'] = Organisms::prepareActionDetails($node);
+  $actionDetails_options = [
+    'locationType' => $locationType,
+  ];
+  $variables['actionDetails'] = Organisms::prepareActionDetails($node, $actionDetails_options);
 
   // Prepare the suggestedPages data object.
   $suggested_options = [
-    'title' => t('Related Locations'),
+    'title' => $locationType == 'park' ? t('Related Parks') : t('Related Locations'),
     'style' => 'activities_image',
   ];
   $variables['suggestedPages'] = Organisms::prepareSuggestedPages($node, $suggested_options);
@@ -3741,7 +3751,7 @@ function mass_theme_preprocess_html(&$variables) {
       ];
       $variables['page']['#attached']['html_head'][] = [
         $content_category_tag,
-        'category'
+        'category',
       ];
     }
   }

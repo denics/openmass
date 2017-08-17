@@ -3,7 +3,7 @@ langcode: en
 status: true
 dependencies:
   module:
-    - mass_dashboard
+    - mass_views
     - node
     - user
 _core:

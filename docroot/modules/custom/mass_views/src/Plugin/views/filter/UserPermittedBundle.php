@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\mass_dashboard\Plugin\views\filter;
+namespace Drupal\mass_views\Plugin\views\filter;
 
 use Drupal\views\Plugin\views\filter\Bundle;
 
@@ -9,7 +9,7 @@ use Drupal\views\Plugin\views\filter\Bundle;
  *
  * @ingroup views_filter_handlers
  *
- * @ViewsFilter("mass_dashboard_user_permitted_bundle")
+ * @ViewsFilter("mass_views_user_permitted_bundle")
  */
 class UserPermittedBundle extends Bundle {
 
