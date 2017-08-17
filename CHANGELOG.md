@@ -13,6 +13,20 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 ### Removed
 
+## [0.30.0] - August 17, 2017
+
+### Added
+- DP-4561 – Users can now choose a “type” of location. The default is a general location page. A user can select ‘park’ if they are making a park location page. Users select a value from a dropdown as they create/edit a “location page,” which will expose/hide certain additional fields. Note: a “type” must be selected the next time any existing or new location page is edited or created.
+- DP-4342 - Users with permissions will now see an "all activities" field for "Location" pages with type: "Park"
+
+### Changed
+- Content authors and editors can no longer see "Regulation Page" content type as an option to create new content.
+- DP-4533 - On the front end, event pages now load without error when they include a contact which has no address.
+- Developers will notice that their Circle builds just got a little faster because we no longer pull files and documents down.
+- Everyone can sleep a little easier tonight knowing that we are running the latest, greatest, and safest version of Drupal; with no visible changes to the back end (for authors, etc.) or frontend (constituents).
+
+### Removed
+
 ## [0.29.0] - August 16, 2017
 
 ### Added
