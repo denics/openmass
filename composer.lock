@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "dbb7bf171c0ac6736662d8d2adf61ef0",
+    "content-hash": "c7c73eadbc85e686fd0e4f8b450021ca",
     "packages": [
         {
             "name": "acquia/acquia-sdk-php",
@@ -1764,12 +1764,8 @@
                     "dev-2.x": "2.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-2.0-beta1+20-dev",
-                    "datestamp": "1501690143",
-                    "security-coverage": {
-                        "status": "not-covered",
-                        "message": "Dev releases are not covered by Drupal security advisories."
-                    }
+                    "version": "8.x-2.0-beta1+19-dev",
+                    "datestamp": "1501681744"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -1844,7 +1840,8 @@
             "homepage": "https://www.drupal.org/project/better_field_descriptions",
             "support": {
                 "source": "http://cgit.drupalcode.org/better_field_descriptions"
-            }
+            },
+            "time": "2017-04-17T10:36:09+00:00"
         },
         {
             "name": "drupal/clamav",
@@ -2355,16 +2352,16 @@
         },
         {
             "name": "drupal/core",
-            "version": "8.3.4",
+            "version": "8.3.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/drupal/core.git",
-                "reference": "f34eee7255142ab5416107972ef13d011f11e163"
+                "reference": "32f66ed9cc593f8e9ab0eaaaeff4cadbd859d5ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/drupal/core/zipball/f34eee7255142ab5416107972ef13d011f11e163",
-                "reference": "f34eee7255142ab5416107972ef13d011f11e163",
+                "url": "https://api.github.com/repos/drupal/core/zipball/32f66ed9cc593f8e9ab0eaaaeff4cadbd859d5ff",
+                "reference": "32f66ed9cc593f8e9ab0eaaaeff4cadbd859d5ff",
                 "shasum": ""
             },
             "require": {
@@ -2547,7 +2544,7 @@
                 "GPL-2.0+"
             ],
             "description": "Drupal is an open source content management platform powering millions of websites and applications.",
-            "time": "2017-06-21T18:13:27+00:00"
+            "time": "2017-08-16T17:10:35+00:00"
         },
         {
             "name": "drupal/crazyegg",
@@ -4113,8 +4110,12 @@
                     "dev-1.x": "1.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-1.0-beta1+5-dev",
-                    "datestamp": "1491326283"
+                    "version": "8.x-1.0-beta1+6-dev",
+                    "datestamp": "1497866642",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Project has not opted into security advisory coverage!"
+                    }
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -4131,7 +4132,8 @@
             "homepage": "https://www.drupal.org/project/key_value_field",
             "support": {
                 "source": "http://cgit.drupalcode.org/key_value_field"
-            }
+            },
+            "time": "2017-06-19 09:59:57"
         },
         {
             "name": "drupal/libraries",
@@ -4305,7 +4307,11 @@
                 },
                 "drupal": {
                     "version": "8.x-1.1",
-                    "datestamp": "1470211995"
+                    "datestamp": "1470211995",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
                 },
                 "patches_applied": {
                     "Checking for empty file before calling any method (https://www.drupal.org/node/2901361)": "https://www.drupal.org/files/issues/2901361-2-Check-file-null.patch"
@@ -4824,7 +4830,8 @@
             "homepage": "https://www.drupal.org/project/password_policy",
             "support": {
                 "source": "http://cgit.drupalcode.org/password_policy"
-            }
+            },
+            "time": "2017-05-22T16:11:07+00:00"
         },
         {
             "name": "drupal/pathauto",
@@ -5205,7 +5212,8 @@
             "support": {
                 "source": "https://cgit.drupalcode.org/rabbit_hole",
                 "issues": "https://www.drupal.org/project/issues/rabbit_hole"
-            }
+            },
+            "time": "2017-06-10T21:38:28+00:00"
         },
         {
             "name": "drupal/redirect",
@@ -5305,7 +5313,8 @@
             "homepage": "https://www.drupal.org/project/restrict_by_ip",
             "support": {
                 "source": "http://cgit.drupalcode.org/restrict_by_ip"
-            }
+            },
+            "time": "2017-04-28T19:48:30+00:00"
         },
         {
             "name": "drupal/restui",
@@ -5554,7 +5563,8 @@
             "homepage": "https://www.drupal.org/project/simple_oauth",
             "support": {
                 "source": "http://cgit.drupalcode.org/simple_oauth"
-            }
+            },
+            "time": "2017-07-03T13:42:42+00:00"
         },
         {
             "name": "drupal/subpathauto",
@@ -5655,7 +5665,8 @@
             "homepage": "https://www.drupal.org/project/tfa",
             "support": {
                 "source": "http://cgit.drupalcode.org/tfa"
-            }
+            },
+            "time": "2016-08-23T20:32:20+00:00"
         },
         {
             "name": "drupal/token",
