@@ -43,8 +43,6 @@ dependencies:
   post:
     # Copy database from @massgov.prod to @self (Transfers the database dump via rsync)
     - drush -yv --sanitize sql-sync @massgov.prod @self
-    # Rsync Drupal files from @massgov.prod to @self
-    - drush -y rsync @massgov.prod:%files @self:%files
     # Apply any database updates required (as with running update.php)
     - drush -yv updatedb --entity-updates
     # Import config

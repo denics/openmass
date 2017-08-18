@@ -115,7 +115,7 @@
         "drupal/config_installer": "^1",
         "drupal/config_log": "^1",
         "drupal/console": "~1.0",
-        "drupal/core": "8.3.4",
+        "drupal/core": "8.3.7",
         "drupal/crazyegg": "^1",
         "drupal/csv_serialization": "1.0.0",
         "drupal/diff": "1.x-dev",

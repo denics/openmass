@@ -8,6 +8,22 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 ### Added
 
 ### Changed
+- Content authors and editors can no longer see "Regulation Page" content type as an option to create new content.
+- DP-4533 - Resolves error on event pages, when referenced contact information node in address field does not have an address.
+
+### Removed
+
+## [0.30.0] - August 17, 2017
+
+### Added
+- DP-4561 – Users can now choose a “type” of location. The default is a general location page. A user can select ‘park’ if they are making a park location page. Users select a value from a dropdown as they create/edit a “location page,” which will expose/hide certain additional fields. Note: a “type” must be selected the next time any existing or new location page is edited or created.
+- DP-4342 - Users with permissions will now see an "all activities" field for "Location" pages with type: "Park"
+
+### Changed
+- Content authors and editors can no longer see "Regulation Page" content type as an option to create new content.
+- DP-4533 - On the front end, event pages now load without error when they include a contact which has no address.
+- Developers will notice that their Circle builds just got a little faster because we no longer pull files and documents down.
+- Everyone can sleep a little easier tonight knowing that we are running the latest, greatest, and safest version of Drupal; with no visible changes to the back end (for authors, etc.) or frontend (constituents).
 
 ### Removed
 
@@ -31,6 +47,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - DP-4960 - Allow users with the role Tester to use the content type "Form page"
 
 ### Changed
+- Updates timestamp used within the body of Watch emails.
+
+### Removed
 - DP-5080 - Disable Watch notifications in lower environments.
 - DP-4967 - Updates timestamp used within the body of Watch emails to correctly reflect when the action occurred.
 - DP-4571 - Fixes the authoring dashboard views under My Content (My Work, Needs Review, All Content) all now work correctly, have minor usability tweaks, and include a functioning Content Type filter.
