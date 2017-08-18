@@ -18,7 +18,7 @@ translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
-  file_directory: '[date:custom:Y]-[date:custom:m]'
+  file_directory: 'documents/[date:custom:Y]/[date:custom:m]'
   file_extensions: 'csv doc docm docx dot dotx geojson gif htm html json jpg kml kmz msg odf ods odt pdf png pps ppsx potx ppt pptm pptx ppsm pub rdf rtf tiff tsv txt xls xlsb xlsm xlsx xml zip'
   max_filesize: '10 MB'
   description_field: false
