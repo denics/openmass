@@ -5,8 +5,6 @@
  * Un-installation functions for Mass Migration module.
  */
 
-use Drupal\migrate_plus\Entity\Migration;
-
 /**
  * Implements hook_uninstall().
  */
