@@ -12,7 +12,7 @@ Feature: Location Landing Page Content type
     Then the content type "location" has the fields:
       | field                           | tag        | type      | multivalue |
       | field-accessibility             | textarea   |           | false      |
-      | field-ref-contact-info          | input      | text      | false      |
+      | field-ref-contact-info          | input      | text      | true      |
       | field-location-facilities       | textarea   |           | false      |
       | field-bg-wide                   | input      | submit    | false      |
       | field-bg-narrow                 | input      | submit    | false      |

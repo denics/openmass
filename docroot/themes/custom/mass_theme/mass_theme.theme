@@ -915,7 +915,7 @@ function mass_theme_preprocess_node_location(&$variables) {
   ];
   $variables['quickActions'] = Organisms::prepareQuickActions($node, $quickActions_options);
 
-  // Prepare the quickActions data object.
+  // Prepare the sidebarContacts object.
   $sidebarContacts_options = [
     'heading' => [
       'type' => 'coloredHeading',
