@@ -48,7 +48,7 @@ process:
       delimiter: /
       source:
         - constants/destination_directory
-        - @release_date
+        - '@release_date'
         - item_file_name
     -
       plugin: urlencode
