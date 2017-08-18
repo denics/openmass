@@ -276,10 +276,28 @@ function _mass_validation_form_node_location_details_form_validate(array &$form,
   _mass_link_validate_paragraph($form_state, 'field_location_details_sections', ['field_section_links']);
   _mass_link_validate($form_state, 'field_location_details_links_5');
 
+  // Validate that the Related Links fields
+  // have no more than 5 values between them.
+  if ($form_state->hasValue('field_location_details_links_5')) {
+    // Count the links.
+    $links = $form_state->getValue('field_location_details_links_5');
+    foreach ($links as $link) {
+      if (is_array($link)) {
+        if (!empty($link['uri'])) {
+          $num_links += 1;
+        }
+      }
+    }
+    // Throw an error is there are more than 12.
+    if (($num_links) > 5) {
+      $form_state->setErrorByName('field_location_details_links_5', t('You can only have max 5 values to Related Links.'));
+    }
+  }
+
   // Validate that the Links and Downloads fields
   // have no more than 6 values between them.
   if ($form_state->hasValue('field_location_details_sections')) {
-    // Look at each section.
+    // Look at each section.http://mass.local/admin/appearance
     $sections = $form_state->getValue('field_location_details_sections');
     unset($sections['add_more']);
     foreach ($sections as $key => $section) {
