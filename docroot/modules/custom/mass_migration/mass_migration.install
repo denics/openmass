@@ -5,10 +5,53 @@
  * Un-installation functions for Mass Migration module.
  */
 
+use Drupal\migrate_plus\Entity\Migration;
+
 /**
  * Implements hook_uninstall().
  */
 function mass_migration_uninstall() {
   Drupal::configFactory()->getEditable('migrate_plus.migration.item_record_content')->delete();
+  Drupal::configFactory()->getEditable('migrate_plus.migration.item_file_content')->delete();
   Drupal::configFactory()->getEditable('migrate_plus.migration_group.massdocs_content')->delete();
+}
+
+/**
+ * Add a field to the file migration.
+ */
+function mass_migration_update_8004() {
+  $file_migration = Migration::load('item_file_content');
+  if($file_migration) {
+    $source = $file_migration->get('source');
+    $source['fields']['rec_release_date'] = 'Release date of the record.';
+    $file_migration->set('source', $source);
+
+    $process = $file_migration->get('process');
+
+    $process['release_date'] = [
+      "plugin" => "format_date",
+      "from_format" => "Y-m-d",
+      "to_format" => "Y/m",
+      "source" => "rec_release_date",
+    ];
+
+    $process['destination_path'] = [
+      [
+        "plugin" => "concat",
+        "delimiter" => "/",
+        "source" => [
+          "constants/destination_directory",
+          "@release_date",
+          "item_file_name",
+        ],
+      ],
+      [
+        "plugin" => "urlencode",
+      ],
+    ];
+
+    $file_migration->set('process', $process);
+
+    $file_migration->save();
+  }
 }
