@@ -21,7 +21,7 @@ function mass_migration_uninstall() {
  */
 function mass_migration_update_8004() {
   $file_migration = Migration::load('item_file_content');
-  if($file_migration) {
+  if ($file_migration) {
     $source = $file_migration->get('source');
     $source['fields']['rec_release_date'] = 'Release date of the record.';
     $file_migration->set('source', $source);
