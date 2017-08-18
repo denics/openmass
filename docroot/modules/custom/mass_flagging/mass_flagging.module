@@ -58,6 +58,11 @@ function mass_flagging_preprocess_page(&$variables) {
 
     $variables['#attached']['library'][] = 'mass_flagging/flag-link';
   }
+  elseif (in_array('page', $variables)) {
+    if ($variables['page']['#type'] == 'page' && $variables['page']['#title'] == 'Flag Content') {
+      $variables['#attached']['library'][] = 'mass_flagging/flag-link';
+    }
+  }
 }
 
 /**
@@ -213,8 +218,14 @@ function mass_flagging_mail($key, &$message, $params) {
 function mass_flagging_form_contact_message_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   // Alters `flag_content` form used by mass_flagging module.
   if ($form_id == 'contact_message_flag_content_form') {
+    $intro_text = [
+      '#markup' => '<h1>Flag this page</h1><p>Use this form to let the Mass.gov team know of an issue on this page and what solution you would suggest. Our team will prioritize your request and be in touch on next steps.</p>',
+    ];
+
     $form['field_content_flagged']['#disabled'] = TRUE;
     $form['actions']['preview']['#access'] = FALSE;
+
+    $form = array_merge($intro_text, $form);
   }
 }
 

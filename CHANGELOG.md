@@ -52,6 +52,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - DP-4960 - Allow users with the role Tester to use the content type "Form page"
 
 ### Changed
+- Update Flag Content form to make it more clear to users on what it does.
 - Updates timestamp used within the body of Watch emails.
 
 ### Removed
