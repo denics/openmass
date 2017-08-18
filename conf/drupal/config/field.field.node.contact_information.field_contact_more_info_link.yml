@@ -1,0 +1,52 @@
+uuid: 952fcfe9-78b3-4b00-aec0-7ec0dfb2ce62
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_contact_more_info_link
+    - node.type.contact_information
+  module:
+    - link
+id: node.contact_information.field_contact_more_info_link
+field_name: field_contact_more_info_link
+entity_type: node
+bundle: contact_information
+label: 'More info link'
+description: 'Optional. Link to a page with more information about the Contact, typically an organization, location or service page.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 17
+  title: 1
+  content_types:
+    location: location
+    org_page: org_page
+    service_page: service_page
+    contact_information: 0
+    action: 0
+    advisory: 0
+    decision: 0
+    emergency_alerts: 0
+    error_page: 0
+    event: 0
+    executive_order: 0
+    fee: 0
+    form_page: 0
+    guide_page: 0
+    how_to_page: 0
+    interstitial: 0
+    legacy_redirects: 0
+    location_details: 0
+    news: 0
+    page: 0
+    person: 0
+    section_landing: 0
+    service_details: 0
+    stacked_layout: 0
+    subtopic: 0
+    topic: 0
+    topic_page: 0
+    utility_drawer: 0
+field_type: link
