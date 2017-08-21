@@ -1,0 +1,14 @@
+uuid: 464ce911-b0bb-49db-9a12-fcac0c969f78
+langcode: en
+status: true
+dependencies: {  }
+name: news400x225
+label: News400x225
+effects:
+  b80fe1f9-ba31-4d22-8a51-59938de5e75e:
+    uuid: b80fe1f9-ba31-4d22-8a51-59938de5e75e
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 400
+      height: 225
