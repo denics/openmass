@@ -11,6 +11,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - DP-4561, DP-4342 - Adds all activities field and add conditional fields to Location page.
 
 ### Changed
+- DP-4883 - Update signees field on news content type to pull stored image URI for ('Url To Image') from field_bg_wide to field_sub_brand on the organization content type.
 - DP-4443 - Updates location details content type name to "Location detail". Changes cardinality on "field_location_details_links_5" and adds custom validation to limit the number of related items to 5.
 - DP-4345 - Allows multiple contacts to location content types. Changes cardinality on field_ref_contact_info on location ct.
 - Content authors and editors can no longer see "Regulation Page" content type as an option to create new content.
