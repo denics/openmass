@@ -13,13 +13,18 @@ mass_dashboard.all_content:
   title: 'All Content'
   menu_name: mass-dashboard
   weight: 10
+mass_dashboard.redirect:
+  route_name: mass_dashboard.redirect
+  title: 'URL redirects'
+  menu_name: mass-dashboard
+  weight: 15
 mass_dashboard.service_content:
   route_name: mass_dashboard.service_content
   title: 'Content by Service'
   menu_name: mass-dashboard
-  weight: 15
+  weight: 20
 mass_dashboard.all_documents:
   route_name: mass_dashboard.all_documents
   title: 'All Documents'
   menu_name: mass-dashboard
-  weight: 20
+  weight: 25

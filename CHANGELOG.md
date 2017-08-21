@@ -6,6 +6,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 ## Upcoming (add in progress changes here)
 
 ### Added
+- DP-4224 - Add permissions for content administrators and developers to create url redirects
 - Added a new field, More Info Link (field_contact_more_info_link) to Contact Information content type, back end only will not display on the front end yet.
 - DP-4561, DP-4342 - Adds all activities field and add conditional fields to Location page.
 
