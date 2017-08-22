@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.contact_information.field_contact_more_info_link
     - field.field.node.contact_information.field_display_title
     - field.field.node.contact_information.field_ref_address
     - field.field.node.contact_information.field_ref_fax_number
@@ -12,12 +13,25 @@ dependencies:
     - node.type.contact_information
   module:
     - entity_reference_revisions
+    - link
     - user
 id: node.contact_information.default
 targetEntityType: node
 bundle: contact_information
 mode: default
 content:
+  field_contact_more_info_link:
+    weight: 107
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+    region: content
   field_display_title:
     weight: 105
     label: above

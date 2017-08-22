@@ -1,0 +1,33 @@
+<?php
+
+/**
+ * @file
+ * Contains mass_views.module.
+ */
+
+use Drupal\views\ViewExecutable;
+use Drupal\mayflower\Helper;
+
+/**
+ * Implements hook_views_pre_view().
+ *
+ * Exclude feature news items from news listing.
+ */
+function mass_views_views_pre_view(ViewExecutable $view, $display_id, array &$args) {
+  if ($display_id == 'news_listing_block') {
+    // Load the Org this view is displayed on.
+    $node = \Drupal::routeMatch()->getParameter('node');
+    // Get ids for featured news items.
+    $featured_news = $node->field_org_featured_news_items;
+
+    if (Helper::isFieldPopulated($node, 'field_org_featured_news_items')) {
+      $featured_arr = [];
+      foreach ($featured_news as $item) {
+        $item_value = $item->getValue();
+        $featured_arr[] = $item_value['target_id'];
+      }
+      $args[1] = implode('+', $featured_arr);
+    }
+    // Update arguments.
+  }
+}

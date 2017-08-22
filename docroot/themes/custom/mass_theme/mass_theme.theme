@@ -644,6 +644,7 @@ function mass_theme_preprocess_node_org_page(&$variables) {
     'featuredTopics' => ['field_ref_card_view_6'],
     'relatedLinks' => ['field_ref_orgs'],
     'mappedLocations' => ['field_org_ref_locations'],
+    'featuredNews' => ['field_org_featured_news_items'],
   ];
 
   // Determines which fieldnames to use from the map.
@@ -710,6 +711,39 @@ function mass_theme_preprocess_node_org_page(&$variables) {
           'path' => '@organisms/by-author/sections-three-up.twig',
           'data' => [
             'sectionThreeUp' => Organisms::prepareSectionThreeUp($node->$fields['featuredTopics'], $sectionThreeUp),
+          ],
+        ],
+      ],
+    ];
+  }
+
+  if (Helper::isFieldPopulated($node, $fields['featuredNews']) || Helper::isFieldPopulated($node, 'field_number_of_news_items')) {
+    $pressListing_options = [
+      'heading' => [
+        'title' => t('Recent news & announcements'),
+      ],
+      'numOfSecondaryItems' => Helper::fieldValue($node, 'field_number_of_news_items'),
+      'displayImages' => Helper::fieldValue($node, 'field_org_show_news_images'),
+    ];
+
+    $secondaryItems = [];
+
+    // Get news associated with this org page from a view.
+    $view_results = views_get_view_result('news_listing', 'news_listing_block', $node->id);
+    if (!empty($view_results)) {
+      $secondaryItems = [];
+      // Roll up secondary entities.
+      foreach ($view_results as $key => $row) {
+        $secondaryItems[] = $row->_entity;
+      }
+    }
+
+    $sections[] = [
+      'pageContent' => [
+        [
+          'path' => '@organisms/by-author/press-listing.twig',
+          'data' => [
+            'pressListing' => Organisms::preparePressListing($node, $fields['featuredNews'], $pressListing_options, $secondaryItems),
           ],
         ],
       ],
@@ -915,7 +949,7 @@ function mass_theme_preprocess_node_location(&$variables) {
   ];
   $variables['quickActions'] = Organisms::prepareQuickActions($node, $quickActions_options);
 
-  // Prepare the quickActions data object.
+  // Prepare the sidebarContacts object.
   $sidebarContacts_options = [
     'heading' => [
       'type' => 'coloredHeading',
