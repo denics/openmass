@@ -17,6 +17,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - DP-4345 - Allows multiple contacts to location content types. Changes cardinality on field_ref_contact_info on location ct.
 - Content authors and editors can no longer see "Regulation Page" content type as an option to create new content.
 - DP-4533 - Resolves error on event pages, when referenced contact information node in address field does not have an address.
+- DP-2220 - Fixed the bullet lists under the "What you need" section on the How-To pages to become checkboxes when printing the page.
 - DP-4557 Changed signees field on news content type to show both external and state org buttons so that users can better find the choice to pick internal state organization.
 
 ### Removed
