@@ -17,10 +17,10 @@ third_party_settings:
       - draft
       - needs_review
     default_moderation_state: draft
-name: 'Location Detail Page'
+name: 'Location Details Page'
 type: location_details
 description: 'Only use this page if your location has key information or details such as activity information that does not fit into the fields on the location page.  If your information includes steps to take an action, please use a How-to page.'
 help: ''
-new_revision: false
+new_revision: true
 preview_mode: 1
 display_submitted: false

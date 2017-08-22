@@ -10,7 +10,7 @@ field_name: field_reason_flagged
 entity_type: contact_message
 bundle: flag_content
 label: 'Reason For Flagging'
-description: ''
+description: 'Please describe why you are flagging this content and what resolution you desire.'
 required: true
 translatable: false
 default_value: {  }

@@ -10,12 +10,6 @@ mass_dashboard.all_content:
   path: '/admin/ma-dash/all-content'
   requirements:
     _permission: 'use mass dashboard'
-mass_dashboard.redirect:
-  path: '/admin/ma-dash/redirect'
-  defaults:
-    _controller: '\Drupal\mass_dashboard\Controller\MassController::redirectRedirect'
-  requirements:
-    _permission: 'use mass dashboard'
 mass_dashboard.service_content:
   path: '/admin/ma-dash/service-content'
   requirements:

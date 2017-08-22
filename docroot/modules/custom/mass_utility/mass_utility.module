@@ -350,7 +350,7 @@ function mass_utility_get_signee_ajax_callback(array &$form, FormStateInterface 
     if ($node = $storage->load($nid)) {
       $name = $node->getTitle();
       $description = $node->field_sub_title->value;
-      $image_path = $node->field_sub_brand->entity->uri->value;
+      $image_path = $node->field_bg_wide->entity->uri->value;
       $image = '<img src="' . file_create_url($image_path) . '"/>';
       $response->addCommand(new InvokeCommand('input[name="field_news_signees[' . $delta . '][subform][field_state_org_name][0][value]"', 'val', [$name]));
       $response->addCommand(new InvokeCommand('textarea[name="field_news_signees[' . $delta . '][subform][field_state_org_description][0][value]"', 'val', [$description]));
