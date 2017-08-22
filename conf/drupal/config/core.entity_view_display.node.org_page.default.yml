@@ -11,10 +11,7 @@ dependencies:
     - field.field.node.org_page.field_image_credit
     - field.field.node.org_page.field_link
     - field.field.node.org_page.field_metatags
-    - field.field.node.org_page.field_number_of_news_items
-    - field.field.node.org_page.field_org_featured_news_items
     - field.field.node.org_page.field_org_ref_locations
-    - field.field.node.org_page.field_org_show_news_images
     - field.field.node.org_page.field_ref_actions_3
     - field.field.node.org_page.field_ref_actions_6
     - field.field.node.org_page.field_ref_card_view_6
@@ -29,7 +26,6 @@ dependencies:
   module:
     - image
     - link
-    - options
     - text
     - user
 id: node.org_page.default
@@ -100,21 +96,6 @@ content:
     third_party_settings: {  }
     type: link_separate
     region: content
-  field_number_of_news_items:
-    weight: 120
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: list_default
-    region: content
-  field_org_featured_news_items:
-    weight: 119
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
-    region: content
   field_org_ref_locations:
     weight: 117
     label: above
@@ -122,16 +103,6 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
-    region: content
-  field_org_show_news_images:
-    weight: 121
-    label: above
-    settings:
-      format: default
-      format_custom_false: ''
-      format_custom_true: ''
-    third_party_settings: {  }
-    type: boolean
     region: content
   field_ref_actions_3:
     weight: 111

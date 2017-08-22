@@ -14,8 +14,3 @@
   line-height: 13px;
   padding-top: 10px;
 }
-
-/* Shrink Flag page header. */
-form.contact-message-flag-content-form h1 {
-  font-size: 45px;
-}

@@ -68,7 +68,6 @@ permissions:
   - 'administer paragraphs types'
   - 'administer pathauto'
   - 'administer permissions'
-  - 'administer redirects'
   - 'administer restrict by ip'
   - 'administer seckit'
   - 'administer shortcuts'

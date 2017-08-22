@@ -514,55 +514,104 @@ class Organisms {
    *   The link / entity reference field name.
    * @param array $options
    *   An array of options for sidebar contact.
-   * @param array $secondaryEntities
-   *   An array of secondary items.
    *
    * @see @organisms/by-author/press-listing.twig
    *
    * @return array
    *   Returns a structured array.
    */
-  public static function preparePressListing($entity, $field, array $options = [], array $secondaryEntities = []) {
-    $items = [];
-    $secondaryItems = [];
+  public static function preparePressListing($entity, $field, array $options = []) {
+    $linkList = [];
     $pressList = [];
-    $i = 0;
 
-    // Roll up entities in field.
-    $entities = $entity->get($field);
+    // Roll up the press list.
+    $links = $entity->get($field);
 
-    foreach ($entities as $link) {
-      // On an internal link item, load the referenced node title.
+    foreach ($links as $link) {
+      $url = $link->getUrl();
+      $text = $link->getValue()['title'];
+      $date = '';
+      $eyebrow = '';
+
+      // On an internal item, load the referenced node title.
       if (strpos($link->getValue()['uri'], 'entity:node') !== FALSE) {
-        $options['url'] = $link->getUrl();
-        $options['text'] = $link->getValue()['title'];
-        if (method_exists($options['url'], 'getRouteParameters') && $options['url']->isRouted() == TRUE) {
-          $params = $options['url']->getRouteParameters();
+        if (method_exists($url, 'getRouteParameters') && $url->isRouted() == TRUE) {
+          $params = $url->getRouteParameters();
           $entity_type = key($params);
           $entity = \Drupal::entityTypeManager()->getStorage($entity_type)->load($params[$entity_type]);
           if (!empty($entity) && $entity instanceof ContentEntityInterface) {
-            $items[] = Molecules::preparePressTeaser($entity, $options);
+            $map = [
+              'date' => [
+                'field_news_date',
+                'field_event_date',
+                'field_decision_date',
+                'field_advisory_date',
+                'field_executive_order_date',
+                'field_regulation_last_updated',
+              ],
+              'eyebrow' => [
+                'field_decision_ref_type',
+                'field_advisory_type_tax',
+                'field_news_type',
+              ],
+            ];
+
+            // Determines which field names to use from the map.
+            $fields = Helper::getMappedFields($entity, $map);
+
+            if ($fields['date']) {
+              $date = !empty($entity->$fields['date']->value) ? strtotime($entity->$fields['date']->value) : '';
+              $date = \Drupal::service('date.formatter')->format($date, 'custom', 'n/d/Y');
+            }
+
+            if ($fields['eyebrow']) {
+              if (Helper::isEntityReferenceField($entity, $fields['eyebrow']) == TRUE) {
+                $type_items = Helper::getReferencedEntitiesFromField($entity, $fields['eyebrow']);
+
+                if ($type_items[0] instanceof Term) {
+                  $eyebrow = $type_items[0]->getName();
+                }
+              }
+              elseif (Helper::fieldType($entity, $fields['eyebrow']) == 'list_string') {
+                if (Helper::isFieldPopulated($entity, $fields['eyebrow'])) {
+                  $eyebrow = $entity->$fields['eyebrow']->first()->view();
+                }
+              }
+            }
+            else {
+              $eyebrow_content_types = ['executive_order', 'regulation'];
+              $content_type = $entity->getType();
+              if (in_array($content_type, $eyebrow_content_types)) {
+                $eyebrow = $entity->type->entity->label();
+              }
+            }
+
+            // On internal item, if empty, grab enity title.
+            if (empty($text)) {
+              $text = $entity->getTitle();
+            }
           }
         }
       }
+
+      $items[] = [
+        'eyebrow' => $eyebrow,
+        'title' => [
+          'href' => $url->toString(),
+          'text' => $text,
+          'info' => '',
+          'property' => '',
+        ],
+        'date' => !empty($date) ? $date : '',
+        'org' => '',
+        'description' => '',
+      ];
     }
 
-    foreach ($entities as $entity) {
-      if (!empty($entity->entity)) {
-        $items[] = Molecules::preparePressTeaser($entity->entity, $options);
-      }
-    }
-
-    foreach ($secondaryEntities as $index => $entity) {
-      if (isset($options['numOfSecondaryItems']) && ++$i > (int) $options['numOfSecondaryItems']) {
-        break;
-      }
-      $secondaryItems[] = Molecules::preparePressTeaser($entity, $options);
-    }
-
-    if (!empty($items) || !empty($secondaryItems)) {
+    if (!empty($items)) {
+      // Build either sidebar or comp heading based on heading type option.
       $heading = isset($options['heading']) ? Helper::buildHeading($options['heading']) : [];
-      $pressList = array_merge($heading, ['items' => $items, 'secondaryItems' => $secondaryItems]);
+      $pressList = array_merge($heading, ['items' => $items]);
     }
 
     return $pressList;

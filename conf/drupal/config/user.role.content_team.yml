@@ -22,7 +22,6 @@ permissions:
   - 'administer embed buttons'
   - 'administer menu'
   - 'administer nodes'
-  - 'administer redirects'
   - 'administer shortcuts'
   - 'administer taxonomy'
   - 'administer users'
