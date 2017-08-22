@@ -11,7 +11,10 @@ dependencies:
     - field.field.node.org_page.field_image_credit
     - field.field.node.org_page.field_link
     - field.field.node.org_page.field_metatags
+    - field.field.node.org_page.field_number_of_news_items
+    - field.field.node.org_page.field_org_featured_news_items
     - field.field.node.org_page.field_org_ref_locations
+    - field.field.node.org_page.field_org_show_news_images
     - field.field.node.org_page.field_ref_actions_3
     - field.field.node.org_page.field_ref_actions_6
     - field.field.node.org_page.field_ref_card_view_6
@@ -39,6 +42,7 @@ third_party_settings:
         - group_overview
         - group_actions
         - group_map
+        - group_news
         - group_other
       parent_name: ''
       weight: 0
@@ -87,7 +91,7 @@ third_party_settings:
         - field_ref_card_view_6
         - field_ref_orgs
       parent_name: group_node_edit_form
-      weight: 24
+      weight: 25
       format_type: tab
       format_settings:
         label: More
@@ -144,6 +148,21 @@ third_party_settings:
         description: ''
         required_fields: true
       label: Map
+    group_news:
+      children:
+        - field_org_featured_news_items
+        - field_number_of_news_items
+        - field_org_show_news_images
+      parent_name: group_node_edit_form
+      weight: 24
+      format_type: tab
+      format_settings:
+        id: ''
+        classes: ''
+        formatter: closed
+        description: ''
+        required_fields: true
+      label: News
 id: node.org_page.default
 targetEntityType: node
 bundle: org_page
@@ -212,6 +231,21 @@ content:
     third_party_settings: {  }
     type: metatag_firehose
     region: content
+  field_number_of_news_items:
+    weight: 38
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_org_featured_news_items:
+    weight: 37
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
   field_org_ref_locations:
     weight: 33
     settings:
@@ -220,6 +254,13 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
+    region: content
+  field_org_show_news_images:
+    weight: 39
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
     region: content
   field_ref_actions_3:
     weight: 26

@@ -6,11 +6,15 @@ dependencies:
     - contact.form.flag_content
     - field.storage.contact_message.field_content_flagged
     - node.type.action
+    - node.type.advisory
     - node.type.contact_information
+    - node.type.decision
     - node.type.emergency_alerts
     - node.type.error_page
     - node.type.event
+    - node.type.executive_order
     - node.type.fee
+    - node.type.form_page
     - node.type.guide_page
     - node.type.how_to_page
     - node.type.interstitial
@@ -36,7 +40,7 @@ field_name: field_content_flagged
 entity_type: contact_message
 bundle: flag_content
 label: 'Content Being Flagged'
-description: 'This is the piece of content that you are flagging.'
+description: ''
 required: true
 translatable: false
 default_value: {  }
@@ -45,12 +49,16 @@ settings:
   handler: 'default:node'
   handler_settings:
     target_bundles:
+      advisory: advisory
       page: page
       contact_information: contact_information
+      decision: decision
       emergency_alerts: emergency_alerts
       error_page: error_page
       event: event
+      executive_order: executive_order
       fee: fee
+      form_page: form_page
       guide_page: guide_page
       how_to_page: how_to_page
       interstitial: interstitial

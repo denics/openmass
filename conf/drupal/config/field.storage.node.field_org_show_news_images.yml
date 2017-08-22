@@ -1,18 +1,17 @@
-uuid: 268f96c9-a3ed-4efb-8e40-b8670fa9896d
+uuid: 0cc988b5-5ab2-442f-9afc-0db0f5e92f85
 langcode: en
 status: true
 dependencies:
   module:
-    - link
     - node
-id: node.field_location_details_links_5
-field_name: field_location_details_links_5
+id: node.field_org_show_news_images
+field_name: field_org_show_news_images
 entity_type: node
-type: link
+type: boolean
 settings: {  }
-module: link
+module: core
 locked: false
-cardinality: -1
+cardinality: 1
 translatable: true
 indexes: {  }
 persist_with_no_fields: false
