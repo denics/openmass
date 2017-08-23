@@ -16,9 +16,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 ## [0.30.1] - August 21, 2017
 
 ### Added
-- DP-4507 - Adds options to organization page to allow editors and authors to feature 2 news items on an org page and display a list of up to the next 6 most recent news items related to the given organization. 
+- DP-4507 - Adds options to organization page to allow editors and authors to feature 2 news items on an org page and display a list of up to the next 6 most recent news items related to the given organization.
 - DP-4224 - Add permissions for content administrators and developers to create url redirects
 - Added a new field, More Info Link (field_contact_more_info_link) to Contact Information content type, back end only will not display on the front end yet.
+- DP-4719 - Add short description to service page front-end.
 
 ### Changed
 - DP-4883 - Update signees field on news content type to pull stored image URI for ('Url To Image') from field_bg_wide to field_sub_brand on the organization content type.

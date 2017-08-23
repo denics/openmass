@@ -606,7 +606,7 @@ class Organisms {
         'field_service_bg_narrow',
         'field_topic_bg_narrow',
       ],
-      'description' => ['field_lede', 'field_topic_lede'],
+      'description' => ['field_lede', 'field_topic_lede', 'field_service_lede'],
     ];
 
     // Determines which field names to use from the map.
