@@ -736,6 +736,14 @@ class Molecules {
       }
     }
 
+    // Check our groups for value.
+    foreach ($groups as $index => $group) {
+      // If we have an empty group, do not display.
+      if (empty($group['items'][0]['value'])) {
+        unset($groups[$index]);
+      }
+    }
+
     return [
       'schemaSd' => [
         'property' => 'containedInPlace',

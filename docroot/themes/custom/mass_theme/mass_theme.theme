@@ -2761,14 +2761,6 @@ function mass_theme_preprocess_node_news(&$variables) {
             ],
           ],
         ],
-        [
-          'path' => '@atoms/11-text/paragraph.twig',
-          'data' => [
-            'paragraph' => [
-              'text' => '###',
-            ],
-          ],
-        ],
       ],
     ];
 

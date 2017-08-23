@@ -5,6 +5,19 @@ dependencies:
   config:
     - field.storage.node.field_news_summary
     - node.type.news
+  module:
+    - geocoder_field
+third_party_settings:
+  geocoder_field:
+    method: none
+    field: title
+    plugins: {  }
+    dumper: wkt
+    delta_handling: default
+    failure:
+      handling: preserve
+      status_message: true
+      log: true
 id: node.news.field_news_summary
 field_name: field_news_summary
 entity_type: node
