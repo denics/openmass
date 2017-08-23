@@ -161,7 +161,7 @@ third_party_settings:
       format_type: fieldset
       format_settings:
         label: 'Additional resources'
-        description: 'Optional. If there are additional resources that contain helpful information, add them here.'
+        description: 'Optional. If there are additional resources that contain helpful information, add them here. A maximum of 6 links and downloads (combined) will appear on the service page. Work is underway to allow all Additional Resources to appear on a ''more'' page'
         required_fields: true
         id: ''
         classes: ''

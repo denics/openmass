@@ -87,7 +87,7 @@ class Organisms {
     if (array_key_exists('all_actions', $fields)) {
       if (Helper::isFieldPopulated($entity, $fields['all_actions'])) {
         $all_heading = array_key_exists('generalHeading', $options) ? $options['generalHeading'] : "All: ";
-        $links = Helper::createIllustratedOrCalloutLinks($entity, $fields['all_actions']);
+        $links = Helper::createIllustratedOrCalloutLinks($entity, $fields['all_actions'], $options);
       }
     }
 
@@ -1306,16 +1306,27 @@ class Organisms {
 
     // Determines which field names to use from the map.
     $fields = Helper::getMappedFields($entity, $map);
+    // A count of the number of items we have displayed.
+    $num_items = 0;
 
     // Roll up our items.
     if (array_key_exists('link', $fields)) {
       foreach ($entity->$fields['link'] as $item) {
+        // Stop adding items to the array if we have hit the limit.
+        if (($options['maxItems'] != NULL) && ($num_items >= $options['maxItems'])) {
+          break;
+        }
         $downloadLinks[] = Molecules::prepareDownloadLink($item, $options);
+        $num_items++;
       }
     }
 
     foreach ($entity->$fields['downloads'] as $item) {
+      if (($options['maxItems'] != NULL) && ($num_items >= $options['maxItems'])) {
+        break;
+      }
       $downloadLinks[] = Molecules::prepareDownloadLink($item->entity, $options);
+      $num_items++;
     }
 
     $heading = isset($options['heading']) ? Helper::buildHeading($options['heading']) : [];

@@ -8,6 +8,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 ### Added
 
 ### Changed
+- DP-4416 - Changed label on "Related Parks" to "Related Locations"
+- DP-4764 - Change service page to allow unlimited key information links and additional resources links
 - DP-4441 - Users will notice various updates to field labels and help text throughout the Event content type.
 - DP-4558 - Users will notice updated help text for various fields of the News content type (used for Speeches, Announcements, Press Releases, and Press statements).
 

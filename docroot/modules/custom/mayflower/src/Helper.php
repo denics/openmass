@@ -152,13 +152,17 @@ class Helper {
    */
   public static function separatedLinks($entity, $field, array $options = []) {
     $items = [];
-
+    // Track the count to enforce a max number of items.
+    $item_count = 0;
     // Check if the target field is entity reference, else assume link field.
     if (Helper::isEntityReferenceField($entity, $field)) {
       // Retrieves the entities referenced from the entity field.
       $entities = Helper::getReferencedEntitiesFromField($entity, $field);
 
       foreach ($entities as $entity) {
+        if (!empty($options['maxItems']) && ($item_count >= $options['maxItems'])) {
+          break;
+        }
         $text = $entity->get('title')->value;
         // Use date as title if specified.
         if (!empty($options['useDate']) && !empty($entity->$options['useDate']['fieldDate'])) {
@@ -174,13 +178,18 @@ class Helper {
           'href' => $entity->toURL()->toString(),
           'text' => $text,
         ];
+        $item_count++;
       }
     }
     else {
       $links = $entity->get($field);
 
       foreach ($links as $link) {
+        if (!empty($options['maxItems']) && ($item_count >= $options['maxItems'])) {
+          break;
+        }
         $items[] = Helper::separatedLink($link, $options);
+        $item_count++;
       }
     }
 
@@ -834,6 +843,8 @@ class Helper {
    *   The entity which contains the entity reference or link field.
    * @param object $field
    *   The field which contains or refers to the link information.
+   * @param array $options
+   *   Array of options.
    *
    * @return array
    *   Returns an array with the following structure:
@@ -847,7 +858,7 @@ class Helper {
    *      ], ...
    *    ]
    */
-  public static function createIllustratedOrCalloutLinks($entity, $field) {
+  public static function createIllustratedOrCalloutLinks($entity, $field, array $options = []) {
     // Check if the target field is entity reference, else assume link field.
     if (Helper::isEntityReferenceField($entity, $field)) {
       // Retrieves the entities referenced from the entity field.
@@ -857,7 +868,7 @@ class Helper {
       $links = array_map(['Drupal\mayflower\Helper', 'createLinkFromEntity'], $referenced_entities);
     }
     else {
-      $links = Helper::separatedLinks($entity, $field);
+      $links = Helper::separatedLinks($entity, $field, $options);
     }
 
     return $links;

@@ -2390,6 +2390,7 @@ function mass_theme_preprocess_node_service_page(&$variables) {
       'featuredHeading' => "",
       'generalHeading' => "",
       'hideFilter' => TRUE,
+      'maxItems' => 6,
     ];
 
     // Create the field map for this action finder.
@@ -2485,6 +2486,7 @@ function mass_theme_preprocess_node_service_page(&$variables) {
         'type' => 'sidebarHeading',
         'title' => t('Additional Resources'),
       ],
+      'maxItems' => 6,
     ];
 
     $split_columns['columns'][]['items'][] =
