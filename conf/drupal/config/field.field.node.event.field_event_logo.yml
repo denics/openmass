@@ -12,7 +12,7 @@ field_name: field_event_logo
 entity_type: node
 bundle: event
 label: 'Event Logo (optional)'
-description: 'Add a logo if the event has dedicated branding. This is not an appropriate location for the state seal.'
+description: 'Add a logo if the event has dedicated branding. This is not an appropriate location for the state seal. Logos should have a white or transparent background and should be at least 230 pixels wide.'
 required: false
 translatable: false
 default_value: {  }

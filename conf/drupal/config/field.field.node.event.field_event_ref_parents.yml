@@ -12,8 +12,8 @@ id: node.event.field_event_ref_parents
 field_name: field_event_ref_parents
 entity_type: node
 bundle: event
-label: 'Parent Tags'
-description: 'Please select any the service, organization or location that is sponsoring this event.'
+label: 'Parent page(s)'
+description: 'Please select the service, organization, or location page(s) where this event should appear.'
 required: true
 translatable: false
 default_value: {  }
