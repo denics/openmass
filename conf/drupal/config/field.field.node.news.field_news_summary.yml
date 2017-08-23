@@ -10,7 +10,7 @@ field_name: field_news_summary
 entity_type: node
 bundle: news
 label: 'Listing Description'
-description: 'This is a short summary of your press release that will be used in previews, listings and on social sites.'
+description: 'This is a short summary of your press release that will be used in previews, listings, and on social sites.'
 required: true
 translatable: false
 default_value: {  }

@@ -56,7 +56,7 @@ third_party_settings:
       format_settings:
         label: Signees
         formatter: closed
-        description: 'In this area you can select all State Organizations and External Organizations signing this release. If you’d like include a state leader, you may edit the name and description after selecting the organization.'
+        description: 'Please select at least one state organization signing this release. Your selection will populate the related tag at the top of the page, which links back to the organization’s page. You may add additional State or External organizations. If you’d like include a state leader by name, you may edit the name and description after selecting the organization.'
         required_fields: true
         id: ''
         classes: ''

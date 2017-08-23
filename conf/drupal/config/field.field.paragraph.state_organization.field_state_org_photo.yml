@@ -11,8 +11,8 @@ id: paragraph.state_organization.field_state_org_photo
 field_name: field_state_org_photo
 entity_type: paragraph
 bundle: state_organization
-label: 'Replace Photo'
-description: ''
+label: 'Replace image'
+description: 'The organization''s logo will be added here by default if one exists. You may replace it with another image if desired.'
 required: false
 translatable: false
 default_value: {  }

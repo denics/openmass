@@ -10,7 +10,7 @@ field_name: field_state_org_description
 entity_type: paragraph
 bundle: state_organization
 label: 'Description (Optional)'
-description: ''
+description: 'You may edit this description as needed. Any change will only appear on this press release, and will appear in the bio area after the main text.'
 required: false
 translatable: false
 default_value: {  }

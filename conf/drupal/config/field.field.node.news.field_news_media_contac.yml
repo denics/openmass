@@ -12,7 +12,7 @@ id: node.news.field_news_media_contac
 field_name: field_news_media_contac
 entity_type: node
 bundle: news
-label: 'Media Contact'
+label: 'Media contact(s)'
 description: 'Select the person(s) media should use if they have questions about this event. The first contact listed will also appear in the sidebar as “Media Contact.”'
 required: true
 translatable: false
@@ -21,6 +21,7 @@ default_value_callback: ''
 settings:
   handler: 'default:paragraph'
   handler_settings:
+    negate: 0
     target_bundles:
       media_contact: media_contact
     target_bundles_drag_drop:
@@ -105,8 +106,17 @@ settings:
       guide_section:
         weight: 80
         enabled: false
+      adjustment_type:
+        weight: 80
+        enabled: false
       guide_section_3up:
         weight: 81
+        enabled: false
+      advisory_issuer:
+        weight: 81
+        enabled: false
+      advisory_section:
+        weight: 82
         enabled: false
       hours:
         weight: 82
@@ -132,13 +142,22 @@ settings:
       location_information:
         weight: 89
         enabled: false
+      content_card_group:
+        weight: 90
+        enabled: false
       map:
         weight: 90
+        enabled: false
+      decision_participants:
+        weight: 91
         enabled: false
       map_row:
         weight: 91
         enabled: false
       method:
+        weight: 92
+        enabled: false
+      decision_section:
         weight: 92
         enabled: false
       next_step:
@@ -150,12 +169,12 @@ settings:
       phone_number:
         weight: 95
         enabled: false
-      media_contact:
-        enabled: true
-        weight: 96
       pull_quote:
         weight: 96
         enabled: false
+      media_contact:
+        enabled: true
+        weight: 96
       quick_action:
         weight: 97
         enabled: false
@@ -186,6 +205,9 @@ settings:
       stat:
         weight: 106
         enabled: false
+      issuer:
+        weight: 106
+        enabled: false
       subhead:
         weight: 107
         enabled: false
@@ -194,5 +216,8 @@ settings:
         enabled: false
       state_organization:
         weight: 112
+        enabled: false
+      stacked_band:
+        weight: 126
         enabled: false
 field_type: entity_reference_revisions

@@ -6,13 +6,25 @@ dependencies:
     - field.storage.paragraph.field_external_org_description
     - paragraphs.paragraphs_type.external_organization
   module:
+    - geocoder_field
     - text
+third_party_settings:
+  geocoder_field:
+    method: none
+    field: parent_id
+    plugins: {  }
+    dumper: wkt
+    delta_handling: default
+    failure:
+      handling: preserve
+      status_message: true
+      log: true
 id: paragraph.external_organization.field_external_org_description
 field_name: field_external_org_description
 entity_type: paragraph
 bundle: external_organization
 label: 'Description (Optional)'
-description: ''
+description: 'Please provide a description of the external organization. This will appear in the bio area after the main text.'
 required: false
 translatable: false
 default_value: {  }
