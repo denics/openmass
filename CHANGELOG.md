@@ -101,6 +101,7 @@ Follow post deploy steps listed in the PR (https://github.com/massgov/mass/pull/
 
 ### Changed
 - DP-4416 - Changed label on "Related Parks" to "Related Locations"
+- DP-5004 - Enables moderation for Advisory, Decision, Executive order, Legacy redirects.
 - DP-4305 - Removes Inline Form Errors error message from the username field to replace the default invalid login message at top of the user login page.
 - Updated capitalization of "Next Steps" and "More Info" in header/jump menu on How-to pages
 - Fix bug where pages with no table data (i.e. How-To's with no fees) were not loading.
