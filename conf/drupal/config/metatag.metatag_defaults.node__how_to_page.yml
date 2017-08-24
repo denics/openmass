@@ -10,7 +10,6 @@ tags:
   schema_apply_action_id: '[node:url]#how-to'
   schema_apply_action_instrument: '[node:field_how_to_methods_5]'
   schema_apply_action_location: '[node:field_how_to_contacts_3]'
-  schema_apply_action_logo: 'a:3:{s:3:"url";s:41:"[node:field_service_sub_brand:entity:url]";s:5:"width";s:0:"";s:6:"height";s:0:"";}'
   schema_apply_action_name: '[node:title]'
   schema_apply_action_potential_action: '[node:title]'
   schema_apply_action_related_link: '[node:field_how_to_links_5]'

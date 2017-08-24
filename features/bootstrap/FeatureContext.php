@@ -802,9 +802,9 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
             'type' => 'text',
           ),
           array (
-            'field' => 'field-service-sub-brand',
+            'field' => 'field-service-offered-by',
             'tag' => 'input',
-            'type' => 'submit',
+            'type' => 'text',
           ),
           array (
             'field' => 'field-services-social-links',

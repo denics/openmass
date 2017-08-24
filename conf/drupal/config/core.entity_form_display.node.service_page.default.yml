@@ -13,6 +13,7 @@ dependencies:
     - field.field.node.service_page.field_service_key_info_links_6
     - field.field.node.service_page.field_service_lede
     - field.field.node.service_page.field_service_links
+    - field.field.node.service_page.field_service_offered_by
     - field.field.node.service_page.field_service_ref_actions
     - field.field.node.service_page.field_service_ref_actions_2
     - field.field.node.service_page.field_service_ref_guide_page_1
@@ -41,7 +42,7 @@ third_party_settings:
         - group_map
         - group_additional_info
       parent_name: ''
-      weight: 20
+      weight: 4
       format_type: tabs
       format_settings:
         id: ''
@@ -69,11 +70,11 @@ third_party_settings:
       children:
         - field_service_body
         - field_service_video
-        - field_service_sub_brand
         - field_services_social_links
         - field_service_ref_guide_page_1
         - field_service_eligibility_info
         - field_audience
+        - field_service_offered_by
       parent_name: group_service_edit_form
       weight: 21
       format_type: tab
@@ -173,12 +174,12 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 10
+    weight: 1
     settings: {  }
     third_party_settings: {  }
     region: content
   field_audience:
-    weight: 41
+    weight: 39
     settings: {  }
     third_party_settings: {  }
     type: options_select
@@ -216,7 +217,7 @@ content:
     type: string_textarea
     region: content
   field_service_eligibility_info:
-    weight: 40
+    weight: 38
     settings:
       match_operator: CONTAINS
       size: 60
@@ -265,6 +266,15 @@ content:
     third_party_settings: {  }
     type: link_default
     region: content
+  field_service_offered_by:
+    weight: 40
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
   field_service_ref_actions:
     weight: 25
     settings:
@@ -282,7 +292,7 @@ content:
     type: link_default
     region: content
   field_service_ref_guide_page_1:
-    weight: 39
+    weight: 37
     settings:
       match_operator: CONTAINS
       size: 60
@@ -308,14 +318,6 @@ content:
     third_party_settings: {  }
     type: entity_reference_autocomplete
     region: content
-  field_service_sub_brand:
-    weight: 37
-    settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
-    third_party_settings: {  }
-    type: image_image
-    region: content
   field_service_video:
     weight: 35
     settings:
@@ -334,7 +336,7 @@ content:
     type: inline_entity_form_complex
     region: content
   field_services_social_links:
-    weight: 38
+    weight: 36
     settings:
       placeholder_url: ''
       placeholder_title: ''
@@ -343,7 +345,7 @@ content:
     region: content
   path:
     type: path
-    weight: 30
+    weight: 5
     settings: {  }
     third_party_settings: {  }
     region: content
@@ -351,14 +353,14 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 15
+    weight: 2
     third_party_settings: {  }
     region: content
   sticky:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 16
+    weight: 3
     third_party_settings: {  }
     region: content
   title:
@@ -371,11 +373,12 @@ content:
     region: content
   uid:
     type: entity_reference_autocomplete
-    weight: 5
+    weight: 0
     settings:
       match_operator: CONTAINS
       size: 60
       placeholder: ''
     third_party_settings: {  }
     region: content
-hidden: {  }
+hidden:
+  field_service_sub_brand: true

@@ -38,7 +38,6 @@ class Atoms {
       $map = [
         'image' => [
           'field_sub_brand',
-          'field_service_sub_brand',
           'field_promo_image',
         ],
       ];

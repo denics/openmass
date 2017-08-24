@@ -74,6 +74,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 ### Changed
 - Update Flag Content form to make it more clear to users on what it does.
 - Updates timestamp used within the body of Watch emails.
+- DP-4314 - Updates to Service Page sidebar, logo, offered by
 - DP-4936 - Adjust ### to only show once and only if News type Press Release is selected.
 - DP-4938 - Make Listing Description an optional field in News content type.
 - DP-4879 - Remove contact icon and label is contact value does not exist.
