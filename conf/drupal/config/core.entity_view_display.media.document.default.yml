@@ -27,6 +27,7 @@ dependencies:
     - field.field.media.document.field_link_classic_massgov
     - field.field.media.document.field_link_related_content
     - field.field.media.document.field_oclc_number
+    - field.field.media.document.field_other_license_url
     - field.field.media.document.field_part_of
     - field.field.media.document.field_public_access_level
     - field.field.media.document.field_publishing_frequency
@@ -259,6 +260,18 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
+  field_other_license_url:
+    weight: 39
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
     region: content
   field_part_of:
     weight: 25

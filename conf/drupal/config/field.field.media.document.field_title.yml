@@ -5,6 +5,17 @@ dependencies:
   config:
     - field.storage.media.field_title
     - media_entity.bundle.document
+third_party_settings:
+  geocoder_field:
+    method: none
+    field: name
+    plugins: {  }
+    dumper: wkt
+    delta_handling: c_to_s
+    failure:
+      handling: preserve
+      status_message: true
+      log: true
 id: media.document.field_title
 field_name: field_title
 entity_type: media

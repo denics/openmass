@@ -1,0 +1,53 @@
+uuid: 0c8f49bd-8109-4433-a036-c226ea4f66e2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.media.field_other_license_url
+    - media_entity.bundle.document
+  module:
+    - link
+id: media.document.field_other_license_url
+field_name: field_other_license_url
+entity_type: media
+bundle: document
+label: 'Specify the license URL'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 16
+  title: 0
+  content_types:
+    action: 0
+    advisory: 0
+    contact_information: 0
+    decision: 0
+    emergency_alerts: 0
+    error_page: 0
+    event: 0
+    executive_order: 0
+    fee: 0
+    form_page: 0
+    guide_page: 0
+    how_to_page: 0
+    interstitial: 0
+    legacy_redirects: 0
+    location: 0
+    location_details: 0
+    news: 0
+    org_page: 0
+    page: 0
+    person: 0
+    regulation: 0
+    section_landing: 0
+    service_details: 0
+    service_page: 0
+    stacked_layout: 0
+    subtopic: 0
+    topic: 0
+    topic_page: 0
+    utility_drawer: 0
+field_type: link

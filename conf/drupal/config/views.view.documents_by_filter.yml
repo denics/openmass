@@ -192,6 +192,7 @@ display:
           not: false
           plugin_id: numeric
       display_extenders: {  }
+      title: 'Documents by Contributor'
     cache_metadata:
       max-age: -1
       contexts:
@@ -202,18 +203,17 @@ display:
         - url.query_args
         - user.permissions
       tags: {  }
-  rest_export_1:
+  rest_export_documents_by_contributor:
     display_plugin: rest_export
-    id: rest_export_1
+    id: rest_export_documents_by_contributor
     display_title: 'Documents by Contributor'
     position: 1
     display_options:
       display_extenders: {  }
       path: api/v1/%taxonomy_term/data.json
       pager:
-        type: some
+        type: none
         options:
-          items_per_page: 10
           offset: 0
       style:
         type: mass_pod_serializer

@@ -27,6 +27,7 @@ dependencies:
     - field.field.media.document.field_link_classic_massgov
     - field.field.media.document.field_link_related_content
     - field.field.media.document.field_oclc_number
+    - field.field.media.document.field_other_license_url
     - field.field.media.document.field_part_of
     - field.field.media.document.field_public_access_level
     - field.field.media.document.field_publishing_frequency
@@ -88,6 +89,7 @@ third_party_settings:
         - field_link_related_content
         - field_part_of
         - field_license
+        - field_other_license_url
         - field_public_access_level
         - field_rights
         - field_conform
@@ -158,7 +160,7 @@ content:
     type: string_textfield
     region: content
   field_checksum:
-    weight: 52
+    weight: 53
     settings:
       size: 60
       placeholder: ''
@@ -166,7 +168,7 @@ content:
     type: string_textfield
     region: content
   field_conform:
-    weight: 46
+    weight: 47
     settings:
       placeholder_url: ''
       placeholder_title: ''
@@ -227,7 +229,7 @@ content:
     type: entity_reference_autocomplete_tags
     region: content
   field_data_dictionary:
-    weight: 53
+    weight: 54
     settings:
       rows: 5
       placeholder: ''
@@ -235,7 +237,7 @@ content:
     type: text_textarea
     region: content
   field_data_quality:
-    weight: 47
+    weight: 48
     settings:
       display_label: true
     third_party_settings: {  }
@@ -256,7 +258,7 @@ content:
     type: datetime_default
     region: content
   field_file_migration_id:
-    weight: 50
+    weight: 51
     settings:
       size: 60
       placeholder: ''
@@ -299,7 +301,7 @@ content:
     type: options_select
     region: content
   field_link_classic_massgov:
-    weight: 51
+    weight: 52
     settings:
       placeholder_url: ''
       placeholder_title: ''
@@ -315,12 +317,20 @@ content:
     type: link_default
     region: content
   field_oclc_number:
-    weight: 49
+    weight: 50
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
+  field_other_license_url:
+    weight: 44
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
     region: content
   field_part_of:
     weight: 42
@@ -332,7 +342,7 @@ content:
     type: entity_reference_autocomplete
     region: content
   field_public_access_level:
-    weight: 44
+    weight: 45
     settings: {  }
     third_party_settings: {  }
     type: options_select
@@ -344,7 +354,7 @@ content:
     type: options_select
     region: content
   field_rights:
-    weight: 45
+    weight: 46
     settings:
       size: 60
       placeholder: ''
@@ -367,7 +377,7 @@ content:
     type: entity_reference_autocomplete
     region: content
   field_system_of_records:
-    weight: 48
+    weight: 49
     settings:
       placeholder_url: ''
       placeholder_title: ''
