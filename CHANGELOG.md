@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - DP-4584 - Adds custom metatags for parent topic on service pages, news type and date on news, advisory type on advisory pages, decision type on decision pages and date on regulation pages.
 
 ### Changed
+- DP-4518 - Updates node--event.html.twig. Adds sideContent.contactList blocks so Contact information displays on narrow screens. Updates variable name from $sidebar to $sideContent.
 - DP-4416 - Changed label on "Related Parks" to "Related Locations"
 - DP-4764 - Change service page to allow unlimited key information links and additional resources links
 - DP-4441 - Users will notice various updates to field labels and help text throughout the Event content type.
@@ -32,6 +33,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - Content authors and editors can no longer see "Regulation Page" content type as an option to create new content.
 - DP-4533 - Resolves error on event pages, when referenced contact information node in address field does not have an address.
 - DP-2220 - Fixed the bullet lists under the "What you need" section on the How-To pages to become checkboxes when printing the page.
+- DP-4518 - Updates node--event.html.twig. Adds sideContent.contactList blocks so Contact information displays on narrow screens. Updates variable name from $sidebar to $sideContent.
 - DP-4557 Changed signees field on news content type to show both external and state org buttons so that users can better find the choice to pick internal state organization.
 - DP-4557 - Changed signees field on news content type to show both external and state org buttons so that users can better find the choice to pick internal state organization.
 - DP-4781 - Update flag form to use clearer text on what is actually occurring when submitting a form.

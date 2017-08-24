@@ -546,7 +546,7 @@ function mass_theme_preprocess_node_form_page(&$variables) {
     $sideContent['contactList'] = Organisms::prepareContactList($node, $sidebarContacts_options);
     unset($sideContent['contactList']['compHeading']);
     $sideContent['contactList']['sidebarHeading']['title'] = t('Contact');
-    $sidebar['contactList']['viewSpecific'] = FALSE;
+    $sideContent['contactList']['viewSpecific'] = FALSE;
   }
 
   $variables['formRequirements'] = $formRequirements;
@@ -2253,7 +2253,7 @@ function mass_theme_preprocess_node_event(&$variables) {
     $sideContent['contactList'] = Organisms::prepareContactList($node, $sidebarContacts_options);
     unset($sideContent['contactList']['compHeading']);
     $sideContent['contactList']['sidebarHeading']['title'] = t('Contact');
-    $sidebar['contactList']['viewSpecific'] = TRUE;
+    $sideContent['contactList']['viewSpecific'] = TRUE;
   }
 
   // Build related links section, if field is populated.

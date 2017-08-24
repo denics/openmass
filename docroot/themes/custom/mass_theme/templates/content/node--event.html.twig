@@ -15,6 +15,16 @@
   <div class="main-content main-content--two">
     <div class="page-content">
       {% block pageContent %}
+        {% if sideContent.contactList %}
+          {% set contactList = sideContent.contactList|merge({'compHeading': sideContent.contactList.sidebarHeading, 'sidebarHeading': null}) %}
+          {% include "@organisms/by-author/contact-list.twig" %}
+        {% endif %}
+
+        {% if sideContent.mediaContact %}
+          {% set contactList = sideContent.mediaContact|merge({'compHeading': sideContent.mediaContact.sidebarHeading, 'sidebarHeading': null}) %}
+          {% include "@organisms/by-author/contact-list.twig" %}
+        {% endif %}
+
         {% if mainContent.pageOverview %}
           {% set pageOverview = mainContent.pageOverview %}
           {% include "@organisms/by-author/page-overview.twig" %}
