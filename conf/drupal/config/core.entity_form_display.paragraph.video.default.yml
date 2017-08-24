@@ -3,19 +3,39 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.paragraph.video.field_video
     - field.field.paragraph.video.field_video_caption
     - field.field.paragraph.video.field_video_id
     - field.field.paragraph.video.field_video_source
     - paragraphs.paragraphs_type.video
   module:
+    - entity_browser_entity_form
+    - inline_entity_form
     - workbench_moderation
 id: paragraph.video.default
 targetEntityType: paragraph
 bundle: video
 mode: default
 content:
+  field_video:
+    weight: 0
+    settings:
+      form_mode: default
+      label_singular: ''
+      label_plural: ''
+      allow_new: true
+      allow_existing: true
+      match_operator: CONTAINS
+      override_labels: false
+      collapsible: false
+      collapsed: false
+    third_party_settings:
+      entity_browser_entity_form:
+        entity_browser_id: media_browser
+    type: inline_entity_form_complex
+    region: content
   field_video_caption:
-    weight: 8
+    weight: 3
     settings:
       size: 60
       placeholder: ''
@@ -23,7 +43,7 @@ content:
     type: string_textfield
     region: content
   field_video_id:
-    weight: 7
+    weight: 2
     settings:
       size: 60
       placeholder: ''
@@ -31,7 +51,7 @@ content:
     type: string_textfield
     region: content
   field_video_source:
-    weight: 6
+    weight: 1
     settings: {  }
     third_party_settings: {  }
     type: options_select

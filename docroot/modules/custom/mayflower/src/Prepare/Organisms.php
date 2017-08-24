@@ -170,7 +170,10 @@ class Organisms {
   public static function preparePageHeader($entity, array $options) {
     // Create the map of all possible field names to use.
     $map = [
-      'title' => ['title'],
+      'title' => [
+        'title',
+        'name',
+      ],
       'titleNote' => ['field_title_sub_text'],
       'subTitle' => [
         'field_sub_title',

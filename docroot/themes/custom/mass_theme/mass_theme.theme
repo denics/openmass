@@ -5435,3 +5435,64 @@ function mass_theme_theme_suggestions_textarea_alter(array &$suggestions, array 
     $suggestions[] = 'textarea__mass_flagging';
   }
 }
+
+/**
+ * Prepares variables for media templates.
+ *
+ * Default template: media.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - media: An individual media for display.
+ */
+function mass_theme_preprocess_media(array &$variables) {
+  $src = '';
+
+  if (isset($variables['elements']['field_media_video_embed_field'][0]['children']['#url'])) {
+    $src = $variables['elements']['field_media_video_embed_field'][0]['children']['#url'];
+
+    // Set static pageHeader properties to pass to prepare function.
+    $pageHeader_options = [
+      'category' => 'transcript',
+    ];
+
+    // Make pageBanner data object available in twig template.
+    $variables['pageHeader'] = Organisms::preparePageHeader($variables['elements']['#media'], $pageHeader_options);
+
+    $variables['video'] = [
+      'src' => $src,
+      'label' => Helper::fieldValue($variables['elements']['#media'], 'name'),
+      'width' => '',
+      'height' => '',
+      'link' => NULL,
+      'position' => '',
+    ];
+
+    $back_url = \Drupal::request()->server->get('HTTP_REFERER');
+    $current_path = \Drupal::service('path.current')->getPath();
+    global $base_url;
+
+    if (!empty($back_url) && $back_url != $base_url . $current_path) {
+      $variables['backButton'] = [
+        'link' => [
+          'href' => $back_url,
+          'text' => t('Back to previous page'),
+          'info' => t('Back to page about Blah'),
+        ],
+      ];
+    }
+
+    $variables['richText'] = [
+      'rteElements' => [
+        [
+          'path' => '@atoms/11-text/paragraph.twig',
+          'data' => [
+            'paragraph' => [
+              'text' => Helper::fieldValue($variables['elements']['#media'], 'field_video_description'),
+            ],
+          ],
+        ],
+      ],
+    ];
+  }
+}
