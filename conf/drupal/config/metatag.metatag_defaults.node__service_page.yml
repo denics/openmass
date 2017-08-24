@@ -5,6 +5,7 @@ dependencies: {  }
 id: node__service_page
 label: 'Content: Service Page'
 tags:
+  mass_metatag_parent_topic: '[node:nid]'
   schema_government_service_area_served: 'a:2:{s:5:"@type";s:18:"AdministrativeArea";s:4:"name";s:13:"Massachusetts";}'
   schema_government_service_description: '[node:field_service_lede]'
   schema_government_service_id: '[node:url]#services'

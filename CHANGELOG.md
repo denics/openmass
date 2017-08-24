@@ -7,7 +7,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 ### Added
 - DP-4590 - Add new field_video ('Video') entity reference to Video Paragraph (Inline Entity Form widget). This references a Video bundle. Add new field_video_description ('Transcript and Video Description') Text field to Video bundle. Add new, themed, media--media-video.html.twig template.
-- DP-4507 - Adds options to organization page to allow editors and authors to feature 2 news items on an org page and display a list of up to the next 6 most recent news items related to the given organization. 
+- DP-4584 - Adds custom metatags for parent topic on service pages, news type and date on news, advisory type on advisory pages, decision type on decision pages and date on regulation pages.
 
 ### Changed
 - DP-4416 - Changed label on "Related Parks" to "Related Locations"
