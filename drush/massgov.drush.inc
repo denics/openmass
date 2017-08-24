@@ -63,7 +63,7 @@ function drush_massgov_ma_deploy($target, $git_ref) {
     // Turn on Maint mode
     $args = array('system.maintenance_mode', 1);
     $options = array('input-format' => 'integer');
-    $return = drush_invoke_process($alias_target, 'state-set', $args, $options);
+    $return = massgov_invoke_process($alias_target, 'state-set', $args, $options);
     massgov_check_drush_error($return);
     drush_log(dt("Maintenance mode enabled in $target."), 'success');
   }
@@ -71,7 +71,7 @@ function drush_massgov_ma_deploy($target, $git_ref) {
   // Copy files and database, but only for non-prod deploys and when refresh-db is set
   if(!$is_prod && drush_get_option('refresh-db', FALSE)) {
     // Drop existing tables.
-    $return = drush_invoke_process($alias_target, 'sql-drop', [], ['yes' => TRUE]);
+    $return = massgov_invoke_process($alias_target, 'sql-drop', [], ['yes' => TRUE]);
     massgov_check_drush_error($return);
     drush_log(dt("All tables dropped  in $target."), 'success');
 
@@ -95,12 +95,12 @@ function drush_massgov_ma_deploy($target, $git_ref) {
   // Run any pending DB updates
   // This goes before config import per https://www.drupal.org/node/2628144
   $options = array('entity-updates' => TRUE);
-  $return = drush_invoke_process($alias_target, 'updb', $args, $options);
+  $return = massgov_invoke_process($alias_target, 'updb', $args, $options);
   massgov_check_drush_error($return);
   drush_log(dt("Database and entity updates completed in $target."), 'success');
 
   // Import new config
-  $return = drush_invoke_process($alias_target, 'config-import', []);
+  $return = massgov_invoke_process($alias_target, 'config-import', []);
   massgov_check_drush_error($return);
   drush_log(dt("Configuration imported in $target."), 'success');
 
@@ -122,7 +122,7 @@ function drush_massgov_ma_deploy($target, $git_ref) {
     // Disable Maintenance mode.
     $args = array('system.maintenance_mode', 0);
     $options = array('input-format' => 'integer');
-    $return = drush_invoke_process($alias_target, 'state-set', $args, $options);
+    $return = massgov_invoke_process($alias_target, 'state-set', $args, $options);
     massgov_check_drush_error($return);
     drush_log(dt("Maintenance mode disabled in $target."), 'success');
   }
@@ -185,9 +185,25 @@ function massgov_check_drush_error($return) {
   elseif ($return['error_status']) {
     foreach ($return['error_log'] as $key => $value) {
       foreach ($value as $message) {
-  $messages[] = $message;
+        $messages[] = $message;
       }
     }
     throw new Exception(implode('', $messages));
   }
+}
+
+/**
+ * A simple wrapper around drush_invoke_process(). Adds --local option.
+ *
+ * @param $site_alias_record
+ * @param $command_name
+ * @param array $args
+ * @param array $options
+ * @param array $backend_options
+ *
+ * @return array|bool|mixed|string
+ */
+function massgov_invoke_process($site_alias_record, $command_name, $args = [], $options = [], $backend_options = []) {
+  $options['local'] = TRUE;
+  return drush_invoke_process($site_alias_record, $command_name, $args, $options, $backend_options);
 }
