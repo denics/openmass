@@ -22,6 +22,7 @@ source:
   fields:
     item_file_name: Unique file name for the item.
     item_massgov_url: Mass.gov url.
+    rec_release_date: Release date of the record.
 destination:
   plugin: 'entity:file'
 process:
@@ -34,14 +35,21 @@ process:
   status:
     plugin: default_value
     default_value: 1
+  release_date:
+    plugin: format_date
+    from_format: 'Y-m-d'
+    to_format: 'Y/m'
+    source: rec_release_date
   filename: item_file_name
   source_path: item_massgov_url
   destination_path:
     -
-      plugin: concat
+      plugin: mass_migration_file_path
       delimiter: /
+      count: 2500
       source:
         - constants/destination_directory
+        - '@release_date'
         - item_file_name
     -
       plugin: urlencode

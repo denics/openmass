@@ -41,6 +41,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 ### Removed
 
+## [0.31.0] - August 21, 2017
+
+### Changed
+- MPRR-409 - Users will notice that within 24 hours from this release, there will be around 155K documents migrated from legacy Mass.gov servers which can now be added as downloads, additional resources, etc. to new Mass.gov content. Developers will notice that these migrated files and any newly attached files are now organized by year and month.
+
 ## [0.30.0] - August 17, 2017
 
 ### Added
