@@ -15,7 +15,6 @@ use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\InvokeCommand;
 use Drupal\Core\Ajax\HtmlCommand;
 use Drupal\file\Entity\File;
-use Drupal\Component\Utility\Html;
 
 /**
  * Implements hook_form_BASE_FORM_ID_alter().
@@ -441,30 +440,6 @@ function mass_utility_entity_view(array &$build, EntityInterface $entity, Entity
       if ($link[0]['rel'] == 'shortlink') {
         unset($links[$key]);
       }
-    }
-  }
-}
-
-/**
- * Implements hook_node_presave().
- */
-function mass_utility_node_presave(EntityInterface $node) {
-  // Add a class to transform bullet lists to checkboxes on print.
-  if ($node->getType() == 'how_to_page') {
-    $field = $node->get('field_how_to_what_you_need')->getValue();
-    if (!empty($field)) {
-      $dom = HTML::load($field[0]['value']);
-      foreach ($dom->getElementsByTagName('ul') as $element) {
-        /** @var \DOMElement $element */
-        $class = $element->getAttribute('class');
-        // Only add the class if it is not on the element already.
-        if (strpos($class, 'ma__checklist') === FALSE) {
-          $class = trim($class . ' ma__checklist');
-          $element->setAttribute('class', $class);
-        }
-      }
-      $field[0]['value'] = HTML::serialize($dom);
-      $node->set('field_how_to_what_you_need', $field);
     }
   }
 }
