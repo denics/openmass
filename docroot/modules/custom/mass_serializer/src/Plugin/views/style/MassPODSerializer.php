@@ -87,7 +87,7 @@ class MassPODSerializer extends Serializer implements CacheableDependencyInterfa
         'field_conform',
         'field_system_of_records',
         'field_data_quality',
-        'modified',
+        'changed',
         'created',
         'uuid',
         'field_alternative_title',
