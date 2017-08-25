@@ -6,6 +6,8 @@ dependencies:
     - field.storage.media.field_license
     - media_entity.bundle.document
     - taxonomy.vocabulary.license
+  content:
+    - 'taxonomy_term:license:79c305b8-2fca-4158-8342-689513d75079'
 id: media.document.field_license
 field_name: field_license
 entity_type: media
@@ -14,7 +16,9 @@ label: License
 description: ''
 required: false
 translatable: false
-default_value: {  }
+default_value:
+  -
+    target_uuid: 79c305b8-2fca-4158-8342-689513d75079
 default_value_callback: ''
 settings:
   handler: 'default:taxonomy_term'

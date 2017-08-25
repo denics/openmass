@@ -546,7 +546,7 @@ function mass_theme_preprocess_node_form_page(&$variables) {
     $sideContent['contactList'] = Organisms::prepareContactList($node, $sidebarContacts_options);
     unset($sideContent['contactList']['compHeading']);
     $sideContent['contactList']['sidebarHeading']['title'] = t('Contact');
-    $sidebar['contactList']['viewSpecific'] = FALSE;
+    $sideContent['contactList']['viewSpecific'] = FALSE;
   }
 
   $variables['formRequirements'] = $formRequirements;
@@ -2253,7 +2253,7 @@ function mass_theme_preprocess_node_event(&$variables) {
     $sideContent['contactList'] = Organisms::prepareContactList($node, $sidebarContacts_options);
     unset($sideContent['contactList']['compHeading']);
     $sideContent['contactList']['sidebarHeading']['title'] = t('Contact');
-    $sidebar['contactList']['viewSpecific'] = TRUE;
+    $sideContent['contactList']['viewSpecific'] = TRUE;
   }
 
   // Build related links section, if field is populated.
@@ -2341,21 +2341,23 @@ function mass_theme_preprocess_node_service_page(&$variables) {
   // Prepare the introduction sidebar.
   $intro_sidebar = [];
 
-  // Prepare the option array for the service logo widget.
-  $serviceImage_options = [
-    'style' => 'organization_logo',
-    'height' => '',
-    'width' => 230,
-  ];
-
-  // Prepare the service logo, if the logo field is populated.
-  if ($service_logo = Atoms::prepareImage($node, $serviceImage_options)) {
-    $intro_sidebar['logo'] = $service_logo;
-  }
-
   // Prepare the sidebar social media widget.
   if (Helper::isFieldPopulated($node, 'field_services_social_links')) {
     $intro_sidebar['social'] = array_merge(Atoms::prepareSidebarHeading(t('Social')), Molecules::prepareIconLinks($node));
+  }
+
+  // Build Offered By links section, if field is populated.
+  if (Helper::isFieldPopulated($node, 'field_service_offered_by')) {
+    // Set up options for link list.
+    $linkList_options = [
+      'heading' => [
+        'type' => 'sidebarHeading',
+        'title' => t('Offered By'),
+      ],
+      'stacked' => TRUE,
+    ];
+
+    $intro_sidebar['linkList'] = Organisms::preparelinkList($node, 'field_service_offered_by', $linkList_options);
   }
 
   // Make the introSidebar data structure available in twig template.
@@ -2390,6 +2392,7 @@ function mass_theme_preprocess_node_service_page(&$variables) {
       'featuredHeading' => "",
       'generalHeading' => "",
       'hideFilter' => TRUE,
+      'maxItems' => 6,
     ];
 
     // Create the field map for this action finder.
@@ -2485,6 +2488,7 @@ function mass_theme_preprocess_node_service_page(&$variables) {
         'type' => 'sidebarHeading',
         'title' => t('Additional Resources'),
       ],
+      'maxItems' => 6,
     ];
 
     $split_columns['columns'][]['items'][] =
@@ -2758,14 +2762,6 @@ function mass_theme_preprocess_node_news(&$variables) {
           'data' => [
             'rawHtml' => [
               'content' => $body,
-            ],
-          ],
-        ],
-        [
-          'path' => '@atoms/11-text/paragraph.twig',
-          'data' => [
-            'paragraph' => [
-              'text' => '###',
             ],
           ],
         ],
@@ -5437,5 +5433,66 @@ function mass_theme_theme_suggestions_textarea_alter(array &$suggestions, array 
   // Contact form is used for 'Flagging' functionality in mass_flagging module.
   if ($variables['element']['#name'] == 'field_reason_flagged[0][value]') {
     $suggestions[] = 'textarea__mass_flagging';
+  }
+}
+
+/**
+ * Prepares variables for media templates.
+ *
+ * Default template: media.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - media: An individual media for display.
+ */
+function mass_theme_preprocess_media(array &$variables) {
+  $src = '';
+
+  if (isset($variables['elements']['field_media_video_embed_field'][0]['children']['#url'])) {
+    $src = $variables['elements']['field_media_video_embed_field'][0]['children']['#url'];
+
+    // Set static pageHeader properties to pass to prepare function.
+    $pageHeader_options = [
+      'category' => 'transcript',
+    ];
+
+    // Make pageBanner data object available in twig template.
+    $variables['pageHeader'] = Organisms::preparePageHeader($variables['elements']['#media'], $pageHeader_options);
+
+    $variables['video'] = [
+      'src' => $src,
+      'label' => Helper::fieldValue($variables['elements']['#media'], 'name'),
+      'width' => '',
+      'height' => '',
+      'link' => NULL,
+      'position' => '',
+    ];
+
+    $back_url = \Drupal::request()->server->get('HTTP_REFERER');
+    $current_path = \Drupal::service('path.current')->getPath();
+    global $base_url;
+
+    if (!empty($back_url) && $back_url != $base_url . $current_path) {
+      $variables['backButton'] = [
+        'link' => [
+          'href' => $back_url,
+          'text' => t('Back to previous page'),
+          'info' => t('Back to page about Blah'),
+        ],
+      ];
+    }
+
+    $variables['richText'] = [
+      'rteElements' => [
+        [
+          'path' => '@atoms/11-text/paragraph.twig',
+          'data' => [
+            'paragraph' => [
+              'text' => Helper::fieldValue($variables['elements']['#media'], 'field_video_description'),
+            ],
+          ],
+        ],
+      ],
+    ];
   }
 }

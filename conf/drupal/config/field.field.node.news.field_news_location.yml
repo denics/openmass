@@ -23,7 +23,7 @@ field_name: field_news_location
 entity_type: node
 bundle: news
 label: Location
-description: 'Please provide a location for this press release.'
+description: 'Please enter the dateline (location) for this press release'
 required: false
 translatable: false
 default_value: {  }

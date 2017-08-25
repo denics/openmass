@@ -5,12 +5,25 @@ dependencies:
   config:
     - field.storage.paragraph.field_video_id
     - paragraphs.paragraphs_type.video
+  module:
+    - geocoder_field
+third_party_settings:
+  geocoder_field:
+    method: none
+    field: parent_id
+    plugins: {  }
+    dumper: wkt
+    delta_handling: default
+    failure:
+      handling: preserve
+      status_message: true
+      log: true
 id: paragraph.video.field_video_id
 field_name: field_video_id
 entity_type: paragraph
 bundle: video
 label: 'Video ID'
-description: 'The video ID is usually a string of characters after the equal sign.  For example, for the link https://www.youtube.com/watch?v=dQw4w9WgXcQ, <b>dQw4w9WgXcQ</b> would be the ID.'
+description: 'The video ID is usually a string of characters after the equal sign. For example, for the link https://www.youtube.com/watch?v=kaKFWNNvWh0, <strong>kaKFWNNvWh0</strong> would be the ID.'
 required: true
 translatable: false
 default_value: {  }

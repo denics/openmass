@@ -6,7 +6,7 @@ use Drupal\Core\Cache\CacheableDependencyInterface;
 use Drupal\rest\Plugin\views\style\Serializer;
 
 /**
- * The style plugin for serialized output formats using Project Open Data v1.1 format.
+ * Plugin for serialized output formats using Project Open Data v1.1 format.
  *
  * @ingroup views_style_plugins
  *
@@ -23,37 +23,88 @@ class MassPODSerializer extends Serializer implements CacheableDependencyInterfa
    * {@inheritdoc}
    */
   public function render() {
+    /** @var \Drupal\views\ViewExecutable $view */
+    $view = $this->view;
     $rows = [];
     // If the Data Entity row plugin is used, this will be an array of entities
     // which will pass through Serializer to one of the registered Normalizers,
     // which will transform it to arrays/scalars. If the Data field row plugin
     // is used, $rows will not contain objects and will pass directly to the
     // Encoder.
-    foreach ($this->view->result as $row_index => $row) {
-      $this->view->row_index = $row_index;
-      $rows[] = $this->view->rowPlugin->render($row);
+    foreach ($view->result as $row_index => $row) {
+      $view->row_index = $row_index;
+      $rows[] = $view->rowPlugin->render($row);
     }
-    unset($this->view->row_index);
+    $view->row_index = NULL;
 
-    // Get the content type configured in the display or fallback to the
-    // default.
-    if ((empty($this->view->live_preview))) {
-      $content_type = $this->displayHandler->getContentType();
-    }
-    else {
-      $content_type = !empty($this->options['formats']) ? reset($this->options['formats']) : 'json';
+    // Get the format configured in the display or fallback to the default.
+    $format = !empty($this->options['formats']) ? reset($this->options['formats']) : 'json';
+    if (empty($view->live_preview)) {
+      $format = $this->displayHandler->getContentType();
     }
 
-    $rows = [
+    global $base_root;
+    /** @var \Drupal\views\ViewExecutable $view_executable */
+    $view_executable = $this->view->storage->getExecutable();
+    $data = [
       '@context' => 'https://project-open-data.cio.gov/v1.1/schema/catalog.jsonld',
-      '@id' => 'http://mass.gov/data.json',
+      '@id' => $base_root . '/' . str_replace('%taxonomy_term', $view_executable->args[0], $view->displayHandlers->getConfiguration()['rest_export_documents_by_contributor']['display_options']['path']),
       '@type' => 'dcat:Catalog',
       'conformsTo' => 'https://project-open-data.cio.gov/v1.1/schema',
       'describedBy' => 'https://project-open-data.cio.gov/v1.1/schema/catalog.json',
-      'dataset' => $rows
+      'dataset' => $rows,
     ];
 
-    return $this->serializer->serialize($rows, $content_type, ['views_style_plugin' => $this]);
+    return $this->serializer->serialize($data, $format, $this->getContext());
+  }
+
+  /**
+   * Return the context with all fields needed in the normalizer.
+   *
+   * @return array
+   *   The context values.
+   */
+  private function getContext() {
+    return [
+      'views_style_plugin' => $this,
+      'included_fields' => [
+        'field_title',
+        'field_description',
+        'field_contributing_organization',
+        'field_public_access_level',
+        'field_contact_name',
+        'field_contact_information',
+        'field_publishing_frequency',
+        'field_license',
+        'field_start_date',
+        'field_end_date',
+        'field_geographic_place',
+        'field_language',
+        'field_subjects',
+        'field_tags',
+        'field_rights',
+        'field_data_dictionary',
+        'field_conform',
+        'field_system_of_records',
+        'field_data_quality',
+        'modified',
+        'created',
+        'uuid',
+        'field_alternative_title',
+        'field_creator',
+        'field_content_type',
+        'field_additional_info',
+        'field_link_related_content',
+        'field_internal_notes',
+        'field_part_of',
+        'field_oclc_number',
+        'field_upload_file',
+        'field_link_classic_massgov',
+        'field_file_migration_id',
+        'field_checksum',
+        'field_other_license_url',
+      ],
+    ];
   }
 
 }

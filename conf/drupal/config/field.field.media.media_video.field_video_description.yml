@@ -1,0 +1,33 @@
+uuid: f2a63a7d-c326-4b18-8e73-9383f32e8354
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.media.field_video_description
+    - media_entity.bundle.media_video
+  module:
+    - geocoder_field
+    - text
+third_party_settings:
+  geocoder_field:
+    method: none
+    field: name
+    plugins: {  }
+    dumper: wkt
+    delta_handling: default
+    failure:
+      handling: preserve
+      status_message: true
+      log: true
+id: media.media_video.field_video_description
+field_name: field_video_description
+entity_type: media
+bundle: media_video
+label: 'Transcript and Video Description'
+description: 'Provide the transcript of the video and also describe anything that is shown in the video, spoken or printed on the screen.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

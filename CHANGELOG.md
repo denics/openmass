@@ -11,10 +11,32 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 ### Removed
 
+## [0.31.0] - August 24, 2017
+
+### Added
+- DP-4590 - Add new field_video ('Video') entity reference to Video Paragraph (Inline Entity Form widget). This references a Video bundle. Add new field_video_description ('Transcript and Video Description') Text field to Video bundle. Add new, themed, media--media-video.html.twig template.
+- DP-4719 - Add short description to service page front-end.
+- DP-4584 - Adds custom metatags for parent topic on service pages, news type and date on news, advisory type on advisory pages, decision type on decision pages and date on regulation pages.
+
+### Changed
+- DP-4518 - Updates node--event.html.twig. Adds sideContent.contactList blocks so Contact information displays on narrow screens. Updates variable name from $sidebar to $sideContent.
+- DP-4764 - Change service page to allow unlimited key information links and additional resources links
+- DP-4441 - Users will notice various updates to field labels and help text throughout the Event content type.
+- DP-4558 - Users will notice updated help text for various fields of the News content type (used for Speeches, Announcements, Press Releases, and Press statements).
+- DP-5004 - Enables moderation for Advisory, Decision, Executive order, Legacy redirects.
+- DP-4936 - Adjust ### to only show once and only if News type Press Release is selected.
+- DP-2220 - Fixed the bullet lists under the "What you need" section on the How-To pages to become checkboxes when printing the page.
+- DP-4314 - Updates to Service Page sidebar, logo, offered by
+- MPRR-409 - Users will notice that within 24 hours from this release, there will be around 155K documents migrated from legacy Mass.gov servers which can now be added as downloads, additional resources, etc. to new Mass.gov content. Developers will notice that these migrated files and any newly attached files are now organized by year and month.
+- MPRR-489 - On Documents, the "License" field now has an additional field for a License URL, so licenses that use "Other" can specify a URL to make a complete data feed to the Document Repository.
+- MPRR-457 - Added all new fields from Document to the data.json output like /api/v1/3111/data.json, so all metadata about documents can be imported to Document Repository for archiving.
+
+### Removed
+
 ## [0.30.1] - August 21, 2017
 
 ### Added
-- DP-4507 - Adds options to organization page to allow editors and authors to feature 2 news items on an org page and display a list of up to the next 6 most recent news items related to the given organization. 
+- DP-4507 - Adds options to organization page to allow editors and authors to feature 2 news items on an org page and display a list of up to the next 6 most recent news items related to the given organization.
 - DP-4224 - Add permissions for content administrators and developers to create url redirects
 - Added a new field, More Info Link (field_contact_more_info_link) to Contact Information content type, back end only will not display on the front end yet.
 
@@ -22,6 +44,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - DP-4883 - Update signees field on news content type to pull stored image URI for ('Url To Image') from field_bg_wide to field_sub_brand on the organization content type.
 - DP-4443 - Updates location details content type name to "Location detail". Changes cardinality on "field_location_details_links_5" and adds custom validation to limit the number of related items to 5.
 - DP-4345 - Allows multiple contacts to location content types. Changes cardinality on field_ref_contact_info on location ct.
+- Content authors and editors can no longer see "Regulation Page" content type as an option to create new content.
+- DP-4533 - Resolves error on event pages, when referenced contact information node in address field does not have an address.
+- DP-4518 - Updates node--event.html.twig. Adds sideContent.contactList blocks so Contact information displays on narrow screens. Updates variable name from $sidebar to $sideContent.
+- DP-4557 Changed signees field on news content type to show both external and state org buttons so that users can better find the choice to pick internal state organization.
 - DP-4557 - Changed signees field on news content type to show both external and state org buttons so that users can better find the choice to pick internal state organization.
 - DP-4781 - Update flag form to use clearer text on what is actually occurring when submitting a form.
 - DP-4592 - Add the more info link field to the Contact information content type, which enables authors to add an organization, location or service page.
@@ -65,6 +91,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 ### Changed
 - Update Flag Content form to make it more clear to users on what it does.
 - Updates timestamp used within the body of Watch emails.
+- DP-4938 - Make Listing Description an optional field in News content type.
+- DP-4879 - Remove contact icon and label is contact value does not exist.
 
 ### Removed
 - DP-5080 - Disable Watch notifications in lower environments.
@@ -97,6 +125,7 @@ Follow post deploy steps listed in the PR (https://github.com/massgov/mass/pull/
 
 ### Changed
 - DP-4416 - Changed label on "Related Parks" to "Related Locations"
+- DP-5004 - Enables moderation for Advisory, Decision, Executive order, Legacy redirects.
 - DP-4305 - Removes Inline Form Errors error message from the username field to replace the default invalid login message at top of the user login page.
 - Updated capitalization of "Next Steps" and "More Info" in header/jump menu on How-to pages
 - Fix bug where pages with no table data (i.e. How-To's with no fees) were not loading.

@@ -138,32 +138,6 @@ function _mass_validation_form_node_service_page_form_validate(array &$form, For
   _mass_link_validate($form_state, 'field_service_key_info_links_6');
 
   $num_links = 0;
-  // Validate that the Links and Downloads fields
-  // have no more than 6 values between them.
-  if ($form_state->hasValue('field_service_links') || $form_state->hasValue('field_service_file')) {
-    // Count the links.
-    $links = $form_state->getValue('field_service_links');
-    foreach ($links as $link) {
-      if (is_array($link)) {
-        if (!empty($link['uri'])) {
-          $num_links += 1;
-        }
-      }
-    }
-    // Count the documents.
-    $docs = $form_state->getValue('field_service_file');
-    $num_docs = 0;
-    if (!empty($docs['entities'])) {
-      $num_docs = count($docs['entities']);
-    }
-    // Throw an error is there are more than 6.
-    if (($num_links + $num_docs) > 6) {
-      $form_state->setErrorByName('field_service_links', t('You can only have max 6 values between the Links and Downloads fields.'));
-      $form_state->setErrorByName('field_service_file', t('You can only have max 6 values between the Links and Downloads fields.'));
-    }
-  }
-
-  $num_links = 0;
   // Validate that All tasks fields.
   // have no more than 12 values between them.
   if ($form_state->hasValue('field_service_ref_actions')) {
@@ -218,6 +192,7 @@ function mass_validation_form_node_service_details_edit_form_alter(&$form, FormS
  */
 function _mass_validation_form_node_service_details_form_validate(array &$form, FormStateInterface $form_state) {
   // Verify links have titles.
+  _mass_link_validate_paragraph($form_state, 'field_service_detail_sections', ['field_section_links', 'field_section_key_actions']);
   _mass_link_validate_paragraph($form_state, 'field_service_detail_sections', ['field_section_links', 'field_section_key_actions']);
   _mass_link_validate($form_state, 'field_service_detail_links_5');
 

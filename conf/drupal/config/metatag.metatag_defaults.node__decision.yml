@@ -5,6 +5,7 @@ dependencies: {  }
 id: node__decision
 label: 'Content: Decision'
 tags:
+  mass_metatag_type: '[node:field_decision_ref_type:entity:name]'
   description: '[node:field_decision_overview]'
   og_description: '[node:field_decision_overview]'
   twitter_cards_description: '[node:field_decision_overview]'

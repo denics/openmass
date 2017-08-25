@@ -23,7 +23,7 @@ field_name: field_event_lede
 entity_type: node
 bundle: event
 label: 'Listing Description'
-description: 'This is a short summary of your event that will be used in previews, listings and on social sites.'
+description: 'This is a short summary of your event that will be used in previews, listings, and on social media sites.'
 required: false
 translatable: false
 default_value: {  }

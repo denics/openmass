@@ -4,4 +4,5 @@ description: Mass.gov serializer for RESTful views for OSDM
 core: 8.x
 package: Custom
 dependencies:
-  - node
+  - media_entity
+  - media_entity_document
