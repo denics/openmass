@@ -24,19 +24,3 @@ function mass_utility_post_update_address_field() {
     // $node->save();
   }
 }
-
-/**
- * Fixes missing ma__checklist class on ul tags for how-to nodes.
- */
-function mass_utility_post_update_what_you_need_field() {
-  $nids = \Drupal::entityQuery('node')
-    ->condition('type', 'how_to_page')
-    ->execute();
-  $storage = \Drupal::entityTypeManager()->getStorage('node');
-  $nodes = $storage->loadMultiple($nids);
-  /** @var \Drupal\node\Entity\Node $node */
-  // This only adds the class to any ul in field_how_to_what_you_need field.
-  foreach ($nodes as $node) {
-    $node->save();
-  }
-}
