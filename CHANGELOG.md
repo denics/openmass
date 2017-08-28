@@ -4,6 +4,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 
 ## Upcoming (add in progress changes here)
+DP-5235 - Change the Featured Topics field on Org Pages to allow adding pages of the type 'Topic Page' rather than the old, no longer used 'Topic' content type.
 
 ### Added
 
