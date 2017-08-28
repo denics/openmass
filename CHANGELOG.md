@@ -26,7 +26,7 @@ DP-5235 - Change the Featured Topics field on Org Pages to allow adding pages of
 - DP-4558 - Users will notice updated help text for various fields of the News content type (used for Speeches, Announcements, Press Releases, and Press statements).
 - DP-5004 - Enables moderation for Advisory, Decision, Executive order, Legacy redirects.
 - DP-4936 - Adjust ### to only show once and only if News type Press Release is selected.
-- DP-2220 - Fixed the bullet lists under the "What you need" section on the How-To pages to become checkboxes when printing the page.
+- DP-4879 - In a News item, if an author removes the phone number for a media contact, no header for the phone number appepars in the front end.
 - DP-4314 - Updates to Service Page sidebar, logo, offered by
 - MPRR-409 - Users will notice that within 24 hours from this release, there will be around 155K documents migrated from legacy Mass.gov servers which can now be added as downloads, additional resources, etc. to new Mass.gov content. Developers will notice that these migrated files and any newly attached files are now organized by year and month.
 - MPRR-489 - On Documents, the "License" field now has an additional field for a License URL, so licenses that use "Other" can specify a URL to make a complete data feed to the Document Repository.
