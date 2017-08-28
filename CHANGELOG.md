@@ -125,6 +125,7 @@ Follow post deploy steps listed in the PR (https://github.com/massgov/mass/pull/
 - Added notification message for users automatically added as content watchers.
 
 ### Changed
+- Updated release docs to reflect deploying tag command run from the VM.
 - DP-4416 - Changed label on "Related Parks" to "Related Locations"
 - DP-5004 - Enables moderation for Advisory, Decision, Executive order, Legacy redirects.
 - DP-4305 - Removes Inline Form Errors error message from the username field to replace the default invalid login message at top of the user login page.

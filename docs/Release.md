@@ -17,19 +17,18 @@ _Note: This assumes that your mass Vagrant VM is already setup and functioning a
 1. Run `drush ma-deploy test <release branch>` which will perform the following operations on `Stage`: Switch code to this release branch, update the database, load the configuration and clear cache.
 1. Verify the release notes against the `Stage` environment. This is a quick smoke test for each new feature/improvement/fix rather than a thorough test.
 1. Verify the most critical functionality still works, i.e. smoke test. (Note: This has yet to be defined by the Mass.gov Product Owner. After defined, document this list and include/link-to here.)
-1. Open a GitHub Pull Request to merge the release branch into the `master` branch and merge the code.
-1. Wait for CircleCI to run successfully against the `master` branch. When it is done, it'll update `master` in Acquia Git. Note: If the CircleCI run fails, it will not push an updated `master` to Acquia Git.
-1. In Acquia's git repo, tag `master` with name of this release. We don't tag at Github anymore.
-  * use an existing clone or `git clone massgov@svn-20994.prod.hosting.acquia.com:massgov.git massgov-acquia`
-  * `cd massgov-acquia`
-  * `git checkout master`
-  * `git pull`
-  * `git tag [release-name]`
-  * `git push origin tag [release-name]`
+1. Open a GitHub Pull Request to merge the release branch into the `master` branch. Have a peer do the merge unless it's an emergency and you can't find an available peer.
+1. In a clone of Acquia's git repo, tag `master` with name of this release. We don't tag at Github anymore.
+    1. use an existing clone or `git clone massgov@svn-20994.prod.hosting.acquia.com:massgov.git massgov-acquia`
+    1. `cd massgov-acquia`
+    1. `git checkout master`
+    1. `git pull`
+    1. `git tag <release-name>`
+    1. `git push origin tag <release-name>`
 1. Backup the `Prod` database. This can be done from the Acquia Cloud web interface by clicking into the `Prod` environment, then clicking Backup in the Database card.
+1. Go back to your clone of the `massgov/mass` repo, make sure your ssh'd into the VM and are in the `/var/www/mass.local` directory.
 1. Deploy the release tag to `Prod` by running `drush ma-deploy prod tags/<tag name>`.
 1. Type `y` to confirm that you are deploying to production.
-1. Login to the mass Vagrant VM and go to `cd /var/www/mass.local`.
 1. Run `ma-clear-cache`.
 1. Clear the Varnish cache by logging into the Acquia Cloud web interface for the [`massgov (ACE)`](https://cloud.acquia.com/app/develop/applications/ff8ed1de-b8bc-48a4-b316-cd91bfa192c4) application.
 1. Click on `Prod`.
