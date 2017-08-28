@@ -4,6 +4,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 
 ## Upcoming (add in progress changes here)
+DP-5154 - Add a view that allows the Content team to see a list of Legacy Redirects and related info about them.
 DP-5235 - Change the Featured Topics field on Org Pages to allow adding pages of the type 'Topic Page' rather than the old, no longer used 'Topic' content type.
 
 ### Added
@@ -15,6 +16,7 @@ DP-5235 - Change the Featured Topics field on Org Pages to allow adding pages of
 ## [0.31.0] - August 24, 2017
 
 ### Added
+- DP-5154 Create a view visible to content administrators with 2 displays (to show or export) redirects of content, filterable by environment, Top content, title and user org. Visible at admin/redirects-data and admin/redirects-data-export.csv.
 - DP-4590 - Add new field_video ('Video') entity reference to Video Paragraph (Inline Entity Form widget). This references a Video bundle. Add new field_video_description ('Transcript and Video Description') Text field to Video bundle. Add new, themed, media--media-video.html.twig template.
 - DP-4719 - Add short description to service page front-end.
 - DP-4584 - Adds custom metatags for parent topic on service pages, news type and date on news, advisory type on advisory pages, decision type on decision pages and date on regulation pages.
