@@ -2511,6 +2511,7 @@ function mass_theme_preprocess_node_service_page(&$variables) {
  */
 function mass_theme_preprocess_node_service_details(&$variables) {
   $node = $variables['node'];
+  $numOfSections = 1;
 
   $taxonomy_terms = [];
 
@@ -2566,8 +2567,19 @@ function mass_theme_preprocess_node_service_details(&$variables) {
   $pageContent = [];
   $sideBar = [];
 
+  if (Helper::isFieldPopulated($node, 'field_service_detail_overview')) {
+    // Set up rich text elements for what you need.
+    $pageContent[$numOfSections]['richText'] = [
+      'rteElements' => [
+        Atoms::prepareRawHtml($node, ['field' => 'field_service_detail_overview']),
+      ],
+    ];
+
+    $numOfSections++;
+  }
+
   foreach ($node->$fields['sections'] as $index => $section) {
-    $variables['numOfSections'] = ++$index;
+
     $sectionEntity = $section->entity;
 
     // Create the map of the field names to use.
@@ -2584,7 +2596,7 @@ function mass_theme_preprocess_node_service_details(&$variables) {
     $field = Helper::getMappedFields($sectionEntity, $map_ref);
 
     if (Helper::isFieldPopulated($sectionEntity, $field['video_id']) && Helper::isFieldPopulated($sectionEntity, $field['video_source'])) {
-      $pageContent[$index]['video'] = [
+      $pageContent[$numOfSections]['video'] = [
         'src' => '//www.' . $sectionEntity->$field['video_source']->value . '.com/embed/' . $sectionEntity->$field['video_id']->value,
       ];
     }
@@ -2593,12 +2605,12 @@ function mass_theme_preprocess_node_service_details(&$variables) {
       $compHeading_options = [
         'title' => Helper::fieldValue($sectionEntity, $field['title']),
       ];
-      $pageContent[$index]['title'] = Atoms::prepareCompHeading($compHeading_options);
+      $pageContent[$numOfSections]['title'] = Atoms::prepareCompHeading($compHeading_options);
     }
 
     if (Helper::isFieldPopulated($sectionEntity, $field['body'])) {
       // Set up rich text elements for what you need.
-      $pageContent[$index]['richText'] = [
+      $pageContent[$numOfSections]['richText'] = [
         'rteElements' => [
           Atoms::prepareRawHtml($sectionEntity, ['field' => 'field_section_body']),
         ],
@@ -2614,11 +2626,13 @@ function mass_theme_preprocess_node_service_details(&$variables) {
           'sub' => TRUE,
         ],
       ];
-      $pageContent[$index]['formDownloads'] = Organisms::prepareFormDownloads($sectionEntity, $downloadLinks_options);
+      $pageContent[$numOfSections]['formDownloads'] = Organisms::prepareFormDownloads($sectionEntity, $downloadLinks_options);
     }
+    $numOfSections++;
   }
 
   // Make pageContent data structure available in template.
+  $variables['numOfSections'] = $numOfSections;
   $variables['pageContent'] = $pageContent;
 
   // Build related links section, if field is populated.
