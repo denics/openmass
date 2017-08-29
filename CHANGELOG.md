@@ -4,6 +4,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 
 ## Upcoming (add in progress changes here)
+DP-5286 - Add permissions to allow users with the Tester role to add and edit Regulation pages.
 DP-5154 - Add a view that allows the Content team to see a list of Legacy Redirects and related info about them.
 DP-5235 - Change the Featured Topics field on Org Pages to allow adding pages of the type 'Topic Page' rather than the old, no longer used 'Topic' content type.
 
