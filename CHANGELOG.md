@@ -30,9 +30,10 @@ DP-5235 - Change the Featured Topics field on Org Pages to allow adding pages of
 - DP-5268 - Display short description on front end of News pages.
 - DP-5286 - Add permissions to allow users with the Tester role to add and edit Regulation pages.
 - DP-3872 - Display overview field on front end of Service Detail pages.
-- DP-5154 - Add a view that allows the Content team to see a list of Legacy Redirects and related info about them. 
+- DP-5154 - Add a view that allows the Content team to see a list of Legacy Redirects and related info about them.
 - DP-5020 - Updated Event Associated pages (formerly Parent) to allow Decision, News, Advisory, Regulation and Executive Order entities.
 - DP-3631 - Added upcoming events to Locations.
+- DP-4895 - Add `path_redirect_import` Drupal module to facilitate legacy redirects import in bulk from a csv file.
 
 ### Changed
 
