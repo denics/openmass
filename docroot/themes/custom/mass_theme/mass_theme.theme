@@ -797,34 +797,10 @@ function mass_theme_preprocess_node_org_page(&$variables) {
     ];
   }
 
-  // Get events associated with this org page from view.
-  $view_results = views_get_view_result('event_listing', 'event_listing_block', $node->id());
+  // Gather events associated with this node.
+  $events = Helper::prepareEvents($node);
 
-  if (!empty($view_results)) {
-    $events = [];
-    // Roll up link field.
-    foreach ($view_results as $key => $row) {
-      $eventEntity = $row->_relationship_entities['reverse__node__field_event_ref_parents'];
-
-      // Create the map of all possible field names to use.
-      $event_map = [
-        'date' => ['field_event_date'],
-        'time' => ['field_event_time'],
-        'lede' => ['field_event_lede'],
-        'tags' => ['field_event_ref_parents'],
-        'links' => ['field_event_links'],
-        'image' => ['field_event_image'],
-        'logo' => ['field_event_logo'],
-        'downloads' => ['field_event_ref_downloads'],
-        'contact' => ['field_event_contact_general'],
-      ];
-
-      // Determines which field names to use from the map.
-      $event_fields = Helper::getMappedFields($eventEntity, $event_map);
-      $headerDate_options = [];
-      $events[] = Molecules::prepareEventTeaser($eventEntity, $event_fields, $headerDate_options);
-    }
-
+  if (!empty($events)) {
     $sections[] = [
       'pageContent' => [
         [
@@ -841,18 +817,6 @@ function mass_theme_preprocess_node_org_page(&$variables) {
         ],
       ],
     ];
-  }
-
-  // Build related links section, if field is populated.
-  if (Helper::isFieldPopulated($node, 'field_event_ref_event_2')) {
-    // Set up options for contact list.
-    $eventList_options = [
-      'heading' => [
-        'title' => t('Related Events'),
-        'centered' => TRUE,
-      ],
-    ];
-    $bottomContent['eventListing'] = Organisms::prepareEventListing($node, 'field_event_ref_event_2', $eventList_options);
   }
 
   $variables['stackedRowSections'] = $sections;
@@ -959,6 +923,8 @@ function mass_theme_preprocess_node_location(&$variables) {
 
   // Prepare the sidebarContact data object.
   $variables['sidebarContact'] = Organisms::prepareSidebarContact($node, $sidebarContacts_options);
+
+  $variables['eventListing'] = Organisms::prepareSidebarEvents($node);
 }
 
 /**
@@ -1045,7 +1011,7 @@ function mass_theme_preprocess_node_topic_page(&$variables) {
  */
 function mass_theme_preprocess_node_executive_order(&$variables) {
   $node = $variables['node'];
-  $sidebar = [];
+  $sideContent = [];
 
   // Create the map of all possible field names to use.
   $map = [
@@ -1059,7 +1025,6 @@ function mass_theme_preprocess_node_executive_order(&$variables) {
     'meta_tags' => ['field_executive_order_metatags'],
     'overview' => ['field_executive_order_overview'],
     'links' => ['field_executive_order_related'],
-    'events' => ['field_executive_order_ev'],
     'organization' => ['field_executive_order_ref_org'],
   ];
 
@@ -1209,18 +1174,8 @@ function mass_theme_preprocess_node_executive_order(&$variables) {
     $sideContent['pressListing'] = Organisms::preparePressListing($node, $fields['links'], $pressListing_options);
   }
 
-  // Build related links section, if field is populated.
-  if (Helper::isFieldPopulated($node, $fields['events'])) {
-    // Set up options for contact list.
-    $eventList_options = [
-      'heading' => [
-        'type' => 'sidebarHeading',
-        'title' => t('Upcoming Events'),
-      ],
-      'sidebarDate' => TRUE,
-    ];
-    $sideContent['eventListing'] = Organisms::prepareEventListing($node, $fields['events'], $eventList_options);
-  }
+  // Prepare any referenced events for sidebar.
+  $sideContent['eventListing'] = Organisms::prepareSidebarEvents($node);
 
   $variables['mainContent'] = $mainContent;
   $variables['sideContent'] = $sideContent;
@@ -1233,8 +1188,8 @@ function mass_theme_preprocess_node_executive_order(&$variables) {
  */
 function mass_theme_preprocess_node_decision(&$variables) {
   $node = $variables['node'];
-  $sidebar = [];
   $category = '';
+  $sideContent = [];
 
   // Create the map of all possible field names to use.
   $map = [
@@ -1251,7 +1206,6 @@ function mass_theme_preprocess_node_decision(&$variables) {
     'links' => ['field_decision_related'],
     'sections' => ['field_decision_section'],
     'category' => ['field_decision_ref_type'],
-    'events' => ['field_decision_upcoming_ev'],
     'footnotes' => ['field_decision_footnotes'],
   ];
 
@@ -1530,18 +1484,8 @@ function mass_theme_preprocess_node_decision(&$variables) {
     $sideContent['pressListing'] = Organisms::preparePressListing($node, $fields['links'], $pressListing_options);
   }
 
-  // Build related links section, if field is populated.
-  if (Helper::isFieldPopulated($node, $fields['events'])) {
-    // Set up options for contact list.
-    $eventList_options = [
-      'heading' => [
-        'type' => 'sidebarHeading',
-        'title' => t('Upcoming Events'),
-      ],
-      'sidebarDate' => TRUE,
-    ];
-    $sideContent['eventListing'] = Organisms::prepareEventListing($node, $fields['events'], $eventList_options);
-  }
+  // Prepare any referenced events for sidebar.
+  $sideContent['eventListing'] = Organisms::prepareSidebarEvents($node);
 
   $variables['sections'] = $sections;
   $variables['mainContent'] = $mainContent;
@@ -1558,8 +1502,8 @@ function mass_theme_preprocess_node_regulation(&$variables) {
   $category = '';
   $headerTags = '';
   $publish_state = NULL;
-  $sidebar = [];
   $listingTable = [];
+  $sideContent = [];
 
   // Create the map of all possible field names to use.
   $map = [
@@ -1764,6 +1708,9 @@ function mass_theme_preprocess_node_regulation(&$variables) {
     $sideContent['pressListing'] = Organisms::preparePressListing($node, $fields['links'], $pressListing_options);
   }
 
+  // Prepare any referenced events for sidebar.
+  $sideContent['eventListing'] = Organisms::prepareSidebarEvents($node);
+
   $variables['sections'] = $sections;
   $variables['mainContent'] = $mainContent;
   $variables['sideContent'] = $sideContent;
@@ -1778,8 +1725,8 @@ function mass_theme_preprocess_node_advisory(&$variables) {
   $node = $variables['node'];
   $category = '';
   $publish_state = NULL;
-  $sidebar = [];
   $listingTable = [];
+  $sideContent = [];
 
   // Create the map of all possible field names to use.
   $map = [
@@ -1795,7 +1742,6 @@ function mass_theme_preprocess_node_advisory(&$variables) {
     'links' => ['field_advisory_links'],
     'sections' => ['field_advisory_section'],
     'category' => ['field_advisory_type_tax'],
-    'events' => ['field_advisory_ref_events'],
     'footnotes' => ['field_advisory_footnotes'],
   ];
 
@@ -2024,18 +1970,8 @@ function mass_theme_preprocess_node_advisory(&$variables) {
     $sideContent['pressListing'] = Organisms::preparePressListing($node, $fields['links'], $pressListing_options);
   }
 
-  // Build related links section, if field is populated.
-  if (Helper::isFieldPopulated($node, $fields['events'])) {
-    // Set up options for contact list.
-    $eventList_options = [
-      'heading' => [
-        'type' => 'sidebarHeading',
-        'title' => t('Upcoming Events'),
-      ],
-      'sidebarDate' => TRUE,
-    ];
-    $sideContent['eventListing'] = Organisms::prepareEventListing($node, $fields['events'], $eventList_options);
-  }
+  // Prepare any referenced events for sidebar.
+  $sideContent['eventListing'] = Organisms::prepareSidebarEvents($node);
 
   $variables['sections'] = $sections;
   $variables['mainContent'] = $mainContent;
@@ -2422,36 +2358,9 @@ function mass_theme_preprocess_node_service_page(&$variables) {
     $variables['mappedLocations'] = Organisms::prepareMappedLocations($node->field_service_ref_locations->referencedEntities(), $mappedLocations_options);
   }
 
-  // Get events associated with this service page from view.
-  $view_results = views_get_view_result('event_listing', 'event_listing_block', $node->id());
-
-  if (!empty($view_results)) {
-    $events = [];
-    // Roll up link field.
-    foreach ($view_results as $key => $row) {
-      $eventEntity = $row->_relationship_entities['reverse__node__field_event_ref_parents'];
-
-      // Create the map of all possible field names to use.
-      $event_map = [
-        'date' => ['field_event_date'],
-        'time' => ['field_event_time'],
-        'lede' => ['field_event_lede'],
-        'tags' => ['field_event_ref_parents'],
-        'links' => ['field_event_links'],
-        'image' => ['field_event_image'],
-        'logo' => ['field_event_logo'],
-        'downloads' => ['field_event_ref_downloads'],
-        'contact' => ['field_event_contact_general'],
-      ];
-
-      // Determines which field names to use from the map.
-      $event_fields = Helper::getMappedFields($eventEntity, $event_map);
-      $headerDate_options = [
-        'title' => t('Upcoming Events'),
-      ];
-      $events[] = Molecules::prepareEventTeaser($eventEntity, $event_fields, $headerDate_options);
-    }
-    $variables['eventListing'] = Atoms::prepareCompHeading($headerDate_options);
+  $events = Helper::prepareEvents($node);
+  if (!empty($events)) {
+    $variables['eventListing'] = Atoms::prepareCompHeading(['title' => t('Upcoming Events')]);
     $variables['eventListing']['grid'] = 'true';
     $variables['eventListing']['events'] = $events;
   }
@@ -2910,6 +2819,9 @@ function mass_theme_preprocess_node_news(&$variables) {
 
     $sidebar['pressListing'] = Organisms::preparePressListing($node, $field['links'], $pressListing_options);
   }
+
+  // Prepare any referenced events for sidebar.
+  $sidebar['eventListing'] = Organisms::prepareSidebarEvents($node);
 
   $variables['pageContent'] = $pageContent;
   $variables['sidebar'] = $sidebar;

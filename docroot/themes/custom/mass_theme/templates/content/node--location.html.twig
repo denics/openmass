@@ -21,13 +21,18 @@
 {% endblock %}
 
 {% block sidebar %}
-  {% if quickActions %}
-    {% include "@organisms/by-author/quick-actions.twig" %}
-  {% endif %}
-  {% if sidebarContact %}
-    {% include "@organisms/by-author/sidebar-contact.twig" %}
-  {% endif %}
-  {# include "@organisms/by-author/sidebar-widget.twig" #}
+  <aside class="sidebar sidebar--colored">
+    {% if quickActions %}
+      {% include "@organisms/by-author/quick-actions.twig" %}
+    {% endif %}
+    {% if sidebarContact %}
+      {% include "@organisms/by-author/sidebar-contact.twig" %}
+    {% endif %}
+    {% if eventListing %}
+      {% include "@organisms/by-author/event-listing.twig" %}
+    {% endif %}
+    {# include "@organisms/by-author/sidebar-widget.twig" #}
+  </aside>
 {% endblock %}
 
 {% block postContent %}

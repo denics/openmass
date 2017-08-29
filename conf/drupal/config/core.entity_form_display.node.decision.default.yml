@@ -55,7 +55,6 @@ third_party_settings:
       children:
         - field_decision_ref_contact
         - field_decision_related
-        - field_decision_upcoming_ev
       parent_name: group_decision_edit_form
       weight: 2
       format_type: tab
@@ -155,7 +154,7 @@ content:
     type: string_textfield
     region: content
   field_decision_metatags:
-    weight: 26
+    weight: 4
     settings: {  }
     third_party_settings: {  }
     type: metatag_firehose
@@ -232,18 +231,9 @@ content:
     third_party_settings: {  }
     type: link_default
     region: content
-  field_decision_upcoming_ev:
-    weight: 7
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: entity_reference_autocomplete
-    region: content
   path:
     type: path
-    weight: 4
+    weight: 3
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -265,5 +255,6 @@ content:
     region: content
     third_party_settings: {  }
 hidden:
+  field_decision_upcoming_ev: true
   promote: true
   sticky: true

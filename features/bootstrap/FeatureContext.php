@@ -541,11 +541,6 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
             'tag' => 'select',
             'type' => '',
           ),
-          array (
-            'field' => 'field-advisory-ref-events',
-            'tag' => 'input',
-            'type' => 'text',
-          ),
         );
         break;
       case "regulation":
@@ -702,11 +697,6 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
             'field' => 'field-decision-ref-type',
             'tag' => 'select',
             'type' => '',
-          ),
-          array (
-            'field' => 'field-decision-upcoming-ev',
-            'tag' => 'input',
-            'type' => 'text',
           ),
         );
         break;
@@ -1145,11 +1135,6 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
           ),
           array (
             'field' => 'field-executive-order-related',
-            'tag' => 'input',
-            'type' => 'text',
-          ),
-          array (
-            'field' => 'field-executive-order-ev',
             'tag' => 'input',
             'type' => 'text',
           ),

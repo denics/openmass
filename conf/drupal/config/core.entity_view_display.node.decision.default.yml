@@ -17,7 +17,6 @@ dependencies:
     - field.field.node.decision.field_decision_related
     - field.field.node.decision.field_decision_section
     - field.field.node.decision.field_decision_sources
-    - field.field.node.decision.field_decision_upcoming_ev
     - node.type.decision
   module:
     - datetime
@@ -151,18 +150,11 @@ content:
     third_party_settings: {  }
     type: link
     region: content
-  field_decision_upcoming_ev:
-    weight: 125
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
-    region: content
   links:
     weight: 100
     region: content
   workbench_moderation_control:
     weight: -20
     region: content
-hidden: {  }
+hidden:
+  field_decision_upcoming_ev: true

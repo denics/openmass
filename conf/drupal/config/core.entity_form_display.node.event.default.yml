@@ -73,7 +73,6 @@ third_party_settings:
     group_overview:
       children:
         - title
-        - field_event_ref_parents
         - field_event_lede
         - field_event_logo
         - field_event_time
@@ -103,6 +102,7 @@ third_party_settings:
       label: Contacts
     group_related:
       children:
+        - field_event_ref_parents
         - field_event_ref_event_2
       parent_name: group_event_edit_form
       weight: 24
@@ -255,7 +255,7 @@ content:
     type: inline_entity_form_complex
     region: content
   field_event_ref_event_2:
-    weight: 33
+    weight: -3
     settings:
       match_operator: CONTAINS
       size: 60

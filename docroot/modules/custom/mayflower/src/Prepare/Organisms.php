@@ -6,6 +6,7 @@ use Drupal\mayflower\Helper;
 use Drupal\Component\Utility\UrlHelper;
 use Drupal\taxonomy\Entity\Term;
 use Drupal\Core\Entity\ContentEntityInterface;
+use Drupal\node\Entity\Node;
 
 /**
  * Provides variable structure for mayflower organisms using prepare functions.
@@ -1632,6 +1633,45 @@ class Organisms {
     return [
       'steps' => $steps,
     ] + $heading;
+  }
+
+  /**
+   * Helper function to prepare sidebar theme events.
+   *
+   * @param Drupal\node\Entity\Node $entity
+   *   Node object.
+   * @param array $heading_options
+   *   If passed, will use heading with options used.
+   *
+   * @return array
+   *   Theme preprocess array.
+   */
+  public static function prepareSidebarEvents(Node $entity, array $heading_options = []) {
+    $return_array = [];
+
+    // Prepare data for upcoming events.
+    // Call a helper function to populate any relevent reference data.
+    $options = [
+      'sidebarDate' => TRUE,
+    ];
+    $event_data = Helper::prepareEvents($entity, $options);
+    if (!empty($event_data)) {
+      // Note: The event-listing.twig check for 'grid' only checks via ternary
+      // for a value, so the 'grid' array key cannot exist. Even setting it to
+      // 'false' triggers the check to be evaulated as true.
+      if (!empty($heading_options)) {
+        // ::buildHeading returns a keyed array of 'type' in options
+        // or compHeading as a default.
+        // At this point $return_array is null, so array_merge is unecessary,
+        // however it allows future updates to apply before the header.
+        $return_array = array_merge(Helper::buildHeading($heading_options), $return_array);
+      }
+      else {
+        $return_array['sidebarHeading']['title'] = t('Upcoming Events');
+      }
+      $return_array['events'] = $event_data;
+    }
+    return $return_array;
   }
 
 }

@@ -83,7 +83,6 @@ third_party_settings:
       children:
         - field_advisory_ref_contact
         - field_advisory_links
-        - field_advisory_ref_events
       parent_name: group_advisory_page_edit_form
       weight: 14
       format_type: tab
@@ -170,7 +169,7 @@ content:
     type: link_default
     region: content
   field_advisory_metatags:
-    weight: 26
+    weight: 4
     settings: {  }
     third_party_settings: {  }
     type: metatag_firehose
@@ -191,15 +190,6 @@ content:
     region: content
   field_advisory_ref_contact:
     weight: 31
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: entity_reference_autocomplete
-    region: content
-  field_advisory_ref_events:
-    weight: 33
     settings:
       match_operator: CONTAINS
       size: 60
@@ -266,5 +256,6 @@ content:
     region: content
     third_party_settings: {  }
 hidden:
+  field_advisory_ref_events: true
   promote: true
   sticky: true

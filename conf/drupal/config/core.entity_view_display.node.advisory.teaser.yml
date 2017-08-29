@@ -6,13 +6,13 @@ dependencies:
     - core.entity_view_mode.node.teaser
     - field.field.node.advisory.field_advisory_date
     - field.field.node.advisory.field_advisory_download
+    - field.field.node.advisory.field_advisory_footnotes
     - field.field.node.advisory.field_advisory_issuer
     - field.field.node.advisory.field_advisory_links
     - field.field.node.advisory.field_advisory_metatags
     - field.field.node.advisory.field_advisory_overview
     - field.field.node.advisory.field_advisory_publish_state_tax
     - field.field.node.advisory.field_advisory_ref_contact
-    - field.field.node.advisory.field_advisory_ref_events
     - field.field.node.advisory.field_advisory_ref_organization
     - field.field.node.advisory.field_advisory_ref_sources
     - field.field.node.advisory.field_advisory_section
@@ -28,9 +28,13 @@ content:
   links:
     weight: 100
     region: content
+  workbench_moderation_control:
+    weight: -20
+    region: content
 hidden:
   field_advisory_date: true
   field_advisory_download: true
+  field_advisory_footnotes: true
   field_advisory_issuer: true
   field_advisory_links: true
   field_advisory_metatags: true

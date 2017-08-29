@@ -4,16 +4,21 @@ status: true
 dependencies:
   config:
     - field.storage.node.field_event_ref_parents
+    - node.type.advisory
+    - node.type.decision
     - node.type.event
+    - node.type.executive_order
     - node.type.location
+    - node.type.news
     - node.type.org_page
+    - node.type.regulation
     - node.type.service_page
 id: node.event.field_event_ref_parents
 field_name: field_event_ref_parents
 entity_type: node
 bundle: event
-label: 'Parent page(s)'
-description: 'Please select the service, organization, or location page(s) where this event should appear.'
+label: 'Associated pages'
+description: 'Please select the page(s) where this event should appear. You may select any published Organization, Location, Decision, Advisory, Regulation or Executive order page.'
 required: true
 translatable: false
 default_value: {  }
@@ -22,8 +27,13 @@ settings:
   handler: 'default:node'
   handler_settings:
     target_bundles:
+      advisory: advisory
+      decision: decision
+      executive_order: executive_order
       location: location
+      news: news
       org_page: org_page
+      regulation: regulation
       service_page: service_page
     sort:
       field: _none

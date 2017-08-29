@@ -6,6 +6,8 @@ dependencies:
     - core.entity_view_mode.node.teaser
     - field.field.node.decision.field_decision_date
     - field.field.node.decision.field_decision_docket_number
+    - field.field.node.decision.field_decision_download
+    - field.field.node.decision.field_decision_footnotes
     - field.field.node.decision.field_decision_location
     - field.field.node.decision.field_decision_metatags
     - field.field.node.decision.field_decision_overview
@@ -16,8 +18,6 @@ dependencies:
     - field.field.node.decision.field_decision_related
     - field.field.node.decision.field_decision_section
     - field.field.node.decision.field_decision_sources
-    - field.field.node.decision.field_decision_upcoming_ev
-    - field.field.node.decision.field_decision_footnotes
     - node.type.decision
   module:
     - user

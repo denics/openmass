@@ -8,6 +8,7 @@ use Drupal\image\Entity\ImageStyle;
 use Drupal\mayflower\Prepare\Molecules;
 use Drupal\Core\Link;
 use Drupal\Core\Entity\ContentEntityInterface;
+use Drupal\node\Entity\Node;
 
 /**
  * Provides mayflower prepare functions with helper functions.
@@ -1171,6 +1172,48 @@ class Helper {
       }
     }
     return $links;
+  }
+
+  /**
+   * Helper function to return event data.
+   *
+   * @param Drupal\node\Entity\Node $entity
+   *   The Node object to pull event refs from.
+   * @param array $options
+   *   Display options to use in render.
+   *
+   * @return array
+   *   Events.
+   */
+  public static function prepareEvents(Node $entity, array $options = []) {
+
+    // Setup an array for the expected return data.
+    $return_data = [];
+
+    // Get events associated with this service page from view.
+    $view_results = views_get_view_result('event_listing', 'event_listing_block', $entity->id());
+    foreach ($view_results as $key => $row) {
+      $event_entity = $row->_relationship_entities['reverse__node__field_event_ref_parents'];
+
+      // Create the map of all possible field names to use.
+      $event_map = [
+        'date' => ['field_event_date'],
+        'time' => ['field_event_time'],
+        'lede' => ['field_event_lede'],
+        'tags' => ['field_event_ref_parents'],
+        'links' => ['field_event_links'],
+        'image' => ['field_event_image'],
+        'logo' => ['field_event_logo'],
+        'downloads' => ['field_event_ref_downloads'],
+        'contact' => ['field_event_contact_general'],
+        'location' => ['field_event_ref_contact'],
+      ];
+
+      // Determines which field names to use from the map.
+      $fields = Helper::getMappedFields($event_entity, $event_map);
+      $return_data[] = Molecules::prepareEventTeaser($event_entity, $fields, $options);
+    }
+    return $return_data;
   }
 
 }

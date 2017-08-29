@@ -72,6 +72,10 @@
         {% set pressListing = sidebar.pressListing %}
         {% include "@organisms/by-author/press-listing.twig" %}
       {% endif %}
+      {% if sidebar.eventListing %}
+        {% set eventListing = sidebar.eventListing %}
+        {% include "@organisms/by-author/event-listing.twig" %}
+      {% endif %}
     </aside>
   </div>
 {% endblock %}

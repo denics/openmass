@@ -1267,8 +1267,8 @@ class Molecules {
    */
   public static function prepareEventTeaser($entity, $fields, array $options = []) {
     $location = '';
-    if (isset($fields['contact']) && !empty($entity->$fields['contact']->entity)) {
-      $contentUsEntity = $entity->$fields['contact']->entity;
+    if (isset($fields['location']) && !empty($entity->$fields['location']->entity)) {
+      $contentUsEntity = $entity->$fields['location']->entity;
       if ($address = $contentUsEntity->field_ref_address->entity) {
         $location = Helper::fieldValue($address, 'field_address_text');
       }
@@ -1301,7 +1301,7 @@ class Molecules {
         'date' => [
           'summary' => \Drupal::service('date.formatter')->format($date, 'custom', 'F d, Y'),
         ],
-        'time' => !empty($entity->$fields['time']->value) ? Helper::fieldValue($entity, $fields['time']) : '',
+        'time' => !empty($entity->$fields['time']->value) ? Helper::fieldValue($entity, $fields['time']) : $time,
         'description' => !empty($entity->$fields['lede']->value) ? Helper::fieldValue($entity, $fields['lede']) : '',
       ];
     }
