@@ -1,0 +1,6 @@
+descendant_api_test:
+  title: 'Descendant API Test Page'
+  description: 'View the current representation of parent/child/descendant relationships of content.'
+  route_name: mass_content_api.descendant_controller_build
+  parent: system.admin_config_content
+  weight: 99

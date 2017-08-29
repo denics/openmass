@@ -1,0 +1,4 @@
+services:
+  descendant_manager:
+    class: Drupal\mass_content_api\DescendantManager
+    arguments: ['@entity_type.manager', '@database']

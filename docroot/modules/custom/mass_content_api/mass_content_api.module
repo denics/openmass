@@ -1,0 +1,65 @@
+<?php
+
+/**
+ * @file
+ * The module file for the Mass Content API module.
+ */
+
+use Drupal\Core\Entity\EntityInterface;
+
+/**
+ * Defines the table name this module utilizes.
+ */
+const DESCENDANT_TABLE = 'mass_content_api_descendants';
+
+/**
+ * Format descendant api return as a flat list.
+ */
+const MASS_CONTENT_API_FLAT = 'flat';
+
+/**
+ * Format descendant api return as a hierarchy with depth.
+ */
+const MASS_CONTENT_API_DEPTH = 'depth';
+
+/**
+ * Implements hook_node_update().
+ *
+ * When a node is updated, add a queue item to update relationships.
+ */
+function mass_content_api_node_update(EntityInterface $node) {
+  if ($node->isPublished()) {
+    mass_content_api_queue_relationship_update($node->id());
+  }
+}
+
+/**
+ * Implements hook_node_insert().
+ *
+ * When a node is inserted, add a queue item to update relationships.
+ */
+function mass_content_api_node_insert(EntityInterface $node) {
+  if ($node->isPublished()) {
+    mass_content_api_queue_relationship_update($node->id());
+  }
+}
+
+/**
+ * Implements hook_node_delete().
+ *
+ * When a node is deleted, add a queue item to update relationships.
+ */
+function mass_content_api_node_delete(EntityInterface $node) {
+  mass_content_api_queue_relationship_update($node->id());
+}
+
+/**
+ * Add an item to the descendant queue.
+ *
+ * @param int $node_id
+ *   The node id that should be used by the queue worker.
+ */
+function mass_content_api_queue_relationship_update($node_id) {
+  $queue = \Drupal::queue('mass_content_api_descendant_queue');
+  $queue->createItem((object) ['id' => $node_id]);
+}

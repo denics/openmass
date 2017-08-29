@@ -4,6 +4,26 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 
 ## Upcoming (add in progress changes here)
+DP-5235 - Change the Featured Topics field on Org Pages to allow adding pages of the type 'Topic Page' rather than the old, no longer used 'Topic' content type.
+
+### Added
+- The content api has been updated to list descendant nodes if they exist.
+
+### Changed
+
+### Removed
+
+## [0.31.0] - August 24, 2017
+
+### Added
+
+### Changed
+
+### Removed
+
+## [0.31.0] - August 24, 2017
+DP-5154 - Add a view that allows the Content team to see a list of Legacy Redirects and related info about them.
+DP-5235 - Change the Featured Topics field on Org Pages to allow adding pages of the type 'Topic Page' rather than the old, no longer used 'Topic' content type.
 
 ### Added
 - DP-4828 - Adds new entity reference to contact information on service detail content type, updated node--service-details.html.twig template, and configure Contact sidebar for Service Detail page.

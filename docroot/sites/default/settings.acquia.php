@@ -41,7 +41,9 @@ $cli = (php_sapi_name() == 'cli');
 if (!$cli && (isset($_ENV['AH_NON_PRODUCTION']) && $_ENV['AH_NON_PRODUCTION'])) {
   $username = 'massgov';
   $password = 'for the commonwealth';
-  if (!(isset($_SERVER['PHP_AUTH_USER']) && ($_SERVER['PHP_AUTH_USER']==$username && $_SERVER['PHP_AUTH_PW']==$password))) {
+  $is_oauth = strpos($_SERVER['REQUEST_URI'], '/oauth/token') !== FALSE;
+  $is_endpoint = strpos($_SERVER['REQUEST_URI'], '/api/v1/') !== FALSE;
+  if (!$is_oauth && !$is_endpoint && !(isset($_SERVER['PHP_AUTH_USER']) && ($_SERVER['PHP_AUTH_USER']==$username && $_SERVER['PHP_AUTH_PW']==$password))) {
     header('WWW-Authenticate: Basic realm="This site is protected"');
     header('HTTP/1.0 401 Unauthorized');
     // Fallback message when the user presses cancel / escape

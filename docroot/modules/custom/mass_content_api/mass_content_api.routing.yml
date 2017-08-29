@@ -1,0 +1,8 @@
+
+mass_content_api.descendant_controller_build:
+  path: '/admin/config/content/descendants'
+  defaults:
+    _controller: '\Drupal\mass_content_api\Controller\DescendantController::build'
+    _title: 'Descendants'
+  requirements:
+    _permission: 'view descendant api test pages'
