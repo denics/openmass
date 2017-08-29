@@ -21,6 +21,7 @@ DP-5235 - Change the Featured Topics field on Org Pages to allow adding pages of
 - DP-4590 - Add new field_video ('Video') entity reference to Video Paragraph (Inline Entity Form widget). This references a Video bundle. Add new field_video_description ('Transcript and Video Description') Text field to Video bundle. Add new, themed, media--media-video.html.twig template.
 - DP-4719 - Add short description to service page front-end.
 - DP-4584 - Adds custom metatags for parent topic on service pages, news type and date on news, advisory type on advisory pages, decision type on decision pages and date on regulation pages.
+- DP-5268 - Add display for short description to front end of News content type
 
 ### Changed
 - DP-4518 - Updates node--event.html.twig. Adds sideContent.contactList blocks so Contact information displays on narrow screens. Updates variable name from $sidebar to $sideContent.

@@ -181,6 +181,7 @@ class Organisms {
         'field_service_detail_lede',
         'field_location_details_lede',
         'field_form_lede',
+        'field_news_lede',
       ],
     ];
 
