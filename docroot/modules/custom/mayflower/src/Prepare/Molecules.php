@@ -2,6 +2,7 @@
 
 namespace Drupal\mayflower\Prepare;
 
+use Drupal\Core\Link;
 use Drupal\mayflower\Helper;
 use Drupal\file\Entity\File;
 use Drupal\link\Plugin\Field\FieldType\LinkItem;
@@ -842,6 +843,9 @@ class Molecules {
    *
    * @param array $entities
    *   The object that contains the fields.
+   * @param array $contact_location_map
+   *   Array that maps Contact IDs to their corresponding Location ID.
+   *   Key contains Contact ID; value contains Location ID.
    *
    * @see @molecules/google-map.twig
    *
@@ -852,7 +856,7 @@ class Molecules {
    *      "markers": "",
    *    ], ...]
    */
-  public static function prepareGoogleMapFromContacts(array $entities) {
+  public static function prepareGoogleMapFromContacts(array $entities, array $contact_location_map = NULL) {
 
     $phone_numbers = [];
     $fax_numbers = [];
@@ -926,19 +930,27 @@ class Molecules {
           1 => $addressEntity->$address_fields['lat_lng']->lon,
         ];
 
+        // Generates linked node title for Contact's corresponding Location.
+        if (!empty($contact_location_map)) {
+          // Loads corresponding Location node.
+          $location = \Drupal::entityTypeManager()->getStorage('node')->load($contact_location_map[$entity->id()]);
+          // Generates HTML string of linked node title.
+          $location_link = Link::createFromRoute($location->label(), 'entity.node.canonical', ['node' => $location->id()])->toString();
+        }
+
         $markers[] = [
           'position' => [
             'lat' => $addressEntity->$address_fields['lat_lng']->lat,
             'lng' => $addressEntity->$address_fields['lat_lng']->lon,
           ],
           'infoWindow' => [
-            'name' => Helper::fieldValue($addressEntity, $address_fields['label']),
+            // If Contacts are mapped to Locations, provide link to Location.
+            'name' => !empty($contact_location_map) ? $location_link : Helper::fieldValue($addressEntity, $address_fields['label']),
             'phone' => isset($phone_numbers[$index]) ? $phone_numbers[$index] : '',
             'fax' => isset($fax_numbers[$index]) ? $fax_numbers[$index] : '',
             'email' => isset($links[$index]) ? $links[$index] : '',
             'address' => Helper::formatAddress($addressEntity->$address_fields['address']),
           ],
-          'label' => ++$index,
         ];
 
         // Since we just want to display the FIRST Address and info.

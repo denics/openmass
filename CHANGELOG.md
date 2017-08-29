@@ -27,6 +27,7 @@ DP-5235 - Change the Featured Topics field on Org Pages to allow adding pages of
 - DP-4764 - Change service page to allow unlimited key information links and additional resources links
 - DP-4441 - Users will notice various updates to field labels and help text throughout the Event content type.
 - DP-4558 - Users will notice updated help text for various fields of the News content type (used for Speeches, Announcements, Press Releases, and Press statements).
+- DP-4420 - Updates markers in maps on Service Pages and Organizational Landing Pages, to show linked node titles of corresponding Location pages.
 - DP-5004 - Enables moderation for Advisory, Decision, Executive order, Legacy redirects.
 - DP-4936 - Adjust ### to only show once and only if News type Press Release is selected.
 - DP-4879 - In a News item, if an author removes the phone number for a media contact, no header for the phone number appepars in the front end.

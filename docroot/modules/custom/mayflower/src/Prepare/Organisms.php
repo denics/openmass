@@ -1120,6 +1120,8 @@ class Organisms {
   public static function prepareMappedLocations(array $entities, array $options) {
     $mapData = [];
     $contact_entities = [];
+    // Array for mapping Contact entities to corresponding Location entities.
+    $contact_location_map = [];
 
     foreach ($entities as $entity) {
       $map = [
@@ -1127,7 +1129,14 @@ class Organisms {
       ];
       $fields = Helper::getMappedFields($entity, $map);
 
-      $contact_entities = array_merge(Helper::getReferencedEntitiesFromField($entity, $fields['contact_info']), $contact_entities);
+      // Gets Contact entities associated with current Location entity.
+      $contacts = Helper::getReferencedEntitiesFromField($entity, $fields['contact_info']);
+      // Associates all Contact entity IDs with their corresponding Location ID.
+      foreach ($contacts as $contact) {
+        $contact_location_map[$contact->id()] = $entity->id();
+      }
+
+      $contact_entities = array_merge($contacts, $contact_entities);
     }
 
     $link = [
@@ -1140,7 +1149,7 @@ class Organisms {
 
     $link = isset($options['locationDetailsLink']['display']) ? $link : [];
 
-    $googleMap = Molecules::prepareGoogleMapFromContacts($contact_entities);
+    $googleMap = Molecules::prepareGoogleMapFromContacts($contact_entities, $contact_location_map);
 
     return array_merge($heading, ['googleMap' => $googleMap, 'link' => $link]);
   }

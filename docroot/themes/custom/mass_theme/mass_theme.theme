@@ -2419,7 +2419,7 @@ function mass_theme_preprocess_node_service_page(&$variables) {
         'path' => \Drupal::service('path.alias_manager')->getAliasByPath('/node/' . $node->id()),
       ],
     ];
-    $variables['mappedLocations'] = Organisms ::prepareMappedLocations($node->field_service_ref_locations->referencedEntities(), $mappedLocations_options);
+    $variables['mappedLocations'] = Organisms::prepareMappedLocations($node->field_service_ref_locations->referencedEntities(), $mappedLocations_options);
   }
 
   // Get events associated with this service page from view.
