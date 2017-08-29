@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.service_details.field_audience
+    - field.field.node.service_details.field_service_detail_contact
     - field.field.node.service_details.field_service_detail_lede
     - field.field.node.service_details.field_service_detail_links_5
     - field.field.node.service_details.field_service_detail_overview
@@ -64,6 +65,7 @@ third_party_settings:
       label: Sections
     group_cross_promotional_content:
       children:
+        - field_service_detail_contact
         - field_service_detail_links_5
       parent_name: group_node_edit_form
       weight: 22
@@ -93,6 +95,15 @@ content:
     third_party_settings: {  }
     type: options_select
     region: content
+  field_service_detail_contact:
+    weight: 31
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
   field_service_detail_lede:
     weight: 23
     settings:
@@ -102,7 +113,7 @@ content:
     type: string_textfield
     region: content
   field_service_detail_links_5:
-    weight: 28
+    weight: 32
     settings:
       placeholder_url: ''
       placeholder_title: ''

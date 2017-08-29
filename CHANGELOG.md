@@ -6,6 +6,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 ## Upcoming (add in progress changes here)
 
 ### Added
+- DP-4828 - Adds new entity reference to contact information on service detail content type, updated node--service-details.html.twig template, and configure Contact sidebar for Service Detail page.
 - DP-5268 - Display short description on front end of News pages.
 - DP-5286 - Add permissions to allow users with the Tester role to add and edit Regulation pages.
 - DP-3872 - Display overview field on front end of Service Detail pages.

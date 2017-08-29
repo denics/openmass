@@ -2565,7 +2565,7 @@ function mass_theme_preprocess_node_service_details(&$variables) {
   $variables['pageHeader'] = Organisms::preparePageHeader($node, $pageHeader_options);
 
   $pageContent = [];
-  $sideBar = [];
+  $sidebar = [];
 
   if (Helper::isFieldPopulated($node, 'field_service_detail_overview')) {
     // Set up rich text elements for what you need.
@@ -2645,9 +2645,29 @@ function mass_theme_preprocess_node_service_details(&$variables) {
       ],
       'stacked' => TRUE,
     ];
-
-    $variables['sidebar']['linkList'] = Organisms::preparelinkList($node, 'field_service_detail_links_5', $linkList_options);
+    // Prepare the linkList data object.
+    $sidebar['linkList'] = Organisms::preparelinkList($node, 'field_service_detail_links_5', $linkList_options);
   }
+
+  // Build contact section, if field is populated.
+  if (Helper::isFieldPopulated($node, 'field_service_detail_contact')) {
+    // Build sidebar.contactList, which is a subset of pageContent.ContactList.
+    // Prepare the quickActions data object.
+    $sidebarContacts_options = [
+      'heading' => [
+        'title' => t('Contact'),
+      ],
+      'groups' => [
+        'accordion' => FALSE,
+        'isExpanded' => FALSE,
+      ],
+    ];
+    // Prepare the contactList data object.
+    $sidebar['contactList'] = Organisms::prepareContactList($node, $sidebarContacts_options);
+    $sidebar['contactList']['viewSpecific'] = FALSE;
+  }
+
+  $variables['sidebar'] = $sidebar;
 }
 
 /**

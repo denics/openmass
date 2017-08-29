@@ -344,6 +344,7 @@ class Organisms {
         'field_advisory_ref_contact',
         'field_form_ref_contacts_3',
         'field_regulation_contact',
+        'field_service_detail_contact',
       ],
     ];
 
