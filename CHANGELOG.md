@@ -7,6 +7,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 DP-5235 - Change the Featured Topics field on Org Pages to allow adding pages of the type 'Topic Page' rather than the old, no longer used 'Topic' content type.
 
 ### Added
+- MPRR-311 - Add new view /admin/content/media/migrated to see a preview of files that will be in the CSV
+- MPRR-311 - get a CSV export of migrated files and Classic Mass.gov URLs at /admin/content/media/migrate-export.csv
 - The content api has been updated to list descendant nodes if they exist.
 
 ### Changed

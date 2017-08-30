@@ -141,6 +141,7 @@ process:
     bundle_key: vid
     bundle: document_tags
     value_key: name
+  field_link_classic_massgov/uri: item_massgov_url
   field_link_related_content/uri: rec_related_content
   field_internal_notes: rec_internal_notes
   field_public_access_level:
