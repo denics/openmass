@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "dd9c4ed9d3976d605c905a30eef6bfcc",
+    "content-hash": "91f6ed1dec6f8f4b24e7728d36b23811",
     "packages": [
         {
             "name": "acquia/acquia-sdk-php",
@@ -6601,21 +6601,21 @@
         },
         {
             "name": "drush/drush",
-            "version": "9.0.0-beta4",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/drush-ops/drush.git",
-                "reference": "69db709a4809a5ac55438c6164dfd07bb8113e97"
+                "reference": "ec0c48b07069dc0c413c5371013e98b021590a3b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/drush-ops/drush/zipball/69db709a4809a5ac55438c6164dfd07bb8113e97",
-                "reference": "69db709a4809a5ac55438c6164dfd07bb8113e97",
+                "url": "https://api.github.com/repos/drush-ops/drush/zipball/ec0c48b07069dc0c413c5371013e98b021590a3b",
+                "reference": "ec0c48b07069dc0c413c5371013e98b021590a3b",
                 "shasum": ""
             },
             "require": {
                 "chi-teck/drupal-code-generator": "^1.17.3",
-                "consolidation/annotated-command": "^2.4.10",
+                "consolidation/annotated-command": "^2.4.13",
                 "consolidation/output-formatters": "^3.1.11",
                 "consolidation/robo": "~1",
                 "ext-dom": "*",
@@ -6696,7 +6696,7 @@
             ],
             "description": "Drush is a command line shell and scripting interface for Drupal, a veritable Swiss Army knife designed to make life easier for those of us who spend some of our working hours hacking away at the command prompt.",
             "homepage": "http://www.drush.org",
-            "time": "2017-08-26T18:11:03+00:00"
+            "time": "2017-08-30T10:29:00+00:00"
         },
         {
             "name": "easyrdf/easyrdf",
@@ -14383,6 +14383,7 @@
         "drupal/subpathauto": 10,
         "drupal/workbench_moderation_actions": 20,
         "drupal/xmlsitemap": 20,
+        "drush/drush": 20,
         "mikeyp/google_tag": 20,
         "palantirnet/the-vagrant": 20,
         "palantirnet/workbench_tabs": 20,

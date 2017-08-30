@@ -167,7 +167,7 @@
         "drupal/workbench_moderation": "^1",
         "drupal/workbench_moderation_actions": "1.x-dev",
         "drupal/xmlsitemap": "1.x-dev",
-        "drush/drush": "^9.0.0-beta4",
+        "drush/drush": "dev-master",
         "enyo/dropzone": "4.3.0",
         "mikeyp/google_tag": "dev-8.x-1.x#3caa4f0b7f008576936ab7501d483bfcf58a4764",
         "palantirnet/mayflower-artifacts": "5.5.1-alpha",
