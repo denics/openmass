@@ -13,7 +13,7 @@ The following is just one way to install OpenMass. Customize to taste.
 1. Get the latest code, database, and uploaded files tarball from https://github.com/massgov/openmass/releases
 1. You may find it convenient to create an "artifacts" directory in your project root to store the database dump and uploaded files tarball.  Files in this directory will be ignored by Git.
 1. `composer install`. Your codebase is now assembled.
-1. Configure web/sites/default/settings.php for your database.  Add a hash_salt value.
+1. Configure docroot/sites/default/settings.php for your database.  Add a hash_salt value.
 1. `cd docroot`
 1. Import the database `../vendor/bin/drush sql-query --file=../artifacts/dump.sql.gz`
 1. Unzip uploaded_files.tar.gz into web/sites/default/files
